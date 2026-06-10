@@ -1,0 +1,19 @@
+WARNING: /opt/hyhal/lib doesn't exist, please install the driver or set the correct hyhal path
+The DTK hyhal will be used in default
+WARNING: /opt/hyhal/lib/cmake/rocm_smi doesn't exist, please install the latest driver(version >= 6.3.15)
+The rocm_smi_lib will be used in default
+/home/yuanxl/zr/dtk-26.04/bin/hipcc
+=====================================================
+        开始编译 rocfft + hipfft (ROCm 7.2.2)         
+=====================================================
+ 家目录:         /home/yuanxl
+ rocfft 构建:    /home/yuanxl/zr/build/rocfft_build
+ hipfft 构建:    /home/yuanxl/zr/build/hipfft_build
+ 安装路径:       /home/yuanxl/zr/install
+ 开始时间:       Mon Jun  8 12:44:55 CST 2026
+=====================================================
+
+[1/6] rocfft: CMake 配置 ...
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/yuanxl/zr/build/rocfft_build
