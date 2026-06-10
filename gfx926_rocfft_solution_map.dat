@@ -1,0 +1,54 @@
+{"Version":3,
+"Data":[
+{"Problem":{"arch":"gfx926","token":"kernel_len256_double_sbrc"},
+ "Solutions":[
+  {"sol_node_type":"SOL_KERNEL_ONLY",
+   "kernel_key":{
+     "lengths":[256,0],
+     "precision":"double",
+     "scheme":"CS_KERNEL_STOCKHAM_BLOCK_RC",
+     "sbrc_trans":"NONE",
+     "kernelConfig":{
+       "use_3steps":false,
+       "half_lds":false,
+       "dir_reg":false,
+       "buffer_inst":false,
+       "tpb":1,
+       "wgs":64,
+       "tpt":[64,0],
+       "factors":[8,2,2,2,2,2],
+       "ebtype":"NONE",
+       "direction":-1,
+       "static_dim":1,
+       "placement":"OP",
+       "iAryType":"CI",
+       "oAryType":"CI"
+     }
+   }
+  },
+  {"sol_node_type":"SOL_KERNEL_ONLY",
+   "kernel_key":{
+     "lengths":[256,0],
+     "precision":"double",
+     "scheme":"CS_KERNEL_STOCKHAM_BLOCK_RC",
+     "sbrc_trans":"NONE",
+     "kernelConfig":{
+       "use_3steps":false,
+       "half_lds":false,
+       "dir_reg":true,
+       "buffer_inst":false,
+       "tpb":1,
+       "wgs":64,
+       "tpt":[64,0],
+       "factors":[8,2,2,2,2,2],
+       "ebtype":"NONE",
+       "direction":-1,
+       "static_dim":1,
+       "placement":"OP",
+       "iAryType":"CI",
+       "oAryType":"CI"
+     }
+   }
+  }
+]}
+]}

@@ -52,7 +52,7 @@ cmake -S $HOME/zr/rocm-libraries-rocm-7.2.2/projects/rocfft \
       -DCMAKE_EXE_LINKER_FLAGS="-lstdc++fs" \
       -DCMAKE_PREFIX_PATH="$HOME/zr/extern/rocm-cmake;$HOME/zr/install" \
       -Dhiprtc_DIR=$HOME/zr/extern/hiprtc \
-      -DCMAKE_INSTALL_PREFIX=$HOME/zr/install
+      -DCMAKE_INSTALL_PREFIX=$HOME/zr/install \
       -DBUILD_CLIENTS_TESTS=ON \
       -DBUILD_CLIENTS_BENCHMARKS=ON \
 
