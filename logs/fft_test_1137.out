@@ -1,0 +1,63 @@
+WARNING: /opt/hyhal/lib doesn't exist, please install the driver or set the correct hyhal path
+The DTK hyhal will be used in default
+WARNING: /opt/hyhal/lib/cmake/rocm_smi doesn't exist, please install the latest driver(version >= 6.3.15)
+The rocm_smi_lib will be used in default
+/home/yuanxl/zr/dtk-26.04/bin/hipcc
+=====================================================
+        开始编译 rocfft + hipfft (ROCm 7.2.2)         
+=====================================================
+ 家目录:         /home/yuanxl
+ rocfft 构建:    /home/yuanxl/zr/build/rocfft_build
+ hipfft 构建:    /home/yuanxl/zr/build/hipfft_build
+ 安装路径:       /home/yuanxl/zr/install
+ 开始时间:       Thu Jun 11 15:48:15 CST 2026
+=====================================================
+
+[1/6] rocfft: CMake 配置 ...
+-- The CXX compiler identification is Clang 17.0.0
+-- The C compiler identification is Clang 17.0.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/yuanxl/zr/dtk-26.04/bin/hipcc - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/yuanxl/zr/dtk-26.04/bin/hipcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx803
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx803 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx900
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx900 - Success
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx906
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx906 - Success
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx908
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx908 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx90a
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx90a - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx942
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx942 - Success
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx950
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx950 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1030
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1030 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1100
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1100 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1101
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1101 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1102
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1102 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1151
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1151 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1200
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1200 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1201
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1201 - Failed
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HIP_CLANG_SUPPORTS_PARALLEL_JOBS
+-- Performing Test HIP_CLANG_SUPPORTS_PARALLEL_JOBS - Success
+-- Found Python3: /home/yuanxl/miniconda3/envs/fft/bin/python3.10 (found suitable version "3.10.20", minimum required is "3.6") found components: Interpreter 
+-- Configuring incomplete, errors occurred!

@@ -15,7 +15,7 @@
 
 int main(int argc, char* argv[])
 {
-    int ntrial = (argc > 1) ? std::atoi(argv[1]) : 100;
+    int ntrial = 10000;
 
     const size_t N = 65536;
     const size_t ncomplex = N / 2 + 1;

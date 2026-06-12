@@ -70,8 +70,8 @@ source ~/zr/dtk-26.04/env.sh
 
 ## 编译cpp文件 可以使用以下指令：
 ```text
-hipcc test.cpp \
-  -o test \
+hipcc bench_d2z.cpp \
+  -o bench_d2z \
   -I$HOME/zr/install/include \
   -L$HOME/zr/install/lib \
   -lrocfft -lhipfft -lm -lstdc++fs -std=c++17

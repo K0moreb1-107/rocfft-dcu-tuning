@@ -377,6 +377,11 @@ add_executable( rocfft_kernel_config_search
   rocfft_stub.cpp
 )
 
+add_executable( rocfft_kernel_config_search_dp
+  rocfft_kernel_config_search_dp.cpp
+  rocfft_stub.cpp
+)
+
 if( ROCFFT_BUILD_OFFLINE_TUNER )
   add_executable( rocfft_offline_tuner
     ../../shared/array_validator.cpp
@@ -429,7 +434,7 @@ endif()
 
 target_link_libraries( rocfft PRIVATE ${ROCFFT_DEVICE_LINK_LIBS} )
 
-foreach( target rocfft rocfft_offline_tuner rocfft_solmap_convert rocfft_aot_helper rocfft_kernel_config_search )
+foreach( target rocfft rocfft_offline_tuner rocfft_solmap_convert rocfft_aot_helper rocfft_kernel_config_search rocfft_kernel_config_search_dp )
 
   if(( NOT ROCFFT_BUILD_OFFLINE_TUNER ) AND ((${target} STREQUAL "rocfft_offline_tuner") OR (${target} STREQUAL "rocfft_solmap_convert")))
     continue()
@@ -490,6 +495,15 @@ target_link_libraries( rocfft_kernel_config_search PRIVATE
   )
 target_link_directories( rocfft_kernel_config_search PRIVATE ${ROCFFT_HOST_LINK_DIRS} )
 target_link_std_experimental_filesystem( rocfft_kernel_config_search )
+
+target_link_libraries( rocfft_kernel_config_search_dp PRIVATE
+  ${ROCFFT_HOST_LINK_LIBS}
+  generator
+  rocfft-rtc-launch
+  rocfft-function-pool
+  )
+target_link_directories( rocfft_kernel_config_search_dp PRIVATE ${ROCFFT_HOST_LINK_DIRS} )
+target_link_std_experimental_filesystem( rocfft_kernel_config_search_dp )
 
 target_link_libraries( rocfft_aot_helper PRIVATE
   generator

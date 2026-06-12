@@ -1,0 +1,20 @@
+CMake Error at library/CMakeLists.txt:95 (add_subdirectory):
+  add_subdirectory given source "device" which is not an existing directory.
+
+
+CMake Error at library/CMakeLists.txt:260 (include):
+  include could not find requested file:
+
+    ../../cmake/sqlite.cmake
+
+
+CMake Error at library/CMakeLists.txt:262 (include):
+  include could not find requested file:
+
+    ../../cmake/std-filesystem.cmake
+
+
+CMake Error at library/CMakeLists.txt:300 (target_link_std_experimental_filesystem):
+  Unknown CMake command "target_link_std_experimental_filesystem".
+
+

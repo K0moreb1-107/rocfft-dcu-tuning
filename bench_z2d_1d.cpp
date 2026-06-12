@@ -26,7 +26,7 @@ int main()
     // 测试规模：逻辑实数序列长度为 2^20
     int N = 1048576; 
     int complex_N = N / 2 + 1; // 对应的复数输入长度
-    int num_iters = 100;
+    int num_iters = 10000;
 
     // 1. Host 端初始化输入数据 (频域复数)
     std::vector<std::complex<double>> h_x(complex_N, {1.0, 0.0});

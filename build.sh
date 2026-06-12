@@ -33,8 +33,8 @@ echo "====================================================="
 
 
 # 清理旧 build
-#rm -rf $HOME/zr/build/rocfft_build/*
-#rm -rf $HOME/zr/build/hipfft_build/*
+rm -rf $HOME/zr/build/rocfft_build/*
+rm -rf $HOME/zr/build/hipfft_build/*
 
 # ===================== rocfft: CMake 配置 =====================
 echo -e "\n[1/6] rocfft: CMake 配置 ..."
@@ -52,9 +52,7 @@ cmake -S $HOME/zr/rocm-libraries-rocm-7.2.2/projects/rocfft \
       -DCMAKE_EXE_LINKER_FLAGS="-lstdc++fs" \
       -DCMAKE_PREFIX_PATH="$HOME/zr/extern/rocm-cmake;$HOME/zr/install" \
       -Dhiprtc_DIR=$HOME/zr/extern/hiprtc \
-      -DCMAKE_INSTALL_PREFIX=$HOME/zr/install \
-      -DBUILD_CLIENTS_TESTS=ON \
-      -DBUILD_CLIENTS_BENCHMARKS=ON \
+      -DCMAKE_INSTALL_PREFIX=$HOME/zr/install 
 
 # ===================== rocfft: 编译 =====================
 echo -e "\n[2/6] rocfft: 编译  ..."
