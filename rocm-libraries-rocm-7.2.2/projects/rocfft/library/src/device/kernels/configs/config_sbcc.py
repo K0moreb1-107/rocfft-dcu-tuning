@@ -56,7 +56,7 @@ sbcc_kernels = [
         'sp': 'true',  'dp': 'true'}, workgroup_size=128, runtime_compile=True),
     NS(length=125, factors=[5, 5, 5],    use_3steps_large_twd={
         'sp': 'true',  'dp': 'false'}),
-    NS(length=128, factors=[8,2,2,2],    use_3steps_large_twd={
+    NS(length=128, factors=[8,2,2,2,2],    use_3steps_large_twd={
         'sp': 'true',  'dp': 'true'}, workgroup_size=64, threads_per_transform= 64),
     NS(length=160, factors=[4, 10, 4],   use_3steps_large_twd={
         'sp': 'false', 'dp': 'false'}, flavour='wide'),
