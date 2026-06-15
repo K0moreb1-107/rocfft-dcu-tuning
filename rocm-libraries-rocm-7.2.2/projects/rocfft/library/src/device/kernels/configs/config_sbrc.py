@@ -43,7 +43,7 @@ sbrc_kernels = [
     NS(length=192, factors=[6, 4, 4, 2], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=32), # block_width=8
     NS(length=200, factors=[8, 5, 5], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=400, threads_per_transform=40), # block_width=10
     NS(length=243, factors=[3, 3, 3, 3, 3], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=27, runtime_compile=True), # block_width=10
-    NS(length=256, factors=[8,2,2,2,2,2], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=64, threads_per_transform=64), # optimized: wgs=64 tpt=64
+    NS(length=256, factors=[8, 4, 4, 2], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=128, runtime_compile=True), # optimized: wgs=64 tpt=64
     NS(length=289, factors=[17, 17], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=17, runtime_compile=True),
     NS(length=343, factors=[7, 7, 7], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=49, runtime_compile=True),
     NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=128),

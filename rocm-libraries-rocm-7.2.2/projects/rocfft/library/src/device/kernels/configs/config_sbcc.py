@@ -56,8 +56,7 @@ sbcc_kernels = [
         'sp': 'true',  'dp': 'true'}, workgroup_size=128, runtime_compile=True),
     NS(length=125, factors=[5, 5, 5],    use_3steps_large_twd={
         'sp': 'true',  'dp': 'false'}),
-    NS(length=128, factors=[8,2,2,2,2],    use_3steps_large_twd={
-        'sp': 'true',  'dp': 'true'}, workgroup_size=64, threads_per_transform= 64),
+    NS(length=128, factors=[8,4,4], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=32, runtime_compile=True),
     NS(length=160, factors=[4, 10, 4],   use_3steps_large_twd={
         'sp': 'false', 'dp': 'false'}, flavour='wide'),
     NS(length=168, factors=[7, 6, 4],    use_3steps_large_twd={
@@ -79,8 +78,7 @@ sbcc_kernels = [
     # 9,9,3 isn't better on all archs, some are much better, some get regressions
     NS(length=243, factors=[3, 3, 3, 3, 3],    use_3steps_large_twd={
         'sp': 'true', 'dp': 'false'}, workgroup_size=243),
-    NS(length=256, factors=[8, 4, 8], use_3steps_large_twd={
-        'sp': 'true',  'dp': 'false'}, flavour='wide'),
+    NS(length=256, factors=[8,4,8], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=32, runtime_compile=True),
     NS(length=280, factors=[8, 5, 7], use_3steps_large_twd={
         'sp': 'false',  'dp': 'false'}, runtime_compile=True),
     NS(length=289, factors=[17, 17],    use_3steps_large_twd={
