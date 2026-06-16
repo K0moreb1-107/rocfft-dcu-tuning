@@ -53,9 +53,10 @@ def modify_config(filepath, length, new_str_template):
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # 匹配 NS(length=xxx, ...),
-    pattern = r"NS\(\s*length=" + str(length) + r"\s*,.*?\),"
-    new_content = re.sub(pattern, new_str_template, content, flags=re.DOTALL)
+    import re
+    # 核心修复：匹配整行，彻底替换，不留尾巴
+    pattern = r"^[ \t]*NS\(\s*length=" + str(length) + r"\s*,.*$"
+    new_content = re.sub(pattern, "    " + new_str_template, content, flags=re.MULTILINE)
     
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(new_content)
@@ -247,7 +248,7 @@ def tune_for_N(target_n):
 
 def main():
     # 枚举运行 128k, 256k, 512k 的最优寻找
-    for target in [131072, 262144, 524288]:
+    for target in [524288]:
         tune_for_N(target)
 
 if __name__ == "__main__":

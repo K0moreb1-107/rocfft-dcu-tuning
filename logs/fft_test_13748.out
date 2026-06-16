@@ -10,7 +10,7 @@ The rocm_smi_lib will be used in default
  rocfft 构建:    /home/yuanxl/zr/build/rocfft_build
  hipfft 构建:    /home/yuanxl/zr/build/hipfft_build
  安装路径:       /home/yuanxl/zr/install
- 开始时间:       Mon Jun 15 10:55:33 CST 2026
+ 开始时间:       Tue Jun 16 19:16:02 CST 2026
 =====================================================
 
 [1/6] rocfft: CMake 配置 ...
@@ -52,8 +52,7 @@ The rocm_smi_lib will be used in default
 [ 61%] Built target rocfft_kernel_config_search
 [ 62%] Linking CXX executable rocfft_kernel_config_search_dp
 [ 65%] Built target rocfft_kernel_config_search_dp
-[ 66%] Building CXX object library/src/CMakeFiles/rocfft.dir/plan.cpp.o
-[ 67%] Linking CXX shared library librocfft.so
+[ 66%] Linking CXX shared library librocfft.so
 [ 91%] Built target rocfft
 [ 93%] Compile kernels into shipped cache file
 [ 93%] Built target rocfft_kernel_cache_target
@@ -66,7 +65,7 @@ The rocm_smi_lib will be used in default
 -- Up-to-date: /home/yuanxl/zr/install/include
 -- Up-to-date: /home/yuanxl/zr/install/include/rocfft
 -- Up-to-date: /home/yuanxl/zr/install/include/rocfft/rocfft-export.h
--- Installing: /home/yuanxl/zr/install/include/rocfft/rocfft-version.h
+-- Up-to-date: /home/yuanxl/zr/install/include/rocfft/rocfft-version.h
 -- Up-to-date: /home/yuanxl/zr/install/include/rocfft/rocfft.h
 -- Installing: /home/yuanxl/zr/install/lib/librocfft.so.0.1
 -- Up-to-date: /home/yuanxl/zr/install/lib/librocfft.so.0
@@ -96,8 +95,7 @@ The rocm_smi_lib will be used in default
 -- Build files have been written to: /home/yuanxl/zr/build/hipfft_build
 
 [5/6] hipfft: 编译  ...
-[ 25%] Building CXX object library/CMakeFiles/hipfft.dir/src/amd_detail/hipfft.cpp.o
-[ 50%] Linking CXX shared library libhipfft.so
+[ 25%] Linking CXX shared library libhipfft.so
 [ 50%] Built target hipfft
 [ 75%] Linking CXX shared library libhipfftw.so
 [100%] Built target hipfftw
@@ -106,7 +104,7 @@ The rocm_smi_lib will be used in default
 -- Install configuration: "Release"
 -- Up-to-date: /home/yuanxl/zr/install/include
 -- Up-to-date: /home/yuanxl/zr/install/include/hipfft
--- Installing: /home/yuanxl/zr/install/include/hipfft/hipfft-version.h
+-- Up-to-date: /home/yuanxl/zr/install/include/hipfft/hipfft-version.h
 -- Installing: /home/yuanxl/zr/install/include/hipfft/hipfftw.h
 -- Up-to-date: /home/yuanxl/zr/install/include/hipfft/hipfft-export.h
 -- Installing: /home/yuanxl/zr/install/include/hipfft/hipfftXt.h

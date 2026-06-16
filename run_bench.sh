@@ -4,6 +4,6 @@ LD_LIBRARY_PATH=$HOME/zr/install/lib:$LD_LIBRARY_PATH \
    --length 524288 \
    --batchSize 1000 \
    --precision double \
-   --transformType 3 \
+   --transformType 2 \
     -o \
     -N 10

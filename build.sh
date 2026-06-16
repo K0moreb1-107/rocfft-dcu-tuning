@@ -50,10 +50,10 @@ cmake -S $HOME/zr/rocm-libraries-rocm-7.2.2/projects/rocfft \
       -DCMAKE_SHARED_LINKER_FLAGS="-lstdc++fs" \
       -DCMAKE_EXE_LINKER_FLAGS="-lstdc++fs" \
       -DBUILD_CLIENTS_BENCH=ON \
-       -DFFTW_SRC_URL="file://$HOME/zr/extern/fftw-3.3.9.tar.gz" \
+      -DFFTW_SRC_URL="file://$HOME/zr/extern/fftw-3.3.9.tar.gz" \
       -DCMAKE_PREFIX_PATH="$HOME/zr/extern/rocm-cmake;$HOME/zr/install" \
       -Dhiprtc_DIR=$HOME/zr/extern/hiprtc \
-      -DCMAKE_INSTALL_PREFIX=$HOME/zr/install 
+      -DCMAKE_INSTALL_PREFIX=$HOME/zr/install
 
 # ===================== rocfft: 编译 =====================
 echo -e "\n[2/6] rocfft: 编译  ..."
