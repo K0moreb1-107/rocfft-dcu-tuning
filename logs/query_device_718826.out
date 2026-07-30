@@ -1,0 +1,9 @@
+>>> 已激活 fft 环境
+name=BW
+arch=gfx936:sramecc+:xnack-
+maxThreadsPerBlock=1024
+maxThreadsDim=1024,1024,1024
+warpSize=64
+sharedMemPerBlock=65536
+regsPerBlock=196608
+multiProcessorCount=80
