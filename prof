@@ -1,0 +1,101 @@
+#!/bin/bash
+#SBATCH --job-name=pmc_profile
+#SBATCH --partition=hx1hdexclu12
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --gres=dcu:1
+#SBATCH --time=01:00:00
+#SBATCH --output=profiling/logs/pmc_%j.out
+#SBATCH --error=profiling/logs/pmc_%j.err
+
+# ============================================================
+# hipprof PMC 级 profiling: bank conflict + 访存 + 寄存器分析
+# 目标: z2z_512k 热点 (sbrr + transpose)
+# ============================================================
+
+source ~/.bashrc
+load_fft
+
+cd /public/home/zhangkewei/zr/profiling
+mkdir -p logs results pmc_reports
+
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+INSTALL_LIB="$HOME/zr/install/lib"
+BENCH="$HOME/zr/build/rocfft_build/clients/staging/rocfft-bench"
+N=524288
+BATCH=1000
+TRANSFORM=0
+
+echo "============================================="
+echo " PMC Profiling: z2z 512K"
+echo " Time: $(date)"
+echo "============================================="
+
+run_hipprof() {
+    local FLAGS="$1"
+    local LABEL="$2"
+    
+    echo ""
+    echo ">>> $LABEL <<<"
+    
+    LD_LIBRARY_PATH="${INSTALL_LIB}:${LD_LIBRARY_PATH}" \
+    hipprof --hip-trace --stats --pmc --pmc-type 3 ${FLAGS} \
+        -o "results/pmc_${LABEL}_${TIMESTAMP}.csv" \
+        ${BENCH} \
+        --length ${N} --batchSize ${BATCH} --precision double --transformType ${TRANSFORM} -o -N 5
+
+    # 保存 report JSON (生成在 results/ 或 tmp/)
+    local json_report=$(ls -t /tmp/*report*json 2>/dev/null | head -1)
+    if [ -f "$json_report" ]; then
+        cp "$json_report" "pmc_reports/${LABEL}_${TIMESTAMP}_report.json"
+        echo "  保存 PMC report: pmc_reports/${LABEL}_${TIMESTAMP}_report.json"
+    fi
+}
+
+# ============== 采集方案 ==============
+# 1. 全量 PMC (default: VALU + VMEM + LDS + FLAT 等)
+run_hipprof "" "full"
+
+# 2. 读访存焦点
+run_hipprof "--pmc-read" "read"
+
+# 3. 写访存焦点
+run_hipprof "--pmc-write" "write"
+
+# ============== 逐内核分离 ==============
+# 对每个热点内核单独采集
+for KERNEL in "sbrr" "transpose"; do
+    echo ""
+    echo ">>> 单独采集: *${KERNEL}* 内核 <<<"
+    
+    LD_LIBRARY_PATH="${INSTALL_LIB}:${LD_LIBRARY_PATH}" \
+    hipprof --hip-trace --stats --pmc --pmc-type 3 \
+        --kernel-name "${KERNEL}" \
+        -o "results/pmc_kernel_${KERNEL}_${TIMESTAMP}.csv" \
+        ${BENCH} \
+        --length ${N} --batchSize ${BATCH} --precision double --transformType ${TRANSFORM} -o -N 5
+done
+
+echo ""
+echo "============================================="
+echo " PMC Profiling 完成: $(date)"
+echo "============================================="
+
+# ============== 快速汇总 ==============
+echo ""
+echo ">>> 汇总 PMC 数据 (CSV) <<<"
+python3 -c "
+import pandas as pd, os
+results_dir = 'results'
+for f in sorted(os.listdir(results_dir)):
+    if 'pmc_' in f and f.endswith('.csv') and '${TIMESTAMP}' in f:
+        path = os.path.join(results_dir, f)
+        try:
+            df = pd.read_csv(path, nrows=5)
+            print(f'\n===== {f} =====')
+            print(df.head(3).to_string())
+            print(f'  ... ({len(open(path).readlines())} lines total)')
+        except Exception as e:
+            print(f'  [skip] {f}: {e}')
+"

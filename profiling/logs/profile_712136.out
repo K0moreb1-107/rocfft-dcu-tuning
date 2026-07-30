@@ -1,0 +1,190 @@
+>>> 已成功跨账号激活 fft 环境
+=============================================
+ Profiling: z2z 512K (热点内核 sbrr_512/1024)
+ Time: Mon Jul 27 15:36:03 CST 2026
+=============================================
+
+>>> 方法1: hipprof --hip-trace <<<
+Running profile with 5 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 70.5193 70.5188 70.5152 70.5182 70.528 ms
+Execution gflops:   706.294 706.299 706.335 706.305 706.207
+HIP_PROF:on Mon Jul 27 15:36:03 2026
+HIP_PROF:process id '4131593'
+HIP_PROF:db file 'results/z2z_512k_trace_20260727_153603.csv.db'
+HIP_PROF:out put file 'results/z2z_512k_trace_20260727_153603.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 5'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:4(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:IP:[31m12.5.2.11[0m HIP API statistics
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Name                                                          |Calls          |TotalDurationNs            |AverageNs                  |Percentage                 |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|hipEventSynchronize                                           |5              |1735785537                 |347157107                  |41.5439569862721           |
+|hiprtcCompileProgram                                          |7              |1186208068                 |169458295                  |28.3904756107903           |
+|hipFree                                                       |11             |1132026140                 |102911467                  |27.0936957734864           |
+|hipMalloc                                                     |11             |55219252                   |5019932                    |1.32160695028427           |
+|hipModuleGetFunction                                          |10             |36955929                   |3695592                    |0.884496092424652          |
+|hipModuleLoadData                                             |10             |12849538                   |1284953                    |0.307538369566141          |
+|hipModuleLaunchKernel                                         |33             |9493153                    |287671                     |0.227207296920864          |
+|hipLaunchKernel                                               |6              |4886570                    |814428                     |0.116954225947331          |
+|hiprtcCreateProgram                                           |7              |3292855                    |470407                     |0.0788105578517855         |
+|hipStreamSynchronize                                          |3              |344002                     |114667                     |0.00823327766395117        |
+|hipModuleUnload                                               |10             |307623                     |30762                      |0.00736258967918108        |
+|hiprtcDestroyProgram                                          |7              |249593                     |35656                      |0.00597371082720032        |
+|hipEventElapsedTime                                           |5              |176161                     |35232                      |0.00421620347137314        |
+|hipMemcpy                                                     |5              |146051                     |29210                      |0.00349555652611826        |
+|hipStreamDestroy                                              |1              |135631                     |135631                     |0.00324616625147342        |
+|hipEventRecord                                                |10             |43420                      |4342                       |0.00103920592371195        |
+|hipGetDevice                                                  |64             |14230                      |222                        |0.000340578081400763       |
+|hipSetDevice                                                  |61             |9660                       |158                        |0.00023120058090874        |
+|hiprtcGetCode                                                 |7              |9280                       |1325                       |0.000222105734040694       |
+|hipMemGetInfo                                                 |1              |9170                       |9170                       |0.00021947301521047        |
+|hipGetDeviceProperties                                        |9              |8140                       |904                        |0.000194821193436557       |
+|hipStreamCreate                                               |1              |4801                       |4801                       |0.000114906210035493       |
+|hiprtcGetCodeSize                                             |7              |3020                       |431                        |7.22800987934155e-05       |
+|__hipPushCallConfiguration                                    |6              |2830                       |471                        |6.77326753593927e-05       |
+|hipEventDestroy                                               |2              |2670                       |1335                       |6.39032661517945e-05       |
+|hipEventCreate                                                |2              |2540                       |1270                       |6.0791871170621e-05        |
+|__hipPopCallConfiguration                                     |6              |2050                       |341                        |4.90643054723516e-05       |
+|hipGetDeviceCount                                             |1              |1410                       |1410                       |3.37466686419589e-05       |
+|hipGetLastError                                               |6              |870                        |145                        |2.08224125663151e-05       |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Total                                                         |314            |4178190194                 |13306338                   |100.0                      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:IP:[31m12.5.2.11[0m HIPOPS API statistics
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Name                                                          |Calls          |TotalDurationNs            |AverageNs                  |Percentage                 |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|void generate_random_interleaved_data_kernel<input_val_1D<u...|6              |1312773684                 |218795614                  |75.626                     |
+|transpose_rtc_tile32x32_dim2_dp_CI_CI_diag_aligned            |12             |177035747                  |14752978                   |10.199                     |
+|transpose_rtc_tile32x32_dim2_dp_CI_CI_twd3step_fwd_diag_ali...|6              |91312558                   |15218759                   |5.26                       |
+|fft_rtc_fwd_len_512_factors_8_8_8_wgs_64_tpt_64_halfLds_dp_...|6              |78228439                   |13038073                   |4.507                      |
+|fft_rtc_fwd_len_1024_factors_8_8_4_4_wgs_128_tpt_128_halfLd...|6              |76496128                   |12749354                   |4.407                      |
+|twiddle_gen_radices_dp                                        |2              |26880                      |13440                      |0.002                      |
+|twiddle_gen_large_dp                                          |1              |5760                       |5760                       |0.0                        |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Total                                                         |39             |1735879196                 |44509722                   |100.0                      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:finish
+
+>>> 方法2: rocprof 硬件计数器 <<<
+rocprof not available, skipping hardware counter collection
+
+>>> 方法3: 生成 JSON trace 文件 <<<
+Running profile with 3 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 70.525 70.5224 70.5197 ms
+Execution gflops:   706.237 706.263 706.29
+HIP_PROF:on Mon Jul 27 15:36:09 2026
+HIP_PROF:process id '4131774'
+HIP_PROF:db file 'results/z2z_512k_json_20260727_153603.json.db'
+HIP_PROF:out put file 'results/z2z_512k_json_20260727_153603.json'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 3'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:3(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:IP:[31m12.5.2.11[0m HIP API statistics
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Name                                                          |Calls          |TotalDurationNs            |AverageNs                  |Percentage                 |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|hiprtcCompileProgram                                          |7              |1195186459                 |170740922                  |33.1400380634674           |
+|hipEventSynchronize                                           |3              |1157083029                 |385694343                  |32.083509091741            |
+|hipFree                                                       |11             |1132018248                 |102910749                  |31.3885147750488           |
+|hipMalloc                                                     |11             |55707062                   |5064278                    |1.54464112371937           |
+|hipModuleGetFunction                                          |10             |47350390                   |4735039                    |1.31292796626307           |
+|hipModuleLaunchKernel                                         |23             |9392114                    |408352                     |0.260423813466603          |
+|hipLaunchKernel                                               |4              |3919828                    |979957                     |0.108688688818424          |
+|hiprtcCreateProgram                                           |7              |3442535                    |491790                     |0.0954543452828885         |
+|hipModuleLoadData                                             |10             |986602                     |98660                      |0.0273564242527057         |
+|hipStreamSynchronize                                          |3              |320854                     |106951                     |0.00889661499487904        |
+|hipModuleUnload                                               |10             |301863                     |30186                      |0.0083700340098586         |
+|hiprtcDestroyProgram                                          |7              |286143                     |40877                      |0.00793415106085532        |
+|hipMemcpy                                                     |5              |146221                     |29244                      |0.00405440462380462        |
+|hipStreamDestroy                                              |1              |120491                     |120491                     |0.00334096516592584        |
+|hipEventRecord                                                |6              |119402                     |19900                      |0.00331076945781741        |
+|hipEventElapsedTime                                           |3              |26170                      |8723                       |0.000725639743983196       |
+|hipGetDevice                                                  |56             |11690                      |208                        |0.000324139419456002       |
+|hipSetDevice                                                  |53             |11350                      |214                        |0.000314711925648043       |
+|hiprtcGetCode                                                 |7              |8310                       |1187                       |0.000230419039835703       |
+|hipMemGetInfo                                                 |1              |8230                       |8230                       |0.000228200805998537       |
+|hipGetDeviceProperties                                        |7              |7230                       |1032                       |0.000200472883033951       |
+|hipStreamCreate                                               |1              |4810                       |4810                       |0.000133371309459655       |
+|hipEventCreate                                                |2              |2910                       |1455                       |8.06882558269431e-05       |
+|hiprtcGetCodeSize                                             |7              |2910                       |415                        |8.06882558269431e-05       |
+|hipEventDestroy                                               |2              |2540                       |1270                       |7.04289243300465e-05       |
+|__hipPushCallConfiguration                                    |4              |2110                       |527                        |5.85059174552749e-05       |
+|__hipPopCallConfiguration                                     |4              |1820                       |455                        |5.04648197955452e-05       |
+|hipGetDeviceCount                                             |1              |810                        |810                        |2.24596176013141e-05       |
+|hipGetLastError                                               |4              |670                        |167                        |1.85777083862721e-05       |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Total                                                         |270            |3606472801                 |13357306                   |100.0                      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:IP:[31m12.5.2.11[0m HIPOPS API statistics
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Name                                                          |Calls          |TotalDurationNs            |AverageNs                  |Percentage                 |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|void generate_random_interleaved_data_kernel<input_val_1D<u...|4              |875183809                  |218795952                  |75.624                     |
+|transpose_rtc_tile32x32_dim2_dp_CI_CI_diag_aligned            |8              |118009180                  |14751147                   |10.197                     |
+|transpose_rtc_tile32x32_dim2_dp_CI_CI_twd3step_fwd_diag_ali...|4              |60871555                   |15217888                   |5.26                       |
+|fft_rtc_fwd_len_512_factors_8_8_8_wgs_64_tpt_64_halfLds_dp_...|4              |52157466                   |13039366                   |4.507                      |
+|fft_rtc_fwd_len_1024_factors_8_8_4_4_wgs_128_tpt_128_halfLd...|4              |51030909                   |12757727                   |4.41                       |
+|twiddle_gen_radices_dp                                        |2              |26720                      |13360                      |0.002                      |
+|twiddle_gen_large_dp                                          |1              |5600                       |5600                       |0.0                        |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Total                                                         |27             |1157285239                 |42862416                   |100.0                      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:finish
+
+=============================================
+ Profiling complete at Mon Jul 27 15:36:13 CST 2026
+=============================================
+
+>>> 快速分析: 按 AverageNs 排序 <<<
+
+===== z2z_512k_json_20260727_153603.json.hipkernel.csv =====
+                                                                                              Name  AverageNs  Percentage
+3          fft_rtc_fwd_len_512_factors_8_8_8_wgs_64_tpt_64_halfLds_dp_ip_CI_unitstride_sbrr_dirReg   13039366       4.507
+4  fft_rtc_fwd_len_1024_factors_8_8_4_4_wgs_128_tpt_128_halfLds_dp_op_CI_CI_unitstride_sbrr_dirReg   12757727       4.410
+
+===== z2z_512k_json_20260727_153603.json.hiptrace.csv =====
+                    Name  Calls  TotalDurationNs  AverageNs  Percentage
+0   hiprtcCompileProgram      7       1195186459  170740922   33.140038
+1    hipEventSynchronize      3       1157083029  385694343   32.083509
+2                hipFree     11       1132018248  102910749   31.388515
+3              hipMalloc     11         55707062    5064278    1.544641
+4   hipModuleGetFunction     10         47350390    4735039    1.312928
+5  hipModuleLaunchKernel     23          9392114     408352    0.260424
+6        hipLaunchKernel      4          3919828     979957    0.108689
+7    hiprtcCreateProgram      7          3442535     491790    0.095454
+8      hipModuleLoadData     10           986602      98660    0.027356
+9   hipStreamSynchronize      3           320854     106951    0.008897
+
+===== z2z_512k_trace_20260727_153603.csv.hipkernel.csv =====
+                                                                                              Name  AverageNs  Percentage
+3          fft_rtc_fwd_len_512_factors_8_8_8_wgs_64_tpt_64_halfLds_dp_ip_CI_unitstride_sbrr_dirReg   13038073       4.507
+4  fft_rtc_fwd_len_1024_factors_8_8_4_4_wgs_128_tpt_128_halfLds_dp_op_CI_CI_unitstride_sbrr_dirReg   12749354       4.407
+
+===== z2z_512k_trace_20260727_153603.csv.hiptrace.csv =====
+                    Name  Calls  TotalDurationNs  AverageNs  Percentage
+0    hipEventSynchronize      5       1735785537  347157107   41.543957
+1   hiprtcCompileProgram      7       1186208068  169458295   28.390476
+2                hipFree     11       1132026140  102911467   27.093696
+3              hipMalloc     11         55219252    5019932    1.321607
+4   hipModuleGetFunction     10         36955929    3695592    0.884496
+5      hipModuleLoadData     10         12849538    1284953    0.307538
+6  hipModuleLaunchKernel     33          9493153     287671    0.227207
+7        hipLaunchKernel      6          4886570     814428    0.116954
+8    hiprtcCreateProgram      7          3292855     470407    0.078811
+9   hipStreamSynchronize      3           344002     114667    0.008233

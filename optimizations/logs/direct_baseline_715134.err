@@ -1,0 +1,3 @@
+open comgr lib:libamd_comgr.so error
+load comgr library error
+/opt/gridview/slurm/spool_slurmd/job715134/slurm_script: line 4: 1514740 Segmentation fault      (core dumped) LD_LIBRARY_PATH=/public/home/zhangkewei/zr/install/lib /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 10

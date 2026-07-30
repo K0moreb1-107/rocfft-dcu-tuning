@@ -1,0 +1,199 @@
+>>> 已成功跨账号激活 fft 环境
+
+=============================================
+  Trial: baseline
+  Time: Mon Jul 27 16:00:56 CST 2026
+=============================================
+已应用: baseline
+  512: NS(length= 512, workgroup_size= 64, threads_per_transform= 64, factors=(8, 8, 8)),
+  1024: NS(length=1024, workgroup_size=128, threads_per_transform=128, factors=(8, 8, 4, 4)),
+编译...
+-- Installing: /public/home/zhangkewei/zr/install/.info/client-version
+-- Installing: /public/home/zhangkewei/zr/install/bin/rocfft-bench
+-- Set non-toolchain portion of runtime path of "/public/home/zhangkewei/zr/install/bin/rocfft-bench" to "$ORIGIN/../lib:$ORIGIN/../lib/rocfft-clients-bench/lib"
+-- Up-to-date: /public/home/zhangkewei/zr/install/bin/dyna-rocfft-bench
+-- Up-to-date: /public/home/zhangkewei/zr/install/share/doc/rocfft/LICENSE.md
+运行 benchmark + PMC profiling...
+Running profile with 5 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 74.9834 74.9809 74.9614 74.967 74.9665 ms
+Execution gflops:   664.245 664.267 664.44 664.391 664.395
+HIP_PROF:on Mon Jul 27 16:01:34 2026
+HIP_PROF:process id '4163884'
+HIP_PROF:db file 'results/baseline_20260727_160134.csv.db'
+HIP_PROF:out put file 'results/baseline_20260727_160134.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 5'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:6(s)
+HIP_PROF:finish
+
+=============================================
+  Trial: trial1_wgs128_tpt64
+  Time: Mon Jul 27 16:01:41 CST 2026
+=============================================
+已应用: trial1_wgs128_tpt64
+  512: NS(length= 512, workgroup_size=128, threads_per_transform= 64, factors=(16, 16, 2), runtime_compile=True),
+  1024: NS(length=1024, workgroup_size=256, threads_per_transform= 64, factors=(16, 16, 4), runtime_compile=True),
+编译...
+-- Up-to-date: /public/home/zhangkewei/zr/install/.info/client-version
+-- Installing: /public/home/zhangkewei/zr/install/bin/rocfft-bench
+-- Set non-toolchain portion of runtime path of "/public/home/zhangkewei/zr/install/bin/rocfft-bench" to "$ORIGIN/../lib:$ORIGIN/../lib/rocfft-clients-bench/lib"
+-- Up-to-date: /public/home/zhangkewei/zr/install/bin/dyna-rocfft-bench
+-- Up-to-date: /public/home/zhangkewei/zr/install/share/doc/rocfft/LICENSE.md
+运行 benchmark + PMC profiling...
+Running profile with 5 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 70.694 70.3315 70.6402 70.5956 70.6104 ms
+Execution gflops:   704.548 708.18 705.086 705.53 705.383
+HIP_PROF:on Mon Jul 27 16:02:17 2026
+HIP_PROF:process id '4166754'
+HIP_PROF:db file 'results/trial1_wgs128_tpt64_20260727_160217.csv.db'
+HIP_PROF:out put file 'results/trial1_wgs128_tpt64_20260727_160217.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 5'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:6(s)
+HIP_PROF:finish
+
+=============================================
+  Trial: trial2_wgs256_tpt32
+  Time: Mon Jul 27 16:02:24 CST 2026
+=============================================
+已应用: trial2_wgs256_tpt32
+  512: NS(length= 512, workgroup_size=256, threads_per_transform= 32, factors=(16, 8, 4), runtime_compile=True),
+  1024: NS(length=1024, workgroup_size=256, threads_per_transform= 64, factors=(16, 8, 8), runtime_compile=True),
+编译...
+-- Up-to-date: /public/home/zhangkewei/zr/install/.info/client-version
+-- Installing: /public/home/zhangkewei/zr/install/bin/rocfft-bench
+-- Set non-toolchain portion of runtime path of "/public/home/zhangkewei/zr/install/bin/rocfft-bench" to "$ORIGIN/../lib:$ORIGIN/../lib/rocfft-clients-bench/lib"
+-- Up-to-date: /public/home/zhangkewei/zr/install/bin/dyna-rocfft-bench
+-- Up-to-date: /public/home/zhangkewei/zr/install/share/doc/rocfft/LICENSE.md
+运行 benchmark + PMC profiling...
+Running profile with 5 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 61.4688 61.4062 61.4197 61.5 61.3753 ms
+Execution gflops:   810.287 811.112 810.935 809.876 811.521
+HIP_PROF:on Mon Jul 27 16:03:01 2026
+HIP_PROF:process id '4168933'
+HIP_PROF:db file 'results/trial2_wgs256_tpt32_20260727_160301.csv.db'
+HIP_PROF:out put file 'results/trial2_wgs256_tpt32_20260727_160301.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 5'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:5(s)
+HIP_PROF:finish
+
+=============================================
+  Trial: trial3_halfLds_off
+  Time: Mon Jul 27 16:03:07 CST 2026
+=============================================
+已应用: trial3_halfLds_off
+  512: NS(length= 512, workgroup_size= 64, threads_per_transform= 64, factors=(8, 8, 8), half_lds=False, runtime_compile=True),
+  1024: NS(length=1024, workgroup_size=128, threads_per_transform=128, factors=(8, 8, 4, 4), half_lds=False, runtime_compile=True),
+编译...
+-- Up-to-date: /public/home/zhangkewei/zr/install/.info/client-version
+-- Installing: /public/home/zhangkewei/zr/install/bin/rocfft-bench
+-- Set non-toolchain portion of runtime path of "/public/home/zhangkewei/zr/install/bin/rocfft-bench" to "$ORIGIN/../lib:$ORIGIN/../lib/rocfft-clients-bench/lib"
+-- Up-to-date: /public/home/zhangkewei/zr/install/bin/dyna-rocfft-bench
+-- Up-to-date: /public/home/zhangkewei/zr/install/share/doc/rocfft/LICENSE.md
+运行 benchmark + PMC profiling...
+Running profile with 5 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 73.8724 73.8553 73.8638 73.8623 73.8679 ms
+Execution gflops:   674.235 674.391 674.314 674.327 674.276
+HIP_PROF:on Mon Jul 27 16:03:44 2026
+HIP_PROF:process id '4170881'
+HIP_PROF:db file 'results/trial3_halfLds_off_20260727_160344.csv.db'
+HIP_PROF:out put file 'results/trial3_halfLds_off_20260727_160344.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 5'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:6(s)
+HIP_PROF:finish
+
+=============================================
+  Trial: trial4_dirReg_off
+  Time: Mon Jul 27 16:03:51 CST 2026
+=============================================
+已应用: trial4_dirReg_off
+  512: NS(length= 512, workgroup_size= 64, threads_per_transform= 64, factors=(8, 8, 8), direct_to_from_reg=False, runtime_compile=True),
+  1024: NS(length=1024, workgroup_size=128, threads_per_transform=128, factors=(8, 8, 4, 4), direct_to_from_reg=False, runtime_compile=True),
+编译...
+-- Up-to-date: /public/home/zhangkewei/zr/install/.info/client-version
+-- Installing: /public/home/zhangkewei/zr/install/bin/rocfft-bench
+-- Set non-toolchain portion of runtime path of "/public/home/zhangkewei/zr/install/bin/rocfft-bench" to "$ORIGIN/../lib:$ORIGIN/../lib/rocfft-clients-bench/lib"
+-- Up-to-date: /public/home/zhangkewei/zr/install/bin/dyna-rocfft-bench
+-- Up-to-date: /public/home/zhangkewei/zr/install/share/doc/rocfft/LICENSE.md
+运行 benchmark + PMC profiling...
+Running profile with 5 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 75.3097 75.3713 75.3088 75.1902 75.38 ms
+Execution gflops:   661.367 660.826 661.375 662.418 660.751
+HIP_PROF:on Mon Jul 27 16:04:28 2026
+HIP_PROF:process id '4172966'
+HIP_PROF:db file 'results/trial4_dirReg_off_20260727_160428.csv.db'
+HIP_PROF:out put file 'results/trial4_dirReg_off_20260727_160428.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 5'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:6(s)
+HIP_PROF:finish
+
+=============================================
+  Trial: trial5_wgs128_tpt32
+  Time: Mon Jul 27 16:04:35 CST 2026
+=============================================
+已应用: trial5_wgs128_tpt32
+  512: NS(length= 512, workgroup_size=128, threads_per_transform= 32, factors=(8, 8, 8), runtime_compile=True),
+  1024: NS(length=1024, workgroup_size=128, threads_per_transform= 64, factors=(8, 8, 4, 4), runtime_compile=True),
+编译...
+-- Up-to-date: /public/home/zhangkewei/zr/install/.info/client-version
+-- Installing: /public/home/zhangkewei/zr/install/bin/rocfft-bench
+-- Set non-toolchain portion of runtime path of "/public/home/zhangkewei/zr/install/bin/rocfft-bench" to "$ORIGIN/../lib:$ORIGIN/../lib/rocfft-clients-bench/lib"
+-- Up-to-date: /public/home/zhangkewei/zr/install/bin/dyna-rocfft-bench
+-- Up-to-date: /public/home/zhangkewei/zr/install/share/doc/rocfft/LICENSE.md
+运行 benchmark + PMC profiling...
+Running profile with 5 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 67.9262 67.9425 67.9707 67.9796 67.9679 ms
+Execution gflops:   733.257 733.081 732.777 732.681 732.807
+HIP_PROF:on Mon Jul 27 16:05:12 2026
+HIP_PROF:process id '4175005'
+HIP_PROF:db file 'results/trial5_wgs128_tpt32_20260727_160512.csv.db'
+HIP_PROF:out put file 'results/trial5_wgs128_tpt32_20260727_160512.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 5'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:5(s)
+HIP_PROF:finish
+
+=============================================
+  全部试验完成: Mon Jul 27 16:05:18 CST 2026
+=============================================
+
+              Trial SBRR_512_AvgNs SBRR_1024_AvgNs Transpose_AvgNs Total_FFT_ms
+           baseline           FAIL            FAIL            FAIL         FAIL
+trial1_wgs128_tpt64           FAIL            FAIL            FAIL         FAIL
+trial2_wgs256_tpt32           FAIL            FAIL            FAIL         FAIL
+ trial3_halfLds_off           FAIL            FAIL            FAIL         FAIL
+  trial4_dirReg_off           FAIL            FAIL            FAIL         FAIL
+trial5_wgs128_tpt32           FAIL            FAIL            FAIL         FAIL

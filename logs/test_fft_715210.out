@@ -1,0 +1,17 @@
+>>> 已激活 fft 环境
+Running profile with 10 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 65.3338 65.2288 65.0829 65.0783 65.1173 65.1246 65.1757 65.3179 65.2248 65.2123 ms
+Execution gflops:   762.352 763.579 765.291 765.346 764.887 764.801 764.202 762.537 763.626 763.772
+HIP_PROF:on Tue Jul 28 20:17:09 2026
+HIP_PROF:process id '1609989'
+HIP_PROF:db file '/public/home/zhangkewei/zr/results/z2z_512k_tuning_20260728_201709.csv.db'
+HIP_PROF:out put file '/public/home/zhangkewei/zr/results/z2z_512k_tuning_20260728_201709.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 10'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:15(s)
+HIP_PROF:finish

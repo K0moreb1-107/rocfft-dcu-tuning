@@ -1,0 +1,34 @@
+>>> 已成功跨账号激活 fft 环境
+==========================================================
+ Running rocfft-bench
+ Length: 262144 (256k) | Batch: 0 | Type: z2z
+ Output: /public/home/zhangkewei/zr/results/z2z_256k_b0_tuning_20260727_132712.csv
+==========================================================
+Running profile with 10 samples
+out-of-place
+length: 262144
+
+Token: complex_forward_len_262144_double_op_batch_0_istride_1_CI_ostride_1_CI_idist_262144_odist_262144_ioffset_0_0_ooffset_0_0
+HIP_PROF:on Mon Jul 27 13:27:12 2026
+HIP_PROF:process id '3690390'
+HIP_PROF:db file '/public/home/zhangkewei/zr/results/z2z_256k_b0_tuning_20260727_132712.csv.db'
+HIP_PROF:out put file '/public/home/zhangkewei/zr/results/z2z_256k_b0_tuning_20260727_132712.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 262144 --batchSize 0 --precision double --transformType 0 -o -N 10'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:4(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:IP:[31m12.5.2.3[0m HIP API statistics
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Name                                                          |Calls          |TotalDurationNs            |AverageNs                  |Percentage                 |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|hiprtcCompileProgram                                          |4              |6834169220                 |1708542305                 |99.9646441824048           |
+|hiprtcCreateProgram                                           |4              |2193759                    |548439                     |0.0320885144627642         |
+|hiprtcDestroyProgram                                          |4              |218392                     |54598                      |0.00319445976087255        |
+|hiprtcGetCode                                                 |4              |4250                       |1062                       |6.21655279667219e-05       |
+|hiprtcGetCodeSize                                             |4              |730                        |182                        |1.06778436272252e-05       |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Total                                                         |20             |6836586351                 |341829317                  |100.0                      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HIP_PROF:finish
+Cleaning up raw trace files...
+Done! Cleaned up trace files, kept only /public/home/zhangkewei/zr/results/z2z_256k_b0_tuning_20260727_132712.csv.hipkernel.csv

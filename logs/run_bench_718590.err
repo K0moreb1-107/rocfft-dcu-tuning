@@ -1,0 +1,6 @@
+Failed on Node: length 524288 (double): when attempting Scheme: CS_L1D_CC
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  rocfft_plan_create failed
+[31mHIP_PROF [2026-07-30 10:45:40.264455] [215866] [ERROR]: terminated by signal: 6
+[m
+[33mHIP_PROF [2026-07-30 10:45:41.320959] [215866] [WARN]: '/public/home/zhangkewei/zr/results/z2z_512k_b1000_cc512k_20260730_104539.csv.db' has not valid trace data.[m

@@ -1,0 +1,17 @@
+>>> 已激活 fft 环境
+Running profile with 1 samples
+out-of-place
+length: 8
+
+Token: complex_forward_len_8_double_op_batch_1_istride_1_CI_ostride_1_CI_idist_8_odist_8_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 0.01296 ms
+Execution gflops:   0.00925926
+Running profile with 10 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 62.6595 62.7534 62.5667 62.5864 62.544 62.5494 62.5596 62.4337 62.506 62.3868 ms
+Execution gflops:   794.889 793.7 796.068 795.818 796.357 796.288 796.158 797.764 796.841 798.363

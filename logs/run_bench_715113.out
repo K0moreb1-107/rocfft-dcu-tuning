@@ -1,0 +1,20 @@
+>>> 已激活 fft 环境
+==========================================================
+ Running rocfft-bench
+ Length: 524288 (512k) | Batch: 1000 | Type: z2z
+ Output: /public/home/zhangkewei/zr/results/z2z_512k_b1000_tuning_20260728_190742.csv
+==========================================================
+Running profile with 10 samples
+out-of-place
+length: 524288
+
+HIP_PROF:on Tue Jul 28 19:07:42 2026
+HIP_PROF:process id '1507792'
+HIP_PROF:db file '/public/home/zhangkewei/zr/results/z2z_512k_b1000_tuning_20260728_190742.csv.db'
+HIP_PROF:out put file '/public/home/zhangkewei/zr/results/z2z_512k_b1000_tuning_20260728_190742.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 10'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:0(s)
+HIP_PROF:finish
+Cleaning up raw trace files...
+Done! Cleaned up trace files, kept only /public/home/zhangkewei/zr/results/z2z_512k_b1000_tuning_20260728_190742.csv.hipkernel.csv

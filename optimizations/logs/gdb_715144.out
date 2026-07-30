@@ -1,0 +1,16 @@
+>>> 已激活 fft 环境
+/usr/bin/gdb
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+Running profile with 1 samples
+out-of-place
+length: 8
+
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00007ffff6880938 in void std::_Destroy<std::filesystem::__cxx11::path::_Cmpt>(std::filesystem::__cxx11::path::_Cmpt*) () from /public/home/zhangkewei/zr/install/lib/librocfft.so.0
+#0  0x00007ffff6880938 in void std::_Destroy<std::filesystem::__cxx11::path::_Cmpt>(std::filesystem::__cxx11::path::_Cmpt*) () from /public/home/zhangkewei/zr/install/lib/librocfft.so.0
+#1  0x00007ffff68809b8 in std::filesystem::__cxx11::path::~path() () from /public/home/zhangkewei/zr/install/lib/librocfft.so.0
+#2  0x00007ffff689d582 in RTCCache::RTCCache() () from /public/home/zhangkewei/zr/install/lib/librocfft.so.0
+#3  0x00007ffff67be47b in rocfft_setup () from /public/home/zhangkewei/zr/install/lib/librocfft.so.0
+#4  0x000000000027ce60 in main ()

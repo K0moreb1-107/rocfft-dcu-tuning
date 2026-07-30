@@ -133,6 +133,7 @@ NodeFactory::Map1DLength const NodeFactory::map1DLengthDouble = {
     {65536, 256}, //            CC (256cc + 256rc) // {65536, 64}
     {131072, 256}, //           CC (256cc + 512rc)
     {262144, 512}, //           CC (512cc + 512rc)
+    {524288, 1024}, //          CC (1024cc + 512rc)
 
     // ----------------------------------------------------------
     // non-pow2 lengths in (4096, 8192)
@@ -655,7 +656,7 @@ ComputeScheme
     if(IsPo2(nodeData.length[0])) // multiple kernels involving transpose
     {
         // TODO: wrap the below into a function and check with LDS size
-        size_t block_threshold = 0;
+        size_t block_threshold = 524288;
         if(nodeData.length[0] <= block_threshold)
         {
             // Enable block compute under these conditions
@@ -684,7 +685,7 @@ ComputeScheme
             }
             // for gfx906, 512 CC/RC isn't as fast, so use CRT
             // with a nicer length
-            if(is_device_gcn_arch(nodeData.deviceProp, "gfx906") && nodeData.length[0] == 262144)
+            if((is_device_gcn_arch(nodeData.deviceProp, "gfx906")) && nodeData.length[0] == 262144)
             {
                 divLength1 = 64;
                 scheme     = CS_L1D_CRT;

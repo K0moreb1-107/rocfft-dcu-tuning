@@ -1,0 +1,7 @@
+"Name","Calls","TotalDurationNs","AverageNs","Percentage"
+"void generate_random_interleaved_data_kernel<input_val_1D<unsigned long>, double>(input_val_1D<unsigned long>, input_val_1D<unsigned long>, unsigned long, unsigned long, input_val_1D<unsigned long>, rocfft_complex<double>*, input_val_1D<unsigned long>, unsigned long, input_val_1D<unsigned long>, unsigned long)","11","601581983","54689271","85.932"
+"fft_rtc_fwd_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned","11","49272644","4479331","7.038"
+"fft_rtc_fwd_len_256_factors_8_4_8_wgs_256_tpt_32_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg","11","49179842","4470894","7.025"
+"twiddle_gen_radices_dp","2","30880","15440","0.004"
+"twiddle_gen_large_dp","1","5920","5920","0.001"
+"Total","36","700071269","19446424","100.0"

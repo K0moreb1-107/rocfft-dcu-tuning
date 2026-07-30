@@ -1,0 +1,17 @@
+>>> 已成功跨账号激活 fft 环境
+Running profile with 10 samples
+out-of-place
+length: 524288
+
+Token: complex_forward_len_524288_double_op_batch_1000_istride_1_CI_ostride_1_CI_idist_524288_odist_524288_ioffset_0_0_ooffset_0_0
+
+Execution gpu time: 74.7236 74.7328 74.7341 74.722 74.7273 74.7388 74.7564 74.7409 74.7153 74.7264 ms
+Execution gflops:   666.554 666.473 666.461 666.568 666.521 666.419 666.262 666.4 666.628 666.53
+HIP_PROF:on Mon Jul 27 19:24:21 2026
+HIP_PROF:process id '4084688'
+HIP_PROF:db file '/public/home/zhangkewei/zr/results/z2z_512k_tuning_20260727_192421.csv.db'
+HIP_PROF:out put file '/public/home/zhangkewei/zr/results/z2z_512k_tuning_20260727_192421.csv'
+HIP_PROF:profiling ' /public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench --length 524288 --batchSize 1000 --precision double --transformType 0 -o -N 10'
+HIP_PROF:process begin
+HIP_PROF:process end run total cost:13(s)
+HIP_PROF:finish

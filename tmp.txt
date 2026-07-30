@@ -1,0 +1,47 @@
+[z2z] N=65536 调优结束 <<<
+最强 256_sbrc: NS(length=256, factors=[16, 4, 4], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=32, runtime_compile=True),
+最强 256_sbcc: NS(length=256, factors=[4, 4, 4, 4], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=64, runtime_compile=True),
+
+[z2z] N=131072 调优结束 <<<
+最强 512_sbrc: NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=64, runtime_compile=True),
+最强 256_sbcc: NS(length=256, factors=[8, 4, 4, 2], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=512, threads_per_transform=128, runtime_compile=True),
+
+[z2z] N=262144 调优结束 <<<
+最强 512_sbrc: NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=64, runtime_compile=True),
+最强 512_sbcc: NS(length=512, factors=[4, 4, 4, 4, 2], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=128, runtime_compile=True),
+
+[z2z] N=524288 调优结束 <<<
+最强 1024_sbrr: NS(length=1024, workgroup_size=256, threads_per_transform=256, factors=[16, 2, 2, 2, 2, 2, 2], runtime_compile=True),
+最强 512_sbrr: NS(length=512, workgroup_size=128, threads_per_transform=64, factors=[16, 8, 4], runtime_compile=True),
+
+[d2z] N=65536 调优结束 <<<
+最强 256_sbrc: NS(length=256, factors=[16, 8, 2], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=32, runtime_compile=True),
+最强 128_sbcc: NS(length=128, factors=[8, 4, 4], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=32, runtime_compile=True),
+
+[d2z] N=131072 调优结束 <<<
+最强 256_sbrc: NS(length=256, factors=[16, 8, 2], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=32, runtime_compile=True),
+最强 256_sbcc: NS(length=256, factors=[4, 4, 4, 4], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=64, runtime_compile=True),
+
+[d2z] N=262144 调优结束 <<<
+最强 512_sbrc: NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=64, runtime_compile=True),
+最强 512_sbcc: NS(length=512, factors=[16, 4, 2, 2, 2], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=128, threads_per_transform=64, runtime_compile=True),
+
+[d2z] N=524288 调优结束 <<<
+最强 512_sbrc: NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=64, runtime_compile=True),
+最强 512_sbcc: NS(length=512, factors=[4, 4, 4, 4, 2], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=128, runtime_compile=True),
+
+[z2d] N=65536 调优结束 <<<
+最强 256_sbrc: NS(length=256, factors=[16, 4, 4], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=32, runtime_compile=True),
+最强 128_sbcc: NS(length=128, factors=[8, 4, 4], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=32, runtime_compile=True),
+
+[z2d] N=131072 调优结束 <<<
+最强 256_sbrc: NS(length=256, factors=[16, 4, 4], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=32, runtime_compile=True),
+最强 256_sbcc: NS(length=256, factors=[8, 4, 4, 2], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=512, threads_per_transform=128, runtime_compile=True),
+
+[z2d] N=262144 调优结束 <<<
+最强 512_sbrc: NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=64, runtime_compile=True),
+最强 512_sbcc: NS(length=512, factors=[4, 4, 4, 4, 2], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=512, threads_per_transform=512, runtime_compile=True),
+
+[z2d] N=524288 调优结束 <<<
+最强 512_sbrc: NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=64, runtime_compile=True),
+最强 512_sbcc: NS(length=512, factors=[4, 4, 4, 4, 2], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=128, runtime_compile=True),

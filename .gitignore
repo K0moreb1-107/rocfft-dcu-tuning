@@ -7,3 +7,9 @@ install/
 *.db
 __pycache__/
 *.pyc
+
+# Local Codex/tooling state and caches
+.codex-home/
+.codex-cli/
+.npm-cache/
+.tools/

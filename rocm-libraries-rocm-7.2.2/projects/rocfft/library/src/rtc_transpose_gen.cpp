@@ -157,7 +157,7 @@ std::string transpose_rtc(const std::string& kernel_name, const TransposeSpecs& 
 
     // lds is a 2D array
     Variable lds{"lds", "__shared__ scalar_type", false, false, specs.tileX};
-    lds.size2D = Literal{specs.tileX};
+    lds.size2D = Literal{specs.tileX + 1};
     func.body += Declaration{lds};
 
     // recover a 3D GPU grid layout

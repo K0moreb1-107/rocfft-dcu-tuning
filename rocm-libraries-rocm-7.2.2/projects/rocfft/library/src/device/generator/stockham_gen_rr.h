@@ -38,6 +38,7 @@ struct StockhamKernelRR : public StockhamKernel
         return "SBRR";
     }
 
+
     StatementList calculate_offsets() override
     {
         Variable d{"d", "int"};

@@ -1,0 +1,340 @@
+#!/usr/bin/env python3
+"""
+读取 enumerate_configs.py 生成的 CSV, 执行两阶段暴力调优:
+  阶段1: 固定 Stage2 为基线, 枚举 Stage1 所有候选 → 找最优
+  阶段2: 固定最优 Stage1, 枚举 Stage2 所有候选 → 找最优
+
+每轮: 修改独立源码中的 config 文件 → cmake 编译 (独立 build) → rocfft-bench 运行 → 记录耗时
+完全隔离，不影响日常开发。
+支持断点续传 (以 HashKey 为去重键)
+"""
+
+import os
+import re
+import subprocess
+import time
+import csv
+import glob
+import argparse
+import hashlib
+from datetime import datetime
+from collections import defaultdict
+
+# ============================================================================
+# 路径配置 (完全独立的源码/编译/安装目录)
+# ============================================================================
+ROCFFT_SRC_DIR = os.path.expanduser("~/zr/rocm_tuning_cc/projects/rocfft")
+BUILD_DIR = os.path.expanduser("~/zr/build/tuning_cc_build")
+INSTALL_DIR = os.path.expanduser("~/zr/install_tuning_cc")
+CONFIG_DIR = os.path.join(ROCFFT_SRC_DIR, "library/src/device/kernels/configs")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# ============================================================================
+# 基线配置 (每个 stage 的默认值, 来自 config_sbcc/sbrc/sbrr.py)
+# ============================================================================
+BASELINES = {
+    ("sbcc", 256):  "NS(length=256, factors=[8,4,8], use_3steps_large_twd={'sp': 'true', 'dp': 'true'}, workgroup_size=256, threads_per_transform=64, runtime_compile=True),",
+    ("sbcc", 512):  "NS(length=512, factors=[8,8,8], use_3steps_large_twd={'sp': 'true', 'dp': 'false'}, workgroup_size=256, threads_per_transform=64, runtime_compile=True),",
+    ("sbrc", 256):  "NS(length=256, factors=[4,4,4,4], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=32, runtime_compile=True),",
+    ("sbrc", 512):  "NS(length=512, factors=[8,8,8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=128, runtime_compile=True),",
+    ("sbrr", 512):  "NS(length= 512, workgroup_size=64, threads_per_transform=64, factors=(8,8,8), runtime_compile=True),",
+    ("sbrr", 1024): "NS(length= 1024, workgroup_size=256, threads_per_transform=256, factors=(16,16,4), runtime_compile=True),",
+}
+
+# ============================================================================
+# 辅助: 修改 config 文件 (支持跨行)
+# ============================================================================
+def modify_config(filepath, length, new_line):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+    pattern = r"^[ \t]*NS\(\s*length\s*=\s*" + str(length) + r"\s*,.*?\),[^\n]*"
+    new_content = re.sub(pattern, "    " + new_line, content, flags=re.MULTILINE | re.DOTALL)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+
+# ============================================================================
+# 编译 rocFFT
+# ============================================================================
+def build_rocfft():
+    cmd = "cmake --build . -j$(nproc) --target install"
+    res = subprocess.run(cmd, shell=True, cwd=BUILD_DIR,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return res.returncode == 0
+
+# ============================================================================
+# 运行 benchmark
+# ============================================================================
+def run_benchmark(target_n, mode):
+    type_map = {"z2z": 0, "d2z": 2, "z2d": 3}
+    ttype = type_map.get(mode, 0)
+    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    csv_prefix = os.path.expanduser(f"~/zr/enum_cc_configs/tmp/tune_{mode}_{target_n}_{timestamp}")
+    os.makedirs(os.path.dirname(csv_prefix), exist_ok=True)
+    
+    csv_file = f"{csv_prefix}.csv"
+    
+    cmd = (
+        f"LD_LIBRARY_PATH={INSTALL_DIR}/lib:$LD_LIBRARY_PATH "
+        f"hipprof --stats -o {csv_file} "
+        f"{BUILD_DIR}/clients/staging/rocfft-bench "
+        f"--length {target_n} --batchSize 1000 --precision double --transformType {ttype} -o -N 10"
+    )
+    
+    subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    csv_files = glob.glob(f"{csv_prefix}*.csv")
+    total_ns = 0.0
+    found_kernels = False
+    exclude_kws = ['generate_random', 'impose_hermitian', 'Total', 'twiddle_gen']
+    
+    for fpath in csv_files:
+        try:
+            with open(fpath, 'r', encoding='utf-8') as cf:
+                reader = csv.DictReader(cf)
+                for row in reader:
+                    name = row.get("Name", "")
+                    if not name: continue
+                    if any(kw in name for kw in exclude_kws): continue
+                    total_ns += float(row.get("AverageNs", 0))
+                    found_kernels = True
+        except Exception: pass
+    
+    for fpath in glob.glob(f"{csv_prefix}*"):
+        try: os.remove(fpath)
+        except Exception: pass
+    
+    return total_ns / 1e6 if found_kernels else -1.0
+
+# ============================================================================
+# 读取枚举 CSV
+# ============================================================================
+def load_config_csv(csv_path):
+    rows = []
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        for row in csv.DictReader(f):
+            rows.append(row)
+    return rows
+
+def group_by_n_type(rows):
+    groups = defaultdict(lambda: defaultdict(list))
+    for r in rows:
+        key = (int(r["N"]), r["Type"])
+        stage_idx = int(r["StageIndex"])
+        groups[key][stage_idx].append(r)
+    return groups
+
+# ============================================================================
+# 断点续传
+# ============================================================================
+def load_completed_results(result_csv_path):
+    completed = set()
+    if os.path.exists(result_csv_path):
+        with open(result_csv_path, 'r', encoding='utf-8') as f:
+            for row in csv.DictReader(f):
+                hk = row.get("HashKey", "")
+                if hk: completed.add(hk)
+    return completed
+
+def load_best_per_stage(result_csv_path):
+    best = {}
+    if not os.path.exists(result_csv_path): return best
+    with open(result_csv_path, 'r', encoding='utf-8') as f:
+        for row in csv.DictReader(f):
+            key = (int(row["N"]), row["Type"], int(row["StageIndex"]))
+            time_ms = float(row.get("GPU_Time_ms", "inf"))
+            if time_ms <= 0: continue
+            if key not in best or time_ms < best[key]["TimeMs"]:
+                best[key] = {"ConfigLine": row["ConfigLine"], "TimeMs": time_ms}
+    return best
+
+# ============================================================================
+# 结果写入
+# ============================================================================
+def write_result_header(result_csv_path):
+    if not os.path.exists(result_csv_path):
+        with open(result_csv_path, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(["N","Type","StageIndex","TotalStages","KernelType","ConfigFile","Length","Factors","WGS","TPT","ExtraOpts","ConfigLine","GPU_Time_ms","HashKey","Timestamp"])
+
+def append_result(result_csv_path, config_dict, gpu_time_ms):
+    with open(result_csv_path, 'a', newline='', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        writer.writerow([config_dict["N"],config_dict["Type"],config_dict["StageIndex"],config_dict["TotalStages"],config_dict["KernelType"],config_dict["ConfigFile"],config_dict["Length"],config_dict["Factors"],config_dict["WGS"],config_dict["TPT"],config_dict["ExtraOpts"],config_dict["ConfigLine"],f"{gpu_time_ms:.4f}",config_dict["HashKey"],datetime.now().strftime("%Y%m%d_%H%M%S")])
+
+# ============================================================================
+# 调优主流程
+# ============================================================================
+def tune_one_group(N, type_name, stages_dict, completed_keys, result_csv_path, best_per_stage):
+    print(f"\n{'='*70}")
+    print(f"========== 调优 N={N}, Type={type_name} ==========")
+    print(f"{'='*70}")
+    
+    mode_list = (["d2z","z2d"] if type_name == "d2z_z2d" else ["z2z"])
+    stage1_rows = stages_dict.get(1, [])
+    stage2_rows = stages_dict.get(2, [])
+    
+    # ============ 阶段 1 ============
+    print(f"\n>>> 阶段 1: 枚举 Stage1 ({len(stage1_rows)} 候选), 固定 Stage2 为基线 <<<")
+    
+    if stage2_rows:
+        s2_ktype = stage2_rows[0]["KernelType"]
+        s2_length = int(stage2_rows[0]["Length"])
+        s2_file = os.path.join(CONFIG_DIR, stage2_rows[0]["ConfigFile"])
+        baseline_key = (s2_ktype, s2_length)
+        if baseline_key in BASELINES:
+            modify_config(s2_file, s2_length, BASELINES[baseline_key])
+        else:
+            modify_config(s2_file, s2_length, stage2_rows[0]["ConfigLine"])
+        print(f"  [固定 Stage2] {s2_ktype} length={s2_length} → 基线")
+        if not build_rocfft():
+            print("  [基线编译失败, 跳过本组]")
+            return
+    
+    best_s1_time = float('inf')
+    best_s1_config = None
+    
+    for row in stage1_rows:
+        hk = row["HashKey"]
+        if hk in completed_keys:
+            exist_key = (N, type_name, 1)
+            if exist_key in best_per_stage and best_per_stage[exist_key]["TimeMs"] < best_s1_time:
+                best_s1_time = best_per_stage[exist_key]["TimeMs"]
+                best_s1_config = best_per_stage[exist_key]["ConfigLine"]
+            continue
+        
+        s1_file = os.path.join(CONFIG_DIR, row["ConfigFile"])
+        modify_config(s1_file, int(row["Length"]), row["ConfigLine"])
+        
+        t0 = time.time()
+        if not build_rocfft():
+            continue
+        t_build = time.time() - t0
+        
+        total_time = 0.0
+        all_ok = True
+        for m in mode_list:
+            t = run_benchmark(N, m)
+            if t < 0: all_ok = False; break
+            total_time += t
+        
+        if all_ok and total_time > 0:
+            print(f"  [OK] S1 f={row['Factors']} wgs={row['WGS']} tpt={row['TPT']} build:{t_build:.1f}s → {total_time:.4f} ms")
+            append_result(result_csv_path, row, total_time)
+            if total_time < best_s1_time:
+                best_s1_time = total_time
+                best_s1_config = row["ConfigLine"]
+        else:
+            print(f"  [FAIL] S1 f={row['Factors']} wgs={row['WGS']} tpt={row['TPT']}")
+    
+    if best_s1_config is None:
+        print("  阶段 1 未找到合法配置")
+        return
+    
+    print(f"\n  >>> 阶段 1 最优: {best_s1_time:.4f} ms")
+    
+    # ============ 阶段 2 ============
+    if not stage2_rows: return
+    
+    modify_config(os.path.join(CONFIG_DIR, stage1_rows[0]["ConfigFile"]), int(stage1_rows[0]["Length"]), best_s1_config)
+    
+    print(f"\n>>> 阶段 2: 枚举 Stage2 ({len(stage2_rows)} 候选) <<<")
+    
+    best_s2_time = float('inf')
+    best_s2_config = None
+    
+    for row in stage2_rows:
+        hk = row["HashKey"]
+        if hk in completed_keys:
+            exist_key = (N, type_name, 2)
+            if exist_key in best_per_stage and best_per_stage[exist_key]["TimeMs"] < best_s2_time:
+                best_s2_time = best_per_stage[exist_key]["TimeMs"]
+                best_s2_config = best_per_stage[exist_key]["ConfigLine"]
+            continue
+        
+        s2_file = os.path.join(CONFIG_DIR, row["ConfigFile"])
+        modify_config(s2_file, int(row["Length"]), row["ConfigLine"])
+        
+        t0 = time.time()
+        if not build_rocfft():
+            continue
+        t_build = time.time() - t0
+        
+        total_time = 0.0
+        all_ok = True
+        for m in mode_list:
+            t = run_benchmark(N, m)
+            if t < 0: all_ok = False; break
+            total_time += t
+        
+        if all_ok and total_time > 0:
+            print(f"  [OK] S2 f={row['Factors']} wgs={row['WGS']} tpt={row['TPT']} build:{t_build:.1f}s → {total_time:.4f} ms")
+            append_result(result_csv_path, row, total_time)
+            if total_time < best_s2_time:
+                best_s2_time = total_time
+                best_s2_config = row["ConfigLine"]
+        else:
+            print(f"  [FAIL] S2 f={row['Factors']} wgs={row['WGS']} tpt={row['TPT']}")
+    
+    if best_s2_config:
+        print(f"\n  >>> 阶段 2 最优: {best_s2_time:.4f} ms")
+    
+    print(f"\n  ====== N={N}, Type={type_name} 调优完成 ======")
+
+# ============================================================================
+# 主函数
+# ============================================================================
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--input-csv", default=os.path.join(SCRIPT_DIR, "config_enumerations.csv"))
+    parser.add_argument("-o", "--output-csv", default=os.path.join(SCRIPT_DIR, "tuning_results.csv"))
+    parser.add_argument("--N", type=int, default=0)
+    parser.add_argument("--type", dest="filter_type", default="all")
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--no-resume", action="store_true")
+    args = parser.parse_args()
+    
+    if not os.path.exists(args.input_csv):
+        print(f"错误: 枚举 CSV 不存在: {args.input_csv}")
+        return
+    
+    rows = load_config_csv(args.input_csv)
+    print(f"已加载 {len(rows)} 条候选配置")
+    
+    groups = group_by_n_type(rows)
+    
+    filtered_groups = {}
+    for (N, type_name), stages in groups.items():
+        if args.N > 0 and N != args.N: continue
+        if args.filter_type != "all" and type_name != args.filter_type: continue
+        filtered_groups[(N, type_name)] = stages
+    
+    if not filtered_groups: print("没有匹配的调优组"); return
+    
+    total_candidates = 0
+    for (N, type_name), stages in sorted(filtered_groups.items()):
+        s1_cnt = len(stages.get(1, []))
+        s2_cnt = len(stages.get(2, []))
+        print(f"  N={N}, Type={type_name}: Stage1={s1_cnt}, Stage2={s2_cnt}")
+        total_candidates += s1_cnt + s2_cnt
+    
+    print(f"\n总候选数: {total_candidates}")
+    
+    if args.dry_run: return
+    
+    completed_keys = set()
+    if not args.no_resume:
+        completed_keys = load_completed_results(args.output_csv)
+        if completed_keys: print(f"断点续传: 已加载 {len(completed_keys)} 条已完成记录")
+    
+    best_per_stage = load_best_per_stage(args.output_csv)
+    write_result_header(args.output_csv)
+    
+    for (N, type_name), stages in sorted(filtered_groups.items()):
+        tune_one_group(N, type_name, stages, completed_keys, args.output_csv, best_per_stage)
+        best_per_stage = load_best_per_stage(args.output_csv)
+    
+    print(f"\n全部调优完成! 结果保存在 {args.output_csv}")
+
+if __name__ == "__main__":
+    main()
