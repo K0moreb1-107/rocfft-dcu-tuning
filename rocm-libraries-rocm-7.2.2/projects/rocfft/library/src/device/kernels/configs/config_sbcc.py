@@ -80,7 +80,9 @@ sbcc_kernels = [
     NS(length=243, factors=[3, 3, 3, 3, 3],    use_3steps_large_twd={
         'sp': 'true', 'dp': 'false'}, workgroup_size=243),
     NS(length=256, factors=[8, 4, 8], use_3steps_large_twd={
-        'sp': 'true',  'dp': 'false'}, flavour='wide'),
+        'sp': 'true',  'dp': 'false'}, flavour='wide', workgroup_size=128,
+        threads_per_transform=32, half_lds=True, half_lds_precision=['dp'],
+        runtime_compile=True),
     NS(length=280, factors=[8, 5, 7], use_3steps_large_twd={
         'sp': 'false',  'dp': 'false'}, runtime_compile=True),
     NS(length=289, factors=[17, 17],    use_3steps_large_twd={
@@ -90,8 +92,12 @@ sbcc_kernels = [
     NS(length=343, factors=[7, 7, 7],    use_3steps_large_twd={
         'sp': 'true', 'dp': 'true'}),
     NS(length=512, factors=[8, 8, 8],    use_3steps_large_twd={
-        'sp': 'true', 'dp': 'false'}),
-    NS(length=1024, factors=[16, 16, 4],  use_3steps_large_twd={
-        'sp': 'true', 'dp': 'false'}, workgroup_size=256,
-        threads_per_transform=64, runtime_compile=True),
+        'sp': 'true', 'dp': 'false'}, workgroup_size=128,
+        threads_per_transform=64, half_lds=True, half_lds_precision=['dp'],
+        runtime_compile=True),
+    # list_large_kernels doubles WGS for half-LDS, giving DP an actual WGS of 256.
+    NS(length=1024, factors=[8, 8, 4, 4], use_3steps_large_twd={
+        'sp': 'true', 'dp': 'false'}, workgroup_size=128,
+        threads_per_transform=128, half_lds=True, half_lds_precision=['dp'],
+        runtime_compile=True),
 ]

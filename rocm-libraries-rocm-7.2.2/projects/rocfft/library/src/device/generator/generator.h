@@ -618,6 +618,14 @@ struct SyncThreads
     }
 };
 
+struct SyncWaveThreads
+{
+    static std::string render()
+    {
+        return "__syncwarp();";
+    }
+};
+
 struct Return
 {
     static std::string render()
@@ -675,6 +683,7 @@ using Statement = std::variant<Assign,
                                Break,
                                SyncThreads,
                                Butterfly,
+                               SyncWaveThreads,
                                IntrinsicStore,
                                IntrinsicStorePlanar,
                                Printf>;
@@ -1187,6 +1196,7 @@ struct BaseVisitor
     MAKE_VISITOR_OPERATOR(StatementList, Return);
     MAKE_VISITOR_OPERATOR(StatementList, Break);
     MAKE_VISITOR_OPERATOR(StatementList, SyncThreads);
+    MAKE_VISITOR_OPERATOR(StatementList, SyncWaveThreads);
     MAKE_VISITOR_OPERATOR(StatementList, Butterfly);
     MAKE_VISITOR_OPERATOR(StatementList, IntrinsicStore);
     MAKE_VISITOR_OPERATOR(StatementList, IntrinsicStorePlanar);
@@ -1291,6 +1301,7 @@ struct BaseVisitor
     MAKE_TRIVIAL_STATEMENT_VISIT(Break)
     MAKE_TRIVIAL_STATEMENT_VISIT(SyncThreads)
     MAKE_TRIVIAL_STATEMENT_VISIT(Butterfly);
+    MAKE_TRIVIAL_STATEMENT_VISIT(SyncWaveThreads)
     MAKE_TRIVIAL_STATEMENT_VISIT(Printf);
 
     MAKE_TRIVIAL_VISIT(Expression, Variable)

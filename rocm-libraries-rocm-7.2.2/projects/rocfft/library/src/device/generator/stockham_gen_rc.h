@@ -92,8 +92,14 @@ struct StockhamKernelRC : public StockhamKernel
 
     StatementList set_lds_is_real() override
     {
-        // SBRC can't support half-lds
-        return {Declaration{lds_is_real, Literal{"false"}}};
+        // The initial SBRC transpose still needs full complex LDS.  Once that data has
+        // been loaded into registers, use scalar LDS for the internal Stockham exchanges.
+        const bool internal_scalar_lds
+            = direct_to_from_reg && length == 512 && threads_per_transform == 128
+              && factors.size() == 3 && factors[0] == 8 && factors[1] == 8
+              && factors[2] == 8 && precisions.size() == 1
+              && precisions.front() == rocfft_precision_double;
+        return {Declaration{lds_is_real, Literal{internal_scalar_lds ? "true" : "false"}}};
     }
 
     StatementList store_global_generator(unsigned int h,

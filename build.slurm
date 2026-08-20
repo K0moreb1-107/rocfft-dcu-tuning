@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J build_fft
-#SBATCH -p hx1hdexclu12
+#SBATCH -p hx1hdnormal01
 #SBATCH -N 1
 #SBATCH -n 1
 #SBATCH --gres=dcu:1

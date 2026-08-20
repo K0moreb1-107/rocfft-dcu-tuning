@@ -319,7 +319,6 @@ def kernel_name(ns):
 
     if hasattr(ns, 'lds_size_bytes'):
         postfix += f'_lds{ns.lds_size_bytes}'
-
     return f'rocfft_len{length}{postfix}'
 
 
@@ -450,6 +449,8 @@ def generate_kernel_functions(kernels, precisions, launchers_json):
             pp_off_dim = launcher.pp_off_dim
             sbrc_transpose_type = launcher.sbrc_transpose_type
             precision = 'dp' if launcher.double_precision else 'sp'
+            if hasattr(kernel, 'half_lds_precision'):
+                half_lds = precision in kernel.half_lds_precision
             runtime_compile = kernel.runtime_compile
             use_3steps_large_twd = getattr(kernel, 'use_3steps_large_twd',
                                            None)

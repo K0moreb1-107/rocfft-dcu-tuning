@@ -344,6 +344,44 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return ebtype == EmbeddedType::NONE ? Literal{0} : Literal{1};
     }
 
+    Expression lds_address(const Expression& index) const
+    {
+        if(half_lds && precisions.size() == 1
+           && precisions.front() == rocfft_precision_double)
+        {
+            const auto addr = vrender(index);
+            // Match the folded bit to the Stockham group stride.
+            if(length == 512)
+                return Literal{"((" + addr + ") ^ ((" + addr + ") >> 4))"};
+            if(length == 1024)
+                return Literal{"((" + addr + ") ^ ((" + addr + ") >> 6))"};
+        }
+        return index;
+    }
+
+    bool use_wave_sync() const
+    {
+        const bool is_dp = precisions.size() == 1
+                           && precisions.front() == rocfft_precision_double;
+        const bool is_sbcc_256 = length == 256
+                                 && factors == std::vector<unsigned int>{8, 4, 8}
+                                 && workgroup_size == 256 && threads_per_transform == 32;
+        const bool is_sbcc_512 = length == 512
+                                 && factors == std::vector<unsigned int>{8, 8, 8}
+                                 && workgroup_size == 256 && threads_per_transform == 64;
+        return false;
+    }
+
+    StatementList sync_threads() const
+    {
+        StatementList stmts;
+        if(use_wave_sync())
+            stmts += SyncWaveThreads{};
+        else
+            stmts += SyncThreads{};
+        return stmts;
+    }
+
     StatementList load_lds_generator(unsigned int h,
                                      unsigned int hr,
                                      unsigned int width,
@@ -359,7 +397,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         {
             const auto tid = Parens{thread + dt + h * threads_per_transform};
             const auto idx = offset_lds + (tid + w * length / width) * lstride;
-            work += Assign(l_offset, idx);
+            work += Assign(l_offset, lds_address(idx));
 
             switch(component)
             {
@@ -397,7 +435,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                              + (Parens{tid / cumheight} * (width * cumheight) + tid % cumheight
                                 + w * cumheight)
                                    * lstride;
-            work += Assign(l_offset, idx);
+            work += Assign(l_offset, lds_address(idx));
 
             switch(component)
             {
@@ -433,6 +471,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             hr = h;
         StatementList work;
         Expression    loadFlag{thread < length / width};
+
         for(unsigned int w = 1; w < width; ++w)
         {
             auto tid  = thread + dt + h * threads_per_transform;
@@ -598,7 +637,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         // first pass of load (full)
         unsigned int width  = factors[0];
         float        height = static_cast<float>(length) / width / threads_per_transform;
-        body += If{lds_reg_sync, {SyncThreads()}};
+        body += If{lds_reg_sync, sync_threads()};
         body += add_work(std::bind(load_lds, this, _1, _2, _3, _4, _5, Component::BOTH),
                          width,
                          height,
@@ -628,7 +667,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         unsigned int width     = factors.back();
         float        height    = static_cast<float>(length) / width / threads_per_transform;
         unsigned int cumheight = product(factors.begin(), factors.end() - 1);
-        body += If{lds_reg_sync, {SyncThreads()}};
+        body += If{lds_reg_sync, sync_threads()};
         body += add_work(std::bind(store_lds, this, _1, _2, _3, _4, _5, Component::BOTH, cumheight),
                          width,
                          height,
@@ -684,7 +723,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             {
                 // internal full lds2reg (both linear/nonlinear variants)
                 StatementList lds2reg_full;
-                lds2reg_full += SyncThreads();
+                lds2reg_full += sync_threads();
                 lds2reg_full
                     += add_work(std::bind(load_lds, this, _1, _2, _3, _4, _5, Component::BOTH),
                                 width,
@@ -724,7 +763,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                         = static_cast<float>(length) / half_width / threads_per_transform;
                     // minimize sync as possible
                     if(!isFirstStore)
-                        reg2lds_half += SyncThreads();
+                        reg2lds_half += sync_threads();
                     reg2lds_half += add_work(
                         std::bind(store_lds, this, _1, _2, _3, _4, _5, component, cumheight),
                         half_width,
@@ -733,7 +772,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
                     half_width  = factors[npass + 1];
                     half_height = static_cast<float>(length) / half_width / threads_per_transform;
-                    reg2lds_half += SyncThreads();
+                    reg2lds_half += sync_threads();
                     reg2lds_half
                         += add_work(std::bind(load_lds, this, _1, _2, _3, _4, _5, component),
                                     half_width,
@@ -743,9 +782,9 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
                 // internal full lds store (both linear/nonlinear variants)
                 if(npass == 0)
-                    reg2lds_full += If{!direct_load_to_reg, {SyncThreads()}};
+                    reg2lds_full += If{!direct_load_to_reg, sync_threads()};
                 else
-                    reg2lds_full += SyncThreads();
+                    reg2lds_full += sync_threads();
                 reg2lds_full += add_work(
                     std::bind(store_lds, this, _1, _2, _3, _4, _5, Component::BOTH, cumheight),
                     width,
@@ -893,7 +932,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             storelds += real_trans_pre_post();
         storelds += LineBreak{};
         storelds += CommentLines{"store global"};
-        storelds += SyncThreads{};
+        storelds += sync_threads();
         storelds += store_to_global(false);
 
         if(!direct_to_from_reg)
@@ -968,7 +1007,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
         StatementList stmts;
         // Todo: We might not have to sync here which depends on the access pattern
-        stmts += SyncThreads{};
+        stmts += sync_threads();
         stmts += LineBreak{};
 
         // Todo: For case threads_per_transform == quarter_N, we
@@ -994,7 +1033,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         }
         if(ebtype == EmbeddedType::C2Real_PRE)
         {
-            stmts += SyncThreads();
+            stmts += sync_threads();
             stmts += LineBreak();
         }
 

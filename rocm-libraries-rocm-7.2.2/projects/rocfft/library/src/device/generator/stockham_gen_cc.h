@@ -557,6 +557,14 @@ struct StockhamKernelCC : public StockhamKernel
         return stmts;
     }
 
+    bool use_large_twiddle_recurrence() const
+    {
+        const bool candidate_length = length == 256 || length == 512 || length == 1024;
+        const bool supported_radix  = factors.back() == 4 || factors.back() == 8;
+        return candidate_length && supported_radix && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double;
+    }
+
     StatementList large_twiddles_multiply_generator(unsigned int h,
                                                     unsigned int hr,
                                                     unsigned int width,
@@ -567,6 +575,26 @@ struct StockhamKernelCC : public StockhamKernel
         if(hr == 0)
             hr = h;
         StatementList work;
+
+        if(use_large_twiddle_recurrence())
+        {
+            auto idx = std::string("(((int)(") + thread.render() + " + " + std::to_string(dt)
+                       + " + " + std::to_string(h * threads_per_transform) + ") % "
+                       + std::to_string(cumheight) + ") * " + trans_local.render() + ")";
+            work += Assign{
+                W,
+                CallExpr{"TW_NSteps",
+                         TemplateList{scalar_type, large_twiddle_base, large_twiddle_steps},
+                         {large_twiddles, idx}}};
+            for(unsigned int w = 0; w < width; ++w)
+            {
+                if(w > 0)
+                    work += Assign{W, TwiddleMultiply{W, t}};
+                work += Assign{R[hr * width + w],
+                               TwiddleMultiply{R[hr * width + w], W}};
+            }
+            return work;
+        }
 
         for(unsigned int w = 0; w < width; ++w)
         {
@@ -597,6 +625,15 @@ struct StockhamKernelCC : public StockhamKernel
         StatementList stmts;
 
         stmts += CommentLines{"large twiddle multiplication"};
+        if(use_large_twiddle_recurrence())
+        {
+            auto step_idx = std::to_string(cumheight) + " * " + trans_local.render();
+            stmts += Assign{
+                t,
+                CallExpr{"TW_NSteps",
+                         TemplateList{scalar_type, large_twiddle_base, large_twiddle_steps},
+                         {large_twiddles, step_idx}}};
+        }
 
         auto mf = std::mem_fn(&StockhamKernelCC::large_twiddles_multiply_generator);
         stmts += add_work(std::bind(mf, this, _1, _2, _3, _4, _5, cumheight),

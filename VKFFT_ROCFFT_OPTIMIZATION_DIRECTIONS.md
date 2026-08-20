@@ -1,0 +1,450 @@
+# rocFFT / VkFFT Kernel 优化持续实验记录
+
+> 本文件是本任务唯一的持续实验记录。后续任何优化、编译、测试、回滚或结论，都必须在本文件末尾追加一个新的实验条目，或修改对应条目的“后续修订”部分；不得只在聊天中留下不可复现的结论。
+
+## 0. 维护规则
+
+每次新实验必须按以下字段记录：
+
+1. 实验编号和日期。
+2. 目标问题规模、变换类型、batch、GPU 架构和当前基线。
+3. 假设：为什么这个改动可能有效，以及它对应 VkFFT 的哪个机制。
+4. 修改文件、精确代码区域和启用条件。
+5. 构建任务、正确性任务、benchmark 任务和 PMC 任务编号。
+6. correctness 数值结果。
+7. kernel 分解、端到端时间和资源计数。
+8. 与基线的差值、是否保留，以及回滚原因。
+9. 对 64K、128K、256K、512K 的可扩展性判断。
+10. 下一步和未验证风险。
+
+实验前必须保存当前 baseline；实验中一次只改变一个结构性因素；实验后必须先验证正确性，再比较性能。若实验回归，只回滚当前实验补丁，不覆盖用户已有的其它修改。
+
+## 1. 任务背景和目标
+
+目标是在 BW 卡（当前编译目标为 `gfx936`）上优化 double-complex、out-of-place、z2z FFT，重点是长度 512K、batch 1000，同时考察 64K、128K、256K 是否受益。当前 rocFFT 使用 RTC Stockham kernel，512K z2z 主要经过类似 TRTRT/CC 的分解，主要耗时 kernel 为：
+
+- `fft_rtc_fwd_len_1024_factors_8_8_4_4_wgs_256_tpt_128_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg`
+- `fft_rtc_fwd_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned`
+
+优化目标不是只寻找某组 WGS/TPT/radix 参数，而是借鉴 VkFFT 的 kernel 组织方式，减少 global-memory 往返、改善 LDS/register 数据复用、控制 bank conflict，并同时检查 VGPR、LDS、VALU、VMEM 和 occupancy。
+
+## 2. 代码和实验环境
+
+源码仓库：
+
+`/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2`
+
+主要源码：
+
+- `projects/rocfft/library/src/device/generator/stockham_gen_base.h`
+- `projects/rocfft/library/src/device/generator/stockham_gen_cc.h`
+- `projects/rocfft/library/src/device/generator/stockham_gen_rc.h`
+- `projects/rocfft/library/src/device/kernels/configs/config_sbcc.py`
+- `projects/rocfft/library/src/tree_node.cpp`
+- `projects/rocfft/library/src/rocfft_kernel_config_search.cpp`
+
+VkFFT 参考目录：
+
+- `VkFFT/vkFFT/vkFFT/vkFFT_CodeGen/vkFFT_KernelsLevel1/vkFFT_RadixStage.h`
+- `VkFFT/vkFFT/vkFFT/vkFFT_CodeGen/vkFFT_KernelsLevel1/vkFFT_RadixShuffle.h`
+- `VkFFT/vkFFT/vkFFT/vkFFT_CodeGen/vkFFT_KernelsLevel1/vkFFT_RadixKernels.h`
+- `VkFFT/vkFFT/vkFFT/vkFFT_CodeGen/vkFFT_KernelsLevel0/vkFFT_KernelStartEnd.h`
+- `VkFFT/vkFFT/vkFFT/vkFFT_PlanManagement/vkFFT_HostFunctions/vkFFT_Scheduler.h`
+
+构建和测试脚本：
+
+- `build.slurm`：构建 rocFFT、hipFFT 并安装到 `/public/home/zhangkewei/zr/install`。
+- `run_bench.sh LENGTH BATCH TYPE TAG`：使用 `hipprof --stats` 执行 10 次 benchmark。
+- `validate_cc_length.slurm LENGTH`：编译并运行 z2z correctness 检查。
+- `job.slurm`、`runall.sh`：批量测试入口。
+- `pmc_*.slurm`：使用 `hipprof --pmc --pmc-type 3` 收集硬件计数器。
+
+当前集群可用分区为 `hx1hdnormal01`。原实验脚本中的 `hx1hdexclu12` 已失效，`build.slurm`、`job.slurm`、`run_bench.sh` 和 `validate_cc_length.slurm` 已改为可用分区。该修改只恢复实验入口，不改变 FFT 算法。
+
+## 3. 指标定义和判断方法
+
+- `TotalDurationNs / Calls`：hipprof 统计的平均 kernel 时间。
+- FFT 总时间：主要 SBCC 和 SBRC kernel 平均时间之和；不把随机数据生成 kernel 当作 FFT 优化收益。
+- `VGPR`：每个线程使用的向量寄存器数量。VGPR 增加可能降低一个 CU 上同时驻留的 wave 数量。
+- `SGPR`：标量寄存器数量。
+- `LDS`：AMD GPU 的片上 local data share，也就是 rocFFT 代码中的 shared memory。LDS 访问按 bank 分布，冲突会让一个访问请求被拆成多次服务。
+- `SQ_INSTS_VMEM_RD/WR`：global/flat memory 读写指令计数。
+- `SQ_INSTS_LDS`：LDS 指令计数。
+- `SQ_INSTS_VALU`：向量算术指令计数。
+- `SQ_LDS_BANK_CONFLICT`：LDS bank conflict 计数。该指标降低不等于端到端时间必然降低，还要考虑地址计算、同步、occupancy 和其它 kernel。
+
+判断原则：正确性是硬门槛；性能至少重复一次完整的 10-call benchmark，并尽量用第二次重复或 PMC 交叉验证。小于约 0.5% 的变化不能只用一次测量下结论。
+
+## 4. VkFFT 和 rocFFT 的结构对照
+
+VkFFT 的典型思路是：
+
+`global memory -> LDS/register 重排 -> FFT -> LDS 内转置 -> large twiddle -> 下一阶段 FFT -> 写回`
+
+rocFFT 也采用 Stockham/多步分解和 LDS/register 路径，并不是完全没有 4-step；区别在于不同 plan 可能在 kernel 之间写回 global memory，再由下一个 kernel 读取，特别是 TRTRT 路线。因而不能把 VkFFT 的完整 4-step 直接复制到 rocFFT，而应逐阶段比较：
+
+- 哪些数据已经在寄存器中，能否避免再次进入 global memory。
+- 哪些 twiddle 是线程私有的，哪些在一个 transform 或一个 wave 内相同。
+- LDS 是否只承担当前阶段的 tile，能否在安全的生命周期内复用。
+- barrier 是否确实需要 block 范围，是否可用 wave 范围同步。
+
+VkFFT 的 `resolveBankConflictFirstStages` 通过地址重映射打散早期 LDS 访问；`registerBoost` 让一个线程处理多份数据；`setReadToRegisters` 根据问题形状选择 global-to-register 或经 LDS；`useCoalescedLUTUploadToSM` 让少量 stage twiddle 合并搬入 shared；分层 radix-8 通过较少 LUT 组和额外复数乘法换取更少的表读取。
+
+rocFFT 已有 `dirReg`、half-LDS、large-twiddle 表和 Stockham 多步分解，所以借鉴重点是这些机制的决策条件和数据布局，而不是再发明同名抽象。
+
+## 5. 历史工作总览
+
+### 5.1 确认 512K z2z 的主要路径
+
+通过 hipprof/kernel 名称和 PMC 确认，512K z2z 主要包含 1024 点 SBCC 和 512 点 SBRC kernel；早期版本走 TRTRT 时有多次 transpose/global-memory 往返。后来调整 TRTRT 与 CC 的适用阈值，使该场景可走 CC 路线，在 LDS 内完成更多重排和 large-twiddle 处理，减少全局访存。
+
+这一步的原因是：512K 的问题不是单个 radix 蝶形太慢，而是多个阶段之间的 global memory 往返和 transpose launch 累积。该策略曾把 512K 总体加速比提高到约 `1.20x`，具体原始中间值应以当时保存的 benchmark 文件为准。
+
+### 5.2 transpose padding：消除 bank conflict
+
+修改 `rtc_transpose_gen.cpp` 中 LDS 二维数组的第二维，将：
+
+```cpp
+lds.size2D = Literal{specs.tileX};
+```
+
+改为带 padding 的布局，例如：
+
+```cpp
+lds.size2D = Literal{specs.tileX + 1};
+```
+
+原理是让原本 stride 等于 tile 宽度的线程访问不再周期性落入同一 bank。hipprof PMC 显示 transpose bank conflict 从约 `4.5e9` 降至 0，但端到端收益只有约 5%。
+
+结论是 transpose 的 bank conflict 确实存在，但 512K 总时间主要由更大范围的 FFT/global-memory 行为决定；不能只围绕 conflict 计数继续优化。
+
+### 5.3 transpose 与 SBRR/TR/RT 融合
+
+利用 rocFFT 已有融合机制，调整 WGS/TPT，使一个 block 中的并发数量满足融合条件，将 transpose 与相邻 SBRR/RT 操作合并。512K 场景曾得到约 `1.11x` 加速。
+
+该实验说明 launch 数量和中间 global store/load 可以显著影响结果，但融合不能无条件应用：512 融合有效，而 1024 融合曾导致 kernel 形态变差、总时间变长。因此后续必须按 kernel 形态和 occupancy 判断，不把融合当作普遍规则。
+
+### 5.4 SBCC half-LDS
+
+对 double precision SBCC 256/512/1024 启用 half-LDS。half-LDS 的含义不是把数据精度变成 half，而是通过分时处理实部/虚部或复数 tile，减少同时需要的 LDS 字节数，使更多 block/wave 有机会驻留；代价是处理轮数、同步和 LDS 访问可能增加。
+
+当前保留的配置方向为：
+
+| kernel | factors | 配置逻辑 |
+|---|---|---|
+| SBCC-256 | `[8,4,8]` | DP half-LDS，WGS 实际 256，TPT 32 |
+| SBCC-512 | `[8,8,8]` | DP half-LDS，WGS 实际 256，TPT 64 |
+| SBCC-1024 | `[8,8,4,4]` | DP half-LDS，WGS 256，TPT 128 |
+
+配置文件中 `workgroup_size` 是 half-LDS 处理前的配置值，`list_large_kernels` 会使 DP kernel 的实际 WGS 发生变化，因此必须以生成 kernel 名称和 PMC 为准，而不是只看 Python 配置字面值。half-LDS 在 512K 以及部分较小规模上带来小幅收益，但不是所有长度都适合。
+
+### 5.5 XOR LDS swizzle
+
+在 `stockham_gen_base.h` 添加 `lds_address()`，对 DP half-LDS 的 512/1024 长度使用：
+
+```text
+length 512:  addr ^ (addr >> 4)
+length 1024: addr ^ (addr >> 6)
+```
+
+该地址映射把连续的逻辑地址映射到更分散的物理 bank，目标是修复 Stockham group stride 与 bank 数之间的周期性冲突。它减少的是 SBCC/Stockham 内部 LDS 访问的冲突，不是 transpose kernel 的冲突；transpose 使用 padding，是两个不同位置的优化。
+
+PMC 曾观察到 bank conflict 显著下降，结合 half-LDS 后整体相对早期 baseline 提升约 23.5%。但 XOR 会增加整数地址计算，且同一映射不一定适合所有 stage。因此后续要做 stage-aware swizzle，而不是对所有长度和所有 stage 无条件套用。
+
+### 5.6 radix、寄存器和 LUT 递推
+
+在 SBCC-1024 上把 radix-16 `[16,16,4]` 改成最大 radix 为 8 的 `[8,8,4,4]`，降低寄存器压力。历史测量中总时间从约 `54.07 ms` 降到 `49.45 ms`，说明较大 radix 的算术减少可能被 VGPR/occupancy 损失抵消。
+
+在 large-twiddle 处理中使用递推：先取一个 `TW_NSteps` 结果，后续相邻输出用复数乘法推进，而不是每个输出都重新从 global LUT 取表。历史结果曾把 `49.45 ms` 进一步降到约 `44.73 ms`；该结果说明 LUT load 与表索引确实有开销，但递推增加 VALU 和寄存器，必须结合 radix、问题长度和 precision 评估。
+
+在更小 z2z 规模上测试过 radix-16、radix-8 和 radix-4 相关配置；结果文件包括：
+
+- `z2z_64k_b1000_lutradix16_*.csv.hipkernel.csv`
+- `z2z_128k_b1000_lutradix16_*.csv.hipkernel.csv`
+- `z2z_256k_b1000_lutradix16_*.csv.hipkernel.csv`
+- `z2z_64k_b1000_radix8_exact_*.csv.hipkernel.csv`
+- `z2z_128k_b1000_radix8_exact_*.csv.hipkernel.csv`
+- `z2z_256k_b1000_radix8_exact_*.csv.hipkernel.csv`
+- `z2z_64k_b1000_radix4_*.csv.hipkernel.csv`
+- `z2z_128k_b1000_radix4_*.csv.hipkernel.csv`
+- `z2z_256k_b1000_radix4_*.csv.hipkernel.csv`
+
+这些实验的主要结论是：小长度可能能承受较大 radix，但收益不是单调的；应优先看 VGPR、kernel 资源和完整 FFT 时间，不能只看蝶形数量。
+
+### 5.7 SBRC scalar-LDS
+
+在 `stockham_gen_rc.h` 中对特定 DP SBRC-512 `[8,8,8]`、TPT=128、direct-to/from-register 路径启用内部 scalar-LDS。初始 SBRC transpose 仍需要完整 complex LDS；数据进入寄存器后，内部 Stockham exchange 可只按 scalar/real LDS 路径处理。
+
+该修改的原因是减少内部 LDS 数据宽度和资源压力，同时不破坏最初的复数 transpose。它只在精确的长度、factors、TPT、precision 条件下启用，避免影响其它 real/complex kernel。
+
+## 6. 当前源码中的保留修改
+
+### 6.1 `stockham_gen_base.h`
+
+当前保留 `lds_address()` 和两个 LDS load/store generator 调用点。只有 DP、half-LDS、length 512/1024 使用 XOR 映射，其它情况返回原始地址。
+
+### 6.2 `stockham_gen_cc.h`
+
+当前保留 large-twiddle recurrence，条件为 length 256/512/1024、最后一个 factor 为 4 或 8、单一 DP precision。核心逻辑：
+
+1. 用 `TW_NSteps(large_twiddles, idx)` 得到当前线程的起始 twiddle。
+2. 第一个寄存器直接乘该 twiddle。
+3. 后续寄存器把当前 twiddle 与预先计算的步长 `t` 做复数乘法递推。
+
+这改变的是同一线程处理的多个 large-twiddle 项，不是最近实验中失败的“跨线程共享 step”。
+
+### 6.3 `stockham_gen_rc.h`
+
+保留特定 SBRC-512 DP scalar-LDS 条件，初始复杂 LDS 和内部 scalar-LDS 生命周期分开处理。
+
+### 6.4 `config_sbcc.py`
+
+保留 SBCC 256/512/1024 的 DP half-LDS、runtime compile 和 factors 配置，当前 1024 使用 `[8,8,4,4]`，没有恢复 radix-16 默认路径。
+
+## 7. 稳定 baseline
+
+在恢复版构建 `737211` 后，512K、z2z、batch 1000 的 baseline 文件为：
+
+`results/z2z_512k_b1000_baseline_current_20260818_104945.csv.hipkernel.csv`
+
+主要结果：
+
+| kernel | 平均时间 |
+|---|---:|
+| SBCC-1024 | `25.995145 ms` |
+| SBRC-512 | `17.547460 ms` |
+| 两个 FFT kernel 合计 | `43.542605 ms` |
+
+随机输入生成 kernel 约 `218.796 ms`，不是 FFT 本身，应从 FFT 优化比较中单独排除。
+
+baseline correctness：
+
+```text
+relative_l2  = 6.646073e-16
+relative_max = 9.451432e-16
+max_abs      = 3.551690e-12
+```
+
+最终恢复版构建 `750916`、correctness 任务 `750936` 再次得到同样的误差；恢复版 benchmark `750939` 的主要结果为 SBCC `26.021847 ms`、SBRC `17.551593 ms`，合计 `43.573440 ms`。与 `43.542605 ms` 的差异约 0.07%，属于节点/运行噪声范围，不能视为算法回归。
+
+## 8. VkFFT 方向实验记录
+
+### EXP-001：共享 large-twiddle recurrence step
+
+日期：2026-08-18。
+
+目标：512K z2z 的 SBCC-1024，WGS=256、TPT=128、DP、half-LDS。
+
+假设：`trans_local` 对同一个 transform 内的线程相同，`TW_NSteps(large_twiddles, 256 * trans_local)` 是公共值。让每个 wave 的偶/奇 transform leader 读取一次，再用 `__shfl` 广播，可以减少重复的 large-twiddle LUT load。
+
+修改：在 `stockham_gen_cc.h` 的 `large_twiddles_multiply()` 中，针对精确的 length 1024 / TPT 128 / WGS 256 条件，用：
+
+```cpp
+if((threadIdx.x & 63) == (threadIdx.x & 1))
+    t = TW_NSteps(...);
+t.x = __shfl(t.x, threadIdx.x & 1);
+t.y = __shfl(t.y, threadIdx.x & 1);
+```
+
+没有改变其它长度和配置。
+
+验证：构建 `750801`；correctness `750806`；benchmark `750807` 和重复 benchmark `750813`；PMC `750815`。
+
+结果：correctness 通过。SBCC-1024 为 `26.046021--26.051301 ms`，比 baseline `25.995145 ms` 慢约 `0.20%`；两 FFT kernel 合计约 `43.599--43.602 ms`，比 baseline 慢约 `0.13%`。PMC 中 `VMEM_RD`、`VALU` 和 LDS 指令未出现目标性下降，说明主要表访问来自每线程的 `W` 项，而不是这个公共 step。新增 shuffle 和数据搬运抵消收益。
+
+决策：回滚。该实验说明“公共 step”不是正确的共享粒度；后续要么共享实际被多个线程重复使用的 LUT 项，要么减少 LUT 项数量本身。
+
+### EXP-002：ordinary-stage cooperative LUT cache
+
+日期：2026-08-18。
+
+目标：同一 512K SBCC-1024 `[8,8,4,4]` kernel 的第二个 radix-8 stage。VkFFT 在 `stageSize < warpSize` 且 LUT 足够小时使用 coalesced LUT upload；对 rocFFT 当前表布局，该 stage 访问前 56 个 DP complex twiddle，总计 896 B。
+
+修改：
+
+1. 在 kernel 起始处由前 56 个线程把 `twiddles[0..55]` 合并写入 LDS 尾部 `lds_complex[1024..1079]`。
+2. 在 `apply_twiddle_generator()` 中，对 `cumheight == factors.front()` 的 stage 从该 LDS 区域读取。
+3. 在 `tree_node.cpp` 中为精确 kernel 增加 `56 * sizeof(double complex) = 896 B` 动态 LDS。
+4. 其它 stage、长度和 factors 仍使用原 global twiddle 读取。
+
+验证：构建 `750857`；correctness `750871`；benchmark `750872`；PMC `750884`。
+
+结果：correctness 通过。动态 LDS 从 `16384 B` 增至 `17280 B`；PMC 的 `VMEM_RD` 从 `31.744M` 降到 `24.832M`，证明目标 global load 被消除；但 LDS 指令增至 `105.728M`，bank conflict 略升，并新增一次 block barrier。SBCC-1024 为 `26.085001 ms`，两 FFT kernel 合计约 `43.629363 ms`，分别比 baseline 慢约 `0.35%` 和 `0.20%`。
+
+决策：回滚。这个工作集足够小，GPU global/L0/L1 cache 已经能有效吸收重复读取；显式 LDS cache 把 cache hit 换成额外搬运、同步和 LDS 访问，不值得保留。
+
+## 9. 已知结果文件和复现入口
+
+最近实验结果：
+
+- baseline：`results/z2z_512k_b1000_baseline_current_20260818_104945.csv.hipkernel.csv`
+- EXP-001：`results/z2z_512k_b1000_twd_wave_broadcast_20260818_111151.csv.hipkernel.csv`
+- EXP-001 repeat：`results/z2z_512k_b1000_twd_wave_broadcast_repeat_20260818_111338.csv.hipkernel.csv`
+- EXP-002：`results/z2z_512k_b1000_ordinary_twd_cache_20260818_112921.csv.hipkernel.csv`
+- EXP-002 PMC：`results/pmcall_524288_ordinary_twd_cache.csv.csv`
+- 恢复版：`results/z2z_512k_b1000_restored_after_revert_20260818_113859.csv.hipkernel.csv`
+
+复现命令：
+
+```bash
+cd /public/home/zhangkewei/zr
+sbatch build.slurm
+sbatch validate_cc_length.slurm 524288
+sbatch run_bench.sh 524288 1000 0 <tag>
+```
+
+如需强制验证 RTC 生成源码，提交任务时设置：
+
+```bash
+--export=ALL,ROCFFT_RTC_CACHE_READ_DISABLE=1,ROCFFT_LAYER=32,ROCFFT_LOG_RTC_PATH=/public/home/zhangkewei/zr/results/<tag>.log
+```
+
+## 10. 下一步研究顺序
+
+1. 分层 radix-8 twiddle：直接验证 VkFFT 用 3 组 twiddle 通过复数乘法组合 7 个 twiddle 的方案，先只对第二个 radix-8 stage 开启。必须比较 global load、VALU、VGPR 和误差。
+2. stage-aware XOR：对 `[8,8,4,4]` 的早期 stage 使用 XOR，对后期 `stageSize=64/256` 使用线性 LDS，避免无条件地址映射。
+3. wave-level synchronization：优先 SBCC-256 和 SBCC-512；SBCC-1024 TPT=128、SBRC-512 TPT=128 先保留 block barrier。
+4. 用相同方法测试 256K、128K、64K，只有跨规模稳定或明确加长度条件时才合并到通用路径。
+5. 最后才研究 32-bit offset；base pointer 保持 64-bit，只缩窄确认安全的局部 offset。
+
+当前不继续推进：无约束的 WGS/TPT/radix 穷举、默认 radix-16、把整个 LUT 无条件搬到 LDS、或只凭 bank-conflict 计数决定保留方案。
+
+## 11. 当前状态摘要
+
+- 保留：CC 阈值调整、SBCC DP half-LDS、512/1024 XOR LDS 地址、large-twiddle 单线程递推、SBRC 特定 scalar-LDS、radix-8 为主的 1024 分解。
+- 已验证但回滚：transpose padding 之外的无条件 transpose 方向、512K 的 large-twiddle wave broadcast、ordinary-stage 56 项 LDS cache。
+- 当前安装目录已恢复到回滚后的源码状态，并通过 512K correctness。
+- 后续实验必须从本文件的下一个 `EXP-xxx` 编号开始，补充结果后再决定是否修改“当前状态摘要”。
+
+### EXP-003：radix-8 三基 twiddle 组合（已完成，回滚）
+
+日期：2026-08-19。
+
+目标：512K z2z、batch 1000 中的 1024 点 SBCC `[8,8,4,4]` kernel，限定第二个 radix-8 stage（`width=8`、`cumheight=8`；初始记录误写为 64）。同节点实验前 baseline 任务为 `755035`。
+
+假设：该 stage 当前每个线程从普通 twiddle LUT 读取相位的 1--7 次幂，共 7 个 DP complex 表项。由于这些表项满足幂次关系，可只读取 1、2、4 次幂，再用 4 次复数乘法组合出 3、5、6、7 次幂。该方案对应 VkFFT 用分层/组合 twiddle 减少 LUT 项数量的思路，预期把目标 stage 的 global twiddle load 从 7 次降到 3 次；代价是增加 VALU 和少量临时寄存器。
+
+计划修改：在 `stockham_gen_base.h` 的 `apply_twiddle_generator()` 中加入精确条件分支，只影响 length 1024、factors `[8,8,4,4]`、DP 的第二个 radix-8 stage；其它 stage、长度、precision 和 factor 组合保持原路径。
+
+首次有效实现（修正后）：构建任务 `755090`；RTC/correctness 任务 `755112`；benchmark `755115`；PMC `755114`。RTC 生成源码确认第二个 radix-8 pass 已从 7 个表项改为读取 1、2、4 次幂并组合其余幂次。
+
+correctness：`relative_l2=6.603230e-16`，`relative_max=9.756395e-16`，`max_abs=3.666290e-12`，通过。
+
+性能：同节点 baseline `755035` 的 SBCC-1024 为 `26.016337 ms`、SBRC-512 为 `17.545433 ms`，合计 `43.561770 ms`；修正实验 `755115` 的 SBCC-1024 为 `26.643450 ms`、SBRC-512 为 `17.544153 ms`，合计 `44.187603 ms`。总 FFT 时间约回归 `1.44%`。
+
+PMC（SBCC-1024，实验相对当前 XOR baseline 参考 `pmcall_524288_xor6_no256.csv.csv`）：`VGPR 68 -> 76`，`SQ_INSTS_VMEM_RD 31.744M -> 27.648M`，`SQ_INSTS_VALU 654.336M -> 670.720M`，`SQ_INSTS_LDS 98.304M -> 98.304M`，`SQ_LDS_BANK_CONFLICT 458.752M -> 458.752M`。目标 global LUT 读取减少约 12.9%，但额外复数乘法增加 VALU，并使 VGPR 上升 8，最终抵消并超过访存收益。
+
+决策：回滚。该结构在当前 512K SBCC-1024 上不值得保留。首次错误条件 `cumheight == 64` 的任务 `755049/755064/755067/755070` 仅作为实现校正记录，不作为性能结论。对 64K/128K/256K 未做本轮修改后的验证，因此不能宣称可扩展；理论上更小规模若具有更低 VGPR 基线可能重新评估，但必须使用长度和资源条件，不能直接泛化。
+
+后续修订：分层 twiddle 仍可研究，但下一版应避免同时保留 1、2、4 三个复数寄存器，优先考虑单线程已有递推状态、特殊角度常量或仅对更高 LUT 压力且 VGPR 余量足够的 kernel 启用；在没有新假设前不重新启用本补丁。
+
+恢复稳定状态：回滚构建任务 `755136`，恢复版 correctness 任务 `755144`，结果为 `relative_l2=6.646073e-16`、`relative_max=9.451432e-16`、`max_abs=3.551690e-12`。远端源码已移除 EXP-003 新增的 W2/W4 和组合分支，安装目录恢复到实验前稳定状态。
+
+实现校正：首次构建使用了错误的 `cumheight == 64` 条件。rocFFT 的 pass 循环传入的是当前 pass 之前的因子乘积，所以 `[8,8,4,4]` 的第二个 radix-8 pass 实际为 `width == 8 && cumheight == 8`；`cumheight == 64` 对应后续 radix-4 pass。首次任务 `755049/755064/755067/755070` 因此只验证了未命中的原路径，不能用于判断该优化收益。修正后重新构建和测试，任务编号另行补录。
+### EXP-004：VkFFT 机制深度对照（分析阶段）
+
+日期：2026-08-20。
+
+目标：在不进行 WGS/TPT/radix 穷举的前提下，比较 VkFFT 与当前 rocFFT 生成器在数据驻留、寄存器读写、LDS 重排、large-twiddle 和同步粒度上的机制差异，确定下一项结构性实验。
+
+#### 1. Read-to-register 对照结论
+
+VkFFT 的 \`setReadToRegisters()\` 根据 read type、\`localSize\`、首个/末个 radix、每线程寄存器需求、FFT 维度和 Rader 情况决定是否直接 Global→Register；\`setWriteFromRegisters()\` 对输出采用对称判断。它不是简单的全局开关。
+
+rocFFT 当前 \`stockham_gen_base.h\` 已经实现了对应的全局路径：
+
+\`\`\`
+direct_to_from_reg = true
+    → direct_load_to_reg = true
+    → Global → Register
+    → FFT device function
+    → Register → Global
+\`\`\`
+
+当内部 Stockham pass 需要跨线程重排时，生成器会根据 \`lds_is_real\` 选择 full-LDS 或 half-LDS，并在 pass 之间插入 LDS store/load 与同步。也就是说，当前 SBCC 已经具备“首尾直接寄存器、内部阶段使用 LDS”的基本结构，直接把 \`direct_load_to_reg\` 再打开不会形成新的优化。
+
+本次源码对照依据：
+
+- rocFFT：\`stockham_gen_base.h\` 的 \`set_direct_to_from_registers()\`、\`generate_global_function()\`、\`reg2lds_full/reg2lds_half\`；
+- rocFFT：\`stockham_gen_cc.h\` 的 SBCC large-twiddle 与 LDS 配置；
+- VkFFT：\`vkFFT_ReadWrite.h\` 的 \`setReadToRegisters()\` 和 \`setWriteFromRegisters()\`；
+- VkFFT：\`vkFFT_RadixStage.h\` 对 \`readToRegisters\`、stage size 和寄存器容量的联合判断。
+
+判断：不直接修改 \`direct_load_to_reg\`。若继续沿该方向，必须把判断下沉到“首个 stage 是否需要跨线程交换”这一层，并证明它能删除实际的 LDS 往返，而不是产生 Global→Register→LDS 的重复搬运。
+
+#### 2. RegisterBoost 对照结论
+
+VkFFT 的 \`registerBoost\` 不是单纯增加寄存器变量，而是让一个线程分批处理多组逻辑数据，并在每批之间执行必要的 Shared↔Register 重排和 barrier。其收益来自减少部分 launch 或增加局部数据复用，代价是 VGPR、同步和 occupancy 压力。
+
+EXP-003 已经实验证明：减少 LUT global load 的同时，VGPR \`68→76\`、VALU 增加，最终总时间回归约 \`1.44%\`。因此当前 512K SBCC-1024 不适合直接扩大每线程长期保存的数据量。后续只能尝试局部、受限的 register boost，并且不得与多基 twiddle 组合同时启用。
+
+#### 3. LDS tile 和 4-step 对照结论
+
+VkFFT 的大规模 FFT 不要求把完整 N 点行或列一次性放入 LDS，而是将数据分成固定 tile，在 tile 生命周期内完成：
+
+\`\`\`
+Global load → LDS/register → 局部 FFT → LDS transpose → large twiddle
+→ 下一局部 FFT → Global store
+\`\`\`
+
+rocFFT 当前 transpose 和 SBCC 已经使用 tile/LDS，但部分 TRTRT 路线仍会在阶段之间写回 Global，再由下一 kernel 重新读取。VkFFT 最值得借鉴的不是重新实现一个 tile transpose，而是延长已有 tile 的驻留周期，将 large-twiddle 和下一阶段局部 FFT 放在同一数据驻留周期中。
+
+这是高收益但高风险方向，需要同时验证 tile 索引、LDS 布局、同步、twiddle 指数和不同长度的 correctness；暂不作为第一项代码实验。
+
+#### 4. RadixShuffle、LUT 和同步粒度
+
+VkFFT 会区分线程内 permutation、同一 wave 内交换和跨 wave 的 tile 交换：
+
+- 线程内 permutation：优先寄存器重排；
+- 同一 wave 的小范围交换：可考虑 wave shuffle/DPP；
+- 跨 wave 或大 tile 转置：保留 LDS。
+
+这说明 rocFFT 小 radix 的部分 LDS 访问可能存在被寄存器重排替代的空间，但必须先确认具体访问是否真的局限在同一 wave。当前 XOR swizzle 只能针对访问模式启用，不能替代这种层次化判断。
+
+VkFFT 的 LUT 机制也不是简单地把整张 LUT 搬入 LDS，而是按 radix/stage 组织 LUT，并在满足复用和资源条件时协同上传。EXP-002 的整表 LDS cache 已经回归；后续应优先研究 stage-local LUT 或生命周期更短的复用方式。
+
+#### 5. 后续实验顺序
+
+在完成本分析记录后，后续只改变一个结构因素，按以下顺序推进：
+
+1. 小 radix 的线程内寄存器重排，先检查 SBCC-256/512 生成代码中是否存在只为 permutation 而产生的 LDS 往返；
+2. 若访问跨 wave，再尝试受限的 wave-level exchange，仅限 SBCC-256/512，SBCC-1024 和 SBRC-512 保留 block barrier；
+3. 研究 large-twiddle 与 transpose tile 生命周期融合，优先针对 512K z2z；
+4. 最后再评估有限 registerBoost。
+
+每项实验必须先 correctness，再 benchmark，再 PMC；同时测试 512K，并用 256K、128K、64K 检查是否出现规模相关回归。若生成代码已经具备目标机制，则记录为“已存在/不构成新实验”，不重复修改。
+### EXP-005：SBCC-256/512 的 wave-level synchronization（分析记录）
+
+日期：2026-08-21。
+
+分析结论：检查 stockham_gen_base.h 后确认，rocFFT 每个 Stockham pass 的 LDS store/load 不是单纯的线程内 permutation。写入地址由 tid / cumheight、tid % cumheight 和当前 radix 共同决定，用于改变下一 pass 的 Stockham 数据布局；因此不能直接删除这些 LDS 往返，也不能把它们简单改成寄存器交换。该项“线程内寄存器重排”方向对当前生成器不构成安全的通用优化。
+
+可继续验证的 VkFFT 借鉴点是同步粒度。当前配置中：
+
+- SBCC-256：workgroup_size=128、threads_per_transform=32，每个 transform 只占半个 wave；
+- SBCC-512：workgroup_size=128、threads_per_transform=64，每个 transform 占一个 wave；
+- block 内包含多个相互独立的 transform，目标 transform 的 LDS 地址由 transform offset 隔离。
+
+假设：对于 DP、half-LDS、上述精确配置，Stockham 内部 LDS store→load 的同步可从 block-wide __syncthreads() 缩小为 wave-level __syncwarp()，从而减少 block barrier 的等待范围；SBCC-1024 和 SBRC-512 保留原 block barrier。该假设只有在 HIP/AMD 编译器确认 __syncwarp() 可用且具有 LDS 可见性语义时才成立。
+
+实验边界：
+
+- 只修改同步指令，不修改 WGS、TPT、radix、LDS 地址或 twiddle；
+- 只作用于 DP 的 SBCC-256 [8,4,8] 和 SBCC-512 [8,8,8]；
+- 先构建和 correctness，再 benchmark；若 RTC 编译器不支持 __syncwarp() 或 correctness 失败，立即回滚；
+- 记录 512K 主场景以及 256K/128K/64K 的规模影响。512K z2z 主要使用 SBCC-1024/SBRC-512，因此该实验可能不会改变 512K 主路径，若如此应如实记录为“局部机制验证”，不宣称对主目标有效；
+- PMC 重点观察 barrier、LDS 指令、VGPR 和 kernel 时间，而不是只看 bank conflict。
+
+
+
+### EXP-005：SBCC-256/512 wave-level synchronization（已完成，回滚）
+
+日期：2026-08-21。
+
+实现：新增 SyncWaveThreads 生成节点，并在 DP、half-LDS、SBCC-256 [8,4,8] 与 SBCC-512 [8,8,8] 的实际运行时 WGS=256、TPT=32/64 条件下，将 Stockham 内部同步从 __syncthreads() 替换为 __syncwarp()。首次条件误写为 WGS=128，benchmark 未命中；修正后重新构建任务 759650，确认目标 kernel 实际命中 wave-sync 路径。
+
+correctness：命中条件后的 256 点任务 759664，relative_l2=3.373793e-16、relative_max=5.234222e-16、max_abs=3.177644e-14；512 点任务 759665，relative_l2=3.589588e-16、relative_max=3.284774e-16、max_abs=3.362198e-14；均通过。512K 回归任务 759631 也通过，但主 512K z2z 路径不命中本实验条件。
+
+A/B benchmark：wave-sync 256x256（759659）SBCC kernel 平均 1.867142 ms；block barrier 对照（759643）1.839125 ms，回归约 1.52%。wave-sync 512x512（759660）9.650830 ms；block barrier 对照（759644）9.422975 ms，回归约 2.42%。总 hipprof 时间分别约回归 0.09% 和 0.18%。
+
+PMC 未继续提交，因为 correctness 虽通过，但 kernel 时间已稳定回归，且 wave-level 同步没有减少 LDS 指令或数据搬运。决策：回滚默认策略，恢复 __syncthreads()；保留分析记录，不把 __syncwarp() 作为默认生成路径。
