@@ -1765,6 +1765,32 @@ static std::unique_ptr<ExecPlan> BuildSingleDevicePlan(NodeMetaData&         roo
             }
         }
 
+        // Experimental planner entry for the SBCC -> SBRC tile-lifetime path.
+        // This is deliberately opt-in and limited to the measured 512K and
+        // 1M DP interleaved cases.  Clear the solution tree because its child
+        // contract belongs to the previous root scheme.
+        const bool force_all_tile_lifetime_cc
+            = rocfft_getenv("ROCFFT_FORCE_TILE_LIFETIME_CC") == "1";
+        const bool force_tile_lifetime_cc
+            = rocfft_getenv("ROCFFT_ENABLE_SBCC_SBRC_FUSION") == "1"
+              && !TuningBenchmarker::GetSingleton().IsInitializingTuning()
+              && rootPlanData.dimension == 1 && rootPlanData.length.size() == 2
+              && (force_all_tile_lifetime_cc
+                  || ((rootPlanData.length[0] == 524288
+                       || rootPlanData.length[0] == 1048576)
+                      && rootPlanData.precision == rocfft_precision_double
+                      && rootPlanData.inArrayType == rocfft_array_type_complex_interleaved
+                      && rootPlanData.outArrayType == rocfft_array_type_complex_interleaved));
+        if(force_tile_lifetime_cc && execPlan.rootPlan->scheme != CS_L1D_CC)
+        {
+            execPlan.rootScheme.reset();
+            // The replacement tree is explicit and no longer matches the
+            // kernel keys produced for the discarded solution tree.
+            execPlan.solution_kernels.clear();
+            execPlan.rootPlan
+                = NodeFactory::CreateExplicitNode(rootPlanData, nullptr, CS_L1D_CC);
+        }
+
         execPlan.iLength = rootPlanData.length;
         execPlan.oLength
             = rootPlanData.outputLength.empty() ? rootPlanData.length : rootPlanData.outputLength;
@@ -1794,7 +1820,11 @@ static std::unique_ptr<ExecPlan> BuildSingleDevicePlan(NodeMetaData&         roo
         }
 
         // TODO: more descriptions are needed
+        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
+            rocfft_cerr << "CCSBRC fusion [plan] ProcessNode begin" << std::endl;
         ProcessNode(execPlan);
+        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
+            rocfft_cerr << "CCSBRC fusion [plan] ProcessNode done" << std::endl;
 
         // Plan is compiled, no need to alloc twiddles + kargs etc
         if(rocfft_getenv("ROCFFT_INTERNAL_COMPILE_ONLY") == "1")
@@ -1815,8 +1845,10 @@ static std::unique_ptr<ExecPlan> BuildSingleDevicePlan(NodeMetaData&         roo
 
         return execPlanMultiItem;
     }
-    catch(std::exception&)
+    catch(const std::exception& e)
     {
+        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
+            rocfft_cerr << "CCSBRC fusion [plan] exception=" << e.what() << std::endl;
         if(LOG_PLAN_ENABLED())
             PrintNode(*LogSingleton::GetInstance().GetPlanOS(), execPlan);
         throw;
@@ -3855,6 +3887,8 @@ void TreeNode::CopyNodeData(const TreeNode& srcNode)
     large1D        = srcNode.large1D;
     largeTwd3Steps = srcNode.largeTwd3Steps;
     largeTwdBase   = srcNode.largeTwdBase;
+    ltwdSteps      = srcNode.ltwdSteps;
+    largeTwdBatchIsTransformCount = srcNode.largeTwdBatchIsTransformCount;
     lengthBlue     = srcNode.lengthBlue;
     lengthBlueN    = srcNode.lengthBlueN;
     typeBlue       = srcNode.typeBlue;
@@ -4058,11 +4092,20 @@ void TreeNode::ApplyFusion()
     // Do the final fusion after the buffer assign is completed
     for(auto& fuse : fuseShims)
     {
+        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1"
+           && fuse->fuseType == FT_STOCKHAM_CC_WITH_RC)
+            rocfft_cerr << "CCSBRC fusion [apply] scheme_fusable="
+                        << (fuse->IsSchemeFusable() ? "true" : "false") << std::endl;
+
         // the flag was overwritten by execPlan (according to the arch for some specical cases)
         if(!fuse->IsSchemeFusable())
             continue;
 
         auto fused = fuse->FuseKernels();
+        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1"
+           && fuse->fuseType == FT_STOCKHAM_CC_WITH_RC)
+            rocfft_cerr << "CCSBRC fusion [apply] FuseKernels="
+                        << (fused ? "success" : "null") << std::endl;
         if(fused)
         {
             auto firstFusedNode = fuse->FirstFuseNode();
@@ -4121,6 +4164,412 @@ void TreeNode::RefreshTree()
         else
             this->outArrayType = last->outArrayType;
     }
+}
+
+namespace
+{
+const char* TileLifetimeStatusName(TileLifetimeStatus status)
+{
+    switch(status)
+    {
+    case TileLifetimeStatus::NOT_APPLICABLE:
+        return "NOT_APPLICABLE";
+    case TileLifetimeStatus::GLOBAL_HANDOFF_REQUIRED:
+        return "GLOBAL_HANDOFF_REQUIRED";
+    case TileLifetimeStatus::LDS_HANDOFF_ELIGIBLE:
+        return "LDS_HANDOFF_ELIGIBLE";
+    case TileLifetimeStatus::TILE_MAPPING_AVAILABLE_BUT_FUSED_KERNEL_UNAVAILABLE:
+        return "TILE_MAPPING_AVAILABLE_BUT_FUSED_KERNEL_UNAVAILABLE";
+    case TileLifetimeStatus::OWNERSHIP_MATCHED_BUT_FUSED_KERNEL_UNAVAILABLE:
+        return "OWNERSHIP_MATCHED_BUT_FUSED_KERNEL_UNAVAILABLE";
+    }
+
+    return "UNKNOWN";
+}
+
+size_t CeilDivide(size_t value, size_t divisor)
+{
+    if(divisor == 0)
+        return 0;
+
+    return (value + divisor - 1) / divisor;
+}
+
+size_t GridWorkgroupCount(const GridParam& grid)
+{
+    return static_cast<size_t>(grid.b_x) * grid.b_y * grid.b_z;
+}
+
+size_t TilePlaneCount(const TreeNode& node)
+{
+    size_t planes = node.batch;
+    for(size_t i = 2; i < node.length.size(); ++i)
+        planes *= node.length[i];
+
+    return planes;
+}
+
+size_t TileCountAlongAxis(const TreeNode& node, unsigned int transforms_per_block)
+{
+    if(node.length.size() < 2 || transforms_per_block == 0)
+        return 0;
+
+    return CeilDivide(node.length[1], transforms_per_block);
+}
+
+size_t TileCount(const TreeNode& node, unsigned int transforms_per_block)
+{
+    if(node.length.size() < 2 || transforms_per_block == 0)
+        return 0;
+
+    return TileCountAlongAxis(node, transforms_per_block) * TilePlaneCount(node);
+}
+
+GridParam TileGrid(TreeNode& node)
+{
+    GridParam grid;
+    node.SetupGridParam(grid);
+    return grid;
+}
+
+bool SameHighDimensions(const std::vector<size_t>& lhs, const std::vector<size_t>& rhs)
+{
+    if(lhs.size() < 2 || lhs.size() != rhs.size())
+        return false;
+
+    return std::equal(lhs.begin() + 2, lhs.end(), rhs.begin() + 2);
+}
+
+void CountExternalBufferUses(const TreeNode& node,
+                             OperatingBuffer  buffer,
+                             const TreeNode*   producer,
+                             const TreeNode*   consumer,
+                             size_t&          externalReads,
+                             size_t&          externalWrites)
+{
+    if(node.nodeType == NT_LEAF)
+    {
+        if(&node != producer && &node != consumer)
+        {
+            if(node.obIn == buffer)
+                ++externalReads;
+            if(node.obOut == buffer)
+                ++externalWrites;
+        }
+        return;
+    }
+
+    for(const auto& child : node.childNodes)
+        CountExternalBufferUses(
+            *child, buffer, producer, consumer, externalReads, externalWrites);
+}
+}
+
+void TreeNode::AnalyzeTileLifetimes()
+{
+    tileLifetime.reset();
+
+    for(auto& child : childNodes)
+        child->AnalyzeTileLifetimes();
+
+    // L1D_CC is the planner boundary that currently lowers to SBCC -> SBRC.
+    if(scheme != CS_L1D_CC)
+        return;
+
+    TileLifetimeDescriptor descriptor;
+    descriptor.reason = "CC boundary has no SBCC -> SBRC child pair";
+
+    if(childNodes.size() != 2)
+    {
+        tileLifetime = std::move(descriptor);
+        return;
+    }
+
+    const auto& producer = childNodes[0];
+    const auto& consumer = childNodes[1];
+    descriptor.producerScheme = producer->scheme;
+    descriptor.consumerScheme = consumer->scheme;
+    descriptor.producerLength = producer->length;
+    descriptor.consumerLength = consumer->length;
+    descriptor.producerOutputLength = producer->GetOutputLength();
+    descriptor.consumerInputLength = consumer->length;
+    descriptor.producerBatch = producer->batch;
+    descriptor.consumerBatch = consumer->batch;
+    descriptor.producerOutputStride = producer->outStride;
+    descriptor.consumerInputStride = consumer->inStride;
+    descriptor.producerOutputDistance = producer->oDist;
+    descriptor.consumerInputDistance = consumer->iDist;
+    descriptor.producerOutputBuffer = producer->obOut;
+    descriptor.consumerInputBuffer = consumer->obIn;
+    descriptor.producerConsumerBufferConnected
+        = producer->obOut == consumer->obIn && producer->obOut != OB_UNINIT;
+    descriptor.producerLarge1D = producer->large1D;
+    descriptor.consumerLarge1D = consumer->large1D;
+    descriptor.producerLargeTwdBase = producer->largeTwdBase;
+    descriptor.consumerLargeTwdBase = consumer->largeTwdBase;
+    descriptor.producerLargeTwdSteps = producer->ltwdSteps;
+    descriptor.consumerLargeTwdSteps = consumer->ltwdSteps;
+    descriptor.producerLargeTwdBatchIsTransformCount = producer->largeTwdBatchIsTransformCount;
+    descriptor.consumerLargeTwdBatchIsTransformCount = consumer->largeTwdBatchIsTransformCount;
+
+    if(producer->scheme != CS_KERNEL_STOCKHAM_BLOCK_CC
+       || consumer->scheme != CS_KERNEL_STOCKHAM_BLOCK_RC)
+    {
+        descriptor.reason = "CC boundary children are not SBCC -> SBRC";
+        tileLifetime = std::move(descriptor);
+        return;
+    }
+
+    descriptor.status = TileLifetimeStatus::GLOBAL_HANDOFF_REQUIRED;
+    descriptor.globalHandoffRequired = true;
+
+    if(producer->nodeType != NT_LEAF || consumer->nodeType != NT_LEAF)
+    {
+        descriptor.reason = "CC boundary children are not leaf kernels";
+        tileLifetime = std::move(descriptor);
+        return;
+    }
+
+
+    // A tile can replace the planner's global intermediate only when the
+    // boundary buffer has no leaf users outside this producer/consumer pair.
+    // Counting leaf users avoids treating parent-node buffer propagation as a
+    // second use, while still rejecting buffer reuse by another branch.
+    if(descriptor.producerConsumerBufferConnected)
+    {
+        CountExternalBufferUses(*producer->GetPlanRoot(),
+                                 descriptor.producerOutputBuffer,
+                                 producer.get(),
+                                 consumer.get(),
+                                 descriptor.intermediateBufferExternalReads,
+                                 descriptor.intermediateBufferExternalWrites);
+        descriptor.intermediateBufferOwnershipProven
+            = descriptor.intermediateBufferExternalReads == 0
+              && descriptor.intermediateBufferExternalWrites == 0
+              && descriptor.producerOutputBuffer != OB_TEMP_BLUESTEIN;
+        descriptor.canElideGlobalHandoff = descriptor.intermediateBufferOwnershipProven;
+    }
+
+    descriptor.producerKernelKey = producer->GetKernelKey();
+    descriptor.consumerKernelKey = consumer->GetKernelKey();
+    descriptor.producerFactors = producer->GetKernel().factors;
+    descriptor.consumerFactors = consumer->GetKernel().factors;
+
+    // KernelCheck() has already run by the time ProcessNode calls this method,
+    // so these are the actual selected kernel configurations, including a
+    // solution-map configuration when one was supplied.
+    const auto producer_kernel = producer->GetKernel();
+    const auto consumer_kernel = consumer->GetKernel();
+    descriptor.producerTransformsPerBlock = producer_kernel.transforms_per_block;
+    descriptor.consumerTransformsPerBlock = consumer_kernel.transforms_per_block;
+    descriptor.producerWorkgroupSize = producer_kernel.workgroup_size;
+    descriptor.consumerWorkgroupSize = consumer_kernel.workgroup_size;
+    descriptor.producerTileWidth = descriptor.producerTransformsPerBlock;
+    descriptor.consumerTileWidth = descriptor.consumerTransformsPerBlock;
+    descriptor.producerTileCount
+        = TileCount(*producer, descriptor.producerTransformsPerBlock);
+    descriptor.consumerTileCount
+        = TileCount(*consumer, descriptor.consumerTransformsPerBlock);
+    descriptor.producerTilesPerPlane
+        = TileCountAlongAxis(*producer, descriptor.producerTransformsPerBlock);
+    descriptor.consumerTilesPerPlane
+        = TileCountAlongAxis(*consumer, descriptor.consumerTransformsPerBlock);
+    descriptor.producerPlaneCount = TilePlaneCount(*producer);
+    descriptor.consumerPlaneCount = TilePlaneCount(*consumer);
+    descriptor.producerGrid = TileGrid(*producer);
+    descriptor.consumerGrid = TileGrid(*consumer);
+    descriptor.consumerTransposeType = consumer->sbrcTranstype;
+
+    if(descriptor.producerLength.size() < 2 || descriptor.consumerLength.size() < 2)
+    {
+        descriptor.reason = "producer and consumer tiles need two dimensions";
+    }
+    else if(descriptor.producerLength.size() != descriptor.consumerLength.size())
+    {
+        descriptor.reason = "producer and consumer ranks differ";
+    }
+    else if(descriptor.producerBatch != descriptor.consumerBatch)
+    {
+        descriptor.reason = "producer and consumer batch counts differ";
+    }
+    else if(descriptor.producerLength[0] != descriptor.consumerLength[1]
+            || descriptor.producerLength[1] != descriptor.consumerLength[0])
+    {
+        descriptor.reason = "producer and consumer transform matrix is not transposed";
+    }
+    else if(!SameHighDimensions(descriptor.producerLength, descriptor.consumerLength))
+    {
+        descriptor.reason = "producer and consumer high-dimensional lengths differ";
+    }
+    else if(descriptor.producerOutputLength != descriptor.consumerInputLength)
+    {
+        descriptor.reason = "producer output and consumer input lengths differ";
+    }
+    else if(descriptor.producerTransformsPerBlock == 0
+            || descriptor.consumerTransformsPerBlock == 0)
+    {
+        descriptor.reason = "kernel configuration has no transforms_per_block";
+    }
+    else if(descriptor.producerOutputStride.size() < 2
+            || descriptor.consumerInputStride.size() < 2
+            || descriptor.producerOutputDistance != descriptor.consumerInputDistance
+            || descriptor.producerOutputStride[0] != descriptor.consumerInputStride[1]
+            || descriptor.producerOutputStride[1] != descriptor.consumerInputStride[0]
+            || !SameHighDimensions(descriptor.producerOutputStride,
+                                   descriptor.consumerInputStride))
+    {
+        descriptor.reason = "producer output and consumer input layouts differ after transpose";
+    }
+    else
+    {
+        // SBCC's tile index walks producer dim1.  After the CC transpose this
+        // is consumer dim0, while SBRC's tile index walks consumer dim1,
+        // which is producer dim0.  The boundary is therefore a Cartesian
+        // tile relation, not a one-to-one workgroup relation.
+        descriptor.producerTileAxisInConsumerInput = 0;
+        descriptor.consumerTileAxisInProducerOutput = 1;
+        descriptor.producerTilesRequiredPerConsumerTile
+            = CeilDivide(descriptor.consumerLength[0], descriptor.producerTileWidth);
+        descriptor.consumerTilesCoveredByProducerTile
+            = CeilDivide(descriptor.consumerLength[1], descriptor.consumerTileWidth);
+        descriptor.samePlaneTileLinearization
+            = descriptor.producerPlaneCount == descriptor.consumerPlaneCount
+              && descriptor.producerOutputDistance == descriptor.consumerInputDistance;
+        descriptor.edgeTilesComplete
+            = descriptor.producerTilesPerPlane != 0
+              && descriptor.consumerTilesPerPlane != 0
+              && (descriptor.producerLength[1] % descriptor.producerTileWidth == 0
+                  || producer_kernel.direct_to_from_reg)
+              && (descriptor.consumerLength[1] % descriptor.consumerTileWidth == 0
+                  || descriptor.consumerTransposeType == TILE_UNALIGNED);
+        descriptor.completeTileMapping
+            = descriptor.producerTilesRequiredPerConsumerTile != 0
+              && descriptor.consumerTilesCoveredByProducerTile != 0
+              && descriptor.samePlaneTileLinearization;
+
+        if(descriptor.completeTileMapping)
+        {
+            descriptor.crossStageTilePairCount
+                = descriptor.producerTilesPerPlane * descriptor.consumerTilesPerPlane
+                  * descriptor.producerPlaneCount;
+
+            // The current Cartesian mapping cannot be implemented by simply
+            // pairing the existing workgroups.  The future fused launch must
+            // assign one consumer tile to a workgroup and provide all of its
+            // producer tiles within that workgroup's lifetime.
+            descriptor.fusedProducerTilesPerWorkgroup
+                = descriptor.producerTilesRequiredPerConsumerTile;
+            descriptor.fusedConsumerTilesPerWorkgroup = 1;
+            descriptor.fusedWorkgroupCount = GridWorkgroupCount(descriptor.consumerGrid);
+            descriptor.requiresCrossWorkgroupTileReuse
+                = descriptor.consumerTilesCoveredByProducerTile > 1;
+            descriptor.requiresProducerTileReplication
+                = descriptor.consumerTilesCoveredByProducerTile > 1;
+
+            // This is deliberately conservative: it describes the resident
+            // tile schedule that a first fused implementation would need if
+            // it kept every producer tile available until SBRC consumes it.
+            // A streaming/register implementation may lower this later, but
+            // it must then provide an explicit ownership proof.
+            const size_t producerLdsBytes = descriptor.producerGrid.lds_bytes;
+            const size_t consumerLdsBytes = descriptor.consumerGrid.lds_bytes;
+            if(descriptor.fusedProducerTilesPerWorkgroup != 0
+               && producerLdsBytes
+                      > (std::numeric_limits<size_t>::max()
+                         - consumerLdsBytes)
+                            / descriptor.fusedProducerTilesPerWorkgroup)
+            {
+                descriptor.fusedResidentLdsBytes = std::numeric_limits<size_t>::max();
+            }
+            else
+            {
+                // The strict fused kernel reuses one LDS data tile across the
+                // barrier.  It does not keep a producer tile and a separate
+                // consumer tile resident at the same time.
+                descriptor.fusedResidentLdsBytes
+                    = std::max(producerLdsBytes * descriptor.fusedProducerTilesPerWorkgroup,
+                               consumerLdsBytes);
+            }
+            descriptor.fusedResidentLdsFitsDevice
+                = descriptor.fusedResidentLdsBytes <= producer->deviceProp.sharedMemPerBlock;
+
+            // A direct-register SBCC producer does not need to keep its FFT
+            // tile resident after the selected values have been copied into
+            // the consumer tile.  This is a different schedule from the
+            // conservative all-producer-tiles resident candidate above: one
+            // consumer workgroup reruns the producer with a remapped block id
+            // and reuses the same consumer LDS tile for every producer tile.
+            // The producer's large-twiddle LDS scratch is only concurrent with
+            // the consumer tile when the large table is staged locally.
+            // Direct-register SBCC still uses LDS as internal FFT scratch.
+            // Place the streaming handoff after that scratch for the full producer loop.
+            if(producerLdsBytes > std::numeric_limits<size_t>::max() - consumerLdsBytes)
+            {
+                descriptor.fusedStreamingLdsBytes = std::numeric_limits<size_t>::max();
+            }
+            else
+            {
+                descriptor.fusedStreamingLdsBytes = producerLdsBytes + consumerLdsBytes;
+            }
+            descriptor.fusedStreamingLdsFitsDevice
+                = descriptor.fusedStreamingLdsBytes <= producer->deviceProp.sharedMemPerBlock;
+        }
+
+        if(!descriptor.completeTileMapping)
+        {
+            descriptor.reason = "tile axes or plane linearization do not form a complete mapping";
+        }
+        else if(!descriptor.producerConsumerBufferConnected)
+        {
+            descriptor.reason = "producer and consumer output/input buffers differ";
+        }
+        else if(!descriptor.intermediateBufferOwnershipProven)
+        {
+            descriptor.reason = "intermediate buffer has external leaf users";
+        }
+        else if(descriptor.producerLarge1D == 0 || descriptor.consumerLarge1D != 0)
+        {
+            descriptor.reason = "fused CC boundary requires producer large-twiddle stage only";
+        }
+        else
+        {
+            descriptor.completeTileOwnership
+                = descriptor.producerTilesRequiredPerConsumerTile == 1
+                  && descriptor.consumerTilesCoveredByProducerTile == 1
+                  && descriptor.producerWorkgroupSize == descriptor.consumerWorkgroupSize
+                  && descriptor.producerGrid.b_x == descriptor.consumerGrid.b_x
+                  && descriptor.producerGrid.wgs_x == descriptor.consumerGrid.wgs_x
+                  && descriptor.producerTileCount == descriptor.consumerTileCount;
+
+            if(descriptor.completeTileOwnership)
+            {
+                descriptor.status
+                    = TileLifetimeStatus::OWNERSHIP_MATCHED_BUT_FUSED_KERNEL_UNAVAILABLE;
+                descriptor.reason
+                    = "tile ownership and launch grid match; fused generator and launch contract are unavailable";
+            }
+            else
+            {
+                descriptor.status
+                    = TileLifetimeStatus::TILE_MAPPING_AVAILABLE_BUT_FUSED_KERNEL_UNAVAILABLE;
+                descriptor.reason = descriptor.edgeTilesComplete
+                                        ? "Cartesian tile mapping exists; fused planner must choose ownership and remap workgroups"
+                                        : "Cartesian tile mapping exists; fused planner must also handle edge tiles";
+            }
+        }
+    }
+
+    tileLifetime = std::move(descriptor);
+}
+
+void TreeNode::CollectTileLifetimeContracts(
+    std::vector<TileLifetimeDescriptor>& contracts) const
+{
+    if(tileLifetime)
+        contracts.push_back(*tileLifetime);
+
+    for(const auto& child : childNodes)
+        child->CollectTileLifetimeContracts(contracts);
 }
 
 void TreeNode::AssignParams()
@@ -4391,6 +4840,121 @@ void TreeNode::Print(rocfft_ostream& os, const int indent) const
     for(const auto& c : comments)
     {
         os << "\n" << indentStr << "comment: " << c;
+    }
+
+    if(tileLifetime)
+    {
+        const auto& descriptor = *tileLifetime;
+        os << "\n" << indentStr << "tile-lifetime: "
+           << TileLifetimeStatusName(descriptor.status);
+        os << "\n" << indentStr << "  producer: " << PrintScheme(descriptor.producerScheme)
+           << " -> " << PrintScheme(descriptor.consumerScheme);
+        os << "\n" << indentStr << "  producer_length:";
+        for(const auto value : descriptor.producerLength)
+            os << " " << value;
+        os << "\n" << indentStr << "  producer_output_length:";
+        for(const auto value : descriptor.producerOutputLength)
+            os << " " << value;
+        os << "\n" << indentStr << "  consumer_length:";
+        for(const auto value : descriptor.consumerLength)
+            os << " " << value;
+        os << "\n" << indentStr << "  producer/consumer batch: " << descriptor.producerBatch
+           << "/" << descriptor.consumerBatch;
+        os << "\n" << indentStr << "  producer_tpb/wgs/tiles: "
+           << descriptor.producerTransformsPerBlock << "/"
+           << descriptor.producerWorkgroupSize << "/" << descriptor.producerTileCount;
+        os << "\n" << indentStr << "  consumer_tpb/wgs/tiles: "
+           << descriptor.consumerTransformsPerBlock << "/"
+           << descriptor.consumerWorkgroupSize << "/" << descriptor.consumerTileCount;
+        os << "\n" << indentStr << "  producer_tile_axis/width: "
+           << descriptor.producerTileAxis << "/" << descriptor.producerTileWidth;
+        os << "\n" << indentStr << "  consumer_tile_axis/width: "
+           << descriptor.consumerTileAxis << "/" << descriptor.consumerTileWidth;
+        os << "\n" << indentStr << "  producer/consumer_tiles_per_plane: "
+           << descriptor.producerTilesPerPlane << "/" << descriptor.consumerTilesPerPlane;
+        os << "\n" << indentStr << "  producer/consumer_plane_count: "
+           << descriptor.producerPlaneCount << "/" << descriptor.consumerPlaneCount;
+        os << "\n" << indentStr << "  producer_tile_axis_in_consumer_input: "
+           << descriptor.producerTileAxisInConsumerInput;
+        os << "\n" << indentStr << "  consumer_tile_axis_in_producer_output: "
+           << descriptor.consumerTileAxisInProducerOutput;
+        os << "\n" << indentStr << "  producer_tiles_required_per_consumer_tile: "
+           << descriptor.producerTilesRequiredPerConsumerTile;
+        os << "\n" << indentStr << "  consumer_tiles_covered_by_producer_tile: "
+           << descriptor.consumerTilesCoveredByProducerTile;
+        os << "\n" << indentStr << "  cross_stage_tile_pair_count: "
+           << descriptor.crossStageTilePairCount;
+        os << "\n" << indentStr << "  producer_grid: " << descriptor.producerGrid.b_x << "/"
+           << descriptor.producerGrid.wgs_x << "/" << descriptor.producerGrid.lds_bytes;
+        os << "\n" << indentStr << "  consumer_grid: " << descriptor.consumerGrid.b_x << "/"
+           << descriptor.consumerGrid.wgs_x << "/" << descriptor.consumerGrid.lds_bytes;
+        os << "\n" << indentStr << "  fused_producer_tiles_per_workgroup: "
+           << descriptor.fusedProducerTilesPerWorkgroup;
+        os << "\n" << indentStr << "  fused_consumer_tiles_per_workgroup: "
+           << descriptor.fusedConsumerTilesPerWorkgroup;
+        os << "\n" << indentStr << "  fused_workgroup_count: "
+           << descriptor.fusedWorkgroupCount;
+        os << "\n" << indentStr << "  fused_resident_lds_bytes: "
+           << descriptor.fusedResidentLdsBytes;
+        os << "\n" << indentStr << "  fused_resident_lds_fits_device: "
+           << (descriptor.fusedResidentLdsFitsDevice ? "true" : "false");
+        os << "\n" << indentStr << "  fused_streaming_lds_bytes: "
+           << descriptor.fusedStreamingLdsBytes;
+        os << "\n" << indentStr << "  fused_streaming_lds_fits_device: "
+           << (descriptor.fusedStreamingLdsFitsDevice ? "true" : "false");
+        os << "\n" << indentStr << "  requires_cross_workgroup_tile_reuse: "
+           << (descriptor.requiresCrossWorkgroupTileReuse ? "true" : "false");
+        os << "\n" << indentStr << "  requires_producer_tile_replication: "
+           << (descriptor.requiresProducerTileReplication ? "true" : "false");
+        os << "\n" << indentStr << "  producer_factors:";
+        for(const auto value : descriptor.producerFactors)
+            os << " " << value;
+        os << "\n" << indentStr << "  consumer_factors:";
+        for(const auto value : descriptor.consumerFactors)
+            os << " " << value;
+        os << "\n" << indentStr << "  producer_large_twd: " << descriptor.producerLarge1D
+           << "/" << descriptor.producerLargeTwdBase << "/"
+           << descriptor.producerLargeTwdSteps << "/"
+           << (descriptor.producerLargeTwdBatchIsTransformCount ? "batch" : "transform");
+        os << "\n" << indentStr << "  consumer_large_twd: " << descriptor.consumerLarge1D
+           << "/" << descriptor.consumerLargeTwdBase << "/"
+           << descriptor.consumerLargeTwdSteps << "/"
+           << (descriptor.consumerLargeTwdBatchIsTransformCount ? "batch" : "transform");
+        os << "\n" << indentStr << "  consumer_transpose_type: "
+           << PrintSBRCTransposeType(descriptor.consumerTransposeType);
+        os << "\n" << indentStr << "  producer_oStride:";
+        for(const auto value : descriptor.producerOutputStride)
+            os << " " << value;
+        os << "\n" << indentStr << "  consumer_iStride:";
+        for(const auto value : descriptor.consumerInputStride)
+            os << " " << value;
+        os << "\n" << indentStr << "  producer_oDist/consumer_iDist: "
+           << descriptor.producerOutputDistance << "/" << descriptor.consumerInputDistance;
+        os << "\n" << indentStr << "  producer/consumer buffer: "
+           << PrintOperatingBuffer(descriptor.producerOutputBuffer) << "/"
+           << PrintOperatingBuffer(descriptor.consumerInputBuffer);
+        os << "\n" << indentStr << "  producer_consumer_buffer_connected: "
+           << (descriptor.producerConsumerBufferConnected ? "true" : "false");
+        os << "\n" << indentStr << "  intermediate_buffer_external_reads/writes: "
+           << descriptor.intermediateBufferExternalReads << "/"
+           << descriptor.intermediateBufferExternalWrites;
+        os << "\n" << indentStr << "  intermediate_buffer_ownership_proven: "
+           << (descriptor.intermediateBufferOwnershipProven ? "true" : "false");
+        os << "\n" << indentStr << "  can_elide_global_handoff: "
+           << (descriptor.canElideGlobalHandoff ? "true" : "false");
+        os << "\n" << indentStr << "  complete_tile_ownership: "
+           << (descriptor.completeTileOwnership ? "true" : "false");
+        os << "\n" << indentStr << "  complete_tile_mapping: "
+           << (descriptor.completeTileMapping ? "true" : "false");
+        os << "\n" << indentStr << "  same_plane_tile_linearization: "
+           << (descriptor.samePlaneTileLinearization ? "true" : "false");
+        os << "\n" << indentStr << "  edge_tiles_complete: "
+           << (descriptor.edgeTilesComplete ? "true" : "false");
+        os << "\n" << indentStr << "  global_handoff_required: "
+           << (descriptor.globalHandoffRequired ? "true" : "false");
+        os << "\n" << indentStr << "  fused_kernel_available: "
+           << (descriptor.fusedKernelAvailable ? "true" : "false");
+        os << "\n" << indentStr << "  reason: " << descriptor.reason;
     }
 
     if(childNodes.size())
@@ -4896,6 +5460,18 @@ void ProcessNode(ExecPlan& execPlan)
 
     if(TuningBenchmarker::GetSingleton().IsProcessingTuning() == false)
     {
+        if(rocfft_getenv("ROCFFT_ENABLE_SBCC_SBRC_FUSION") == "1")
+        {
+            // KernelCheck derives the selected SBCC large-twiddle contract before the shim reads it.
+            auto preflight_kernel_keys = execPlan.solution_kernels;
+            execPlan.rootPlan->SanityCheck(execPlan.rootScheme.get(), preflight_kernel_keys);
+        }
+
+        // Build the ownership contract before ApplyFusion.  The SBCC -> SBRC
+        // shim consumes this post-assignment proof to decide whether one LDS
+        // tile can serve both stages.
+        execPlan.rootPlan->AnalyzeTileLifetimes();
+
         // Apply the fusion after buffer, strides are assigned
         execPlan.rootPlan->ApplyFusion();
 
@@ -4937,12 +5513,44 @@ void ProcessNode(ExecPlan& execPlan)
         }
     }
 
+    // Record inter-stage tile ownership after buffers, strides, and selected
+    // kernels are final.  This is planner metadata only; global handoff stays
+    // enabled until a fused generator consumes the contract.
+    execPlan.rootPlan->AnalyzeTileLifetimes();
+    execPlan.tileLifetimeContracts.clear();
+    execPlan.rootPlan->CollectTileLifetimeContracts(execPlan.tileLifetimeContracts);
+
     // get workBufSize..
     size_t tmpBufSize       = 0;
     size_t cmplxForRealSize = 0;
     size_t blueSize         = 0;
     size_t chirpSize        = 0;
     execPlan.rootPlan->DetermineBufferMemory(tmpBufSize, cmplxForRealSize, blueSize, chirpSize);
+
+    // Reserve fused global-handoff regions after the ordinary OB_TEMP area.
+    // Keeping these regions disjoint makes this experimental path independent
+    // of buffer reuse decisions made by AssignmentPolicy.
+    size_t additionalTmpBufSize = 0;
+    for(auto* node : execPlan.execSeq)
+    {
+        const size_t additional = node->AdditionalWorkBufSize();
+        if(additional == 0)
+            continue;
+        if(tmpBufSize > std::numeric_limits<size_t>::max() - additionalTmpBufSize
+           || additional > std::numeric_limits<size_t>::max()
+                                - (tmpBufSize + additionalTmpBufSize))
+        {
+            throw std::runtime_error("fused global handoff work buffer size overflow");
+        }
+        const size_t offset = tmpBufSize + additionalTmpBufSize;
+        node->SetAdditionalWorkBufOffset(offset);
+        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
+            rocfft_cerr << "CCSBRC fusion [workbuf] scheme=" << PrintScheme(node->scheme)
+                        << " offset_elements=" << offset
+                        << " size_elements=" << additional << std::endl;
+        additionalTmpBufSize += additional;
+    }
+    tmpBufSize += additionalTmpBufSize;
 
     if(execPlan.rootPlan->loadOps && execPlan.rootPlan->loadOps->enabled())
     {

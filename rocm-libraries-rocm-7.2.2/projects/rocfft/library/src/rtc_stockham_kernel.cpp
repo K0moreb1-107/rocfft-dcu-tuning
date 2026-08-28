@@ -27,6 +27,7 @@
 #include "rtc_stockham_gen.h"
 #include "rtc_stockham_kernel.h"
 #include "tree_node.h"
+#include "tree_node_1D.h"
 
 #include "device/kernel-generator-embed.h"
 
@@ -35,6 +36,23 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
                                                               bool               enable_callbacks)
 {
     RTCStockhamGenerator generator;
+
+    if(const auto* fused = dynamic_cast<const FusedSBCCSBRCNode*>(&node))
+    {
+        generator.generate_name = [fused]() {
+            return fused_stockham_rtc_kernel_name(*fused);
+        };
+
+        generator.generate_src = [fused](const std::string& kernel_name) {
+            return fused_stockham_rtc(*fused, kernel_name);
+        };
+
+        generator.construct_rtckernel
+            = [](const std::string& kernel_name, const std::vector<char>& code, dim3, dim3) {
+                  return std::unique_ptr<RTCKernel>(new RTCKernelStockham(kernel_name, code));
+              };
+        return generator;
+    }
 
     std::optional<StockhamGeneratorSpecs> specs;
     std::optional<StockhamGeneratorSpecs> specs2d;
@@ -235,6 +253,47 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
 {
     // construct arguments to pass to the kernel
     RTCKernelArgs kargs;
+
+    if(const auto* fused = dynamic_cast<const FusedSBCCSBRCNode*>(data.node))
+    {
+        // The fused source uses the producer ABI first and the consumer ABI
+        // second.  LDS handoff keeps the intermediate pointers as ABI
+        // placeholders; global handoff binds both stages to planner-owned
+        // storage.
+        kargs.append_ptr(fused->twiddles);
+        kargs.append_ptr(fused->twiddles_large);
+        if(fused->producerAotRtc)
+            kargs.append_size_t(fused->length.size());
+        kargs.append_ptr(kargs_lengths(fused->devKernArg));
+        kargs.append_ptr(kargs_stride_in(fused->devKernArg));
+        kargs.append_ptr(kargs_stride_out(fused->devKernArg));
+        kargs.append_size_t(fused->batch);
+        kargs.append_ptr(data.callbacks.load_cb_fn);
+        kargs.append_ptr(data.callbacks.load_cb_data);
+        kargs.append_unsigned_int(data.callbacks.load_cb_lds_bytes);
+        kargs.append_ptr(data.callbacks.store_cb_fn);
+        kargs.append_ptr(data.callbacks.store_cb_data);
+        kargs.append_ptr(data.bufIn[0]);
+        void* producer_output = data.bufOut[0];
+        void* consumer_input  = data.bufIn[0];
+        if(fused->globalTileHandoff)
+        {
+            producer_output = data.bufTemp;
+            consumer_input  = data.bufTemp;
+        }
+        kargs.append_ptr(producer_output);
+
+        kargs.append_ptr(fused->consumerTwiddles);
+        if(fused->consumerAotRtc)
+            kargs.append_size_t(fused->consumerLength.size());
+        kargs.append_ptr(kargs_lengths(fused->consumerDevKernArg));
+        kargs.append_ptr(kargs_stride_in(fused->consumerDevKernArg));
+        kargs.append_ptr(kargs_stride_out(fused->consumerDevKernArg));
+        kargs.append_size_t(fused->consumerBatch);
+        kargs.append_ptr(consumer_input);
+        kargs.append_ptr(data.bufOut[0]);
+        return kargs;
+    }
 
     // twiddles
     if(data.node->scheme == CS_KERNEL_STOCKHAM_PP)

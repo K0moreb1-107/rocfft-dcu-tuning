@@ -50,6 +50,12 @@ int main(int argc, char** argv)
         return 2;
     }
 
+    int device_count = 0;
+    check_hip(hipGetDeviceCount(&device_count), "hipGetDeviceCount");
+    std::cerr << "hip_device_count=" << device_count << '\n';
+    check_rocfft(rocfft_setup(), "rocfft_setup");
+    std::cerr << "after_rocfft_setup\n";
+
     complex_double* device_input  = nullptr;
     complex_double* device_output = nullptr;
     const size_t    bytes         = input.size() * sizeof(input[0]);
@@ -58,7 +64,7 @@ int main(int argc, char** argv)
     check_hip(hipMemcpy(device_input, input.data(), bytes, hipMemcpyHostToDevice),
               "hipMemcpy input");
 
-    check_rocfft(rocfft_setup(), "rocfft_setup");
+    std::cerr << "before_plan_create\n";
     rocfft_plan plan = nullptr;
     check_rocfft(rocfft_plan_create(&plan,
                                     rocfft_placement_notinplace,
@@ -69,12 +75,17 @@ int main(int argc, char** argv)
                                     1,
                                     nullptr),
                  "rocfft_plan_create");
+    std::cerr << "after_plan_create\n";
 
     rocfft_execution_info info = nullptr;
+    std::cerr << "before_execution_info_create\n";
     check_rocfft(rocfft_execution_info_create(&info), "rocfft_execution_info_create");
+    std::cerr << "after_execution_info_create\n";
     void* input_buffers[]  = {device_input};
     void* output_buffers[] = {device_output};
+    std::cerr << "before_execute\n";
     check_rocfft(rocfft_execute(plan, input_buffers, output_buffers, info), "rocfft_execute");
+    std::cerr << "after_execute\n";
     check_hip(hipDeviceSynchronize(), "hipDeviceSynchronize");
 
     std::vector<complex_double> output(length);

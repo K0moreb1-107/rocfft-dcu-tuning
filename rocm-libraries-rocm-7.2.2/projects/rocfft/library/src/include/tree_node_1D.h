@@ -225,6 +225,94 @@ public:
 };
 
 /*****************************************************
+ * Fused SBCC -> SBRC                         *
+ *****************************************************/
+class FusedSBCCSBRCNode : public SBCCNode
+{
+    friend class NodeFactory;
+    friend class CCSBRCFuseShim;
+
+protected:
+    FusedSBCCSBRCNode(TreeNode* p, ComputeScheme s)
+        : SBCCNode(p, s)
+    {
+        allowInplace = false;
+    }
+
+    void SetupGridParam_internal(GridParam& gp) override;
+
+public:
+    ~FusedSBCCSBRCNode() override;
+
+    bool CreateDevKernelArgs() override;
+    bool CreateDeviceResources() override;
+
+    // The producer uses the inherited node fields.  The consumer keeps a
+    // separate launch contract because its global handoff is removed.
+    std::vector<size_t> consumerLength;
+    std::vector<size_t> consumerInStride;
+    std::vector<size_t> consumerOutStride;
+    size_t              consumerIDist = 0;
+    size_t              consumerODist = 0;
+    size_t              consumerBatch = 1;
+    std::vector<size_t> consumerKernelFactors;
+    FMKey               consumerKernelKey;
+    unsigned int        consumerWgs              = 0;
+    unsigned int        consumerBwd              = 0;
+    unsigned int        consumerThreadsPerTransform = 0;
+    bool                consumerAotRtc            = false;
+    bool                consumerDirectToFromReg   = false;
+    bool                consumerUnitStride        = false;
+    SBRC_TRANSPOSE_TYPE consumerTransposeType    = SBRC_TRANSPOSE_TYPE::NONE;
+    void*               consumerTwiddles          = nullptr;
+    size_t              consumerTwiddlesSize     = 0;
+    bool                ownsConsumerTwiddles     = false;
+
+    std::vector<size_t> producerOutStride;
+    size_t              producerODist = 0;
+    unsigned int        producerWgs    = 0;
+    unsigned int        producerBwd    = 0;
+    unsigned int        producerThreadsPerTransform = 0;
+    bool                producerAotRtc = false;
+    bool                producerUnitStride = false;
+    bool                producerDirectToFromReg = false;
+    bool                producerHalfLds = false;
+    DirectRegType       producerDir2regMode = DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
+    IntrinsicAccessType producerIntrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+    // For streaming this is the producer scratch size in complex elements;
+    // the consumer handoff tile starts at this offset in LDS.
+    size_t              producerLdsElements = 0;
+    size_t              fusedLdsElements = 0;
+    unsigned int        fusedWgs = 0;
+    bool                streamingTileHandoff = false;
+    size_t              producerTilesPerConsumerTile = 0;
+    size_t              producerTileWidth = 0;
+    size_t              consumerTileWidth = 0;
+    size_t              producerTilesPerPlane = 0;
+    size_t              consumerTilesPerPlane = 0;
+    GridParam           fusedGrid;
+    size_t              fusedLdsBytes = 0;
+
+    // Optional planner-owned global handoff.  The region is placed after the
+    // ordinary OB_TEMP allocation and uses the producer's output layout.
+    std::vector<size_t> producerOutputLength;
+    bool                globalTileHandoff = false;
+    size_t              globalHandoffElements = 0;
+    size_t              globalHandoffOffset = 0;
+
+    size_t AdditionalWorkBufSize() const override
+    {
+        return globalTileHandoff ? globalHandoffElements : 0;
+    }
+    void SetAdditionalWorkBufOffset(size_t offset) override
+    {
+        globalHandoffOffset = offset;
+    }
+
+    gpubuf_t<size_t> consumerDevKernArg;
+};
+
+/*****************************************************
  * SBCR  *
  *****************************************************/
 class SBCRNode : public LeafNode

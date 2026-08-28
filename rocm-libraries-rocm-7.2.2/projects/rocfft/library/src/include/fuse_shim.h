@@ -174,4 +174,27 @@ public:
     std::unique_ptr<TreeNode> FuseKernels() override;
 };
 
+/*****************************************************
+ * SBCC + SBRC: keep the intermediate tile in LDS  *
+ *****************************************************/
+class CCSBRCFuseShim : public FuseShim
+{
+    friend class NodeFactory;
+
+protected:
+    CCSBRCFuseShim(const std::vector<TreeNode*>& components, FuseType type)
+        : FuseShim(components, type)
+    {
+        // The current implementation owns a single workgroup-local tile and
+        // therefore has the same out-of-place contract as SBRC.
+        allowInplace  = false;
+        schemeFusable = CheckSchemeFusable();
+    }
+
+    bool CheckSchemeFusable() override;
+
+public:
+    std::unique_ptr<TreeNode> FuseKernels() override;
+};
+
 #endif // FUSE_SHIM_H

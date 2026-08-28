@@ -35,6 +35,7 @@
 #include "logging.h"
 #include "plan.h"
 #include "rtc_kernel.h"
+#include "tree_node_1D.h"
 #include "transform.h"
 #include "tuning_helper.h"
 
@@ -62,10 +63,22 @@ bool PlanPowX(ExecPlan& execPlan)
     for(const auto& node : execPlan.execSeq)
     {
         if(node->CreateDeviceResources() == false)
+        {
+            if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
+                rocfft_cerr << "CCSBRC fusion [planpowx] resource failure scheme="
+                            << PrintScheme(node->scheme) << " length0="
+                            << (node->length.empty() ? 0 : node->length.front()) << std::endl;
             return false;
+        }
 
         if(node->CreateDevKernelArgs() == false)
+        {
+            if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
+                rocfft_cerr << "CCSBRC fusion [planpowx] kargs failure scheme="
+                            << PrintScheme(node->scheme) << " length0="
+                            << (node->length.empty() ? 0 : node->length.front()) << std::endl;
             return false;
+        }
     }
 
     for(const auto& node : execPlan.execSeq)
@@ -722,6 +735,13 @@ void TransformPowX(const ExecPlan&                         execPlan,
                                             data.node->oOffset,
                                             data.node->precision,
                                             data.node->outArrayType);
+        }
+
+        if(const auto* fused = dynamic_cast<const FusedSBCCSBRCNode*>(data.node);
+           fused && fused->globalTileHandoff)
+        {
+            data.bufTemp = static_cast<char*>(info->workBuffer)
+                            + fused->globalHandoffOffset * complexTSize;
         }
 
         // single-kernel bluestein requires a bluestein temp buffer separate from input and output

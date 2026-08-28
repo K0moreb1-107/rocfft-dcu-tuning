@@ -20,8 +20,12 @@
 
 #include "fuse_shim.h"
 #include "../../shared/arithmetic.h"
+#include "../../shared/array_predicate.h"
+#include "../../shared/ptrdiff.h"
+#include "../../shared/environment.h"
 #include "function_pool.h"
 #include "node_factory.h"
+#include "tree_node_1D.h"
 
 bool canOptimizeWithStride(TreeNode* stockham)
 {
@@ -42,6 +46,336 @@ bool canOptimizeWithStride(TreeNode* stockham)
                          ? 8
                          : 4;
     return numTrans >= minRows;
+}
+
+/*****************************************************
+ * SBCC + SBRC: LDS-resident tile handoff
+ *****************************************************/
+bool CCSBRCFuseShim::CheckSchemeFusable()
+{
+    if(nodes.size() != 2)
+        return false;
+
+    auto producer = nodes[0];
+    auto consumer = nodes[1];
+
+    // This first implementation intentionally covers only the regular 2D
+    // interleaved path.  The final stride/grid checks happen after buffer
+    // assignment in FuseKernels().
+    if(producer->scheme != CS_KERNEL_STOCKHAM_BLOCK_CC
+       || consumer->scheme != CS_KERNEL_STOCKHAM_BLOCK_RC)
+        return false;
+    if(producer->length.size() != 2 || consumer->length.size() != 2)
+        return false;
+    // The fused outer grid carries the batch serial in the same x dimension
+    // used by the standalone SBCC/SBRC kernels.  Keep the two stages on the
+    // same batch contract, but do not unnecessarily restrict the fusion to a
+    // single transform.
+    const bool batchFusionOptIn
+        = rocfft_getenv("ROCFFT_ENABLE_SBCC_SBRC_FUSION") == "1";
+    const bool diagnosticBatchFusion
+        = rocfft_getenv("ROCFFT_EXPERIMENTAL_BATCH_FUSION") == "1";
+    const bool batchFusionEnabled = batchFusionOptIn || diagnosticBatchFusion;
+    if(producer->batch != consumer->batch || producer->GetPlanRoot() == nullptr
+       // Batch-local handoff indexing is now validated for multiple batches.
+       // Keep the wider batch path opt-in with the existing fusion switch.
+       || (producer->GetPlanRoot()->batch != 1 && !batchFusionEnabled))
+        return false;
+    if(producer->precision == rocfft_precision_half)
+        return false;
+    if(producer->ebtype != EmbeddedType::NONE || consumer->ebtype != EmbeddedType::NONE)
+        return false;
+    if(producer->fuseBlue != BFT_NONE || consumer->fuseBlue != BFT_NONE)
+        return false;
+    if(producer->isPartialPassEnabled() || consumer->isPartialPassEnabled())
+        return false;
+    if(array_type_is_planar(producer->inArrayType)
+       || array_type_is_planar(producer->outArrayType)
+       || array_type_is_planar(consumer->inArrayType)
+       || array_type_is_planar(consumer->outArrayType))
+        return false;
+
+    // A callback/load-store-op kernel needs the original global boundary.
+    auto root = producer->GetPlanRoot();
+    if((root->loadOps && root->loadOps->enabled())
+       || (root->storeOps && root->storeOps->enabled()))
+        return false;
+
+    // The producer must carry the large-1D twiddle stage and the consumer
+    // must be a plain SBRC stage.  This also rejects the strided batch
+    // rearrangement that changes the tile ownership model.
+    if(producer->large1D == 0 || consumer->large1D != 0
+       || producer->largeTwdBatchIsTransformCount
+       || consumer->largeTwdBatchIsTransformCount)
+        return false;
+
+    return true;
+}
+
+std::unique_ptr<TreeNode> CCSBRCFuseShim::FuseKernels()
+{
+    if(!CheckSchemeFusable())
+        return nullptr;
+
+    auto producer = nodes[0];
+    auto consumer = nodes[1];
+
+    // Analyze again at the parent so the shim consumes the planner's final
+    // post-assignment ownership proof rather than duplicating its mapping.
+    auto owner = producer->parent;
+    if(owner)
+        owner->AnalyzeTileLifetimes();
+
+    if(!owner || !owner->tileLifetime)
+        return nullptr;
+    const auto& contract = *owner->tileLifetime;
+    const bool globalTileHandoff
+        = rocfft_getenv("ROCFFT_SBCC_SBRC_GLOBAL_HANDOFF") == "1";
+    if(!contract.completeTileMapping
+       || (!globalTileHandoff && !contract.canElideGlobalHandoff))
+        return nullptr;
+
+    auto producerKernel = producer->GetKernel();
+    auto consumerKernel = consumer->GetKernel();
+
+    // The original one-to-one path requires an identical LDS layout.  It is
+    // still useful for square plans and remains the cheapest fused schedule.
+    const bool strictFusable
+        = contract.completeTileOwnership && contract.fusedResidentLdsFitsDevice
+          && producer->length == consumer->length
+          && producerKernel.factors == consumerKernel.factors
+          && producerKernel.transforms_per_block == consumerKernel.transforms_per_block
+          && producerKernel.workgroup_size == consumerKernel.workgroup_size
+          && !producerKernel.direct_to_from_reg && !consumerKernel.direct_to_from_reg
+          && !producerKernel.half_lds && !consumerKernel.half_lds;
+
+    // Streaming path for the common large-1D CC decomposition.  Each fused
+    // consumer workgroup owns one consumer tile and reruns the direct-register
+    // producer for all producer tiles needed along the transposed FFT axis.
+    // The store rewrite below converts producer output coordinates directly to
+    // the consumer's row-major LDS tile.
+    const bool transposedStrideLayout
+        = producer->outStride.size() == 2 && consumer->inStride.size() == 2
+          && producer->outStride[1] == 1 && consumer->inStride[0] == 1
+          && producer->outStride[0] == consumer->length[0]
+          && consumer->inStride[1] == producer->outStride[0];
+    const bool streamingFusable
+        = !strictFusable && contract.edgeTilesComplete
+          && contract.fusedStreamingLdsFitsDevice
+          && producerKernel.direct_to_from_reg
+          && consumerKernel.workgroup_size >= producerKernel.workgroup_size
+          && producer->length[0] == consumer->length[1]
+          && producer->length[1] == consumer->length[0]
+          && contract.producerTilesRequiredPerConsumerTile
+                 == contract.producerTilesPerPlane
+          && transposedStrideLayout
+          && producer->largeTwdBase >= 8 && producer->ltwdSteps != 0
+          && (consumer->sbrcTranstype == TILE_ALIGNED
+              || consumer->sbrcTranstype == TILE_UNALIGNED);
+
+    if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
+    {
+        rocfft_cerr << "CCSBRC fusion [layout] producer_length=";
+        for(const auto value : producer->length)
+            rocfft_cerr << value << ",";
+        rocfft_cerr << " producer_output_length=";
+        for(const auto value : producer->GetOutputLength())
+            rocfft_cerr << value << ",";
+        rocfft_cerr << " producer_in_stride=";
+        for(const auto value : producer->inStride)
+            rocfft_cerr << value << ",";
+        rocfft_cerr << " producer_out_stride=";
+        for(const auto value : producer->outStride)
+            rocfft_cerr << value << ",";
+        rocfft_cerr << " consumer_length=";
+        for(const auto value : consumer->length)
+            rocfft_cerr << value << ",";
+        rocfft_cerr << " consumer_in_stride=";
+        for(const auto value : consumer->inStride)
+            rocfft_cerr << value << ",";
+        rocfft_cerr << " consumer_out_stride=";
+        for(const auto value : consumer->outStride)
+            rocfft_cerr << value << ",";
+        rocfft_cerr << std::endl;
+        rocfft_cerr << "CCSBRC fusion [fuse] strict="
+                    << (strictFusable ? "true" : "false")
+                    << " streaming=" << (streamingFusable ? "true" : "false")
+                    << " ownership=" << (contract.completeTileOwnership ? "true" : "false")
+                    << " edge=" << (contract.edgeTilesComplete ? "true" : "false")
+                    << " resident_lds=" << contract.fusedResidentLdsBytes
+                    << " buffer_connected="
+                    << (contract.producerConsumerBufferConnected ? "true" : "false")
+                    << " buffer_owned="
+                    << (contract.intermediateBufferOwnershipProven ? "true" : "false")
+                    << " external_rw=" << contract.intermediateBufferExternalReads << "/"
+                    << contract.intermediateBufferExternalWrites
+                    << " resident_lds_fits="
+                    << (contract.fusedResidentLdsFitsDevice ? "true" : "false")
+                    << " can_elide_global_handoff="
+                    << (contract.canElideGlobalHandoff ? "true" : "false")
+                    << " global_handoff="
+                    << (globalTileHandoff ? "true" : "false")
+                    << " streaming_lds=" << contract.fusedStreamingLdsBytes << "/"
+                    << (contract.fusedStreamingLdsFitsDevice ? "true" : "false")
+                    << " direct_reg="
+                    << (producerKernel.direct_to_from_reg ? "true" : "false") << "/"
+                    << (consumerKernel.direct_to_from_reg ? "true" : "false")
+                    << " wgs/tpb=" << producerKernel.workgroup_size << "/"
+                    << producerKernel.transforms_per_block << " -> "
+                    << consumerKernel.workgroup_size << "/"
+                    << consumerKernel.transforms_per_block
+                    << " tile_req/plane=" << contract.producerTilesRequiredPerConsumerTile
+                    << "/" << contract.producerTilesPerPlane
+                    << " width=" << contract.producerTileWidth << "/"
+                    << contract.consumerTileWidth
+                    << " ltwd=" << producer->largeTwdBase << "/" << producer->ltwdSteps
+                    << " transpose=" << static_cast<int>(consumer->sbrcTranstype)
+                    << std::endl;
+    }
+
+    if(!strictFusable && !streamingFusable)
+        return nullptr;
+
+    const bool streaming = streamingFusable;
+    // outStride is indexed by the kernel's internal length.  A transpose
+    // node may expose a different row-major outputLength, but that length
+    // must not be used to size the producer's physical handoff allocation.
+    const auto producerPhysicalLength
+        = producer->UseOutputLengthForPadding() ? producer->GetOutputLength()
+                                                : producer->length;
+    const size_t globalHandoffElements
+        = globalTileHandoff
+              ? compute_ptrdiff(producerPhysicalLength,
+                                producer->outStride,
+                                producer->batch,
+                                producer->oDist)
+              : 0;
+    if(globalTileHandoff && globalHandoffElements == 0)
+        return nullptr;
+
+    if(!PlacementFusable(producer->obIn, producer->obOut, consumer->obOut))
+        return nullptr;
+
+    auto fused = std::unique_ptr<FusedSBCCSBRCNode>(
+        new FusedSBCCSBRCNode(producer->parent, CS_KERNEL_STOCKHAM_BLOCK_CC));
+    fused->CopyNodeData(*producer);
+
+    // The fused leaf presents the producer input and consumer output to the
+    // executor while retaining each stage's own launch metadata.
+    fused->placement   = rocfft_placement_notinplace;
+    fused->inArrayType = producer->inArrayType;
+    fused->outArrayType = consumer->outArrayType;
+    fused->obIn        = producer->obIn;
+    fused->obOut       = consumer->obOut;
+    fused->inStride    = producer->inStride;
+    fused->iDist       = producer->iDist;
+    fused->outStride   = consumer->outStride;
+    fused->oDist       = consumer->oDist;
+    fused->outputLength = consumer->GetOutputLength();
+
+    fused->producerOutStride            = producer->outStride;
+    fused->producerOutputLength         = producer->GetOutputLength();
+    fused->producerODist                = producer->oDist;
+    fused->consumerLength              = consumer->length;
+    fused->consumerInStride            = consumer->inStride;
+    fused->consumerOutStride           = consumer->outStride;
+    fused->consumerIDist               = consumer->iDist;
+    fused->consumerODist               = consumer->oDist;
+    fused->consumerBatch               = consumer->batch;
+    fused->consumerKernelFactors       = consumerKernel.factors;
+    fused->consumerKernelKey           = consumer->GetKernelKey();
+    fused->consumerWgs                 = consumerKernel.workgroup_size;
+    fused->consumerBwd                 = consumerKernel.transforms_per_block;
+    fused->consumerThreadsPerTransform = consumerKernel.threads_per_transform[0];
+    fused->consumerAotRtc              = consumerKernel.aot_rtc;
+    fused->consumerDirectToFromReg     = consumerKernel.direct_to_from_reg;
+    fused->consumerUnitStride
+        = consumer->inStride.front() == 1 && consumer->outStride.front() == 1;
+    fused->consumerTransposeType = consumer->sbrcTranstype;
+
+    fused->producerWgs                 = producerKernel.workgroup_size;
+    fused->producerBwd                 = producerKernel.transforms_per_block;
+    fused->producerThreadsPerTransform = producerKernel.threads_per_transform[0];
+    fused->producerAotRtc              = producerKernel.aot_rtc;
+    fused->producerUnitStride
+        = producer->inStride.front() == 1 && producer->outStride.front() == 1;
+    fused->producerDirectToFromReg = producerKernel.direct_to_from_reg;
+    fused->producerHalfLds          = producerKernel.half_lds;
+    fused->producerDir2regMode      = producer->dir2regMode;
+    fused->producerIntrinsicMode   = producer->intrinsicMode;
+
+    // TreeNode does not expose LeafNode::lds through the base pointer, so
+    // derive the tile sizes from the selected kernel contracts.
+    const size_t producerTileLdsElements
+        = producer->length.front() * producerKernel.transforms_per_block;
+    const size_t complexBytes = complex_type_size(producer->precision);
+    const size_t producerScratchElements
+        = (contract.producerGrid.lds_bytes + complexBytes - 1) / complexBytes;
+    const size_t fusedStreamingElements
+        = ((contract.fusedStreamingLdsBytes + complexBytes - 1) / complexBytes)
+          * (producerKernel.half_lds ? 2 : 1);
+    // Streaming places the handoff tile after the producer scratch region.
+    fused->producerLdsElements = streaming ? producerScratchElements : producerTileLdsElements;
+    fused->fusedLdsElements
+        = streaming ? fusedStreamingElements : producerTileLdsElements;
+    fused->fusedWgs             = streaming ? consumerKernel.workgroup_size
+                                           : producerKernel.workgroup_size;
+    fused->streamingTileHandoff = streaming;
+    fused->producerTilesPerConsumerTile = contract.producerTilesRequiredPerConsumerTile;
+    fused->producerTileWidth            = contract.producerTileWidth;
+    fused->consumerTileWidth            = contract.consumerTileWidth;
+    fused->producerTilesPerPlane        = contract.producerTilesPerPlane;
+    fused->consumerTilesPerPlane        = contract.consumerTilesPerPlane;
+    fused->fusedGrid                    = contract.consumerGrid;
+    fused->fusedLdsBytes
+        = streaming ? contract.fusedStreamingLdsBytes : contract.fusedResidentLdsBytes;
+
+    fused->globalTileHandoff     = globalTileHandoff;
+    fused->globalHandoffElements = globalHandoffElements;
+
+    fused->kernelFactors = producerKernel.factors;
+    fused->wgs           = producerKernel.workgroup_size;
+    fused->bwd           = producerKernel.transforms_per_block;
+    fused->lds           = fused->fusedLdsElements;
+    fused->dir2regMode   = streaming ? producer->dir2regMode
+                                     : DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
+    fused->intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+    fused->sbrcTranstype = consumer->sbrcTranstype;
+    if(producer->specified_key)
+        fused->specified_key = std::make_unique<FMKey>(*producer->specified_key);
+
+    fused->comments.push_back(
+        "CCSBRCFuseShim: fused SBCC producer and SBRC consumer with an LDS tile handoff");
+    if(globalTileHandoff)
+    {
+        fused->comments.push_back(
+            "CCSBRCFuseShim: producer output and consumer input use a planner global handoff buffer");
+        fused->comments.push_back("CCSBRCFuseShim: global handoff elements="
+                                  + std::to_string(globalHandoffElements));
+    }
+    else
+    {
+        fused->comments.push_back(
+            "CCSBRCFuseShim: producer global store and consumer global load removed");
+    }
+    if(streaming)
+        fused->comments.push_back(
+            "CCSBRCFuseShim: producer tile loop remaps block id and streams selected transpose rows into consumer LDS");
+
+    // Keep the contract useful for planner diagnostics until the tree is
+    // refreshed after the replacement.
+    owner->tileLifetime->fusedKernelAvailable = true;
+    owner->tileLifetime->globalHandoffRequired = globalTileHandoff;
+    owner->tileLifetime->status = globalTileHandoff
+                                      ? TileLifetimeStatus::GLOBAL_HANDOFF_REQUIRED
+                                      : TileLifetimeStatus::LDS_HANDOFF_ELIGIBLE;
+    owner->tileLifetime->reason
+        = globalTileHandoff
+              ? "fused SBCC -> SBRC kernel selected with planner global handoff buffer"
+              : (streaming ? "streaming SBCC -> SBRC fused RTC kernel selected"
+                           : "strict SBCC -> SBRC fused RTC kernel selected");
+
+    return fused;
 }
 
 // if the in/out buffer meets the placement requirement

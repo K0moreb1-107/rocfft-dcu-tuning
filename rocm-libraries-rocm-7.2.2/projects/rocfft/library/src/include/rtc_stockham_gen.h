@@ -31,6 +31,8 @@
 
 #include "../device/kernels/common.h"
 
+class FusedSBCCSBRCNode;
+
 // generate name for RTC stockham kernel
 std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
                                      const StockhamGeneratorSpecs&    specs2d,
@@ -80,5 +82,12 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
                          const PartialPassType&           ppType,
                          const std::optional<LoadOps>&    loadOps,
                          const std::optional<StoreOps>&   storeOps);
+
+// Generate the strict SBCC -> SBRC fused kernel.  Both stages execute in
+// one workgroup and share the producer LDS tile across a barrier.
+std::string fused_stockham_rtc_kernel_name(const FusedSBCCSBRCNode& node);
+
+std::string fused_stockham_rtc(const FusedSBCCSBRCNode& node,
+                               const std::string&         kernel_name);
 
 #endif

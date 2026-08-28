@@ -556,6 +556,8 @@ std::unique_ptr<FuseShim> NodeFactory::CreateFuseShim(FuseType                  
         return std::unique_ptr<TransC2R_FuseShim>(new TransC2R_FuseShim(components, type));
     case FT_STOCKHAM_R2C_TRANSPOSE:
         return std::unique_ptr<STK_R2CTrans_FuseShim>(new STK_R2CTrans_FuseShim(components, type));
+    case FT_STOCKHAM_CC_WITH_RC:
+        return std::unique_ptr<CCSBRCFuseShim>(new CCSBRCFuseShim(components, type));
     default:
         throw std::runtime_error("FuseType assertion failed, type not implemented");
         return nullptr;
