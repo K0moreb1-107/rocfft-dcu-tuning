@@ -98,6 +98,6 @@ sbcc_kernels = [
     # list_large_kernels doubles WGS for half-LDS, giving DP an actual WGS of 256.
     NS(length=1024, factors=[8, 8, 4, 4], use_3steps_large_twd={
         'sp': 'true', 'dp': 'false'}, workgroup_size=128,
-        threads_per_transform=128, half_lds=True, half_lds_precision=['dp'],
+        threads_per_transform=64, half_lds=True, half_lds_precision=['dp'],
         runtime_compile=True),
 ]
