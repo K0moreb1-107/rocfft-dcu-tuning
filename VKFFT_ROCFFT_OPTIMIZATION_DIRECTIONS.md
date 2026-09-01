@@ -994,3 +994,18 @@ barrier，则 shuffle 不能消除该 LDS 往返；若混合路径增加分支/�
 `__shfl` 替换整个边界，也不能改变 transform ownership。该实验的输出必须
 包含静态映射日志；只有在存在完整同 wave 边界且可验证时才进入 build 和
 correctness。
+
+### EXP-061：1D partial-pass continuation 与 SBCC/SBRC handoff（计划）
+
+起始提交：`e6d30d7769b1d1e4c85994e546ca776796a8e3fd`，目标是 512K DP z2z、
+batch=1000、`-N 10`。本实验从实际 planner/tree 和 RTC generator 代码验证
+“SBCC 最后一个 pass + SBRC 第一个 pass”是否存在非冗余的 1D continuation
+契约。
+
+检查重点是：1D `CC1DNode::BuildTree_internal` 是否能创建带 partial-pass
+参数的子节点；partial-pass kernel 是否能直接消费前一 1D leaf 的输出；以及
+在不复制 producer、不增加全局同步的前提下，是否能减少真实 global handoff。
+如果现有 partial-pass API 只服务 3D/off-dimension 路径，或 1D ownership
+仍要求一个 SBRC tile 读取多个 SBCC workgroups 的结果，则实现一个静态
+ownership/byte-accounting probe，并把源码级否证作为结果，不修改普通 1D
+planner。禁止重做此前会复制 producer 的完整 fusion。
