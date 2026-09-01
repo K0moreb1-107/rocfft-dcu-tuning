@@ -493,7 +493,7 @@ PMC 未继续提交，因为 correctness 虽通过，但 kernel 时间已稳定�
 - 实验前稳定源码：`1ea41d1977135f9525d140463e09da72fffc826e`（`rocfft-opt-pre-tile-lifetime`）。
 - 本轮分析源码状态：`e5c705891e561b32457b611958206ea5ac173f5a`。该提交相对稳定源码只修正文档编码，rocFFT 源码相同。
 - 实验前标签：`pre-exp-007-partial-pass-ownership-20260901`。
-- 实验记录提交：待本节与静态模型首次提交后补录。
+- 实验工件提交：`2bea0ff3f191fff9a4e1e47bc6ca37b7b5cfae11`（静态模型、完整 EXP-007 记录和 `agents.me`）。
 - 目标：DP z2z、batch 1000、`-N 10`，长度 64K、128K、256K、512K；设备、profile 命令和 canonical 时间口径遵守 `agents.me`。
 - 新增分析工具：`partial_pass_tile_ownership.py`。输入是实际 plan log 中的 length、stride、factor、WGS、`trans_per_block` 和 GridParams，不从 kernel 名称反推配置。
 - rocFFT kernel、planner 和 generator 均未修改，因此本轮不产生新的可执行优化，也不把任何计时差异归因于 EXP-007。
