@@ -344,6 +344,17 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return ebtype == EmbeddedType::NONE ? Literal{0} : Literal{1};
     }
 
+    unsigned int lds_address_stage = 0;
+
+    bool use_stage_aware_xor() const
+    {
+        return half_lds && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double && length == 1024
+               && workgroup_size == 256 && threads_per_transform == 64
+               && transforms_per_block == 4
+               && factors == std::vector<unsigned int>{8, 8, 4, 4};
+    }
+
     Expression lds_address(const Expression& index) const
     {
         if(half_lds && precisions.size() == 1
@@ -353,7 +364,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             // Match the folded bit to the Stockham group stride.
             if(length == 512)
                 return Literal{"((" + addr + ") ^ ((" + addr + ") >> 4))"};
-            if(length == 1024)
+            if(length == 1024 && (!use_stage_aware_xor() || lds_address_stage == 0))
                 return Literal{"((" + addr + ") ^ ((" + addr + ") >> 6))"};
         }
         return index;
@@ -401,6 +412,46 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                 work += Assign{t, R[lhs]};
                 work += Assign{R[lhs], R[rhs]};
                 work += Assign{R[rhs], t};
+            }
+        }
+        return work;
+    }
+
+    bool use_wave_local_exchange(unsigned int npass) const
+    {
+        return half_lds && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double && length == 1024
+               && workgroup_size == 256 && threads_per_transform == 64
+               && transforms_per_block == 4
+               && factors == std::vector<unsigned int>{8, 8, 4, 4} && npass == 1;
+    }
+
+    StatementList wave_local_exchange(unsigned int npass)
+    {
+        StatementList work;
+        if(!use_wave_local_exchange(npass))
+            return work;
+
+        work += CommentLines{
+            "wave-local Stockham exchange: pass 1 store/load stays within each wave"};
+        for(unsigned int h = 0; h < 4; ++h)
+        {
+            for(unsigned int w = 0; w < 4; ++w)
+            {
+                const auto target_b = "(" + thread.render() + " + "
+                                      + std::to_string(h * 64 + w * 256) + ")";
+                const auto source_lane = "(((((" + target_b + " % 512) % 64) * 4 + ("
+                                         + thread_id.render() + " % 4)) & 63)";
+                const auto source_reg = "((" + target_b + " / 512) * 8 + ("
+                                        + target_b + " % 512) / 64)";
+                work += Assign{
+                    R[h * 4 + w].x(),
+                    CallExpr{"__shfl", {}, {Literal{"R[" + source_reg + "].x()"},
+                                             Literal{source_lane}, Literal{"64"}}}};
+                work += Assign{
+                    R[h * 4 + w].y(),
+                    CallExpr{"__shfl", {}, {Literal{"R[" + source_reg + "].y()"},
+                                             Literal{source_lane}, Literal{"64"}}}};
             }
         }
         return work;
@@ -669,6 +720,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
         auto load_lds = std::mem_fn(&StockhamKernel::load_lds_generator);
         // first pass of load (full)
+        lds_address_stage = 0;
         unsigned int width  = factors[0];
         float        height = static_cast<float>(length) / width / threads_per_transform;
         body += If{lds_reg_sync, sync_threads()};
@@ -698,6 +750,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
         auto store_lds = std::mem_fn(&StockhamKernel::store_lds_generator);
         // last pass of store (full)
+        lds_address_stage = factors.size() - 1;
         unsigned int width     = factors.back();
         float        height    = static_cast<float>(length) / width / threads_per_transform;
         unsigned int cumheight = product(factors.begin(), factors.end() - 1);
@@ -732,6 +785,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
         for(unsigned int npass = 0; npass < factors.size(); ++npass)
         {
+            lds_address_stage = npass;
             // width is the butterfly width, Radix-n.
             unsigned int width = factors[npass];
             // height is how many butterflies per thread will do on average
@@ -786,7 +840,11 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             // internal lds store (half-with-linear and full-with-linear/nonlinear)
             StatementList reg2lds_full;
             StatementList reg2lds_half;
-            if(npass < factors.size() - 1 && use_register_local_exchange(npass))
+            if(npass < factors.size() - 1 && use_wave_local_exchange(npass))
+            {
+                body += wave_local_exchange(npass);
+            }
+            else if(npass < factors.size() - 1 && use_register_local_exchange(npass))
             {
                 body += register_local_exchange(npass);
             }
