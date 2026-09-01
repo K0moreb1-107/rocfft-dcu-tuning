@@ -907,3 +907,51 @@ row-data LDS。当前 half-LDS row-data 占用 32768 B；base-8/3-step 表为
 且 RTC 源码必须同时确认 late upload 和 LDS LUT 读取。若 correctness 失败、
 plan 不命中或时间回归超过测量噪声，保留分支和证据并回滚；只有稳定收益
 才研究 64K/128K/256K 的独立 gate。
+
+#### EXP-057 实测收尾
+
+实验源码提交：`4cb4a9e216a6c13454dcd24b01c2836e17638770`，分支
+`exp-057-late-large-twiddle`。实际只修改
+`device/generator/stockham_gen_cc.h`：目标 SBCC-1024 的最终 Stockham
+pass 之后，复用已经死亡的 row-data LDS 起始区域，协作上传 base-8、
+3-step large-twiddle 表；没有增加动态 LDS 分配。
+
+构建任务 `798544` 完成。正确性任务 `798548`、诊断任务 `798559` 均完成，
+结果为 `relative_l2=6.645150e-16`、`relative_max=9.451432e-16`、
+`max_abs=3.551690e-12`。诊断 plan 确认目标仍为 SBCC-1024 `[8,8,4,4]`、
+WGS=256、TPT=64、half-LDS、dynamic LDS=32768 B；SBRC-512 保持原路径。
+RTC 生成源码在 `logs/exp057_rtc_diag.log` 中确认了独立的 global LUT 上传源、
+reused LDS pointer 和最终 pass 后的两次 block barrier。
+
+标准 benchmark 任务 `798553` 和重复任务 `798565` 的原始 CSV 为：
+
+- `results/z2z_512k_b1000_exp057_late_lds_20260901_225824.csv.hipkernel.csv`
+- `results/z2z_512k_b1000_exp057_late_lds_repeat_20260901_230823.csv.hipkernel.csv`
+
+按 `agents.me` 的 `TotalDurationNs` 公式，随机输入 kernel 已排除，
+`N=10` 用 `11` 除：
+
+| run | T_compute_ms | vs EXP-055 `39.479096727 ms` | vs fixed baseline `70.509517909 ms` |
+|---|---:|---:|---:|
+| `798553` | `39.081512727` | `1.010173199x`, `+1.007075%` | `1.804165525x`, `+44.572713%` |
+| `798565` | `39.086885273` | `1.010034349x`, `+0.993466%` | `1.803917540x`, `+44.565094%` |
+
+kernel 拆分显示收益集中在 SBCC-1024：首轮为 `21.531336727 ms`，重复为
+`21.530016091 ms`；SBRC-512 分别为 `17.547426909 ms` 和
+`17.554003727 ms`，处于测量波动范围。
+
+PMC 文件为 `results/pmcall_524288_exp057_late_lds.csv`，对应的目标 kernel
+计数（两次采样结构一致）为：SBCC `arch_vgpr=216`、
+`SQ_INSTS_LDS=74752000`、`SQ_INSTS_VALU=601600000`、
+`SQ_INSTS_VMEM_RD=20992000`、`SQ_INSTS_VMEM_WR=8192000`、
+`SQ_LDS_BANK_CONFLICT=241876000`；SBRC 为 `64`、`73728000`、
+`540672000`、`29696000`、`8192000`、`458752000`。与前一版 PMC
+`results/pmcall_524288_crosswave.csv` 的同名 SBCC 对照为
+VGPR `136 -> 216`、LDS `65536000 -> 74752000`、VALU
+`594944000 -> 601600000`、VMEM read `26112000 -> 20992000`、
+bank conflict `196608000 -> 241876000`。因此本实验的事实结论是：
+减少 LUT global read 的收益被额外 LDS 访问、地址/同步开销和显著更高的
+VGPR 部分抵消，端到端净收益约 1%，不能宣称是纯粹的访存优化。
+
+决策：512K 上保留为候选实验提交；由于 gate 精确限制为 `[8,8,4,4]` 的
+512K SBCC，64K/128K/256K 尚未改变源码路径，后续必须完成四规模 correctness
