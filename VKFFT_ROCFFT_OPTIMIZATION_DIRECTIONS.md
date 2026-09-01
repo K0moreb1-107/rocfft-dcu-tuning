@@ -1035,3 +1035,26 @@ producer/consumer 契约。
 kernel，不进行伪 benchmark；EXP-061 作为源码级否证完成，后续若继续，
 必须先设计新的 1D tile ownership 和 global layout，而不是复用现有 3D
 partial-pass API。
+
+### 最终稳定版本复核（2026-09-02）
+
+收尾时稳定分支 `rocfft-opt-pre-tile-lifetime` 的 rocFFT 源码与
+`9218fe1e11570ce0d29ebad777873930fe5de278` 完全一致；稳定构建任务为
+`798743`，四规模标准 `runall.sh` 任务为 `798744`。本次只确认已经保留的
+EXP-057 路径，没有引入 EXP-058 至 EXP-061 的失败实验源码。
+
+| length | raw CSV | T_compute_ms | speedup vs fixed official baseline |
+|---:|---|---:|---:|
+| 64K | `results/z2z_64k_tuning_20260902_021037.csv.hipkernel.csv` | `3.636654182` | `1.026354x` (`+2.5677%`) |
+| 128K | `results/z2z_128k_tuning_20260902_021037.csv.hipkernel.csv` | `7.932508455` | `1.128880x` (`+11.4166%`) |
+| 256K | `results/z2z_256k_tuning_20260902_021037.csv.hipkernel.csv` | `18.145020727` | `1.066982x` (`+6.2777%`) |
+| 512K | `results/z2z_512k_tuning_20260902_021037.csv.hipkernel.csv` | `39.087328909` | `1.803897x` (`+44.5645%`) |
+
+时间均按 `TotalDurationNs` 减去 `generate_random_interleaved_data_kernel`，
+再除以 `11` 计算；这是 hipprof GPU-kernel 时间，不包含 host launch 和
+其它未 profile 的运行时开销。四规模 z2z correctness 未在本次 runall 中
+重复执行；512K 稳定版本 correctness 已由 EXP-057/EXP-058 的
+`relative_l2`、`relative_max` 和 `max_abs` 结果覆盖。
+
+稳定分支当前应保持 EXP-057 的源码版本；EXP-058、EXP-059、EXP-060、
+EXP-061 分支和标签仅作为失败/否证实验档案，不合并。
