@@ -482,3 +482,354 @@ PMC 未继续提交，因为 correctness 虽通过，但 kernel 时间已稳定�
 #### 实验顺序与退出条件
 
 先验证 2048x256；若生成器或资源限制使其不可行，保留源码不变并记录失败原因。之后依次单独验证 DP large-twiddle base-6、布局感知写回和 partial-pass 的最小原型。每个方向按 correctness -> 512K benchmark -> PMC -> 256K/128K/64K 扩展验证；若 512K 回归超过测量噪声或任一规模 correctness 失败，回退该条修改。无约束 WGS/TPT/radix 穷举、默认 radix-16、整表搬入 LDS 和无条件 tile fusion 不列入本轮实验。
+
+### EXP-007：1D partial-pass 的 tile ownership 静态模型（已完成，未提交 kernel 原型）
+
+日期：2026-09-01。
+
+#### 1. 实验身份与边界
+
+- 分支：`exp-007-partial-pass-ownership`。
+- 实验前稳定源码：`1ea41d1977135f9525d140463e09da72fffc826e`（`rocfft-opt-pre-tile-lifetime`）。
+- 本轮分析源码状态：`e5c705891e561b32457b611958206ea5ac173f5a`。该提交相对稳定源码只修正文档编码，rocFFT 源码相同。
+- 实验前标签：`pre-exp-007-partial-pass-ownership-20260901`。
+- 实验工件提交：`2bea0ff3f191fff9a4e1e47bc6ca37b7b5cfae11`（静态模型、完整 EXP-007 记录和 `agents.me`）。
+- 目标：DP z2z、batch 1000、`-N 10`，长度 64K、128K、256K、512K；设备、profile 命令和 canonical 时间口径遵守 `agents.me`。
+- 新增分析工具：`partial_pass_tile_ownership.py`。输入是实际 plan log 中的 length、stride、factor、WGS、`trans_per_block` 和 GridParams，不从 kernel 名称反推配置。
+- rocFFT kernel、planner 和 generator 均未修改，因此本轮不产生新的可执行优化，也不把任何计时差异归因于 EXP-007。
+
+本轮要回答的问题不是“两个 kernel 能否在语法上拼到一起”，而是：在不重复计算 producer、不依赖跨 workgroup 同步的前提下，现有 SBCC workgroup 输出的数据是否足以让某个现有 SBRC workgroup 继续完成至少一个 Stockham pass，并最终消除两者之间的 N 元素 global handoff。
+
+#### 2. 中间布局与 ownership 定义
+
+依据当前 `CC1DNode::AssignParams_internal()`，令 producer 长度为 `[K,M]`。SBCC 输出 stride 为 `[M,1]`，SBRC 输入的逻辑视图 stride 为 `[1,M]`。同一个物理元素可写成：
+
+```text
+producer: H_P[q,a]
+consumer: H_C[a,q]
+physical address = q*M + a
+```
+
+这里 `q in [0,K)`、`a in [0,M)`。因此转置是 producer/consumer 对同一物理矩阵的不同逻辑视图，并不是一个 producer tile 与一个 consumer tile 的一一重命名。
+
+如果 plan 中 SBCC 的 `trans_per_block=P`，一个 producer workgroup 拥有 `K x P` 的竖条；如果 SBRC 的 `trans_per_block=C`，一个 consumer workgroup 需要 `C x M` 的横条。两者通常只在 `C x P` 的小矩形上相交。完整 ownership 关系如下：
+
+| N | producer `[K,M]` | producer tile 数 | consumer tile 数 | producer-consumer 相交边数 |
+|---:|---:|---:|---:|---:|
+| 64K | `[256,256]` | 32 | 32 | 1,024 |
+| 128K | `[256,512]` | 64 | 64 | 4,096 |
+| 256K | `[512,512]` | 128 | 128 | 16,384 |
+| 512K | `[1024,512]` | 128 | 256 | 32,768 |
+
+四个规模都是 many-to-many Cartesian handoff：每个完整 consumer tile 依赖所有 producer tiles，每个 producer tile 的结果又会被所有 consumer tiles 分片使用。因此，简单地把“一个现有 SBCC workgroup”和“一个现有 SBRC workgroup”配成一个 fused workgroup，无法获得完整输入 ownership。
+
+#### 3. Consumer-prefix 精确依赖
+
+模型按 SBRC 的实际 Stockham factor 前缀枚举依赖，而不是假设首个 radix 消费相邻列。若 consumer 长度为 `M`，前缀 radix 乘积为 `S`，一个前缀 group 的输入列间距为 `M/S`。
+
+512K 的 consumer 是 SBRC-512 `[8,8,8]`。首个 radix-8 group 实际读取：
+
+```text
+a = [0, 64, 128, 192, 256, 320, 384, 448]
+```
+
+这八列分别来自八个不同的 SBCC producer tiles，不是一个 tile 中的八个相邻 transform。四规模的首个 consumer pass 静态资源筛选为：
+
+| N | 首个 prefix | owner 需计算的 producer transforms | 按当前 producer TPT 的 WGS | producer 输出 live set（complex/scalar） | 保留当前连续 producer 宽度时的 WGS |
+|---:|---:|---:|---:|---:|---:|
+| 64K | radix-4 | 4 | 128 | 16/8 KiB | 1,024 |
+| 128K | radix-8 | 8 | 256 | 32/16 KiB | 2,048 |
+| 256K | radix-8 | 8 | 512 | 64/32 KiB | 2,048 |
+| 512K | radix-8 | 8 | 512 | 128/64 KiB | 2,048 |
+
+表中的“WGS 可容纳”只是必要条件，不是可实现性或性能证明。尤其在 512K 中，WGS=512 的 owner 必须从八个相隔 64 列的 producer transforms 收集数据，破坏当前 SBCC 每个 block 连续处理四列的 ownership 和 global access 方式；若同时保留该连续宽度，则需要 32 个 producer transforms、估算 WGS=2048，超过当前 1024 的硬筛选上限。
+
+更重要的是，执行首个 radix 后仍剩余 consumer factors。结果必须写到某个跨 workgroup 可见的位置，再由 continuation kernel 继续，所以 N 元素级 inter-kernel handoff 仍存在，只是中间状态的布局和边界发生变化。对当前“消除 SBCC→SBRC global store/load”的目标，移动一个不完整 prefix 不足以成立。
+
+在“完整 producer 之后接 consumer prefix”的模型中，只有完成整个 consumer prefix 才能在同一个 owner 内结束第二维 FFT并真正消除当前 handoff。四规模对应的当前-TPT WGS 下界分别为 8192、16384、32768、32768；producer 输出 complex live set 分别为 1、2、4、8 MiB，均远超单 workgroup 的 WGS/LDS 资源范围。该结论否定的是“沿用当前完整 producer 计算和现有 workgroup 粒度的直接融合”，不是对所有新分解、跨 kernel partial-state 协议或不同 ownership 算法的普遍不可能性证明。
+
+#### 4. 与历史 tile-lifetime 实现的区别
+
+历史提交 `b64aaedd0b3df7cded280b0d42e382193ea3c678` 已经遇到同一个 Cartesian ownership 问题。`logs/exp017_plan.log` 对 512K 明确记录：
+
+```text
+producer tiles per plane: 128
+consumer tiles per plane: 256
+producer tiles required per consumer tile: 128
+cross-stage tile pairs: 32768
+requires producer tile replication: true
+```
+
+该提交的 `rtc_stockham_gen.cpp` 在每个 `consumer_block_id` 内执行：
+
+```text
+for producer_tile_id in [0, producerTilesPerConsumerTile):
+    remap producer_block_id
+    rerun producer_global.body
+```
+
+因此每个 consumer workgroup 都重跑全部 128 个 producer tiles；256 个 consumer workgroups 共执行 32768 次 producer tile，而原计划每 batch 只执行 128 个 producer tiles。也就是每个原 producer tile 被不同 consumer owners 重算 256 次。它通过计算复制换取局部 handoff，不是非冗余的 partial-pass ownership，源码结构本身已经解释了该方向为何性能很差。
+
+本轮模型与旧实现的实质区别是先建立 producer/consumer 的静态依赖图，并把“不允许 producer 重算”作为约束；它没有再次实现同一 fused loop。结果表明，在该约束下，现有 tile 粒度不能直接完成 handoff。
+
+#### 5. rocFFT 现有 partial-pass 不能直接复用的原因
+
+当前源码确实已有 `stockham_pp_gen_cc.h`、`stockham_pp_gen_rr.h` 和 `stockham_gen.cpp` 的 partial-pass 支持，但其调用来自 `tree_node_3D.cpp`。代码契约依赖 `parent_length`、off-dimension、两组 partial-pass factors 和成对 kernel；`stockham_pp_gen_cc.h` 还明确列出 `factors_pp.size() > 1` 尚待支持，并拒绝 x/z off-dimension。当前没有普通 1D `CC1DNode` 的 SBCC→SBRC ownership/continuation contract。因此，“rocFFT 已有 partial-pass”只能证明生成器有局部机制基础，不能证明当前 1D CC handoff 已经可用。
+
+#### 6. 计划、任务和性能记录
+
+plan/capture 任务均完成且退出码为 0：64K `797706`、128K `797711`、256K `797713`、512K `797716`。plan 原始记录：
+
+```text
+logs/exp007_plan_65536.log
+logs/exp007_plan_131072.log
+logs/exp007_plan_262144.log
+logs/exp007_plan_524288.log
+```
+
+静态模型完整输出：`logs/exp007_ownership_model_final_20260901.log`。capture CSV 与 `agents.me` 的 fixed baseline 按同一公式计算：
+
+| N | fixed baseline `T_compute_ms` | stable capture `T_compute_ms` | baseline/capture | 相对 baseline 改善 |
+|---:|---:|---:|---:|---:|
+| 64K | 3.732493091 | 3.635459818 | 1.026690784x | 2.599691% |
+| 128K | 8.954852000 | 7.929874818 | 1.129255153x | 11.446054% |
+| 256K | 19.360417545 | 18.148907182 | 1.066753902x | 6.257667% |
+| 512K | 70.509517909 | 40.647207727 | 1.734670642x | 42.352169% |
+
+capture 文件：
+
+```text
+results/z2z_64k_b1000_exp007_plan_64k_20260901_162327.csv.hipkernel.csv
+results/z2z_128k_b1000_exp007_plan_128k_20260901_162435.csv.hipkernel.csv
+results/z2z_256k_b1000_exp007_plan_256k_20260901_162516.csv.hipkernel.csv
+results/z2z_512k_b1000_exp007_plan_512k_20260901_162556.csv.hipkernel.csv
+```
+
+这些 capture 测的是 EXP-007 开始前已经存在的稳定可执行版本。由于 EXP-007 没有修改可执行源码，`speedup_prev=1.000000x`、`improvement_prev=0.000000%` 是源码身份关系，不是一次新优化的实测收益；表中相对 fixed baseline 的差异属于此前保留优化和测量环境的综合结果，不能归因于静态 ownership 模型。
+
+correctness：不适用。本轮没有新 kernel、planner、RTC 代码或安装产物，因而没有可与前一版本区别的 FFT correctness 对象；不冒充提交一次未改变二进制的 correctness 为新算法验证。静态工具已通过远端 `python3 -m py_compile partial_pass_tile_ownership.py`，四份 plan 均通过尺寸、stride、factor 乘积、grid block、WGS 和 `trans_per_block` 一致性检查。PMC：不适用，原因相同。
+
+#### 7. 决策
+
+1. **否定**“一个现有 SBCC producer tile 对一个现有 SBRC consumer tile”的简单融合；四个目标规模都有 many-to-many ownership。
+2. **不再采用**历史实现中“一个 consumer owner 重算全部 producer tiles”的方案；它用 256 倍 producer tile 执行次数换取 512K 的局部 handoff。
+3. **不把所有 partial-pass 算法判为无效**。改变 Cooley-Tukey 分解、输出 partial state、引入新的 continuation layout 或重新定义 tile owner，可能形成不同算法，但必须重新证明非冗余 ownership、global traffic 和资源上界。
+4. 首个 consumer pass relocation 在四规模上通过单纯 WGS 筛选，但不能消除 N 元素 inter-kernel handoff，并会引入 strided producer ownership；除非后续先给出能减少总 global bytes/transactions 的新 continuation contract，否则不进入代码实现。
+
+最终结论：EXP-007 是一次可证伪的结构筛选，不是性能优化。它关闭了“沿用现有 SBCC/SBRC workgroup 直接做 non-redundant partial-pass fusion”这条实现路径，同时保留对真正改变分解与 ownership 的算法设计空间。
+
+### EXP-052：512K z2z 的 2048x256 Cooley-Tukey 边界（已完成，回滚）
+
+日期：2026-09-01。
+
+#### 实验身份
+
+- 分支：`exp-052-cc-2048x256`。
+- 起始提交：`e0e9e8e084d6ad24cab721eda60a9b09fb39fe24`；其 rocFFT 源码与当前有效源码 `1ea41d1977135f9525d140463e09da72fffc826e` 相同。
+- 实验前标签：`pre-exp-052-cc-2048x256-20260901`。
+- 实验源码提交：`6651a38b7e7e1075a0a52db7754d964a6f2b5492`。
+- 前一有效版本 canonical 时间：64K `3.635459818 ms`、128K `7.929874818 ms`、256K `18.148907182 ms`、512K `40.647207727 ms`。这些值来自 EXP-007 对未改动稳定安装的标准 capture。
+- 本轮使用编号 052，是因为 Git 历史中的旧主分支已经保存 EXP-001 至 EXP-051；不复用旧编号。
+
+#### 假设与单变量设计
+
+512K DP 当前使用 `SBCC-1024 + SBRC-512`。本轮改为 `SBCC-2048 + SBRC-256`，检验改变 Cooley-Tukey 分解边界能否改善两个 kernel 的计算/访存平衡。kernel 数量和 N 元素 global intermediate 不变，因此若有收益，应来自局部 FFT 深度、tile 形状、consumer 列宽、large-twiddle 地址分布或两个阶段负载平衡，而不是减少 launch 或 global 读写次数。
+
+为避免把参数枚举混入结构实验，SBCC-2048 采用与稳定 SBCC-1024 等价的资源尺度：
+
+```text
+stable SBCC-1024: WGS=256, TPT=64,  TPB=4, 1024/64=16 complex/thread,
+                  DP scalar half-LDS = 1024*4*8 = 32768 B
+EXP-052 SBCC-2048: WGS=256, TPT=128, TPB=2, 2048/128=16 complex/thread,
+                   DP scalar half-LDS = 2048*2*8 = 32768 B
+```
+
+新 factorization 固定为 `[8,8,8,4]`，只使用最大 radix-8；DP 保持 half-LDS、direct-to/from-register 和 base-8 large-twiddle 路径。producer 每 batch 的预计 workgroup 数仍为 `512/4 = 256/2 = 128`。不同时改变 XOR、recurrence、WGS=256 或其它已保留机制。
+
+#### 源码修改
+
+1. `library/src/node_factory.cpp`：把 double 512K 的 CC 分解项从 `{524288,1024}` 改为 `{524288,2048}`。
+2. `library/src/device/kernels/configs/config_sbcc.py`：增加 DP SBCC-2048 `[8,8,8,4]`、基础 WGS=128、TPT=128、half-LDS、RTC 配置；large-kernel 生成过程对 DP half-LDS 将实际 WGS 扩为 256。
+3. `agents.me` 的测量定义不变。
+
+`config_sbcc.py` 已通过远端 `python3 -m py_compile`，两处源码通过 `git diff --check`。
+
+#### 构建、plan 与 correctness
+
+- 构建任务 `798018`，状态 `COMPLETED`、退出码 `0:0`，耗时 `00:05:30`；rocFFT 和 hipFFT 均成功安装。
+- correctness/plan 任务 `798036`，状态 `COMPLETED`、退出码 `0:0`。
+- plan 原始文件：`logs/exp052_plan_512k.log`。实际命中 SBCC-2048 `[8,8,8,4]`、WGS=256、TPB=2、32768 B LDS、base-8/3-step；SBRC-256 `[4,4,4,4]`、WGS=256、TPB=8、32768 B LDS。producer/consumer grid 分别为 128/256 blocks per batch，符合设计。
+- correctness：`relative_l2=6.610588e-16`、`relative_max=1.056702e-15`、`max_abs=3.970911e-12`，通过。
+
+#### 标准性能结果
+
+主 benchmark 任务 `798038`：
+
+```text
+results/z2z_512k_b1000_exp052_cc2048x256_20260901_182158.csv.hipkernel.csv
+T_compute_ms = 42.914154182
+speedup_prev = 0.947174854x
+improvement_prev = -5.577127%
+speedup_baseline = 1.643036412x
+improvement_baseline = 39.137076%
+```
+
+重复任务 `798042`：
+
+```text
+results/z2z_512k_b1000_exp052_cc2048x256_repeat_20260901_182416.csv.hipkernel.csv
+T_compute_ms = 42.948510818
+speedup_prev = 0.946417162x
+improvement_prev = -5.661651%
+```
+
+两次结果一致，回归明显超过运行噪声。按每次 FFT 的 kernel `TotalDurationNs/11` 拆分：
+
+| kernel stage | 前一有效版本 | EXP-052 | 变化 |
+|---|---:|---:|---:|
+| SBCC producer | 23.090815273 ms（1024） | 27.722818273 ms（2048） | +4.632003000 ms，+20.059937% |
+| SBRC consumer | 17.553483364 ms（512） | 15.188485000 ms（256） | -2.364998364 ms，-13.473100% |
+
+分解边界确实减轻了 consumer，但 producer 的额外局部 pass、地址/交换工作和更长 2048 点 tile 造成的代价更大，净增加约 `2.267005 ms`。当前证据不能把各微观来源进一步分离，但已足以否定该固定资源等价配置的整体收益。
+
+#### 决策与回滚
+
+决策：回滚。512K correctness 虽通过，但两次 canonical 性能均稳定回归约 5.6%。根据预先退出条件，不继续 PMC，也不运行 64K/128K/256K 性能任务；这三个规模的分解表未修改，新增 2048 配置不会被其 plan 使用，不能将未运行结果写成跨规模收益。
+
+`node_factory.cpp` 的 512K 项已恢复为 `{524288,1024}`，并删除实验性 SBCC-2048 配置。失败源码提交保留在 `exp-052-cc-2048x256` 历史中；结果记录与源码回滚提交为 `0e809e7f5e70a431c4d8a51b5525829d5012265b`。后续 EXP-053 从有效源码重新建立，不继承本实验的 2048x256 改动。
+
+### EXP-053：512K DP large-twiddle base-6 四步与 LDS LUT（已完成，回滚）
+
+日期：2026-09-01。
+
+#### 实验身份与前一版本
+
+- 分支：`exp-053-large-twiddle-base6`。
+- 起始提交：`e0e9e8e084d6ad24cab721eda60a9b09fb39fe24`；rocFFT 源码与有效提交 `1ea41d1977135f9525d140463e09da72fffc826e` 相同。
+- 实验前标签：`pre-exp-053-large-twiddle-base6-20260901`。
+- 前一有效 512K canonical 时间：`40.647207727 ms`，来自 `results/z2z_512k_b1000_exp007_plan_512k_20260901_162556.csv.hipkernel.csv`。
+- fixed official 7.2.2 baseline：`70.509517909 ms`，来自 `agents.me` 指定的 512K baseline 文件。
+
+#### 假设与实现校正
+
+EXP-006 把候选简写成了“base-6 三步”，但源码和长度位数证明该说法不成立。512K 为 `2^19`，而 base-6 三步只能覆盖 `2^(6*3)=2^18=262144`；必须使用四步才能覆盖 19 位指数。当前 base-8 三步表为 `3*256=768` 个 DP complex（12288 B），base-6 四步表为 `4*64=256` 个 DP complex（4096 B）。
+
+rocFFT 当前对 `largeTwdBase < 8` 的 SBCC 路径会由 workgroup 合并上传整个 large-twiddle 表到 LDS。因此本轮检验的是一个明确的基数/存储层次组合：用一次 256 项 cooperative upload 和 LDS 重用，替代后续 base-8 三表 global/L1/L2 读取；代价是每次 `TW_NSteps` 从两次复数乘法增加到三次，并且 SBCC-1024 动态 LDS 预计从 32768 B 增至 36864 B，可能把 LDS 限制的 block occupancy 从 2 降为 1。该资源风险是实验的核心权衡，不能只按 LUT 字节数预测收益。
+
+#### 精确修改与作用域
+
+1. `tree_node_1D.cpp::SBCCNode::KernelCheck()`：仅对 double precision、局部 length 1024、`large1D == 524288` 强制选择小 base 分解；其它 precision、局部长度和 large1D 保持 kernel 原配置。
+2. `plan.cpp::get_large_twd_base_steps()`：允许 base 4/5/6 使用四步；base-8 的四步禁令不变。
+3. `large_twiddles.h` 与 legacy/AOT `rocfft_butterfly_template.h` 的 `TW_NSteps()`：实现编译期 `Steps >= 4` 的第 4 组位提取和第 3 次复数乘法，继续拒绝 5 步以上分解，避免不同生成路径语义不一致。
+4. `stockham_gen_cc.h`：LDS cooperative upload 项数从硬编码 `3*(1<<base)` 改为 `steps*(1<<base)`，防止四步时漏传第 4 个 64 项子表。
+5. 不修改 WGS、TPT、Stockham factors、XOR、half-LDS、large-twiddle recurrence 或 SBRC；`agents.me` 的测试定义不变。
+
+#### 验证计划与退出条件
+
+先完整构建，再运行 512K correctness/plan。plan 必须命中 `twdbase6_4step`，large twiddle table length 必须为 256，动态 LDS 应为 36864 B；任一不符即停止性能结论并修正实现。correctness 通过后按 DP z2z、batch 1000、`-N 10`、`hipprof --stats` 测 512K，并至少重复一次。
+
+若 512K 明确回归或 occupancy 降为 1 且无法由 LUT 流量收益抵消，则按预设退出条件回滚，不做 PMC 和小规模泛化。若有稳定收益，再收集 SBCC PMC 的 VMEM_RD、LDS、VALU、VGPR、LDS bytes/occupancy，并检查 64K/128K/256K；由于启用条件精确限制为 512K，这三个规模在本轮应保持源码路径不变，除非后续另建实验扩展条件。
+
+#### 任务与结果
+
+- 实验源码提交：`8c79f1c08b247ef87eeea23034f63d2fb850fcdf`。
+- 构建任务：`798080`，`COMPLETED`、`0:0`。
+- correctness/plan 任务：`798111`，`COMPLETED`、`0:0`；plan 为 `logs/exp053_plan_512k.log`。
+- benchmark：`798115`；重复 benchmark：`798116`，均在 `a01r3n01` 完成。
+
+correctness：`relative_l2=6.583685e-16`、`relative_max=9.756395e-16`、`max_abs=3.666290e-12`，通过。
+
+plan 精确命中预期结构：
+
+```text
+SBCC-1024 [8,8,4,4], WGS=256, TPB=4
+largeTwdBase=6, largeTwdSteps=4
+large twiddle table length=256
+dynamic LDS=36864 B
+SBCC kernel occupancy=1（前一有效 base-8 路径为 2）
+```
+
+标准性能结果：
+
+| run | raw CSV | canonical `T_compute_ms` | vs previous | vs fixed baseline |
+|---|---|---:|---:|---:|
+| `798115` | `results/z2z_512k_b1000_exp053_base6_4step_20260901_191919.csv.hipkernel.csv` | `51.053061909` | `0.796175708x`，`-25.600416%` | `1.381102627x`，`+27.594085%` |
+| `798116` | `results/z2z_512k_b1000_exp053_base6_4step_repeat_20260901_191934.csv.hipkernel.csv` | `51.055912455` | `0.796131256x`，`-25.607429%` | `1.381025517x`，`+27.590042%` |
+
+按每次 FFT 的主要 kernel 时间拆分：
+
+| kernel | previous valid | EXP-053 first | EXP-053 repeat |
+|---|---:|---:|---:|
+| SBCC-1024 | `23.090815273 ms` | `33.504562182 ms` | `33.500867364 ms` |
+| SBRC-512 | `17.553483364 ms` | `17.545721545 ms` | `17.552281455 ms` |
+
+SBRC 保持噪声范围内不变；约 `10.41 ms` 的净回归全部来自 SBCC。base-6 四步虽然把 large-twiddle 表从 768 个 complex 缩到 256 个并改为 LDS 读取，但增加一次复数乘法，且额外 4096 B LDS 使 occupancy 从 2 降到 1，后者主导了性能。
+
+#### 决策与回滚
+
+决策：拒绝并回滚。两次结果稳定回归约 `25.6%`，明显超过噪声，证明该 base/LDS 组合不适合当前 32 KiB half-LDS 的 SBCC-1024。它只完成方向 5 的基数/存储层次诊断，不等同于“large twiddle 与 Stockham 阶段边界联合设计”。
+
+按预设退出条件不做 PMC，也不运行 64K/128K/256K；启用 gate 仅匹配 512K DP，因此这些规模未改变路径，不能写成实测结果。后续若研究方向 5，必须在不把 SBCC LDS 推过双 block 驻留阈值的前提下复用已死亡的 LDS 区域，或移动 large-twiddle 所在阶段，而不是再次无条件追加 LUT LDS。
+
+实验源提交保留在本分支历史；RTC/AOT 四步实现、planner gate 和动态上传项数均恢复到起始稳定源码。结果记录与源码回滚提交为 `8cb5ad915c9f5f805630e617798f48cc1b2dea9d`。
+
+### EXP-054：two-tier register/LDS 的同一线程局部 Stockham 交换（已完成，跨规模待确认）
+
+日期：2026-09-01。
+
+实验前状态：分支 `exp-054-two-tier-register-lds`，起点为当前有效源码的回滚后状态；实验前标签为 `pre-exp-054-two-tier-register-lds-20260901`。安装目录在本实验前仍含 EXP-053 的失败安装产物，先由构建任务 `798133` 重建后再测量。
+
+目标：验证 VkFFT 的“寄存器承担局部重排、LDS 只承担跨线程通信”能否在 rocFFT 的 Stockham 生成器中形成真实收益。该实验不是替换 barrier，也不是改变 WGS/TPT/radix 参数；只在 DP SBCC-1024、因素 `[8,8,4,4]`、TPT=64 的一个已证明同线程边界启用。
+
+静态映射证明：pass 2 的 radix-4 store 对线程 `s`、局部行 `h`、列 `w` 写入 `j = h*256 + s + w*64`。pass 3 的 radix-4 load 对目标线程 `s`、行 `h2`、列 `w2` 读取 `j = s + h2*64 + w2*256`。两式相等时源寄存器为 `R[w2*4+h2]`，目标寄存器为 `R[h2*4+w2]`，因此每个线程只需对自己的 4x4 register tile 做转置，不需要跨线程交换。该证明只覆盖这个精确边界，不推广到其它 factors、TPT 或长度。
+
+预期变化：删除 pass 2 的 register-to-LDS store、同步和 pass 3 的 LDS-to-register load、同步；保留 pass 1/2 之间的 LDS 通信和其它所有路径。由于当前目标使用 half-LDS，原来的 real/imag 两次 LDS 往返也由同一个 register 4x4 transpose 一并替代。用一个已有临时寄存器完成原地交换，观察 VGPR、LDS 指令、occupancy 和端到端时间。
+
+退出条件：生成源码映射不符合上述索引，或 correctness 失败，立即回滚；correctness 通过但 SBCC/总时间稳定回归，则保留失败分支和证据并回滚，不向稳定分支合并。若有收益，必须再以相同机制检查 64K/128K/256K 的可证明局部边界后才可保留。
+
+#### 实测收尾
+
+- 实验源码提交：`3f5b6b56afbc1b911d913ce4d1d192d66a8c7778`，分支 `exp-054-two-tier-register-lds`。
+- 构建任务：`798133`；正确性任务：`798187`；benchmark 任务：`798188`、重复任务 `798191`；PMC 任务：`798224`；RTC 源码任务：`798225`。
+- correctness：`relative_l2=6.645150e-16`、`relative_max=9.451432e-16`、`max_abs=3.551690e-12`，通过。
+- benchmark 原始文件：`results/z2z_512k_b1000_exp054_reglocal_20260901_200110.csv.hipkernel.csv` 和 `results/z2z_512k_b1000_exp054_reglocal_repeat_20260901_200143.csv.hipkernel.csv`。
+- 按 `agents.me` 的 `TotalDurationNs` 公式，512K `T_compute_ms` 分别为 `39.513440909` 和 `39.517802636`。前一有效版本为 `40.647207727 ms`，对应 `speedup_prev=1.028693x/1.028580x`、改善 `2.789286%/2.778555%`；相对固定官方 baseline `70.509517909 ms`，对应 `speedup_baseline=1.784444x/1.784247x`、改善 `43.960132%/43.953946%`。
+- 两次 CSV 的 kernel 结构均为 SBCC-1024 `tpt_64` 加 SBRC-512 `tpt_128`；实验相对前一版本只在 `stockham_gen_base.h` 删除目标边界的 register-LDS 往返并插入线程内 4×4 register transpose。
+- PMC 文件为 `results/pmcall_524288_crosswave.csv`。实验计数记录为：SBCC `arch_vgpr=136`、`SQ_INSTS_LDS=65536000`、`SQ_INSTS_VALU=594944000`、`SQ_INSTS_VMEM_RD=26112000`、`SQ_INSTS_VMEM_WR=8192000`、`SQ_LDS_BANK_CONFLICT=196608000`；SBRC `arch_vgpr=64`、`SQ_INSTS_LDS=73728000`、`SQ_INSTS_VALU=540672000`、`SQ_INSTS_VMEM_RD=29696000`、`SQ_INSTS_VMEM_WR=8192000`、`SQ_LDS_BANK_CONFLICT=458752000`。历史对照使用 `tpt_128` kernel 名称，资源配置不同，故这里只作实验硬件计数存档，不宣称严格 PMC A/B 差值。
+
+#### 决策
+
+512K correctness 通过，且两次 benchmark 都改善约 2.8%，因此保留该实验分支作为候选；但按预先条件，尚未测 64K/128K/256K，尚不能合并到稳定分支或宣称跨规模有效。EXP-055 专门验证该局部映射在四个目标长度上的可扩展性，并同时记录静态否证的配置。
+### EXP-055：two-tier register/LDS 的跨规模静态审计与验证（进行中）
+
+日期：2026-09-01。
+
+实验前状态：分支 `exp-055-two-tier-cross-scale`，起始提交 `9d6986ce`；该提交只包含 EXP-054 的文档收尾和已验证的 register-local 源码，源码安装产物沿用构建任务 `798133`。
+
+目标：检查 EXP-054 的线程内 Stockham 交换是否能安全扩展到 64K、128K、256K 和 512K，并把“可证明的寄存器局部边界”与“仅因 factors 相似而猜测可复用”区分开。
+
+静态条件：目标 kernel 分别为 SBCC-256 `[8,4,8]`/TPT=32、SBCC-256 `[8,8,8]`/TPT=32、SBCC-512 `[8,8,8]`/TPT=64、SBCC-1024 `[8,8,4,4]`/TPT=64。只有最后一项已有 store/load 索引等式证明；其它三项先输出索引关系和寄存器 tile 形状，不满足完整线程内置换时不得启用。
+
+测试计划：四个长度各运行 DP z2z、batch=1000、`-N 10`、`hipprof --stats`，并各运行 correctness；保存 plan、raw CSV 和日志。性能以 `agents.me` 的 `TotalDurationNs` 公式同时比较 EXP-054 分支和固定官方 baseline。
+
+退出条件：任一 correctness 失败立即停止并保留分支；若 64K/128K/256K 的源码路径未命中 EXP-054 gate，则将其记为静态否证/未扩展，不把未改动路径的差异归因于本实验。只有四规模均通过且没有稳定回归，才考虑把 gate 扩大。
+
+本轮不改源码，只验证当前窄 gate 的跨规模行为；后续若要扩展其它 factors，必须另建实验并先给出寄存器到寄存器的地址双射证明。
+### EXP-055：two-tier register/LDS 的跨规模静态审计与验证（已完成）
+
+实验提交：`e4b9e519`（分支 `exp-055-two-tier-cross-scale`）；源码未再修改，验证对象是 EXP-054 提交 `3f5b6b56`。
+
+四个 correctness 任务均完成：512K `798270`（`relative_l2=6.645150e-16`、`relative_max=9.451432e-16`、`max_abs=3.551690e-12`），128K `798273`（`6.358661e-16`、`8.085363e-16`、`1.482295e-12`），256K `798274`（`6.416370e-16`、`7.623083e-16`、`2.033692e-12`），64K `798275`（`6.717716e-16`、`1.114184e-15`、`1.277397e-12`）。
+
+标准 benchmark 任务：64K `798271`，128K `798277`，256K `798272`，512K `798276`。原始 CSV 分别为：
+
+- `results/z2z_64k_b1000_exp055_64k_20260901_204026.csv.hipkernel.csv`：`T_compute_ms=3.633526091`。
+- `results/z2z_128k_b1000_exp055_128k_20260901_204055.csv.hipkernel.csv`：`T_compute_ms=7.932437818`。
+- `results/z2z_256k_b1000_exp055_256k_20260901_204031.csv.hipkernel.csv`：`T_compute_ms=18.144264727`。
+- `results/z2z_512k_b1000_exp055_512k_20260901_204048.csv.hipkernel.csv`：`T_compute_ms=39.479096727`。
+
+相对 EXP-054/其前一有效结果 `3.635459818/7.929874818/18.148907182/39.513440909 ms`，四个长度的 speedup 分别为 `1.000532x/0.999677x/1.000256x/1.000870x`，改善分别为 `+0.053191%/-0.032321%/+0.025580%/+0.086918%`，均处于单次运行噪声量级。相对固定官方 baseline `3.732493091/8.954852000/19.360417545/70.509517909 ms`，speedup 分别为 `1.027237x/1.128890x/1.067027x/1.785996x`。
+
+静态审计和 kernel 名称确认：64K、128K、256K 分别仍使用 SBCC-256 `[8,4,8]`/TPT=32、SBCC-256 `[8,4,8]`/TPT=32、SBCC-512 `[8,8,8]`/TPT=64，未命中 EXP-054 的 `[8,8,4,4]`/TPT=64 gate；512K 仍为 SBCC-1024 `[8,8,4,4]`/TPT=64。因而没有证据支持把 4×4 register transpose 无条件推广到其它 factors。
+
+决策：EXP-054 的窄 gate 在四规模 correctness 下安全，512K 两次独立 benchmark 保持约 2.8% 改善，且其它规模没有可归因的回归。将 EXP-054 作为候选稳定修改保留；后续结构实验从合并后的稳定提交开始。

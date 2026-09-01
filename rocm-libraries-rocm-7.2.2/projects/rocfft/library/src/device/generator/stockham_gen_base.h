@@ -372,6 +372,40 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return false;
     }
 
+    // The [8,8,4,4] / TPT=64 layout has one register-local boundary:
+    // pass 2's Stockham store followed by pass 3's load is a 4x4
+    // transpose within each thread.  Keep this narrowly scoped until
+    // the same ownership relation is proved for another configuration.
+    bool use_register_local_exchange(unsigned int npass) const
+    {
+        return half_lds && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double && length == 1024
+               && threads_per_transform == 64
+               && factors == std::vector<unsigned int>{8, 8, 4, 4} && npass == 2;
+    }
+
+    StatementList register_local_exchange(unsigned int npass)
+    {
+        StatementList work;
+        if(!use_register_local_exchange(npass))
+            return work;
+
+        work += CommentLines{
+            "register-local Stockham exchange: transpose the 4x4 per-thread tile"};
+        for(unsigned int h = 0; h < 4; ++h)
+        {
+            for(unsigned int w = h + 1; w < 4; ++w)
+            {
+                const auto lhs = h * 4 + w;
+                const auto rhs = w * 4 + h;
+                work += Assign{t, R[lhs]};
+                work += Assign{R[lhs], R[rhs]};
+                work += Assign{R[rhs], t};
+            }
+        }
+        return work;
+    }
+
     StatementList sync_threads() const
     {
         StatementList stmts;
@@ -752,7 +786,11 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             // internal lds store (half-with-linear and full-with-linear/nonlinear)
             StatementList reg2lds_full;
             StatementList reg2lds_half;
-            if(npass < factors.size() - 1)
+            if(npass < factors.size() - 1 && use_register_local_exchange(npass))
+            {
+                body += register_local_exchange(npass);
+            }
+            else if(npass < factors.size() - 1)
             {
                 // linear variant store (half) and load (half)
                 for(auto component : {Component::REAL, Component::IMAG})
