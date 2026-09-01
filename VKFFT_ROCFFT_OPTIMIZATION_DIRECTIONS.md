@@ -732,7 +732,7 @@ rocFFT 当前对 `largeTwdBase < 8` 的 SBCC 路径会由 workgroup 合并上传
 
 #### 任务与结果
 
-- 实验源码提交：提交后补录。
+- 实验源码提交：`8c79f1c08b247ef87eeea23034f63d2fb850fcdf`。
 - 构建任务：待提交。
 - correctness/plan：待构建完成后提交。
 - benchmark/PMC：待 correctness 判定。
