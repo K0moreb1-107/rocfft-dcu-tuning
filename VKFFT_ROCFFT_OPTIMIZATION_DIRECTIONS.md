@@ -1009,3 +1009,29 @@ batch=1000、`-N 10`。本实验从实际 planner/tree 和 RTC generator 代码�
 仍要求一个 SBRC tile 读取多个 SBCC workgroups 的结果，则实现一个静态
 ownership/byte-accounting probe，并把源码级否证作为结果，不修改普通 1D
 planner。禁止重做此前会复制 producer 的完整 fusion。
+
+#### EXP-061 实测/源码结果
+
+探针脚本：`exp061_partial_pass_probe.py`；日志：
+`logs/exp061_partial_pass_probe_20260902.log`。它直接读取当前
+`tree_node_1D.cpp`、`tree_node.cpp`、`rtc_stockham_gen.cpp` 和记录的
+`logs/exp007_plan_524288.log`，输出以下事实：普通 1D CC tree 创建
+`CS_KERNEL_STOCKHAM_BLOCK_CC` 和 `CS_KERNEL_STOCKHAM_BLOCK_RC` 两个独立
+leaf；512K producer 为 WGS=256、TPB=4、`[8,8,4,4]`，consumer 为
+WGS=512、TPB=4、`[8,8,8]`。
+
+因此每个 batch 有 `128` 个 producer tiles 和 `256` 个 consumer tiles，
+一个 consumer tile 需要 `128` 个 producer tiles 的结果；中间 handoff
+为 `524288` 个 DP complex、`8388608` bytes/batch。探针也确认 partial-pass
+RTC generator 存在 `PPT_SBCC/PPT_SBRR` 分支，但 `tree_node.cpp` 的
+partial-pass 参数检查只允许 off-dimension=1，x/z 路径显式抛出“不支持”；
+普通 1D `CC1DNode::BuildTree_internal` 没有把这两个独立 leaf 改成 PP
+producer/consumer 契约。
+
+结论：在当前 planner/RTC 契约下，非冗余 1D partial-pass continuation
+不能通过局部改一个 pass 实现。让一个 consumer workgroup 直接拥有完整
+输入需要跨 `128` 个 producer tiles 的同步/共享状态；保持当前 ownership
+则仍需 global handoff，复制 producer 则会重复计算。因此本轮不提交运行时
+kernel，不进行伪 benchmark；EXP-061 作为源码级否证完成，后续若继续，
+必须先设计新的 1D tile ownership 和 global layout，而不是复用现有 3D
+partial-pass API。
