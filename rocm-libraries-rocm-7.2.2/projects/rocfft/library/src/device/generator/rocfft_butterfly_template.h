@@ -12,7 +12,7 @@ __device__ T TW_NSteps(const T* const twiddles, size_t u)
     T      result = twiddles[j];
     u >>= Base; // discard the lowest Base bits
     int i = 0;
-    // static compiled
+    // static compiled, currently, steps can only be 2 or 3
     if(Steps >= 2)
     {
         i += 1;
@@ -34,19 +34,8 @@ __device__ T TW_NSteps(const T* const twiddles, size_t u)
                    (result.y * twiddles[(1 << Base) * i + j].x
                     + result.x * twiddles[(1 << Base) * i + j].y));
     }
-    // static compiled
-    if(Steps >= 4)
-    {
-        u >>= Base; // discard the next Base bits
-
-        i += 1;
-        j      = u & ((1 << Base) - 1);
-        result = T((result.x * twiddles[(1 << Base) * i + j].x
-                    - result.y * twiddles[(1 << Base) * i + j].y),
-                   (result.y * twiddles[(1 << Base) * i + j].x
-                    + result.x * twiddles[(1 << Base) * i + j].y));
-    }
-    static_assert(Steps < 5, "large twiddle decompositions above 4 steps are not supported");
+    // we probably don't have 4-steps for large-twiddle
+    // if(Steps >= 4){...}
 
     return result;
 }

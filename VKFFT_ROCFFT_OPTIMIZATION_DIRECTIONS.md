@@ -698,7 +698,7 @@ improvement_prev = -5.661651%
 
 `node_factory.cpp` 的 512K 项已恢复为 `{524288,1024}`，并删除实验性 SBCC-2048 配置。失败源码提交保留在 `exp-052-cc-2048x256` 历史中；结果记录与源码回滚提交为 `0e809e7f5e70a431c4d8a51b5525829d5012265b`。后续 EXP-053 从有效源码重新建立，不继承本实验的 2048x256 改动。
 
-### EXP-053：512K DP large-twiddle base-6 四步与 LDS LUT（进行中）
+### EXP-053：512K DP large-twiddle base-6 四步与 LDS LUT（已完成，回滚）
 
 日期：2026-09-01。
 
@@ -733,7 +733,42 @@ rocFFT 当前对 `largeTwdBase < 8` 的 SBCC 路径会由 workgroup 合并上传
 #### 任务与结果
 
 - 实验源码提交：`8c79f1c08b247ef87eeea23034f63d2fb850fcdf`。
-- 构建任务：待提交。
-- correctness/plan：待构建完成后提交。
-- benchmark/PMC：待 correctness 判定。
-- 最终决策：待测。
+- 构建任务：`798080`，`COMPLETED`、`0:0`。
+- correctness/plan 任务：`798111`，`COMPLETED`、`0:0`；plan 为 `logs/exp053_plan_512k.log`。
+- benchmark：`798115`；重复 benchmark：`798116`，均在 `a01r3n01` 完成。
+
+correctness：`relative_l2=6.583685e-16`、`relative_max=9.756395e-16`、`max_abs=3.666290e-12`，通过。
+
+plan 精确命中预期结构：
+
+```text
+SBCC-1024 [8,8,4,4], WGS=256, TPB=4
+largeTwdBase=6, largeTwdSteps=4
+large twiddle table length=256
+dynamic LDS=36864 B
+SBCC kernel occupancy=1（前一有效 base-8 路径为 2）
+```
+
+标准性能结果：
+
+| run | raw CSV | canonical `T_compute_ms` | vs previous | vs fixed baseline |
+|---|---|---:|---:|---:|
+| `798115` | `results/z2z_512k_b1000_exp053_base6_4step_20260901_191919.csv.hipkernel.csv` | `51.053061909` | `0.796175708x`，`-25.600416%` | `1.381102627x`，`+27.594085%` |
+| `798116` | `results/z2z_512k_b1000_exp053_base6_4step_repeat_20260901_191934.csv.hipkernel.csv` | `51.055912455` | `0.796131256x`，`-25.607429%` | `1.381025517x`，`+27.590042%` |
+
+按每次 FFT 的主要 kernel 时间拆分：
+
+| kernel | previous valid | EXP-053 first | EXP-053 repeat |
+|---|---:|---:|---:|
+| SBCC-1024 | `23.090815273 ms` | `33.504562182 ms` | `33.500867364 ms` |
+| SBRC-512 | `17.553483364 ms` | `17.545721545 ms` | `17.552281455 ms` |
+
+SBRC 保持噪声范围内不变；约 `10.41 ms` 的净回归全部来自 SBCC。base-6 四步虽然把 large-twiddle 表从 768 个 complex 缩到 256 个并改为 LDS 读取，但增加一次复数乘法，且额外 4096 B LDS 使 occupancy 从 2 降到 1，后者主导了性能。
+
+#### 决策与回滚
+
+决策：拒绝并回滚。两次结果稳定回归约 `25.6%`，明显超过噪声，证明该 base/LDS 组合不适合当前 32 KiB half-LDS 的 SBCC-1024。它只完成方向 5 的基数/存储层次诊断，不等同于“large twiddle 与 Stockham 阶段边界联合设计”。
+
+按预设退出条件不做 PMC，也不运行 64K/128K/256K；启用 gate 仅匹配 512K DP，因此这些规模未改变路径，不能写成实测结果。后续若研究方向 5，必须在不把 SBCC LDS 推过双 block 驻留阈值的前提下复用已死亡的 LDS 区域，或移动 large-twiddle 所在阶段，而不是再次无条件追加 LUT LDS。
+
+实验源提交保留在本分支历史；RTC/AOT 四步实现、planner gate 和动态上传项数均恢复到起始稳定源码。回滚提交号在提交后补录。

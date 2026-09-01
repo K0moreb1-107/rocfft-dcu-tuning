@@ -3790,8 +3790,8 @@ void get_large_twd_base_steps(size_t large1DLen, bool use3steps, size_t& base, s
     if(base == 8 && steps > 3)
         throw std::runtime_error(
             "large-twd-base 8 could be 2,3 steps, but not supported for 4-steps yet");
-    if(base < 8 && steps != 3 && steps != 4)
-        throw std::runtime_error("large-twd-base for 4,5,6 must be 3 or 4 steps");
+    if(base < 8 && steps != 3)
+        throw std::runtime_error("large-twd-base for 4,5,6 must be 3-steps");
 }
 
 bool BufferIsUnitStride(ExecPlan& execPlan, OperatingBuffer buf)
