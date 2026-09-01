@@ -833,3 +833,77 @@ SBRC 保持噪声范围内不变；约 `10.41 ms` 的净回归全部来自 SBCC�
 静态审计和 kernel 名称确认：64K、128K、256K 分别仍使用 SBCC-256 `[8,4,8]`/TPT=32、SBCC-256 `[8,4,8]`/TPT=32、SBCC-512 `[8,8,8]`/TPT=64，未命中 EXP-054 的 `[8,8,4,4]`/TPT=64 gate；512K 仍为 SBCC-1024 `[8,8,4,4]`/TPT=64。因而没有证据支持把 4×4 register transpose 无条件推广到其它 factors。
 
 决策：EXP-054 的窄 gate 在四规模 correctness 下安全，512K 两次独立 benchmark 保持约 2.8% 改善，且其它规模没有可归因的回归。将 EXP-054 作为候选稳定修改保留；后续结构实验从合并后的稳定提交开始。
+### EXP-056：layout-aware handoff / grouped-nearby transform（已完成，结构性否证）
+
+日期：2026-09-01。
+
+实验分支为 `EXP-056-layout-aware-handoff`，最终修复提交为
+`fdf652451b32`。实验从 `0c10bb8866a3f8dccbf6e1a4c579f5b34e888743`
+建立，目标是 DP z2z、batch=1000、`-N 10` 的 64K/128K/256K/512K。
+
+静态模型 `logs/exp056_static_model.log` 的实际结论是：512K producer
+为 SBCC-1024 `[8,8,4,4]`、WGS=256、TPB=4、TPT=64，consumer 为
+SBRC-512 `[8,8,8]`、WGS=512、TPB=4、TPT=128；producer/consumer 是
+many-to-many handoff，单个 consumer tile 依赖约 128 个 producer tile。
+现有线性 handoff 已经保持 consumer 连续读取，因此仅改变中间物理地址
+不会消除 global handoff。
+
+源码原型在 `stockham_gen_cc.h` 和 `stockham_gen_rc.h` 中增加了一个
+受限的 32x4 blocked 地址映射，并显式保持 producer 一次计算、没有复制
+producer 或加入跨 workgroup 同步。初版的表达式渲染修复后仍不能形成可用
+的通用 plan。
+
+构建任务 `798399` 完成。修复版 correctness 任务为：
+
+- 512K `798406`：FAILED，日志为 `rocfft_plan_create failed with rocFFT status 1`；
+- 256K `798407`：FAILED，日志为 `rocfft_plan_create failed with rocFFT status 1`；
+- 128K `798408`：FAILED，日志为 `rocfft_plan_create failed with rocFFT status 1`；
+- 64K `798409`：通过，`relative_l2=6.717716e-16`、
+  `relative_max=1.114184e-15`、`max_abs=1.277397e-12`。
+
+对应 stdout/stderr 保存在 `logs/exp056v2_*_79840{6,7,8,9}.{out,err}`。
+由于目标长度中三个 plan 创建失败，本实验没有合法的标准 benchmark
+CSV，也不计算 ` T_compute_ms`、speedup 或加速比；64K 的 correctness
+通过不能证明该映射对目标 512K 或其它规模成立。
+
+决策：否定该布局原型并保留失败分支及日志。失败原因的唯一已证事实是
+plan 创建阶段返回 status 1，不能把它进一步归因于某个未记录的 RTC
+诊断。后续结构实验从稳定的 `0c10bb8866a3f8dccbf6e1a4c579f5b34e888743`
+开始，不继承 EXP-056 的源码映射。
+
+### EXP-057：复用已死亡 row-data LDS 的 late large-twiddle（计划）
+
+日期：2026-09-01。
+
+起始稳定提交：`0c10bb8866a3f8dccbf6e1a4c579f5b34e888743`。
+目标只限 DP z2z、512K、SBCC-1024 `[8,8,4,4]`、WGS=256、TPT=64、
+half-LDS、`largeTwdBase=8`、`largeTwdSteps=3`，不改变 factors/WGS/TPT。
+
+代码事实：`stockham_gen_base.h::generate_global_function()` 当前在
+kernel 开始调用 `large_twiddles_load()`；SBCC 的 `large_twiddles_multiply()`
+在最终 Stockham pass 的 butterfly 之后执行。对于目标 kernel，最终
+pass 已把所需数据读回寄存器，且 direct-register store 路径不再需要
+row-data LDS。当前 half-LDS row-data 占用 32768 B；base-8/3-step 表为
+768 个 double-complex 项，即 12288 B。现有实现把表放在 row-data 后面，
+因此需要额外动态 LDS；EXP-053 已实测额外分配导致 occupancy 从 2 降到
+1 并回归约 25.6%。
+
+本实验假设：把 LUT 上传延迟到最终 pass 的 row-data 使用结束之后，
+让 `large_twd_lds` 暂时别名 row-data LDS 起始区域；只在目标模板条件和
+`direct_load_to_reg` 为真时选择该别名，其他 base、kernel 和非直接寄存器
+路径保持原来的尾部 LDS/Global fallback。上传仍使用 block 内 cooperative
+写入和两次 block barrier；不增加 LDS 分配，不复制 FFT 计算。
+
+预定修改文件：
+
+1. `device/generator/stockham_gen_base.h`：增加可选的 late-load 钩子或在
+   final-pass large-twiddle 调用点插入它；
+2. `device/generator/stockham_gen_cc.h`：目标 gate、block-local cooperative
+   LUT upload、LUT 指针选择；
+3. `tree_node.cpp`：目标 gate 下不再把 large-twiddle 表追加到动态 LDS。
+
+验证顺序为 build → 512K correctness/plan → 标准 benchmark 至少两次 →
+必要时 PMC。plan 必须仍显示 SBCC-1024、base-8/3-step、动态 LDS=32768 B，
+且 RTC 源码必须同时确认 late upload 和 LDS LUT 读取。若 correctness 失败、
+plan 不命中或时间回归超过测量噪声，保留分支和证据并回滚；只有稳定收益
+才研究 64K/128K/256K 的独立 gate。
