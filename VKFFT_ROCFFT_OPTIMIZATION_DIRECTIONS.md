@@ -448,3 +448,37 @@ correctness：命中条件后的 256 点任务 759664，relative_l2=3.373793e-16
 A/B benchmark：wave-sync 256x256（759659）SBCC kernel 平均 1.867142 ms；block barrier 对照（759643）1.839125 ms，回归约 1.52%。wave-sync 512x512（759660）9.650830 ms；block barrier 对照（759644）9.422975 ms，回归约 2.42%。总 hipprof 时间分别约回归 0.09% 和 0.18%。
 
 PMC 未继续提交，因为 correctness 虽通过，但 kernel 时间已稳定回归，且 wave-level 同步没有减少 LDS 指令或数据搬运。决策：回滚默认策略，恢复 __syncthreads()；保留分析记录，不把 __syncwarp() 作为默认生成路径。
+
+### EXP-006：算法级候选方向（分析记录）
+
+日期：2026-08-30。
+
+本条目先记录公开资料和当前 rocFFT 代码对照得到的候选，不把尚未实测的方向写成优化结论。后续实测从 EXP-007 开始，每次只改变一个结构因素。
+
+#### 公开资料与可借鉴机制
+
+1. VkFFT 的公开 README 和代码（`vkFFT_KernelsLevel1/PrePostProcessing/vkFFT_4step.h`、`vkFFT_RadixShuffle.h`、`vkFFT_ReadWrite.h`、`vkFFT_RegisterBoost.h`）表明：大 FFT 使用固定大小的局部 tile；寄存器内先完成线程私有重排，同一 SIMD/wave 内才交换，跨 wave 才使用 shared/LDS；4-step 只在局部 tile 中转置和乘 twiddle，超过片上容量就增加分解层次，而不是把完整 N 放进 LDS。
+
+2. TurboFFT（论文 `arXiv:2412.05824` 及其公开仓库）强调 architecture-aware global-memory coalescing、padding-free shared-memory layout、最后一级 FFT 的输出组织和模板化 kernel。对当前问题的直接启发是：不能只看 LDS bank-conflict 计数或 VMEM 指令数，还要看最终 global transaction、L2/TCC 命中、地址合并和 tile 的 producer/consumer 布局。
+
+3. FFTc/MLIR（论文 `arXiv:2308.00497`）把 layout、permutation、vectorization 和 code generation 作为统一对象。对 rocFFT 的启发是：如果 producer 的输出布局能够直接满足 consumer 的输入布局，可以从计划层消除显式 transpose/global handoff；只在 kernel 内增加一个 transpose 并不等于实现了 4-step。
+
+4. rocFFT 自身的 `stockham_pp_gen_cc.h` 已实现 3D partial-pass：在 global-to-LDS 和完整 FFT 之间执行另一个方向的部分 pass。它证明了“把相邻维度的部分工作放进同一 tile”在生成器中有基础，但目前 `factors_pp.size() > 1` 和 1D CC 的 SBCC/SBRC 组合还没有通用支持。
+
+#### 候选方向和可证伪假设
+
+1. **改变 Cooley-Tukey 分解边界**：512K 当前为 `SBCC-1024 + SBRC-512`，先做 `SBCC-2048 + SBRC-256`。数学上仍是同一个二维分解，但改变局部 radix 深度、LDS tile 形状、每线程寄存器驻留量、第二阶段列宽和 large-twiddle 的访问组织。这是最容易复用现有 CC/RC 框架的结构性实验，不是 WGS/TPT 穷举。
+
+2. **1D partial-pass / producer-consumer tile**：参考 VkFFT 的 tile 生命周期和 rocFFT partial-pass，把 SBRC 的首个 radix pass 或 SBCC 的末个 radix pass 放到相邻 kernel 的 LDS 生命周期中，目标是减少一次完整 global intermediate。必须先解决跨 block 的 tile 依赖、Stockham 布局契约、barrier 范围和边界 tile；不能通过简单拼接两个 global kernel 实现。
+
+3. **transform-major 的两层通信**：当前 rocFFT 的多个 transform 在一个 block 内交错，不能直接把 LDS 访问换成 wave shuffle。若重新组织为 transform-major，使一个 transform 的通信完全位于一个 wave，才有机会借鉴 VkFFT 的 shuffle/DPP；跨 wave 的列转置仍保留 LDS。EXP-005 已证明仅缩小 barrier 而不改变通信图会回归，因此后续必须同时改变数据布局才值得实现。
+
+4. **large-twiddle 的基数/存储层次联合选择**：当前 FP64 512K SBCC 使用 `twdbase8_3step`，即 `TW_NSteps` 从 3 个 256 项子表合成大 twiddle；这已经是分解查表，但仍需比较 base-6 三步（更小表、更多地址位操作/不同 cache 行为）和 base-8 三步，重点观察 global load、L2/TCC 命中、VALU 和 VGPR，而不是仅按表大小判断。
+
+5. **layout-aware final store**：参考 TurboFFT，检查 SBCC 最后一个 Stockham pass 的输出地址是否能直接匹配 SBRC 的下一阶段读取顺序，或者至少按 TCC transaction 重排线程写回。该方向只有在实际减少不合并 transaction 或中间布局转换时才成立；单纯改变线性索引属于参数/地址微调，优先级低于分解和 partial-pass。
+
+6. **局部 32-bit offset**：参考 rocFFT 公开的 32-bit index 工作，只在 kernel 内把已证明不超过 32-bit 的 tile-local offset 缩窄，base pointer 和 batch/stride 仍保持 64-bit。目标是降低地址计算的寄存器压力；先做静态范围证明和编译资源对照，不能直接把所有 `size_t` 替换成 `unsigned int`。
+
+#### 实验顺序与退出条件
+
+先验证 2048x256；若生成器或资源限制使其不可行，保留源码不变并记录失败原因。之后依次单独验证 DP large-twiddle base-6、布局感知写回和 partial-pass 的最小原型。每个方向按 correctness -> 512K benchmark -> PMC -> 256K/128K/64K 扩展验证；若 512K 回归超过测量噪声或任一规模 correctness 失败，回退该条修改。无约束 WGS/TPT/radix 穷举、默认 radix-16、整表搬入 LDS 和无条件 tile fusion 不列入本轮实验。
