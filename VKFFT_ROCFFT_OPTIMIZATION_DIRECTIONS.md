@@ -773,7 +773,7 @@ SBRC 保持噪声范围内不变；约 `10.41 ms` 的净回归全部来自 SBCC�
 
 实验源提交保留在本分支历史；RTC/AOT 四步实现、planner gate 和动态上传项数均恢复到起始稳定源码。结果记录与源码回滚提交为 `8cb5ad915c9f5f805630e617798f48cc1b2dea9d`。
 
-### EXP-054：two-tier register/LDS 的同一线程局部 Stockham 交换（进行中）
+### EXP-054：two-tier register/LDS 的同一线程局部 Stockham 交换（已完成，跨规模待确认）
 
 日期：2026-09-01。
 
@@ -786,3 +786,17 @@ SBRC 保持噪声范围内不变；约 `10.41 ms` 的净回归全部来自 SBCC�
 预期变化：删除 pass 2 的 register-to-LDS store、同步和 pass 3 的 LDS-to-register load、同步；保留 pass 1/2 之间的 LDS 通信和其它所有路径。由于当前目标使用 half-LDS，原来的 real/imag 两次 LDS 往返也由同一个 register 4x4 transpose 一并替代。用一个已有临时寄存器完成原地交换，观察 VGPR、LDS 指令、occupancy 和端到端时间。
 
 退出条件：生成源码映射不符合上述索引，或 correctness 失败，立即回滚；correctness 通过但 SBCC/总时间稳定回归，则保留失败分支和证据并回滚，不向稳定分支合并。若有收益，必须再以相同机制检查 64K/128K/256K 的可证明局部边界后才可保留。
+
+#### 实测收尾
+
+- 实验源码提交：`3f5b6b56afbc1b911d913ce4d1d192d66a8c7778`，分支 `exp-054-two-tier-register-lds`。
+- 构建任务：`798133`；正确性任务：`798187`；benchmark 任务：`798188`、重复任务 `798191`；PMC 任务：`798224`；RTC 源码任务：`798225`。
+- correctness：`relative_l2=6.645150e-16`、`relative_max=9.451432e-16`、`max_abs=3.551690e-12`，通过。
+- benchmark 原始文件：`results/z2z_512k_b1000_exp054_reglocal_20260901_200110.csv.hipkernel.csv` 和 `results/z2z_512k_b1000_exp054_reglocal_repeat_20260901_200143.csv.hipkernel.csv`。
+- 按 `agents.me` 的 `TotalDurationNs` 公式，512K `T_compute_ms` 分别为 `39.513440909` 和 `39.517802636`。前一有效版本为 `40.647207727 ms`，对应 `speedup_prev=1.028693x/1.028580x`、改善 `2.789286%/2.778555%`；相对固定官方 baseline `70.509517909 ms`，对应 `speedup_baseline=1.784444x/1.784247x`、改善 `43.960132%/43.953946%`。
+- 两次 CSV 的 kernel 结构均为 SBCC-1024 `tpt_64` 加 SBRC-512 `tpt_128`；实验相对前一版本只在 `stockham_gen_base.h` 删除目标边界的 register-LDS 往返并插入线程内 4×4 register transpose。
+- PMC 文件为 `results/pmcall_524288_crosswave.csv`。实验计数记录为：SBCC `arch_vgpr=136`、`SQ_INSTS_LDS=65536000`、`SQ_INSTS_VALU=594944000`、`SQ_INSTS_VMEM_RD=26112000`、`SQ_INSTS_VMEM_WR=8192000`、`SQ_LDS_BANK_CONFLICT=196608000`；SBRC `arch_vgpr=64`、`SQ_INSTS_LDS=73728000`、`SQ_INSTS_VALU=540672000`、`SQ_INSTS_VMEM_RD=29696000`、`SQ_INSTS_VMEM_WR=8192000`、`SQ_LDS_BANK_CONFLICT=458752000`。历史对照使用 `tpt_128` kernel 名称，资源配置不同，故这里只作实验硬件计数存档，不宣称严格 PMC A/B 差值。
+
+#### 决策
+
+512K correctness 通过，且两次 benchmark 都改善约 2.8%，因此保留该实验分支作为候选；但按预先条件，尚未测 64K/128K/256K，尚不能合并到稳定分支或宣称跨规模有效。EXP-055 专门验证该局部映射在四个目标长度上的可扩展性，并同时记录静态否证的配置。
