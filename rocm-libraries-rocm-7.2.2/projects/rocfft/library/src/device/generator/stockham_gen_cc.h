@@ -50,6 +50,8 @@ struct StockhamKernelCC : public StockhamKernel
     //
     Variable large_twiddles{"large_twiddles", "const scalar_type", true};
     Variable trans_local{"trans_local", "size_t"};
+    Variable block_thread_id{"block_thread_id", "unsigned int"};
+    Variable large_twd_lds_arg{"large_twd_lds_arg", "scalar_type", true, true};
 
     //
     // locals
@@ -67,6 +69,30 @@ struct StockhamKernelCC : public StockhamKernel
     Multiply ltwd_entries{Parens{ShiftLeft{1, large_twiddle_base}}, 3};
     And      ltwd_in_lds{apply_large_twiddle, Less{large_twiddle_base, 8}};
     Variable large_twd_lds{"large_twd_lds", "scalar_type", true, true};
+
+    bool use_late_large_twiddle_lds() const
+    {
+        return direct_to_from_reg && half_lds && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double && length == 1024
+               && workgroup_size == 256 && threads_per_transform == 64
+               && transforms_per_block == 4
+               && factors == std::vector<unsigned int>{8, 8, 4, 4};
+    }
+
+    Expression late_large_twiddle_lds_enabled() const
+    {
+        return And{And{And{apply_large_twiddle, Equal{large_twiddle_base, 8}},
+                       Equal{large_twiddle_steps, 3}},
+                   direct_load_to_reg};
+    }
+    Expression large_twiddle_lookup() const
+    {
+        if(use_late_large_twiddle_lds())
+            return Ternary{late_large_twiddle_lds_enabled(),
+                           Parens{large_twd_lds_arg},
+                           Parens{large_twiddles}};
+        return large_twiddles;
+    }
 
     std::string tiling_name() override
     {
@@ -496,6 +522,11 @@ struct StockhamKernelCC : public StockhamKernel
         ArgumentList args = StockhamKernel::device_arguments();
         args.append(large_twiddles);
         args.append(trans_local);
+        if(use_late_large_twiddle_lds())
+        {
+            args.append(large_twd_lds_arg);
+            args.append(block_thread_id);
+        }
         return args;
     }
 
@@ -529,11 +560,23 @@ struct StockhamKernelCC : public StockhamKernel
     std::vector<Expression> device_call_arguments(unsigned int call_iter) override
     {
         std::vector<Expression> args = StockhamKernel::device_call_arguments(call_iter);
-        auto which = Ternary{Parens{And{apply_large_twiddle, large_twiddle_base < 8}},
-                             Parens{large_twd_lds},
-                             Parens{large_twiddles}};
-        args.push_back(which);
-        args.push_back(largeTwdBatchIsTransformCount ? batch : transform);
+        if(use_late_large_twiddle_lds())
+        {
+            // Keep the global LUT as the upload source.  The device function
+            // receives the reused LDS pointer separately.
+            args.push_back(large_twiddles);
+            args.push_back(largeTwdBatchIsTransformCount ? batch : transform);
+            args.push_back(large_twd_lds);
+            args.push_back(thread_id);
+        }
+        else
+        {
+            auto which = Ternary{Parens{ltwd_in_lds},
+                                 Parens{large_twd_lds},
+                                 Parens{large_twiddles}};
+            args.push_back(which);
+            args.push_back(largeTwdBatchIsTransformCount ? batch : transform);
+        }
         return args;
     }
 
@@ -546,8 +589,20 @@ struct StockhamKernelCC : public StockhamKernel
             "large_twd_lds starts after the row FFT data in LDS (transforms_per_block * length)"};
         if(half_lds)
             stmts += CommentLines{"data is halved for half_lds"};
-        stmts += Declaration{large_twd_lds,
-                             lds_complex + transforms_per_block * length / (half_lds ? 2 : 1)};
+        auto row_data_end
+            = lds_complex + transforms_per_block * length / (half_lds ? 2 : 1);
+        if(use_late_large_twiddle_lds())
+        {
+            stmts += CommentLines{
+                "reuse row-data LDS for base-8/3-step twiddles after the final Stockham pass"};
+            stmts += Declaration{
+                large_twd_lds,
+                Ternary{late_large_twiddle_lds_enabled(), lds_complex, row_data_end}};
+        }
+        else
+        {
+            stmts += Declaration{large_twd_lds, row_data_end};
+        }
         stmts += If{ltwd_in_lds,
                     {Declaration{ltwd_id, thread_id},
                      While{Less{ltwd_id, ltwd_entries},
@@ -585,7 +640,7 @@ struct StockhamKernelCC : public StockhamKernel
                 W,
                 CallExpr{"TW_NSteps",
                          TemplateList{scalar_type, large_twiddle_base, large_twiddle_steps},
-                         {large_twiddles, idx}}};
+                         {large_twiddle_lookup(), idx}}};
             for(unsigned int w = 0; w < width; ++w)
             {
                 if(w > 0)
@@ -612,7 +667,7 @@ struct StockhamKernelCC : public StockhamKernel
                 W,
                 CallExpr{"TW_NSteps",
                          TemplateList{scalar_type, large_twiddle_base, large_twiddle_steps},
-                         {large_twiddles, idx}}};
+                         {large_twiddle_lookup(), idx}}};
             work += Assign{t, TwiddleMultiply{R[hr * width + w], W}};
             work += Assign{R[hr * width + w], t};
         }
@@ -625,6 +680,21 @@ struct StockhamKernelCC : public StockhamKernel
         StatementList stmts;
 
         stmts += CommentLines{"large twiddle multiplication"};
+        if(use_late_large_twiddle_lds())
+        {
+            Variable      ltwd_id{"ltwd_id", "unsigned int"};
+            StatementList late_load;
+            late_load += CommentLines{
+                "row-data LDS is dead: cooperatively upload the base-8/3-step large-twiddle LUT"};
+            late_load += sync_threads();
+            late_load += Declaration{ltwd_id, block_thread_id};
+            late_load += While{
+                Less{ltwd_id, ltwd_entries},
+                {Assign{large_twd_lds_arg[ltwd_id], large_twiddles[ltwd_id]},
+                 AddAssign(ltwd_id, workgroup_size)}};
+            late_load += sync_threads();
+            stmts += If{late_large_twiddle_lds_enabled(), late_load};
+        }
         if(use_large_twiddle_recurrence())
         {
             auto step_idx = std::to_string(cumheight) + " * " + trans_local.render();
@@ -632,7 +702,7 @@ struct StockhamKernelCC : public StockhamKernel
                 t,
                 CallExpr{"TW_NSteps",
                          TemplateList{scalar_type, large_twiddle_base, large_twiddle_steps},
-                         {large_twiddles, step_idx}}};
+                         {large_twiddle_lookup(), step_idx}}};
         }
 
         auto mf = std::mem_fn(&StockhamKernelCC::large_twiddles_multiply_generator);
