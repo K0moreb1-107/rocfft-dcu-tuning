@@ -976,3 +976,21 @@ VGPR 部分抵消，端到端净收益约 1%，不能宣称是纯粹的访存优
 SBCC-1024 `[8,8,4,4]` 精确 gate。相对 EXP-055 的差异均小于 `0.052%`，
 只能判为无旁路回归，不能归因于 late-LDS。至此 EXP-057 的四规模正确性和
 标准性能验证完成；512K 的约 1% 收益可进入后续实验基线，但 gate 不扩大。
+
+### EXP-060：SBCC-1024 wave-local LDS exchange 可行性验证（计划）
+
+起始提交：`9218fe1e11570ce0d29ebad777873930fe5de278`，目标为 512K DP z2z、
+batch=1000、`-N 10` 的 SBCC-1024 `[8,8,4,4]`、WGS=256、TPT=64。
+
+VkFFT 的寄存器/SIMD exchange 只有在 source lane 和 destination lane 位于
+同一 wave 时才可直接替代 LDS。当前 rocFFT 生成器的 pass-0 store/load 地址
+由 Stockham 公式决定，并且 4 个 transform 交错分布在 256 个线程中。本实验
+先用与生成器相同的地址公式枚举 source/destination lane，输出每个边界的
+同 wave 比例和跨 wave 计数；再尝试一个只处理同 wave 子集的最小生成原型。
+
+停止条件：若一个边界包含跨 wave 依赖，且剩余跨 wave 数据仍需完整 LDS
+barrier，则 shuffle 不能消除该 LDS 往返；若混合路径增加分支/地址重排而无
+法降低真实 LDS 指令，记录为代码级否证，不提交运行时 kernel。不能用
+`__shfl` 替换整个边界，也不能改变 transform ownership。该实验的输出必须
+包含静态映射日志；只有在存在完整同 wave 边界且可验证时才进入 build 和
+correctness。
