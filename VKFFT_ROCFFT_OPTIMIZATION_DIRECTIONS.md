@@ -482,3 +482,138 @@ PMC 未继续提交，因为 correctness 虽通过，但 kernel 时间已稳定�
 #### 实验顺序与退出条件
 
 先验证 2048x256；若生成器或资源限制使其不可行，保留源码不变并记录失败原因。之后依次单独验证 DP large-twiddle base-6、布局感知写回和 partial-pass 的最小原型。每个方向按 correctness -> 512K benchmark -> PMC -> 256K/128K/64K 扩展验证；若 512K 回归超过测量噪声或任一规模 correctness 失败，回退该条修改。无约束 WGS/TPT/radix 穷举、默认 radix-16、整表搬入 LDS 和无条件 tile fusion 不列入本轮实验。
+
+### EXP-007：1D partial-pass 的 tile ownership 静态模型（已完成，未提交 kernel 原型）
+
+日期：2026-09-01。
+
+#### 1. 实验身份与边界
+
+- 分支：`exp-007-partial-pass-ownership`。
+- 实验前稳定源码：`1ea41d1977135f9525d140463e09da72fffc826e`（`rocfft-opt-pre-tile-lifetime`）。
+- 本轮分析源码状态：`e5c705891e561b32457b611958206ea5ac173f5a`。该提交相对稳定源码只修正文档编码，rocFFT 源码相同。
+- 实验前标签：`pre-exp-007-partial-pass-ownership-20260901`。
+- 实验记录提交：待本节与静态模型首次提交后补录。
+- 目标：DP z2z、batch 1000、`-N 10`，长度 64K、128K、256K、512K；设备、profile 命令和 canonical 时间口径遵守 `agents.me`。
+- 新增分析工具：`partial_pass_tile_ownership.py`。输入是实际 plan log 中的 length、stride、factor、WGS、`trans_per_block` 和 GridParams，不从 kernel 名称反推配置。
+- rocFFT kernel、planner 和 generator 均未修改，因此本轮不产生新的可执行优化，也不把任何计时差异归因于 EXP-007。
+
+本轮要回答的问题不是“两个 kernel 能否在语法上拼到一起”，而是：在不重复计算 producer、不依赖跨 workgroup 同步的前提下，现有 SBCC workgroup 输出的数据是否足以让某个现有 SBRC workgroup 继续完成至少一个 Stockham pass，并最终消除两者之间的 N 元素 global handoff。
+
+#### 2. 中间布局与 ownership 定义
+
+依据当前 `CC1DNode::AssignParams_internal()`，令 producer 长度为 `[K,M]`。SBCC 输出 stride 为 `[M,1]`，SBRC 输入的逻辑视图 stride 为 `[1,M]`。同一个物理元素可写成：
+
+```text
+producer: H_P[q,a]
+consumer: H_C[a,q]
+physical address = q*M + a
+```
+
+这里 `q in [0,K)`、`a in [0,M)`。因此转置是 producer/consumer 对同一物理矩阵的不同逻辑视图，并不是一个 producer tile 与一个 consumer tile 的一一重命名。
+
+如果 plan 中 SBCC 的 `trans_per_block=P`，一个 producer workgroup 拥有 `K x P` 的竖条；如果 SBRC 的 `trans_per_block=C`，一个 consumer workgroup 需要 `C x M` 的横条。两者通常只在 `C x P` 的小矩形上相交。完整 ownership 关系如下：
+
+| N | producer `[K,M]` | producer tile 数 | consumer tile 数 | producer-consumer 相交边数 |
+|---:|---:|---:|---:|---:|
+| 64K | `[256,256]` | 32 | 32 | 1,024 |
+| 128K | `[256,512]` | 64 | 64 | 4,096 |
+| 256K | `[512,512]` | 128 | 128 | 16,384 |
+| 512K | `[1024,512]` | 128 | 256 | 32,768 |
+
+四个规模都是 many-to-many Cartesian handoff：每个完整 consumer tile 依赖所有 producer tiles，每个 producer tile 的结果又会被所有 consumer tiles 分片使用。因此，简单地把“一个现有 SBCC workgroup”和“一个现有 SBRC workgroup”配成一个 fused workgroup，无法获得完整输入 ownership。
+
+#### 3. Consumer-prefix 精确依赖
+
+模型按 SBRC 的实际 Stockham factor 前缀枚举依赖，而不是假设首个 radix 消费相邻列。若 consumer 长度为 `M`，前缀 radix 乘积为 `S`，一个前缀 group 的输入列间距为 `M/S`。
+
+512K 的 consumer 是 SBRC-512 `[8,8,8]`。首个 radix-8 group 实际读取：
+
+```text
+a = [0, 64, 128, 192, 256, 320, 384, 448]
+```
+
+这八列分别来自八个不同的 SBCC producer tiles，不是一个 tile 中的八个相邻 transform。四规模的首个 consumer pass 静态资源筛选为：
+
+| N | 首个 prefix | owner 需计算的 producer transforms | 按当前 producer TPT 的 WGS | producer 输出 live set（complex/scalar） | 保留当前连续 producer 宽度时的 WGS |
+|---:|---:|---:|---:|---:|---:|
+| 64K | radix-4 | 4 | 128 | 16/8 KiB | 1,024 |
+| 128K | radix-8 | 8 | 256 | 32/16 KiB | 2,048 |
+| 256K | radix-8 | 8 | 512 | 64/32 KiB | 2,048 |
+| 512K | radix-8 | 8 | 512 | 128/64 KiB | 2,048 |
+
+表中的“WGS 可容纳”只是必要条件，不是可实现性或性能证明。尤其在 512K 中，WGS=512 的 owner 必须从八个相隔 64 列的 producer transforms 收集数据，破坏当前 SBCC 每个 block 连续处理四列的 ownership 和 global access 方式；若同时保留该连续宽度，则需要 32 个 producer transforms、估算 WGS=2048，超过当前 1024 的硬筛选上限。
+
+更重要的是，执行首个 radix 后仍剩余 consumer factors。结果必须写到某个跨 workgroup 可见的位置，再由 continuation kernel 继续，所以 N 元素级 inter-kernel handoff 仍存在，只是中间状态的布局和边界发生变化。对当前“消除 SBCC→SBRC global store/load”的目标，移动一个不完整 prefix 不足以成立。
+
+在“完整 producer 之后接 consumer prefix”的模型中，只有完成整个 consumer prefix 才能在同一个 owner 内结束第二维 FFT并真正消除当前 handoff。四规模对应的当前-TPT WGS 下界分别为 8192、16384、32768、32768；producer 输出 complex live set 分别为 1、2、4、8 MiB，均远超单 workgroup 的 WGS/LDS 资源范围。该结论否定的是“沿用当前完整 producer 计算和现有 workgroup 粒度的直接融合”，不是对所有新分解、跨 kernel partial-state 协议或不同 ownership 算法的普遍不可能性证明。
+
+#### 4. 与历史 tile-lifetime 实现的区别
+
+历史提交 `b64aaedd0b3df7cded280b0d42e382193ea3c678` 已经遇到同一个 Cartesian ownership 问题。`logs/exp017_plan.log` 对 512K 明确记录：
+
+```text
+producer tiles per plane: 128
+consumer tiles per plane: 256
+producer tiles required per consumer tile: 128
+cross-stage tile pairs: 32768
+requires producer tile replication: true
+```
+
+该提交的 `rtc_stockham_gen.cpp` 在每个 `consumer_block_id` 内执行：
+
+```text
+for producer_tile_id in [0, producerTilesPerConsumerTile):
+    remap producer_block_id
+    rerun producer_global.body
+```
+
+因此每个 consumer workgroup 都重跑全部 128 个 producer tiles；256 个 consumer workgroups 共执行 32768 次 producer tile，而原计划每 batch 只执行 128 个 producer tiles。也就是每个原 producer tile 被不同 consumer owners 重算 256 次。它通过计算复制换取局部 handoff，不是非冗余的 partial-pass ownership，源码结构本身已经解释了该方向为何性能很差。
+
+本轮模型与旧实现的实质区别是先建立 producer/consumer 的静态依赖图，并把“不允许 producer 重算”作为约束；它没有再次实现同一 fused loop。结果表明，在该约束下，现有 tile 粒度不能直接完成 handoff。
+
+#### 5. rocFFT 现有 partial-pass 不能直接复用的原因
+
+当前源码确实已有 `stockham_pp_gen_cc.h`、`stockham_pp_gen_rr.h` 和 `stockham_gen.cpp` 的 partial-pass 支持，但其调用来自 `tree_node_3D.cpp`。代码契约依赖 `parent_length`、off-dimension、两组 partial-pass factors 和成对 kernel；`stockham_pp_gen_cc.h` 还明确列出 `factors_pp.size() > 1` 尚待支持，并拒绝 x/z off-dimension。当前没有普通 1D `CC1DNode` 的 SBCC→SBRC ownership/continuation contract。因此，“rocFFT 已有 partial-pass”只能证明生成器有局部机制基础，不能证明当前 1D CC handoff 已经可用。
+
+#### 6. 计划、任务和性能记录
+
+plan/capture 任务均完成且退出码为 0：64K `797706`、128K `797711`、256K `797713`、512K `797716`。plan 原始记录：
+
+```text
+logs/exp007_plan_65536.log
+logs/exp007_plan_131072.log
+logs/exp007_plan_262144.log
+logs/exp007_plan_524288.log
+```
+
+静态模型完整输出：`logs/exp007_ownership_model_final_20260901.log`。capture CSV 与 `agents.me` 的 fixed baseline 按同一公式计算：
+
+| N | fixed baseline `T_compute_ms` | stable capture `T_compute_ms` | baseline/capture | 相对 baseline 改善 |
+|---:|---:|---:|---:|---:|
+| 64K | 3.732493091 | 3.635459818 | 1.026690784x | 2.599691% |
+| 128K | 8.954852000 | 7.929874818 | 1.129255153x | 11.446054% |
+| 256K | 19.360417545 | 18.148907182 | 1.066753902x | 6.257667% |
+| 512K | 70.509517909 | 40.647207727 | 1.734670642x | 42.352169% |
+
+capture 文件：
+
+```text
+results/z2z_64k_b1000_exp007_plan_64k_20260901_162327.csv.hipkernel.csv
+results/z2z_128k_b1000_exp007_plan_128k_20260901_162435.csv.hipkernel.csv
+results/z2z_256k_b1000_exp007_plan_256k_20260901_162516.csv.hipkernel.csv
+results/z2z_512k_b1000_exp007_plan_512k_20260901_162556.csv.hipkernel.csv
+```
+
+这些 capture 测的是 EXP-007 开始前已经存在的稳定可执行版本。由于 EXP-007 没有修改可执行源码，`speedup_prev=1.000000x`、`improvement_prev=0.000000%` 是源码身份关系，不是一次新优化的实测收益；表中相对 fixed baseline 的差异属于此前保留优化和测量环境的综合结果，不能归因于静态 ownership 模型。
+
+correctness：不适用。本轮没有新 kernel、planner、RTC 代码或安装产物，因而没有可与前一版本区别的 FFT correctness 对象；不冒充提交一次未改变二进制的 correctness 为新算法验证。静态工具已通过远端 `python3 -m py_compile partial_pass_tile_ownership.py`，四份 plan 均通过尺寸、stride、factor 乘积、grid block、WGS 和 `trans_per_block` 一致性检查。PMC：不适用，原因相同。
+
+#### 7. 决策
+
+1. **否定**“一个现有 SBCC producer tile 对一个现有 SBRC consumer tile”的简单融合；四个目标规模都有 many-to-many ownership。
+2. **不再采用**历史实现中“一个 consumer owner 重算全部 producer tiles”的方案；它用 256 倍 producer tile 执行次数换取 512K 的局部 handoff。
+3. **不把所有 partial-pass 算法判为无效**。改变 Cooley-Tukey 分解、输出 partial state、引入新的 continuation layout 或重新定义 tile owner，可能形成不同算法，但必须重新证明非冗余 ownership、global traffic 和资源上界。
+4. 首个 consumer pass relocation 在四规模上通过单纯 WGS 筛选，但不能消除 N 元素 inter-kernel handoff，并会引入 strided producer ownership；除非后续先给出能减少总 global bytes/transactions 的新 continuation contract，否则不进入代码实现。
+
+最终结论：EXP-007 是一次可证伪的结构筛选，不是性能优化。它关闭了“沿用现有 SBCC/SBRC workgroup 直接做 non-redundant partial-pass fusion”这条实现路径，同时保留对真正改变分解与 ownership 的算法设计空间。
