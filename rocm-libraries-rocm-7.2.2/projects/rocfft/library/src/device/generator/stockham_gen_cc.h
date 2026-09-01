@@ -64,7 +64,8 @@ struct StockhamKernelCC : public StockhamKernel
     Variable length_M_blue{"length_M_blue", "const size_t"};
 
     // large twiddle support
-    Multiply ltwd_entries{Parens{ShiftLeft{1, large_twiddle_base}}, 3};
+    Multiply ltwd_entries{Parens{ShiftLeft{1, large_twiddle_base}},
+                          large_twiddle_steps};
     And      ltwd_in_lds{apply_large_twiddle, Less{large_twiddle_base, 8}};
     Variable large_twd_lds{"large_twd_lds", "scalar_type", true, true};
 

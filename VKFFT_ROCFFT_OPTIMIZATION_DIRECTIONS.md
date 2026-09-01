@@ -617,3 +617,123 @@ correctness：不适用。本轮没有新 kernel、planner、RTC 代码或安装
 4. 首个 consumer pass relocation 在四规模上通过单纯 WGS 筛选，但不能消除 N 元素 inter-kernel handoff，并会引入 strided producer ownership；除非后续先给出能减少总 global bytes/transactions 的新 continuation contract，否则不进入代码实现。
 
 最终结论：EXP-007 是一次可证伪的结构筛选，不是性能优化。它关闭了“沿用现有 SBCC/SBRC workgroup 直接做 non-redundant partial-pass fusion”这条实现路径，同时保留对真正改变分解与 ownership 的算法设计空间。
+
+### EXP-052：512K z2z 的 2048x256 Cooley-Tukey 边界（已完成，回滚）
+
+日期：2026-09-01。
+
+#### 实验身份
+
+- 分支：`exp-052-cc-2048x256`。
+- 起始提交：`e0e9e8e084d6ad24cab721eda60a9b09fb39fe24`；其 rocFFT 源码与当前有效源码 `1ea41d1977135f9525d140463e09da72fffc826e` 相同。
+- 实验前标签：`pre-exp-052-cc-2048x256-20260901`。
+- 实验源码提交：`6651a38b7e7e1075a0a52db7754d964a6f2b5492`。
+- 前一有效版本 canonical 时间：64K `3.635459818 ms`、128K `7.929874818 ms`、256K `18.148907182 ms`、512K `40.647207727 ms`。这些值来自 EXP-007 对未改动稳定安装的标准 capture。
+- 本轮使用编号 052，是因为 Git 历史中的旧主分支已经保存 EXP-001 至 EXP-051；不复用旧编号。
+
+#### 假设与单变量设计
+
+512K DP 当前使用 `SBCC-1024 + SBRC-512`。本轮改为 `SBCC-2048 + SBRC-256`，检验改变 Cooley-Tukey 分解边界能否改善两个 kernel 的计算/访存平衡。kernel 数量和 N 元素 global intermediate 不变，因此若有收益，应来自局部 FFT 深度、tile 形状、consumer 列宽、large-twiddle 地址分布或两个阶段负载平衡，而不是减少 launch 或 global 读写次数。
+
+为避免把参数枚举混入结构实验，SBCC-2048 采用与稳定 SBCC-1024 等价的资源尺度：
+
+```text
+stable SBCC-1024: WGS=256, TPT=64,  TPB=4, 1024/64=16 complex/thread,
+                  DP scalar half-LDS = 1024*4*8 = 32768 B
+EXP-052 SBCC-2048: WGS=256, TPT=128, TPB=2, 2048/128=16 complex/thread,
+                   DP scalar half-LDS = 2048*2*8 = 32768 B
+```
+
+新 factorization 固定为 `[8,8,8,4]`，只使用最大 radix-8；DP 保持 half-LDS、direct-to/from-register 和 base-8 large-twiddle 路径。producer 每 batch 的预计 workgroup 数仍为 `512/4 = 256/2 = 128`。不同时改变 XOR、recurrence、WGS=256 或其它已保留机制。
+
+#### 源码修改
+
+1. `library/src/node_factory.cpp`：把 double 512K 的 CC 分解项从 `{524288,1024}` 改为 `{524288,2048}`。
+2. `library/src/device/kernels/configs/config_sbcc.py`：增加 DP SBCC-2048 `[8,8,8,4]`、基础 WGS=128、TPT=128、half-LDS、RTC 配置；large-kernel 生成过程对 DP half-LDS 将实际 WGS 扩为 256。
+3. `agents.me` 的测量定义不变。
+
+`config_sbcc.py` 已通过远端 `python3 -m py_compile`，两处源码通过 `git diff --check`。
+
+#### 构建、plan 与 correctness
+
+- 构建任务 `798018`，状态 `COMPLETED`、退出码 `0:0`，耗时 `00:05:30`；rocFFT 和 hipFFT 均成功安装。
+- correctness/plan 任务 `798036`，状态 `COMPLETED`、退出码 `0:0`。
+- plan 原始文件：`logs/exp052_plan_512k.log`。实际命中 SBCC-2048 `[8,8,8,4]`、WGS=256、TPB=2、32768 B LDS、base-8/3-step；SBRC-256 `[4,4,4,4]`、WGS=256、TPB=8、32768 B LDS。producer/consumer grid 分别为 128/256 blocks per batch，符合设计。
+- correctness：`relative_l2=6.610588e-16`、`relative_max=1.056702e-15`、`max_abs=3.970911e-12`，通过。
+
+#### 标准性能结果
+
+主 benchmark 任务 `798038`：
+
+```text
+results/z2z_512k_b1000_exp052_cc2048x256_20260901_182158.csv.hipkernel.csv
+T_compute_ms = 42.914154182
+speedup_prev = 0.947174854x
+improvement_prev = -5.577127%
+speedup_baseline = 1.643036412x
+improvement_baseline = 39.137076%
+```
+
+重复任务 `798042`：
+
+```text
+results/z2z_512k_b1000_exp052_cc2048x256_repeat_20260901_182416.csv.hipkernel.csv
+T_compute_ms = 42.948510818
+speedup_prev = 0.946417162x
+improvement_prev = -5.661651%
+```
+
+两次结果一致，回归明显超过运行噪声。按每次 FFT 的 kernel `TotalDurationNs/11` 拆分：
+
+| kernel stage | 前一有效版本 | EXP-052 | 变化 |
+|---|---:|---:|---:|
+| SBCC producer | 23.090815273 ms（1024） | 27.722818273 ms（2048） | +4.632003000 ms，+20.059937% |
+| SBRC consumer | 17.553483364 ms（512） | 15.188485000 ms（256） | -2.364998364 ms，-13.473100% |
+
+分解边界确实减轻了 consumer，但 producer 的额外局部 pass、地址/交换工作和更长 2048 点 tile 造成的代价更大，净增加约 `2.267005 ms`。当前证据不能把各微观来源进一步分离，但已足以否定该固定资源等价配置的整体收益。
+
+#### 决策与回滚
+
+决策：回滚。512K correctness 虽通过，但两次 canonical 性能均稳定回归约 5.6%。根据预先退出条件，不继续 PMC，也不运行 64K/128K/256K 性能任务；这三个规模的分解表未修改，新增 2048 配置不会被其 plan 使用，不能将未运行结果写成跨规模收益。
+
+`node_factory.cpp` 的 512K 项已恢复为 `{524288,1024}`，并删除实验性 SBCC-2048 配置。失败源码提交保留在 `exp-052-cc-2048x256` 历史中；结果记录与源码回滚提交为 `0e809e7f5e70a431c4d8a51b5525829d5012265b`。后续 EXP-053 从有效源码重新建立，不继承本实验的 2048x256 改动。
+
+### EXP-053：512K DP large-twiddle base-6 四步与 LDS LUT（进行中）
+
+日期：2026-09-01。
+
+#### 实验身份与前一版本
+
+- 分支：`exp-053-large-twiddle-base6`。
+- 起始提交：`e0e9e8e084d6ad24cab721eda60a9b09fb39fe24`；rocFFT 源码与有效提交 `1ea41d1977135f9525d140463e09da72fffc826e` 相同。
+- 实验前标签：`pre-exp-053-large-twiddle-base6-20260901`。
+- 前一有效 512K canonical 时间：`40.647207727 ms`，来自 `results/z2z_512k_b1000_exp007_plan_512k_20260901_162556.csv.hipkernel.csv`。
+- fixed official 7.2.2 baseline：`70.509517909 ms`，来自 `agents.me` 指定的 512K baseline 文件。
+
+#### 假设与实现校正
+
+EXP-006 把候选简写成了“base-6 三步”，但源码和长度位数证明该说法不成立。512K 为 `2^19`，而 base-6 三步只能覆盖 `2^(6*3)=2^18=262144`；必须使用四步才能覆盖 19 位指数。当前 base-8 三步表为 `3*256=768` 个 DP complex（12288 B），base-6 四步表为 `4*64=256` 个 DP complex（4096 B）。
+
+rocFFT 当前对 `largeTwdBase < 8` 的 SBCC 路径会由 workgroup 合并上传整个 large-twiddle 表到 LDS。因此本轮检验的是一个明确的基数/存储层次组合：用一次 256 项 cooperative upload 和 LDS 重用，替代后续 base-8 三表 global/L1/L2 读取；代价是每次 `TW_NSteps` 从两次复数乘法增加到三次，并且 SBCC-1024 动态 LDS 预计从 32768 B 增至 36864 B，可能把 LDS 限制的 block occupancy 从 2 降为 1。该资源风险是实验的核心权衡，不能只按 LUT 字节数预测收益。
+
+#### 精确修改与作用域
+
+1. `tree_node_1D.cpp::SBCCNode::KernelCheck()`：仅对 double precision、局部 length 1024、`large1D == 524288` 强制选择小 base 分解；其它 precision、局部长度和 large1D 保持 kernel 原配置。
+2. `plan.cpp::get_large_twd_base_steps()`：允许 base 4/5/6 使用四步；base-8 的四步禁令不变。
+3. `large_twiddles.h` 与 legacy/AOT `rocfft_butterfly_template.h` 的 `TW_NSteps()`：实现编译期 `Steps >= 4` 的第 4 组位提取和第 3 次复数乘法，继续拒绝 5 步以上分解，避免不同生成路径语义不一致。
+4. `stockham_gen_cc.h`：LDS cooperative upload 项数从硬编码 `3*(1<<base)` 改为 `steps*(1<<base)`，防止四步时漏传第 4 个 64 项子表。
+5. 不修改 WGS、TPT、Stockham factors、XOR、half-LDS、large-twiddle recurrence 或 SBRC；`agents.me` 的测试定义不变。
+
+#### 验证计划与退出条件
+
+先完整构建，再运行 512K correctness/plan。plan 必须命中 `twdbase6_4step`，large twiddle table length 必须为 256，动态 LDS 应为 36864 B；任一不符即停止性能结论并修正实现。correctness 通过后按 DP z2z、batch 1000、`-N 10`、`hipprof --stats` 测 512K，并至少重复一次。
+
+若 512K 明确回归或 occupancy 降为 1 且无法由 LUT 流量收益抵消，则按预设退出条件回滚，不做 PMC 和小规模泛化。若有稳定收益，再收集 SBCC PMC 的 VMEM_RD、LDS、VALU、VGPR、LDS bytes/occupancy，并检查 64K/128K/256K；由于启用条件精确限制为 512K，这三个规模在本轮应保持源码路径不变，除非后续另建实验扩展条件。
+
+#### 任务与结果
+
+- 实验源码提交：提交后补录。
+- 构建任务：待提交。
+- correctness/plan：待构建完成后提交。
+- benchmark/PMC：待 correctness 判定。
+- 最终决策：待测。

@@ -990,6 +990,10 @@ bool SBCCNode::KernelCheck(std::vector<FMKey>& kernel_keys)
     {
         auto kernel    = GetKernel();
         largeTwd3Steps = kernel.use_3steps_large_twd;
+        if(precision == rocfft_precision_double && length[0] == 1024
+           && large1D == 524288)
+            largeTwd3Steps = true;
+
         get_large_twd_base_steps(large1D, largeTwd3Steps, largeTwdBase, ltwdSteps);
     }
 
