@@ -772,3 +772,17 @@ SBRC 保持噪声范围内不变；约 `10.41 ms` 的净回归全部来自 SBCC�
 按预设退出条件不做 PMC，也不运行 64K/128K/256K；启用 gate 仅匹配 512K DP，因此这些规模未改变路径，不能写成实测结果。后续若研究方向 5，必须在不把 SBCC LDS 推过双 block 驻留阈值的前提下复用已死亡的 LDS 区域，或移动 large-twiddle 所在阶段，而不是再次无条件追加 LUT LDS。
 
 实验源提交保留在本分支历史；RTC/AOT 四步实现、planner gate 和动态上传项数均恢复到起始稳定源码。结果记录与源码回滚提交为 `8cb5ad915c9f5f805630e617798f48cc1b2dea9d`。
+
+### EXP-054：two-tier register/LDS 的同一线程局部 Stockham 交换（进行中）
+
+日期：2026-09-01。
+
+实验前状态：分支 `exp-054-two-tier-register-lds`，起点为当前有效源码的回滚后状态；实验前标签为 `pre-exp-054-two-tier-register-lds-20260901`。安装目录在本实验前仍含 EXP-053 的失败安装产物，先由构建任务 `798133` 重建后再测量。
+
+目标：验证 VkFFT 的“寄存器承担局部重排、LDS 只承担跨线程通信”能否在 rocFFT 的 Stockham 生成器中形成真实收益。该实验不是替换 barrier，也不是改变 WGS/TPT/radix 参数；只在 DP SBCC-1024、因素 `[8,8,4,4]`、TPT=64 的一个已证明同线程边界启用。
+
+静态映射证明：pass 2 的 radix-4 store 对线程 `s`、局部行 `h`、列 `w` 写入 `j = h*256 + s + w*64`。pass 3 的 radix-4 load 对目标线程 `s`、行 `h2`、列 `w2` 读取 `j = s + h2*64 + w2*256`。两式相等时源寄存器为 `R[w2*4+h2]`，目标寄存器为 `R[h2*4+w2]`，因此每个线程只需对自己的 4x4 register tile 做转置，不需要跨线程交换。该证明只覆盖这个精确边界，不推广到其它 factors、TPT 或长度。
+
+预期变化：删除 pass 2 的 register-to-LDS store、同步和 pass 3 的 LDS-to-register load、同步；保留 pass 1/2 之间的 LDS 通信和其它所有路径。由于当前目标使用 half-LDS，原来的 real/imag 两次 LDS 往返也由同一个 register 4x4 transpose 一并替代。用一个已有临时寄存器完成原地交换，观察 VGPR、LDS 指令、occupancy 和端到端时间。
+
+退出条件：生成源码映射不符合上述索引，或 correctness 失败，立即回滚；correctness 通过但 SBCC/总时间稳定回归，则保留失败分支和证据并回滚，不向稳定分支合并。若有收益，必须再以相同机制检查 64K/128K/256K 的可证明局部边界后才可保留。
