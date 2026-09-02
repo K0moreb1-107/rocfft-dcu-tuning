@@ -40,3 +40,25 @@ and raw logs/CSV if rejected; do not merge it into the stable branch.
 
 This plan is recorded before changing the SBRC configuration. Runtime source
 code and the stable branch remain unchanged.
+
+## Result
+
+The configuration was applied only to `config_sbrc.py`, built by job `799439`,
+and verified by correctness job `799451`: `relative_l2=6.587307e-16`,
+`relative_max=9.235930e-16`, `max_abs=3.470709e-12`. The plan log confirmed
+the target kernel was `fft_rtc_fwd_len_512_factors_16_16_2_wgs_512_tpt_128`.
+
+The standard batch=1000, DP z2z, `-N 10` benchmark was job `799456`; its CSV
+was `results/z2z_512k_b1000_exp063_20260902_131215.csv.hipkernel.csv`.
+After subtracting the random-data kernel and dividing by 11, the candidate
+time was `44.928196 ms`: SBRC-512 `23.393422 ms` plus SBCC-1024
+`21.534774 ms`. The stable four-size reference is `39.087328909 ms`, so the
+candidate regressed by about `14.93%`; the SBRC component alone increased by
+about `33%` from the stable ~`17.55 ms`.
+
+Decision: reject and roll back. The configuration was restored to `[8,8,8]`;
+no PMC or cross-size benchmark was run because the primary 512K gate already
+failed. The likely resource risk identified before testing was confirmed at
+the kernel-time level: radix-16 stages did not compensate for their larger
+per-thread working set and resulting kernel resource/throughput cost. This
+candidate must not be merged into the stable branch.
