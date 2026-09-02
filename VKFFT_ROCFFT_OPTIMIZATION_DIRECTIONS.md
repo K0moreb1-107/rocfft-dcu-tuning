@@ -1072,6 +1072,7 @@ WGS=512、TPT=128 和 512 点 tile 不变，将 `[8,8,8]` 改为 `[16,16,2]`。
 标准 DP z2z、batch=1000、`-N 10` benchmark `799456` 的 canonical FFT
 时间为 `44.928196 ms`，其中 SBRC-512 为 `23.393422 ms`、SBCC-1024 为
 `21.534774 ms`。相对稳定版本 `39.087328909 ms` 回归约 `14.93%`，故该
+候选已回退到 `[8,8,8]`，不收集 PMC、不扩展到其它长度，也不合并稳定分支。
 
 ### EXP-064：stage-aware XOR LDS mapping（计划）
 
@@ -1094,3 +1095,23 @@ Stockham pass 的 `npass`、`width` 和 `cumheight`，所以可以验证只对�
 512K canonical benchmark；只有时间改善超过噪声才收集 PMC，并评估是否
 需要对 512/256/128/64K 建立独立 gate。
 候选已回退到 `[8,8,8]`，不收集 PMC、不扩展到其它长度，也不合并稳定分支。
+
+#### EXP-064 实测收尾
+
+源码修改仅存在于 `stockham_gen_base.h`，并限定为目标 SBCC-1024
+`[8,8,4,4]`、WGS=256、TPT=64、DP half-LDS。boundary 0 保留 XOR
+地址映射，boundary 1 及之后成对使用原始地址，以保持 store/load 布局
+契约；其它 kernel 和同步逻辑不变。构建任务 `799495` 完成。
+
+correctness 任务 `799514` 通过：`relative_l2=6.645150e-16`、
+`relative_max=9.451432e-16`、`max_abs=3.551690e-12`。两次标准 DP z2z、
+batch=1000、`-N 10` benchmark 均命中目标 SBCC-1024 和原 SBRC-512：
+
+| run | raw CSV | T_compute_ms | vs stable |
+|---|---|---:|---:|
+| `799519` | `results/z2z_512k_b1000_exp064_20260902_134457.csv.hipkernel.csv` | `39.473405` | `-0.9865%` |
+| `799524` | `results/z2z_512k_b1000_exp064repeat_20260902_134638.csv.hipkernel.csv` | `39.470121` | `-0.9781%` |
+
+稳定参考为 `39.087328909 ms`，两次均回归约 `0.98%`，因此该方向在
+512K 目标路径也不是稳定优化。按停止条件已回退全部 EXP-064 runtime
+改动，不收集 PMC，也不扩展到其它长度；只保留本记录和原始 CSV。
