@@ -1143,4 +1143,43 @@ RTC 源码中命中条件、执行 correctness，再按 `agents.me` 的 canonica
 从每个 radix-8 butterfly 的 7 次降为 1 次；代价是额外复数乘法和一个
 基 twiddle 的寄存器生命周期。收益预估为 0--5%，不是实测结论。即使
 512K 目标路径有效，也必须单独评估 64K/128K/256K 是否共享相同的
-generator gate，不能自动扩大适用范围。
+ generator gate，不能自动扩大适用范围。
+
+#### EXP-065 实测结果
+
+源码提交：`43f9c753`；构建任务：`800561`，首次构建因 const helper
+声明错误失败的任务为 `800554`，该失败不产生安装结果。correctness 任务：
+`800582`，通过，结果为 `relative_l2=6.604511e-16`、
+`relative_max=8.405844e-16`、`max_abs=3.158776e-12`。
+
+两次标准 512K DP z2z、batch=1000、`-N 10` benchmark：
+
+| job | raw CSV | Total row ns | bench-only ns | T_compute_ms | vs stable |
+|---:|---|---:|---:|---:|---:|
+| `800591` | `results/z2z_512k_b1000_exp065_ordinaryrecur_20260902_203809.csv.hipkernel.csv` | `2833729707` | `2406752681` | `38.816093273` | `1.006987711x`, `+0.693922%` |
+| `800592` | `results/z2z_512k_b1000_exp065_ordinaryrecur_20260902_203819.csv.hipkernel.csv` | `2833764484` | `2406751915` | `38.819324455` | `1.006903893x`, `+0.685656%` |
+
+计算使用 `(Total - generate_random_interleaved_data_kernel) / 11`；稳定
+参考为 `39.087328909 ms`。两次结果方向一致，平均为 `38.817708864 ms`，
+相对稳定版本改善约 `0.690%`。这是 hipprof GPU-kernel canonical 时间，
+不包含 host launch 和未 profile 的 runtime 开销。
+
+PMC 任务：`800605`，原始文件：
+`results/pmcall_524288_exp065_ordinary_recur.csv`。目标
+SBCC-1024 行显示 `arch_vgpr=152`、`SQ_INSTS_LDS=74.752M`、
+`SQ_INSTS_VALU=635.904M`、`SQ_INSTS_VMEM_RD=12.800M`、
+`SQ_INSTS_VMEM_WR=8.192M`、`SQ_LDS_BANK_CONFLICT=241.876M`。
+历史同 TPT=64 的参考文件
+`results/pmcall_524288_exp057_late_lds.csv` 显示
+`arch_vgpr=216`、`SQ_INSTS_LDS=74.752M`、`SQ_INSTS_VALU=601.600M`、
+`SQ_INSTS_VMEM_RD=20.992M`、`SQ_INSTS_VMEM_WR=8.192M`、
+`SQ_LDS_BANK_CONFLICT=241.876M`。因此本实现确实减少了 ordinary-twiddle
+global read，但增加了约 `5.70%` VALU；LDS 和 bank conflict 没有变化。
+PMC 的运行条件包含 `ROCFFT_RTC_CACHE_READ_DISABLE=1`，所以资源计数用于
+机制佐证，不替代两次 canonical benchmark。
+
+决策：保留在 EXP-065 分支，并合入稳定分支作为 512K DP z2z 目标路径的
+稳定优化。当前 gate 只覆盖 SBCC-1024 `[8,8,4,4]`、WGS=256、TPT=64、
+DP half-LDS；不扩大到 64K/128K/256K，后续如需跨规模必须新建实验并独立
+correctness/benchmark。该结果不证明 ordinary-twiddle recurrence 对所有
+radix 或所有 rocFFT kernel 都有效。
