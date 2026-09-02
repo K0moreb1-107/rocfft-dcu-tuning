@@ -488,6 +488,14 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return work;
     }
 
+    bool use_ordinary_twiddle_recurrence()
+    {
+        return half_lds && direct_to_from_reg && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double
+               && length == 1024 && workgroup_size == 256 && threads_per_transform == 64
+               && factors == std::vector<unsigned int>{8, 8, 4, 4};
+    }
+
     // The "stacked" twiddle table starts at the second factor, since
     // the first factor's values are not actually needed for
     // anything.  It still counts towards cumulative height, but we
@@ -505,6 +513,28 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             hr = h;
         StatementList work;
         Expression    loadFlag{thread < length / width};
+
+        if(use_ordinary_twiddle_recurrence() && (width == 4 || width == 8))
+        {
+            // Consecutive entries in a radix butterfly are powers of one base
+            // twiddle. Load that base once, then form the remaining powers in
+            // registers. This is limited to the measured SBCC-1024 layout.
+            auto tid = thread + dt + h * threads_per_transform;
+            auto base_tidx
+                = cumheight - firstFactor + (width - 1) * (tid % cumheight);
+            work += Assign(W, twiddles[base_tidx]);
+            for(unsigned int w = 1; w < width; ++w)
+            {
+                auto ridx = hr * width + w;
+                if(w == 2)
+                    work += Assign(t, TwiddleMultiply(W, W));
+                else if(w > 2)
+                    work += Assign(t, TwiddleMultiply(t, W));
+                const auto& twiddle = w == 1 ? W : t;
+                work += Assign(R[ridx], TwiddleMultiply(R[ridx], twiddle));
+            }
+            return work;
+        }
 
         for(unsigned int w = 1; w < width; ++w)
         {
