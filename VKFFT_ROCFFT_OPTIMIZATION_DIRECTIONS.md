@@ -1115,3 +1115,32 @@ batch=1000、`-N 10` benchmark 均命中目标 SBCC-1024 和原 SBRC-512：
 稳定参考为 `39.087328909 ms`，两次均回归约 `0.98%`，因此该方向在
 512K 目标路径也不是稳定优化。按停止条件已回退全部 EXP-064 runtime
 改动，不收集 PMC，也不扩展到其它长度；只保留本记录和原始 CSV。
+
+### EXP-065：SBCC-1024 ordinary-twiddle recurrence（计划）
+
+起始稳定提交：`c38e0d3f4daa4fd53d6985f331f873c4e9e16d4b`，目标分支：
+`exp-065-ordinary-twiddle-recurrence`。目标为 512K DP z2z、batch=1000、
+`-N 10`，精确命中 SBCC-1024 `[8,8,4,4]`、WGS=256、TPT=64、DP
+half-LDS、large-twiddle base=8/3-step 路径。
+
+代码事实：`stockham_gen_base.h::apply_twiddle_generator()` 当前对每个
+`w=1..width-1` 都直接读取 `twiddles[tidx]`，其中同一线程的 `tidx`
+随 `w` 连续增加；该函数与已经存在的 `StockhamKernelCC` large-twiddle
+递推是两条不同路径。候选利用同一 radix butterfly 内连续 twiddle 是
+同一基 twiddle 的幂这一布局契约：读取 `w=1` 的基值一次，在寄存器中
+递推得到后续幂次，再分别乘到 R。它不改 Stockham 数据布局、LDS 地址、
+barrier、radix、WGS 或 TPT。
+
+实现限制：只在 DP、length=1024、factors=`[8,8,4,4]`、WGS=256、
+TPT=64、目标 SBCC generator 中启用；其它 length、SBRC、precision、
+factor 组合保持原路径。修改前先建立实验分支和本计划提交；随后检查
+RTC 源码中命中条件、执行 correctness，再按 `agents.me` 的 canonical
+`T_compute_ms` 做至少两次 512K benchmark。若 twiddle 表连续项不是幂次
+关系、correctness 失败、RTC 未命中，或额外 VALU/VGPR 使两次 benchmark
+均无改善，则立即回退 runtime 修改并记录 PMC 或源码证据，不合并稳定分支。
+
+预期收益：减少目标 stage 的 ordinary twiddle global load，理论上最多
+从每个 radix-8 butterfly 的 7 次降为 1 次；代价是额外复数乘法和一个
+基 twiddle 的寄存器生命周期。收益预估为 0--5%，不是实测结论。即使
+512K 目标路径有效，也必须单独评估 64K/128K/256K 是否共享相同的
+generator gate，不能自动扩大适用范围。
