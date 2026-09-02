@@ -1072,4 +1072,25 @@ WGS=512、TPT=128 和 512 点 tile 不变，将 `[8,8,8]` 改为 `[16,16,2]`。
 标准 DP z2z、batch=1000、`-N 10` benchmark `799456` 的 canonical FFT
 时间为 `44.928196 ms`，其中 SBRC-512 为 `23.393422 ms`、SBCC-1024 为
 `21.534774 ms`。相对稳定版本 `39.087328909 ms` 回归约 `14.93%`，故该
+
+### EXP-064：stage-aware XOR LDS mapping（计划）
+
+日期：2026-09-02。起点为 EXP-063 回退后的实验分支，runtime 源码中
+SBRC-512 已恢复 `[8,8,8]`。
+
+代码事实：`stockham_gen_base.h::lds_address()` 当前在 DP half-LDS 且
+length=512/1024 时，对所有经过该 helper 的 LDS load/store 无条件计算
+`addr ^ (addr >> 4)` 或 `addr ^ (addr >> 6)`。生成器同时保留每个
+Stockham pass 的 `npass`、`width` 和 `cumheight`，所以可以验证只对早期
+跨线程重排边界启用 XOR，而让后期大 stride/线性边界使用原始地址。
+
+假设：XOR 对早期 group-stride LDS 访问有益，但对不需要该打散的后期
+访问只增加整数地址指令和地址重排成本。实验只改变地址映射的启用条件，
+不改变 radix、WGS、TPT、LDS 容量、同步或 transform ownership。
+
+计划：先给 load/store generator 增加明确的 stage-aware swizzle 参数，
+对目标 SBCC-1024 `[8,8,4,4]` 保留早期 pass 的映射、关闭后期 pass 的映射；
+同时保留其它路径的现状。先检查生成 RTC 源码，再做 correctness 和
+512K canonical benchmark；只有时间改善超过噪声才收集 PMC，并评估是否
+需要对 512/256/128/64K 建立独立 gate。
 候选已回退到 `[8,8,8]`，不收集 PMC、不扩展到其它长度，也不合并稳定分支。
