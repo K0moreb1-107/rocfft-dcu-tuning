@@ -1183,3 +1183,45 @@ PMC 的运行条件包含 `ROCFFT_RTC_CACHE_READ_DISABLE=1`，所以资源计数
 DP half-LDS；不扩大到 64K/128K/256K，后续如需跨规模必须新建实验并独立
 correctness/benchmark。该结果不证明 ordinary-twiddle recurrence 对所有
 radix 或所有 rocFFT kernel 都有效。
+
+### EXP-070：缩减 late large-twiddle LDS 上传范围（计划）
+
+日期：2026-09-03。起始稳定提交：
+`d26bdf9c10785a48dd02f78fe5dc38477c5698d3`；目标分支：
+`exp-070-compact-late-ltwd-upload`。目标为 512K DP z2z、batch=1000、
+`-N 10` 的 SBCC-1024 `[8,8,4,4]`、WGS=256、TPT=64、DP half-LDS、
+large-twiddle base=8/3-step 路径。
+
+代码事实：EXP-057 保留的 late-LDS 路径在最后 Stockham pass 后复用已经
+死亡的 row-data LDS，但 `stockham_gen_cc.h::large_twiddles_multiply()` 仍由
+每个 workgroup 上传完整 `3 * (1 << 8) = 768` 个 DP complex 表项。
+`large_twiddles.h::TW_NSteps()` 将索引 `u` 分成三个 8-bit 段，访问范围分别
+为 `[0,255]`、`[256,511]` 和 `512 + ((u >> 16) & 255)`。
+
+实际生成的目标 RTC 源码显示，EXP-057/065 large-twiddle recurrence 只执行
+`TW_NSteps(..., 256 * trans_local)` 和
+`TW_NSteps(..., q * trans_local)`，其中 `q` 由四组起始项覆盖 `[0,255]`。
+512K 的第二维 transform 索引为 `trans_local=0..511`，故最大 `u` 是
+`256 * 511 = 130816`，第三段只可能访问 LUT 索引 `512` 或 `513`。
+因此目标 tile 实际所需的连续前缀为 `[0,513]`，共 514 项；上传 768 项中
+有 254 项不会被读取，占 `33.0729%`。
+
+实现只修改 late-LDS 协作上传循环的上限：当 `trans_local < 512` 时使用
+514，否则仍使用完整 `ltwd_entries`。目标 SBCC 每 block 处理四个连续、
+4 对齐的 transform，所以 `<512` 判定在 block 内一致；最后一个目标 block
+为 `508..511`，下一个 block 为 `512..515`，不会跨越条件边界。该运行时
+回退防止同一 kernel 模板处理更大第二维时漏传第三段表项。
+
+该候选不改变 `TW_NSteps`、复数乘法次数、twiddle 数值、LDS 分配大小、
+barrier、radix、WGS/TPT、Stockham layout 或 tile ownership。预期只减少
+目标 SBCC 每 workgroup 254 次 global-to-LDS DP complex copy；代价是上传
+循环多一个统一上限选择和第三轮仅两个线程有效。收益预估为 0--2%，不是
+实测结论。
+
+验证顺序：检查生成 RTC 循环上限确为
+`trans_local < 512 ? 514 : 768`，并确认所有 `TW_NSteps` 索引满足证明；再做
+512K correctness，最后按 `agents.me` 运行至少两次标准 benchmark。若 RTC
+未命中、correctness 失败或两次 canonical 时间均不优于 EXP-065 平均
+`38.817708864 ms`，则回退 runtime 源码并保留分支、日志和原始 CSV。
+只有 512K 目标路径得到重复的同向收益才可作为该精确 gate 的稳定优化；
+该实验不自动推广到 64K/128K/256K，因为它们不走同一 SBCC-1024 gate。
