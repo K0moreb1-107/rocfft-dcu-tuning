@@ -80,13 +80,10 @@ struct StockhamKernelCC : public StockhamKernel
         const bool sbcc256 = length == 256 && threads_per_transform == 32
                              && transforms_per_block == 8
                              && factors == std::vector<unsigned int>{8, 4, 8};
-        const bool sbcc512 = length == 512 && threads_per_transform == 64
-                             && transforms_per_block == 4
-                             && factors == std::vector<unsigned int>{8, 8, 8};
         const bool sbcc1024 = length == 1024 && threads_per_transform == 64
                               && transforms_per_block == 4
                               && factors == std::vector<unsigned int>{8, 8, 4, 4};
-        return common && (sbcc256 || sbcc512 || sbcc1024);
+        return common && (sbcc256 || sbcc1024);
     }
 
     Expression late_large_twiddle_lds_enabled() const
@@ -695,7 +692,7 @@ struct StockhamKernelCC : public StockhamKernel
             Variable      ltwd_id{"ltwd_id", "unsigned int"};
             StatementList late_load;
             late_load += CommentLines{
-                "row-data LDS is dead: cooperatively upload the base-8/3-step large-twiddle LUT"};
+                "row-data LDS is dead: cooperatively upload the base-8/2-or-3-step large-twiddle LUT"};
             late_load += sync_threads();
             late_load += Declaration{ltwd_id, block_thread_id};
             late_load += While{
