@@ -1352,3 +1352,11 @@ SBCC PMC 参考 `pmcall_*_current_20260830.csv` 比较：
 factors、WGS 和 TPT，不推广到其它 precision、radix 或 kernel。该提交可
 合入 `rocfft-opt-pre-tile-lifetime`；最终 merge commit 和稳定 tag 在合并
 收尾记录中补充。
+
+稳定合并收尾：实验结果记录提交为
+`39d5b8722840e2f482858825a578aa949aace46b`；经全部 correctness、两轮
+四规模 benchmark、RTC 源码检查和 PMC 机制验证后，以非快进方式合入
+`rocfft-opt-pre-tile-lifetime`。有效 runtime merge commit 为
+`b080fd0222506dbee4e58c550748c92130bc0132`，稳定标签为
+`stable-exp071-cross-scale-recurrence-20260904`。实验分支和原始证据保留，
+用户已有的 `VkFFT` 子模块及验证二进制工作区修改未纳入本次提交。
