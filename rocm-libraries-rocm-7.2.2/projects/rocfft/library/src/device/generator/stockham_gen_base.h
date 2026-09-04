@@ -490,10 +490,16 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
     bool use_ordinary_twiddle_recurrence()
     {
-        return half_lds && direct_to_from_reg && precisions.size() == 1
-               && precisions.front() == rocfft_precision_double
-               && length == 1024 && workgroup_size == 256 && threads_per_transform == 64
-               && factors == std::vector<unsigned int>{8, 8, 4, 4};
+        const bool common = half_lds && direct_to_from_reg && precisions.size() == 1
+                            && precisions.front() == rocfft_precision_double
+                            && workgroup_size == 256;
+        const bool sbcc256 = length == 256 && threads_per_transform == 32
+                             && factors == std::vector<unsigned int>{8, 4, 8};
+        const bool sbcc512 = length == 512 && threads_per_transform == 64
+                             && factors == std::vector<unsigned int>{8, 8, 8};
+        const bool sbcc1024 = length == 1024 && threads_per_transform == 64
+                              && factors == std::vector<unsigned int>{8, 8, 4, 4};
+        return common && (sbcc256 || sbcc512 || sbcc1024);
     }
 
     // The "stacked" twiddle table starts at the second factor, since
@@ -518,7 +524,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         {
             // Consecutive entries in a radix butterfly are powers of one base
             // twiddle. Load that base once, then form the remaining powers in
-            // registers. This is limited to the measured SBCC-1024 layout.
+            // registers for the explicitly gated DP SBCC layouts.
             auto tid = thread + dt + h * threads_per_transform;
             auto base_tidx
                 = cumheight - firstFactor + (width - 1) * (tid % cumheight);

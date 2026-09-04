@@ -1225,3 +1225,44 @@ barrier、radix、WGS/TPT、Stockham layout 或 tile ownership。预期只减少
 `38.817708864 ms`，则回退 runtime 源码并保留分支、日志和原始 CSV。
 只有 512K 目标路径得到重复的同向收益才可作为该精确 gate 的稳定优化；
 该实验不自动推广到 64K/128K/256K，因为它们不走同一 SBCC-1024 gate。
+
+### EXP-071：跨规模 ordinary-twiddle recurrence（计划）
+
+日期：2026-09-04。实验分支：`exp-071-cross-scale-ordinary-recurrence`。
+实验前源码稳定提交：`d26bdf9c10785a48dd02f78fe5dc38477c5698d3`；
+实验前标签：`pre-exp-071-cross-scale-20260904`。
+
+目标：回顾 EXP-065 在 512K DP z2z 的 SBCC-1024 上保留的
+ordinary-twiddle recurrence，并验证它能否按实际 planner 配置推广到
+64K、128K、256K。标准条件固定为 DP z2z、batch=1000、`-N 10`、
+`hipprof --stats`、gfx936；固定 baseline 使用 `agents.me` 中四个
+官方 7.2.2 CSV，canonical 时间严格按其 `TotalDurationNs` 公式计算。
+
+代码事实：`stockham_gen_base.h::apply_twiddle_generator()` 的原路径对
+每个 `w=1..width-1` 读取一个 ordinary-twiddle LUT 项。对同一个 radix
+butterfly，rocFFT 的 stacked twiddle 表满足这些项是同一个基础 twiddle
+的连续幂。EXP-065 已在 `[8,8,4,4]` 上用一次基础项加载和寄存器复乘替代
+重复 LUT 读取，并通过 correctness 和两次 benchmark 证明收益。
+
+本实验只扩大 gate，不改变 Stockham 布局、LDS 地址、barrier、radix、
+WGS、TPT 或 transform ownership。实际目标 gate 为：
+
+| FFT | SBCC factors | actual WGS | TPT | source length |
+|---:|---|---:|---:|---:|
+| 64K | `[8,4,8]` | 256 | 32 | 256 |
+| 128K | `[8,4,8]` | 256 | 32 | 256 |
+| 256K | `[8,8,8]` | 256 | 64 | 512 |
+| 512K control | `[8,8,4,4]` | 256 | 64 | 1024 |
+
+先以静态公式检查每个 gate 的 `base_tidx` 与原始 `tidx` 的关系：
+对于 `w=1..width-1`，递推值必须等于原表项的对应幂；随后检查 RTC
+源码命中目标 CC kernel。correctness 必须覆盖四个长度；性能至少对四个
+长度各运行两次。任一 correctness 失败、RTC 未命中或某一新增规模两次
+都回归，则只保留实验分支和证据，不扩大稳定 gate。若新增规模同向改善，
+按每个长度分别比较固定官方 baseline 和实验前有效版本，不能用 512K
+结果推断其它规模收益。
+
+本实验不重新测试 EXP-054 的 register-local exchange、EXP-057 的
+late-LDS、已有的 half-LDS/XOR/scalar-LDS，也不把它们作为本轮新变量；
+这些方向的跨规模状态以历史记录为准。若 ordinary recurrence 通过，
+后续再为其它方向建立独立 EXP 编号。
