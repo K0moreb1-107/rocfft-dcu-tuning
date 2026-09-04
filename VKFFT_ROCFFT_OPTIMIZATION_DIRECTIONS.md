@@ -1507,3 +1507,47 @@ REAL/IMAG 两个 scalar-LDS 访问，正确性保持，但新增地址/访存粒
 决策：拒绝 SBRC-256 scalar-LDS 跨规模推广，源码 gate 已回退，不合并稳定
 分支；保留实验分支、job 日志和八个 raw CSV 作为失败证据。后续从新的
 EXP-074 编号开始，必须从稳定提交 e53d182b 建立独立分支。
+### EXP-074：可推广 512K 优化的跨规模审计与 late-LDS gate 试验（计划）
+
+日期：2026-09-04。实验分支：exp-074-cross-size-reglocal-late-lds。
+起点稳定提交：7bababec；起点标签：pre-exp-074-cross-size-20260904。
+
+目标：对此前 512K 路径中尚未完成跨规模验证的两类修改进行事实审计：
+(1) SBCC-1024 [8,8,4,4]/TPT=64 的 register-local 4x4 exchange；
+(2) SBCC-1024 的 late large-twiddle LDS reuse。只把能够由当前生成器的
+索引公式和 LDS 生命周期证明的条件，建立为小规模的独立精确 gate；不改变
+planner 分解、radix、WGS、TPT、Stockham layout 或 global handoff。
+
+代码审计结果：
+
+- stockham_gen_base.h::use_register_local_exchange() 当前要求
+  half_lds && DP && length=1024 && factors=[8,8,4,4] && TPT=64 &&
+  npass=2。其正确性证明是 pass 2 的 radix-4 store 与 pass 3 的 radix-4
+  load 在同一线程内形成 4x4 转置。目标 64K/128K 的 SBCC-256
+  [8,4,8] 和 256K 的 SBCC-512 [8,8,8] 不具备相同的相邻
+  radix-4/radix-4 边界，因此本方向对这些尺寸目前是静态不可推广，不应
+ 只扩宽 length 条件。
+
+- stockham_gen_cc.h::use_late_large_twiddle_lds() 当前要求
+  direct_to_from_reg && half_lds && DP && length=1024 && WGS=256 &&
+  TPT=64 && TPB=4 && factors=[8,8,4,4]。该 gate 复用 lds_complex 起始
+  位置；large_twiddles_multiply() 在最终 pass 后协作上传，随后通过两次
+  block barrier 读取。对小规模 gate，必须重新确认 direct_load_to_reg
+  生成路径、row_data_end 不超过分配的 LDS、以及实际
+  TW_NSteps 最大索引小于上传范围。由于 SBCC-256/512 的 LUT 参数和
+  trans_local 范围不同，不能沿用 514 项上限。
+
+- 本计划只为后者建立首个可证明的受限候选：SBCC-256 [8,4,8]、
+  length=256、WGS=256、TPT=32、DP half-LDS、direct-register，先由
+  RTC/plan 取得 trans_local 和 TW_NSteps 的实际范围，再计算精确 LUT
+  前缀和检查 LDS alias 生命周期。若小规模使用的 large_twiddle_base/
+  steps 与 late-LDS helper 不满足该证明，则不修改源码，记录静态否证。
+  register-local 方向只做静态审计，不伪造性能结果。
+
+验证顺序：先记录本计划，再做静态审计和 RTC 范围证明；若满足条件，提交
+单一源码 gate，执行构建、四规模 correctness，最后对受影响长度至少两轮
+标准 DP z2z、batch=1000、-N 10、hipprof --stats benchmark。canonical
+时间严格使用 agents.me 的
+(TotalDurationNs - generate_random_interleaved_data_kernel) / 11 / 1e6。
+若 correctness、RTC 命中、LDS 范围或两轮端到端结果不满足退出条件，回退
+runtime gate；保留分支、日志和 raw CSV，不合入稳定分支。
