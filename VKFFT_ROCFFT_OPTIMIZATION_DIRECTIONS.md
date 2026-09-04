@@ -1537,11 +1537,18 @@ planner 分解、radix、WGS、TPT、Stockham layout 或 global handoff。
   TW_NSteps 最大索引小于上传范围。由于 SBCC-256/512 的 LUT 参数和
   trans_local 范围不同，不能沿用 514 项上限。
 
-- 本计划只为后者建立首个可证明的受限候选：SBCC-256 [8,4,8]、
-  length=256、WGS=256、TPT=32、DP half-LDS、direct-register，先由
-  RTC/plan 取得 trans_local 和 TW_NSteps 的实际范围，再计算精确 LUT
-  前缀和检查 LDS alias 生命周期。若小规模使用的 large_twiddle_base/
-  steps 与 late-LDS helper 不满足该证明，则不修改源码，记录静态否证。
+- 本计划将后者作为一个跨规模候选族，但每个 gate 仍按实际 kernel 单独验证：
+  SBCC-256 [8,4,8]、length=256、WGS=256、TPT=32、TPB=8；
+  SBCC-512 [8,8,8]、length=512、WGS=256、TPT=64、TPB=4；
+  以及已保留的 SBCC-1024 [8,8,4,4]、length=1024、WGS=256、
+  TPT=64、TPB=4。三者均要求 DP、half-LDS、direct-register。
+  其中现有 RTC/CSV 显示 64K 的 SBCC-256 为 base=8/steps=2，
+  128K 的 SBCC-256 和 256K 的 SBCC-512 为 base=8/steps=3；
+  runtime 条件必须同时覆盖 steps=2/3，不能把 512K 的 steps=3
+  直接假定为所有长度。
+  对每个 gate 先由 RTC/plan 取得 trans_local 和 TW_NSteps 的实际范围，
+  计算最大 LUT 项并确认 row_data_end 后的原始 LDS 容量足以容纳 768 项；
+  再检查最终 pass 后没有 direct-register 路径继续读取 row-data LDS。
   register-local 方向只做静态审计，不伪造性能结果。
 
 验证顺序：先记录本计划，再做静态审计和 RTC 范围证明；若满足条件，提交
