@@ -1558,3 +1558,88 @@ planner åˆ†è§£ã€radixã€WGSã€TPTã€Stockham layout æˆ– global handoffã€‚
 (TotalDurationNs - generate_random_interleaved_data_kernel) / 11 / 1e6ã€‚
 è‹¥ correctnessã€RTC å‘½ä¸­ã€LDS èŒƒå›´æˆ–ä¸¤è½®ç«¯åˆ°ç«¯ç»“æœä¸æ»¡è¶³é€€å‡ºæ¡ä»¶ï¼Œå›é€€
 runtime gateï¼›ä¿ç•™åˆ†æ”¯ã€æ—¥å¿—å’Œ raw CSVï¼Œä¸åˆå…¥ç¨³å®šåˆ†æ”¯ã€‚
+### EXP-074 Êµ²âÊÕÎ²£ºlate-LDS ¿ç¹æÄ£ÍÆ¹ãÓë register-local ¿ÉÍÆ¹ãĞÔÉó¼Æ
+
+ÈÕÆÚ£º2026-09-04¡£ÊµÑé·ÖÖ§£ºexp-074-cross-size-reglocal-late-lds¡£
+ÎÈ¶¨ÆğµãÎªÌá½» 7bababec£¨±êÇ© pre-exp-074-cross-size-20260904£©¡£
+
+±¾ÂÖÊµ¼ÊĞŞ¸ÄÁËÍ¬Ò»¸öÉú³ÉÆ÷ÎÄ¼ş
+rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h¡£
+Ìá½» 5b4a99e1 ½« late large-twiddle LDS ÊÔÑéÀ©Õ¹µ½ SBCC-256
+[8,4,8]¡¢SBCC-512 [8,8,8] ºÍÔ­ÓĞ SBCC-1024 [8,8,4,4]£¬²¢Áî
+late_large_twiddle_lds_enabled Í¬Ê±½ÓÊÜ large_twiddle_steps=2/3¡£
+Ìá½» e57d01b9 ¸ù¾İ 256K µÄÊµ²â»Ø¹éÒÆ³ı SBCC-512 gate£¬Í¬Ê±±£Áô
+SBCC-256 ºÍ SBCC-1024¡£»ØÍË¹¹½¨ 805913 ³É¹¦¡£
+
+register-local 4x4 ·½ÏòÖ»Íê³ÉÁË¾²Ì¬¿ÉÍÆ¹ãĞÔÉó¼Æ£¬Ã»ÓĞÀ©¿íÔ´ÂëÌõ¼ş¡£
+stockham_gen_base.h::use_register_local_exchange() ÈÔÒªÇó length=1024¡¢
+factors=[8,8,4,4]¡¢TPT=64¡¢npass=2¡¢DP half-LDS¡£64K/128K µÄ
+SBCC-256 [8,4,8] ºÍ 256K µÄ SBCC-512 [8,8,8] Ã»ÓĞÏàÍ¬µÄÏàÁÚ
+radix-4/radix-4 ±ß½ç£¬Òò´Ë²»ÄÜÖ»Ôö¼Ó length Ìõ¼şÀ´¸´ÓÃ¸Ã 4x4
+Ïß³ÌÄÚ½»»»¡£¸Ã½áÂÛÀ´×ÔÉú³ÉÆ÷Ìõ¼şºÍÊµ¼Ê factor£¬²»ÊÇĞÔÄÜÍÆ²â¡£
+
+late-LDS µÄ·¶Î§¼ì²éÈ·ÈÏ SBCC-256/512 µÄ row-data LDS ¿ÉÈİÄÉ 1024 ¸ö
+complex ²Û£»base=8 Ê± 2-step/3-step µÄÉÏ´«Á¿·Ö±ğÎª 512/768 ²Û£¬
+Òò´Ë±¾ÂÖÊ¹ÓÃ large_twiddle_steps * 256 ×÷ÎªÉÏ´«±ß½ç£¬Ã»ÓĞÑØÓÃÖ»ÊÊºÏ
+512K Èı²½±íµÄ¹Ì¶¨ÉÏÏŞ¡£¸Ã gate ½öÒªÇó DP¡¢direct-to/from-register¡¢
+half-LDS¡¢WGS=256£¬²¢·Ö±ğ°ó¶¨Êµ¼Ê length¡¢TPT¡¢TPB ºÍ factors¡£
+
+ÊµÑé°æ correctness£¨Ìá½» 5b4a99e1£¬¹¹½¨ 805862£©È«²¿Í¨¹ı£º
+
+| length | job | relative_l2 | relative_max | max_abs |
+|---:|---:|---:|---:|---:|
+| 64K | 805865 | 7.125347e-16 | 1.156407e-15 | 1.325805e-12 |
+| 128K | 805866 | 6.799770e-16 | 9.776713e-16 | 1.792371e-12 |
+| 256K | 805868 | 6.564081e-16 | 8.565374e-16 | 2.285077e-12 |
+| 512K | 805869 | 6.604511e-16 | 8.405844e-16 | 3.158776e-12 |
+
+ËùÓĞĞÔÄÜÈÎÎñ¾ùÎª DP z2z¡¢batch=1000¡¢-N 10¡¢hipprof --stats¡£
+canonical Ê±¼äÑÏ¸ñ°´
+(TotalDurationNs - generate_random_interleaved_data_kernel) / 11 / 1e6
+¼ÆËã¡£ÊµÑé°æÈÎÎñºÍÔ­Ê¼ CSV Îª£º
+
+| length | jobs | raw CSV |
+|---:|---|---|
+| 64K | 805870, 805871 | results/z2z_64k_b1000_exp074_late_64k_r1_20260904_182733.csv.hipkernel.csv£»results/z2z_64k_b1000_exp074_late_64k_r2_20260904_182733.csv.hipkernel.csv |
+| 128K | 805872, 805873 | results/z2z_128k_b1000_exp074_late_128k_r1_20260904_182733.csv.hipkernel.csv£»results/z2z_128k_b1000_exp074_late_128k_r2_20260904_182933.csv.hipkernel.csv |
+| 256K | 805874, 805893 | results/z2z_256k_b1000_exp074_late_256k_r1_20260904_182933.csv.hipkernel.csv£»results/z2z_256k_b1000_exp074_late_256k_r2_20260904_182933.csv.hipkernel.csv |
+| 512K | 805894, 805895 | results/z2z_512k_b1000_exp074_late_512k_r1_20260904_183134.csv.hipkernel.csv£»results/z2z_512k_b1000_exp074_late_512k_r2_20260904_183334.csv.hipkernel.csv |
+
+EXP-074 Óë EXP-071 Ç°Ò»ÓĞĞ§°æ±¾¼°¹Ì¶¨¹Ù·½ 7.2.2 baseline µÄ½á¹ûÈçÏÂ¡£
+speedup ¶¨ÒåÎª±È½Ï°æ±¾Ê±¼ä³ıÒÔÊµÑéÊ±¼ä£º
+
+| length | EXP-074 mean ms | EXP-071 mean ms | vs EXP-071 | official baseline ms | vs official |
+|---:|---:|---:|---:|---:|---:|
+| 64K | 3.568369091 | 3.616871818 | 1.013592408x (+1.359241%) | 3.732493091 | 1.045994121x (+4.599412%) |
+| 128K | 7.804589091 | 7.925554136 | 1.015499220x (+1.549922%) | 8.954852000 | 1.147382892x (+14.738289%) |
+| 256K | 17.925635182 | 17.729335136 | 0.989049200x (-1.095080%) | 19.360417545 | 1.080040810x (+8.004081%) |
+| 512K | 38.820766818 | 38.852262364 | 1.000811307x (+0.081131%) | 70.509517909 | 1.816283492x (+81.628349%) |
+
+64K ºÍ 128K µÄ SBCC-256 late-LDS Á½ÂÖ¾ùÍ¬Ïò¸ÄÉÆ£¬Òò´Ë¸Ã¾«È· gate
+±£Áô¡£256K µÄ SBCC-512 late-LDS Á½ÂÖ¾ù»Ø¹é£¬¹Ê¾Ü¾ø¸ÃÍÆ¹ã¡£512K µÄ
+SBCC-1024 gate ÔÚ±¾ÂÖÃ»ÓĞÊµÖÊ¸Ä±ä£¬0.081% ÊôÓÚ»ù±¾³ÖÆ½£¬²»ÄÜ¹éÒòÓÚ
+±¾ÂÖĞÂÔöĞŞ¸Ä¡£
+
+ÎªÈ·ÈÏ»ØÍËÃ»ÓĞÁôÏÂ 256K »Ø¹é£¬Ìá½» e57d01b9 µÄ¹¹½¨ 805913 ÓÖÖ´ĞĞÁË
+ËÄ¹æÄ£ correctness£º805915/805916/805917/805918£¬½á¹û·Ö±ğÎª£º
+
+| length | job | relative_l2 | relative_max | max_abs |
+|---:|---:|---:|---:|---:|
+| 64K | 805915 | 7.125347e-16 | 1.156407e-15 | 1.325805e-12 |
+| 128K | 805916 | 6.799770e-16 | 9.776713e-16 | 1.792371e-12 |
+| 256K | 805917 | 6.565662e-16 | 8.565374e-16 | 2.285077e-12 |
+| 512K | 805918 | 6.604511e-16 | 8.405844e-16 | 3.158776e-12 |
+
+»ØÍË°æ 256K benchmark Îª 805919/805920£¬Ô­Ê¼ CSV Îª
+results/z2z_256k_b1000_exp074_late_256k_rollback_r1_20260904_184937.csv.hipkernel.csv
+ºÍ
+results/z2z_256k_b1000_exp074_late_256k_rollback_r2_20260904_184937.csv.hipkernel.csv¡£
+Á½ÂÖ canonical Ê±¼äÎª 17.734693455 ms ºÍ 17.731536273 ms£¬Æ½¾ù
+17.733114864 ms£»Ïà¶Ô EXP-071 Îª 0.999786855x£¨-0.021315%£©£¬
+´¦ÓÚ²âÁ¿ÔëÉùÁ¿¼¶£¬ËµÃ÷»ØÍË»Ö¸´ÁËÎÈ¶¨Â·¾¶¡£
+
+×îÖÕ¾ö²ß£ºµ±Ç°ÄÜÓÉ´úÂëÌõ¼şºÍ×ÊÔ´±ß½çÖ¤Ã÷¿ÉÍÆ¹ã¡¢ÇÒ¶Ëµ½¶ËÁ½ÂÖÍ¬Ïò
+¸ÄÉÆµÄÓÅ»¯Ö»ÓĞ SBCC-256 [8,4,8] µÄ late large-twiddle LDS reuse£»
+SBCC-512 gate ²»±£Áô£¬register-local 4x4 ²»À©Õ¹µ½ÆäËü¹æÄ£¡£ÊµÑé·ÖÖ§
+±£Áô SBCC-256 gate ºÍÈ«²¿Ö¤¾İ£»ÎÈ¶¨·ÖÖ§ÈÔ²»×Ô¶¯ºÏ²¢£¬ºóĞøÊµÑé´ÓĞÂµÄ
+EXP ±àºÅ¿ªÊ¼¡£
