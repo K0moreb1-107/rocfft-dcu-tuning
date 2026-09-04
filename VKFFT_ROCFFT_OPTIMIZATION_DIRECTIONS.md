@@ -1266,3 +1266,89 @@ WGS、TPT 或 transform ownership。实际目标 gate 为：
 late-LDS、已有的 half-LDS/XOR/scalar-LDS，也不把它们作为本轮新变量；
 这些方向的跨规模状态以历史记录为准。若 ordinary recurrence 通过，
 后续再为其它方向建立独立 EXP 编号。
+
+#### EXP-071 实测收尾
+
+实施提交为 `304568dda4fd09139a116c2c77018e128508e4ec`。运行时代码只在
+`stockham_gen_base.h::use_ordinary_twiddle_recurrence()` 中增加两个精确
+配置：SBCC-256 `[8,4,8]`/WGS=256/TPT=32 和 SBCC-512
+`[8,8,8]`/WGS=256/TPT=64；EXP-065 已保留的 SBCC-1024 gate 不变。
+构建任务 `805019` 成功，安装完成时间为 2026-09-04 12:51:27。EXP-070
+在此之前只有计划文档，没有运行时代码、构建或性能结果；本轮安装相对
+稳定提交 `d26bdf9c` 的唯一 runtime 变量就是上述 gate 扩展。
+
+RTC 源码检查任务 `805262` 成功，日志为
+`logs/exp071_rtc_65536.log`、`logs/exp071_rtc_131072.log` 和
+`logs/exp071_rtc_262144.log`。目标 SBCC-256 的三个 ordinary-twiddle
+stage 分别只出现一次 `W = twiddles[...]` 基项加载，SBCC-512 的两个
+radix-8 stage 也分别只出现一次基项加载；后续幂由 `W*W`、`t*W` 递推。
+这确认生成代码命中了候选路径，而不只是 kernel 名称相同。
+
+四规模 correctness 均通过：
+
+| length | job | relative_l2 | relative_max | max_abs |
+|---:|---:|---:|---:|---:|
+| 64K | `805192` | `7.124917e-16` | `1.156407e-15` | `1.325805e-12` |
+| 128K | `805193` | `6.801758e-16` | `9.776713e-16` | `1.792371e-12` |
+| 256K | `805194` | `6.565662e-16` | `8.565374e-16` | `2.285077e-12` |
+| 512K control | `805195` | `6.604511e-16` | `8.405844e-16` | `3.158776e-12` |
+
+性能任务 `805230` 在同一个 allocation 和同一 GPU `a01r3n18` 上串行完成
+全部八次测量。每次均为 DP z2z、batch=1000、`-N 10`、
+`hipprof --stats`。下表严格使用
+`(TotalDurationNs - generate_random_interleaved_data_kernel) / 11 / 1e6`：
+
+| length/run | raw CSV | T_compute_ms | vs previous valid | vs fixed official baseline |
+|---|---|---:|---:|---:|
+| 64K r1 | `results/z2z_64k_b1000_exp071_recur_r1_20260904_142427.csv.hipkernel.csv` | `3.617758818` | `1.005222947x`, `+0.519581%` | `1.031714185x`, `+3.073931%` |
+| 64K r2 | `results/z2z_64k_b1000_exp071_recur_r2_20260904_142453.csv.hipkernel.csv` | `3.615984818` | `1.005716109x`, `+0.568362%` | `1.032220344x`, `+3.121460%` |
+| 128K r1 | `results/z2z_128k_b1000_exp071_recur_r1_20260904_142432.csv.hipkernel.csv` | `7.925117455` | `1.000932604x`, `+0.093174%` | `1.129933033x`, `+11.499180%` |
+| 128K r2 | `results/z2z_128k_b1000_exp071_recur_r2_20260904_142458.csv.hipkernel.csv` | `7.925990818` | `1.000822312x`, `+0.082164%` | `1.129808526x`, `+11.489427%` |
+| 256K r1 | `results/z2z_256k_b1000_exp071_recur_r1_20260904_142438.csv.hipkernel.csv` | `17.729775909` | `1.023420760x`, `+2.288478%` | `1.091971926x`, `+8.422554%` |
+| 256K r2 | `results/z2z_256k_b1000_exp071_recur_r2_20260904_142503.csv.hipkernel.csv` | `17.728894364` | `1.023471648x`, `+2.293336%` | `1.092026223x`, `+8.427107%` |
+| 512K r1 | `results/z2z_512k_b1000_exp071_recur_r1_20260904_142444.csv.hipkernel.csv` | `38.875532000` | `0.998512608x`, `-0.148961%` | `1.813724836x`, `+44.864845%` |
+| 512K r2 | `results/z2z_512k_b1000_exp071_recur_r2_20260904_142509.csv.hipkernel.csv` | `38.828992727` | `0.999709396x`, `-0.029069%` | `1.815898713x`, `+44.930849%` |
+
+64K/128K/256K 的 previous-valid 参考分别为稳定复核文件
+`results/z2z_64k_tuning_20260902_021037.csv.hipkernel.csv`、
+`results/z2z_128k_tuning_20260902_021037.csv.hipkernel.csv`、
+`results/z2z_256k_tuning_20260902_021037.csv.hipkernel.csv`，对应
+`3.636654182/7.932508455/18.145020727 ms`。这些 kernel 在 EXP-065 中未被
+修改。512K previous-valid 取 EXP-065 两次平均 `38.817708864 ms`。固定
+官方基线依次为 `3.732493091/8.954852000/19.360417545/70.509517909 ms`。
+
+两次实验平均结果为：
+
+| length | mean T_compute_ms | mean vs previous valid | mean vs fixed baseline |
+|---:|---:|---:|---:|
+| 64K | `3.616871818` | `1.005469468x`, `+0.543972%` | `1.031967202x`, `+3.097696%` |
+| 128K | `7.925554136` | `1.000877455x`, `+0.087669%` | `1.129870776x`, `+11.494303%` |
+| 256K | `17.729335136` | `1.023446203x`, `+2.290907%` | `1.091999074x`, `+8.424831%` |
+| 512K control | `38.852262364` | `0.999110644x`, `-0.089015%` | `1.814811123x`, `+44.897847%` |
+
+PMC 首次任务 `805241` 因命令错误地覆盖 `LD_LIBRARY_PATH`、缺少
+`libperfetto.so.5` 而在采样前失败；修正为追加路径后的任务 `805246`
+成功。原始文件为 `results/pmcall_65536_exp071_recur.csv`、
+`results/pmcall_131072_exp071_recur.csv`、
+`results/pmcall_262144_exp071_recur.csv`。与未启用 recurrence 的同名
+SBCC PMC 参考 `pmcall_*_current_20260830.csv` 比较：
+
+| length | arch_vgpr | SQ_INSTS_VMEM_RD | SQ_INSTS_VALU | SQ_INSTS_LDS | VMEM_WR | bank conflict |
+|---:|---:|---:|---:|---:|---:|---:|
+| 64K | `72 -> 84` | `2.688M -> 1.664M` (`-38.10%`) | `56.704M -> 61.056M` (`+7.67%`) | `4.992M -> 4.992M` | `1.024M -> 1.024M` | `8.192M -> 8.192M` |
+| 128K | `68 -> 84` | `5.632M -> 3.584M` (`-36.36%`) | `115.968M -> 122.880M` (`+5.96%`) | `9.984M -> 9.984M` | `2.048M -> 2.048M` | `16.384M -> 16.384M` |
+| 256K | `68 -> 84` | `13.312M -> 7.168M` (`-46.15%`) | `272.896M -> 297.472M` (`+9.01%`) | `32.768M -> 32.768M` | `4.096M -> 4.096M` | `32.768M -> 32.768M` |
+
+机制结论与 EXP-065 一致：候选确实把 ordinary-twiddle global loads 换成
+寄存器复数乘法；它没有改变 LDS 往返或 bank conflict。256K 的 load
+减少足以覆盖额外 VALU/VGPR，得到稳定约 `2.29%` 的整体收益。64K 两次
+均小幅改善，平均约 `0.54%`。128K 两次只有约 `0.09%`，应记为性能基本
+持平，不能宣称有显著独立收益。512K gate 与 EXP-065 完全相同，当前
+`-0.089%` 是未改变源码路径的控制波动，不归因于本轮 gate 扩展。
+
+决策：保留新增 SBCC-512 gate，作为 256K DP z2z 目标路径的稳定优化；
+同时保留 SBCC-256 gate，因为它在 64K 两次同向改善、在共享该生成配置的
+128K 未产生回归。继续严格限制于已测 DP half-LDS/direct-register 的精确
+factors、WGS 和 TPT，不推广到其它 precision、radix 或 kernel。该提交可
+合入 `rocfft-opt-pre-tile-lifetime`；最终 merge commit 和稳定 tag 在合并
+收尾记录中补充。
