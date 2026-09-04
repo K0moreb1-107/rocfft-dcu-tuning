@@ -1360,3 +1360,29 @@ factors、WGS 和 TPT，不推广到其它 precision、radix 或 kernel。该提
 `b080fd0222506dbee4e58c550748c92130bc0132`，稳定标签为
 `stable-exp071-cross-scale-recurrence-20260904`。实验分支和原始证据保留，
 用户已有的 `VkFFT` 子模块及验证二进制工作区修改未纳入本次提交。
+### EXP-072：SBCC-256 的 DP half-LDS XOR swizzle（计划）
+
+日期：2026-09-04。实验分支：exp-072-sbcc256-xor。起点为当前稳定
+提交 7d86ea2a（有效 runtime 为 b080fd02）。目标是把已经在
+SBCC-512/1024 使用的 LDS 地址 XOR 映射，按实际地址布局推广到
+SBCC-256 [8,4,8]、WGS=256、TPT=32；该 producer 同时出现在
+64K 和 128K 的 DP z2z 路径中。
+
+代码事实：stockham_gen_base.h::lds_address() 当前只对 length=512
+使用 addr ^ (addr >> 4)，对 length=1024 使用
+addr ^ (addr >> 6)，length=256 返回原始地址。EXP-071 生成的
+SBCC-256 RTC 中，half-LDS 的非线性地址以 stride_lds=8 展开，
+pass 0 的 store 和后续 pass 的 LDS exchange 产生重复的 bank 周期。
+因此本实验只加入 length=256、factors=[8,4,8]、DP half-LDS 的
+addr ^ (addr >> 3) gate；不影响 SBRC-256 的 [4,4,4,4]，
+也不改变 LDS 分配、Stockham layout、barrier、radix、WGS、TPT 或
+twiddle 计算。
+
+预期收益：只减少目标 SBCC-256 内部 LDS bank conflict，代价是每次
+LDS 地址多一个 XOR/shift；结构分析预估为 0--3%，不是实测结论。
+验证顺序为修改后 build，检查 64K/128K RTC 命中，再做四规模中受影响
+的 64K/128K correctness，最后按标准条件各运行至少两次 benchmark，
+必要时用 PMC 比较 bank-conflict 和地址计算代价。若 correctness 失败、
+RTC 未命中、或 64K/128K 两次均无同向收益，则回退 runtime，只保留
+实验记录和证据；不把旧的 halfxor_sizes 文件当作本轮有效 A/B，
+因为其源码版本和 LDS footprint 与当前稳定版本不同。
