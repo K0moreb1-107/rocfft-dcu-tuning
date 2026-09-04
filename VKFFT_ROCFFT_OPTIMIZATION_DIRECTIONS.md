@@ -1455,3 +1455,55 @@ complex exchange 拆成两个 scalar LDS 操作，可能增加 LDS 指令或地�
 的 canonical 公式。若 64K 任一 correctness 失败或两轮均未改善，则保留
 实验分支和证据并回退 gate；只有 64K 两轮同向改善且其它规模无回归时，
 才合入稳定分支。
+
+#### EXP-073 实测收尾
+
+实验计划提交为 ffa53aa0e4ba236842e2ca79eeba4dbd94b6a293；本轮源码 gate 仅存在于
+实验工作树，实验分支为
+exp-073-sbrc256-scalar-lds。构建任务 805654 成功；实验源码随后已回退，
+因此该分支当前只保留本实验计划、结果记录和证据，稳定分支没有引入该 gate。
+RTC 检查日志为 logs/exp073_rtc_65536.log，确认生成的
+forward_length256_SBRC_device 使用 const bool lds_is_real = true，
+说明新增条件实际命中 SBRC-256，而不是只命中宿主端配置。
+
+正确性任务为 64K 805672、128K 805675、256K 805676 和 512K
+805677，全部通过：
+
+| length | job | relative_l2 | relative_max | max_abs |
+|---:|---:|---:|---:|---:|
+| 64K | 805672 | 7.124917e-16 | 1.156407e-15 | 1.325805e-12 |
+| 128K | 805675 | 6.801758e-16 | 9.776713e-16 | 1.792371e-12 |
+| 256K | 805676 | 6.565662e-16 | 8.565374e-16 | 2.285077e-12 |
+| 512K | 805677 | 6.604511e-16 | 8.405844e-16 | 3.158776e-12 |
+
+标准 benchmark 任务为 64K 805679/805680、128K 805681/805682、
+256K 805683/805684 和 512K 805685/805699。原始 CSV 为：
+
+- results/z2z_64k_b1000_exp073_sbrc256_a_20260904_170320.csv.hipkernel.csv
+- results/z2z_64k_b1000_exp073_sbrc256_b_20260904_170520.csv.hipkernel.csv
+- results/z2z_128k_b1000_exp073_sbrc256_128_a_20260904_170721.csv.hipkernel.csv
+- results/z2z_128k_b1000_exp073_sbrc256_128_b_20260904_170921.csv.hipkernel.csv
+- results/z2z_256k_b1000_exp073_sbrc256_256_a_20260904_171121.csv.hipkernel.csv
+- results/z2z_256k_b1000_exp073_sbrc256_256_b_20260904_171322.csv.hipkernel.csv
+- results/z2z_512k_b1000_exp073_sbrc256_512_a_20260904_171522.csv.hipkernel.csv
+- results/z2z_512k_b1000_exp073_sbrc256_512_b_20260904_171522.csv.hipkernel.csv
+
+每个结果均使用 T_compute_ms = (TotalDurationNs - generate_random_interleaved_data_kernel) / 11 / 1e6：
+
+| length | EXP-073 mean ms | previous-valid mean ms | speedup vs previous | fixed baseline ms | speedup vs baseline |
+|---:|---:|---:|---:|---:|---:|
+| 64K | 3.703260000 | 3.605748682 | 0.973668790x (-2.704329%) | 3.732493091 | 1.007893880x (+0.783205%) |
+| 128K | 7.889983864 | 7.889876773 | 0.999986427x (-0.001357%) | 8.954852000 | 1.134964552x (+11.891521%) |
+| 256K | 17.729552955 | 17.729335136 | 0.999987714x (-0.001229%) | 19.360417545 | 1.091985658x (+8.423706%) |
+| 512K | 38.815642545 | 38.852262364 | 1.000943429x (+0.094254%) | 70.509517909 | 1.816523270x (+44.949783%) |
+
+64K 的新增 gate 两次均回归，平均从 3.605748682 ms 增加到
+3.703260000 ms，回归约 2.704%。128K、256K 和 512K 的 RTC 没有
+命中新 SBRC-256 条件；它们的时间只能说明回退后的控制路径没有明显旁路
+回归，不能归因于 scalar-LDS。该实现将 complex LDS exchange 拆成
+REAL/IMAG 两个 scalar-LDS 访问，正确性保持，但新增地址/访存粒度并未
+带来端到端收益。
+
+决策：拒绝 SBRC-256 scalar-LDS 跨规模推广，源码 gate 已回退，不合并稳定
+分支；保留实验分支、job 日志和八个 raw CSV 作为失败证据。后续从新的
+EXP-074 编号开始，必须从稳定提交 e53d182b 建立独立分支。
