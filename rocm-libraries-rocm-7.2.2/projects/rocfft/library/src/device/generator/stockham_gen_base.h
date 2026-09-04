@@ -351,6 +351,8 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         {
             const auto addr = vrender(index);
             // Match the folded bit to the Stockham group stride.
+            if(length == 256 && factors == std::vector<unsigned int>{8, 4, 8})
+                return Literal{"((" + addr + ") ^ ((" + addr + ") >> 3))"};
             if(length == 512)
                 return Literal{"((" + addr + ") ^ ((" + addr + ") >> 4))"};
             if(length == 1024)
