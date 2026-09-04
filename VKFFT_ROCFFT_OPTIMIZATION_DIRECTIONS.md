@@ -1360,3 +1360,67 @@ factors、WGS 和 TPT，不推广到其它 precision、radix 或 kernel。该提
 `b080fd0222506dbee4e58c550748c92130bc0132`，稳定标签为
 `stable-exp071-cross-scale-recurrence-20260904`。实验分支和原始证据保留，
 用户已有的 `VkFFT` 子模块及验证二进制工作区修改未纳入本次提交。
+### EXP-072：SBCC-256 的 DP half-LDS XOR swizzle（计划）
+
+日期：2026-09-04。实验分支：exp-072-sbcc256-xor。起点为当前稳定
+提交 7d86ea2a（有效 runtime 为 b080fd02）。目标是把已经在
+SBCC-512/1024 使用的 LDS 地址 XOR 映射，按实际地址布局推广到
+SBCC-256 [8,4,8]、WGS=256、TPT=32；该 producer 同时出现在
+64K 和 128K 的 DP z2z 路径中。
+
+代码事实：stockham_gen_base.h::lds_address() 当前只对 length=512
+使用 addr ^ (addr >> 4)，对 length=1024 使用
+addr ^ (addr >> 6)，length=256 返回原始地址。EXP-071 生成的
+SBCC-256 RTC 中，half-LDS 的非线性地址以 stride_lds=8 展开，
+pass 0 的 store 和后续 pass 的 LDS exchange 产生重复的 bank 周期。
+因此本实验只加入 length=256、factors=[8,4,8]、DP half-LDS 的
+addr ^ (addr >> 3) gate；不影响 SBRC-256 的 [4,4,4,4]，
+也不改变 LDS 分配、Stockham layout、barrier、radix、WGS、TPT 或
+twiddle 计算。
+
+预期收益：只减少目标 SBCC-256 内部 LDS bank conflict，代价是每次
+LDS 地址多一个 XOR/shift；结构分析预估为 0--3%，不是实测结论。
+验证顺序为修改后 build，检查 64K/128K RTC 命中，再做四规模中受影响
+的 64K/128K correctness，最后按标准条件各运行至少两次 benchmark，
+必要时用 PMC 比较 bank-conflict 和地址计算代价。若 correctness 失败、
+RTC 未命中、或 64K/128K 两次均无同向收益，则回退 runtime，只保留
+实验记录和证据；不把旧的 halfxor_sizes 文件当作本轮有效 A/B，
+因为其源码版本和 LDS footprint 与当前稳定版本不同。
+#### EXP-072 实测收尾
+
+源码提交为 ee3fe0de，分支为 exp-072-sbcc256-xor；构建任务 805542 于
+2026-09-04 16:14:37 成功完成，安装目录为 /public/home/zhangkewei/zr/install。
+静态检查确认 RTC 只对 length=256、factors [8,4,8]、DP half-LDS 的 SBCC
+生成 addr ^ (addr >> 3)；SBRC-256 的 [4,4,4,4] 不命中该条件。
+
+correctness 任务 805558（64K）和 805559（128K）均通过：
+
+| length | job | relative_l2 | relative_max | max_abs |
+|---:|---:|---:|---:|---:|
+| 64K | 805558 | 7.124917e-16 | 1.156407e-15 | 1.325805e-12 |
+| 128K | 805559 | 6.801758e-16 | 9.776713e-16 | 1.792371e-12 |
+
+性能任务为 805560/805561（64K 两轮）和 805562/805563（128K 两轮），均为
+DP z2z、batch=1000、-N 10、hipprof --stats。canonical 时间按
+(TotalDurationNs - generate_random_interleaved_data_kernel) / 11 / 1e6 计算：
+
+| length/run | raw CSV | T_compute_ms | vs previous valid | vs fixed official baseline |
+|---|---|---:|---:|---:|
+| 64K r1 | results/z2z_64k_b1000_exp072_xor_r1_20260904_161912.csv.hipkernel.csv | 3.605203364 | 1.003222837x, +0.322284% | 1.035294182x, +3.529418% |
+| 64K r2 | results/z2z_64k_b1000_exp072_xor_r2_20260904_161912.csv.hipkernel.csv | 3.606294000 | 1.002919689x, +0.291969% | 1.034981660x, +3.498166% |
+| 128K r1 | results/z2z_128k_b1000_exp072_xor_r1_20260904_162112.csv.hipkernel.csv | 7.890031364 | 1.004499083x, +0.449908% | 1.134999699x, +13.499970% |
+| 128K r2 | results/z2z_128k_b1000_exp072_xor_r2_20260904_162112.csv.hipkernel.csv | 7.889722182 | 1.004538759x, +0.453876% | 1.134960215x, +13.496022% |
+
+EXP-071 的 previous-valid 平均时间为 3.616871818/7.925554136 ms，固定官方
+7.2.2 baseline 为 3.732493091/8.954852000 ms。两次实验平均为：
+
+| length | mean T_compute_ms | vs previous valid | vs fixed official baseline |
+|---:|---:|---:|---:|
+| 64K | 3.605748682 | 1.003084834x, +0.308483% | 1.035150650x, +3.515065% |
+| 128K | 7.889876773 | 1.004521916x, +0.452192% | 1.134979957x, +13.497996% |
+
+决策：保留该推广。两种受影响规模的两轮测量均同向改善，correctness 和
+RTC gate 均通过；收益较小，因此只把 addr ^ (addr >> 3) 保留在 SBCC-256
+[8,4,8]、WGS=256、TPT=32、DP half-LDS 条件下，不推广到 SBRC-256 或其它
+precision/factor。原始 CSV 和日志保留在 results/ 与 logs/，实验分支保留，
+待合入稳定分支后再建立下一项 EXP。
