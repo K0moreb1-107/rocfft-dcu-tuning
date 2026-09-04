@@ -1424,3 +1424,34 @@ RTC gate 均通过；收益较小，因此只把 addr ^ (addr >> 3) 保留在 SB
 [8,4,8]、WGS=256、TPT=32、DP half-LDS 条件下，不推广到 SBRC-256 或其它
 precision/factor。原始 CSV 和日志保留在 results/ 与 logs/，实验分支保留，
 待合入稳定分支后再建立下一项 EXP。
+### EXP-073：SBRC-256 DP scalar-LDS 跨规模推广（计划）
+
+日期：2026-09-04。实验分支：exp-073-sbrc256-scalar-lds。
+实验前有效提交：e53d182b；实验前标签：pre-exp-073-sbrc256-scalar-lds-20260904。
+
+目标：验证 64K DP z2z 路径的 SBRC-256 [4,4,4,4]、WGS=256、TPT=32 是否
+可以安全使用与 SBRC-512 相同的内部 scalar-LDS 机制。当前 64K 路径中的
+SBRC-256 是该机制尚未覆盖的实际 consumer；128K/256K/512K 使用的
+SBRC-512 [8,8,8]、TPT=128 已在稳定版本中命中现有 gate，本轮不改变它。
+
+代码事实：stockham_gen_rc.h::set_lds_is_real() 目前只在 direct_to_from_reg、
+DP、length=512、TPT=128、factors=[8,8,8] 时返回 true。generate_device_function()
+在 lds_is_real=true 时保留初始 global-to-complex-LDS transpose 和寄存器装载，
+仅把内部 Stockham exchange 的 complex LDS store/load 改为 REAL/IMAG 两个
+scalar-LDS 路径；该条件不会改变 Stockham factor、layout、barrier 或 global
+读写。64K 的实际 SBRC kernel 已由 EXP-072 CSV 确认为 length=256、
+factors=[4,4,4,4]、WGS=256、TPT=32、unitstride_sbrc_aligned。
+
+实施只在 internal_scalar_lds 条件中增加 length=256、TPT=32、
+factors=[4,4,4,4]、DP、direct_to_from_reg 这一精确 gate。预期收益为
+0--3%，来源可能是内部 LDS 数据路径的资源/访问粒度变化；代价是每个
+complex exchange 拆成两个 scalar LDS 操作，可能增加 LDS 指令或地址压力。
+必须比较 arch_vgpr、SQ_INSTS_LDS、bank conflict 和 canonical 时间，不能
+仅凭 lds_is_real=true 判定有效。
+
+验证：先检查生成 RTC 命中 SBRC-256 scalar-LDS 且其它规模保持原路径；再
+运行 64K correctness，并以 128K/256K/512K correctness 作为未受影响控制。
+性能对四种长度各运行两轮，固定 DP z2z、batch=1000、-N 10 和 agents.me
+的 canonical 公式。若 64K 任一 correctness 失败或两轮均未改善，则保留
+实验分支和证据并回退 gate；只有 64K 两轮同向改善且其它规模无回归时，
+才合入稳定分支。
