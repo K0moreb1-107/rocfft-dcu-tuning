@@ -67,22 +67,32 @@ struct StockhamKernelCC : public StockhamKernel
 
     // large twiddle support
     Multiply ltwd_entries{Parens{ShiftLeft{1, large_twiddle_base}}, 3};
+    Multiply late_ltwd_entries{Parens{ShiftLeft{1, large_twiddle_base}},
+                               large_twiddle_steps};
     And      ltwd_in_lds{apply_large_twiddle, Less{large_twiddle_base, 8}};
     Variable large_twd_lds{"large_twd_lds", "scalar_type", true, true};
 
     bool use_late_large_twiddle_lds() const
     {
-        return direct_to_from_reg && half_lds && precisions.size() == 1
-               && precisions.front() == rocfft_precision_double && length == 1024
-               && workgroup_size == 256 && threads_per_transform == 64
-               && transforms_per_block == 4
-               && factors == std::vector<unsigned int>{8, 8, 4, 4};
+        const bool common = direct_to_from_reg && half_lds && precisions.size() == 1
+                            && precisions.front() == rocfft_precision_double
+                            && workgroup_size == 256;
+        const bool sbcc256 = length == 256 && threads_per_transform == 32
+                             && transforms_per_block == 8
+                             && factors == std::vector<unsigned int>{8, 4, 8};
+        const bool sbcc512 = length == 512 && threads_per_transform == 64
+                             && transforms_per_block == 4
+                             && factors == std::vector<unsigned int>{8, 8, 8};
+        const bool sbcc1024 = length == 1024 && threads_per_transform == 64
+                              && transforms_per_block == 4
+                              && factors == std::vector<unsigned int>{8, 8, 4, 4};
+        return common && (sbcc256 || sbcc512 || sbcc1024);
     }
 
     Expression late_large_twiddle_lds_enabled() const
     {
         return And{And{And{apply_large_twiddle, Equal{large_twiddle_base, 8}},
-                       Equal{large_twiddle_steps, 3}},
+                       Or{Equal{large_twiddle_steps, 2}, Equal{large_twiddle_steps, 3}}},
                    direct_load_to_reg};
     }
     Expression large_twiddle_lookup() const
@@ -689,7 +699,7 @@ struct StockhamKernelCC : public StockhamKernel
             late_load += sync_threads();
             late_load += Declaration{ltwd_id, block_thread_id};
             late_load += While{
-                Less{ltwd_id, ltwd_entries},
+                Less{ltwd_id, late_ltwd_entries},
                 {Assign{large_twd_lds_arg[ltwd_id], large_twiddles[ltwd_id]},
                  AddAssign(ltwd_id, workgroup_size)}};
             late_load += sync_threads();
