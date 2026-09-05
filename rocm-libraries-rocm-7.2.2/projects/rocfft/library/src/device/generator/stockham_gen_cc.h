@@ -92,6 +92,28 @@ struct StockhamKernelCC : public StockhamKernel
                        Or{Equal{large_twiddle_steps, 2}, Equal{large_twiddle_steps, 3}}},
                    direct_load_to_reg};
     }
+
+    Expression late_large_twiddle_upload_count() const
+    {
+        // Recurrence only looks up q*trans_local for q <= length/factors.back().
+        // These cutoffs are multiples of TPB, so every thread in a tile agrees.
+        if(length == 256)
+        {
+            return Ternary{
+                Equal{large_twiddle_steps, 2},
+                Ternary{Less{trans_local, 256}, 288, late_ltwd_entries},
+                Ternary{Less{trans_local, 512}, 513, late_ltwd_entries}};
+        }
+        if(length == 1024)
+        {
+            return Ternary{
+                And{Equal{large_twiddle_steps, 3}, Less{trans_local, 512}},
+                514,
+                late_ltwd_entries};
+        }
+        return late_ltwd_entries;
+    }
+
     Expression large_twiddle_lookup() const
     {
         if(use_late_large_twiddle_lds())
@@ -690,13 +712,15 @@ struct StockhamKernelCC : public StockhamKernel
         if(use_late_large_twiddle_lds())
         {
             Variable      ltwd_id{"ltwd_id", "unsigned int"};
+            Variable      ltwd_count{"ltwd_count", "const unsigned int"};
             StatementList late_load;
             late_load += CommentLines{
                 "row-data LDS is dead: cooperatively upload the base-8/2-or-3-step large-twiddle LUT"};
             late_load += sync_threads();
+            late_load += Declaration{ltwd_count, late_large_twiddle_upload_count()};
             late_load += Declaration{ltwd_id, block_thread_id};
             late_load += While{
-                Less{ltwd_id, late_ltwd_entries},
+                Less{ltwd_id, ltwd_count},
                 {Assign{large_twd_lds_arg[ltwd_id], large_twiddles[ltwd_id]},
                  AddAssign(ltwd_id, workgroup_size)}};
             late_load += sync_threads();

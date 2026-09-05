@@ -1660,3 +1660,106 @@ stable-exp074-cross-size-late-lds-20260905。合并仅包含 EXP-074 的有效
 SBCC-256 gate、步骤相关上传数量和上述记录，不包含已拒绝的 SBCC-512 gate。
 EXP-075 构建前会在同一个 GPU allocation 内重测前版四规模，随后测试候选，
 消除旧文件不同节点或时间段造成的比较不确定性。
+
+### EXP-075：按实际可达索引缩减 late large-twiddle 上传（计划）
+
+日期：2026-09-05。实验分支：exp-075-compact-late-lut。
+实验起点为稳定源码提交 e57d01b9，记录起点为 f9755e4f；起点标签为
+pre-exp075-compact-lut-20260905。目标仍是 DP z2z、batch=1000、-N 10、
+gfx936，长度为 64K、128K、256K、512K。
+
+代码事实：large_twiddles.h::TW_NSteps() 对 base=8 的 large-twiddle
+索引 u 只读取三段表中的位置
+0..255、256..511 和 512 + ((u >> 16) & 255)，其余相位通过复数乘法
+组合。当前 stockham_gen_cc.h 的 late-LDS 上传循环却统一上传
+large_twiddle_steps * 256 项。large_twiddles_multiply_generator() 的
+索引为 q * trans_local，其中 q 为最终 pass 的局部因子范围；因此可以
+根据每个实际 kernel 的最大 trans_local 和 q，计算所需 LUT 前缀。
+
+本轮只改变 late-LDS cooperative upload 的循环上限，不改变
+TW_NSteps 的数学实现、LDS 起始地址、LDS 容量、barrier、Stockham layout、
+radix、WGS、TPT、tile ownership 或 ordinary-twiddle recurrence。新增的
+精确条件为：
+
+| source length | SBCC factors | TPT | steps | trans_local cutoff | upload prefix |
+|---:|---|---:|---:|---:|---:|
+| 256 | [8,4,8] | 32 | 2 | <256 | 288 |
+| 256 | [8,4,8] | 32 | 3 | <512 | 513 |
+| 1024 | [8,8,4,4] | 64 | 3 | <512 | 514 |
+
+对于 source length=256，普通 large-twiddle 递推的 q 最大值为 32；
+对于 source length=1024，q 最大值为 256。上传前缀分别覆盖所有三段
+TW_NSteps 索引，并保留超出 cutoff 的完整表上传路径，避免把局部证明
+错误地推广到更大的 trans_local。cutoff 选择为 transforms-per-block
+对齐的边界，保证一个 workgroup 的 cooperative upload 上限一致。
+
+静态验证程序会枚举上述 q、trans_local 和每个 8-bit 表段的索引，证明
+候选前缀覆盖全部访问；RTC 检查会确认生成代码使用 ltwd_count，且
+64K/128K/512K 分别出现 288/513/514 的上限，256K 不命中本轮新增
+compact gate。随后对前版和候选在同一作业中各运行四规模、两轮标准
+benchmark，并执行四规模 correctness。
+
+风险是 cooperative upload 线程在缩短的最后一段中出现更多空闲线程，且
+额外的 trans_local 条件可能增加地址/控制指令；上传 global load 减少
+本身不保证端到端收益。若 correctness、RTC 范围证明失败，或任一受影响
+路径两轮均不快于对应前版，则回退源码并保留证据；只有目标路径有重复
+收益且其它长度无回归时才考虑合入稳定分支。
+
+#### EXP-075 实施和静态验证（2026-09-05）
+
+本实验续接仅有计划而没有 runtime/benchmark 的 EXP-070，并根据 EXP-074
+现有 gate 增加 64K/128K 的独立边界。源文件修改为
+stockham_gen_cc.h::late_large_twiddle_upload_count() 和最终 pass 后的
+ltwd_count 上限；其它 runtime 源码保持稳定版本。
+
+exp075_checks.py 的 CPU 检查覆盖 trans_local=0..4095、每个实际 q 和
+每一段 8-bit 表项，同时检查整个 workgroup 的上限一致。三种情形分别验证
+270336/405504/3158016 个索引，最大已用 LUT 索引为 287/512/513，全部通过。
+超出 cutoff 的 tile 使用完整表，静态检查同时覆盖这些 fallback tile。
+相对原上传量，三个目标分别减少 224/255/254 次 complex copy/block；
+这是逻辑复制次数，不能等同于 DRAM 字节减少比例或端到端加速比。
+
+测试入口为 exp075_compact_lut.slurm，先核对前版已安装库与 bench 的
+SHA-256，再在一个 allocation 内依次运行 previous、build.slurm、candidate。
+correctness 使用既有 validate_rocfft_batch.cpp，在实验独立输出目录中对
+四个长度分别测试 batch=1 和 3，对比 NumPy；不覆盖已有验证二进制或数据。
+性能仍为 batch=1000、-N 10、hipprof --stats，两版四规模各两轮；两个阶段
+均禁用 RTC cache read，以便保证所采源码版本，并保留所有 CSV、trace、DB、
+plan 和 RTC。结果保存在 results/exp075_JOBID/，compare 子命令严格按
+agents.me 公式生成 comparison.json。此时 GPU correctness/性能尚未运行。
+
+历史参考的四规模保留时间为 3.568369091/7.804589091/17.733114864/
+38.820766818 ms，其中 256K 使用 EXP-074 回退版；新结果优先与同 allocation
+重测的 previous 比较，同时报告 agents.me 的四个固定官方 baseline。
+256K 为无新 gate 的对照，只有 64K/128K/512K 才可归因于本轮候选。
+
+#### 后续候选及依据（尚未实施）
+
+1. SBRC-512 ordinary-twiddle recurrence。当前
+   stockham_gen_base.h::use_ordinary_twiddle_recurrence() 要求 half_lds
+   和 WGS=256，因而没有覆盖 SBRC-512 [8,8,8]/WGS=512/TPT=128；
+   stockham_gen_rc.h::set_lds_is_real() 使用 scalar-LDS 不等于 half_lds。
+   两个 radix-8 stage 的 7 次 ordinary LUT load 可以分别改为一次基础项
+   加载和幂次递推，代价是各新增 6 次复乘及寄存器生命期。该 consumer 被
+   128K/256K/512K 共用，必须三规模分别衡量，64K 用作对照。EXP-065/071
+   的 SBCC 收益不能作为此方案已有效的证据。VkFFT 的
+   vkFFT_RadixStage.h 根据 radix 决定 LUT 项数，radix-8 对应 3 项，证明
+   它也用算术组合压缩 twiddle 数据，但不意味着照搬会在 gfx936 更快。
+2. SBRC-512 的局部交换所有权。当前 scalar-LDS 仍按
+   generate_device_function() 的 REAL/IMAG 循环在每个边界做两组 LDS
+   store/load 和 barrier。应从 RC 的线程映射重新证明完整 wave-local
+   边界或可直接放到目标寄存器的置换；只对整段通信都能消除的边界原型化。
+   EXP-060 的否证针对 SBCC 的交错 transform 所有权，不能未经 RC 索引
+   检查就套到 SBRC。VkFFT 的 vkFFT_RadixShuffle.h 同时依据当前和下阶段
+   logicalStoragePerThread、stageSize 等决定寄存器重排和 shared exchange，
+   这是本方向的借鉴点。若 RC 静态映射仍跨 wave，则记录否证，不重做只换
+   barrier 的试验。
+3. late-LDS 上传位置与最后两级算术的重叠。当前上传在最后 butterfly
+   之后进行；SBCC-1024 的 register-local 4x4 已消除最后边界 LDS，因此
+   row-data LDS 在更早处就结束使用。可审计将协作上传放到最后一次 LDS
+   load 之后，并将消费 barrier 留到 large-twiddle 读取之前，尝试隐藏
+   上传等待。必须保留防止覆盖仍在读取数据的 block barrier，并观察编译器
+   是否实际重排及是否增加 VGPR；没有证据前不称为异步复制或已有加速。
+
+执行顺序：先收尾 EXP-075，再独立测试 SBRC recurrence；wave-local 与
+上传调度先完成静态所有权/生命期分析。上述三个候选未取得新性能结果。
