@@ -99,7 +99,7 @@ Every optimization attempt must have a unique EXP-NNN identifier and must be rec
 
 ## Git version maintenance requirements
 
-Keep one stable branch containing only validated retained optimizations. Start each new optimization from it in a separate EXP-NNN branch, record the starting commit, and create a before-experiment tag when practical. Commit source changes together with VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md and agents.me. Do not merge correctness failures or unaccepted regressions into the stable branch; retain their branch and record rollback. Merge only after correctness, benchmark, and required cross-size checks. Use immutable tags for the official baseline, pre-experiment stable states, and retained versions. Do not rewrite experiment history or delete failed records. Treat uncommitted changes as experimental, not a valid version.
+Keep one stable branch containing only validated retained optimizations. Start each new optimization from it in a separate EXP-NNN branch, record the starting commit, and create a before-experiment tag when practical. Commit source changes together with VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md and AGENTS.md. Do not merge correctness failures or unaccepted regressions into the stable branch; retain their branch and record rollback. Merge only after correctness, benchmark, and required cross-size checks. Use immutable tags for the official baseline, pre-experiment stable states, and retained versions. Do not rewrite experiment history or delete failed records. Treat uncommitted changes as experimental, not a valid version.
 
 ## Current valid version
 
