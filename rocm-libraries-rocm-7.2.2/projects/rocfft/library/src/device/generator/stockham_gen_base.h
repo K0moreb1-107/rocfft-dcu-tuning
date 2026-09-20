@@ -305,6 +305,11 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                     Declaration{lds_linear, Literal{"true"}}};
     }
 
+    virtual bool use_static_initial_reg_load() const
+    {
+        return static_initial_reg_load;
+    }
+
     virtual StatementList set_lds_is_real()
     {
         if(half_lds)
@@ -813,10 +818,14 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             }
 
             auto butterfly = std::mem_fn(&StockhamKernel::butterfly_generator);
+            const auto butterfly_guard
+                = use_static_initial_reg_load() && npass == 0
+                      ? ThreadGuardMode::GUARD_BY_IF
+                      : ThreadGuardMode::NO_GUARD;
             body += add_work(std::bind(butterfly, this, _1, _2, _3, _4, _5),
                              width,
                              height,
-                             ThreadGuardMode::NO_GUARD);
+                             butterfly_guard);
 
             if(npass == factors.size() - 1)
                 body += large_twiddles_multiply(width, height, cumheight);
@@ -942,8 +951,13 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             loadr += CommentLines{"load global into registers"};
             loadr += load_from_global(true);
 
-            body += If{direct_load_to_reg, loadr};
-            body += Else{loadlds};
+            if(use_static_initial_reg_load())
+                body += loadr;
+            else
+            {
+                body += If{direct_load_to_reg, loadr};
+                body += Else{loadlds};
+            }
         }
 
         body += LineBreak{};
@@ -967,6 +981,10 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                         pre_post_lds_args};
         if(!direct_to_from_reg)
             body += preLoad;
+        else if(use_static_initial_reg_load())
+        {
+            // The specialized initial load already populated R.
+        }
         else
             body += If{!direct_load_to_reg, preLoad};
 

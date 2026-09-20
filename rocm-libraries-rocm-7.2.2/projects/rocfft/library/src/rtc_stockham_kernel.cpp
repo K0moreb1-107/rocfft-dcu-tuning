@@ -86,6 +86,21 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
         specs->direct_to_from_reg    = kernel->direct_to_from_reg;
         specs->ebtype                = node.ebtype;
 
+        // EXP-086: only the 2D, tile-aligned, DP SBRC-512 layout has the
+        // statically known inverse map to the first radix-8 register tile.
+        specs->static_initial_reg_load
+            = pool_scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
+              && node.scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
+              && node.sbrcTranstype == TILE_ALIGNED
+              && node.precision == rocfft_precision_double
+              && specs->direct_to_from_reg && specs->length == 512
+              && specs->workgroup_size == 512
+              && specs->threads_per_transform == 128
+              && specs->factors == std::vector<unsigned int>{8, 8, 8};
+        specs->static_initial_reg_load_linear
+            = specs->static_initial_reg_load
+              && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;
+
         if(node.isPartialPassEnabled())
         {
             pp_params.off_dim     = node.ppOffDim;

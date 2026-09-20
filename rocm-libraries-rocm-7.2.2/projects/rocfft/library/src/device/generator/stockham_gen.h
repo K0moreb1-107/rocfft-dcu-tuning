@@ -55,6 +55,8 @@ struct StockhamGeneratorSpecs
     unsigned int threads_per_transform = 0;
     bool         half_lds              = false;
     bool         direct_to_from_reg    = false;
+    bool         static_initial_reg_load = false;
+    bool         static_initial_reg_load_linear = false;
     // dimension of the kernel - 0 if the generated kernel accepts a
     // 'dim' argument at runtime; otherwise the dimension is
     // statically defined for the kernel

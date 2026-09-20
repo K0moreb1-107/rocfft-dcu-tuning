@@ -1660,3 +1660,58 @@ stable-exp074-cross-size-late-lds-20260905。合并仅包含 EXP-074 的有效
 SBCC-256 gate、步骤相关上传数量和上述记录，不包含已拒绝的 SBCC-512 gate。
 EXP-075 构建前会在同一个 GPU allocation 内重测前版四规模，随后测试候选，
 消除旧文件不同节点或时间段造成的比较不确定性。
+
+#### EXP-086：SBRC-512 首个 radix-8 load 完全静态特化（2026-09-20）
+
+实验分支：`exp-086-sbrc-static-load`。基于 `9eb8f3b70e83a5f27bdf4b4c59ca713111d6586b`；精确稳定版由同一工作树干净源码独立构建（任务 `848330`，`install-stable`），候选版为任务 `848286`（`install`）。目标严格限定为 DP z2z、SBRC-512、length=512、WGS=512、TPT=128、TPB=4、factors `[8,8,8]`、2D `TILE_ALIGNED`；本轮性能只测 512K，其他规模只做 correctness 控制。
+
+##### 实现
+
+修改了 `stockham_gen.h`、`stockham_gen_base.h`、`stockham_gen_rc.h` 和 `rtc_stockham_kernel.cpp`。生成期 gate 只命中上述目标。首个 radix-8 pass 直接生成 global→register，输入映射为 `[tid, tid+64, ..., tid+448]`；因为 TPT=128 而该 pass 只需要 64 个 butterfly 线程，只有 `threadIdx.x % 128 < 64` 的线程执行 8 次 load。首个 pass 之后仍使用原有 Stockham Register→LDS 映射和后续两个 radix-8 pass，没有改变布局契约。非目标配置保留通用路径。
+
+最初无条件修改 base layer 错误影响了非目标 SBCC，任务 `846364--846367`、`846376--846379` 仅为实现错误记录。恢复通用控制流后，候选任务 `848293--848296` 四规模 correctness 全部通过。无 active-lane guard 的版本任务 `848273` 导致 VMEM read `29.696M→37.888M` 并回退，因此舍弃；active-lane 版本修正了这次重复加载。
+
+##### Correctness
+
+| length | job | relative_l2 | relative_max | max_abs |
+|---:|---:|---:|---:|---:|
+| 64K | 848293 | 7.125347e-16 | 1.156407e-15 | 1.325805e-12 |
+| 128K | 848294 | 6.799472e-16 | 9.776713e-16 | 1.792371e-12 |
+| 256K | 848295 | 6.561126e-16 | 8.437206e-16 | 2.250885e-12 |
+| 512K | 848296 | 6.602929e-16 | 8.405844e-16 | 3.158776e-12 |
+
+##### 最终 512K 性能
+
+任务 `849368` 使用 batch=1000、-N 10、hipprof --stats，在同一 allocation 内按稳定→候选→候选→稳定执行；canonical 时间为排除随机输入 kernel 后除以 11：
+
+| round | stable (ms) | candidate (ms) | speedup |
+|---:|---:|---:|---:|
+| 1 | 38.818616273 | 38.581165182 | 1.006157x |
+| 2 | 38.816666364 | 38.469762182 | 1.009019x |
+| 平均 | 38.817641319 | 38.525463682 | **1.007583x** |
+
+两轮同向改善，平均下降 0.292177637 ms（0.752%）。SBRC-512 两轮约为稳定 17.5610/17.5586 ms、候选 17.3160/17.3191 ms；SBCC-1024 未修改。
+
+##### PMC 与 ISA
+
+任务 `849379` 对精确稳定/候选安装各执行两次 SBRC-512：
+
+| 指标 | stable | candidate | 变化 |
+|---|---:|---:|---:|
+| arch_vgpr | 64 | 60 | -6.25% |
+| arch_sgpr | 48 | 48 | 0 |
+| LDS allocation | 32768 | 32768 | 0 |
+| SQ_INSTS_LDS | 73,728,000 | 49,152,000 | -33.33% |
+| SQ_INSTS_VMEM_RD | 29,696,000 | 29,696,000 | 0 |
+| SQ_INSTS_VMEM_WR | 8,192,000 | 8,192,000 | 0 |
+| SQ_INSTS_VALU | 540,672,000 | 517,120,000 | -4.36% |
+| SQ_LDS_BANK_CONFLICT | 458,752,000 | 458,752,000 | 0 |
+| SQ_WAIT_INST_LDS | 529.249M | 255.767M | -51.68% |
+
+global read 数量不变，减少的是首个 global→LDS→register 往返；active-lane 条件也避免了重复 global read。LDS 等待、LDS 指令和 VGPR 同时下降，支持性能收益来自初始 LDS 路径删除，而不是 bank-conflict 变化。
+
+ISA 任务 `848314`：候选 `.text` 4052 bytes，稳定 3864 bytes，增加 188 bytes（4.87%）；无 spill。RTC 源码确认候选目标 kernel 为 `direct_load_to_reg = true`，直接生成 8 次 global load，并由 `thread < 64` 保护首个 butterfly/Register→LDS；稳定版为 false，先 global→LDS，再调用 `lds_to_reg_input_length512_device`。
+
+##### 决策
+
+这是严格限定到 512K z2z 目标路径的 SBRC-512 候选，不是跨规模通用优化。四规模 correctness 全部通过，最终两轮性能同向改善，PMC 能解释收益来源，因此保留在 `exp-086-sbrc-static-load` 分支；暂不合并稳定分支。若后续合并，必须保留精确 gate，不能推广到其他 SBRC 长度、factor 或不满足 `TILE_ALIGNED` 的配置。

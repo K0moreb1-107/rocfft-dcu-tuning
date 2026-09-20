@@ -74,12 +74,19 @@ struct StockhamKernelRC : public StockhamKernel
         return "SBRC";
     }
 
+    bool use_static_initial_reg_load() const override
+    {
+        return static_initial_reg_load;
+    }
+
     // TODO- support embedded Pre/Post
     StatementList set_direct_to_from_registers() override
     {
-        // RC: we never do "direct-to-reg", but do "direct-from-reg" and "non-linear"
+        // RC normally does not load directly to registers.  The exact
+        // SBRC-512 DP 2D aligned specialization is an exception.
         if(direct_to_from_reg)
-            return {Declaration{direct_load_to_reg, Literal{"false"}},
+            return {Declaration{direct_load_to_reg,
+                                Literal{static_initial_reg_load ? "true" : "false"}},
                     Declaration{direct_store_from_reg,
                                 And{directReg_type == "DirectRegType::TRY_ENABLE_IF_SUPPORT",
                                     sbrc_type != "SBRC_3D_FFT_ERC_TRANS_Z_XY"}},
@@ -395,6 +402,35 @@ struct StockhamKernelRC : public StockhamKernel
     StatementList load_from_global(bool load_registers) override
     {
         StatementList stmts;
+
+        if(load_registers && static_initial_reg_load)
+        {
+            // Exact SBRC-512 DP 2D TILE_ALIGNED inverse map.  The
+            // compile-time layout selects the same linear/nonlinear
+            // ordering as the existing LDS path.
+            stmts += CommentLines{"static SBRC-512 initial global-to-register load",
+                                   "only the 64 active radix-8 threads load input"};
+            auto thread_linear = thread_id % threads_per_transform;
+            auto thread_nonlinear = thread_id / transforms_per_block;
+            Expression active_thread
+                = static_initial_reg_load_linear ? Expression{thread_linear}
+                                                 : Expression{thread_nonlinear};
+            auto row = static_initial_reg_load_linear
+                           ? Expression{thread_id / threads_per_transform}
+                           : Expression{thread_id % transforms_per_block};
+
+            StatementList active_loads;
+            active_loads += Assign{thread, active_thread};
+            auto width = factors.front();
+            for(unsigned int w = 0; w < width; ++w)
+            {
+                auto idx = Parens{Parens{thread + w * length / width} * stride0
+                                  + row * stride_load_in};
+                active_loads += Assign{R[w], LoadGlobal{buf, offset_in + idx}};
+            }
+            stmts += If{active_thread < length / factors.front(), active_loads};
+            return stmts;
+        }
 
         if(!load_registers)
         {
