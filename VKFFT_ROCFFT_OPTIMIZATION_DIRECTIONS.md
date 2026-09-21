@@ -1715,3 +1715,53 @@ ISA 任务 `848314`：候选 `.text` 4052 bytes，稳定 3864 bytes，增加 188
 ##### 决策
 
 这是严格限定到 512K z2z 目标路径的 SBRC-512 候选，不是跨规模通用优化。四规模 correctness 全部通过，最终两轮性能同向改善，PMC 能解释收益来源，因此保留在 `exp-086-sbrc-static-load` 分支；暂不合并稳定分支。若后续合并，必须保留精确 gate，不能推广到其他 SBRC 长度、factor 或不满足 `TILE_ALIGNED` 的配置。
+
+
+#### EXP-089：SBRC 任意 2 的幂次首个 global→register load 泛化（2026-09-21）
+
+实验分支：`exp-089-sbrc-pow2-static-load`。实验起点为提交 `088c9636`。
+本实验将 EXP-086/088 按长度枚举的静态首个 global→register load 推广为
+结构化生成期 gate：DP z2z、2D、TILE_ALIGNED、无 callback、SBRC、
+direct-to/from-register；局部 length 和所有 factors 为 2 的幂，factor
+乘积等于 length，且 workgroup size 可被 threads-per-transform 整除。
+
+实现修改：
+- `rtc_stockham_kernel.cpp` 删除 SBRC-64/128/256/512 长度白名单，增加
+  任意 2 的幂次和 factor-product 约束；未来 SBRC-1024 满足条件时自动覆盖。
+- `stockham_gen_rc.h` 将首个 load 生成器参数化为
+  `width=factors.front()`、`height=length/(width*TPT)`，按已有首个
+  Stockham LDS/register 映射生成 R 寄存器的 global load。
+- 后续 Register→LDS、barrier、LDS→Register 和 Stockham pass 不变；不满足
+  gate 的 kernel 保留通用 Global→LDS→Register 路径。
+- 未修改 planner、FFT 分解、WGS、TPT、radix 或 twiddle 算法。
+
+构建任务：851278。正确性任务：851279--851282（64K--512K）和
+851825（32768 重跑）；RTC：851826；性能：851837；PMC：851838。
+所有目标规模正确性通过。32768 重跑为
+relative_l2=5.726651e-16、relative_max=1.037618e-15、
+max_abs=8.658132e-13。
+
+按 AGENTS.md canonical 公式，当前版本平均时间及相对上一稳定版本
+EXP-074 的结果：
+
+| length | EXP-089 T_compute_ms | EXP-074 stable ms | speedup |
+|---:|---:|---:|---:|
+| 64K | 3.456907136 | 3.568369091 | 1.032243x |
+| 128K | 7.610478727 | 7.804589091 | 1.025506x |
+| 256K | 17.366023955 | 17.925635182 | 1.032224x |
+| 512K | 38.515949864 | 38.820766818 | 1.007914x |
+
+原始结果位于 `results/exp089_*_new_r*.csv.hipkernel.csv`，日志为
+`logs/bench_exp089_pair_851284.out` 和
+`logs/bench_exp089r_small_retry_851837.out`。相对于直接前版 EXP-088，
+64K/128K/256K/512K 分别为 0.99923x、0.99973x、0.99997x、0.99870x；
+因此本实验的泛化本身没有可确认的额外稳态 GPU 加速。
+
+SBRC-128 PMC（`results/exp089_pmc_small_retry/8k_{old,new}.csv.csv`）
+old/new 的 arch VGPR=52、SGPR=48、SQ_INSTS_LDS=768000、
+SQ_INSTS_VALU=4176000、SQ_INSTS_VMEM_RD=272000、
+SQ_INSTS_VMEM_WR=128000、SQ_LDS_BANK_CONFLICT=10240000，最终机器代码
+结构基本不变。主要成果是覆盖范围泛化和正确性，而非新增 GPU 指令级收益。
+
+最终决策：保留结构化 gate，作为新的稳定版本。累计收益不得全部归因于
+EXP-089；EXP-089 相对 EXP-088 的增量收益未证实。

@@ -86,17 +86,39 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
         specs->direct_to_from_reg    = kernel->direct_to_from_reg;
         specs->ebtype                = node.ebtype;
 
-        // EXP-086: only the 2D, tile-aligned, DP SBRC-512 layout has the
-        // statically known inverse map to the first radix-8 register tile.
+        // EXP-089: enable direct initial global-to-register loading for any
+        // power-of-two SBRC whose complete first-pass map can be proven from
+        // the generated Stockham configuration.  This also covers future
+        // lengths such as SBRC-1024 without adding a length whitelist.
+        const auto callback_type = node.GetCallbackType(enable_callbacks);
+        const auto is_power_of_two = [](size_t value) {
+            return value != 0 && (value & (value - 1)) == 0;
+        };
+        const bool static_pow2_sbrc_map = [&]() {
+            if(!is_power_of_two(specs->length) || specs->factors.empty()
+               || specs->threads_per_transform == 0
+               || specs->workgroup_size % specs->threads_per_transform != 0
+               || specs->length % specs->factors.front() != 0)
+                return false;
+
+            size_t factor_product = 1;
+            for(const auto factor : specs->factors)
+            {
+                if(!is_power_of_two(factor) || factor_product > specs->length / factor)
+                    return false;
+                factor_product *= factor;
+            }
+            return factor_product == specs->length;
+        }();
         specs->static_initial_reg_load
             = pool_scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
               && node.scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
               && node.sbrcTranstype == TILE_ALIGNED
               && node.precision == rocfft_precision_double
-              && specs->direct_to_from_reg && specs->length == 512
-              && specs->workgroup_size == 512
-              && specs->threads_per_transform == 128
-              && specs->factors == std::vector<unsigned int>{8, 8, 8};
+              && node.ebtype == EmbeddedType::NONE
+              && callback_type == CallbackType::NONE
+              && specs->direct_to_from_reg
+              && static_pow2_sbrc_map;
         specs->static_initial_reg_load_linear
             = specs->static_initial_reg_load
               && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;

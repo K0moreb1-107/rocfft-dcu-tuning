@@ -399,36 +399,54 @@ struct StockhamKernelRC : public StockhamKernel
         return stmts;
     }
 
+    StatementList static_load_global_generator(unsigned int h,
+                                                    unsigned int hr,
+                                                    unsigned int width,
+                                                    unsigned int dt,
+                                                    Expression   guard) const
+    {
+        if(hr == 0)
+            hr = h;
+        (void)guard;
+        StatementList work;
+        const auto tid = Parens{thread + dt + h * threads_per_transform};
+        const auto row = static_initial_reg_load_linear
+                             ? Expression{thread_id / threads_per_transform}
+                             : Expression{thread_id % transforms_per_block};
+
+        // This is the exact inverse of load_lds_generator() for the first
+        // Stockham pass: R[hr*width+w] is the input element at tid plus the
+        // radix stride.  Only the global-to-LDS staging is removed.
+        for(unsigned int w = 0; w < width; ++w)
+        {
+            const auto idx = Parens{tid + w * length / width};
+            const auto global_idx
+                = Parens{Parens{Expression{idx}} * stride0 + row * stride_load_in};
+            work += Assign{R[hr * width + w], LoadGlobal{buf, offset_in + global_idx}};
+        }
+        return work;
+    }
+
     StatementList load_from_global(bool load_registers) override
     {
         StatementList stmts;
 
         if(load_registers && static_initial_reg_load)
         {
-            // Exact SBRC-512 DP 2D TILE_ALIGNED inverse map.  The
-            // compile-time layout selects the same linear/nonlinear
-            // ordering as the existing LDS path.
-            stmts += CommentLines{"static SBRC-512 initial global-to-register load",
-                                   "only the 64 active radix-8 threads load input"};
-            auto thread_linear = thread_id % threads_per_transform;
-            auto thread_nonlinear = thread_id / transforms_per_block;
-            Expression active_thread
-                = static_initial_reg_load_linear ? Expression{thread_linear}
-                                                 : Expression{thread_nonlinear};
-            auto row = static_initial_reg_load_linear
-                           ? Expression{thread_id / threads_per_transform}
-                           : Expression{thread_id % transforms_per_block};
+            stmts += CommentLines{"static SBRC initial global-to-register load",
+                                   "generated from the first-pass LDS/register map"};
+            stmts += Assign{thread,
+                            static_initial_reg_load_linear
+                                ? Expression{thread_id % threads_per_transform}
+                                : Expression{thread_id / transforms_per_block}};
 
-            StatementList active_loads;
-            active_loads += Assign{thread, active_thread};
-            auto width = factors.front();
-            for(unsigned int w = 0; w < width; ++w)
-            {
-                auto idx = Parens{Parens{thread + w * length / width} * stride0
-                                  + row * stride_load_in};
-                active_loads += Assign{R[w], LoadGlobal{buf, offset_in + idx}};
-            }
-            stmts += If{active_thread < length / factors.front(), active_loads};
+            const auto width  = factors.front();
+            const auto height = static_cast<float>(length) / width / threads_per_transform;
+            auto       load_global = std::mem_fn(&StockhamKernelRC::static_load_global_generator);
+            stmts += add_work(std::bind(load_global, this, _1, _2, _3, _4, _5),
+                              width,
+                              height,
+                              ThreadGuardMode::GUARD_BY_IF);
             return stmts;
         }
 
