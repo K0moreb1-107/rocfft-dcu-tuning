@@ -104,6 +104,6 @@ Keep one stable branch containing only validated retained optimizations. Start e
 ## Current valid version
 
 Stable branch: rocfft-opt-pre-tile-lifetime
-Validated source commit: e57d01b9df3538121f625874925652414b482b30
-Validated record commit: ec946b42f62f5d534aaa45e1c3c3ee6d5e5ed1a1
-Valid tag: stable-exp074-cross-size-late-lds-20260905
+Validated source commit: f24222f0546df7cf5b19404cff0dc379a62c3f12
+Validated record commit: f24222f0546df7cf5b19404cff0dc379a62c3f12
+Valid tag: stable-exp089-sbrc-pow2-static-load-20260921
