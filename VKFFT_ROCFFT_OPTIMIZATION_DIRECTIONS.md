@@ -2104,6 +2104,27 @@ FFT kernel 和随机输入 kernel 调用 `N+1` 次；因此提高 `-N` 会同时
 canonical 均值差全部解释成噪声，也不把高 N 的 steady-state GPU kernel
 时间描述成单次 cold-start 或 host wall-clock 延迟。
 
+第二次有效提交 job `856160` 在节点 `f09r1n04` 完成，原始 CSV 位于
+`results/exp091_batch1_calibration_856160/`。三轮 canonical 结果为：
+
+| N | mean (ms) | median (ms) | CV | 相对 N=10000 mean |
+|---:|---:|---:|---:|---:|
+| 100 | 0.053513370 | 0.054284327 | 2.748% | +1.130% |
+| 1000 | 0.053642534 | 0.051503024 | 7.391% | +1.374% |
+| 10000 | 0.052915600 | 0.052143128 | 3.512% | 0% |
+
+transform-only 的 mean/CV 分别为 0.053178584/2.787%、
+0.053609607/7.397%、0.052912038/3.512%，说明主要波动来自 FFT kernel
+本身，而不是约 33--36 us 的每进程固定 twiddle 生成。单纯增大 N 没有消除
+跨进程的频率/系统漂移，因此后续候选必须继续采用同 allocation 的交错配对；
+独立 batch=1 基线使用多进程中位数并同时保留均值、CV 和全部轮次。
+
+后续四规模基线固定 `N=10000`、每个长度五轮。选择 N=10000 不是因为它在
+三轮中表现出最低 CV，而是因为每个文件约 10001 次 transform，与旧
+batch=1000、`N=10` 每文件约 11000 个 transform 的总样本量接近，并把固定
+twiddle 生成的摊销影响降到最低。四规模使用平衡顺序，主汇总统计量为五个
+独立进程的 median；这仍是 steady-state GPU-kernel 指标，不代表 cold start。
+
 第二阶段将在选定 N 下建立 64K/128K/256K/512K 的独立 batch=1 基线，并对
 512K 当前 `SBCC-1024 [8,8,4,4] -> SBRC-512 [8,8,8]` 路径采集 PMC。重点
 比较 SBRC consumer 的 TCC_HIT/TCC_MISS、VMEM read/write 和 LDS 指标，判断

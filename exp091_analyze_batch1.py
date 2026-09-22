@@ -10,6 +10,7 @@ import statistics
 
 
 BENCH_ONLY = ("generate_random_interleaved_data_kernel",)
+LENGTHS = (65536, 131072, 262144, 524288)
 
 
 def sample_metrics(path, repetitions):
@@ -127,6 +128,72 @@ def analyze_calibration(args):
     return report, lines
 
 
+def summarize_samples(samples, paths):
+    canonical_values = [sample["canonical_ms"] for sample in samples]
+    transform_values = [sample["transform_only_ms"] for sample in samples]
+    twiddle_values = [sample["fixed_twiddle_total_us"] for sample in samples]
+    twiddle_summary = summarize(twiddle_values)
+    return {
+        "canonical": summarize(canonical_values),
+        "transform_only": summarize(transform_values),
+        "fixed_twiddle_total_us": {
+            "rounds_us": twiddle_summary["rounds_ms"],
+            "mean_us": twiddle_summary["mean_ms"],
+            "median_us": twiddle_summary["median_ms"],
+            "stdev_us": twiddle_summary["stdev_ms"],
+            "cv_percent": twiddle_summary["cv_percent"],
+            "range_us": twiddle_summary["range_ms"],
+        },
+        "files": paths,
+        "per_file_metrics": samples,
+    }
+
+
+def analyze_baseline(args):
+    report = {
+        "experiment": "EXP-091",
+        "phase": "batch1-four-length-baseline",
+        "batch": 1,
+        "repetitions_N": args.repetitions,
+        "divisor": args.repetitions + 1,
+        "rounds": args.rounds,
+        "metric": "(TotalDurationNs - bench-only kernels) / (N + 1) / 1e6",
+        "primary_statistic": "median across independent processes",
+        "input_dir": os.path.abspath(args.input_dir),
+        "lengths": {},
+    }
+    lines = [
+        "length canonical_median_ms canonical_mean_ms canonical_cv_pct "
+        "transform_median_ms transform_mean_ms transform_cv_pct "
+        "fixed_twiddle_mean_us"
+    ]
+    for length in LENGTHS:
+        pattern = os.path.join(args.input_dir, "{}_r*.hipkernel.csv".format(length))
+        paths = sorted(glob.glob(pattern))
+        if len(paths) != args.rounds:
+            raise ValueError(
+                "expected {} files for length {}, got {}: {}".format(
+                    args.rounds, length, len(paths), paths
+                )
+            )
+        samples = [sample_metrics(path, args.repetitions) for path in paths]
+        item = summarize_samples(samples, paths)
+        report["lengths"][str(length)] = item
+        lines.append(
+            "{} {:.9f} {:.9f} {:.6f} {:.9f} {:.9f} {:.6f} {:.6f}".format(
+                length,
+                item["canonical"]["median_ms"],
+                item["canonical"]["mean_ms"],
+                item["canonical"]["cv_percent"],
+                item["transform_only"]["median_ms"],
+                item["transform_only"]["mean_ms"],
+                item["transform_only"]["cv_percent"],
+                item["fixed_twiddle_total_us"]["mean_us"],
+            )
+        )
+    return report, lines
+
+
 def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="mode", required=True)
@@ -134,9 +201,18 @@ def main():
     calibration.add_argument("--input-dir", required=True)
     calibration.add_argument("--json", required=True)
     calibration.add_argument("--text", required=True)
+    baseline = subparsers.add_parser("baseline")
+    baseline.add_argument("--input-dir", required=True)
+    baseline.add_argument("--repetitions", type=int, required=True)
+    baseline.add_argument("--rounds", type=int, default=5)
+    baseline.add_argument("--json", required=True)
+    baseline.add_argument("--text", required=True)
     args = parser.parse_args()
 
-    report, lines = analyze_calibration(args)
+    if args.mode == "calibration":
+        report, lines = analyze_calibration(args)
+    else:
+        report, lines = analyze_baseline(args)
     with open(args.json, "w") as handle:
         json.dump(report, handle, indent=2, sort_keys=True)
         handle.write("\n")
