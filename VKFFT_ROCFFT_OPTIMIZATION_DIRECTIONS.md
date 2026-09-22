@@ -2062,7 +2062,7 @@ out-of-place、batch=1000、`-N 10`。canonical 指标为
 静态首载和此前所有已推广优化。稳定标签为
 `stable-exp090-inverse-recurrence-fix-20260922`。
 
-### EXP-091：batch=1 基线校准与 512K global-handoff/L2 诊断（进行中）
+### EXP-091：batch=1 基线校准与 512K global-handoff/L2 诊断（完成）
 
 日期：2026-09-22。实验分支：`exp-091-batch1-baseline`。实验前标签：
 `pre-exp091-batch1-baseline-20260922`。起始稳定记录提交为 `c20d0a31`，
@@ -2232,3 +2232,69 @@ transaction-reduction 动机已被证伪，不进入 kernel 实现。单纯保�
 boundary bytes 或 fan-in 的 boundary movement/hierarchical ownership；不再
 以“改善当前 coalescing”为目标。若以后专门研究 cache policy/residency，
 再补采可用的 DRAM counter 或构造受控 cache-policy 对照。
+
+#### EXP-091C 512K ownership/address/transaction 闭式模型
+
+静态模型脚本为 `exp091_handoff_ownership_model.py`，机器可读和文本结果为
+`results/exp091_handoff_ownership_model.{json,txt}`。它不是 WGS/TPT/radix
+autotuner，也没有枚举任意数值参数；模型只从实测 kernel geometry 和
+`SBRC [8,8,8]` 的三个合法 factor-prefix cut 推导必要条件。
+
+对中间矩阵 `H[K=1024,M=512]`，物理地址为 `q*512+a`。当前 producer
+tile 的 ownership 为全部 `q` 和 4 个相邻 `a`，共 128 个 producer；当前
+consumer tile 为 4 个相邻 `q` 和全部 `a`，共 256 个 consumer。因此
+ownership 依赖图是完整二部图 `K_{128,256}`，共有 32768 条边；每条边是
+`4x4=16` 个 DP complex，即 256B。每个 consumer 的 fan-in 为 128，每个
+producer 的 fan-out 为 256。batch 只复制互不相连的该图，不改变任何单
+transform ownership、fan-in、edge bytes 或 transaction 下界。
+
+只要 producer tile 宽 `P` 为 4 的倍数、consumer tile 高 `C` 整除 1024，
+并保留“一次写出、一次读入全部 DP-complex intermediate”，64B EA request
+数满足闭式恒等式：
+
+```text
+R = (M/P) * (K/C) * C * (P*16/64)
+  = N*16/64
+  = 131072 requests / direction
+```
+
+模型的逐地址枚举与该闭式结果一致：当前 `P=4,C=4`、仅把 consumer TPB
+改成 8 的 `P=4,C=8`，以及 producer/consumer 都取 8 的 `P=8,C=8`，均为
+131072 个 request。PMC 中 SBCC 四个样本也恰为 131072；SBRC 四个样本只
+多 265、265、272、265 个 request，平均额外 0.2035%。因此 TPB=8、WGS=1024
+和任何仍完整写读 8MiB 的纯 permutation/block layout 都已达到同一下界，
+没有 transaction-count 优化空间。
+
+三个合法 consumer prefix 的 ownership 必要条件为：
+
+| cut | 当前 producer fan-in | 相对完整 consumer | 当前 TPT 下 owner WGS | half-LDS live state | 保持 4 个相邻 a 所需 WGS | cut 后 global boundary |
+|---|---:|---:|---:|---:|---:|---:|
+| F1 `[8]` | 8 | 16x 降低 | 512 | 64 KiB | 2048 | 8 MiB |
+| F2 `[8,8]` | 64 | 2x 降低 | 4096 | 512 KiB | 16384 | 8 MiB |
+| F3 `[8,8,8]` | 128 | 不变 | 32768 | 4 MiB | 32768 | 8 MiB |
+
+F1 是唯一在单个 WG 的 WGS/half-LDS 硬上限内勉强成立的 hierarchical-owner
+形状，并把 fan-in 从 128 降到 8；但一个 F1 group 使用
+`a={0,64,...,448}`，失去当前相邻-a producer access。若同时保留当前 4-wide
+连续性则需要 WGS=2048 和 256KiB scalar live state，均不可行。更重要的是，
+64 个 F1 group 合计仍写出全部 `N` 个元素，所以 boundary 仍为 8MiB，并未
+减少 global bytes。完整 same-WG continuation 则需要 WGS=32768、8MiB complex
+live state（即使 half-LDS 也为 4MiB），直接排除。
+
+因此静态模型的结论不是“枚举没有找到好参数”，而是：在保持当前完整中间
+数组语义时，TPB 和纯 layout 参数被闭式下界统一排除；F2/F3 被资源下界
+排除；F1 只保留为未来 cross-workgroup cluster/hierarchical ownership 的
+结构线索，不能作为当前 gfx936 上减少 boundary bytes 的 kernel 原型。
+
+当前 `hipprof` 只提供固定 `--pmc/--pmc-read/--pmc-write` 预设，现有 CSV 和
+帮助信息均未暴露 `_DRAM` counter，也未安装可用的 `rocprof/rocprofv3`。
+下一步先用最小设备能力程序查询 gfx936 的 `clusterLaunch`、cooperative launch、
+LDS/WGS/L2 等属性：若 cluster 不存在，则 F1 的“8 producer 直接共享”路线在
+本机结束；cooperative grid 只能提供同步而不能提供 remote LDS，不单独作为
+fusion 理由。
+
+EXP-091 最终决策：接受 batch=1 测量协议、四规模固定基线、PMC 诊断和上述
+闭式模型，不产生或推广任何 kernel/planner 源码修改。稳定 runtime 源码仍为
+EXP-090 的 `0473680e99b181e4660643425f53382f3a6afad7`；EXP-091 只将脚本、
+分析器、原始结果索引和实验记录并入稳定记录。后续独立实验从该记录切出，
+不得重新实现已被 64B transaction 下界否定的 TPB=8 grouped-nearby 候选。
