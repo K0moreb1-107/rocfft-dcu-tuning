@@ -128,13 +128,6 @@ Keep one stable branch containing only validated retained optimizations. Start e
 ## Current valid version
 
 Stable branch: rocfft-opt-pre-tile-lifetime
-Validated source commit: f24222f0546df7cf5b19404cff0dc379a62c3f12
-Validated record commit: f24222f0546df7cf5b19404cff0dc379a62c3f12
-Valid tag: stable-exp089-sbrc-pow2-static-load-20260921
-
-## Active experiment
-
-EXP-090 branch: `exp-090-inverse-recurrence-fix`
-Starting stable record commit: `a0978f20`
-Starting stable runtime commit: `a7a228cf7b851bb948f10910b6c12e3de7b0ad63`
-Pre-experiment tag: `pre-exp090-inverse-recurrence-20260922`
+Validated source commit: 0473680e99b181e4660643425f53382f3a6afad7
+Validated record commit: 645f711823b7cc2c9261eb26411faf45cbd621ae
+Valid tag: stable-exp090-inverse-recurrence-fix-20260922
