@@ -2298,3 +2298,31 @@ EXP-091 最终决策：接受 batch=1 测量协议、四规模固定基线、PMC
 EXP-090 的 `0473680e99b181e4660643425f53382f3a6afad7`；EXP-091 只将脚本、
 分析器、原始结果索引和实验记录并入稳定记录。后续独立实验从该记录切出，
 不得重新实现已被 64B transaction 下界否定的 TPB=8 grouped-nearby 候选。
+
+### EXP-092：gfx936 workgroup-cluster 能力门禁（进行中）
+
+日期：2026-09-22。实验分支：`exp-092-gfx936-cluster-capability`。起始稳定
+记录提交为 `d9129c654e9f4947ab1e2125c8bc06a556b90bae`，实验前标签为
+`pre-exp092-gfx936-cluster-capability-20260922`，稳定 runtime 源码仍为
+`0473680e99b181e4660643425f53382f3a6afad7`。本实验不修改 rocFFT runtime、
+planner、kernel、分解或数值语义。
+
+EXP-091C 证明唯一仍有结构意义的 consumer prefix 是 F1 `[8]`：它能把当前
+consumer 对 producer tile 的 fan-in 从 128 降到 8，但在 gfx936 上只有存在
+跨 workgroup shared-memory mapping/cluster barrier 时，8 个既有 producer
+workgroup 才可能不经 global intermediate 直接交给 prefix owner。普通
+cooperative launch 只提供 grid synchronization，不等价于 remote LDS。
+
+因此本实验先做一票否决式设备查询，而不直接实现 fusion。程序
+`exp092_query_device_capabilities.cpp` 通过 `hipGetDeviceProperties` 记录实际
+分配 GPU 的 `gcnArchName`、HIP runtime/driver、`clusterLaunch`、
+`cooperativeLaunch`、WGS、LDS、L2 和 CU 属性；对较旧头文件用编译期字段检测，
+字段不存在也作为明确结果。提交脚本为
+`exp092_query_device_capabilities.slurm`，结果写入
+`results/exp092_device_caps_<jobid>.txt`。
+
+停止条件：若 `clusterLaunch` 字段不存在或值为 0，则结束 gfx936 remote-LDS
+cluster 路线；即使 `cooperativeLaunch=1` 也不继续做同义替换。若
+`clusterLaunch=1`，也只允许下一步做最小 8-workgroup shared-memory mapping
+microprobe，必须先验证可用 cluster size、同步和 remote-LDS 语义，不能直接
+进入 rocFFT F1 fusion。该能力查询本身不产生性能数值，也不改变稳定版本。
