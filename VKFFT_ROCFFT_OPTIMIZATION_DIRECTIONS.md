@@ -2364,3 +2364,43 @@ gfx936 上实现依赖 remote LDS 的 F1 hierarchical-owner fusion。
 EXP-092 最终决策：能力门禁通过执行但 cluster 路线被硬件/接口证据否决；
 保留查询程序和结果作为负向证据，不修改或推广 rocFFT runtime。稳定 runtime
 源码继续为 `0473680e99b181e4660643425f53382f3a6afad7`。
+
+### EXP-093：batch=1 SBRC L2 容量曲线（计划）
+
+日期：2026-09-23。实验分支：`exp-093-batch1-l2-capacity-curve`。起始稳定
+记录提交为 `6a71d2223e50c8473a1ef10578fb2d3eb841a033`，实验前标签为
+`pre-exp093-batch1-l2-capacity-curve-20260923`，稳定 runtime 源码仍为
+`0473680e99b181e4660643425f53382f3a6afad7`。本实验只采集计数器，不修改
+rocFFT runtime、planner、kernel、分解或数值语义。
+
+EXP-092 实测 gfx936 L2 为 8MiB，正好等于 512K DP-complex SBCC→SBRC
+中间数组的逻辑大小，尚不能区分 512K 的低 TCC hit 是容量边界，还是 SBRC
+当前 ownership/调度使数据在所有规模上都没有可利用的 cache reuse。为避免把
+batch=1000 的跨 transform cache 行为误当成算法性质，本实验固定 batch=1、
+double、complex forward、out-of-place，并比较以下单 transform 工作集：
+
+| FFT length | 中间数组逻辑大小 | SBRC kernel filter |
+|---:|---:|---|
+| 65536 | 1MiB | `len_256_factors_4_4_4_4` |
+| 131072 | 2MiB | `len_512_factors_8_8_8` |
+| 262144 | 4MiB | `len_512_factors_8_8_8` |
+| 524288 | 8MiB | `len_512_factors_8_8_8` |
+
+提交脚本 `exp093_batch1_l2_curve.slurm` 使用 EXP-090 已验证安装
+`install-exp090-candidate`。每个规模采集三轮完整 TCC counter 和两轮独立
+read-request counter；规模顺序在各轮中正序、逆序和交错，以降低温度与运行
+顺序偏差。每次 `rocfft-bench` 使用 `-N 1`，保留 profiler 中 warm-up 与 trial
+两个 dispatch 样本；PMC 时间不作为 latency。分析器
+`exp093_analyze_l2_curve.py` 保存逐 dispatch 原始值，并汇总 TCC hit rate、
+hit/miss 数和 `TCC_EA_RDREQ` 相对 `N*16/64` 个 64B request 下界的偏差。
+
+解释边界必须严格：TCC hit/miss 同时混合 intermediate、twiddle、常量和 store
+流量；EA request 是 EA 接口请求，不是直接 HBM byte counter；不同 preset 来自
+独立 replay。因此这里只判断随工作集大小变化的结构趋势，不用 counter 反推
+绝对 DRAM 带宽，也不与基准延迟混算。
+
+决策条件：若 1/2/4MiB 的 hit/reuse 明显更高且接近 8MiB 时出现一致容量断崖，
+则下一项只研究 batch=1 下缩短 SBCC→SBRC reuse distance 的 cache-local
+scheduling；若四个规模均接近完整 EA read 下界且 hit/reuse 曲线基本平坦，或
+小工作集也无可靠改善，则结束 cache-residency 路线，不实现 cache-aware planner
+原型。任何结论都必须来自多轮一致趋势；本实验本身不产生可推广 kernel。
