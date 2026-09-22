@@ -2174,3 +2174,61 @@ hipkernel CSV 均存在，错误日志为空。主统计量为五轮 canonical m
 所以后续小收益候选不能只与这个独立固定数做一次比较，仍必须在同 allocation
 内与稳定版交错配对。该结果把 batch=1 正式设为主延迟工作负载；历史
 batch=1000、`N=10` 仅保留为吞吐量回归，不与本表绝对值比较。
+
+#### EXP-091 512K 分 kernel PMC 结果与方向裁决
+
+PMC job `856758` 完成，耗时 2m30s，exit code 0，错误日志为空；原始 full、
+focused-read、focused-write CSV/DB/hiptrace/hipkernel 文件全部位于
+`results/exp091_batch1_pmc_856758/`，汇总为
+`results/exp091_batch1_pmc_856758.{json,txt}`。PMC 时间不用于性能比较。
+
+Full counter 的每 user FFT 结果如下。batch=1 为三进程、每进程两个
+dispatch 的 aggregate；batch=1000 为同一稳定二进制和同 allocation 的机制
+对照并按 1000 归一化：
+
+| kernel/workload | TCC hit rate | hit/FFT | miss/FFT | VMEM read/write | LDS inst |
+|---|---:|---:|---:|---:|---:|
+| SBCC, batch=1 r1 | 11.8083% | 35164.5 | 262631.0 | 12800 / 8192 | 74752 |
+| SBCC, batch=1 r2 | 11.9134% | 35520.0 | 262631.0 | 12800 / 8192 | 74752 |
+| SBCC, batch=1 r3 | 11.5788% | 34391.5 | 262629.5 | 12800 / 8192 | 74752 |
+| SBCC, batch=1000 | 5.0181% | 13849.9 | 262146.2 | 12800 / 8192 | 74752 |
+| SBRC, batch=1 r1 | 11.1606% | 24732.0 | 196868.0 | 29696 / 8192 | 49152 |
+| SBRC, batch=1 r2 | 11.1666% | 24748.0 | 196877.0 | 29696 / 8192 | 49152 |
+| SBRC, batch=1 r3 | 11.2951% | 25068.5 | 196873.0 | 29696 / 8192 | 49152 |
+| SBRC, batch=1000 | 12.2260% | 27385.7 | 196609.5 | 29696 / 8192 | 49152 |
+
+SBRC 的 batch=1 TCC hit rate 没有高于 batch=1000，miss/FFT 也没有下降；
+warm-up 与 trial 两行之间差异很小。这否定了“只要 user batch=1，当前 8 MiB
+intermediate 就会主要由 L2 承接”的假设。因为 HIT/MISS 混合了 data、
+twiddle、常量和 store，这里不把 11% 直接称为 intermediate hit rate。
+
+Focused request-size counter 给出更强的边界形状证据：
+
+- SBRC 四个 dispatch 的 `TCC_EA_RDREQ` 为 131337、131337、131344、
+  131337，`TCC_EA_RDREQ_32B=0` 且 EA1 为 0；
+- 8 MiB intermediate 恰好等于 `131072 * 64B`，实测只多 265--272 个
+  64B request（约 0.20%，可由 twiddle/常量等其它读取解释）；
+- SBCC 四个 dispatch 的 `TCC_EA_WRREQ=TCC_EA_WRREQ_64B=131072`，精确
+  等于 8 MiB/64B，没有 32B request；
+- SBRC final store 四个样本中三个同样为 131072 个 64B request，一个 replay
+  为 204381；该单个异常不用于推导稳定 store 流量，若以后研究 final store
+  需要单独复测。
+
+AMD 的 counter 定义表明 `TCC_EA_RDREQ/WRREQ` 是经过 TCC/EA interface 到
+efficiency arbiter 的 32B/64B 请求，而 HBM 有独立的 `_DRAM` counter。因此
+这里可以直接确认的是：几乎完整的 8 MiB handoff 以 64B 粒度跨过 EA 接口；
+在当前本地 buffer 条件下它与重新访问 HBM 的解释高度一致，但没有
+`TCC_EA_RDREQ_DRAM` 时不把它写成直接测得的 HBM bytes。
+
+方向裁决：当前 producer store 和 consumer load 已经达到无放大的完整 64B
+transaction。把内部 TPB=4/WGS=512 改成 TPB=8/WGS=1024、把逻辑连续组从
+64B 扩为 128B，仍会被分成两个 64B EA request，不能减少 131072 个请求，
+而还会把 LDS/WG 从 32 KiB 增到 64 KiB。因此 grouped-nearby TPB=8 的原始
+transaction-reduction 动机已被证伪，不进入 kernel 实现。单纯保持相同
+8 MiB store+load 的 permutation/block-layout 也没有 transaction 数收益。
+
+下一阶段静态模型仍有价值，但重点改为：精确计算 `O_P/O_C/A_P/A_C`、
+`F1/F2/F3`、每条 producer-consumer 边的字节数，并寻找能减少 global
+boundary bytes 或 fan-in 的 boundary movement/hierarchical ownership；不再
+以“改善当前 coalescing”为目标。若以后专门研究 cache policy/residency，
+再补采可用的 DRAM counter 或构造受控 cache-policy 对照。

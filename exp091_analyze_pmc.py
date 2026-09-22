@@ -110,6 +110,10 @@ def main():
         "file dispatches batch_norm aggregate_hit aggregate_miss hit_rate "
         "dispatch_hit_rates"
     ]
+    focused_lines = [
+        "focused_file dispatch rdreq rdreq_32b ea1_rdreq ea1_rdreq_32b "
+        "wrreq wrreq_64b ea1_wrreq ea1_wrreq_64b ta_read ta_write"
+    ]
     paths = sorted(glob.glob(os.path.join(args.input_dir, "*.csv")))
     for path in paths:
         name = os.path.basename(path)
@@ -144,13 +148,31 @@ def main():
                 ),
             )
         )
+        if metadata["mode"] != "full":
+            for dispatch_index, dispatch in enumerate(item["dispatches"]):
+                focused_lines.append(
+                    "{} {} {} {} {} {} {} {} {} {} {} {}".format(
+                        name,
+                        dispatch_index,
+                        dispatch.get("tcc_ea_rdreq", 0),
+                        dispatch.get("tcc_ea_rdreq_32b", 0),
+                        dispatch.get("tcc_ea1_rdreq", 0),
+                        dispatch.get("tcc_ea1_rdreq_32b", 0),
+                        dispatch.get("tcc_ea_wrreq", 0),
+                        dispatch.get("tcc_ea_wrreq_64b", 0),
+                        dispatch.get("tcc_ea1_wrreq", 0),
+                        dispatch.get("tcc_ea1_wrreq_64b", 0),
+                        dispatch.get("ta_flat_read_wavefronts", 0),
+                        dispatch.get("ta_flat_write_wavefronts", 0),
+                    )
+                )
     if not report["files"]:
         raise ValueError("no recognized PMC CSV files in {}".format(args.input_dir))
 
     with open(args.json, "w") as handle:
         json.dump(report, handle, indent=2, sort_keys=True)
         handle.write("\n")
-    text_output = "\n".join(lines) + "\n"
+    text_output = "\n".join(lines + [""] + focused_lines) + "\n"
     with open(args.text, "w") as handle:
         handle.write(text_output)
     print(text_output, end="")
