@@ -1983,3 +1983,38 @@ EXP-089；EXP-089 相对 EXP-088 的增量收益未证实。
 `VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md` 自本次维护起保持完全一致。
 同时在 `AGENTS.md` 中明确：以后更新仓库内实验记录文档时，必须在同一
 任务中同步顶层副本并验证两份文件一致。
+
+### EXP-090：验证并修复 twiddle recurrence 的 inverse 语义（计划）
+
+日期：2026-09-22。实验分支：`exp-090-inverse-recurrence-fix`。实验前标签：
+`pre-exp090-inverse-recurrence-20260922`。起始稳定记录提交为 `a0978f20`；
+起始稳定 runtime 为 `a7a228cf7b851bb948f10910b6c12e3de7b0ad63`，其中
+EXP-089 源码提交为 `f24222f0546df7cf5b19404cff0dc379a62c3f12`。
+
+目标是在当前稳定源码和独立安装上验证 64K、128K、256K、512K DP z2z 的
+forward/inverse、in-place/out-of-place、batch=1/3，共 32 个 correctness
+组合。标准性能条件仍为四个目标长度、forward DP z2z、out-of-place、
+batch=1000、`-N 10`、同一 GPU allocation、`hipprof --stats` 和 AGENTS.md
+canonical 公式。
+
+当前源码审计显示，保留的 ordinary-twiddle recurrence 使用
+`TwiddleMultiply(W,W)` 和 `TwiddleMultiply(t,W)` 构造寄存器内 twiddle
+幂；large-twiddle recurrence 使用 `TwiddleMultiply(W,t)` 更新递推状态。
+`MakeInverseVisitor` 会将这些内部状态乘法和最终数据乘 twiddle 一并改写为
+共轭乘法。历史 EXP-085 分支曾证明这会破坏 inverse，但其修复提交没有进入
+当前稳定 HEAD。因此本实验必须先对当前稳定安装取得独立失败或通过证据，
+不能仅引用旧分支结果。
+
+若当前稳定 inverse 失败，最小修复只把 recurrence 内部状态更新改成由
+`ComplexLiteral` 展开的普通复数乘法，使 inverse visitor 不改变 twiddle
+幂/状态的数学递推；最终作用于 `R[ridx]` 的 `TwiddleMultiply` 保持不变，
+继续由 visitor 对 inverse 使用共轭 twiddle。不修改 planner、分解、radix、
+WGS/TPT、LDS layout、global handoff、EXP-089 SBRC 静态首载或 gate 范围。
+
+验证顺序：记录计划；独立构建当前稳定 control；运行 32 组 correctness；
+若失败则应用最小修复并先构建 `rocfft-rtc-gen`，再完整构建 candidate；检查
+RTC 生成公式；运行 candidate 32 组 correctness；最后在同一 GPU allocation
+完成 control/candidate 四规模两轮配对 benchmark。只有 candidate 32/32
+通过、forward 结果保持正确、四规模无不可接受回归且原始日志/CSV 完整时，
+才合入稳定分支，更新 AGENTS.md、本文档、顶层同步副本和新的 immutable
+stable tag。若 control 已全部通过，则不修改 runtime，只记录验证结果。
