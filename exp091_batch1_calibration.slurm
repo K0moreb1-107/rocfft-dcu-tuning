@@ -8,7 +8,7 @@
 #SBATCH -o logs/exp091_batch1_calibration_%j.out
 #SBATCH -e logs/exp091_batch1_calibration_%j.err
 
-set -euo pipefail
+set -eo pipefail
 
 EXP_ROOT=/public/home/zhangkewei/zr/exp-078-sbrc-two-tier
 INSTALL_ROOT=/public/home/zhangkewei/zr/install-exp090-candidate
@@ -19,6 +19,7 @@ mkdir -p "${EXP_ROOT}/logs" "${EXP_ROOT}/results" "${OUT_ROOT}"
 cd "${EXP_ROOT}"
 source /public/home/zhangkewei/.bashrc
 load_fft
+set -u
 
 HIPPROF=$(command -v hipprof)
 PYTHON=$(command -v python3)

@@ -2090,6 +2090,12 @@ profiling 产生不必要长作业的最小 N。原始 CSV 保存在
 提交脚本为 `exp091_batch1_calibration.slurm`，分析器为
 `exp091_analyze_batch1.py`。
 
+首次校准提交 job `856156` 在进入任何 FFT/hipprof 调用前失败：脚本在
+`source /public/home/zhangkewei/.bashrc` 之前启用了 `set -u`，而系统
+`/etc/bashrc` 读取了尚未定义的 `BASHRCSOURCED`。该 job 没有产生性能数据，
+不能作为有效样本；修复仅将 `set -u` 移到既有 `load_fft` 之后，不改变任何
+测量参数。
+
 第二阶段将在选定 N 下建立 64K/128K/256K/512K 的独立 batch=1 基线，并对
 512K 当前 `SBCC-1024 [8,8,4,4] -> SBRC-512 [8,8,8]` 路径采集 PMC。重点
 比较 SBRC consumer 的 TCC_HIT/TCC_MISS、VMEM read/write 和 LDS 指标，判断
