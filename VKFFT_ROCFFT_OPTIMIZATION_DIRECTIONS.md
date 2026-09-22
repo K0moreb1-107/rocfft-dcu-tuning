@@ -2125,6 +2125,21 @@ batch=1000、`N=10` 每文件约 11000 个 transform 的总样本量接近，并
 twiddle 生成的摊销影响降到最低。四规模使用平衡顺序，主汇总统计量为五个
 独立进程的 median；这仍是 steady-state GPU-kernel 指标，不代表 cold start。
 
+PMC 阶段必须按精确 kernel family 分开收集：SBCC 使用
+`len_1024_factors_8_8_4_4` filter，SBRC 使用
+`len_512_factors_8_8_8` filter。full counter 对 batch=1 各跑三进程，并保留
+`N=1` 所产生的 warm-up/trial 两个 dispatch 行，用于检查跨 iteration cache
+warming；同 allocation 再各跑一次 batch=1000，仅作为机制对照。focused
+read 只测 SBRC，focused write 同时测 SBCC intermediate store 与 SBRC final
+store。full/read/write 可能来自不同 profiler replay，不能把它们视为同一次
+物理执行，也不能使用 PMC 中的时间做性能比较。
+
+总体 `TCC_HIT/(TCC_HIT+TCC_MISS)` 混合了 intermediate、twiddle、常量与
+store，并不等于 8 MiB handoff 的独立 L2 hit rate；`TCC_MISS` 也不自动等于
+HBM bytes。若当前 hipprof 暴露的 focused/DRAM 请求计数仍不足以分离流量，
+结论只能写成“与 L2 residency 一致/不一致”，并由静态 logical-byte 与
+transaction 模型继续约束，不能声称已直接测得 intermediate 的 HBM 字节数。
+
 第二阶段将在选定 N 下建立 64K/128K/256K/512K 的独立 batch=1 基线，并对
 512K 当前 `SBCC-1024 [8,8,4,4] -> SBRC-512 [8,8,8]` 路径采集 PMC。重点
 比较 SBRC consumer 的 TCC_HIT/TCC_MISS、VMEM read/write 和 LDS 指标，判断
