@@ -540,9 +540,13 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             {
                 auto ridx = hr * width + w;
                 if(w == 2)
-                    work += Assign(t, TwiddleMultiply(W, W));
+                    work += Assign(t,
+                                   ComplexLiteral{W.x() * W.x() - W.y() * W.y(),
+                                                  W.y() * W.x() + W.x() * W.y()});
                 else if(w > 2)
-                    work += Assign(t, TwiddleMultiply(t, W));
+                    work += Assign(t,
+                                   ComplexLiteral{t.x() * W.x() - t.y() * W.y(),
+                                                  t.y() * W.x() + t.x() * W.y()});
                 const auto& twiddle = w == 1 ? W : t;
                 work += Assign(R[ridx], TwiddleMultiply(R[ridx], twiddle));
             }
