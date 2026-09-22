@@ -97,6 +97,30 @@ and update the exclusion list before recalculating historical comparisons.
 
 Every optimization attempt must have a unique EXP-NNN identifier and must be recorded in VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md before the next experiment. Each record must include the exact commit, branch, previous valid result, target conditions, changed files and conditions, job IDs, correctness result, raw CSV/log/PMC paths, canonical time, speedups versus previous valid version and fixed baseline, and final decision. Detailed rationale and mechanism analysis belong in VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md. Preserve raw evidence until the record is complete.
 
+## rocFFT generator AST value categories
+
+- Check AST-node constructor signatures in `library/src/device/generator/generator.h` before composing generator expressions.
+- `Ternary` takes three `Expression&&` arguments. Do not pass named `const Expression` objects or other lvalues directly.
+- Materialize fresh wrappers: `Ternary{Expression{condition}, Expression{true_result}, Expression{false_result}}`.
+- EXP-084 job 840562 failed with `no matching constructor for initialization of 'Ternary'` because an argument was a `const Expression` and would lose its const qualifier.
+- Fix this diagnostic as a value-category/ownership issue; do not change the generated kernel's semantics to silence it.
+- Before submitting a full experiment chain, run `cmake --build <build-root>/rocfft_build --target rocfft-rtc-gen -j16` in the isolated candidate build.
+
+## Top-level documentation synchronization
+
+The following tracked repository documents and their top-level copies must remain
+synchronized:
+
+- `/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/AGENTS.md` and
+  `/public/home/zhangkewei/zr/AGENTS.md`;
+- `/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`
+  and `/public/home/zhangkewei/zr/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`.
+
+Whenever either repository document is updated, update its top-level copy in the
+same task and verify that the corresponding files are identical before completing
+the change. Do not leave either copy with newer experiment state, evidence, or
+instructions than the other.
+
 ## Git version maintenance requirements
 
 Keep one stable branch containing only validated retained optimizations. Start each new optimization from it in a separate EXP-NNN branch, record the starting commit, and create a before-experiment tag when practical. Commit source changes together with VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md and AGENTS.md. Do not merge correctness failures or unaccepted regressions into the stable branch; retain their branch and record rollback. Merge only after correctness, benchmark, and required cross-size checks. Use immutable tags for the official baseline, pre-experiment stable states, and retained versions. Do not rewrite experiment history or delete failed records. Treat uncommitted changes as experimental, not a valid version.

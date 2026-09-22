@@ -1661,6 +1661,216 @@ SBCC-256 gate、步骤相关上传数量和上述记录，不包含已拒绝的 
 EXP-075 构建前会在同一个 GPU allocation 内重测前版四规模，随后测试候选，
 消除旧文件不同节点或时间段造成的比较不确定性。
 
+### EXP-075：按实际可达索引缩减 late large-twiddle 上传（计划）
+
+日期：2026-09-05。实验分支：exp-075-compact-late-lut。
+实验起点为稳定源码提交 e57d01b9，记录起点为 f9755e4f；起点标签为
+pre-exp075-compact-lut-20260905。目标仍是 DP z2z、batch=1000、-N 10、
+gfx936，长度为 64K、128K、256K、512K。
+
+代码事实：large_twiddles.h::TW_NSteps() 对 base=8 的 large-twiddle
+索引 u 只读取三段表中的位置
+0..255、256..511 和 512 + ((u >> 16) & 255)，其余相位通过复数乘法
+组合。当前 stockham_gen_cc.h 的 late-LDS 上传循环却统一上传
+large_twiddle_steps * 256 项。large_twiddles_multiply_generator() 的
+索引为 q * trans_local，其中 q 为最终 pass 的局部因子范围；因此可以
+根据每个实际 kernel 的最大 trans_local 和 q，计算所需 LUT 前缀。
+
+本轮只改变 late-LDS cooperative upload 的循环上限，不改变
+TW_NSteps 的数学实现、LDS 起始地址、LDS 容量、barrier、Stockham layout、
+radix、WGS、TPT、tile ownership 或 ordinary-twiddle recurrence。新增的
+精确条件为：
+
+| source length | SBCC factors | TPT | steps | trans_local cutoff | upload prefix |
+|---:|---|---:|---:|---:|---:|
+| 256 | [8,4,8] | 32 | 2 | <256 | 288 |
+| 256 | [8,4,8] | 32 | 3 | <512 | 513 |
+| 1024 | [8,8,4,4] | 64 | 3 | <512 | 514 |
+
+对于 source length=256，普通 large-twiddle 递推的 q 最大值为 32；
+对于 source length=1024，q 最大值为 256。上传前缀分别覆盖所有三段
+TW_NSteps 索引，并保留超出 cutoff 的完整表上传路径，避免把局部证明
+错误地推广到更大的 trans_local。cutoff 选择为 transforms-per-block
+对齐的边界，保证一个 workgroup 的 cooperative upload 上限一致。
+
+静态验证程序会枚举上述 q、trans_local 和每个 8-bit 表段的索引，证明
+候选前缀覆盖全部访问；RTC 检查会确认生成代码使用 ltwd_count，且
+64K/128K/512K 分别出现 288/513/514 的上限，256K 不命中本轮新增
+compact gate。随后对前版和候选在同一作业中各运行四规模、两轮标准
+benchmark，并执行四规模 correctness。
+
+风险是 cooperative upload 线程在缩短的最后一段中出现更多空闲线程，且
+额外的 trans_local 条件可能增加地址/控制指令；上传 global load 减少
+本身不保证端到端收益。若 correctness、RTC 范围证明失败，或任一受影响
+路径两轮均不快于对应前版，则回退源码并保留证据；只有目标路径有重复
+收益且其它长度无回归时才考虑合入稳定分支。
+
+#### EXP-075 实施和静态验证（2026-09-05）
+
+本实验续接仅有计划而没有 runtime/benchmark 的 EXP-070，并根据 EXP-074
+现有 gate 增加 64K/128K 的独立边界。源文件修改为
+stockham_gen_cc.h::late_large_twiddle_upload_count() 和最终 pass 后的
+ltwd_count 上限；其它 runtime 源码保持稳定版本。
+
+exp075_checks.py 的 CPU 检查覆盖 trans_local=0..4095、每个实际 q 和
+每一段 8-bit 表项，同时检查整个 workgroup 的上限一致。三种情形分别验证
+270336/405504/3158016 个索引，最大已用 LUT 索引为 287/512/513，全部通过。
+超出 cutoff 的 tile 使用完整表，静态检查同时覆盖这些 fallback tile。
+相对原上传量，三个目标分别减少 224/255/254 次 complex copy/block；
+这是逻辑复制次数，不能等同于 DRAM 字节减少比例或端到端加速比。
+
+测试入口为 exp075_compact_lut.slurm，先核对前版已安装库与 bench 的
+SHA-256，再在一个 allocation 内依次运行 previous、build.slurm、candidate。
+correctness 使用既有 validate_rocfft_batch.cpp，在实验独立输出目录中对
+四个长度分别测试 batch=1 和 3，对比 NumPy；不覆盖已有验证二进制或数据。
+性能仍为 batch=1000、-N 10、hipprof --stats，两版四规模各两轮；两个阶段
+均禁用 RTC cache read，以便保证所采源码版本，并保留所有 CSV、trace、DB、
+plan 和 RTC。结果保存在 results/exp075_JOBID/，compare 子命令严格按
+agents.me 公式生成 comparison.json。此时 GPU correctness/性能尚未运行。
+
+历史参考的四规模保留时间为 3.568369091/7.804589091/17.733114864/
+38.820766818 ms，其中 256K 使用 EXP-074 回退版；新结果优先与同 allocation
+重测的 previous 比较，同时报告 agents.me 的四个固定官方 baseline。
+256K 为无新 gate 的对照，只有 64K/128K/512K 才可归因于本轮候选。
+
+#### 后续候选及依据（尚未实施）
+
+1. SBRC-512 ordinary-twiddle recurrence。当前
+   stockham_gen_base.h::use_ordinary_twiddle_recurrence() 要求 half_lds
+   和 WGS=256，因而没有覆盖 SBRC-512 [8,8,8]/WGS=512/TPT=128；
+   stockham_gen_rc.h::set_lds_is_real() 使用 scalar-LDS 不等于 half_lds。
+   两个 radix-8 stage 的 7 次 ordinary LUT load 可以分别改为一次基础项
+   加载和幂次递推，代价是各新增 6 次复乘及寄存器生命期。该 consumer 被
+   128K/256K/512K 共用，必须三规模分别衡量，64K 用作对照。EXP-065/071
+   的 SBCC 收益不能作为此方案已有效的证据。VkFFT 的
+   vkFFT_RadixStage.h 根据 radix 决定 LUT 项数，radix-8 对应 3 项，证明
+   它也用算术组合压缩 twiddle 数据，但不意味着照搬会在 gfx936 更快。
+2. SBRC-512 的局部交换所有权。当前 scalar-LDS 仍按
+   generate_device_function() 的 REAL/IMAG 循环在每个边界做两组 LDS
+   store/load 和 barrier。应从 RC 的线程映射重新证明完整 wave-local
+   边界或可直接放到目标寄存器的置换；只对整段通信都能消除的边界原型化。
+   EXP-060 的否证针对 SBCC 的交错 transform 所有权，不能未经 RC 索引
+   检查就套到 SBRC。VkFFT 的 vkFFT_RadixShuffle.h 同时依据当前和下阶段
+   logicalStoragePerThread、stageSize 等决定寄存器重排和 shared exchange，
+   这是本方向的借鉴点。若 RC 静态映射仍跨 wave，则记录否证，不重做只换
+   barrier 的试验。
+3. late-LDS 上传位置与最后两级算术的重叠。当前上传在最后 butterfly
+   之后进行；SBCC-1024 的 register-local 4x4 已消除最后边界 LDS，因此
+   row-data LDS 在更早处就结束使用。可审计将协作上传放到最后一次 LDS
+   load 之后，并将消费 barrier 留到 large-twiddle 读取之前，尝试隐藏
+   上传等待。必须保留防止覆盖仍在读取数据的 block barrier，并观察编译器
+   是否实际重排及是否增加 VGPR；没有证据前不称为异步复制或已有加速。
+
+执行顺序：先收尾 EXP-075，再独立测试 SBRC recurrence；wave-local 与
+上传调度先完成静态所有权/生命期分析。上述三个候选未取得新性能结果。
+
+#### EXP-075 result audit (2026-09-08)
+
+Job 807356 completed with exit code 0:0 on a01r4n19, source commit
+879c9c715475ecfaa7b7c431582cf8fcaccf3e91, branch exp-075-compact-late-lut.
+Evidence: results/exp075_807356/{driver.log,comparison.json,
+previous_correctness.json,candidate_correctness.json,source.patch,build.log}.
+Raw profiles: previous_LENGTH_r{1,2}.csv.hipkernel.csv and
+candidate_LENGTH_r{1,2}.csv.hipkernel.csv in that directory.
+Both versions passed all four lengths at batches 1 and 3. Performance uses
+batch=1000, -N 10, hipprof --stats and the AGENTS.md canonical metric.
+
+| Length | Previous mean ms | Candidate mean ms | Speedup prev | Improvement prev | Official ms | Speedup official | Improvement official |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 64K | 3.567517045 | 3.570570273 | 0.999145 | -0.085584% | 3.732493091 | 1.045349 | 4.338195% |
+| 128K | 7.802516636 | 7.844008318 | 0.994710 | -0.531773% | 8.954852000 | 1.141617 | 12.404936% |
+| 256K | 17.729449636 | 17.729906773 | 0.999974 | -0.002578% | 19.360417545 | 1.091964 | 8.421878% |
+| 512K | 38.809393227 | 39.102023909 | 0.992516 | -0.754020% | 70.509517909 | 1.803219 | 44.543623% |
+
+Decision: reject compact upload for retention. No affected length improved
+in either paired run. This does not establish a hardware root cause without
+PMC/disassembly; fewer logical LUT copies did not improve measured runtime.
+256K has no new gate and its tiny difference is not attributable to the patch.
+Stable remains stable-exp074-cross-size-late-lds-20260905 (f9755e4f).
+The main source/install have NOT been rolled back by this audit; do not use
+the currently installed EXP-075 candidate as a stable-version measurement.
+
+EXP-076 workspace audit: exp076-partial-pass/.git points to
+/public/home/zhangkewei/zr/.git/worktrees/exp076-partial-pass, whose directory
+was empty when inspected on zz-login01. git worktree list reports only the
+main workspace. No implementation/build/performance result is established
+for EXP-076. Preserve its files; do not infer an optimization outcome from
+the incomplete checkout. Next implementation must start from the stable
+commit in a valid isolated checkout, not from this unverified directory.
+
+### EXP-077: early large-twiddle upload (implementation, pending GPU validation)
+
+Branch exp-077-early-lut starts at stable commit
+f9755e4f36706cf372f7b22c44470431263293d1, not EXP-075.
+Full mechanism, synchronization proof, scope and test protocol are recorded
+in exp077-early-lut/EXP077-record.txt (EXP077-record.txt within its branch).
+Modified stockham_gen_base.h and stockham_gen_cc.h: add an empty pre-pass
+hook and override it only for DP SBCC1024 [8,8,4,4], TPT64/WGS256/TPB4,
+half-LDS/direct-register, with the existing final register-local exchange.
+Upload the unchanged full LUT after the final row-data LDS read, before
+pass-2 arithmetic. Preserve the overwrite-protection block barrier and move
+only the consumption barrier to the original pre-large-twiddle location.
+The last two radix-4 stages lie between upload and consumption. No change
+to FFT decomposition, global traffic, LUT size, or arithmetic is claimed.
+Potential benefit is scheduling room; actual hardware overlap is unproven.
+
+Entry exp077.slurm builds immutable stable and candidate into independent
+result-local directories, leaving main install and EXP-075 untouched.
+Results: results/exp077_JOBID/, containing exact commit.txt, source.patch,
+build logs, linked-library checks, correctness/RTC evidence, raw profiles,
+comparison.json. Four lengths, correctness batches 1/3; benchmark batch1000
+-N10 hipprof --stats, two alternating paired rounds, AGENTS.md canonical
+metric and official baselines. Three smaller lengths are controls.
+Job ID, correctness, times, speedups and retention: pending. Reject failures;
+do not merge until repeatable target benefit and control checks complete.
+
+EXP-077 submission: Slurm job 813229, implementation commit d46ffcf1,
+branch exp-077-early-lut. bash -n, Python py_compile and git diff --check
+passed before submission. Raw output directory: results/exp077_813229/.
+GPU build/correctness/performance are pending; no measured benefit yet.
+
+#### EXP-077 completed result audit (2026-09-08)
+
+Job 813229: COMPLETED, exit 0:0, elapsed 00:52:59, node a01r3n07.
+Recorded implementation commit: d46ffcf12b909bc5e90934b8274998bd3208b93a.
+Both isolated builds succeeded. All four lengths at batches 1 and 3 passed
+forward DP out-of-place correctness; generated-code marker/placement checks
+also passed. Candidate 512K relative_l2: 6.60200637581743e-16 (batch1),
+6.606076649329701e-16 (batch3). This is not inverse/in-place validation.
+
+Times below are two-round means, batch1000, -N10, hipprof --stats,
+AGENTS.md canonical TotalDurationNs metric, same GPU allocation.
+
+| Length | Stable ms | Candidate ms | Speedup stable | Improvement stable | Official ms | Speedup official | Improvement official |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 64K | 3.565415182 | 3.566076545 | 0.999815 | -0.018549% | 3.732493091 | 1.046667 | 4.458590% |
+| 128K | 7.802326636 | 7.803003864 | 0.999913 | -0.008680% | 8.954852000 | 1.147616 | 12.862838% |
+| 256K | 17.730146045 | 17.728880955 | 1.000071 | 0.007135% | 19.360417545 | 1.092027 | 8.427177% |
+| 512K | 38.798264182 | 39.476427136 | 0.982821 | -1.747921% | 70.509517909 | 1.786117 | 44.012627% |
+
+512K stable rounds: 38.806170000, 38.790358364 ms; candidate rounds:
+39.463104273, 39.489750000 ms. Both candidate rounds regress.
+The first paired CSV attributes the increase primarily to SBCC1024:
+TotalDurationNs/11/1e6 = 21.248623636 -> 21.912109364 ms;
+SBRC512 = 17.554520909 -> 17.548289455 ms. These component times are
+diagnostics, not a replacement for the canonical total including twiddle_gen.
+Smaller lengths are unchanged-path controls; their tiny differences do not
+establish optimizations or regressions caused by this patch.
+
+Evidence directory: /public/home/zhangkewei/zr/results/exp077_813229/.
+Files: commit.txt, source.patch, driver.log, comparison.json,
+previous_correctness.json, candidate_correctness.json, ldd-candidate.log,
+previous_LENGTH_r{1,2}.csv.hipkernel.csv,
+candidate_LENGTH_r{1,2}.csv.hipkernel.csv, *_b1_rtc.log, build-*.log.
+ldd-candidate.log resolves librocfft to the isolated install-candidate/lib.
+
+Decision: reject EXP-077 for retention; keep its branch and all evidence.
+Stable remains f9755e4f / stable-exp074-cross-size-late-lds-20260905.
+No main install or stable source was modified by this isolated experiment.
+Earlier upload was correct but did not improve performance. No PMC or ISA
+evidence was collected here, so increased VGPR, waitcnt serialization or
+occupancy changes are hypotheses, not demonstrated causes. Do not claim
+actual memory/arithmetic overlap merely from the source scheduling change.
 #### EXP-086：SBRC-512 首个 radix-8 load 完全静态特化（2026-09-20）
 
 实验分支：`exp-086-sbrc-static-load`。基于 `9eb8f3b70e83a5f27bdf4b4c59ca713111d6586b`；精确稳定版由同一工作树干净源码独立构建（任务 `848330`，`install-stable`），候选版为任务 `848286`（`install`）。目标严格限定为 DP z2z、SBRC-512、length=512、WGS=512、TPT=128、TPB=4、factors `[8,8,8]`、2D `TILE_ALIGNED`；本轮性能只测 512K，其他规模只做 correctness 控制。
@@ -1765,3 +1975,11 @@ SQ_INSTS_VMEM_WR=128000、SQ_LDS_BANK_CONFLICT=10240000，最终机器代码
 
 最终决策：保留结构化 gate，作为新的稳定版本。累计收益不得全部归因于
 EXP-089；EXP-089 相对 EXP-088 的增量收益未证实。
+
+#### 文档同步维护（2026-09-22）
+
+将顶层实验记录中保留的 EXP-075/077 条目与仓库内较新的 EXP-086/089
+条目合并，未修改任何既有实验结论、数值或证据路径。仓库内与顶层的
+`VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md` 自本次维护起保持完全一致。
+同时在 `AGENTS.md` 中明确：以后更新仓库内实验记录文档时，必须在同一
+任务中同步顶层副本并验证两份文件一致。
