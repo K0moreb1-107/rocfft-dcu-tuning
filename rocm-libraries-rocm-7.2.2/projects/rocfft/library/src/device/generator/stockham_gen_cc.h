@@ -651,7 +651,9 @@ struct StockhamKernelCC : public StockhamKernel
             for(unsigned int w = 0; w < width; ++w)
             {
                 if(w > 0)
-                    work += Assign{W, TwiddleMultiply{W, t}};
+                    work += Assign{W,
+                                   ComplexLiteral{W.x() * t.x() - W.y() * t.y(),
+                                                  W.y() * t.x() + W.x() * t.y()}};
                 work += Assign{R[hr * width + w],
                                TwiddleMultiply{R[hr * width + w], W}};
             }

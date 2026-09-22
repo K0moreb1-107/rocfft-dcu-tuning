@@ -1,0 +1,36 @@
+>>> 已激活 fft 环境
+case=01 length=65536 direction=forward placement=inplace batch=1 relative_l2=7.133677e-16 relative_max=1.054662e-15 max_abs=1.327023e-12 status=PASS
+case=02 length=65536 direction=forward placement=inplace batch=3 relative_l2=7.107081e-16 relative_max=1.046250e-15 max_abs=1.446997e-12 status=PASS
+case=03 length=65536 direction=forward placement=outofplace batch=1 relative_l2=7.099526e-16 relative_max=9.167841e-16 max_abs=1.215174e-12 status=PASS
+case=04 length=65536 direction=forward placement=outofplace batch=3 relative_l2=7.124507e-16 relative_max=1.172769e-15 max_abs=1.461440e-12 status=PASS
+case=05 length=65536 direction=inverse placement=inplace batch=1 relative_l2=7.118687e-16 relative_max=1.078034e-15 max_abs=1.325805e-12 forward_reference_relative_l2=1.411097e+00 status=PASS
+case=06 length=65536 direction=inverse placement=inplace batch=3 relative_l2=7.114474e-16 relative_max=1.249925e-15 max_abs=1.579388e-12 forward_reference_relative_l2=1.414580e+00 status=PASS
+case=07 length=65536 direction=inverse placement=outofplace batch=1 relative_l2=7.127212e-16 relative_max=1.091786e-15 max_abs=1.335820e-12 forward_reference_relative_l2=1.414100e+00 status=PASS
+case=08 length=65536 direction=inverse placement=outofplace batch=3 relative_l2=7.119319e-16 relative_max=1.073990e-15 max_abs=1.509364e-12 forward_reference_relative_l2=1.415246e+00 status=PASS
+case=09 length=131072 direction=forward placement=inplace batch=1 relative_l2=6.799013e-16 relative_max=9.028447e-16 max_abs=1.809193e-12 status=PASS
+case=10 length=131072 direction=forward placement=inplace batch=3 relative_l2=6.798159e-16 relative_max=1.142099e-15 max_abs=2.024137e-12 status=PASS
+case=11 length=131072 direction=forward placement=outofplace batch=1 relative_l2=6.798424e-16 relative_max=9.468367e-16 max_abs=1.889563e-12 status=PASS
+case=12 length=131072 direction=forward placement=outofplace batch=3 relative_l2=6.811860e-16 relative_max=9.044900e-16 max_abs=1.720394e-12 status=PASS
+case=13 length=131072 direction=inverse placement=inplace batch=1 relative_l2=6.812447e-16 relative_max=1.007740e-15 max_abs=1.864603e-12 forward_reference_relative_l2=1.413099e+00 status=PASS
+case=14 length=131072 direction=inverse placement=inplace batch=3 relative_l2=6.791751e-16 relative_max=9.403497e-16 max_abs=1.784014e-12 forward_reference_relative_l2=1.414449e+00 status=PASS
+case=15 length=131072 direction=inverse placement=outofplace batch=1 relative_l2=6.814307e-16 relative_max=1.049178e-15 max_abs=1.882710e-12 forward_reference_relative_l2=1.409797e+00 status=PASS
+case=16 length=131072 direction=inverse placement=outofplace batch=3 relative_l2=6.782847e-16 relative_max=1.068400e-15 max_abs=1.985455e-12 forward_reference_relative_l2=1.414439e+00 status=PASS
+case=17 length=262144 direction=forward placement=inplace batch=1 relative_l2=6.565326e-16 relative_max=8.709112e-16 max_abs=2.273737e-12 status=PASS
+case=18 length=262144 direction=forward placement=inplace batch=3 relative_l2=6.563942e-16 relative_max=9.881219e-16 max_abs=2.542115e-12 status=PASS
+case=19 length=262144 direction=forward placement=outofplace batch=1 relative_l2=6.575439e-16 relative_max=9.723403e-16 max_abs=2.417015e-12 status=PASS
+case=20 length=262144 direction=forward placement=outofplace batch=3 relative_l2=6.565214e-16 relative_max=9.202770e-16 max_abs=2.572439e-12 status=PASS
+case=21 length=262144 direction=inverse placement=inplace batch=1 relative_l2=6.560677e-16 relative_max=9.335773e-16 max_abs=2.422524e-12 forward_reference_relative_l2=1.413728e+00 status=PASS
+case=22 length=262144 direction=inverse placement=inplace batch=3 relative_l2=6.570111e-16 relative_max=8.919416e-16 max_abs=2.448889e-12 forward_reference_relative_l2=1.414600e+00 status=PASS
+case=23 length=262144 direction=inverse placement=outofplace batch=1 relative_l2=6.575973e-16 relative_max=8.073084e-16 max_abs=2.171984e-12 forward_reference_relative_l2=1.415198e+00 status=PASS
+case=24 length=262144 direction=inverse placement=outofplace batch=3 relative_l2=6.574469e-16 relative_max=9.017428e-16 max_abs=2.448889e-12 forward_reference_relative_l2=1.414206e+00 status=PASS
+case=25 length=524288 direction=forward placement=inplace batch=1 relative_l2=6.607690e-16 relative_max=8.287769e-16 max_abs=3.158776e-12 status=PASS
+case=26 length=524288 direction=forward placement=inplace batch=3 relative_l2=6.608942e-16 relative_max=1.024750e-15 max_abs=4.067384e-12 status=PASS
+case=27 length=524288 direction=forward placement=outofplace batch=1 relative_l2=6.601809e-16 relative_max=8.520507e-16 max_abs=3.440788e-12 status=PASS
+case=28 length=524288 direction=forward placement=outofplace batch=3 relative_l2=6.604846e-16 relative_max=9.756008e-16 max_abs=3.729206e-12 status=PASS
+case=29 length=524288 direction=inverse placement=inplace batch=1 relative_l2=6.608623e-16 relative_max=8.097315e-16 max_abs=3.166949e-12 forward_reference_relative_l2=1.413820e+00 status=PASS
+case=30 length=524288 direction=inverse placement=inplace batch=3 relative_l2=6.600648e-16 relative_max=9.112810e-16 max_abs=3.463253e-12 forward_reference_relative_l2=1.413434e+00 status=PASS
+case=31 length=524288 direction=inverse placement=outofplace batch=1 relative_l2=6.606774e-16 relative_max=1.041173e-15 max_abs=3.977415e-12 forward_reference_relative_l2=1.415049e+00 status=PASS
+case=32 length=524288 direction=inverse placement=outofplace batch=3 relative_l2=6.604807e-16 relative_max=1.019665e-15 max_abs=3.832718e-12 forward_reference_relative_l2=1.414335e+00 status=PASS
+status=PASS cases=32 failed=0
+variant=candidate
+result=/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_correctness_candidate_855145.json
