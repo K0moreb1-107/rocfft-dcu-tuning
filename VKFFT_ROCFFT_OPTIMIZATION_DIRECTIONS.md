@@ -2299,7 +2299,7 @@ EXP-090 的 `0473680e99b181e4660643425f53382f3a6afad7`；EXP-091 只将脚本、
 分析器、原始结果索引和实验记录并入稳定记录。后续独立实验从该记录切出，
 不得重新实现已被 64B transaction 下界否定的 TPB=8 grouped-nearby 候选。
 
-### EXP-092：gfx936 workgroup-cluster 能力门禁（进行中）
+### EXP-092：gfx936 workgroup-cluster 能力门禁（完成）
 
 日期：2026-09-22。实验分支：`exp-092-gfx936-cluster-capability`。起始稳定
 记录提交为 `d9129c654e9f4947ab1e2125c8bc06a556b90bae`，实验前标签为
@@ -2326,3 +2326,41 @@ cluster 路线；即使 `cooperativeLaunch=1` 也不继续做同义替换。若
 `clusterLaunch=1`，也只允许下一步做最小 8-workgroup shared-memory mapping
 microprobe，必须先验证可用 cluster size、同步和 remote-LDS 语义，不能直接
 进入 rocFFT F1 fusion。该能力查询本身不产生性能数值，也不改变稳定版本。
+
+能力查询 job `856857` 在节点 `f09r1n01` 完成，耗时 5 秒，exit code 0，
+错误日志为空；提交记录 HEAD 为
+`a2d56aa188a888a8858a0d84ee20c2de1140c731`。原始结果为
+`results/exp092_device_caps_856857.txt`，日志为
+`logs/exp092_device_caps_856857.{out,err}`。关键属性如下：
+
+```text
+device=BW
+gcnArchName=gfx936:sramecc+:xnack-
+warpSize=64
+multiProcessorCount=80
+maxThreadsPerBlock=1024
+maxThreadsPerMultiProcessor=2560
+sharedMemPerBlock=65536
+maxSharedMemoryPerMultiProcessor=65536
+l2CacheSize=8388608
+cooperativeLaunch=1
+cooperativeMultiDeviceLaunch=1
+clusterLaunch_field=absent
+```
+
+`clusterLaunch` 字段在当前 DTK 26.04 的实际 `hipDeviceProp_t` 中不存在，满足
+停止条件。虽然 cooperative launch 可用，但它不提供跨 workgroup shared
+memory mapping，不能替代 cluster；因此不提交 cluster microprobe，也不在
+gfx936 上实现依赖 remote LDS 的 F1 hierarchical-owner fusion。
+
+另一个直接观测是 L2 恰为 8MiB，与 512K DP complex intermediate 的逻辑
+大小完全相同；再计入 cache metadata、twiddle 和其它流量后，没有容量余量。
+结合 EXP-091 的 512K SBRC 低 TCC hit 和接近完整 8MiB 的 EA read request，
+下一项诊断应在不改 kernel 的前提下比较 64K/128K/256K/512K 对应的
+1/2/4/8MiB intermediate，建立 batch=1 L2 容量曲线。只有较小工作集显示
+明显更高 reuse、而 8MiB 出现容量断崖时，才继续研究 cache-local scheduling；
+否则结束 cache-residency 路线。
+
+EXP-092 最终决策：能力门禁通过执行但 cluster 路线被硬件/接口证据否决；
+保留查询程序和结果作为负向证据，不修改或推广 rocFFT runtime。稳定 runtime
+源码继续为 `0473680e99b181e4660643425f53382f3a6afad7`。
