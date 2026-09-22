@@ -12,6 +12,27 @@ The standard comparison is double-precision z2z, batch=1000, -N 10, using the
 same DCU and hipprof --stats. The target lengths are 64K, 128K, 256K, and
 512K. Do not substitute 102400 for any of these sizes.
 
+## Batch=1 primary-workload transition (EXP-091)
+
+The user clarified on 2026-09-22 that batch=1000 was chosen only as a way to
+reduce measurement noise; it is not an application requirement.  Actual use
+and evaluation may use batch=1.  Therefore, do not design or promote an
+optimization whose benefit depends on scheduling multiple user transforms in
+one batch.  In particular, batch strip-mining is only a diagnostic and is not
+a primary optimization direction.
+
+EXP-091 calibrates the repetition count (`-N`) and establishes a separate
+batch=1 baseline.  Until that calibration is complete, the fixed batch=1000,
+`-N 10` files above remain the legacy throughput baseline and must not be
+compared numerically with batch=1 results.  Every batch=1 result must record
+its own `-N` and use exactly its own `N+1` divisor.  After EXP-091 selects the
+batch=1 repetition count, update this section with the exact primary command
+and immutable baseline files.
+
+rocFFT's internal `transforms_per_block` is not the user batch size.  A kernel
+mapping change such as four versus eight internal transforms per workgroup can
+still be batch-independent, but it must be validated with user batch=1.
+
 ## Fixed baseline result files
 
 Unless a new baseline is explicitly declared and recorded, use these files

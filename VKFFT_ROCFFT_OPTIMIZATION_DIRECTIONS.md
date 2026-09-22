@@ -2061,3 +2061,45 @@ out-of-place、batch=1000、`-N 10`。canonical 指标为
 共同使用的正确性修复，不是 512K 独有优化；保留 EXP-089 的 SBRC power-of-two
 静态首载和此前所有已推广优化。稳定标签为
 `stable-exp090-inverse-recurrence-fix-20260922`。
+
+### EXP-091：batch=1 基线校准与 512K global-handoff/L2 诊断（进行中）
+
+日期：2026-09-22。实验分支：`exp-091-batch1-baseline`。实验前标签：
+`pre-exp091-batch1-baseline-20260922`。起始稳定记录提交为 `c20d0a31`，
+已验证 runtime 源码提交为 `0473680e99b181e4660643425f53382f3a6afad7`，
+稳定标签为 `stable-exp090-inverse-recurrence-fix-20260922`。本实验不修改
+planner、kernel、FFT 分解或数值语义。
+
+用户明确说明：历史 `batch=1000` 只是为了降低性能测量误差而选择的参数，
+实际应用或测试可能为 `batch=1`。因此不能把跨用户 batch 的 strip-mining、
+重排或 cache reuse 当作主优化。本实验先把“工作负载 batch”和“重复测量次数
+`-N`”分离：主工作负载固定为 batch=1，通过提高 `-N` 和独立重复轮次控制
+误差；原 batch=1000、`-N 10` 只保留为不可与 batch=1 数值混用的吞吐量回归。
+
+第一阶段只在 512K、DP z2z、forward、out-of-place、同一稳定安装上校准
+`-N`。依次测量 `N=100/1000/10000`，每个 N 三轮，并采用平衡顺序减少温度和
+时钟单调漂移。canonical 指标仍为：
+
+```text
+(TotalDurationNs(Total) - generate_random_interleaved_data_kernel) / (N + 1)
+```
+
+选择标准是：优先选取相对 `N=10000` 均值已收敛、三轮 CV 足够小且不会让
+profiling 产生不必要长作业的最小 N。原始 CSV 保存在
+`results/exp091_batch1_calibration_<jobid>/`，汇总为同名前缀的 JSON/TXT，
+提交脚本为 `exp091_batch1_calibration.slurm`，分析器为
+`exp091_analyze_batch1.py`。
+
+第二阶段将在选定 N 下建立 64K/128K/256K/512K 的独立 batch=1 基线，并对
+512K 当前 `SBCC-1024 [8,8,4,4] -> SBRC-512 [8,8,8]` 路径采集 PMC。重点
+比较 SBRC consumer 的 TCC_HIT/TCC_MISS、VMEM read/write 和 LDS 指标，判断
+单个 512K transform 的 8 MiB 中间结果是否已主要由 L2 承接。PMC 是整个
+SBRC kernel 的计数，包含首载、twiddle/LUT 访问和最终 store，不能把总体
+TCC hit rate 直接等同为中间数组首载 hit rate；结论必须结合 batch=1000
+旧记录、静态地址模型及必要的受控对照。
+
+只有完成上述基线和证据采集后，才进入 layout kernel 原型。若当前 store
+的 64-byte 连续组存在明确 transaction 浪费，再测试 batch-independent 的
+grouped-nearby 映射（候选为 SBRC WGS=1024、TPT=128、内部 TPB=8）；若该
+映射因 64 KiB LDS/occupancy 抵消收益，则再评估显式 block layout。不得因
+user batch=1 而混淆或删除内部 `transforms_per_block` 维度。
