@@ -8,9 +8,18 @@ recording the reason and updating this file first.
 
 Compare only runs with the same FFT length, transform type, precision, batch
 size, -N value, profiling command, GPU, and relevant runtime environment.
-The standard comparison is double-precision z2z, batch=1000, -N 10, using the
-same DCU and hipprof --stats. The target lengths are 64K, 128K, 256K, and
-512K. Do not substitute 102400 for any of these sizes.
+The primary latency workload is double-precision z2z, out-of-place,
+batch=1, `-N 10000`, using the same DCU and `hipprof --stats`. Collect five
+independent processes per length and use the median canonical time as the
+fixed-baseline summary while retaining every round, mean, standard deviation,
+and CV. Candidate acceptance still requires an interleaved stable/candidate
+comparison in the same GPU allocation because independent-process drift is
+measurable. The target lengths are 64K, 128K, 256K, and 512K. Do not
+substitute 102400 for any of these sizes.
+
+The legacy throughput comparison remains double-precision z2z, batch=1000,
+`-N 10`, on the same DCU with `hipprof --stats`. Never compare its absolute
+times with the batch=1 baseline or divide it by 1000 as a substitute.
 
 ## Batch=1 primary-workload transition (EXP-091)
 
@@ -21,19 +30,38 @@ optimization whose benefit depends on scheduling multiple user transforms in
 one batch.  In particular, batch strip-mining is only a diagnostic and is not
 a primary optimization direction.
 
-EXP-091 calibrates the repetition count (`-N`) and establishes a separate
-batch=1 baseline.  Until that calibration is complete, the fixed batch=1000,
-`-N 10` files above remain the legacy throughput baseline and must not be
-compared numerically with batch=1 results.  Every batch=1 result must record
-its own `-N` and use exactly its own `N+1` divisor.  After EXP-091 selects the
-batch=1 repetition count, update this section with the exact primary command
-and immutable baseline files.
+EXP-091 calibrated the repetition count (`-N`) and established the separate
+batch=1 baseline below. Every batch=1 result must record its own `-N` and use
+exactly its own `N+1` divisor. Increasing `-N` also amortizes fixed per-process
+twiddle-generation kernels, so report transform-only timing as a diagnostic
+when explaining differences across N; keep the canonical metric for the
+contract result.
 
 rocFFT's internal `transforms_per_block` is not the user batch size.  A kernel
 mapping change such as four versus eight internal transforms per workgroup can
 still be batch-independent, but it must be validated with user batch=1.
 
-## Fixed baseline result files
+## Fixed batch=1 baseline result files (EXP-091)
+
+Runtime: validated EXP-090 installation at
+`/public/home/zhangkewei/zr/install-exp090-candidate`, source commit
+`0473680e99b181e4660643425f53382f3a6afad7`. Measurement job: `856749`.
+Raw files are the five `r1` through `r5` hipkernel CSVs for each length under:
+
+    /public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749/
+
+The machine-readable and text summaries are:
+
+    /public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749.json
+    /public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749.txt
+
+Canonical median times are 0.017346298 ms (64K), 0.019450103 ms (128K),
+0.023224602 ms (256K), and 0.051072366 ms (512K). The corresponding
+five-process CVs are 1.396919%, 1.459374%, 0.198862%, and 0.299984%.
+These are steady-state profiled GPU-kernel metrics, not host wall-clock or
+cold-plan latency.
+
+## Fixed legacy batch=1000 baseline result files
 
 Unless a new baseline is explicitly declared and recorded, use these files
 as the baseline for double-precision z2z, batch=1000, -N 10 comparisons:

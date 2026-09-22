@@ -2153,3 +2153,24 @@ TCC hit rate 直接等同为中间数组首载 hit rate；结论必须结合 bat
 grouped-nearby 映射（候选为 SBRC WGS=1024、TPT=128、内部 TPB=8）；若该
 映射因 64 KiB LDS/occupancy 抵消收益，则再评估显式 block layout。不得因
 user batch=1 而混淆或删除内部 `transforms_per_block` 维度。
+
+#### EXP-091 batch=1 四规模基线结果
+
+基线 job `856749` 在节点 `f09r1n01` 完成，使用稳定 EXP-090 安装、forward
+DP z2z、out-of-place、batch=1、`N=10000`，每长度五个独立进程。20 份原始
+hipkernel CSV 均存在，错误日志为空。主统计量为五轮 canonical median：
+
+| length | canonical median (ms) | canonical mean (ms) | CV | transform-only median (ms) |
+|---:|---:|---:|---:|---:|
+| 65536 | 0.017346298 | 0.017489193 | 1.396919% | 0.017343179 |
+| 131072 | 0.019450103 | 0.019638673 | 1.459374% | 0.019446504 |
+| 262144 | 0.023224602 | 0.023228576 | 0.198862% | 0.023222554 |
+| 524288 | 0.051072366 | 0.051137676 | 0.299984% | 0.051069166 |
+
+原始结果位于 `results/exp091_batch1_baseline_856749/`，汇总为
+`results/exp091_batch1_baseline_856749.{json,txt}`。固定 twiddle 生成每进程
+约为 20.736--36.160 us；在除以 10001 后 canonical 与 transform-only
+只差约 2--4 ns。512K 的跨进程 CV 已降到 0.30%，但 64K/128K 仍约 1.4%，
+所以后续小收益候选不能只与这个独立固定数做一次比较，仍必须在同 allocation
+内与稳定版交错配对。该结果把 batch=1 正式设为主延迟工作负载；历史
+batch=1000、`N=10` 仅保留为吞吐量回归，不与本表绝对值比较。
