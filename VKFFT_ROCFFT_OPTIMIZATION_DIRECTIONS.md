@@ -1984,7 +1984,7 @@ EXP-089；EXP-089 相对 EXP-088 的增量收益未证实。
 同时在 `AGENTS.md` 中明确：以后更新仓库内实验记录文档时，必须在同一
 任务中同步顶层副本并验证两份文件一致。
 
-### EXP-090：验证并修复 twiddle recurrence 的 inverse 语义（计划）
+### EXP-090：验证并修复 twiddle recurrence 的 inverse 语义（完成并推广）
 
 日期：2026-09-22。实验分支：`exp-090-inverse-recurrence-fix`。实验前标签：
 `pre-exp090-inverse-recurrence-20260922`。起始稳定记录提交为 `a0978f20`；
@@ -2018,3 +2018,46 @@ RTC 生成公式；运行 candidate 32 组 correctness；最后在同一 GPU all
 通过、forward 结果保持正确、四规模无不可接受回归且原始日志/CSV 完整时，
 才合入稳定分支，更新 AGENTS.md、本文档、顶层同步副本和新的 immutable
 stable tag。若 control 已全部通过，则不修改 runtime，只记录验证结果。
+
+#### EXP-090 实测结果与结论
+
+Control 完整构建 job `854953` 成功，源码为
+`b942259e13657f97644e54848ce288e4122f3f4e`，独立安装为
+`/public/home/zhangkewei/zr/install-exp090-control`。Control correctness job
+`855023` 的 32 个组合中 forward 16/16 通过，inverse 0/16 通过；四个长度、
+in-place/out-of-place、batch=1/3 的 inverse relative L2 均约为 `1.42`。
+原始记录为 `logs/exp090_correctness_855023.out` 和
+`results/exp090_correctness_control_855023.json`。因此当前稳定 inverse 确认
+不正确，而非容差边界或单一长度问题。
+
+源码提交 `0473680e99b181e4660643425f53382f3a6afad7` 实施最小修复：ordinary
+recurrence 的 `W*W`、`t*W` 以及 large-twiddle recurrence 的 `W*t` 改为
+`ComplexLiteral` 展开的普通复乘；最终作用于数据的 `TwiddleMultiply` 未变。
+RTC 生成器门禁 job `855044` 成功，完整 candidate 构建 job `855086` 成功，
+候选独立安装为 `/public/home/zhangkewei/zr/install-exp090-candidate`。
+
+Candidate correctness job `855145` 为 32/32 通过：forward 16/16、inverse
+16/16；inverse relative L2 为约 `6.6e-16` 至 `7.1e-16`，与 forward 同量级。
+原始记录为 `logs/exp090_correctness_855145.out` 和
+`results/exp090_correctness_candidate_855145.json`。
+
+同一 GPU allocation 的 ABBA 配对性能 job `855992` 使用 forward DP z2z、
+out-of-place、batch=1000、`-N 10`。canonical 指标为
+`(TotalDurationNs(Total)-generate_random_interleaved_data_kernel)/11/1e6`：
+
+| 长度 | control (ms) | candidate (ms) | candidate 相对 control | 对官方 7.2.2 加速 |
+|---:|---:|---:|---:|---:|
+| 65536 | 3.455337 | 3.454254 | +0.031% | 1.080550x |
+| 131072 | 7.608224 | 7.607957 | +0.004% | 1.177038x |
+| 262144 | 17.365426 | 17.367240 | -0.010% | 1.114767x |
+| 524288 | 38.475163 | 38.521134 | -0.119% | 1.830411x |
+
+原始 CSV 位于 `results/exp090_paired_855992/`，汇总为
+`results/exp090_paired_855992.json` 和 `results/exp090_paired_855992.txt`。
+四规模最大回退为 512K 的 0.119%，属于两轮配对测量波动；没有可确认的性能
+回退，也没有把 inverse 正确性修复误记为新的 forward 加速。
+
+最终决策：推广该最小 inverse 修复。它是 ordinary 与 large-twiddle recurrence
+共同使用的正确性修复，不是 512K 独有优化；保留 EXP-089 的 SBRC power-of-two
+静态首载和此前所有已推广优化。稳定标签为
+`stable-exp090-inverse-recurrence-fix-20260922`。
