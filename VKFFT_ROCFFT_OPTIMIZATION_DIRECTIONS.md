@@ -2096,6 +2096,14 @@ profiling 产生不必要长作业的最小 N。原始 CSV 保存在
 不能作为有效样本；修复仅将 `set -u` 移到既有 `load_fft` 之后，不改变任何
 测量参数。
 
+校准解释还必须区分两种指标。`twiddle_gen_radices_dp` 和
+`twiddle_gen_large_dp` 在一次 benchmark 进程中分别只调用固定次数，而两个
+FFT kernel 和随机输入 kernel 调用 `N+1` 次；因此提高 `-N` 会同时降低随机
+误差和摊薄固定 twiddle 生成成本。分析器同时输出保留历史定义的 canonical
+值与只汇总 `fft_*`/`transpose_*` 的 transform-only 稳态值。不同 N 之间不把
+canonical 均值差全部解释成噪声，也不把高 N 的 steady-state GPU kernel
+时间描述成单次 cold-start 或 host wall-clock 延迟。
+
 第二阶段将在选定 N 下建立 64K/128K/256K/512K 的独立 batch=1 基线，并对
 512K 当前 `SBCC-1024 [8,8,4,4] -> SBRC-512 [8,8,8]` 路径采集 PMC。重点
 比较 SBRC consumer 的 TCC_HIT/TCC_MISS、VMEM read/write 和 LDS 指标，判断
