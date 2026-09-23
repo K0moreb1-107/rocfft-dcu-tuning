@@ -2624,3 +2624,74 @@ Check the 128K RTC suffix and its absence at 64K/256K/512K. Only after
 correctness, gate isolation, reproducible 128K gain and no cross-size
 regression may the tested source be promoted to stable with an immutable
 tag. Otherwise retain it as an experimental branch and report the failure.
+
+EXP-094 follow-up results (2026-09-23; jobs 858088 and 858089, both
+COMPLETED/0). The ten-batch paired sweep and two-round PMC files are in
+`results/exp094_batch_dependence_sweep_858088/` and
+`results/exp094_batch_dependence_pmc_858089/` in the EXP-078 worktree;
+both raw SHA256 manifests verified. Four pairs per condition, with
+N=max(10,floor(10000/batch)), show that the broad recurrence is
+batch-sensitive. At 128K, batch=1 total 0.019443337 -> 0.019130104 ms
+(+1.611%, 3/4) and SBRC 0.008534471 -> 0.008202327 ms (+3.892%, 4/4);
+batch=1000 total 7.608264500 -> 6.958565045 ms (+8.539%, 4/4)
+and SBRC 3.979868545 -> 3.330238227 ms (+16.323%, 4/4).
+At 256K, batch=1 total 0.023409389 -> 0.024271945 ms (-3.685%,
+0/4) and SBRC 0.010829619 -> 0.011469814 ms (-5.912%, 0/4);
+batch=2/4/8/32/1000 total gains were +2.698/+3.472/+4.470/
+6.813/+7.722%, respectively. Batch=1000 SBRC gained +16.560%.
+The additional 256K N controls reproduce the sign: batch=1,N=10
+SBRC -2.178% (0/8), batch=1000,N=100 SBRC +17.154% (8/8);
+changing N alone does not explain the crossover. At 512K, batch=1
+total -1.210% (2/4, high variance) versus batch=1000 +2.053%
+(4/4); the broad candidate is not safe for unknown batch workloads.
+
+PMC of the 256K SBRC kernel (two rounds, per-workgroup normalized)
+shows unchanged 60 VGPR, 48 SGPR, 32768 B LDS, 512-thread blocks,
+192 LDS instructions and 1792 bank-conflict counts. The recurrence
+changes VALU 2000 -> 2280 (+14.0%) and VMEM reads 116 -> 44
+(-62.1%) per workgroup at every sampled batch. L2 misses remain
+about 768/workgroup and read requests about 512/workgroup; fewer
+VMEM instructions do not imply proportionally less external traffic.
+The unprofiled paired timings and profiled kernel durations both
+reverse sign as batch grows: PMC 256K SBRC batch=1 ~19.04 -> 20.08
+us (+5.5% duration), batch=1000 ~8.124 -> 7.289 ms (-10.3%
+duration). Cache-hit and stall counters vary with batch; they do not
+alone prove a unique causal bottleneck. The supported conclusion is
+a throughput/latency crossover under unchanged resources and data
+requests, not a universal batch=1000 benefit. Do not retain the
+broad EXP-094 gate.
+
+EXP-095 results (2026-09-23; source commit
+`88b0322ecc623a2c9898ad740aa83e1d0f2e4b5b`; jobs 858371
+build/correctness and 858372 paired batch=1, both COMPLETED/0).
+The 64K/128K/256K/512K x forward/inverse x in/out-of-place x
+batch=1/3 correctness matrix passed 32/32, tolerance 5e-12:
+`exp-095-sbrc128k-only/results/exp095_build_validate_858371/correctness.json`.
+Eight same-GPU, same-condition process pairs used DP z2z forward
+out-of-place, batch=1, -N10000, canonical divisor 10001. Raw timing
+CSV and SHA256 manifest are in
+`exp-095-sbrc128k-only/results/exp095_paired_batch1_858372/`;
+the manifest verified. Stable/candidate library SHA256 are
+`ad152877ba276dd70d6dbdac2e6fec454e348eb989431229f412a69f2da531a5`
+and `bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539`.
+Analyzer verified the `_ordtwrec128k` RTC suffix at 128K only and
+its absence at 64K/256K/512K. The measured paired medians (ms) are:
+
+| N | stable | EXP-095 | paired gain | candidate vs fixed EXP-091 baseline |
+|---:|---:|---:|---:|---:|
+| 65536 | 0.017406229 | 0.017346378 | +0.344% (4/8) | 0.999995x |
+| 131072 | 0.019433537 | 0.019087594 | +1.780% (8/8) | 1.018992x |
+| 262144 | 0.023448049 | 0.023447142 | +0.004% (3/8) | 0.990509x |
+| 524288 | 0.053039961 | 0.053175447 | -0.255% (4/8) | 0.960450x |
+
+The fixed EXP-091 batch=1 baselines were 0.017346298,
+0.019450103, 0.023224602, and 0.051072366 ms, respectively.
+The 256K/512K fixed-baseline differences also occur for the stable
+library within job 858372 (notably 512K stable 0.053039961 ms);
+therefore cross-day fixed-baseline ratios are descriptive, not a
+cross-size regression verdict. For 512K, stable/candidate CVs were
+5.23/4.56% and only 4/8 pairs favored the candidate. The only
+consistent changed-size signal is 128K (8/8 wins); unchanged sizes
+show no consistent paired regression. Decision: accept only the
+128K-scoped recurrence as the new stable version; reject the broad
+EXP-094 gate. No global handoff or planner change was introduced.
