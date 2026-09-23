@@ -2445,3 +2445,182 @@ ms；相同 runtime 身份下相对前版及该固定基线均为 1.000000x，�
 重新测得的加速。下一项从稳定版本独立分支开始，转向 SBRC-512 内部交换
 所有权或 ordinary-twiddle 的可证伪候选，而不重试完整 intermediate 的
 纯 layout/TPB 调整。
+
+### EXP-094：SBRC-512 ordinary twiddle 递推（计划）
+
+日期：2026-09-23。实验分支：`exp-094-sbrc512-twiddle-recurrence`。起点稳定
+记录提交为 `7f07f687a884003b6187446e384357753be87168`，实验前标签为
+`pre-exp094-sbrc512-twiddle-recurrence-20260923`。上一有效 runtime 为
+EXP-090 `0473680e99b181e4660643425f53382f3a6afad7`，安装在
+`/public/home/zhangkewei/zr/install-exp090-candidate`；EXP-093 的计数器诊断
+没有改变它。固定 batch=1 延迟基线为 EXP-091 job `856749`。
+
+候选只在 `stockham_gen_base.h::use_ordinary_twiddle_recurrence()` 增加
+`CS_KERNEL_STOCKHAM_BLOCK_RC`、DP、length=512、factors `[8,8,8]`、
+WGS=512、TPT=128、`direct_to_from_reg`、`static_initial_reg_load` 的精确
+gate。现有 SBCC-256/512/1024 gate 不变。该 SBRC 使用 scalar-LDS 而不是
+`half_lds`，所以先前 SBCC gate 没有覆盖它。候选在第二、第三个 radix-8
+pass 中，每个 butterfly 从 ordinary twiddle 表读取一个基础相位，并在
+寄存器内形成其余幂；每个 pass 原有 7 次查表变成 1 次查表，同时增加复数
+乘法及寄存器生命期。是否净加速必须由实测决定。EXP-090 已修正 recurrence
+内部状态在 inverse 下的语义，但本轮仍重新验证 inverse。
+
+两个带 `afterok` 依赖的 Slurm 任务一次性提交：第一项在独立
+`build/exp094_candidate` 和 `install-exp094-candidate` 构建候选，不覆盖稳定
+安装；先编译 `rocfft-rtc-gen`，再完整构建，随后使用
+既有 NumPy 对照脚本验证四个长度、forward/inverse、in/out-of-place、
+batch=1/3 共 32 个 case。第二项只有在第一项成功且 32 个 case 全部通过时
+才运行，并在同一 GPU allocation 内执行
+batch=1、DP z2z forward out-of-place、`-N 10000` 的稳定/候选交错配对：
+64K/128K/256K/512K 各三轮，64K 作为未命中 gate 的对照。时间严格按
+`(TotalDurationNs - bench-only random-input kernel)/(10000+1)` 计算，同时
+保留 transform-only 诊断值。最后对 512K SBRC 各采一份 PMC，检查
+VMEM/VALU/VGPR 变化，不把 PMC 时间用于性能结论。
+
+结果须保存 source commit、stable/candidate 库哈希、正确性 JSON、逐轮
+hipkernel CSV、PMC 原始 CSV、汇总 JSON/TXT 和作业日志。若构建、32-case
+正确性或配对基准不通过，候选留在实验分支且不合入稳定分支。若正确性通过，
+也只有受影响的 128K/256K/512K 相对同节点稳定版跨轮一致改善，且 64K
+无可归因回归，才考虑保留；否则记录失败证据并回到稳定 runtime。
+
+EXP-094 result (2026-09-23): source commit `e5f327d381efbfdf4f2ff3e79381d87511cc0525`.
+Build and 32-case correctness job `857327` passed; benchmark/512K PMC job
+`857328` completed. Stable and candidate library SHA256 values were
+`ad152877ba276dd70d6dbdac2e6fec454e348eb989431229f412a69f2da531a5`
+and `fc46dc5ae8c1b66988ea903dfdce079e961749dc32e64e69770c6c9037335f98`.
+Raw evidence is under `results/exp094_sbrc512_recurrence_857327/` and
+`results/exp094_sbrc512_recurrence_857328/`, with the paired summary in
+`results/exp094_sbrc512_recurrence_857328/paired.json` and `.txt`.
+Same-allocation batch=1, DP z2z OOP, `-N 10000` median canonical times
+(64K/128K/256K/512K) were stable
+`0.017343244/0.019423012/0.023461434/0.050989232` ms and candidate
+`0.017343279/0.019093283/0.024215722/0.052131887` ms. Speedups versus
+the paired stable runtime were `0.999998/1.017269/0.968851/0.978081`;
+speedups versus EXP-091 fixed baseline were
+`1.000174/1.018688/0.959071/0.979676`. The 128K SBRC saved about
+0.34-0.36 us in all three rounds. The 256K total regressed in all three
+rounds; the 512K candidate CV was 6.44% and one round favored candidate.
+512K SBRC PMC showed VMEM read instructions `29696 -> 11264`, VALU
+`512000 -> 583680`, with LDS instructions `49152`, bank conflicts `458752`,
+VGPR `60`, and SGPR `48` unchanged. PMC time is not the canonical metric.
+This candidate fails the pre-registered cross-size acceptance rule and remains
+unmerged; the stable runtime remains EXP-090.
+
+EXP-094 supplemental crossover diagnostic, pre-registered before submission:
+`exp094_crossover_diagnostics.slurm` compares the same validated installed
+libraries, with no rocFFT source changes. One allocation first runs eight
+ABBA-ordered stable/candidate process pairs per 64K/128K/256K/512K,
+batch=1 and `-N 10000`, retaining all raw CSV and per-round values. Then
+full PMC is collected for SBCC and SBRC at all four lengths, three paired
+rounds each; a separate SBRC read-request PMC group covers 128K/256K/512K
+twice. PMC uses batch=1 and `-N 10`; use counts only, not profiler time,
+and normalize by grid workgroups/elements when comparing lengths. Compare
+VMEM read/VALU/LDS/wait counts, TCC hits/misses, TA data stalls, register and
+LDS resource use, and read request sizes. The 64K gate-off control and
+unchanged SBCC distinguish run-state drift from the candidate SBRC mechanism.
+The cache and scheduling explanation remains a hypothesis until these
+per-length diagnostics are reviewed. Do not promote this candidate solely
+from 128K gain or a counter reduction.
+
+EXP-094 supplemental crossover result (2026-09-23): diagnostic job `857552`
+completed. In eight paired batch=1, `-N 10000` rounds, stable/candidate
+canonical medians in ms for 64K/128K/256K/512K were
+`0.017389487/0.019480471/0.023265002/0.052853446` and
+`0.017395566/0.019122356/0.023803352/0.053266044`, respectively.
+The 128K candidate improved by 1.84% with all eight SBRC pairs faster;
+256K regressed by 2.31% with seven of eight SBRC pairs slower. 512K
+is noisy. At all affected sizes, SBRC VMEM read instructions per workgroup
+fell from 116 to 44, while VALU rose from 2000 to 2280; LDS bank conflicts,
+VGPR, SGPR, and LDS allocation were unchanged. Global read request counts
+and TCC misses were nearly unchanged, so fewer twiddle-load instructions
+did not materially reduce the global handoff traffic. The size-dependent
+latency explanation remains a scheduling hypothesis, not a proven cause.
+
+EXP-094 batch=1000 crosscheck (pre-registered before submission): use the
+same installed stable/candidate libraries and correctness precondition, with
+eight same-GPU, ABBA-ordered pairs for 64K/128K/256K/512K, DP z2z OOP,
+`hipprof --stats`, `-N 10`, canonical divisor 11. Preserve every raw CSV.
+Do not compare batch=1000 absolute time to batch=1. If 128K improves
+consistently while 64K stays neutral and 256K/512K show no reliable gain,
+then investigate restricting the recurrence to full FFT length 128K only;
+otherwise report the disagreement without changing the optimization gate.
+
+EXP-094 batch=1000 crosscheck result (2026-09-23): job `858035` completed
+successfully on `f09r1n03`, with an empty error log. All 64 paired raw
+hipkernel CSV files and their SHA256 list are in
+`results/exp094_batch1000_858035/`. Stable/candidate libraries and bench
+executables matched the pre-registered hashes. The canonical metric excludes
+the random-input kernel and divides by 11; it is per batch of 1000 FFTs,
+not a batch=1 latency measurement. Stable/candidate median times in ms:
+64K `3.452476818/3.452738773` (flat, -0.008%, 3/8 pairs faster);
+128K `7.607042727/6.957106318` (+8.54%, 8/8 faster);
+256K `17.363624045/16.020065182` (+7.74%, 8/8 faster);
+512K `38.479123682/37.759450545` (+1.87%, 8/8 faster).
+The 256K and 512K batch=1000 directions disagree with the batch=1
+diagnostic, where 256K regressed and 512K was noisy. Thus the user's
+conditional criterion is not met: do not restrict the recurrence to 128K
+on this evidence. Report the workload-dependent result; leave stable and
+candidate optimization gates unchanged.
+
+EXP-094 batch-dependence mechanism diagnostic (pre-registered before new
+jobs, 2026-09-23): no rocFFT source, installed library, or optimization gate
+changes. The existing eight-round raw CSVs localize the difference. For
+128K/256K/512K, batch=1 SBRC stable/candidate medians (ms) were
+`0.008537309/0.008186032`, `0.010792154/0.010999236`, and
+`0.026148672/0.026450709`. At batch=1000 they were
+`3.979473273/3.330361000`, `8.104954409/6.762321636`, and
+`17.237266409/16.508618545` ms per batch. The corresponding unchanged
+SBCC stage stayed essentially flat at batch=1000. At batch=1, 256K SBCC
+also regressed (`0.012476403/0.012791461` ms), despite unchanged SBCC
+source; do not assign this to the SBRC recurrence without further evidence.
+All stage figures are from `TotalDurationNs/(N+1)` within each workload;
+batch=1000 absolute times are not a batch=1 latency substitute.
+
+Test competing explanations, without assuming any is proven: (1) more
+independent workgroups change how VMEM issue versus added VALU affects
+throughput; (2) batch-dependent cache/request traffic or cross-iteration
+state changes; (3) repetition count, clocks, or run-order artifact. The
+paired timing sweep covers lengths 128K/256K/512K and batches
+1/2/4/8/16/32/64/128/256/1000, four rounds per exact condition on one
+GPU allocation. Set N=max(10,floor(10000/batch)); compare versions only
+within identical length, batch, N, and GPU. Add eight paired 256K controls
+at batch=1,N=10 and batch=1000,N=100. Retain canonical and SBCC/SBRC
+stage times separately; alternate version order and reverse size/batch
+order across rounds. Do not compare absolute times across batches as
+latencies. The PMC job uses one warm-up transform (`-N 0`) per process and
+two stable/candidate rounds at 256K batches 1/4/32/1000 plus 128K/512K
+batch=1000. Collect both full and read-request counter groups, recording
+grid/workgroup size, register/LDS allocation, VMEM/VALU instructions,
+TCC hits/misses/read requests, stalls and bank conflicts. Normalize counts
+per workgroup; never use PMC replay durations as performance evidence.
+
+EXP-095 (pre-registered, 2026-09-23): user requests retaining the EXP-094
+ordinary-twiddle recurrence only for a complete 1D FFT of length 131072,
+then promoting the validated result as a new stable version and measuring
+the batch=1 baseline/new-version times and speedup. Work starts on branch
+`exp-095-sbrc128k-only` from stable record commit
+`7f07f687a884003b6187446e384357753be87168`; validated stable runtime
+source is `0473680e99b181e4660643425f53382f3a6afad7`. The existing
+EXP-094 experimental branch and installed library are not the baseline.
+
+Change only the SBRC-512 DP `[8,8,8]`, WGS=512, TPT=128,
+aligned/static-register-load ordinary-twiddle recurrence gate. Propagate
+the complete plan-root shape into RTC generation: require one-dimensional
+root length exactly 131072, not merely a local SBRC length of 512. Keep
+the established SBCC recurrence gates unchanged. Give the specialized RTC
+variant a distinct kernel name/cache key so other sizes cannot reuse it.
+No change to global handoff, planner decomposition, or batch scheduling.
+
+Build in isolated `build/exp095_candidate` and install to
+`install-exp095-candidate`; do not overwrite validated EXP-090. First
+compile `rocfft-rtc-gen`, then full library/bench, then run the 32-case
+NumPy forward/inverse, in/out-of-place, batch=1/3 correctness matrix at
+64K/128K/256K/512K. Benchmark only after correctness passes: eight
+same-allocation stable/candidate process pairs per length, DP z2z forward
+out-of-place, batch=1, `hipprof --stats`, `-N 10000`, canonical divisor
+10001. Preserve raw CSV, logs, exact commits and binary hashes; report
+paired stable and candidate medians plus the fixed EXP-091 batch=1 baseline.
+Check the 128K RTC suffix and its absence at 64K/256K/512K. Only after
+correctness, gate isolation, reproducible 128K gain and no cross-size
+regression may the tested source be promoted to stable with an immutable
+tag. Otherwise retain it as an experimental branch and report the failure.
