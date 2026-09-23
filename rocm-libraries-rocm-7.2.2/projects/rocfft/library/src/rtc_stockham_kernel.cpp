@@ -123,6 +123,21 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
             = specs->static_initial_reg_load
               && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;
 
+        // The local SBRC-512 kernel is shared by several large 1D FFTs.
+        // Select the recurrence using the complete plan length, not the
+        // local transform length, and carry that decision into the RTC key.
+        const TreeNode* plan_root = &node;
+        while(plan_root->parent != nullptr)
+            plan_root = plan_root->parent;
+        const bool full_transform_is_128k = plan_root->dimension == 1
+                                             && plan_root->length.size() == 1
+                                             && plan_root->length.front() == 131072;
+        specs->sbrc_ordinary_twiddle_recurrence
+            = specs->static_initial_reg_load && full_transform_is_128k
+              && specs->length == 512 && specs->workgroup_size == 512
+              && specs->threads_per_transform == 128
+              && specs->factors == std::vector<unsigned int>{8, 8, 8};
+
         if(node.isPartialPassEnabled())
         {
             pp_params.off_dim     = node.ppOffDim;

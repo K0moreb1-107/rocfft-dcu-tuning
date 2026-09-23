@@ -251,6 +251,8 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
 
     kernel_name += load_store_name_suffix(loadOps, storeOps);
     kernel_name += rtc_cbtype_name(cbtype);
+    if(specs.sbrc_ordinary_twiddle_recurrence)
+        kernel_name += "_ordtwrec128k";
     return kernel_name;
 }
 

@@ -497,16 +497,23 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
     bool use_ordinary_twiddle_recurrence()
     {
-        const bool common = half_lds && direct_to_from_reg && precisions.size() == 1
-                            && precisions.front() == rocfft_precision_double
-                            && workgroup_size == 256;
+        const bool is_dp = precisions.size() == 1
+                           && precisions.front() == rocfft_precision_double;
+        const bool common_sbcc = half_lds && direct_to_from_reg && is_dp
+                                 && workgroup_size == 256;
         const bool sbcc256 = length == 256 && threads_per_transform == 32
                              && factors == std::vector<unsigned int>{8, 4, 8};
         const bool sbcc512 = length == 512 && threads_per_transform == 64
                              && factors == std::vector<unsigned int>{8, 8, 8};
         const bool sbcc1024 = length == 1024 && threads_per_transform == 64
                               && factors == std::vector<unsigned int>{8, 8, 4, 4};
-        return common && (sbcc256 || sbcc512 || sbcc1024);
+        const bool sbrc512 = sbrc_ordinary_twiddle_recurrence
+                             && scheme == "CS_KERNEL_STOCKHAM_BLOCK_RC" && is_dp
+                             && direct_to_from_reg && static_initial_reg_load
+                             && length == 512 && workgroup_size == 512
+                             && threads_per_transform == 128
+                             && factors == std::vector<unsigned int>{8, 8, 8};
+        return (common_sbcc && (sbcc256 || sbcc512 || sbcc1024)) || sbrc512;
     }
 
     // The "stacked" twiddle table starts at the second factor, since
@@ -531,7 +538,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         {
             // Consecutive entries in a radix butterfly are powers of one base
             // twiddle. Load that base once, then form the remaining powers in
-            // registers for the explicitly gated DP SBCC layouts.
+            // registers for the explicitly gated DP SBCC and SBRC layouts.
             auto tid = thread + dt + h * threads_per_transform;
             auto base_tidx
                 = cumheight - firstFactor + (width - 1) * (tid % cumheight);
