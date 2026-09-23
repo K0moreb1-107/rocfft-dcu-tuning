@@ -2365,7 +2365,7 @@ EXP-092 最终决策：能力门禁通过执行但 cluster 路线被硬件/接�
 保留查询程序和结果作为负向证据，不修改或推广 rocFFT runtime。稳定 runtime
 源码继续为 `0473680e99b181e4660643425f53382f3a6afad7`。
 
-### EXP-093：batch=1 SBRC L2 容量曲线（计划）
+### EXP-093：batch=1 SBRC L2 容量曲线（完成）
 
 日期：2026-09-23。实验分支：`exp-093-batch1-l2-capacity-curve`。起始稳定
 记录提交为 `6a71d2223e50c8473a1ef10578fb2d3eb841a033`，实验前标签为
@@ -2404,3 +2404,44 @@ hit/miss 数和 `TCC_EA_RDREQ` 相对 `N*16/64` 个 64B request 下界的偏差�
 scheduling；若四个规模均接近完整 EA read 下界且 hit/reuse 曲线基本平坦，或
 小工作集也无可靠改善，则结束 cache-residency 路线，不实现 cache-aware planner
 原型。任何结论都必须来自多轮一致趋势；本实验本身不产生可推广 kernel。
+
+#### EXP-093 结果与裁决
+
+脚本提交为 `7f7e2305f61fe80a5b8bb63132a5d0100b1b000b`；任务 `856930`
+在 `f09r1n01` 上 `COMPLETED 0:0`，耗时 3 分 11 秒，stderr 为空。原始计数
+文件为 `results/exp093_batch1_l2_curve_856930/{full,read}_n<L>_r<R>.csv`，
+其中每个长度有 3 份 full、2 份 read 文件，每份有 warm-up 和 trial 两次
+SBRC dispatch；作业日志为 `logs/exp093_batch1_l2_curve_856930.{out,err}`，
+修正汇总为 `results/exp093_batch1_l2_curve_856930.{json,txt}`。
+
+首次分析器将 256K 的 SBCC-512 和 SBRC-512 混算，因为它们都包含
+`len_512_factors_8_8_8`。原始 CSV 中该长度每份有 4 行；其它长度每份 2 行。
+修订后的分析器只选择 `unitstride_sbrc_aligned`，并要求每份 CSV 恰有两行
+SBRC，否则报错。修订前 256K 的 12/8 个 full/read dispatch 计数及
+0.123355/65770.5 汇总作废；修订后为 6/4 个，数据如下：
+
+| N | 中间数组 | SBRC TCC hit 中位数 | SBRC EA read 中位数 | 完整数组 64B 下界 | 超出下界 |
+|---:|---:|---:|---:|---:|---:|
+| 65536 | 1MiB | 12.7975% | 16515 | 16384 | 0.7996% |
+| 131072 | 2MiB | 18.6712% | 32972 | 32768 | 0.6226% |
+| 262144 | 4MiB | 12.6303% | 65740.5 | 65536 | 0.3120% |
+| 524288 | 8MiB | 11.1381% | 131330.5 | 131072 | 0.1972% |
+
+各长度的完整计数均为三轮、每轮两行；read 计数均为两轮、每轮两行，且
+`TCC_EA_RDREQ_32B` 和 EA1 read 均为零。256K 正确 SBRC 的 full
+hit/miss 每 dispatch 平均为 14235.667/98508.333，read request 为
+65740、65740、65741、65741；误混入的 SBCC 行已保留在原始 CSV 中供审计。
+2MiB 的 TCC hit 局部较高，但 4MiB 和 8MiB 均较低，未出现“较小三个规模
+保持高 reuse、仅在 8MiB 容量边界急降”的多轮曲线。所有规模的 EA read
+都接近一次完整中间数组读取。TCC hit 混有 twiddle/常量/其它流量，EA
+也不是直接 HBM byte 计数，因此这些数据不能证明具体 cache eviction 原因。
+
+决策：预先规定的 cache-local scheduling 进入条件未满足，结束把 L2 容量
+作为当前 SBCC→SBRC handoff 主要瓶颈的优化路线；不实现 cache-aware
+planner。EXP-093 不修改 rocFFT runtime，correctness 沿用 EXP-090 已验证版，
+没有候选性能差异。固定 batch=1 canonical latency 仍为 EXP-091 的
+64K/128K/256K/512K `0.017346298/0.019450103/0.023224602/0.051072366`
+ms；相同 runtime 身份下相对前版及该固定基线均为 1.000000x，这不是本任务
+重新测得的加速。下一项从稳定版本独立分支开始，转向 SBRC-512 内部交换
+所有权或 ordinary-twiddle 的可证伪候选，而不重试完整 intermediate 的
+纯 layout/TPB 调整。

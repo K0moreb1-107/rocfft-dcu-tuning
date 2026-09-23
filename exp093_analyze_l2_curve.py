@@ -16,6 +16,7 @@ NAME_RE = re.compile(r"^(?P<mode>full|read)_n(?P<length>[0-9]+)_r(?P<round>[0-9]
 EXPECTED_LENGTHS = (65536, 131072, 262144, 524288)
 COMPLEX_BYTES = 16
 EA_REQUEST_BYTES = 64
+SBRC_KERNEL_MARKER = "unitstride_sbrc_aligned"
 
 
 def numeric(value):
@@ -53,10 +54,30 @@ def analyze_file(path):
         rows = list(csv.DictReader(handle))
     if not rows:
         raise ValueError("empty PMC CSV: {}".format(path))
+    selected_rows = [
+        row for row in rows if SBRC_KERNEL_MARKER in row.get("KernelName", "")
+    ]
+    if len(selected_rows) != 2:
+        raise ValueError(
+            "{} expected exactly two SBRC dispatches, found {} out of {}: {}".format(
+                path,
+                len(selected_rows),
+                len(rows),
+                sorted({row.get("KernelName", "") for row in rows}),
+            )
+        )
     return {
         "path": os.path.abspath(path),
-        "dispatch_count": len(rows),
-        "dispatches": [summarize_dispatch(row) for row in rows],
+        "raw_dispatch_count": len(rows),
+        "selected_dispatch_count": len(selected_rows),
+        "excluded_kernel_names": sorted(
+            {
+                row.get("KernelName", "")
+                for row in rows
+                if row not in selected_rows
+            }
+        ),
+        "dispatches": [summarize_dispatch(row) for row in selected_rows],
     }
 
 
