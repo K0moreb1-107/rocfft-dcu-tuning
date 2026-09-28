@@ -3842,7 +3842,7 @@ and results under EXP-119 names. Record exact commands, build/test outcomes,
 plan comparisons, failures, and unverified items before finalizing this
 record.
 
-### EXP-119 Stage 1 validation (2026-09-28): behavior-preserving comparison passed
+### EXP-119 Stage 1 validation and compatibility correction (2026-09-28)
 
 The isolated candidate worktree is
 `/public/home/zhangkewei/zr/exp-119-lds-aware-block-planner` on branch
@@ -3856,7 +3856,7 @@ available HIP, AMDDeviceLibs, and amd_comgr package paths were supplied). No
 source or existing build tree was changed by that failed configure. Validation
 then used an isolated copy of the configured EXP-095 build metadata, corrected
 all generated paths inside that new root, cleaned it, and refreshed all objects.
-The successful build sequence was:
+The initial successful build sequence was:
 
 ```
 cmake --build /public/home/zhangkewei/zr/build/exp119_stage1_clean \
@@ -3876,18 +3876,43 @@ refreshed (`rocfft-rtc-cache`, `rocfft-rtc-compile`, `rocfft-rtc-subprocess`,
 `rocfft_rtc_helper`, and `dyna-rocfft-bench`). Those were built only inside
 the new EXP-119 root. Build and install logs are retained under `logs/` with
 `exp119_clean_` names. The build completed with existing upstream warnings and
-no compile/link errors.
+no compile/link errors. The correction was then rebuilt with
+`rocfft-rtc-gen/fast`, `rocfft/fast`, and `install/fast`; its logs are
+`logs/exp119_correction_build_rtc_gen.log`,
+`logs/exp119_correction_build_rocfft.log`, and
+`logs/exp119_correction_install.log`.
 
-GPU plan comparison job 868887 (`f09r1n01`) ran DP complex forward, out of
-place, batch 1 for both the pinned stable install and the clean candidate at
-64K, 128K, 256K, 512K, and 1024K. All ten runs returned status 0. After
+The first edge audit found a real compatibility defect in the initial helper
+extraction. Job 868936 tested every power of two from 1 through 524K for
+single and half precision, batch 1, out of place. The stable library rejected
+the absent single-map entry at 524K with `CS_L1D_CC`, while the initial
+candidate returned successfully through TRTRT. The single map has no 524K
+entry (the double map does), so this was an expansion of the single/half
+reachable behavior rather than a harmless refactor. The other tested powers
+through 256K matched.
+
+The correction keeps the LDS-aware helper but distinguishes a missing map
+entry from a mapped pair rejected by the LDS-aware SBCC/SBRC checks. A named
+`legacy_block_compute_map_threshold` retains the old missing-map failure for
+lengths through 524K; a mapped-but-LDS-ineligible pair still takes the new
+TRTRT fallback. This preserves the old single/half 524K behavior without
+silently expanding its plan. Corrected edge audit job 868963 emitted the same
+`CS_L1D_CC` failure for stable and candidate at single/half 524K (wrapper exit
+status 139 under `--ignore_runtime_failures`); all other tested powers matched
+with status 0. Raw edge logs are retained under
+`results/exp119_edge_compare_868963/`.
+
+GPU plan comparison job 868991 (`f09r1n01`) reran DP complex forward, out of
+place, batch 1 for both the pinned stable install and the corrected candidate
+at 64K, 128K, 256K, 512K, and 1024K. All ten runs returned status 0. After
 normalizing only runtime user-buffer addresses, each stable/candidate plan log
-was byte-identical; raw differences were only those addresses. The 64K through
-512K plans used `CS_L1D_CC` with `CS_KERNEL_STOCKHAM_BLOCK_CC` and
-`CS_KERNEL_STOCKHAM_BLOCK_RC`; the 1024K plan remained
-`CS_L1D_TRTRT` with stockham/transpose/stockham. Raw plans, bench logs, status,
-and the comparison summary are retained in
-`results/exp119_plan_compare_clean_868887/summary.txt`.
+was byte-identical at all five lengths; the raw plans also had no unexpected
+scheme differences. The 64K through 512K plans used `CS_L1D_CC` with
+`CS_KERNEL_STOCKHAM_BLOCK_CC` and `CS_KERNEL_STOCKHAM_BLOCK_RC`; the 1024K
+plan remained `CS_L1D_TRTRT` with stockham/transpose/stockham. Raw plans,
+bench logs, and status are retained in
+`results/exp119_plan_compare_clean_868991/`. The earlier 868887 comparison is
+also retained as pre-correction evidence.
 
 An earlier partial object reuse in `build/exp119_stage1_buildreuse` produced
 candidate bench segfaults; those logs/results are retained and are not treated
@@ -3895,9 +3920,36 @@ as a source failure. The clean all-object refresh above removed that stale
 generated-object condition and passed all ten GPU runs.
 
 No direct non-invasive test seam was available for observing the
-insufficient-LDS rejection immediately before leaf-grid setup, and no gtest
-target was configured in this build. The existing `function_pool` SBCC/SBRC
-LDS filters remain the helper's gate; plan comparison and successful runtime
-execution are the available Stage-1 evidence. Dedicated numerical reference
-correctness was not run by `rocfft-bench` and is therefore unverified here.
-No map, kernel configuration, public API/ABI, or Stage-2 change was made.
+insufficient-LDS rejection immediately before leaf-grid setup, and the clean
+build had `BUILD_CLIENTS_TESTS=OFF` with no configured gtest target. A separate
+test-enabled configure was attempted in
+`build/exp119_stage1_tests`; it reached the same missing HIP imported target
+and is recorded in `logs/exp119_tests_configure.log`. The existing
+`function_pool` SBCC/SBRC LDS filters remain the helper's gate, but the
+dedicated pre-leaf rejection observation remains unverified.
+
+For numerical-reference correctness, the existing C API/sample path was used
+through a temporary isolated EXP-119 driver (not committed production code).
+Job 868989 ran out-of-place DP z2z forward and inverse against an independent
+radix-2 CPU reference at every required length. All ten checks passed:
+
+| length | forward max error | inverse max error | tolerance |
+| ---: | ---: | ---: | ---: |
+| 64K | 2.58e-8 | 2.61e-8 | 1.02e-3 |
+| 128K | 1.17e-7 | 1.17e-7 | 2.10e-3 |
+| 256K | 3.15e-7 | 3.16e-7 | 3.69e-3 |
+| 512K | 1.50e-6 | 1.50e-6 | 9.96e-3 |
+| 1024K | 6.10e-6 | 6.10e-6 | 2.09e-2 |
+
+The raw reference log and plan log are retained under
+`results/exp119_dp_z2z_reference_868989/`. The source and Slurm wrapper are
+untracked validation artifacts under the EXP-119 worktree and are not part of
+the production diff.
+
+The EXP-115--118 audit remains unchanged: raw directories exist in the
+exp-114 worktree, but no tracked records, branches, or commits were found, so
+no results were fabricated. The repository copy and the pre-existing
+top-level copy of this document were compared with `cmp` after the correction;
+they are byte-identical and retain the imported history through EXP-114 plus
+the EXP-119 record. No map, kernel configuration, public API/ABI, or Stage-2
+change was made.

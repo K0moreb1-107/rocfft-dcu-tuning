@@ -315,8 +315,10 @@ bool NodeFactory::CheckLarge1DMaps(const function_pool& pool)
 bool NodeFactory::Get1DBlockComputeDivisor(const function_pool& pool,
                                            rocfft_precision     precision,
                                            size_t               length,
-                                           size_t&              divLength1)
+                                           size_t&              divLength1,
+                                           bool&                mapEntryFound)
 {
+    mapEntryFound = false;
     const Map1DLength* map1DLength = nullptr;
     if(precision == rocfft_precision_single || precision == rocfft_precision_half)
         map1DLength = &NodeFactory::map1DLengthSingle;
@@ -329,6 +331,7 @@ bool NodeFactory::Get1DBlockComputeDivisor(const function_pool& pool,
     if(it == map1DLength->end())
         return false;
 
+    mapEntryFound = true;
     const auto candidate = it->second;
     if(candidate == 0 || length % candidate != 0)
         return false;
@@ -679,13 +682,18 @@ ComputeScheme
         }
     }
 
-    size_t divLength1 = 1;
-    bool   failed     = false;
+    constexpr size_t legacy_block_compute_map_threshold = 524288;
+    size_t            divLength1                         = 1;
+    bool              failed                             = false;
 
     if(IsPo2(nodeData.length[0])) // multiple kernels involving transpose
     {
-        if(Get1DBlockComputeDivisor(
-               pool, nodeData.precision, nodeData.length[0], divLength1))
+        bool mapEntryFound = false;
+        if(Get1DBlockComputeDivisor(pool,
+                                    nodeData.precision,
+                                    nodeData.length[0],
+                                    divLength1,
+                                    mapEntryFound))
         {
             // for gfx906, 512 CC/RC isn't as fast, so use CRT
             // with a nicer length
@@ -698,6 +706,15 @@ ComputeScheme
             {
                 scheme = CS_L1D_CC;
             }
+        }
+        else if(!mapEntryFound
+                && nodeData.length[0] <= legacy_block_compute_map_threshold)
+        {
+            // Preserve the legacy missing-map failure in the old block range.
+            // A mapped pair that fails the LDS-aware kernel checks still falls
+            // through to the TRTRT fallback below.
+            scheme = CS_L1D_CC;
+            failed = true;
         }
         else
         {
