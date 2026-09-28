@@ -2695,3 +2695,1209 @@ consistent changed-size signal is 128K (8/8 wins); unchanged sizes
 show no consistent paired regression. Decision: accept only the
 128K-scoped recurrence as the new stable version; reject the broad
 EXP-094 gate. No global handoff or planner change was introduced.
+
+EXP-096 (pre-registered 2026-09-23): remeasure the *original official*
+ROCm 7.2.2 rocFFT baseline against the latest retained EXP-095 stable
+version at batch=1. This answers the user's request left open by the
+EXP-095 result: job 858372 compared the prior optimized EXP-090 stable
+runtime, not the original official baseline. Historical official CSVs
+are batch=1000 and must not be reused for a batch=1 speedup.
+
+Official source: the user-provided original archive
+`/public/home/zhangkewei/rocm-libraries-rocm-7.2.2.tar.gz`
+(SHA256 `4dbdeb5241b12becb379f58dafce685028824fca191ad2a54c3d8d671ca38f63`).
+Only its `projects/rocfft` tree was extracted under
+`/public/home/zhangkewei/zr/exp096-official-archive/`.
+A byte-for-byte tree comparison matched the upstream rocm-7.2.2 tag,
+commit `dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef`.
+Build the official rocFFT and bench in isolated
+`/public/home/zhangkewei/zr/build/exp096_official` and install to
+`/public/home/zhangkewei/zr/install-exp096-official`. Validate the
+same 32-case NumPy matrix before timing. Latest stable source is
+`88b0322ecc623a2c9898ad740aa83e1d0f2e4b5b`, tagged at record
+commit `d5924f87207a6393cf818971211dd26d2c6cfd26`;
+installed library SHA256 is
+`bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539`.
+No stable-source edit or new optimization is proposed.
+
+Submit the build/correctness job
+`exp096_official_build_validate.slurm` and, with afterok dependency,
+the paired benchmark job `exp096_official_vs_stable_batch1.slurm`.
+The latter runs eight interleaved official/latest process pairs per
+64K/128K/256K/512K on one GPU allocation: DP z2z forward,
+out-of-place, batch=1, `hipprof --stats`, -N10000, divisor 10001.
+Alternate variant and length order; preserve all raw CSVs, logs, binary
+hashes, per-size medians, CVs, paired wins, speedup and transform-only
+diagnostics. Analyzer: `exp096_analyze_pair.py`. Do not interpret
+results or submit follow-up work until the user asks to check.
+
+EXP-096 results (2026-09-23): build/correctness job 858703 and
+same-GPU paired timing job 858704 both COMPLETED/0 on f09r1n06.
+The original user archive SHA256
+`4dbdeb5241b12becb379f58dafce685028824fca191ad2a54c3d8d671ca38f63`
+was checked at build and benchmark time; its extracted rocFFT source
+matched upstream rocm-7.2.2 commit
+`dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef` byte-for-byte.
+The isolated official build passed the 32/32 NumPy correctness matrix
+(tolerance 5e-12) in
+`results/exp096_official_build_858703/correctness.json`.
+Official/latest librocfft SHA256:
+`3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5`
+and `bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539`.
+The benchmark executables were hashed in
+`logs/exp096_official_pair_858704.out`.
+
+Eight interleaved pairs per length used batch=1, -N10000 and the
+canonical (TotalDurationNs minus random-input kernel)/10001/1e6
+metric. The analyzer verified the 128K-only RTC suffix in the latest
+version. The 64 raw hipkernel CSV SHA256 checks passed; full
+per-round data are in
+`results/exp096_official_pair_858704/paired.json`, concise results
+in `paired.txt`, and the manifest in `raw_sha256.txt`.
+Build and timing logs are
+`logs/exp096_official_build_858703.{out,err}` and
+`logs/exp096_official_pair_858704.{out,err}`.
+
+| N | original official baseline ms | latest EXP-095 stable ms | baseline/latest speedup | time reduction | latest wins | baseline/latest CV |
+|---:|---:|---:|---:|---:|---:|---:|
+| 65536 | 0.017998436 | 0.017343149 | 1.037784x | 3.640797% | 8/8 | 0.564/0.053% |
+| 131072 | 0.020949760 | 0.019103228 | 1.096661x | 8.814099% | 8/8 | 0.592/0.358% |
+| 262144 | 0.028916669 | 0.023305366 | 1.240773x | 19.405082% | 8/8 | 0.189/3.036% |
+| 524288 | 0.087667321 | 0.054067399 | 1.621445x | 38.326621% | 8/8 | 0.425/5.992% |
+
+The latest 512K absolute time fluctuated (52.0-60.1 us), so retain
+the CV and raw rounds; even its slowest pair was 1.456x faster than
+the official baseline. Transform-only medians closely track the
+canonical medians, so fixed twiddle-generation amortization does
+not explain these speedups. This is a batch=1 comparison against
+the *original official* rocFFT, distinct from EXP-095's comparison
+against the previously optimized EXP-090 installation. Decision:
+original-baseline comparison complete; no source change or further
+stable promotion. The latest stable tag remains
+`stable-exp095-sbrc128k-only-20260923`.
+
+EXP-097 (pre-registered 2026-09-23): diagnose the EXP-096 batch=1
+512K latest-stable process-to-process latency variation, without changing
+the stable source, plan, metric, or 128K-only optimization gate.
+EXP-096 has eight latest 512K canonical rounds from 0.051994856 to
+0.060143834 ms (CV 5.992%), while the official baseline CV is 0.425%.
+Per-kernel CSVs place the variation mainly in the first SBCC-1024
+kernel (26.260-33.188 us per transform, CV about 10.28%); the second
+SBRC-512 kernel varies only 25.681-26.952 us (CV about 1.73%). The
+random-input initialization kernel is excluded from the canonical metric.
+Read-only analysis of the hipprof databases finds 10001 SBCC calls per
+process, with narrow within-process durations and persistent fast/slow
+process modes. This localizes the variation but does not yet prove a
+clock, cache, memory-placement, or other physical cause.
+
+Submit both diagnostic jobs at once, with the PMC job dependent on the
+timing job so they cannot share the GPU. `exp097_512k_process_modes.slurm`
+runs 16 interleaved official/latest pairs for 512K, DP z2z forward,
+out-of-place, batch=1, `hipprof --stats`, -N10000 (divisor 10001), with
+both process orders balanced. Eight latest processes have timestamped
+active `rocm-smi` clock, power, temperature, and utilization sampling;
+the other eight serve as unmonitored controls. Preserve all per-call
+hipprof databases and CSVs. `exp097_512k_sbcc_pmc.slurm` collects 12
+independent SBCC and four SBRC full PMC profiles on the same validated
+latest binary, batch=1, -N10, separately from normal latency timing.
+PMC replay durations are not canonical timing observations. Compare
+frequency/power telemetry, per-process kernel modes, baseline controls,
+and PMC counters; report any residual causal uncertainty. Correctness
+remains the EXP-096 32/32 result because binaries and source are unchanged.
+Raw outputs will be under `results/exp097_512k_modes_<jobid>/` and
+`results/exp097_sbcc_pmc_<jobid>/`; logs under `logs/exp097_*_<jobid>.*`.
+Job IDs and results are pending; wait for the user to ask to check them.
+
+EXP-097 interim result (2026-09-23): normal timing job 859120
+COMPLETED/0 on f09r1n01. Its 16 official/latest 512K pairs all favored
+the latest binary. Canonical batch=1, -N10000 medians were
+0.087534780 ms official and 0.053104567 ms latest (1.648348x);
+process CVs were 0.611% and 4.602%, respectively. Latest rounds
+spanned 0.052730624-0.060307721 ms. The latest SBCC-1024 stage
+spanned 26.786-33.035 us (CV 7.5536%), while SBRC-512 spanned
+25.932-27.269 us (CV 1.7201%). Per-call databases again show 10001
+SBCC dispatches per process with persistent fast/slow modes rather
+than isolated long calls or a within-process thermal ramp.
+Eight latest processes were monitored; their 199 rocm-smi samples
+all reported 0% HCU use and 600 MHz sclk, including timestamps
+inside the recorded GPU-dispatch interval. Thus those SMI readings
+cannot establish the active kernel clock or rule out clock effects.
+Monitored and unmonitored runs both contained slow modes. Raw timing,
+telemetry, and per-call data: results/exp097_512k_modes_859120/;
+logs: logs/exp097_512k_modes_859120.{out,err}.
+The dependent PMC job 859121 FAILED/1 on f09r1n03 after one second:
+Bash set -u rejected a same-line local declaration that expanded
+output using family before family was assigned. It collected no PMC
+counters. Fix only this shell-script defect and submit a fresh PMC
+retry; do not use the failed run as hardware evidence. No library,
+planner, stable branch, or correctness change was made.
+
+EXP-097 counter retry 859154 COMPLETED/0 on f09r1n03, same
+EXP-095 installed librocfft SHA256
+bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539.
+Twelve SBCC and four SBRC independent processes used batch=1, -N10,
+full PMC type 3; all 48 CSV hashes verified. For SBCC, post-warm-up
+per-dispatch medians across processes had 262630-262633 aggregate
+TCC misses, 34910-35470 aggregate TCC hits, exactly 635904 VALU,
+12800 VMEM read and 8192 VMEM write instructions, and exactly
+241876 LDS bank conflicts. This counter workload showed no large
+hit/miss-count bifurcation. Its profiled SBCC duration was
+43.447-45.295 us (CV 1.209%), unlike normal -N10000 timing at
+26.786-33.035 us (CV 7.554%). Because PMC replays kernels, changes
+N, and ran on another node, it neither captures nor rules out the
+physical cause of the normal fast/slow modes. Raw counter files:
+results/exp097_sbcc_pmc_859154/; logs:
+logs/exp097_sbcc_pmc_859154.{out,err}. Independently, bench's own
+GPU-event medians in EXP-097 timing log repeat the same mode (latest
+rounds 2/4: 61.92/68.96 us), so it is not an artifact of reconstructing
+hipprof's TotalDurationNs. No stable-source change or promotion.
+
+EXP-098 (pre-registered 2026-09-23): test whether persistent 512K
+batch=1 SBCC process modes track GPU allocation placement. Read-only
+source audit shows rocfft-bench allocates its work, input and output
+buffers once per process, then reuses them for 10000 transforms.
+Existing hipprof databases omit buffer pointer arguments, so address
+correlation cannot be tested from EXP-097 artifacts. Use an isolated
+LD_PRELOAD hipMalloc interposer that logs returned pointer and size;
+its optional 8 or 16 MiB dummy allocation happens before the first
+ordinary allocation and is never accessed. Preserve a no-interposer
+control and a logging-only pad=0 control. Run eight Latin-square
+rounds of all four conditions on one DCU (32 independent processes),
+512K DP z2z forward out-of-place, batch=1, hipprof --stats, -N10000,
+canonical divisor 10001. Compare each condition's process-mode
+frequency and canonical timing with allocation addresses; a virtual
+address association or pad effect is mechanism evidence, not proof
+of physical page placement. The dummy allocation changes allocator
+state and VRAM footprint, so interpret causality cautiously. Abort if
+logging is absent or a pad hipMalloc fails. Scripts:
+exp098_log_hipmalloc.c and exp098_allocator_modes.slurm; only diagnostic
+code changes, no rocFFT library, planner or stable-tag edit. Raw output
+will be results/exp098_allocator_modes_<jobid>/ and
+logs/exp098_alloc_modes_<jobid>.{out,err}. Job ID/results pending;
+stop after submission and wait for the user to request a check.
+
+EXP-098 result (2026-09-23): job 859182 COMPLETED/0 on f09r1n03.
+All 32 independent 512K batch=1 processes used the same stable library
+SHA256 bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539;
+all 88 raw timing and allocation files passed SHA256 verification.
+The 24 interposed allocation logs each had one PID matching its
+corresponding HIPOPS database, and all dummy hipMalloc calls succeeded.
+The slow mode was defined descriptively by SBCC mean >28 us/call;
+the observed fast maximum was 27.085 us and slow minimum 28.221 us.
+
+| condition (8 processes each) | slow SBCC processes | canonical median us | range us | CV |
+|---|---:|---:|---:|---:|
+| no interposer | 4/8 | 54.275 | 52.043-60.341 | 5.18% |
+| logging only | 2/8 | 52.368 | 52.198-59.681 | 5.50% |
+| 8 MiB untouched pad | 0/8 | 52.442 | 52.305-52.888 | 0.36% |
+| 16 MiB untouched pad | 1/8 | 52.351 | 52.147-60.054 | 5.11% |
+
+In round 6 the control measured 60.341 us (SBCC 32.625 us)
+versus pad8 52.344 us (SBCC 26.521 us); SBCC explained 6.104
+of the 7.997 us difference. The control's slow process had 10001
+SBCC calls with p10/p50/p90 31.20/32.64/33.92 us; pad8's same-round
+fast process had 25.28/26.72/27.52 us. The benchmark's independent
+HIP-event medians were 69.28 and 61.60 us, confirming a sustained
+process mode rather than a few outliers or CSV arithmetic. However,
+pad16 was slow in round 5 and logging-only slow in rounds 5 and 7.
+Logging-only rounds 3 (fast) and 5 (slow) had identical low 4-bit
+MiB offsets (6,6,12) for the three 8 MiB virtual buffers, so a
+simple virtual-address alignment rule is not supported. The pad
+changes allocator state and footprint; 0/8 slow with pad8 is not
+proof of physical placement or a dependable benchmark fix. Do not
+add a hidden pad to the official metric. No source change, stable
+promotion, or new performance contract. Raw data:
+results/exp098_allocator_modes_859182/; log:
+logs/exp098_alloc_modes_859182.{out,err}.
+
+EXP-099 (pre-registered 2026-09-23): build an independent C++ rocFFT
+benchmark to test whether the persistent 512K batch=1 process modes
+survive a different client and whether input refresh or hipprof
+affects them. Branch exp-099-standalone-benchmark starts from
+EXP-098 record commit 3de58754240c34831232e2c64719f2ffdf7451ea;
+the stable rocFFT source and installed library are unchanged.
+Source exp099_standalone_bench.cpp creates the same DP z2z forward,
+out-of-place, length-524288, batch-1 plan, allocates explicit work,
+input, and output buffers in rocfft-bench order, executes one warm-up,
+then uses one HIP event pair with synchronization around each of
+10000 transforms. It records every event sample, per-process
+summary, buffer virtual addresses, and whether fixed input changed.
+A separate impulse-DFT check must pass before timing.
+The refresh mode runs hipMemsetAsync before each timed transform
+on the same default stream; the fixed mode does not refresh.
+These modes intentionally have different input/cache conditions.
+HIP-event and host times are diagnostic only; they must not replace
+the AGENTS.md canonical hipprof GPU-kernel metric.
+
+The single Slurm job exp099_standalone_bench.slurm will compile the
+client and run eight Latin-square rounds of four independent-process
+conditions on one GPU: fixed without profiler, refresh without
+profiler, fixed under hipprof --stats, and unchanged rocfft-bench
+under hipprof --stats. Both profiled arms have one warm-up and
+10000 measured transforms; only the unchanged rocfft-bench arm is
+the official canonical anchor. Compare only like-for-like metrics;
+custom profiled kernel totals can diagnose SBCC/SBRC behavior but
+are not a replacement baseline. If fixed input changes, report it
+as a diagnostic workload, not a faithful repeated-input FFT.
+Preserve stdout, 10000-event sample CSVs, profiler CSV/DB,
+binary hashes, and all raw files. Preflight C++ syntax and link
+checks passed; correctness and GPU timing remain pending.
+Expected results: results/exp099_standalone_bench_<jobid>/ and
+logs/exp099_standalone_bench_<jobid>.{out,err}.
+Submit one job containing all conditions, then stop and wait for
+the user to request a result check.
+
+EXP-100 (pre-registered 2026-09-24): test whether the user's one-shot hipFFT
+client provides a useful diagnostic for the batch=1 512K DP z2z workload,
+without changing rocFFT source, stable install, or measurement contract.
+Preparation branch is `exp-099-standalone-benchmark`, starting commit
+`d7f1bce8b7f5b47bb1e0c0fc4b8032dcbb75fa69`; stable runtime is
+`install-exp095-candidate`, whose `librocfft.so.0.1` SHA256 is
+`bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539`.
+
+The user attachment SHA256 is
+`28134F74B9A8EAFD8E47C5407EC87FC7A448A0CA3D1CEA4DA3EE01148DE0483B`.
+Archive it as `fft_test_1d_original.cpp`; `fft_test_1d_exp100.cpp` is an
+adapted copy whose only source diff changes `OUTPUT_PATH` to the EXP-100 CSV
+directory under this repo. The adapted source SHA256 is
+`48D4B6C2CE93ACF2C0929283546B1ECBC35F4C2B3850FC26AE7768CE82C0F5A1`.
+
+One Slurm allocation requests one DCU. In eight blocks, execute four
+adjacent pairs of independent processes for each client condition
+(`524288 1 z2z_1d` and `524288 0 z2z_1d`), 32 processes per condition.
+Each block has two pairs in each order. The unmodified client keeps its
+input generation, buffer setup, 3 separate-buffer warmups (when enabled),
+`test_times=1`, HIP-event placement and synchronization unchanged.
+After every block, run one unchanged stable `rocfft-bench` reference with
+512K, DP z2z forward out-of-place, batch=1, `hipprof --stats`, `-N10000`.
+Thus eight standard profiled anchors are distributed through the sequence.
+
+The client results are single HIP-event durations in its CSV and per-process
+stdout; summarize only their own repeated-process distribution. Keep these
+values separate from `rocfft-bench` canonical hipprof time, reconstructed
+with divisor 10001 after excluding only the verified benchmark input-gen
+kernel. Record the allocated node/GPU, compiler and binary hashes, `ldd`
+resolution and SHA256 for the actually resolved hipFFT/rocFFT libraries,
+all per-run stdout, per-run CSV snapshots, full CSV, hipprof CSV/DB and logs.
+The app itself has no numerical output check and ignores the `hipfftExecZ2Z`
+return code, so a successful process and positive recorded event time attest
+to invocation viability, not numerical FFT correctness. One event per fresh
+process cannot establish a steady-state API latency.
+
+Sources/scripts are `fft_test_1d_original.cpp`, `fft_test_1d_exp100.cpp`, and
+`exp100_user_hipfft.slurm`; record this entry in both synchronized copies.
+Expected artifacts are `results/exp100_user_hipfft_<jobid>/`,
+`results/exp100_user_hipfft_csv/fft_test_1d_exp100.csv`, and
+`logs/exp100_user_hipfft_<jobid>.{out,err}`. The first attempt, job `860032`,
+failed after 7 seconds (exit 1) during linking, before any FFT execution:
+`ld.lld` reported undefined `std::filesystem` symbols (`create_directories`,
+`_M_split_cmpts`, `_M_find_extension`) because the client link command omitted
+`-lstdc++fs`. No FFT measurements were produced. Preserve the failure output at
+`results/exp100_user_hipfft_860032/stdout/build.log` and
+`logs/exp100_user_hipfft_860032.{out,err}`.
+
+The earlier login-node preflight used link parameters different from the
+submitted script and was insufficient. The retry changes only the client
+link command by appending `-lstdc++fs`; source, stable rocFFT install,
+measurement contract, and sample sequence remain unchanged. Preflight the
+exact revised script command, verify `ldd` resolves stable rocFFT, `bash -n`
+passes, and the CSV target is absent; then submit one corrected job. Wait for
+the user to ask before inspecting its result.
+Follow-up: retry job `860170` also failed after 9 seconds (exit 1) on the
+first `is_warmup=1` client run: `open comgr lib:libamd_comgr.so error`,
+`load comgr library error`, `load library error`, `HIP error`. It produced no
+valid client timing sample. Preserve its output in
+`results/exp100_user_hipfft_860170/` and
+`logs/exp100_user_hipfft_860170.{out,err}`.
+
+A read-only toolchain check found `/public/software/compiler/dtk-26.04/lib64/libamd_comgr.so`
+resolves to `/public/software/compiler/dtk-26.04/dcc/comgr/lib64/libamd_comgr.so.2.6.0`
+(SHA256 `3e62d2545564a05b334635be2ed98d2c9fbef2c8927d0d9ec23783431267eaba`).
+No system toolchain files are modified.
+
+Next retry: keep `${LATEST}/lib` first and add `${TOOLCHAIN}/lib64` before
+`${TOOLCHAIN}/lib` in `LD_LIBRARY_PATH`, including each benchmark invocation.
+Before client execution, load `libamd_comgr.so` with `ctypes.CDLL`; record the
+actually loaded real path and SHA256 in the job output. Validate this exact
+environment, script syntax, stable rocFFT hash, and absent CSV target, then
+submit one corrected job retaining the 32+32 client runs and eight references.
+Preserve all prior failures and wait for the user before inspecting new results.
+
+Follow-up: retry job `860366` failed after about 9 seconds (exit 127) on the
+first `is_warmup=1` client invocation, before producing a valid timing sample:
+`/public/software/compiler/dtk-26.04/lib/libhipfft.so.0: undefined symbol:
+`rocfft_plan_description_set_NotIsRocTop`. No FFT measurements were produced.
+Preserve `results/exp100_user_hipfft_860366/` and
+`logs/exp100_user_hipfft_860366.{out,err}`.
+
+The prior link selected hipFFT from the toolchain while runtime resolution
+selected the stable candidate rocFFT; this library pair is ABI-incompatible
+for the required rocFFT plan-description symbol. A read-only check confirmed
+`/zr/install/include/hipfft/hipfft.h` exists and
+`/zr/install/lib/libhipfft.so.0.1` has SHA256
+`d90867c5f9728bd59f32ef79c3a6b9b5636c9ea3892d1620719bbd3572da37c8`.
+Under candidate-first runtime lookup, `ldd -r` on that hipFFT resolves
+rocFFT from `install-exp095-candidate` with no unresolved symbols. The system
+toolchain remains read-only.
+
+Next retry: prioritize `${ZR_INSTALL}/include`; link with
+`-L${LATEST}/lib -L${ZR_INSTALL}/lib -L${TOOLCHAIN}/lib` and
+`-lhipfft -lrocfft -lstdc++fs`. The candidate lib directory was verified
+not to contain `libhipfft`, so hipFFT comes from `${ZR_INSTALL}/lib` and
+rocFFT from `${LATEST}/lib`. Use the same runtime path order for client and
+reference: candidate rocFFT, `${ZR_INSTALL}/lib`, toolchain `lib64`, then
+toolchain `lib`. Keep the COMGR load check; record and verify the resolved
+hipFFT/rocFFT paths and hashes, and require `ldd -r` to show no missing or
+undefined symbols. The exact link command passed a login-node-only preflight
+with `ldd -r`; no GPU workload was run during preflight. Preserve the original
+source, measurement contract, 32+32 client invocations, and eight references.
+Submit one corrected job only after final script, source/library hash, CSV
+absence, syntax, and Slurm dry-run checks pass; preserve all previous failures.
+
+EXP-100 result (job 860543, 2026-09-24): completed on f09r2n05 with exit 0;
+the error log is empty. All 64 client invocations (32 independent processes
+with is_warmup=1 and 32 with is_warmup=0) and eight interleaved stable
+rocfft-bench references completed. Each client process recorded one HIP-event
+sample for 512K double-precision forward out-of-place Z2Z, batch=1. The warm
+condition performs three transforms on separate buffers before the timed
+transform. The 168 raw files passed SHA256 verification. Evidence is in
+results/exp100_user_hipfft_860543/ and logs/exp100_user_hipfft_860543.{out,err}.
+
+Client event durations, in microseconds (population SD/CV):
+
+| condition | n | median | mean | SD | CV | min-max |
+|---|---:|---:|---:|---:|---:|---:|
+| is_warmup=1 | 32 | 72.80 | 72.605 | 2.623 | 3.613% | 67.68-77.92 |
+| is_warmup=0 | 32 | 104.00 | 124.320 | 77.663 | 62.471% | 98.24-446.718 |
+
+All 32 adjacent cold/warm pairs had a slower cold sample; the median paired
+difference (cold minus warm) was 32.00 us. The cold mean/CV include two
+outliers of 401.118 and 446.718 us; do not silently discard them. Warmup
+reduces the observed one-shot spread, but even warm samples range over
+10.24 us, so one sample is inadequate to judge a 1-2% optimization.
+
+The eight reference canonical hipprof GPU-kernel times, using the Total-row
+minus verified input-generation kernel and divisor 10001, were 52.650828,
+55.180342, 51.832440, 52.203783, 52.982836, 52.155647, 52.024939,
+and 56.486712 us (median 52.4273055 us). This is a different timing
+metric/protocol from the client's event interval; their absolute values must
+not be divided to claim a speedup. Only the stable installation was tested;
+there is no baseline/candidate comparison or optimization speedup result.
+
+The 64 client processes consumed 1742.31 s in aggregate (27.224 s/process
+on average), and the eight reference processes consumed 130.081 s. These
+process runtimes explain the roughly 31-minute job despite microsecond event
+samples. Per-process startup, plan creation, and RTC preparation are outside
+the timed event; with RTC cache reads/writes disabled, repeated preparation
+is a plausible contributor, but no phase-by-phase wall-clock breakdown was
+collected. The event does not measure end-to-end request latency. The client
+does not check numerical output or hipfftExec/HIP-event return codes, so
+successful execution does not establish FFT correctness. The result supports
+this client only as a diagnostic of defined one-shot event latency, not as a
+replacement for the official canonical rocfft-bench measurement.
+
+For a future comparison, keep the same workload, libraries, warmup policy,
+event protocol, and GPU allocation for both versions; interleave paired
+independent processes, collect multiple samples, report the full distribution,
+and add numerical and API-return-code checks. Retain the canonical profiled
+rocfft-bench metric as the acceptance criterion. No further job was submitted
+as part of this result inspection.
+
+## EXP-101 (pre-registered 2026-09-24): user HIP-event client, official baseline vs latest stable
+
+Preparation branch: `exp-099-standalone-benchmark`, starting commit `d7f1bce8b7f5b47bb1e0c0fc4b8032dcbb75fa69`. This is a measurement-only experiment; rocFFT source, both installed rocFFT libraries, and the original user source/archive are not changed.
+
+Compare the official baseline installation `/public/home/zhangkewei/zr/install-exp096-official/lib/librocfft.so.0.1` (SHA256 `3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5`) with the latest validated stable installation `/public/home/zhangkewei/zr/install-exp095-candidate/lib/librocfft.so.0.1` (stable source commit `88b0322ecc623a2c9898ad740aa83e1d0f2e4b5b`, tag `stable-exp095-sbrc128k-only-20260923`, library SHA256 `bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539`). Both arms use the same installed hipFFT `/public/home/zhangkewei/zr/install/lib/libhipfft.so.0.1` (SHA256 `d90867c5f9728bd59f32ef79c3a6b9b5636c9ea3892d1620719bbd3572da37c8`).
+
+The source `fft_test_1d_exp101.cpp` is copied from `fft_test_1d_exp100.cpp`; its only source change is a dedicated EXP-101 CSV output directory. Build one executable against the official baseline and the fixed hipFFT installation. Run that same binary in both arms, setting the selected rocFFT installation first in `LD_LIBRARY_PATH`. Before any measurements, require separate `ldd -r` checks to resolve hipFFT to `/zr/install/lib/libhipfft.so.0.1`, resolve rocFFT to the selected arm, and report no missing libraries or undefined symbols. Record both linkage outputs and the real paths and hashes of the loaded rocFFT and hipFFT files.
+
+One Slurm allocation uses one DCU. Compare DP z2z, forward, out-of-place, batch=1 at lengths 65536, 131072, 262144, and 524288. Collect 16 adjacent baseline/stable pairs per length, for 128 independent client processes total. Rotate length order across rounds and balance arm order to eight baseline-first and eight stable-first pairs per length. Every process uses only `is_warmup=1`: the existing program performs three warm-up transforms on separate buffers, then records one HIP-event duration for one timed transform.
+
+Retain each process stdout, one-row CSV snapshot, full CSV, per-sample length/round/arm/order/time/timestamps TSV, executable and source hashes, compiler/toolchain and COMGR hashes, selected GPU/environment details, and raw checksums. Require exactly one CSV row per process (128 data rows plus header), one sample in each arm for every length/round pair, and positive event durations.
+
+Report each arm's median event time per length, `median_baseline / median_stable`, the median of the 16 paired baseline/stable speedup ratios, and the number of pairs won by each arm. Keep every observation; do not drop outliers. This is the user's one-shot HIP-event interval and must not be combined with or divided by EXP-096's canonical `hipprof --stats` GPU-kernel times. The client does not validate numerical output or check every HIP/HIPFFT return code, so successful execution and a positive event duration establish invocation viability, not numerical correctness.
+
+Expected artifacts: `results/exp101_user_hipfft_<jobid>/`, `results/exp101_user_hipfft_csv/fft_test_1d_exp101.csv`, and `logs/exp101_user_hipfft_<jobid>.{out,err}`. No EXP-101 job has been submitted.
+
+EXP-101 result (job 860936, 2026-09-24): the 128 paired client processes
+completed, with 16 pairs at each of the four lengths. The event-time medians
+for official baseline / EXP-095 stable were 26.88 / 27.12 us (64K),
+31.20 / 29.04 us (128K), 42.40 / 37.76 us (256K), and 95.76 / 72.16 us
+(512K); the corresponding ratio of medians was 0.9912x, 1.0744x,
+1.1229x, and 1.3271x. These are warm one-shot hipFFT event intervals,
+not EXP-096's profiled rocfft-bench kernel times; they must not be mixed.
+All raw samples and checksums remain in results/exp101_user_hipfft_860936/.
+The client lacks a numerical output check, so this is a performance
+diagnostic only. No stable-source change followed EXP-101.
+
+## EXP-102 (pre-registered 2026-09-24): research-derived FFT workload matrix
+
+Reason: the actual semantic batch and external evaluator are unknown, and
+the independent-process effect seen at 512K means a single batch=1 or
+batch=1000 score cannot stand for the entire intended use. This is a
+measurement-only experiment. It does not modify the official baseline or
+EXP-095 stable library, planner, kernels, or original archive. Starting
+experimental branch is exp-099-standalone-benchmark at
+d7f1bce8b7f5b47bb1e0c0fc4b8032dcbb75fa69; the stable source remains
+88b0322ecc623a2c9898ad740aa83e1d0f2e4b5b. The official baseline
+librocfft.so.0.1 SHA256 is
+3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5;
+the stable library SHA256 is
+bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539.
+
+Use 1D double-precision packed interleaved complex FFT lengths
+65536/131072/262144/524288, semantic batches 1/2/4/8/16/32/64,
+forward/inverse, and in-place/out-of-place: 112 initial workloads. Each
+array task uses one DCU and one length. For a fixed length/direction/
+placement, compare batch throughput from B32 to B64 in Stage B; extend
+to B128, and conditionally B256, if either library still gains >5% per
+doubling and allocation succeeds. Keep per-workload output; no cross-batch
+combined score. Additional batches use the same validation and timing
+protocol. Any memory-limited extension is recorded as skipped, not as a
+successful measurement.
+
+Run correctness before timing for every workload. The independent client
+checks full output for a nontrivial deterministic input against the official
+baseline and checks both libraries against an analytic two-point signal.
+The source's default double epsilon (1e-15), output L-infinity component
+norm and log(length) scaling guide the threshold; the baseline-output norm
+is a proxy for the CPU/FFTW norm used by rocfft-test, not a claim of full
+rocfft-test equivalence. An API failure, library-image mismatch, nonfinite
+output, or failed correctness check stops that workload before timing.
+
+Stage A: both installed versions' unchanged rocfft-bench, -N30 without
+profiling, with plan creation and input preparation outside each HIP event.
+Stage B: one separate benchmark executable dynamically loads both absolute
+library paths and verifies their API images; both plans query workspace
+requirements, share a preallocated buffer of the maximum size, and each
+receives at least one untimed warm-up. Every event interval contains exactly
+one rocfft_execute. Host-to-device input restoration and correctness are
+outside the interval. Each of five independent process blocks starts with
+six randomly ordered adjacent AB/BA pairs (30 pairs total). If CV exceeds
+1% or the process-aware paired-bootstrap 95% speedup CI relative half-width
+exceeds 1%, add 10 pairs at a time to a maximum of 100. Retain all samples
+and outliers; label persistent instability inconclusive. Report per-workload
+medians, means, SD, CV, paired speedup/CI, transforms/s, time per transform,
+and each library's workspace bytes. Record device temperature/clocks when
+available, but do not assume a particular temperature is automatically
+steady. GPU profiler output is not part of this experimental metric.
+
+This HIP-event execute-only lane is not numerically comparable with prior
+hipprof canonical results, nor with the EXP-100/101 hipFFT one-shot client.
+For workloads where either Stage B arm has a median below 100 us, Stage C
+runs five adjacent randomly ordered AB/BA pairs. Each Stage C measurement
+uses one HIP event pair around K rocfft_execute calls on K independently
+initialized input slots, preserving the same semantic batch. K is chosen
+so every retained aggregate event interval lasts at least 10 ms; an
+under-target attempt is discarded and K increased. For in-place calls,
+every slot has its own input buffer. Stage C reports total/K timing and
+speedup separately from Stage B. If device capacity cannot support the
+independent slots, record CAPACITY_SKIP; do not replace or silently merge
+the Stage B result. No cold-plan or host end-to-end claims follow.
+
+Preparation files: exp102_paired_bench.cpp, exp102_aggregate_bench.cpp,
+exp102_orchestrate.py, exp102_preflight.sh, and exp102.slurm. The static
+and build preflight checks syntax, linkage, and pinned library hashes but
+does not run GPU work. Expected raw output: results/exp102_workload_matrix_<jobid>/
+and logs/exp102_workload_matrix_<jobid>_<arrayid>.{out,err}; actual job IDs,
+correctness, counts, paths, timing, speedups, and decision are pending.
+Submit the complete array once after static/build preflight; stop after
+submission and wait for the user to request result inspection.
+
+EXP-102 result (job 861601, inspected 2026-09-24): array tasks 0 and 1
+completed with 36 workloads each (64K, 128K); tasks 2 and 3 ended
+OUT_OF_MEMORY after 8 and 7 completed workloads (256K, 512K). Thus 87
+workloads passed the full baseline/stable plus analytic correctness gate,
+but only 70 of 112 required base workloads completed. The 256K B256 and
+512K B128 forward in-place correctness subprocesses were SIGKILL -9. Each
+has 1 GiB of transform data; the check retained multiple 1 GiB host
+vectors while the Slurm task had 3888 MiB host memory. The kill happened
+after CHECK_PAIR and before the analytic checks. This is a harness memory
+failure, not evidence of a numerical failure in rocFFT.
+
+All 87 completed workloads have Stage A and Stage B artifacts under
+results/exp102_workload_matrix_861601/ and array logs under
+logs/exp102_workload_matrix_861601_<arrayid>.{out,err}. Stage A used the
+intended installed libraries (verified by loader resolution). Its forward,
+in-place B1 medians, official baseline/stable in us, were 23.36/22.56
+(64K), 25.60/25.04 (128K), 34.24/29.28 (256K), and 92.48/56.64
+(512K); these are preliminary within-process 30-trial results, not a
+converged multi-process comparison. Stage B instead measured about
+231.52/231.44 us at 64K B1, versus Stage A's 23.36/22.56 us for the
+same workload. Across 87 workloads the median Stage B minus Stage A
+median was about 260.0 us (baseline) and 256.2 us (stable), showing a
+large near-fixed measurement artifact whose mechanism is not yet proven.
+Eighty-five workloads reached the 100-pair limit without satisfying the
+CV criterion. All 87 Stage C lanes were NOT_REQUIRED because the trigger
+looked only at inflated Stage B medians, although 40 workloads had a
+Stage A median below 100 us. Decision: EXP-102 does not validate the
+proposed measurement protocol or a definitive speedup. Do not promote its
+Stage B speedups as canonical or change the stable rocFFT version from it.
+
+## EXP-103 (pre-registered 2026-09-24): repair the independent-process timing protocol
+
+Measurement-only branch exp-103-single-arm-benchmark starts from commit
+d7f1bce8b7f5b47bb1e0c0fc4b8032dcbb75fa69. Keep the official
+baseline and EXP-095 stable library images unchanged with SHA256
+3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5
+and bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539.
+Use the same 112 base workloads and conditional B128/B256 extensions,
+correctness oracle limits, unchanged Stage A rocfft-bench -N30, and
+unprofiled HIP-event definition as EXP-102. Do not compare these with the
+historical hipprof canonical metric. Raise each Slurm task's host memory
+request to 16 GiB, and scope large host correctness vectors so the full
+pair-output check is released before analytic checks.
+
+Stage B uses one rocFFT library image per timed process. Five independent
+adjacent A/B PROCESS pairs each run six single-execute event trials per arm
+(30 matched samples initially); new process pairs add ten matched samples
+at a time to a maximum of 100, with the same CV and hierarchical-bootstrap
+CI stopping criteria. Randomize A/B process order; retain each process's
+raw trials and match by trial index. This changes EXP-102's individual-event
+adjacency to process-level adjacency to test whether simultaneously loaded
+library images caused the 200-260 us offset. This is an explicit protocol
+change, not a silent claim of exact EXP-102 equivalence. Before adaptive
+collection, compare the initial 30-trial Stage B medians against same-
+workload Stage A medians; a B/A ratio outside [0.5, 1.5] in either arm is
+TIMING_SCOPE_MISMATCH and aborts further matrix testing rather than
+publishing a contaminated score. This gate is diagnostic; passing it does
+not by itself prove all noise has been removed.
+
+Stage C triggers when either Stage A or Stage B has a median below 100 us.
+For each short workload, use separate single-library processes for five
+randomized adjacent A/B process pairs, one aggregate trial per process.
+A common K is selected from the shorter median; K independent initialized
+input slots are required, including in-place calls. Every retained HIP
+event interval must cover at least 10 ms around K rocfft_execute calls.
+On BELOW_TARGET, discard both arms and retry with larger common K; on
+capacity failure record CAPACITY_SKIP separately. Report total/K and
+speedup separately from Stage B.
+
+Preparation files: modified exp102_paired_bench.cpp for scoped correctness,
+plus exp103_single_arm_bench.cpp, exp103_single_arm_aggregate.cpp,
+exp103_orchestrate.py, exp103_preflight.sh, and exp103.slurm. Preflight
+compiles/links both clients and the correctness gate, checks syntax and
+pinned library identities but runs no GPU work. Expected raw output:
+results/exp103_workload_matrix_<jobid>/ and
+logs/exp103_workload_matrix_<jobid>_<arrayid>.{out,err}; job IDs,
+correctness, completed-workload counts, raw times, speedups and decision
+are pending. Submit one complete four-length array after preflight, then
+stop and wait for the user to request result inspection.
+
+Pre-submit preparation commit: b3f808c9cefbe001b2bd7f0416fcfde85b263afc.
+The compile/link/syntax/hash preflight passed without GPU work; Slurm
+--test-only accepted the four-task array at 6 CPUs and 16 GiB per task.
+
+EXP-103 result (job 861766, inspected 2026-09-25): all four array tasks
+stopped at the first forward out-of-place workload because Stage B's parser
+checked `data_bytes` against one FFT buffer, while its single-arm client
+reports two allocated buffers for out-of-place transforms. Thus the reported
+value was exactly twice the parser expectation; the observed failure is a
+metadata-contract mismatch, not a demonstrated transform correctness or
+performance failure. Across the partial run, 37 workloads passed correctness
+and Stage A, 33 forward in-place workloads completed Stage B, and 13 short
+workloads completed Stage C (130 aggregate rows). These are incomplete
+diagnostic data, not a full 112-workload result. The Stage B/Stage A median
+ratio was 1.003--1.424, so the large fixed EXP-102 timing offset was not
+reproduced in those completed cases. Stage C retained intervals of at least
+10 ms. Twenty-five of the 33 Stage B workloads hit the 100-pair limit;
+do not label these converged. Raw outputs remain under
+results/exp103_workload_matrix_861766/ and
+logs/exp103_workload_matrix_861766_<arrayid>.{out,err}. No stable-version
+decision follows from this incomplete matrix.
+
+## EXP-104 (pre-registered 2026-09-25): correct out-of-place byte contract
+
+Measurement-only branch exp-104-outofplace-contract starts from EXP-103
+commit b5191e889b68f091125b9660396cf1bcb76eb463. Preserve the EXP-103
+112 base workloads and adaptive B128/B256 extensions, correctness gate,
+Stage A/B/C timing definitions, process pairing, stopping criteria, pinned
+EXP-096 baseline and EXP-095 stable libraries, four target lengths, and
+one-DCU-per-task allocation. Do not modify rocFFT kernels or the installed
+library images. New EXP-104-owned runner/Slurm/preflight/test files are
+used so EXP-103 evidence remains immutable.
+
+The sole measurement-contract repair is for Stage B single-arm metadata:
+`data_bytes` denotes total allocated data buffers, so expect N*batch*16
+bytes in-place and 2*N*batch*16 bytes out-of-place. Stage C's
+`per_execute_data_bytes` continues to denote one logical FFT buffer for
+both placements. Before GPU submission, run synthetic no-GPU parser tests
+for both valid placements and invalid sizes, Stage C out-of-place metadata,
+and relevant early-status handling; compile/link/syntax/hash preflight and
+Slurm --test-only must also pass. Reject any timing-scope mismatch rather
+than interpreting it as an optimization result. Expected raw paths are
+results/exp104_workload_matrix_<jobid>/ and
+logs/exp104_workload_matrix_<jobid>_<arrayid>.{out,err}.
+
+The EXP-104 no-GPU preflight passed: all six synthetic parser/status tests,
+Python and Bash syntax, compilation and linkage of the unchanged EXP-102/103
+C++ clients into EXP-104-owned binaries, pinned-library SHA checks, and
+Slurm --test-only with six CPUs and 16 GiB per array task. The four local
+source/script hashes matched their transferred copies before this check.
+
+Pre-submit preparation commit: 9d113d42537973d080d692327b95ae8d07007161.
+Job ID, correctness, completed-workload counts, timings, speedups, and final
+decision are pending. Submit the complete
+four-length array once; immediately stop and wait for the user to request
+result inspection.
+
+EXP-104 result (job 862765, inspected 2026-09-25): array tasks for 64K and
+512K completed with 36 and 28 workloads respectively; 128K completed 21
+workloads and 256K completed 2 before each task deliberately stopped at the
+pre-registered Stage-B/Stage-A ratio guard. All 89 attempted workloads
+passed the analytic correctness gate. In total 87 workloads, including
+75 of the 112 required base workloads and 41 out-of-place workloads,
+completed. The EXP-103 out-of-place metadata bug did not recur.
+
+The guard fired at 128K batch8 inverse in-place (stable Stage A 82.24 us,
+Stage B 124.08 us, ratio 1.50875485) and 256K batch4 forward in-place
+(stable 85.52 us versus 129.84 us, ratio 1.51824136). These are policy
+threshold crossings, not demonstrated numerical failures or proof that
+HIP events included extra work. The two inputs are each 16 MiB. In the
+completed rows, 64K Stage B met the adaptive convergence criterion in
+0/36 workloads and 512K in 9/28; incomplete/nonconverged rows must not
+be promoted as definitive speedups. Batch1 forward in-place Stage C
+baseline/stable us and ratios were 18.715151/18.107689/1.033547 at 64K,
+23.930640/21.728218/1.101362 at 128K, 37.026020/31.418584/1.178475
+at 256K, and 90.971973/60.914349/1.493441 at 512K. The middle two
+are from partial matrices. Raw evidence is preserved under
+results/exp104_workload_matrix_862765/ and
+logs/exp104_workload_matrix_862765_<arrayid>.{out,err}. This exploratory
+HIP-event result does not replace the historical hipprof canonical metric;
+no stable rocFFT version change is justified by this incomplete matrix.
+
+## EXP-105 (pre-registered 2026-09-25): isolate input-restoration effects
+
+Measurement-only branch exp-105-input-restore-diagnostic starts from
+EXP-104 record commit c233e6b24a60f933c7aa2d1530a9f099990b5003.
+The official rocfft-bench source restores input before each event using
+device generation when built with hipRAND, while the EXP-103/104 single-arm
+client uses a synchronous host-to-device copy before the event. Both
+installed rocfft-bench images link hipRAND, and the CLI provides -g 0 for
+device PRNG and -g 1 for host PRNG. Different preceding GPU activity may
+change cache state; this is a hypothesis, not an established cause.
+
+Run nine targeted 1D double-complex, forward/inverse as specified,
+in-place, packed workloads on one DCU per array task. Submit all four
+lengths as one Slurm array, with a concurrency limit of one to avoid
+shared-node resource interference. For each length
+64K/128K/256K/512K include forward batch1 as a control and forward batch
+16/8/4/2 respectively (16 MiB of input). Also include 128K batch8 inverse,
+the exact EXP-104 guard failure. Run correctness before timing. Within each
+of five independent process blocks per workload, compare both pinned
+library arms under three modes: official rocfft-bench -g 0 -N 30,
+official rocfft-bench -g 1 -N 30, and the existing isolated host-copy
+single-arm client with six single-execute event trials. Randomize mode
+order by block and baseline/stable order within each adjacent arm pair.
+Record every raw trial, command, process order, library identity and
+workspace allocation. Report per-block and across-block medians,
+Stage-A-host/Stage-A-device and Stage-B-host/Stage-A-host ratios for each
+arm, plus uncertainty across process blocks. Do not pool lengths, batches,
+or metric definitions. This is a mechanism diagnostic, not a full
+optimization score: retain values outside [0.5,1.5] instead of aborting;
+do not silently relax EXP-104's full-matrix gate. Do not run Stage C or
+change rocFFT kernels/installed libraries. If host-input official bench
+closes the gap, validate that interpretation before defining a revised
+full-matrix protocol; otherwise investigate remaining plan/workspace or
+cache differences.
+
+Use new EXP-105-owned scripts and outputs. No-GPU preflight must validate
+parser/trial contracts, syntax, linkage and pinned hashes, then Slurm
+--test-only. Submit the entire four-task array once, stop immediately, and
+wait for the user to request result inspection. Preparation commit, job
+ID, raw paths, measurements and decision are pending.
+
+## EXP-105 result (job 863229, inspected 2026-09-25)
+
+All four serialized array tasks completed with exit code 0 and empty error
+logs.  The nine preregistered workloads all passed correctness, and all five
+process blocks were retained.  Device generation (-g0), host generation (-g1)
+and custom host-copy produced the same optimization direction, but different
+absolute execute times.  For 16 MiB inputs, official host/device medians were
+roughly 1.18--1.35 depending on workload and library, and custom host/device
+medians were roughly 1.22--1.38.  The custom and official host paths were
+usually much closer to one another than either was to the device path.
+
+The exact 128K batch8 inverse EXP-104 guard case gave stable official
+host/device 1.292124 (95% block-bootstrap interval 1.242014--1.420363) and
+custom-host/device 1.366466 (1.333011--1.462702).  The exact 256K batch4
+forward case gave 1.302804 (1.283210--1.418207) and 1.377570
+(1.304228--1.449806).  Thus EXP-104's 1.508755 and 1.518241 crossings were not
+reproduced.  The supported conclusion is a systematic pre-execute-state effect
+plus residual process variation; cache is plausible but not uniquely proven.
+This diagnostic does not select -g0 or -g1 as universally representative and
+does not replace the historical canonical metric.  Raw data are under
+results/exp105_input_restore_863229/ and logs under
+logs/exp105_input_restore_863229_*.{out,err}.  Preparation commit was
+7670f67a1579df9205f92a95e6c518b23bf98515.
+
+## EXP-106 (pre-registered 2026-09-25): qualify a fixed batch-1 streaming protocol
+
+EXP-106 is measurement-only on branch exp-106-ring-qualification.  It keeps
+the original EXP-096 library SHA256
+3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5 and
+the EXP-095 stable library SHA256
+bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539.
+No rocFFT kernel, planner, installed image or historical metric is changed.
+
+The candidate canonical workload is 1D double-complex forward, out-of-place,
+packed, semantic batch=1, one default stream, at 64K/128K/256K/512K.  Every
+timed process dynamically loads exactly one pinned rocFFT image, creates one
+plan and explicit workspace, and preloads deterministic independent input and
+output rings.  BW reported 8 MiB L2 in EXP-092; require at least 32 MiB of
+input ring, giving 32/16/8/4 slots respectively, plus an independent equal-size
+output ring.  Baseline and stable use identical seeds and slot order.
+
+Correctness, input upload, plan creation and one full-ring warm-up occur before
+timing.  Calibration doubles a common K from one ring traversal until both
+arms' event intervals are at least 10 ms; K must remain an integer multiple of
+slots.  A retained HIP-event interval contains only K rocfft_execute calls
+rotating through the ring.  Report total/K as batch-1 streaming steady-state
+GPU execute time.  It is not one-shot latency and does not include planning,
+allocation, host transfer or correctness.
+
+Use two independent replicas per length (array 0-7%1, one DCU, serialized).
+Each replica has ten adjacent independent-process pairs, exactly five AB and
+five BA in randomized order.  Each process retains ten >=10 ms event windows.
+Do not treat windows within a process as independent pair samples: form one
+process median and one baseline/stable ratio per pair, then bootstrap the ten
+pair ratios.  A replica passes only if every process CV <=1% and the paired
+speedup 95% interval relative half-width <=1%.  A length passes only if both
+replicas pass and their median speedups differ by <=1%.  All four lengths must
+pass for the protocol to qualify.  Retain all observations; a failure is a
+protocol qualification failure, not permission to delete outliers or extend
+after seeing results.
+
+Owned files are work/exp106/exp106_ring_bench.cpp,
+exp106_orchestrate.py, exp106_analyze.py, exp106_contract_test.py,
+exp106_preflight.sh and exp106.slurm.  Before submission, 12 no-GPU contract
+tests, Python/Bash syntax, C++ compile/link, single-image loader check, pinned
+hash checks, file transfer hashes and Slurm --test-only must pass.  Submit the
+complete serialized array once, then stop and wait for result inspection.
+Preparation commit, job ID and decision are pending.
+## EXP-107 (pre-registered 2026-09-26): select a stable batch-1 streaming window target
+
+EXP-107 is a measurement-only qualification on branch exp-107-window-stability,
+starting from 7bd29db8a7d29b47eefc938ca35828861aab039d. Reuse the EXP-106 ring
+client and process runner; do not change rocFFT source or either installed image.
+Pin the EXP-096 baseline SHA256
+3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5 and the
+EXP-095 stable SHA256
+bf2fc1555ac04208fc8e966db0d36aa96f077b6342c0c3f039cd7d3338ad5539.
+
+The only workload is 1D double-complex forward, out-of-place, semantic batch=1,
+length 524288, default stream, explicit workspace. Four 8 MiB slots form equal
+32 MiB input and output rings. Baseline and stable run in separate processes
+with the same deterministic seed within each adjacent pair. Correctness must
+pass for both library images before that replica's calibration or timing.
+
+Test minimum HIP-event window targets of 10, 20, and 50 ms. For each target and
+each of two independent replicas, use ten adjacent independent-process pairs,
+exactly five baseline/stable (AB) and five stable/baseline (BA) in randomized
+order. Each process retains exactly ten event windows. Calibrate one common K
+for both arms by doubling from one four-slot traversal until both calibration
+windows reach that target; K must remain a multiple of four. Each retained
+window consists only of K rotating-ring rocfft_execute calls. Every retained
+window in both arms must meet its target.
+
+For each process, take the median of its ten per-execute window times. Form one
+baseline/stable speedup per adjacent process pair; do not treat windows as
+independent pairs. Per replica, bootstrap the ten pair speedups with 20,000
+paired resamples and percentile 95% interval. Require relative CI half-width
+((upper-lower)/2)/median <= 1%. Require the two replica median speedups at a
+target to differ by <= 1%, using the symmetric relative difference
+abs(a-b)/((a+b)/2). The prior per-process CV <= 1% rule is diagnostic only:
+report CV for every process, but do not gate qualification on CV.
+
+A target is individually eligible only if both replicas pass correctness,
+metadata, K/slot, process isolation, every-window duration and paired-CI gates,
+and the replica speedup agreement gate. Define its combined speedup as the
+median of all 20 process-pair speedups across its two replicas. Among eligible
+targets, select the shortest target only if its combined speedup differs by at
+most 1% from every longer eligible target's combined speedup, using the same
+symmetric relative-difference formula. If this drift gate fails, select no
+target. Retain every observation; do not delete outliers, extend collection
+after seeing results, or change thresholds.
+
+The serialized Slurm array has six tasks (target x replica, concurrency 1).
+Raw outputs are under results/exp107_window_stability_<jobid>/ and task logs
+under logs/exp107_window_<jobid>_<arrayid>.{out,err}. The no-GPU preflight,
+six contract tests, syntax, C++ compile/link, pinned hashes and Slurm --test-only
+must pass before one complete array submission. After submission, stop without
+inspecting queue state or results. Preparation commit and job ID are pending.
+
+## EXP-108 (pre-registered 2026-09-27): final fixed-protocol qualification
+
+EXP-108 is measurement-only on branch `exp-108-final-protocol`, starting from
+EXP-107 preparation commit `8e887cd6fc39d49401ad585de5406bbf7e2fabab`.
+It changes no rocFFT planner, kernel, installed image or historical metric.  It
+pins the same EXP-096 baseline and EXP-095 stable librocfft SHA256 values used
+by EXP-106/107.
+
+The workload is 1D double-complex forward, out-of-place, packed, semantic
+batch=1 at lengths 65536/131072/262144/524288.  Each single-library process
+uses one explicit non-default HIP stream; rocFFT execution info and both timing
+events are bound to that same stream.  Workspace is explicit.  Independent
+input and output rings are each at least 32 MiB, with different deterministic
+input per slot.  This is a specified rotating working set, not a cold-cache or
+complete non-residency claim.  Correctness evaluates every slot against a
+scaled two-sparse-tone analytic oracle.  Upload, planning, correctness,
+whole-ring warm-up, calibration and device conditioning remain outside retained
+timing.
+
+For every retained window, save both HIP-event total/K and CPU steady-clock
+wall total/K.  The primary metric name is exactly `single-stream K-execute GPU
+event interval / K`; CPU wall time is diagnostic.  Test 10, 20 and 50 ms event
+targets for every length.  K is a slot-count multiple, shared by both arms in a
+condition and fixed after calibration; all retained event intervals must meet
+their target.  Every process retains ten windows and all observations remain in
+the record; CV is diagnostic and no outlier may be deleted.
+
+Each target/length has three replicas and every replica has 20 adjacent
+independent-process pairs, with ten randomized AB and ten BA orders.  A process
+contributes its ten-window median; a pair contributes baseline/stable process
+medians.  The primary estimate is the median of 20 pair ratios.  Compute a
+fixed-seed 20,000-draw percentile bootstrap 95% interval by resampling complete
+pairs.  The 20 real pairs, not bootstrap draws, are the independent sample size.
+Measurement qualification requires all correctness, metadata, stream,
+workspace, library, K/window and device-state contracts; CI relative half-width
+at most 1%; and first-ten versus last-ten pair-ratio median symmetric relative
+difference at most 1%.  Effect is separate: lower CI >1 is optimization, upper
+CI <1 is regression, otherwise inconclusive.  The three replica estimates must
+have maximum pairwise symmetric relative difference at most 1%.
+
+`rocm-smi` is required at job start and around every child process, outside the
+event interval.  Record identity, edge temperature, sclk/mclk, utilization and
+KFD compute PIDs.  Telemetry command failure or missing required fields, device
+identity change, any competing compute PID, temperature outside 50--60 C, or a
+different available idle sclk/mclk state before versus after a retained process
+invalidates it.  The 50--60 C band is the documented ROCm primbench default;
+conditioning uses unretained calibration work for at most 60 seconds.  Idle SMI
+clocks do not prove active kernel clock and are reported with that limitation.
+
+A target is globally eligible only when all four lengths and all three replicas
+qualify.  Select the shortest eligible target only when, separately for every
+length, its combined 60-pair median speedup differs by at most 1% from each
+longer eligible target.  Effect is reported per length without claiming a
+simultaneous project-wide 95% family interval.  Scope is this GPU/software,
+specified working set and batch-1 steady-state throughput; it excludes one-shot
+latency, plan creation, transfers, in-place, batch>1, other GPUs, cross-date and
+cross-machine reproducibility.
+
+The cluster QOS rejects arrays with more than ten elements even at `%1`.
+Therefore the full 36-condition matrix is encoded as nine serialized array
+allocations (`0-8%1`): target x replica.  Each allocation runs all four lengths
+in a preregistered counterbalanced order, with separate correctness, calibration,
+20-pair process sequence, telemetry and raw record for every length.  Thus the
+three replicas for each target/length remain three different Slurm allocations.
+Preflight must pass 13 no-GPU contract tests, syntax, compile/link, single-image
+loader, hashes and Slurm `--test-only`.  Submit once and do not inspect state or
+results until requested.  Preparation commit, job ID and result are pending.
+
+## EXP-109 (pre-registered 2026-09-27): KFD PID-to-current-GPU attribution repair
+
+EXP-108 job 865241 completed its nine serialized allocations and its statistical
+summary selected 10 ms, but manual evidence review invalidated the device-state
+qualification.  The installed `rocm-smi` prints legacy blocks beginning with
+`PIDs for KFD processes:`, followed by `PID:` and `GPUID:` lines.  EXP-108's
+case-sensitive/table-oriented parser did not recognize that form and returned
+an empty PID set for all snapshots, so `no_competing_compute_process` could
+false-pass.  EXP-108 timing data remain diagnostic but are not the final
+qualification result.
+
+EXP-109 changes measurement infrastructure only.  The HIP client records the
+current device PCI BDF.  The orchestrator reads KFD topology nodes, maps that
+BDF to exactly one KFD `gpu_id`, parses every legacy PID/GPUID block, and counts
+as a competitor only a PID whose GPUID list contains the current device's
+`gpu_id`.  PIDs mapped to another topology GPU are not competitors.  Missing
+GPUIDs, unknown GPUIDs, incomplete parsing, zero/multiple BDF mappings, topology
+change, or a PID on the current GPU are hard failures; none may default to no
+competition.  Raw SMI output, parsed PID-to-GPUID records, topology, selected
+current GPU and attribution result are retained.
+
+The workload, libraries, hashes, explicit stream, ring, all-slot correctness,
+10/20/50 ms targets, four lengths, 20 balanced pairs, ten windows, three
+replicas, CPU-wall diagnostic, CI/effect/drift gates and global window-selection
+rules are unchanged from EXP-108.  The same nine-task `0-8%1` matrix will be
+rerun.  Seventeen no-GPU contract tests include the real legacy output shape,
+missing/unknown GPUIDs and ambiguous PCI mappings.  Preparation commit
+`b3701298` passed the no-GPU contracts, compile/link and Slurm test-only checks.
+
+### EXP-109 result: infrastructure failure, no performance result
+
+Job 865775 was inspected at the user's request.  All nine array allocations
+failed with exit 1 after approximately one second, before correctness or FFT
+timing.  The traceback is `PermissionError: [Errno 1] Operation not permitted`
+while reading a KFD topology node's `gpu_id`.  This is not evidence of a
+numerical, performance or statistical failure.  A complete-matrix retry is
+not justified until current-device PID attribution is known to be accessible.
+
+## EXP-110 (pre-registered 2026-09-27): device attribution interface diagnostic
+
+This diagnostic starts from EXP-109 preparation commit `b3701298` and changes
+no rocFFT source, installed library, benchmark estimator or acceptance gate.
+Use one five-minute, one-DCU allocation, not an array.  No FFT or performance
+measurement is run.  A HIP metadata probe enumerates visible device PCI BDFs
+and creates a 4096-byte allocation on visible device zero, holding its known
+PID live while read-only device/process metadata are collected.  Release it
+after collection.  It is the only deliberately introduced GPU process.
+
+Collect visibility/allocation environment fields, `rocm-smi --help`, supported
+bus/unique-ID/device-ID/process/PID-to-GPU commands, and before/during/after
+process snapshots.  Read each KFD node's `gpu_id` and `properties` separately;
+preserve permission failures per file instead of aborting on the first node.
+Also collect DRM card/render-device PCI identity metadata where accessible.
+Every invoked command retains arguments, status, stdout and stderr, with a
+ten-second timeout.  Unsupported commands and failed reads remain explicit
+evidence; they must never imply an empty PID set or qualified isolation.
+
+The purpose is to identify an accessible, unambiguous link from the actual
+HIP PCI device to the GPUID used in process records and verify that the known
+probe PID appears on that device.  Mapping/permission evidence will determine
+the next repair; this diagnostic itself grants no qualification.  No privilege
+escalation, permission changes or arbitrary process inspection is attempted.
+Record sources under `work/exp110`, raw diagnostic JSON under
+`results/exp110_device_attribution_<jobid>`, and logs under
+`logs/exp110_attribution_<jobid>.{out,err}`.  Before submission check Python and
+shell syntax, compile/link the probe, verify targeted file changes and Slurm
+test-only.  Submit once, then stop until the user requests results.
+
+### EXP-110 result: current-device attribution is readable, foreign topology is restricted
+
+Job 865828 on `f09r1n01` completed its one-allocation diagnostic in about one
+second.  The HIP probe reported device 0 at PCI BDF `0000:55:00.0`.  `rocm-smi --showbus`
+reported the same BDF.  The readable KFD node 10 had `gpu_id` 20902,
+`location_id` 21760 (`0x5500`), domain 0 and DRM render minor 130, uniquely
+matching that HIP/SMI device.  The known probe PID 3770378 appeared while the
+probe was live with `GPUID ['20902']`, HCU node 10 and index 0, then disappeared
+after release.
+
+Seven other KFD GPU nodes denied reads of `gpu_id` or `properties` with
+`EPERM`.  Five other listed PIDs had complete GPUID values different from
+20902, while their `PCI BUS` fields were `None`.  Thus the current allocation's
+device mapping and current-device process membership can be checked without
+reading every GPU node.  The foreign PIDs are not mapped to PCI devices by
+this evidence; their devices are neither claimed known nor claimed absent.
+No permission or privilege changes were made.
+
+EXP-109 job 865775 remains an infrastructure failure: all nine tasks stopped
+before FFT work on the denied KFD-node read.  Code review also found that the
+EXP-109 wrapper indexed `pci_bus_id` in the dictionary returned by the shared
+EXP-106 measurement helper, although that helper omits that field.  EXP-111
+reads and validates PCI identity from each client's `META` record before
+applying telemetry state.
+
+## EXP-111 (pre-registered 2026-09-27): partial-topology attribution repair and small GPU smoke
+
+EXP-111 adds new orchestration, smoke and contract files under `work/exp111`;
+it reuses the EXP-109 client and analyzer and the EXP-106 measurement helper.
+It changes no FFT C++ source, installed library, workload definition or final
+qualification rule.  KFD permission denials are retained per node and file;
+only `EPERM`/`EACCES` for an individual node are skippable.  Root enumeration,
+malformed readable metadata, duplicate IDs and a missing or ambiguous mapping
+for the current HIP BDF remain hard failures.  The current BDF must also match
+one unique `rocm-smi --showbus` identity before and after each process.
+
+Every KFD PID must have a complete nonempty list of positive decimal GPUIDs.
+A PID is a current-device competitor exactly when that list contains the
+uniquely resolved current HIP device `gpu_id`; this includes multi-GPU lists.
+Other reported GPUIDs are diagnostic.  EXP-111 does not require access to
+foreign topology or infer the PCI identity of a foreign PID.  Raw process and
+SMI output, parser errors, readable topology, and denied-node details are
+retained.
+
+One 15-minute single-DCU allocation first holds the HIP probe PID and verifies
+that its GPUID matches the HIP BDF mapping, that the isolation gate rejects
+that known PID, and that the PID disappears after release.  Probe checks test
+attribution only; they do not claim a temperature pass.  The same allocation
+then checks all ring slots for both pinned libraries at N=65536, 131072,
+262144 and 524288.  At N=524288 only, it chooses common K for a 10 ms target
+and runs one adjacent baseline/stable pair with ten windows per process.
+Retain the existing 50–60 C temperature and stable idle-clock gates and require
+every timed window to be at least 10 ms.  Record GPU-event/K and CPU-wall/K;
+the single pair is a plumbing smoke and makes no speedup, precision, or
+qualification claim.  Do not invoke the 36-condition matrix or promote a
+median ratio from this run.
+
+No-GPU contracts cover permission-denied foreign nodes, strict PID/GPUID
+parsing, current-device membership, bus identity, topology changes, retained
+temperature/clock gates and PCI propagation from `META`.  Result output is
+under `results/exp111_attribution_smoke_<jobid>`, logs under
+`logs/exp111_attribution_smoke_<jobid>.{out,err}`, and sources under
+`work/exp111`.  The preparation commit, Slurm job ID and smoke result are
+pending.  Submit once, then stop until the user requests results.
+
+### EXP-111 result: smoke passed, no statistical qualification claimed
+
+Preparation commit `65a1b63ebabdc970ef07ce6a52cb7f3f2a371291`, branch
+`exp-111-partial-topology-smoke`, job 865996 on f09r1n06 completed with exit 0
+in 53 seconds.  Raw record: `results/exp111_attribution_smoke_865996/exp111_smoke_summary.json`;
+logs: `logs/exp111_attribution_smoke_865996.{out,err}`.  Known PID 2350973 was
+mapped to PCI 0000:85:00.0 / KFD node 12 / GPUID 60191 and correctly rejected
+while alive; it was absent before and after, and ordinary isolation passed.
+Seven denied foreign nodes remained diagnostic.  All 32/16/8/4 ring slots at
+64K/128K/256K/512K passed for both pinned libraries (eight checks).
+The single 512K AB pair used common K=256 and ten windows per arm, all >=10 ms.
+Baseline/stable event/K medians were 90.81746265295/56.9661818445 us; within-process
+CV was 0.08916617%/0.54000368%.  Before/after telemetry showed temperatures
+52--53 C, sclk 1500 MHz and mclk 1800 MHz, with no current-device competitor.
+These are diagnostic times, not a retained speedup or a stability qualification.
+The next step is the complete preregistered matrix, not a changed estimator.
+
+## EXP-112 (pre-registered 2026-09-27): full qualification with validated attribution
+
+Start from EXP-111 commit 65a1b63ebabdc970ef07ce6a52cb7f3f2a371291.  Add only
+packaging under `work/exp112`, reusing the unchanged EXP-111 pipeline, EXP-109
+client/analyzer and EXP-106 base.  No rocFFT source, installed library, FFT
+workload, acceptance threshold or statistical estimator is changed.  Record
+the actual client source/binary and infrastructure hashes in each allocation
+and result, keeping legacy base provenance explicitly separate.
+
+The matrix remains DP complex forward, OOP, packed, semantic batch 1, explicit
+single non-default stream/workspace, separate >=32 MiB rings, and all-slot
+correctness at N=65536/131072/262144/524288.  Targets 10/20/50 ms each have three
+independent allocations, 20 balanced randomized adjacent AB/BA process pairs
+per length and ten windows per process; K is common to the arms and a slot
+multiple.  Retain complete-pair 20000-draw percentile bootstrap, CI relative
+half-width <=1%, first/last ten-pair median drift <=1%, all three replica
+pairwise agreement <=1%, and <=1% comparison against longer eligible targets.
+Effect classification remains separate, CV remains diagnostic, and no outlier
+may be removed.  Temperature 50--60 C, stable available idle clocks and strict
+current-device identity/process gates remain mandatory.
+
+Submit one nine-task array `0-8%1` (target x replica), with the same three
+counterbalanced length orders.  Each allocation first repeats only the known-PID
+attribution probe, then runs its four complete length conditions.  This probe
+is outside retained timing and grants no statistical qualification.  Use the
+unchanged analyzer with explicit output `exp112_final_protocol_summary.json`.
+Raw root: `results/exp112_final_protocol_<jobid>`; logs:
+`logs/exp112_final_<jobid>_<arrayid>.{out,err}`.  Preflight checks all 18 EXP-111
+contracts, two no-GPU matrix-packaging contracts, Python/shell syntax, pinned
+libraries/client, loader dependencies, documentation synchronization and Slurm
+test-only.  All nine tasks are submitted once; stop without checking queue or
+results until requested.  Preparation commit, job ID and result are pending.
+
+## EXP-112 inspection and paused EXP-113 (2026-09-27)
+
+EXP112 preparation a1ea2eefb64b3515e77b1fea42e5afd8d37d3145, job866037:
+eight tasks failed and one completed; only five of 36 condition-replicas
+completed, so qualification is INCOMPLETE with no selected target window.
+PID4029659 temporarily had blank GPUID; later it reported foreign GPUID45786
+versus current60191. Unknown attribution conservatively invalidated samples;
+later foreign attribution does not retroactively prove earlier isolation.
+Completed groups passed their local CI/drift gates, not full reproducibility.
+The user paused EXP113 readiness work before any GPU job was submitted.
+
+## EXP-114 pre-registration: unmodified official dyna benchmark diagnostic
+
+New user-authorized measurement-only lane on exp-114-official-dyna-diagnostic,
+starting at a1ea2eefb64b3515e77b1fea42e5afd8d37d3145. Pinned EXP096 baseline
+and EXP095 stable libraries remain unchanged. Full design and limitations:
+work/exp114/exp114_record.md. DP forward OOP packed batch1 at64K/128K/256K/512K,
+host PRNG -g1, 100 single-execute event samples per library, sequence0/1
+separately, five independent process blocks:40 dyna calls plus8 ordinary
+rocfft-bench reference calls. Eight existing all-slot correctness checks gate
+timing. Raw temperatures/clocks/attribution retained; unknown attribution is
+diagnostic-invalid, confirmed current-card competition blocks timing. No
+profiling, long-window samples, outlier removal, qualification or promotion.
+One30minute GPU allocation, raw results/exp114_dyna_<jobid>, logs/exp114_dyna
+
+## EXP-119 pre-registration (2026-09-28): LDS-aware block-compute helper (Stage 1)
+
+Starting stable commit: `d5924f87207a6393cf818971211dd26d2c6cfd26` on
+`rocfft-opt-pre-tile-lifetime` (tag
+`stable-exp095-sbrc128k-only-20260923`). The isolated implementation branch
+is `exp-119-lds-aware-block-planner`, created from that commit. The
+pre-registration is made before any source edit.
+
+Documentation audit: the exp-114 worktree contains raw EXP-115, EXP-116,
+EXP-117, and EXP-118 result/log directories, but neither the repository nor
+top-level `VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md` contains tracked records
+for those identifiers, and no EXP-115--118 branches or commits were found.
+Those results are not reconstructed or interpreted here. This record therefore
+preserves the audit outcome without inventing missing experiment results.
+
+Scope is Stage 1 only: refactor the TODO in
+`projects/rocfft/library/src/node_factory.cpp` into a private
+LDS-aware block-compute selection helper, with any declaration kept private to
+the existing NodeFactory implementation/header as required by local style.
+For half/single use the single-length map and for double use the double-length
+map; require a map entry, exact factorization, an available SBCC kernel, and
+an available SBRC kernel for the complementary length. The existing function
+pool LDS filter remains authoritative. Preserve the gfx906 262144 CRT
+exception, all fallback semantics, public API/ABI, maps, and kernel configs.
+
+This Stage 1 change is explicitly behavior-preserving. It must not add a
+1048576 map entry, add SBRC-1024 or any other kernel configuration, or change
+the 1024K TRTRT/fused three-kernel plan. Therefore Stage 1 cannot optimize
+1024K by itself; any 1024K two-kernel experiment is out of scope and requires
+a separate pre-registered stage.
+
+Validation plan: build `rocfft-rtc-gen` first and then rocFFT in an isolated
+build root; compare before/after scheme, factorization, and RTC/kernel
+sequence for DP z2z 64K, 128K, 256K, 512K, and 1024K; verify insufficient-LDS
+function-pool rejection before leaf grid setup when an existing non-invasive
+path permits it; run proportionate correctness checks; preserve all raw logs
+and results under EXP-119 names. Record exact commands, build/test outcomes,
+plan comparisons, failures, and unverified items before finalizing this
+record.
+
+### EXP-119 Stage 1 validation (2026-09-28): behavior-preserving comparison passed
+
+The isolated candidate worktree is
+`/public/home/zhangkewei/zr/exp-119-lds-aware-block-planner` on branch
+`exp-119-lds-aware-block-planner`. The clean refreshed build root is
+`/public/home/zhangkewei/zr/build/exp119_stage1_clean`, with install root
+`/public/home/zhangkewei/zr/exp119-stage1-install-clean`.
+
+The first fresh CMake configure attempt was blocked by the host HIP package's
+missing `/opt/rocm/hip/lib/libgalaxyhip.so...` imported target (after the
+available HIP, AMDDeviceLibs, and amd_comgr package paths were supplied). No
+source or existing build tree was changed by that failed configure. Validation
+then used an isolated copy of the configured EXP-095 build metadata, corrected
+all generated paths inside that new root, cleaned it, and refreshed all objects.
+The successful build sequence was:
+
+```
+cmake --build /public/home/zhangkewei/zr/build/exp119_stage1_clean \
+  --target rocfft-rtc-gen/fast -- -j8
+cmake --build /public/home/zhangkewei/zr/build/exp119_stage1_clean \
+  --target rocfft/fast -- -j8
+cmake --build /public/home/zhangkewei/zr/build/exp119_stage1_clean \
+  --target rocfft-bench/fast -- -j8
+cmake --build /public/home/zhangkewei/zr/build/exp119_stage1_clean \
+  --target install/fast -- -j8
+```
+
+The copied build graph required explicit prerequisite targets while being
+refreshed (`rocfft-rtc-cache`, `rocfft-rtc-compile`, `rocfft-rtc-subprocess`,
+`rocfft-rtc-common`, `generator`, `stockham_gen`, `rocfft-function-pool`,
+`rocfft-rtc-launch`, `rocfft-solution-map`, `rocfft-tuning-helper`,
+`rocfft_rtc_helper`, and `dyna-rocfft-bench`). Those were built only inside
+the new EXP-119 root. Build and install logs are retained under `logs/` with
+`exp119_clean_` names. The build completed with existing upstream warnings and
+no compile/link errors.
+
+GPU plan comparison job 868887 (`f09r1n01`) ran DP complex forward, out of
+place, batch 1 for both the pinned stable install and the clean candidate at
+64K, 128K, 256K, 512K, and 1024K. All ten runs returned status 0. After
+normalizing only runtime user-buffer addresses, each stable/candidate plan log
+was byte-identical; raw differences were only those addresses. The 64K through
+512K plans used `CS_L1D_CC` with `CS_KERNEL_STOCKHAM_BLOCK_CC` and
+`CS_KERNEL_STOCKHAM_BLOCK_RC`; the 1024K plan remained
+`CS_L1D_TRTRT` with stockham/transpose/stockham. Raw plans, bench logs, status,
+and the comparison summary are retained in
+`results/exp119_plan_compare_clean_868887/summary.txt`.
+
+An earlier partial object reuse in `build/exp119_stage1_buildreuse` produced
+candidate bench segfaults; those logs/results are retained and are not treated
+as a source failure. The clean all-object refresh above removed that stale
+generated-object condition and passed all ten GPU runs.
+
+No direct non-invasive test seam was available for observing the
+insufficient-LDS rejection immediately before leaf-grid setup, and no gtest
+target was configured in this build. The existing `function_pool` SBCC/SBRC
+LDS filters remain the helper's gate; plan comparison and successful runtime
+execution are the available Stage-1 evidence. Dedicated numerical reference
+correctness was not run by `rocfft-bench` and is therefore unverified here.
+No map, kernel configuration, public API/ABI, or Stage-2 change was made.

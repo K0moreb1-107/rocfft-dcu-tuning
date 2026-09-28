@@ -312,6 +312,35 @@ bool NodeFactory::CheckLarge1DMaps(const function_pool& pool)
     return singleValid && doubleValid;
 }
 
+bool NodeFactory::Get1DBlockComputeDivisor(const function_pool& pool,
+                                           rocfft_precision     precision,
+                                           size_t               length,
+                                           size_t&              divLength1)
+{
+    const Map1DLength* map1DLength = nullptr;
+    if(precision == rocfft_precision_single || precision == rocfft_precision_half)
+        map1DLength = &NodeFactory::map1DLengthSingle;
+    else if(precision == rocfft_precision_double)
+        map1DLength = &NodeFactory::map1DLengthDouble;
+    else
+        return false;
+
+    const auto it = map1DLength->find(length);
+    if(it == map1DLength->end())
+        return false;
+
+    const auto candidate = it->second;
+    if(candidate == 0 || length % candidate != 0)
+        return false;
+
+    if(!pool.has_SBCC_kernel(candidate, precision)
+       || !pool.has_SBRC_kernel(length / candidate, precision))
+        return false;
+
+    divLength1 = candidate;
+    return true;
+}
+
 // Checks whether the non-pow2 length input is supported for a Bluestein compute scheme
 bool NodeFactory::NonPow2LengthSupported(const function_pool& pool,
                                          rocfft_precision     precision,
@@ -655,34 +684,9 @@ ComputeScheme
 
     if(IsPo2(nodeData.length[0])) // multiple kernels involving transpose
     {
-        // TODO: wrap the below into a function and check with LDS size
-        size_t block_threshold = 524288;
-        if(nodeData.length[0] <= block_threshold)
+        if(Get1DBlockComputeDivisor(
+               pool, nodeData.precision, nodeData.length[0], divLength1))
         {
-            // Enable block compute under these conditions
-            if(nodeData.precision == rocfft_precision_single
-               || nodeData.precision == rocfft_precision_half)
-            {
-                if(map1DLengthSingle.find(nodeData.length[0]) != map1DLengthSingle.end())
-                {
-                    divLength1 = map1DLengthSingle.at(nodeData.length[0]);
-                }
-                else
-                {
-                    failed = true;
-                }
-            }
-            else
-            {
-                if(map1DLengthDouble.find(nodeData.length[0]) != map1DLengthDouble.end())
-                {
-                    divLength1 = map1DLengthDouble.at(nodeData.length[0]);
-                }
-                else
-                {
-                    failed = true;
-                }
-            }
             // for gfx906, 512 CC/RC isn't as fast, so use CRT
             // with a nicer length
             if((is_device_gcn_arch(nodeData.deviceProp, "gfx906")) && nodeData.length[0] == 262144)
