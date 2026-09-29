@@ -177,9 +177,9 @@ Keep one stable branch containing only validated retained optimizations. Start e
 ## Current valid version
 
 Stable branch: rocfft-opt-pre-tile-lifetime
-Validated source commit: 88b0322ecc623a2c9898ad740aa83e1d0f2e4b5b
-Validated record commit: dd1bc7a8c545c7fcb1d3e088731740ee3f9fd1d4
-Valid tag: stable-exp095-sbrc128k-only-20260923
+Validated source commit: ed06208f30706f63126078a5c51af07fa0439fe7
+Validated record commit: f5dc0ce6e0a759e4cbcdd60e02e14725f78f7cb1
+Valid tag: stable-exp122-sbrc1024-20260929
 
 ## Agent Delegation and Token-Efficiency Policy
 
