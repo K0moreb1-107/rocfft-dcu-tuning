@@ -4175,3 +4175,93 @@ consistent control regression above 1%. Otherwise record rejection and leave
 stable unchanged. Do not merge or start a later stage. EXP-115--118 remain
 unfabricated, and EXP-120/121 source experiments are not carried into this
 branch.
+
+## EXP-122 result (2026-09-29): retained SBRC-1024 two-kernel 1024K plan
+
+The retained source change is commit
+`ed06208f30706f63126078a5c51af07fa0439fe7` on branch
+`exp-122-simple-sbrc1024`, based on the reviewed EXP-119 planner commits
+`7d3bbc3580fd9cda06fc4f8fa387839e408de1d3` and
+`ed9343e510bf4b9f199fa748609311b879f65c3e`. It adds only
+`map1DLengthDouble[1048576] = 1024` and the ordinary runtime-compiled
+SBRC-1024 configuration with factors `[8,8,4,4]`. There is no public API or
+ABI change and no callback/metadata/generator semantic change.
+
+The requested configuration line contains `WGS=512`, `TPT=128`, but the
+existing ordinary Stockham generator applies its 32-KiB DP occupancy limit
+and derives the actual SBRC kernel as `WGS=256`, `TPT=128`, two transforms per
+block, with 32768 bytes of launch LDS. This is the tested and retained kernel;
+the configuration comment was corrected to describe the generated result.
+The matching SBCC-1024 uses four transforms per block. Diagnostic job
+`870956` proved `mapEntryFound=1`, `hasSBCC=1`, `hasSBRC=1`, and
+`maxLDS=65536`; the resulting 1048576 plan is exactly
+`CS_L1D_CC -> CS_KERNEL_STOCKHAM_BLOCK_CC +
+CS_KERNEL_STOCKHAM_BLOCK_RC`. Earlier TRTRT observations were caused by
+loading the wrong installed library, not by planner rejection.
+
+Build job `870840` completed successfully and installed candidate A at
+`/public/home/zhangkewei/zr/exp122-A-install`. Correctness job `871126`
+explicitly loaded candidate library SHA256
+`1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe`
+and passed all 40 DP z2z cases:
+
+- lengths 65536, 131072, 262144, 524288, and 1048576;
+- forward and inverse;
+- in-place and out-of-place;
+- batch 1 and batch 3.
+
+The maximum relative L2 error was `7.133677e-16`, the maximum relative-max
+error was `1.249925e-15`, and the maximum absolute error was `5.823608e-12`.
+The correctness JSON is
+`logs/exp122_correctness_retry_871126.json`, SHA256
+`8fc40900e55eedc4f95b122168f5ae3340e37f548c76bfb8ba3ea36694114b63`.
+
+Formal performance job `871397` ran on `f09r1n01` in one allocation. It used
+eight `stable -> candidate -> candidate -> stable` rounds for 1048576, DP
+complex-interleaved z2z, out-of-place, batch 1, `N=10000`, and retained 64
+raw hipprof kernel CSV files including the control lengths. The canonical
+metric is strictly
+
+`(TotalDurationNs from the Total row - TotalDurationNs of
+generate_random_interleaved_data_kernel) / 10001`.
+
+An initial analyzer incorrectly added the per-kernel rows to the already
+aggregated `Total` row and reported `16.657%`; that number is invalid and is
+preserved only as diagnostic history. The corrected analyzer is
+`logs/exp122_perf_formal_analyze_corrected.py`. Its result
+`logs/exp122_perf_formal_retry_871397/paired_corrected.json` has SHA256
+`1fa9f17a1d6caa77afde8f416a89f8a1616016b4220e186663ac3ff305781296`.
+The corrected formal target result is:
+
+| metric | stable | EXP-122 candidate |
+| --- | ---: | ---: |
+| median canonical time | 176.164568 us | 109.942273 us |
+| candidate-faster rounds | - | 8/8 |
+| median improvement | - | 37.451301% |
+
+The eight paired improvements were `37.340197%`, `37.217891%`,
+`37.317642%`, `38.437242%`, `38.046030%`, `38.010485%`, `36.424714%`, and
+`37.562405%`.
+
+The corrected two-round controls from job `871397` showed median changes of
+`+0.519622%` at 64K, `+0.804441%` at 128K, `+0.035845%` at 256K, and a noisy
+`-5.522388%` at 512K. Because stable and candidate 512K plans were identical
+apart from allocation addresses, job `871410` repeated 512K for eight ABBA
+rounds at `N=10000`. Its corrected result had stable/candidate medians of
+`52.365034/52.023568 us`, median improvement `+1.139704%`, and 5/8
+candidate-faster rounds. The individual 512K changes ranged from
+`-10.633906%` to `+6.603189%`, demonstrating measurement variance rather
+than a consistent regression above 1%. The corrected control JSON is
+`logs/exp122_ctrl512_871410/paired_corrected.json`, SHA256
+`6e1cf1632ee71cd6e803d4238194ab4601403abd5b3f48173b0f9b84ad1f389d`.
+
+PMC is not required for the retention decision. Job `871420` failed before
+producing useful evidence and is excluded from all conclusions. The user
+subsequently waived PMC explanation.
+
+EXP-122 therefore passes its preregistered acceptance criteria: correctness
+passes, the target is the exact two-kernel CC plan, 8/8 target rounds are
+faster, median target improvement is well above 2%, and the expanded controls
+do not show a consistent regression above 1%. Decision: retain EXP-119 plus
+EXP-122, fast-forward `rocfft-opt-pre-tile-lifetime`, and tag the resulting
+recorded state `stable-exp122-sbrc1024-20260929`.

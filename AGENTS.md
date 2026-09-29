@@ -180,3 +180,7 @@ Stable branch: rocfft-opt-pre-tile-lifetime
 Validated source commit: 88b0322ecc623a2c9898ad740aa83e1d0f2e4b5b
 Validated record commit: dd1bc7a8c545c7fcb1d3e088731740ee3f9fd1d4
 Valid tag: stable-exp095-sbrc128k-only-20260923
+
+## Agent Delegation and Token-Efficiency Policy
+
+read /public/home/zhangkewei/zr/Info.md
