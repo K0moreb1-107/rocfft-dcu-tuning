@@ -134,6 +134,7 @@ NodeFactory::Map1DLength const NodeFactory::map1DLengthDouble = {
     {131072, 256}, //           CC (256cc + 512rc)
     {262144, 512}, //           CC (512cc + 512rc)
     {524288, 1024}, //          CC (1024cc + 512rc)
+    {1048576, 1024}, //         CC (1024cc + 1024rc)
 
     // ----------------------------------------------------------
     // non-pow2 lengths in (4096, 8192)
