@@ -4265,3 +4265,45 @@ faster, median target improvement is well above 2%, and the expanded controls
 do not show a consistent regression above 1%. Decision: retain EXP-119 plus
 EXP-122, fast-forward `rocfft-opt-pre-tile-lifetime`, and tag the resulting
 recorded state `stable-exp122-sbrc1024-20260929`.
+
+## EXP-123 pre-registration (2026-09-29): cuFFT-format rocFFT comparison harness
+
+Starting stable marker commit:
+`5bc13e58901201b25884b9e602782345bbe7782f` on
+`rocfft-opt-pre-tile-lifetime`; validated rocFFT source commit:
+`ed06208f30706f63126078a5c51af07fa0439fe7`.  The isolated worktree is
+`/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark` and the branch is
+`exp-123-cufft-format-benchmark`.  This record is written before the GPU test.
+
+EXP-123 is a benchmark-harness experiment and does not alter rocFFT library
+source, planner behavior, kernels, public API, or ABI.  It ports the supplied
+CUDA/cuFFT `fft_test_1d` harness to HIP/rocFFT while preserving the command-line
+shape, double precision, out-of-place layouts, batch-1 default, correctness
+tests, unconditional warm-up, three unrecorded timing warm-ups, 50 individually
+HIP-event-timed iterations, row order, units, and 14-column CSV schema.  The
+matrix is exactly lengths 32768, 65536, 131072, 262144, 524288, and 1048576,
+with functions `z2z_1d`, `d2z_1d`, and `z2d_1d`, yielding 18 rows.
+
+The supplied reference CSV has a provenance ambiguity: its external filename
+uses `A100`, while the supplied archive stores byte-identical content under a
+`results_A800` path.  EXP-123 will not infer the NVIDIA device from either
+filename.  Its output filename records the measured AMD architecture
+(`gfx936`), and the Slurm provenance records the actual hostname, library path
+and SHA256, source commit/status, compiler version, device report, and linked
+libraries.
+
+For rocFFT, `plan_ms` covers creation of a ready-to-execute plan: plan
+description, plan, execution info, work-buffer query/allocation, and work-buffer
+binding.  This is the operational counterpart of `cufftPlan1d`, which manages
+its work area internally, but cross-library plan-time differences must still be
+described as API-dependent.  rocFFT requires a separate inverse plan for the
+z2z round-trip check.  It is created only after the recorded forward first
+execution and is excluded from `plan_ms` and steady-state transform timing.
+
+Acceptance for this first run requires successful compilation against the
+retained EXP-122 install, all 18 checks reporting `PASS`, exactly one row per
+requested function/length pair in the prescribed order, the exact reference
+CSV header, and preserved raw CSV/log/provenance files.  Any build, execution,
+schema, matrix, or correctness failure rejects the run; do not publish partial
+rows as a comparison result.  Timing values are descriptive cross-vendor data,
+not evidence that the two libraries use identical planning internals.
