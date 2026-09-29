@@ -4351,3 +4351,26 @@ For each row report A100 `mean_ms`, official-baseline `mean_ms`, retained-latest
 `official_baseline_mean / latest_mean`.  Do not use EXP-119 values for that
 cumulative speedup.  Require all 18 checks plus schema/matrix validation before
 publishing the corrected table.
+
+### EXP-123 paired outlier retest (2026-09-30)
+
+Official-baseline job `871543` and retained-latest job `871496` both completed
+18/18 correctness checks on the same gfx936 UUID.  Three arithmetic-mean rows
+nevertheless reported speedup below one: 128K d2z, 256K z2d, and 512K d2z.
+Each retained-latest row contained a long-tail maximum of 0.340639, 0.277920,
+and 0.360960 ms respectively, roughly 8--11 times its normal minimum.  A
+single 50-event process cannot determine whether those means are measurement
+noise or persistent regressions.
+
+Rerun only these three cases in one pinned gfx936 allocation.  For each case,
+run eight order-balanced ABBA rounds, yielding 16 independent official and 16
+independent latest processes.  Every process keeps the original three warmups,
+50 individually event-timed transforms, batch 1, correctness check, cold RTC
+settings, and CSV schema.  Preserve all 96 process outputs and CSV rows.
+Define each arm's aggregate average as the mean of its 16 `mean_ms` values,
+equivalent to the mean of 800 equally weighted event samples.  Also retain the
+median process mean, minimum event, maximum event, every process mean, and
+`official_mean/latest_mean`.  Do not discard outliers.  Treat a repeatable
+ratio below one as a possible real regression; treat isolated maxima that do
+not persist across paired processes as measurement noise.  No source or stable
+promotion change is part of this diagnostic.
