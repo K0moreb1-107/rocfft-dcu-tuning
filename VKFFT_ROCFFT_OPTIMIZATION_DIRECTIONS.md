@@ -4326,3 +4326,28 @@ speedup over baseline as `baseline_mean / latest_mean`; values above 1 in the
 speedup column favor the retained latest version.  Preserve the baseline CSV,
 stdout, stderr, and provenance.  All 18 correctness checks and schema/matrix
 validation must pass before adding baseline values to the comparison table.
+
+### EXP-123 official-baseline correction (2026-09-29)
+
+The baseline extension above used EXP-119, which is the direct predecessor of
+EXP-122 but already contains the retained 64K--512K optimization history.  It
+is therefore a previous-stable control, not the original rocFFT baseline, and
+cannot measure cumulative 512K speedup.  Preserve job `871530` and its results
+under that corrected interpretation; do not delete or relabel its raw data.
+
+At the user's request, repeat the identical 18-case harness with the original
+official ROCm 7.2.2 installation
+`/public/home/zhangkewei/zr/install-exp096-official`, whose rocFFT source was
+previously verified byte-for-byte against tag commit
+`dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef` and whose library SHA256 is
+`3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5`.
+Keep the same pinned gfx936 node, batch, iteration count, correctness checks,
+cold RTC-cache settings, schema, row order, and driver as jobs `871496` and
+`871530`.
+
+The corrected table must call this official installation `rocFFT baseline`.
+For each row report A100 `mean_ms`, official-baseline `mean_ms`, retained-latest
+`mean_ms`, retained-latest/A100 time ratio, and latest cumulative speedup
+`official_baseline_mean / latest_mean`.  Do not use EXP-119 values for that
+cumulative speedup.  Require all 18 checks plus schema/matrix validation before
+publishing the corrected table.
