@@ -7,6 +7,7 @@
 #SBATCH --mem=30G
 #SBATCH --gres=dcu:1
 #SBATCH --time=02:00:00
+#SBATCH --nodelist=f09r1n01
 #SBATCH --output=/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/exp123_rocfft_csv/logs/exp123_%j.out
 #SBATCH --error=/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/exp123_rocfft_csv/logs/exp123_%j.err
 
