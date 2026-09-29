@@ -4307,3 +4307,22 @@ CSV header, and preserved raw CSV/log/provenance files.  Any build, execution,
 schema, matrix, or correctness failure rejects the run; do not publish partial
 rows as a comparison result.  Timing values are descriptive cross-vendor data,
 not evidence that the two libraries use identical planning internals.
+
+### EXP-123 baseline extension (2026-09-29)
+
+At the user's request, repeat the identical 18-case harness on the rocFFT
+baseline install `/public/home/zhangkewei/zr/exp119-stage1-install-clean`.
+Keep the same pinned gfx936 node `f09r1n01`, batch 1, 50 individually timed
+iterations, correctness threshold, cold RTC-cache settings, CSV schema, row
+order, and driver.  The retained EXP-122 run is Slurm job `871496`, source
+commit `d6c50e6bd9f050410e31818daac832203946666e`, and library SHA256
+`1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe`.
+The baseline library SHA256 is
+`2db62527b0530cd9cb351349f345199dfd7d8a9544cc4e20e24784b78f19488d`.
+
+The requested comparison uses each CSV row's `mean_ms`.  Report
+`latest_mean / A100_mean` and `baseline_mean / A100_mean`, plus latest-version
+speedup over baseline as `baseline_mean / latest_mean`; values above 1 in the
+speedup column favor the retained latest version.  Preserve the baseline CSV,
+stdout, stderr, and provenance.  All 18 correctness checks and schema/matrix
+validation must pass before adding baseline values to the comparison table.
