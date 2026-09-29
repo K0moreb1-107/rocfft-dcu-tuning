@@ -3953,3 +3953,225 @@ top-level copy of this document were compared with `cmp` after the correction;
 they are byte-identical and retain the imported history through EXP-114 plus
 the EXP-119 record. No map, kernel configuration, public API/ABI, or Stage-2
 change was made.
+
+## EXP-120 pre-registration (2026-09-28): SBRC-1024 candidate screening
+
+Starting commit: `ed9343e510bf4b9f199fa748609311b879f65c3e`, the reviewed
+EXP-119 Stage-1 correction on `exp-119-lds-aware-block-planner`. The isolated
+worktree is `/public/home/zhangkewei/zr/exp-120-sbrc1024-cc` and the branch is
+`exp-120-sbrc1024-cc`. This record is written before EXP-120 source edits.
+
+Stage 2 evaluates the first 1048576 double-precision complex-interleaved
+out-of-place block-compute candidate only for the exact 1D z2z gate. The
+candidate adds the double map entry `1048576 -> 1024` and one SBRC-1024 RTC
+configuration using factors `[8,8,4,4]`. All other lengths, precisions,
+placements, array layouts, callbacks, strides, and transforms retain the
+EXP-119 path; in-place 1024K is explicitly a control and must remain TRTRT.
+If `NodeMetaData` cannot express this gate safely at scheme-decision time,
+the experiment stops without widening the planner condition.
+
+The three candidate configurations are evaluated independently, with exactly
+one default FMKey variant in each build:
+
+| candidate | WGS | TPT | block width | DP LDS |
+| --- | ---: | ---: | ---: | ---: |
+| A | 256 | 128 | 2 | 32 KiB |
+| B | 512 | 128 | 4 | 64 KiB |
+| C | 512 | 256 | 2 | 32 KiB |
+
+The EXP-089 static initial-load gate remains unchanged and must be shown to
+accept the new SBRC-1024 kernel. No generator semantic workaround is allowed.
+For every candidate, build `rocfft-rtc-gen` first and then a clean isolated
+rocFFT/bench/install root. Confirm generated metadata, WGS/TPT/block width,
+LDS usage at or below 65536 bytes, and an exact 1024K OOP DP CI plan of
+`SBCC-1024 + SBRC-1024` with no transpose or SBRR fallback.
+
+Before timing, run numerical-reference correctness for 1024K forward/inverse,
+OOP and IP, batch 1 and 3; run 64K/128K/256K/512K correctness/control plans;
+and cover planar, callback, and non-unit-stride controls when existing tools
+permit non-invasive checks. IP must retain the EXP-119 TRTRT plan. Reject a
+candidate immediately on generator, build, resource, plan, or correctness
+failure and preserve its evidence.
+
+For surviving candidates, screen DP z2z OOP batch 1 at 1024K with `-N 10000`
+in the same allocation as the Stage-1 stable install, retaining raw CSV and
+canonical metrics. Select a winner only after comparable screens. Qualify the
+winner with eight interleaved ABBA pairs, retaining every raw process value,
+and use exactly
+`(TotalDurationNs - generate_random_interleaved_data_kernel TotalDurationNs)
+/(10000+1)` once. Run 64K/128K/256K/512K controls under the same conditions
+and collect PMC diagnostics only for the winner.
+
+Acceptance requires all correctness/resource/plan checks, at least 7 of 8
+1024K pairs faster, median canonical improvement of at least 2%, and no
+consistent control regression above 1%. Otherwise record rejection and leave
+the stable branch unchanged. EXP-115--118 remain unaudited/unfabricated;
+EXP-120 must not start Stage 3 or merge into stable.
+
+## EXP-120 outcome (2026-09-28): stopped before source edits
+
+EXP-120 stopped at the explicit gate-audit condition before any source edit,
+candidate configuration, build, install, GPU job, timing run, correctness run,
+or PMC collection. The branch remains at the pre-registration commit
+`19f407ad` on `exp-120-sbrc1024-cc`, based on the reviewed Stage-1 commit
+`ed9343e510bf4b9f199fa748609311b879f65c3e`; the stable branch and stable
+install were not modified.
+
+The exact callback exclusion cannot be represented safely by the current
+`NodeMetaData` at scheme-decision time. `NodeMetaData` carries dimension,
+length, strides, placement, precision, and array types, but no callback
+presence. `BuildSingleDevicePlan` calls `NodeFactory::CreateExplicitNode` and
+`ApplySolution` before it copies plan load/store operations to the root node.
+User callbacks are supplied later through execution-info, converted by
+`DeviceCallbackMap`, and assigned during `TransformPowX`; the plan may also
+precompile callback variants based only on planar array capability. Therefore
+the same 1D double CI OOP 1048576 plan metadata can be used once with runtime
+callbacks and once without them. A metadata-only gate would either allow the
+candidate for callbacks (violating this registration) or conservatively reject
+all candidate-capable CI plans (making the requested candidate unreachable).
+The pre-registered stop rule therefore applies; no condition was widened and
+no workaround was added.
+
+Candidates A, B, and C were not evaluated, so no candidate was selected and
+there are no build, generated-kernel resource, plan, numerical-correctness,
+screening, control, or PMC results to report. The EXP-115--118 audit remains
+unchanged and no results were fabricated. The repository and top-level copies
+of this document were synchronized after this outcome record.
+
+## EXP-121 pre-registration (2026-09-28): callback-aware SBRC-1024
+
+Starting commit: `1642eb6383e0a4615dee46ac3cef4cec8e1f425c`, the EXP-120
+callback-gate blocker record. The isolated worktree is
+`/public/home/zhangkewei/zr/exp-121-sbrc1024-callback-aware` and the branch
+is `exp-121-sbrc1024-callback-aware`. This record is written before source
+edits. EXP-120 remains unchanged and is not rewritten.
+
+This experiment carries internal callback/load-store-operation state from the
+`BuildSingleDevicePlan` optionals into `NodeMetaData` before every root
+scheme decision and recreated root. The gate requires a root 1D node, target
+length 1048576, double precision, C2C complex-interleaved input and output,
+out-of-place placement, fastest input/output strides equal to one, and no
+engaged callback-capable load/store optionals. The state is internal only; no public API or
+ABI field is added. All `BuildSingleDevicePlan` call sites and callback
+assignment paths must be shown to receive these optionals; if a callback can
+bypass them, EXP-121 stops without widening the condition.
+
+Only the double block map entry `1048576 -> 1024` and one SBRC-1024 RTC
+configuration are added in each candidate source state. Other lengths,
+precisions, placements, planar layouts, callback/load-store-op cases,
+non-unit strides, non-root nodes, and in-place 1048576 remain on the EXP-119
+path. The EXP-089 static initial-load gate and generator semantics remain
+unchanged.
+
+Candidates are built independently, with one default FMKey configuration per
+build:
+
+| candidate | WGS | TPT | block width | DP LDS |
+| --- | ---: | ---: | ---: | ---: |
+| A | 256 | 128 | 2 | 32 KiB |
+| B | 512 | 128 | 4 | 64 KiB |
+| C | 512 | 256 | 2 | 32 KiB |
+
+For each candidate, build `rocfft-rtc-gen` first, then clean rocFFT/bench/
+install roots. Confirm generated WGS/TPT/block width/resource metadata, LDS
+at or below 65536 bytes, static initial load, and exact 1024K OOP DP CI plan
+`SBCC-1024 + SBRC-1024` without transpose or SBRR fallback. Run correctness
+before timing: target OOP forward/inverse batch 1/3, IP and callback/
+load-store-op/planar/non-unit-stride fallback controls, and 64K/128K/256K/
+512K controls. Reject immediately on generator, build, resource, plan, or
+correctness failure without semantic workarounds.
+
+For surviving candidates, retain raw same-allocation 1024K DP z2z OOP batch-1
+screens with `-N 10000`. Qualify a winner with eight interleaved ABBA pairs,
+the canonical metric
+`(TotalDurationNs - generate_random_interleaved_data_kernel TotalDurationNs)
+/(10000+1)`, and 64K/128K/256K/512K controls. Collect VMEM/LDS/VALU/
+VGPR/SGPR/occupancy/cache PMC diagnostics only for the winner. Acceptance
+requires all checks, at least 7/8 faster target pairs, median improvement at
+least 2%, and no consistent control regression above 1%; otherwise reject
+and leave stable unmodified. No Stage 3 or merge is allowed, and EXP-115--118
+records remain unaudited/unfabricated.
+
+## EXP-121 callback-path blocker record (2026-09-28)
+
+The callback-path audit stopped this experiment before candidate qualification.
+The initial implementation used `loadOps && loadOps->enabled()` and
+`storeOps && storeOps->enabled()` when populating the internal metadata. That
+is insufficient: `LoadOps::enabled()` is always false and default
+`StoreOps::enabled()` is false, but runtime user callbacks are supplied later
+through `rocfft_execution_info` at `Execute()`.
+
+The source evidence is direct. `callback_map.cpp` constructs the callback map
+from `info->load_cb_fns` and `info->store_cb_fns`; `transform.cpp` calls it at
+execution; and `powX.cpp` assigns those callbacks to the load/store nodes when
+the root plan's `loadOps`/`storeOps` optionals are engaged. The ordinary no-field
+plan path passes the non-optional `plan->desc.loadOps` and `plan->desc.storeOps`
+objects into `BuildSingleDevicePlan`, which therefore receives engaged
+optionals even when the operations are disabled. Consequently, the original
+`.enabled()` gate could admit the 1024K candidate while a user callback was
+still attachable after planning, violating the exact callback exclusion.
+
+Correction commit `2fae589c` uses `optional::has_value()` for the internal
+presence flags, conservatively treating an engaged optional as callback-capable.
+This preserves Stage-1 behavior and prevents the 1024K candidate from being
+selected on the ordinary path; it does not manufacture a safe no-callback
+state. Candidate-A build job `869224` was already running from source commit
+`24474d47` before this correction. `rocfft-rtc-gen` completed, but the clean
+build reached 93% before Slurm reported `OUT_OF_MEMORY` (`0:125`) compiling
+`plan.cpp`; it is not a qualification
+build and no plan, correctness, timing, or PMC result is claimed. Candidates B
+and C were not started. EXP-121 therefore stops under its preregistered rule;
+no source is merged into stable, and no EXP-115--118 result is fabricated.
+
+## EXP-122 pre-registration (2026-09-29): simple SBRC-1024 decomposition
+
+Starting source commit: `ed9343e510bf4b9f199fa748609311b879f65c3e`, the
+reviewed EXP-119 Stage-1 commit. The isolated worktree is
+`/public/home/zhangkewei/zr/exp-122-simple-sbrc1024` and the branch is
+`exp-122-simple-sbrc1024`. The current top-level optimization document,
+including the EXP-120 and EXP-121 history, was synchronized into this repo
+copy before this record; its pre-registration hash was
+`357d0bed3fd700cc172b4d6a926c1a8eb0da653d40f32e15a03ba5cfbeabdca6`.
+
+This is a deliberately simple technical experiment. It adds only the double
+map decomposition `1048576 -> 1024` (ordinary `CC`: `1024cc + 1024rc`) and
+registers ordinary SBRC-1024 with factors `[8,8,4,4]`,
+`CS_KERNEL_STOCKHAM_BLOCK_RC`, and `runtime_compile=True`. It does not change
+`NodeMetaData`, callback handling, planner API/ABI, stockham generator
+semantics, or the EXP-089 static-initial-load logic. The ordinary SBRC path
+must retain its existing callback behavior.
+
+Candidate order, with one configuration per isolated binary/build, is:
+
+| candidate | WGS | TPT | block width | DP LDS |
+| --- | ---: | ---: | ---: | ---: |
+| A | 512 | 128 | 4 | 65536 bytes |
+| B | 256 | 128 | 2 | 32768 bytes |
+| C | 512 | 256 | 2 | 32768 bytes |
+
+Each candidate receives a clean build root and install root. Build
+`rocfft-rtc-gen` first, then rocFFT/bench/install with sufficient Slurm host
+memory and conservative parallelism (for example `-j4`) to avoid the prior
+OOM. Confirm function-pool registration, generated factors/WGS/TPT/block
+width/LDS, EXP-089 static initial load, and an actual 1048576 DP z2z plan
+with exactly `SBCC-1024` followed by `SBRC-1024`, without TRTRT, SBRR, or a
+transpose. If A fails build/resource/correctness, record it and evaluate B;
+if B fails, evaluate C. Do not combine default configurations in one binary.
+
+Correctness precedes timing: run DP z2z 1048576 forward/inverse, OOP/IP,
+batch 1/3 against numerical reference; run existing callback correctness if
+available without new architecture; and run 64K/128K/256K/512K controls.
+Preserve all raw logs/results. For each correctness survivor, run a short
+same-allocation stable/candidate screen at 1048576 DP z2z OOP batch 1,
+`-N 10000`, then qualify the best survivor with eight interleaved ABBA pairs.
+The canonical time is exactly
+`(TotalDurationNs - generate_random_interleaved_data_kernel TotalDurationNs)
+/(10000+1)`. Run 64K/128K/256K/512K controls and collect PMC diagnostics
+only for the winner; PMC timing is diagnostic, not acceptance timing.
+
+Acceptance requires correctness, the exact two-kernel target plan, at least
+7/8 faster target pairs, median canonical improvement of at least 2%, and no
+consistent control regression above 1%. Otherwise record rejection and leave
+stable unchanged. Do not merge or start a later stage. EXP-115--118 remain
+unfabricated, and EXP-120/121 source experiments are not carried into this
+branch.
