@@ -4374,3 +4374,24 @@ median process mean, minimum event, maximum event, every process mean, and
 ratio below one as a possible real regression; treat isolated maxima that do
 not persist across paired processes as measurement noise.  No source or stable
 promotion change is part of this diagnostic.
+
+## Worktree organization record (2026-09-30; administrative, no new experiment)
+
+The user approved retaining the root repository, official baseline checkout,
+active stable branch, and EXP-123 benchmark worktree. Eight old worktrees were
+unregistered after saving their original Git administrative state and binary
+patches. All original directories/files remain in place as historical snapshots;
+all historical branch/tag refs and fixed EXP-091 baseline SHA256 hashes remained
+unchanged during the operation. EXP-079's two uncommitted generator edits remain
+unmerged in their original files and have separate recovery patches/hashes.
+
+No rocFFT source, kernel, planner, numerical behavior, measurement definition,
+installation or experimental outcome changed. No source branch was merged.
+There are three registered optimization worktrees and one separate official
+checkout. The archived `.git` pointers are retained as inactive historical markers;
+use the stable/EXP-123 paths for active development.
+
+At the user's explicit decision, the complete latest record is synchronized with
+EXP-123 instead of the archived EXP-078 worktree. The stable branch retains its
+validated-version experiment record. `WORKTREE_ARCHIVES.md` lists exact paths,
+original HEADs and the recovery batch `/public/home/zhangkewei/zr/.worktree-archives/20260930-113952`.

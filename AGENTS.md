@@ -157,18 +157,27 @@ Every optimization attempt must have a unique EXP-NNN identifier and must be rec
 
 ## Top-level documentation synchronization
 
-The following tracked repository documents and their top-level copies must remain
-synchronized:
+The user approved this layout and synchronization policy on 2026-09-30 while
+archiving historical worktrees. The old EXP-078 synchronization target is retired.
 
-- `/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/AGENTS.md` and
-  `/public/home/zhangkewei/zr/AGENTS.md`;
-- `/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`
-  and `/public/home/zhangkewei/zr/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`.
+Keep the following operational instruction files identical:
 
-Whenever either repository document is updated, update its top-level copy in the
-same task and verify that the corresponding files are identical before completing
-the change. Do not leave either copy with newer experiment state, evidence, or
-instructions than the other.
+- `/public/home/zhangkewei/zr/AGENTS.md`;
+- `/public/home/zhangkewei/zr/exp-095-sbrc128k-only/AGENTS.md` (active stable worktree);
+- `/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/AGENTS.md` (active benchmark worktree).
+
+The complete latest experiment record must remain synchronized between:
+
+- `/public/home/zhangkewei/zr/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`;
+- `/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`.
+
+The active stable branch retains its validated-version experiment record. Do not
+silently replace it with newer benchmark-only records or change its validated
+source/tag when updating operational documentation. Historical archived copies,
+including EXP-078, are immutable snapshots and are no longer synchronization targets.
+
+Update the matching operational copies in the same task and verify they are
+identical. See `WORKTREE_ARCHIVES.md` for active paths and archive recovery material.
 
 ## Git version maintenance requirements
 
