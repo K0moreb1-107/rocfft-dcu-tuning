@@ -205,12 +205,42 @@ may require path adaptation before reuse. Consult `EXPERIMENT_LAYOUT.md` and the
 approved migration map before restoring or rerunning historical work.
 
 The EXP-078 top-level compatibility link preserves access to the fixed EXP-091
-baseline. Do not remove it without checking current baseline users. The 22
-build/install/cache directories and four deferred independent/linked EXP-082/083
-Git directories remain at their original paths pending separate user decisions.
-Do not reset, repair, commit, or delete their unexplained Git states automatically.
+baseline. Do not remove it without checking current baseline users. Eight historical experimental build trees are now in `archives/builds/`;
+their old absolute CMake paths are evidence, and reproduction requires rebuilding.
+Four EXP-082/083 Git directories are now in `archives/repositories/`, retaining
+their original names, refs and tracked states; known linked-worktree paths and,
+with separate user confirmation, two object-store alternate paths were corrected.
+The v2 repository's missing index is preserved and must not be repaired
+automatically. Existing installation paths, the main build and runtime stay put.
 
 Keep `EXPERIMENT_LAYOUT.md` and the current `WORKTREE_ARCHIVES.md` index identical
 between top-level, active stable, and active EXP-123 copies. Preserve prior dated
 archive records; append later migration/restore mappings rather than rewriting
 historical evidence. This layout does not change measurement or source semantics.
+
+
+## Persistent top-level organization (approved 2026-09-30, round 3)
+
+The top level is a workspace containing nested source repositories, not the
+rocFFT CMake source root. Keep source/configuration and the current stable,
+EXP-123 and official paths intact. Common tools are in `tools/`; current job and
+submission entries are in `jobs/`. Use `EXPERIMENT_LAYOUT.md` for entry paths.
+
+Never write new validation data, tuning CSVs, profile output, helper executables
+or job logs directly at the top level or next to a tool's source. Use results,
+logs and build subdirectories, or an experiment's approved category directory.
+New experiment worktrees belong under `worktrees/EXP-NNN`; build/install/cache
+belong under `experiments/EXP-NNN/artifacts/`. These future rules do not move
+existing protected source, installation, runtime, or baseline paths.
+
+Run `python3 tools/check_top_level.py` to report unexpected top-level entries.
+This check is read-only: it must never delete or move anything automatically.
+Keep its allowlist consistent with user-approved exceptions and mappings.
+The modified `validate_cc512k_output.bin` remains at its original path and state.
+`gfx926_rocfft_solution_map.dat` remains as an explicit runtime configuration
+exception. Ask the user about new dependencies, conflicts or unexplained states.
+
+Historical scripts and evidence remain original. Environment-stale entry scripts
+are archived rather than silently repaired. Do not enable them without verifying
+their dependencies. Tool path adaptations do not change FFT parameters, accuracy
+thresholds, canonical measurement rules or validated optimization source.
