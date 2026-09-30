@@ -4395,3 +4395,23 @@ At the user's explicit decision, the complete latest record is synchronized with
 EXP-123 instead of the archived EXP-078 worktree. The stable branch retains its
 validated-version experiment record. `WORKTREE_ARCHIVES.md` lists exact paths,
 original HEADs and the recovery batch `/public/home/zhangkewei/zr/.worktree-archives/20260930-113952`.
+
+## Top-level material organization (2026-09-30; administrative)
+
+The user approved moving 135 historical entries (92 files, 43 directories) into
+`experiments/EXP-NNN/` and `archives/worktrees/`, retaining original names and
+file content. Historical script bodies are unchanged and will be adapted on
+demand. The old EXP-078 path is retained as one compatibility link for the fixed
+EXP-091 baseline; all 22 baseline hashes match. The 22 build/install/cache
+directories and active stable/EXP-123/official paths are unchanged.
+
+Preflight discovered three additional independent Git repositories and one
+linked EXP-083 worktree. EXP-082 shares metadata with that linked worktree, and
+the v2 directory lacks an index and reports 35,124 deletions. The user explicitly
+deferred all four, and their refs, status and directory identities were preserved.
+No reset, repair, deletion, experiment-source merge or performance claim follows.
+
+The approved path map, snapshots and audit records are under
+`/public/home/zhangkewei/zr/.worktree-archives/layout-20260930`.
+`EXPERIMENT_LAYOUT.md` and `WORKTREE_ARCHIVES.md` describe current locations.
+Stable validated-version experiment history remains unchanged.
