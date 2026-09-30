@@ -4415,3 +4415,23 @@ The approved path map, snapshots and audit records are under
 `/public/home/zhangkewei/zr/.worktree-archives/layout-20260930`.
 `EXPERIMENT_LAYOUT.md` and `WORKTREE_ARCHIVES.md` describe current locations.
 Stable validated-version experiment history remains unchanged.
+
+## Persistent top-level organization (2026-09-30, round 3; administrative)
+
+User-confirmed Q1-Q8 moved 183 more entries (169 files, 14 directories) into
+tools/jobs/docs and numbered/purpose-based history folders. Eight old experimental
+build trees are archived for rebuild on reproduction; four EXP-082/083 Git trees
+are archived with linked paths corrected and original refs/status/index conditions
+preserved. Two EXP-083 alternate-object paths were corrected after pausing and
+obtaining separate user confirmation; original paths were backed up. The v2
+missing index and deletion-status anomaly are not repaired.
+
+Current tool/job paths and output locations are adapted without changing FFT
+conditions, accuracy thresholds or timing calculations. Historical entry originals,
+evidence, prior references and existing user modifications are preserved. Main
+build/install, source/runtime, stable/EXP123/official paths, fixed baselines and
+the explicit solution-map exception remain. No GPU experiment was run or source
+optimization merged. Future storage rules and read-only top-level checking are
+documented in AGENTS.md and EXPERIMENT_LAYOUT.md. Audit and migration map:
+`/public/home/zhangkewei/zr/.worktree-archives/top-level-20260930`.
+Stable validated-version experiment history remains unchanged.
