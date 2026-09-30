@@ -24,11 +24,15 @@ def aggregate(run, reference_path=None):
     entries = json.loads((run / 'processes.json').read_text(encoding='utf-8'))
     require(len(entries) == 720, 'formal run requires exactly 720 processes')
     groups = {(n, f, a): [] for n in SIZES for f in FUNCS for a in ARMS}
+    csv_paths = set()
     for e, planned in zip(entries, expected):
         require(all(e.get(k) == v for k, v in planned.items()), 'schedule/order mismatch')
         require(e.get('returncode') == 0, 'nonzero process exit')
         require(e.get('gpu') == p['gpu'] and e.get('job_id') == p['job_id'] and e.get('host') == p['host'], 'different GPU/allocation/environment')
         arm = planned['arm']
+        csv_path = (run / e['csv']).resolve()
+        require(csv_path not in csv_paths, 'reused process CSV evidence')
+        csv_paths.add(csv_path)
         require(e.get('library_sha256') == m['arms'][arm]['library_sha256'], 'process library hash mismatch')
         for key in ('csv', 'stdout', 'stderr'):
             path = run / e[key]

@@ -127,6 +127,8 @@ if __name__ == '__main__':
     ap.add_argument('--execute', action='store_true', help='run only in a one-GPU Slurm allocation')
     args = ap.parse_args()
     try:
+        if args.execute:
+            inside(args.manifest)
         m = manifest(args.manifest)
         if args.execute:
             execute(m)
