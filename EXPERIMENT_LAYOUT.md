@@ -79,3 +79,21 @@ Operational instructions/indexes are synchronized across root, stable and EXP123
 Latest full records remain synchronized root/EXP123; stable's validated record
 stays intact. A read-only allowlist check reports newly scattered entries; it
 never moves or deletes files automatically. Ask the user about new uncertainties.
+
+## Primary measurement entry points (approved 2026-09-30)
+
+- `tools/fft_measurement/run.py`: validate preregistration and show the 720-process
+  plan by default; `--execute` is reserved for an authorized one-GPU Slurm job.
+- `tools/fft_measurement/summarize.py`: strict formal 15-case report including
+  previous/official speedups and fixed A100 Performance.
+- `jobs/measure_fft.slurm`: formal three-arm, 8-round event-measurement entry.
+- `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`: full timing/correctness/report
+  contract, synchronized with active stable and EXP-123 operational copies.
+- `results/reference/a100/`: versioned original reference CSV and provenance.
+
+Use the root shared tools from all active worktrees. Measurement output belongs
+in `results/fft_measurement/<run_id>`, logs in `logs/fft_measurement`, binaries and
+temporary directories in `build/fft_measurement/<run_id>`. No top-level outputs.
+Existing runall/hipprof profiling entries retain their historical or diagnostic
+purpose; their old metric is not the new primary event metric. Original EXP-123
+18-case programs/data remain historical evidence. New defaults omit 32K.

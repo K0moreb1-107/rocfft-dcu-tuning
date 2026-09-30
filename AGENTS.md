@@ -4,24 +4,62 @@ This file is authoritative for all subsequent rocFFT optimization experiments
 in /public/home/zhangkewei/zr. Do not change the measurement definition without
 recording the reason and updating this file first.
 
-## Scope and matching conditions
+## Primary event measurement (approved 2026-09-30)
 
-Compare only runs with the same FFT length, transform type, precision, batch
-size, -N value, profiling command, GPU, and relevant runtime environment.
-The primary latency workload is double-precision z2z, out-of-place,
-batch=1, `-N 10000`, using the same DCU and `hipprof --stats`. Collect five
-independent processes per length and use the median canonical time as the
-fixed-baseline summary while retaining every round, mean, standard deviation,
-and CV. Candidate acceptance still requires an interleaved stable/candidate
-comparison in the same GPU allocation because independent-process drift is
-measurable. The target lengths are 64K, 128K, 256K, and 512K. Do not
-substitute 102400 for any of these sizes.
+Use the exact original EXP-123 fft_test_1d.cpp measurement program, frozen at
+SHA256 849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da.
+Full protocol: docs/technical/FFT_MEASUREMENT_PROTOCOL.md. Shared entry points:
+/public/home/zhangkewei/zr/tools/fft_measurement/run.py and summarize.py;
+formal job: /public/home/zhangkewei/zr/jobs/measure_fft.slurm.
 
-The legacy throughput comparison remains double-precision z2z, batch=1000,
-`-N 10`, on the same DCU with `hipprof --stats`. Never compare its absolute
-times with the batch=1 baseline or divide it by 1000 as a substitute.
+Default matrix: double precision, batch=1, out-of-place, sizes 65536, 131072,
+262144, 524288, 1048576, each z2z_1d/d2z_1d/z2d_1d (15 cases; no 32K).
+Correctness remains enabled with the original strict <1e-9 checks. Preserve
+initialization, inputs, 3 timing warmups, and 50 separately synchronized HIP
+event measurements of rocfft_execute per process. Explicitly force 50 iterations.
+Use original mean_ms; plan_ms, first_ms and per_tf_ms are diagnostics only.
+No hipprof N+1 division or kernel subtraction applies to these event times.
 
-## Batch=1 primary-workload transition (EXP-091)
+Formal comparison: 8 rounds per case, one GPU UUID and one allocation;
+odd official/previous/candidate/candidate/previous/official, even the reverse.
+Each arm has 16 process means (800 events/case); full matrix 720 processes.
+Arithmetic mean of all 16 mean_ms values is primary; no outlier removal.
+Retain every process CSV/log, exact order, allocation/GPU/runtime identity,
+source state, library path/hash, executable/compiler and build provenance.
+Any missing/failed/mismatched case invalidates formal aggregation. Single
+50-event processes are quick checks only, not formal promotion evidence.
+
+Always report previous/candidate and official/candidate speedups plus
+A100 Performance = fixed matching A100 mean_ms / candidate mean_ms *100%.
+Official source/install are original ROCm 7.2.2; previous is the preregistered
+immediately preceding valid stable version, not permanently EXP-119.
+Candidate identity and experiment-specific acceptance criteria must be
+preregistered before measurement. Do not impose new global percentage gates
+or reuse old hipprof gates without preregistration. All correctness checks PASS
+is required. No automatic source promotion from a report.
+
+A100 raw reference is results/reference/a100/ beneath the workspace root,
+SHA256 3b376eb69a77318ace8fbe537acfc7b3e82cdff1ea847f6177ed7ea82b27603b.
+The user confirmed A100 provenance; retain all 18 original rows and select
+the 15 matched cases. The historical mixed table is not a formal new baseline.
+
+The following hipprof sections preserve historical/diagnostic definitions and
+evidence. They do not govern new primary event measurements. Never mix event
+and hipprof metrics in one ratio or rewrite old results with the new protocol.
+
+## Historical hipprof scope and matching conditions
+
+For historical batch=1 hipprof comparisons, match FFT length, transform type,
+precision, batch size, -N value, profiling command, GPU and runtime environment.
+The EXP-091 workload was double-precision z2z, out-of-place, batch=1,
+`-N 10000`, on the same DCU with `hipprof --stats`; five independent processes
+per length, median canonical time, preserving rounds/mean/stdev/CV. Target
+lengths: 64K, 128K, 256K, 512K, not 102400. Retain same-allocation interleaved
+comparisons when interpreting that historical contract.
+Legacy throughput was z2z, batch=1000, `-N 10`, same DCU and hipprof --stats;
+do not mix absolute times with batch=1 or divide by 1000 as a substitute.
+
+## Historical batch=1 transition (EXP-091)
 
 The user clarified on 2026-09-22 that batch=1000 was chosen only as a way to
 reduce measurement noise; it is not an application requirement.  Actual use
@@ -31,7 +69,7 @@ one batch.  In particular, batch strip-mining is only a diagnostic and is not
 a primary optimization direction.
 
 EXP-091 calibrated the repetition count (`-N`) and established the separate
-batch=1 baseline below. Every batch=1 result must record its own `-N` and use
+batch=1 baseline below. Every historical hipprof batch=1 result must record its own `-N` and use
 exactly its own `N+1` divisor. Increasing `-N` also amortizes fixed per-process
 twiddle-generation kernels, so report transform-only timing as a diagnostic
 when explaining differences across N; keep the canonical metric for the
@@ -41,7 +79,7 @@ rocFFT's internal `transforms_per_block` is not the user batch size.  A kernel
 mapping change such as four versus eight internal transforms per workgroup can
 still be batch-independent, but it must be validated with user batch=1.
 
-## Fixed batch=1 baseline result files (EXP-091)
+## Historical hipprof: Fixed batch=1 baseline result files (EXP-091)
 
 Runtime: validated EXP-090 installation at
 `/public/home/zhangkewei/zr/install-exp090-candidate`, source commit
@@ -61,7 +99,7 @@ five-process CVs are 1.396919%, 1.459374%, 0.198862%, and 0.299984%.
 These are steady-state profiled GPU-kernel metrics, not host wall-clock or
 cold-plan latency.
 
-## Fixed legacy batch=1000 baseline result files
+## Historical hipprof: Fixed legacy batch=1000 baseline result files
 
 Unless a new baseline is explicitly declared and recorded, use these files
 as the baseline for double-precision z2z, batch=1000, -N 10 comparisons:
@@ -74,7 +112,7 @@ as the baseline for double-precision z2z, batch=1000, -N 10 comparisons:
 Select the baseline matching the exact FFT length. Do not compare a result
 against a baseline from another length or transform type.
 
-## Canonical time extracted from hipprof CSV
+## Historical hipprof: Canonical time extracted from hipprof CSV
 
 Use the TotalDurationNs column. The canonical rocFFT computation time is:
 
@@ -96,7 +134,7 @@ operations and can produce a different value when kernel call counts differ.
 For a nonstandard N, use that run's actual N+1 divisor and record it with the
 result. The standard baseline files use N=10 and therefore divisor 11.
 
-## Excluding rocfft-bench overhead
+## Historical hipprof: Excluding rocfft-bench overhead
 
 The currently verified bench-only kernel is:
 
@@ -136,11 +174,12 @@ and the canonical metric in one comparison table.
 
 ## Required record for every future experiment
 
-Record the exact current git commit, source change, job IDs, correctness
-result, benchmark result file, canonical T_compute_ms, previous-version
-time/speedup/improvement, and baseline time/speedup/improvement. Preserve the
-raw CSV and logs. If a kernel is reclassified as bench-only, record the proof
-and update the exclusion list before recalculating historical comparisons.
+Record the exact commit and source/build state, changed files, preregistered
+acceptance criteria, job/allocation/GPU UUID, correctness, raw evidence,
+official/previous/candidate arithmetic event mean_ms, previous and official
+speedups, matched A100 Performance and final decision. Preserve all raw process
+CSV/logs and hashes. Label any additional hipprof/PMC measurement as diagnostic
+with its own original definition. Do not recompute old comparisons silently.
 
 ## Required experiment result record
 
@@ -192,7 +231,9 @@ Valid tag: stable-exp122-sbrc1024-20260929
 
 ## Agent Delegation and Token-Efficiency Policy
 
-read /public/home/zhangkewei/zr/Info.md
+The user clarified that Info.md applies only when they explicitly request
+sub-agents. Otherwise follow the applicable normal agent instructions. When
+explicitly requested, read /public/home/zhangkewei/zr/Info.md.
 
 ## Historical experiment layout (approved 2026-09-30)
 

@@ -4435,3 +4435,23 @@ optimization merged. Future storage rules and read-only top-level checking are
 documented in AGENTS.md and EXPERIMENT_LAYOUT.md. Audit and migration map:
 `/public/home/zhangkewei/zr/.worktree-archives/top-level-20260930`.
 Stable validated-version experiment history remains unchanged.
+
+
+## 2026-09-30 — Primary measurement policy fixed from EXP-123
+
+User-approved administrative update; no new GPU run or optimization source change.
+The exact EXP-123 fft_test_1d.cpp is frozen (SHA256
+849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da).
+Future primary matrix is five sizes 64K–1M × z2z/d2z/z2d, DP, batch=1,
+out-of-place, original correctness, 3 timing warmups and 50 event measurements.
+Formal acceptance uses 8 mirror-balanced three-arm rounds, all 16 process
+means/arm/case, with official and preceding stable controls on one GPU UUID and
+allocation. No outlier trimming; criteria preregistered per experiment.
+Report both previous/official speedups and A100 Performance (A100 mean/candidate
+mean ×100%). User confirmed NVIDIA hardware A100. The authorized raw 18-case
+reference is preserved at results/reference/a100/, SHA256
+3b376eb69a77318ace8fbe537acfc7b3e82cdff1ea847f6177ed7ea82b27603b; reports select
+15 cases without 32K. Old mixed single/retest table remains historical.
+See docs/technical/FFT_MEASUREMENT_PROTOCOL.md and shared tools/fft_measurement/.
+Old hipprof contracts, raw baselines and original EXP-123 programs remain intact.
+No source/tag promotion results from this policy update.
