@@ -1,3 +1,4 @@
+from _workspace import ROOT, result_directory
 import pathlib
 import subprocess
 import sys
@@ -5,19 +6,20 @@ import sys
 import numpy as np
 
 
-root = pathlib.Path(__file__).resolve().parent
+root = ROOT
+output_dir = result_directory("validation/cc_length")
 length = int(sys.argv[1])
 rng = np.random.default_rng(20260730)
 input_data = (
     rng.standard_normal(length) + 1j * rng.standard_normal(length)
 ).astype(np.complex128)
 
-input_path = root / f"validate_cc_{length}_input.bin"
-output_path = root / f"validate_cc_{length}_output.bin"
+input_path = output_dir / f"validate_cc_{length}_input.bin"
+output_path = output_dir / f"validate_cc_{length}_output.bin"
 input_data.tofile(input_path)
 
 subprocess.run(
-    [str(root / "validate_rocfft_length"), str(length), str(input_path), str(output_path)],
+    [str(root / "build/tools/bin/validate_rocfft_length"), str(length), str(input_path), str(output_path)],
     check=True,
 )
 

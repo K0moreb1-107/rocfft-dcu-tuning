@@ -5,6 +5,7 @@
 
 支持: 断点续传、LDS 约束、参数合法性检查。
 """
+from _workspace import ROOT, prepare_legacy_csv
 
 import os
 import re
@@ -450,7 +451,7 @@ def generate_replacement_map():
                     "length": length,
                     "config_file": config_file,
                     "config_file_path": os.path.join(
-                        os.path.dirname(__file__),
+                        str(ROOT),
                         "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/kernels/configs",
                         config_file
                     )
@@ -520,8 +521,8 @@ def main():
     )
     parser.add_argument(
         "-o", "--output",
-        default="config_enumerations.csv",
-        help="输出 CSV 文件路径 (默认: config_enumerations.csv)"
+        default=str(ROOT / "results/enumeration/config_enumerations.csv"),
+        help="输出 CSV 文件路径 (默认: results/enumeration/config_enumerations.csv)"
     )
     parser.add_argument(
         "--resume",
@@ -557,6 +558,11 @@ def main():
                   f"{val['kernel_type']} length={val['length']} -> {val['config_file']}")
         return
     
+    default_output = ROOT / "results/enumeration/config_enumerations.csv"
+    if args.output == str(default_output) and args.resume:
+        prepare_legacy_csv("enumeration", "config_enumerations.csv")
+    os.makedirs(os.path.dirname(os.path.abspath(args.output)), exist_ok=True)
+
     # 仅统计
     if args.stats_only:
         print_statistics(args.output)

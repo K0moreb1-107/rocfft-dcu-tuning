@@ -1,13 +1,17 @@
 #!/bin/bash
+#SBATCH --chdir=/public/home/zhangkewei/zr
 #SBATCH -J run_bench
 #SBATCH -p hx1hdnormal01
 #SBATCH -N 1
 #SBATCH -n 1
 #SBATCH --gres=dcu:1
 #SBATCH --time=2:00:00
-#SBATCH -o logs/%x_%j.out
-#SBATCH -e logs/%x_%j.err
+#SBATCH --output=/public/home/zhangkewei/zr/logs/jobs/run_bench/%x_%j.out
+#SBATCH --error=/public/home/zhangkewei/zr/logs/jobs/run_bench/%x_%j.err
 
+ZR_ROOT=/public/home/zhangkewei/zr
+cd "$ZR_ROOT"
+mkdir -p "$ZR_ROOT/logs/jobs/run_bench" "$ZR_ROOT/build/tools/bin"
 set -eo pipefail
 
 # 接收传入的参数，如果不传则使用默认值
@@ -16,13 +20,13 @@ BATCH=${2:-1000}            # 默认 Batch 1000
 TRANSFORM_TYPE=${3:-0}      # 默认变换类型 0 (z2z)
 TAG=${4:-cc512k}            # 用于区分本次机制原型
 
-mkdir -p "$HOME/zr/logs" "$HOME/zr/results"
+mkdir -p "$ZR_ROOT/logs" "$ZR_ROOT/results"
 
 source ~/.bashrc
 load_fft
 set -u
 
-BENCH="$HOME/zr/install/bin/rocfft-bench"
+BENCH="$ZR_ROOT/install/bin/rocfft-bench"
 HIPPROF=$(command -v hipprof)
 
 if [ ! -x "$BENCH" ]; then
@@ -56,7 +60,9 @@ fi
 
 # 3. 动态拼接文件名
 CSV_NAME="${TYPE_STR}_${LEN_STR}_b${BATCH}_${TAG}_$(date +%Y%m%d_%H%M%S).csv"
-OUT_PATH="$HOME/zr/results/$CSV_NAME"
+RESULT_DIR="$ZR_ROOT/results/bench/${SLURM_JOB_ID:-$(date +%Y%m%d_%H%M%S)}_$$"
+mkdir -p "$RESULT_DIR"
+OUT_PATH="$RESULT_DIR/$CSV_NAME"
 
 echo "=========================================================="
 echo " Running rocfft-bench"
@@ -65,7 +71,7 @@ echo " Output: $OUT_PATH"
 echo "=========================================================="
 
 # 4. 执行原有的 hipprof 测试命令
-LD_LIBRARY_PATH="$HOME/zr/install/lib:${LD_LIBRARY_PATH:-}" \
+LD_LIBRARY_PATH="$ZR_ROOT/install/lib:${LD_LIBRARY_PATH:-}" \
  "$HIPPROF" --stats -o "$OUT_PATH" \
  "$BENCH" \
    --length "$LENGTH" \

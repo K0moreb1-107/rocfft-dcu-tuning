@@ -15,6 +15,7 @@ resource use still have to be derived and tested separately.
 """
 
 from __future__ import annotations
+from _workspace import ROOT
 
 import argparse
 import csv
@@ -704,7 +705,7 @@ def print_case(root: Path, case: PlanCase, lds_limit: int, wgs_limit: int) -> No
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--root", type=Path, default=Path(__file__).resolve().parent,
+        "--root", type=Path, default=ROOT,
         help="rocFFT experiment root"
     )
     parser.add_argument(

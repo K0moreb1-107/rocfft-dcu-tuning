@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from _workspace import ROOT, prepare_legacy_csv
 import os
 import re
 import subprocess
@@ -9,8 +10,9 @@ from datetime import datetime
 import argparse
 
 # ================= 配置区 =================
-ROCFFT_SRC_DIR = os.path.expanduser("~/zr/rocm-libraries-rocm-7.2.2/projects/rocfft")
-BUILD_DIR = os.path.expanduser("~/zr/build/rocfft_build")
+ROCFFT_SRC_DIR = str(ROOT / "rocm-libraries-rocm-7.2.2/projects/rocfft")
+BUILD_DIR = str(ROOT / "build/rocfft_build")
+PROFILE_DIR = ROOT / "results/tuning/profiles"
 
 # ================= 模板区 =================
 TPL_SBRC = "NS(length={l}, factors={f}, scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size={wgs}, threads_per_transform={tpt}, runtime_compile=True),"
@@ -102,18 +104,18 @@ def run_benchmark(target_n, mode):
     ttype = type_map.get(mode, 0)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    csv_file = os.path.expanduser(f"~/zr/results/{mode}_{target_n}_tuning_{timestamp}.csv")
+    csv_file = os.path.expanduser(f"{PROFILE_DIR}/{mode}_{target_n}_tuning_{timestamp}.csv")
     
     cmd = (
-        "LD_LIBRARY_PATH=$HOME/zr/install/lib:$LD_LIBRARY_PATH "
+        "LD_LIBRARY_PATH=/public/home/zhangkewei/zr/install/lib:$LD_LIBRARY_PATH "
         f"hipprof --stats -o {csv_file} "
-        "$HOME/zr/build/rocfft_build/clients/staging/rocfft-bench "
+        "/public/home/zhangkewei/zr/build/rocfft_build/clients/staging/rocfft-bench "
         f"--length {target_n} --batchSize 1000 --precision double --transformType {ttype} -o -N 10"
     )
     
     subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     
-    csv_pattern = os.path.expanduser(f"~/zr/results/{mode}_{target_n}_tuning_{timestamp}*.csv")
+    csv_pattern = os.path.expanduser(f"{PROFILE_DIR}/{mode}_{target_n}_tuning_{timestamp}*.csv")
     csv_files = glob.glob(csv_pattern)
     
     total_ns = 0.0
@@ -137,7 +139,7 @@ def run_benchmark(target_n, mode):
         except Exception:
             pass
             
-    db_pattern = os.path.expanduser(f"~/zr/results/{mode}_{target_n}_tuning_{timestamp}*.db")
+    db_pattern = os.path.expanduser(f"{PROFILE_DIR}/{mode}_{target_n}_tuning_{timestamp}*.db")
     for db_fpath in glob.glob(db_pattern):
         try:
             os.remove(db_fpath)
@@ -176,7 +178,8 @@ def tune_for_N(target_n, mode):
     print(f"========== 启动 [{mode}] N={target_n} 的两步解耦调优 ==========")
     print(f"=======================================================")
     
-    csv_output = f"tuning_results_{mode}_{target_n}.csv"
+    PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+    csv_output = str(prepare_legacy_csv("tuning", f"tuning_results_{mode}_{target_n}.csv"))
     if not os.path.exists(csv_output):
         with open(csv_output, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)

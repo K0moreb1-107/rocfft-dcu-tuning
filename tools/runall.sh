@@ -1,7 +1,12 @@
 #!/bin/bash
+ZR_ROOT=/public/home/zhangkewei/zr
+RUN_ID="${SLURM_JOB_ID:-$(date +%Y%m%d_%H%M%S)}_$$"
+RESULT_DIR="$ZR_ROOT/results/runall/$RUN_ID"
+mkdir -p "$RESULT_DIR"
+cd "$ZR_ROOT"
 set -e
 # ===================== 自动创建结果目录 =====================
-mkdir -p $HOME/zr/results
+mkdir -p $RESULT_DIR
 # ===================== 配置参数 =====================
 LENGTHS=(65536 131072 262144 524288)
 # 分别对应: 64k, 128k, 256k, 512k
@@ -31,16 +36,16 @@ for LEN in "${LENGTHS[@]}"; do
         fi
         
         # 定义输出的 CSV 文件名
-        CSV_NAME="$HOME/zr/results/${TNAME}_${LNAME}_tuning_${DATE_STR}.csv"
+        CSV_NAME="$RESULT_DIR/${TNAME}_${LNAME}_tuning_${DATE_STR}.csv"
         
         echo "================================================="
         echo "Running Benchmark: Length = ${LNAME} (${LEN}), Type = ${TNAME}"
         echo "Output: $CSV_NAME"
         
         # 运行 profiling
-        LD_LIBRARY_PATH=$HOME/zr/install/lib:$LD_LIBRARY_PATH \
+        LD_LIBRARY_PATH=$ZR_ROOT/install/lib:$LD_LIBRARY_PATH \
         hipprof --stats -o "$CSV_NAME" \
-        $HOME/zr/build/rocfft_build/clients/staging/rocfft-bench \
+        $ZR_ROOT/build/rocfft_build/clients/staging/rocfft-bench \
           --length $LEN \
           --batchSize 1000 \
           --precision double \
@@ -66,4 +71,4 @@ for LEN in "${LENGTHS[@]}"; do
     done
 done
 echo "================================================="
-echo "所有性能测试运行完毕！CSV 结果存放在 $HOME/zr/results 目录下。"
+echo "所有性能测试运行完毕！CSV 结果存放在 $RESULT_DIR 目录下。"
