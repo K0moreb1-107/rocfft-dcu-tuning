@@ -193,3 +193,24 @@ Valid tag: stable-exp122-sbrc1024-20260929
 ## Agent Delegation and Token-Efficiency Policy
 
 read /public/home/zhangkewei/zr/Info.md
+
+## Historical experiment layout (approved 2026-09-30)
+
+Historical scripts, patches, records, source and evidence are grouped under
+`/public/home/zhangkewei/zr/experiments/EXP-NNN/`. Eight retired worktree snapshots
+are under `/public/home/zhangkewei/zr/archives/worktrees/`, retaining their names.
+Their original files and inactive Git markers are preserved; use the active
+stable/EXP-123 paths for development. Historical scripts are not rewritten and
+may require path adaptation before reuse. Consult `EXPERIMENT_LAYOUT.md` and the
+approved migration map before restoring or rerunning historical work.
+
+The EXP-078 top-level compatibility link preserves access to the fixed EXP-091
+baseline. Do not remove it without checking current baseline users. The 22
+build/install/cache directories and four deferred independent/linked EXP-082/083
+Git directories remain at their original paths pending separate user decisions.
+Do not reset, repair, commit, or delete their unexplained Git states automatically.
+
+Keep `EXPERIMENT_LAYOUT.md` and the current `WORKTREE_ARCHIVES.md` index identical
+between top-level, active stable, and active EXP-123 copies. Preserve prior dated
+archive records; append later migration/restore mappings rather than rewriting
+historical evidence. This layout does not change measurement or source semantics.
