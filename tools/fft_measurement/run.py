@@ -31,13 +31,8 @@ def execute(m):
         require(command(['git', '-C', a['source_repo'], 'rev-parse', a['source_commit'] + '^{commit}']).strip() == a['source_commit'], 'source commit unavailable')
         lib = inside(Path(a['install']) / 'lib/librocfft.so.0.1')
         require(sha(lib) == a['library_sha256'], arm + ': install hash mismatch')
-    run = ROOT / 'results/fft_measurement' / m['run_id']
-    build = ROOT / 'build/fft_measurement' / m['run_id']
-    logs = ROOT / 'logs/fft_measurement' / m['run_id']
-    for directory in (run, build, logs):
-        require(not directory.exists(), 'run_id already used: ' + str(directory))
-    for directory in (run, build, logs):
-        directory.mkdir(parents=True)
+    from common import prepare_measurement_paths
+    run, build, logs, cache = prepare_measurement_paths(m)
     write_json(run / 'preregistration.json', m)
     write_json(run / 'plan.json', plan(m))
     env = os.environ.copy()
@@ -93,7 +88,7 @@ def execute(m):
             label = '%04d_%d_%s_r%d_s%d_%s' % (item['index'], item['N'], item['func'], item['round'], item['slot'], arm)
             case = run / 'processes' / label
             case.mkdir(parents=True)
-            tmp = build / 'tmp' / label
+            tmp = cache / 'tmp' / label
             tmp.mkdir(parents=True)
             process_env = dict(arm_env[arm], FFT_TEST_OUT=str(case), TMPDIR=str(tmp))
             args = [str(binaries[arm]), str(item['N']), '1', item['func'], '1']

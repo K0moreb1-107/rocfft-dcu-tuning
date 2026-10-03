@@ -6,28 +6,29 @@
   "acceptance": "REPLACE with experiment-specific preregistered improvement/cross-size criteria",
   "arms": {
     "official": {
-      "install": "/public/home/zhangkewei/zr/install-exp096-official",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
       "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
       "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
       "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
-      "source_state": "REPLACE with exact build-source tracked state",
-      "build_provenance": "REPLACE with build record linking source/state and installed library"
+      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
     },
     "previous": {
-      "install": "/public/home/zhangkewei/zr/exp122-A-install",
-      "source_repo": "/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install",
+      "source_repo": "/public/home/zhangkewei/zr/exp-095-sbrc128k-only",
       "source_commit": "ed06208f30706f63126078a5c51af07fa0439fe7",
       "library_sha256": "1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe",
-      "source_state": "REPLACE with exact build-source tracked state",
-      "build_provenance": "REPLACE with build record linking source/state and installed library"
+      "source_state": "Historical approved previous source ed06208f30706f63126078a5c51af07fa0439fe7; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-122/records/builds/exp122_A_512x128_clean/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
     },
     "candidate": {
-      "install": "/public/home/zhangkewei/zr/REPLACE-candidate-install",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-124/artifacts/install/REPLACE-build-id",
       "source_repo": "/public/home/zhangkewei/zr/worktrees/REPLACE-EXP-NNN",
       "source_commit": "REPLACE-40-digit-source-commit",
       "library_sha256": "REPLACE-64-digit-library-sha256",
       "source_state": "REPLACE with exact build-source tracked state",
       "build_provenance": "REPLACE with build record linking source/state and installed library"
     }
-  }
+  },
+  "schema_version": 1
 }

@@ -47,7 +47,9 @@ def schedule():
     return out
 
 def manifest(path):
-    m = json.loads(Path(path).read_text(encoding='utf-8'))
+    return validate_manifest(json.loads(Path(path).read_text(encoding='utf-8')))
+
+def validate_manifest(m):
     require(m.get('policy') == POLICY, 'wrong policy')
     require(re.fullmatch(r'EXP-\d{3,}', m.get('experiment', '')) is not None, 'explicit EXP identifier required')
     require(re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,79}', m.get('run_id', '')) is not None, 'invalid run_id')
@@ -102,3 +104,31 @@ def write_json(path, obj):
     with Path(path).open('x', encoding='utf-8', newline='\n') as f:
         json.dump(obj, f, indent=2, ensure_ascii=False)
         f.write('\n')
+
+
+def measurement_paths(m, root=ROOT):
+    root = Path(root)
+    base = root / 'experiments' / m['experiment']
+    run = inside(base / 'runs' / m['run_id'], root)
+    build = inside(base / 'artifacts/build/measurement' / m['run_id'], root)
+    logs = inside(run / 'logs', root)
+    cache = inside(base / 'artifacts/cache' / m['run_id'], root)
+    return run, build, logs, cache
+
+def prepare_measurement_paths(m, root=ROOT):
+    run, build, logs, cache = measurement_paths(m, root)
+    for directory in (build, cache):
+        require(not directory.exists(), 'run_id already used: '+str(directory))
+    if run.exists():
+        reservation = run / '.reservation.json'
+        require(reservation.is_file(), 'run_id already used: '+str(run))
+        require(json.loads(reservation.read_text()) == {'task':'measure', 'manifest':m}, 'reservation/config mismatch')
+        require(set(p.name for p in run.iterdir()) <= {'.reservation.json','logs','submit-manifest.json','submission-command.json','submission.json'}, 'run contains prior execution evidence')
+    else:
+        run.mkdir(parents=True)
+    with (run / '.execution-lock').open('x') as stream:
+        stream.write('single execution; do not reuse this run identifier')
+    build.mkdir(parents=True)
+    cache.mkdir(parents=True)
+    logs.mkdir(exist_ok=True)
+    return run, build, logs, cache

@@ -1763,3 +1763,20 @@ agents.me 公式生成 comparison.json。此时 GPU correctness/性能尚未运�
 
 执行顺序：先收尾 EXP-075，再独立测试 SBRC recurrence；wave-local 与
 上传调度先完成静态所有权/生命期分析。上述三个候选未取得新性能结果。
+
+
+### Workspace management implementation (2026-10-03; source unchanged)
+
+User-approved management plan resumed explicitly and implemented: 1,589 loose
+files and 29 directories grouped; 10 invalid build payloads cleared only after
+source/configuration provenance retention; 7 other build snapshots retained;
+tune_all.py retired. Main build/install, 4 install compatibility paths, fixed
+baselines/A100, validated source/tag and user changes retained. New manage.py
+provides preview-first parameterized build, quick validation, formal measurement
+and report, with independent configurations and immutable per-run evidence.
+
+No source merge/promotion, compiler execution or GPU job was performed. Frozen
+EXP-123 measurement definitions and original CPP remain unchanged. Source/version
+integration is a separate task. First new experiment requires actual compilation,
+loaded-library/GPU/runtime verification and correctness. Audit and mappings are
+.worktree-archives/artifact-management-20261003/. See WORKSPACE_MANAGEMENT.md.

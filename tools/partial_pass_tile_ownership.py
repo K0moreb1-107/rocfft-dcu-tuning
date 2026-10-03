@@ -336,10 +336,10 @@ def read_plan(path: Path) -> PlanCase:
 
 
 def resolve_plan(root: Path, length: int) -> Path:
-    exact = root / "logs" / f"exp007_plan_{length}.log"
+    exact = root / "logs" / "historical" / "legacy-root" / f"exp007_plan_{length}.log"
     if exact.is_file():
         return exact
-    candidates = sorted(glob.glob(str(root / "logs" / f"*plan*{length}*.log")))
+    candidates = sorted(glob.glob(str(root / "logs" / "historical" / "legacy-root" / f"*plan*{length}*.log")))
     if not candidates:
         raise FileNotFoundError(f"{length}: no plan log found")
     return Path(candidates[-1])
@@ -347,7 +347,7 @@ def resolve_plan(root: Path, length: int) -> Path:
 
 def resolve_benchmark(root: Path, length: int) -> Optional[Path]:
     label = {65536: "64k", 131072: "128k", 262144: "256k", 524288: "512k"}[length]
-    pattern = root / "results" / f"z2z_{label}_b1000_exp007_plan_*.csv.hipkernel.csv"
+    pattern = root / "results" / "historical" / "legacy-root" / f"z2z_{label}_b1000_exp007_plan_*.csv.hipkernel.csv"
     candidates = sorted(glob.glob(str(pattern)))
     return Path(candidates[-1]) if candidates else None
 
