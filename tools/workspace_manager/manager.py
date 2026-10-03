@@ -219,7 +219,7 @@ def execute_build(cfg):
         record['cmake_cache_sha256']=common.sha(p['build']/'CMakeCache.txt')
         record['effective_cache']={line.split(':',1)[0]:line.split('=',1)[1] for line in (p['build']/'CMakeCache.txt').read_text().splitlines()
                                    if ':' in line and '=' in line and not line.startswith(('#','//'))
-                                   and line.split(':',1)[0] in ('GPU_TARGETS','AMDGPU_TARGETS','CMAKE_BUILD_TYPE','CMAKE_CXX_COMPILER','CMAKE_CXX_FLAGS','CMAKE_PREFIX_PATH','SQLITE_3_50_2_SRC_SHA256','SQLITE_3_50_2_SRC_URL')}
+                                   and line.split(':',1)[0] in ('GPU_TARGETS','AMDGPU_TARGETS','CMAKE_BUILD_TYPE','CMAKE_CXX_COMPILER','CMAKE_CXX_FLAGS','CMAKE_PREFIX_PATH','SQLITE_SRC_3_50_2_SHA3_256','SQLITE_3_50_2_SRC_URL')}
         record['arm']={'install':str(p['install']),'source_repo':planned['source_identity']['repo'],
                        'source_commit':planned['source_identity']['commit'],'source_state':json.dumps(planned['source_identity'],sort_keys=True),
                        'library_sha256':common.sha(lib),'build_provenance':str(p['run']/'build-provenance.json')}
