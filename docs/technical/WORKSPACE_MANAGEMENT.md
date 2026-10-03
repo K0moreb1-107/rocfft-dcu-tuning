@@ -1,5 +1,12 @@
 # Managed rocFFT experiment tasks
 
+Current status after integration (2026-10-03): the sole primary checkout is
+`/public/home/zhangkewei/zr`, on `main`; stable tag
+`stable-main-exp123-20261003`. Use serial EXP-NNN branches in this checkout.
+Temporary worktrees require explicit user agreement. Earlier dated sections
+record prior states and are superseded by the final main/branch section.
+
+
 Implemented 2026-10-03. This entry manages paths and task provenance; it does not
 change or promote optimization source. Source branches remain an explicit choice.
 

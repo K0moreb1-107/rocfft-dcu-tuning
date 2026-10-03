@@ -1,5 +1,12 @@
 # FFT measurement protocol (approved 2026-09-30)
 
+Current status after integration (2026-10-03): the sole primary checkout is
+`/public/home/zhangkewei/zr`, on `main`; stable tag
+`stable-main-exp123-20261003`. Use serial EXP-NNN branches in this checkout.
+Temporary worktrees require explicit user agreement. Earlier dated sections
+record prior states and are superseded by the final main/branch section.
+
+
 This is the primary contract for future rocFFT optimization measurements in
 `/public/home/zhangkewei/zr`. Source: the user's specified conversation
 `codex://threads/01a0e6cd-9ded-7570-93df-5a5a0ca88255`, EXP-123's final event table.
@@ -69,7 +76,8 @@ Official is original ROCm 7.2.2 source
 `/public/home/zhangkewei/zr/install-exp096-official`, library SHA256
 `3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5`.
 Previous is the immediately preceding valid stable source/install, preregistered
-per experiment; it advances with stable promotion. Current stable checkout is EXP-123 (stable-exp123-cufft-format-20261003).
+per experiment; it advances with stable promotion. Current stable checkout is top-level main (stable-main-exp123-20261003),
+retaining the exact EXP-123 source; the prior immutable EXP-123 tag remains.
 Its retained kernel semantics match validated EXP-122
 `ed06208f30706f63126078a5c51af07fa0439fe7`; the approved existing previous
 library retains that actual build identity. Do not hardcode EXP-119.
@@ -99,7 +107,7 @@ the raw file. The original local file is unchanged.
 
 ## Entry points and preregistration
 
-Shared root entries are used from all active worktrees:
+Shared root entries are used from EXP branches in the sole top-level checkout:
 
 ```
 python3 tools/fft_measurement/run.py experiments/EXP-NNN/measurement.json

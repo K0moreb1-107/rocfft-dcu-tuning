@@ -1,5 +1,12 @@
 # Current experiment and top-level layout
 
+Current status after integration (2026-10-03): the sole primary checkout is
+`/public/home/zhangkewei/zr`, on `main`; stable tag
+`stable-main-exp123-20261003`. Use serial EXP-NNN branches in this checkout.
+Temporary worktrees require explicit user agreement. Earlier dated sections
+record prior states and are superseded by the final main/branch section.
+
+
 Updated 2026-10-03. Historical rounds 1-3 are retained below; current unified
 management is specified in the dated section at the end.
 The second material phase moved 135 entries; round 3 moved another 183 entries
@@ -17,7 +24,7 @@ The second material phase moved 135 entries; round 3 moved another 183 entries
 | `archives/builds/` | Eight old experimental build trees, requiring rebuild before reuse |
 | `archives/repositories/` | Four historical EXP-082/083 Git directories |
 
-## Current entry paths
+## Direct debugging entry paths
 
 - Build submission: `bash jobs/submit_build.sh`; direct job: `sbatch jobs/build.slurm`.
 - Benchmarks: `sbatch jobs/job.slurm`, `sbatch jobs/job_bank.slurm`, `sbatch jobs/run_bench.sh`.
@@ -44,9 +51,10 @@ Tuning profiles go under `results/tuning/profiles/`.
 Job logs go under `logs/jobs/<entry>/`; the directories are prepared before any
 Slurm submission so stdout/stderr creation does not depend on the job body.
 
-Future experiment worktrees use `worktrees/EXP-NNN/`. Future experiment-specific
-build/install/cache trees use `experiments/EXP-NNN/artifacts/`. Existing protected
-source, installation, runtime, baseline and active worktree paths remain unchanged.
+Future experiments use EXP-NNN branches in the top-level checkout. Only explicitly
+approved temporary worktrees use `worktrees/EXP-NNN/`. Build/install/cache use
+`experiments/EXP-NNN/artifacts/`; managed run evidence uses
+`experiments/EXP-NNN/runs/<run-id>/`. Protected installations and baselines remain.
 
 ## Historical exceptions
 
@@ -57,7 +65,8 @@ the dated migration maps; they are not all restored through top-level symlinks.
 
 `exp-078-sbrc-two-tier` remains the sole compatibility link for fixed EXP-091
 evidence. Both batch=1 and legacy fixed-baseline raw file hashes were checked.
-`validate_cc512k_output.bin` retains its original uncommitted modification.
+The formerly modified `validate_cc512k_output.bin` is preserved under the integration
+audit `working-originals/`; the controlled top-level file matches the stable tree.
 `gfx926_rocfft_solution_map.dat` remains an explicit runtime configuration exception.
 
 EXP-082's archived repository and EXP-083 linked worktree retain their relationship

@@ -1,6 +1,13 @@
 # Current worktree paths and historical snapshots
 
-Updated 2026-09-30 after the user-approved top-level material migration.
+Current status after integration (2026-10-03): the sole primary checkout is
+`/public/home/zhangkewei/zr`, on `main`; stable tag
+`stable-main-exp123-20261003`. Use serial EXP-NNN branches in this checkout.
+Temporary worktrees require explicit user agreement. Earlier dated sections
+record prior states and are superseded by the final main/branch section.
+
+
+Updated 2026-10-03 after the approved main integration and final worktree archive.
 
 The optimization repository has one registered worktree: root, on main.
 `official-rocm722-source` is the separate official checkout. Four additional
@@ -19,6 +26,8 @@ this count describes the primary optimization repository, not all nested reposit
 | `exp-121-sbrc1024-callback-aware` | `archives/worktrees/exp-121-sbrc1024-callback-aware` |
 | `exp-122-simple-sbrc1024` | `archives/worktrees/exp-122-simple-sbrc1024` |
 | `exp077-early-lut` | `archives/worktrees/exp077-early-lut` |
+| `exp-095-sbrc128k-only` | `archives/worktrees/exp-095-sbrc128k-only` |
+| `exp-123-cufft-format-benchmark` | `archives/worktrees/exp-123-cufft-format-benchmark` |
 
 Original snapshot files, inactive `.git` pointers and archive notes are unchanged.
 Do not run Git in those retired snapshots. The EXP-078 compatibility link keeps
@@ -33,7 +42,8 @@ New physical-path migration map and original documentation snapshots:
 
 See `EXPERIMENT_LAYOUT.md` for layout, exceptions, necessary compatibility and
 restoration cautions. Prior archive records remain historical evidence, while
-this index describes current physical locations. Source changes were not merged.
+this index describes current physical locations. The earlier layout migrations
+did not merge source; the approved main integration is described below.
 
 
 ## Additional historical Git directories (round 3)
