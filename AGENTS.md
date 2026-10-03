@@ -203,15 +203,15 @@ archiving historical worktrees. The old EXP-078 synchronization target is retire
 Keep the following operational instruction files identical:
 
 - `/public/home/zhangkewei/zr/AGENTS.md`;
-- `/public/home/zhangkewei/zr/exp-095-sbrc128k-only/AGENTS.md` (active stable worktree);
-- `/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/AGENTS.md` (active benchmark worktree).
+- `/public/home/zhangkewei/zr/exp-095-sbrc128k-only/AGENTS.md` (prior-stable worktree);
+- `/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/AGENTS.md` (current stable worktree).
 
 The complete latest experiment record must remain synchronized between:
 
 - `/public/home/zhangkewei/zr/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`;
 - `/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`.
 
-The active stable branch retains its validated-version experiment record. Do not
+The prior-stable branch retains its validated-version experiment record. Do not
 silently replace it with newer benchmark-only records or change its validated
 source/tag when updating operational documentation. Historical archived copies,
 including EXP-078, are immutable snapshots and are no longer synchronization targets.
@@ -225,10 +225,12 @@ Keep one stable branch containing only validated retained optimizations. Start e
 
 ## Current valid version
 
-Stable branch: rocfft-opt-pre-tile-lifetime
-Validated source commit: ed06208f30706f63126078a5c51af07fa0439fe7
-Validated record commit: f5dc0ce6e0a759e4cbcdd60e02e14725f78f7cb1
-Valid tag: stable-exp122-sbrc1024-20260929
+Stable branch: exp-123-cufft-format-benchmark
+Stable worktree: /public/home/zhangkewei/zr/exp-123-cufft-format-benchmark
+Stable source anchor: 344fbb5970f533db838fcb8c85e0eaa025cbc419
+Valid tag: stable-exp123-cufft-format-20261003
+Retained validated kernel source: ed06208f30706f63126078a5c51af07fa0439fe7
+Previous stable branch/tag: rocfft-opt-pre-tile-lifetime / stable-exp122-sbrc1024-20260929
 
 ## Agent Delegation and Token-Efficiency Policy
 
@@ -342,3 +344,28 @@ first new experiment must verify real compiler/runtime/GPU/library integration.
 Ask about new conflicts, dependencies or unexplained states; preserve prior
 user modifications and historical refs. Operational documents stay synchronized
 across root, stable and EXP-123; latest full records stay root/EXP-123 synchronized.
+
+
+## EXP-123 stable promotion (user approved 2026-10-03)
+
+The current stable branch is exp-123-cufft-format-benchmark, worktree
+/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark. Its retained source
+anchor is 344fbb5970f533db838fcb8c85e0eaa025cbc419; immutable release tag:
+stable-exp123-cufft-format-20261003. Start all subsequent EXP branches from this
+tag/current explicitly approved stable successor, never from the old root EXP-075.
+
+Compared with validated EXP-122 source ed06208f30706f63126078a5c51af07fa0439fe7,
+rocFFT has only a config_sbrc.py comment change; executable source semantics
+are unchanged. This is an explicitly user-approved source/workflow promotion,
+not evidence of a new optimization or a new formal GPU measurement. EXP-123's
+historical measurements retain their original definitions. The unchanged EXP-122
+installed library remains the approved previous-arm binary until an identity-
+verified equivalent EXP-123 rebuild is explicitly registered; record its real
+build source ed06208f30706f63126078a5c51af07fa0439fe7, not a fabricated new build.
+
+The old rocfft-opt-pre-tile-lifetime branch/worktree and stable-exp122 tag remain
+prior-stable history. Keep operational documents synchronized across root,
+prior-stable and EXP-123 current-stable paths. Complete latest records remain
+root/EXP-123; preserve the prior-stable full historical record. Do not auto-merge
+new experiment results or move the immutable release tag. Measurement contract,
+official/A100 references and all user modifications remain unchanged.

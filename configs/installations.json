@@ -200,5 +200,15 @@
       "original_path": "tile-install",
       "compatibility": false
     }
+  },
+  "stable_source": {
+    "branch": "exp-123-cufft-format-benchmark",
+    "worktree": "/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark",
+    "source_anchor": "344fbb5970f533db838fcb8c85e0eaa025cbc419",
+    "tag": "stable-exp123-cufft-format-20261003",
+    "retained_kernel_source": "ed06208f30706f63126078a5c51af07fa0439fe7",
+    "previous_binary_registry_id": "exp122-A-install",
+    "binary_equivalence": "rocFFT diff from validated EXP-122 is comment-only; existing library retains original build identity",
+    "approved": "2026-10-03"
   }
 }
