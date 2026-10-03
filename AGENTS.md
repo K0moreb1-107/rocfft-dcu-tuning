@@ -203,7 +203,6 @@ archiving historical worktrees. The old EXP-078 synchronization target is retire
 Keep the following operational instruction files identical:
 
 - `/public/home/zhangkewei/zr/AGENTS.md`;
-- `/public/home/zhangkewei/zr/exp-095-sbrc128k-only/AGENTS.md` (prior-stable worktree);
 - `/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/AGENTS.md` (current stable worktree).
 
 The complete latest experiment record must remain synchronized between:
@@ -211,7 +210,7 @@ The complete latest experiment record must remain synchronized between:
 - `/public/home/zhangkewei/zr/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`;
 - `/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md`.
 
-The prior-stable branch retains its validated-version experiment record. Do not
+The archived prior-stable snapshot retains its validated-version experiment record. Do not
 silently replace it with newer benchmark-only records or change its validated
 source/tag when updating operational documentation. Historical archived copies,
 including EXP-078, are immutable snapshots and are no longer synchronization targets.
@@ -256,7 +255,7 @@ The v2 repository's missing index is preserved and must not be repaired
 automatically. Existing installation paths, the main build and runtime stay put.
 
 Keep `EXPERIMENT_LAYOUT.md` and the current `WORKTREE_ARCHIVES.md` index identical
-between top-level, active stable, and active EXP-123 copies. Preserve prior dated
+between top-level and active EXP-123 stable copies. Preserve prior dated
 archive records; append later migration/restore mappings rather than rewriting
 historical evidence. This layout does not change measurement or source semantics.
 
@@ -319,7 +318,7 @@ Main build/rocfft_build, build/hipfft_build, build/tools and install remain pair
 legacy development locations. Four compatibility links remain at
 install-exp096-official, exp122-A-install, exp119-stage1-install-clean and
 install-exp090-candidate. Keep the EXP-078 and fixed raw-baseline paths intact.
-The top-level count is now 43, subject to the explicit allowlist.
+The top-level count is now 42, subject to the explicit allowlist.
 
 Historical loose results/logs moved to results/historical/legacy-root and
 logs/historical/legacy-root. Keep them original; old diagnostic definitions do
@@ -341,4 +340,4 @@ static and synthetic validation; no actual compilation/GPU jobs were run. The
 first new experiment must verify real compiler/runtime/GPU/library integration.
 Ask about new conflicts, dependencies or unexplained states; preserve prior
 user modifications and historical refs. Operational documents stay synchronized
-across root, stable and EXP-123; latest full records stay root/EXP-123 synchronized.
+across root and EXP-123; latest full records stay root/EXP-123 synchronized.
