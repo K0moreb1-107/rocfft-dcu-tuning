@@ -3,7 +3,7 @@
 Updated 2026-09-30 after the user-approved top-level material migration.
 
 The optimization repository has three registered worktrees: root,
-`exp-095-sbrc128k-only` (stable), and `exp-123-cufft-format-benchmark`.
+`exp-095-sbrc128k-only` (prior stable), and `exp-123-cufft-format-benchmark` (current stable).
 `official-rocm722-source` is the separate official checkout. Four additional
 EXP-082/083 Git directories are now historical archives under `archives/repositories/`;
 this count describes the primary optimization repository, not all nested repositories.
@@ -75,3 +75,28 @@ corresponding experiments/EXP-NNN/records/builds/<old-name>/.
 Earlier dated archives, repository relationships, missing-index v2 state and
 eight archived build trees remain unchanged. Eight stale FFTW links remain as
 original historical state. See docs/technical/WORKSPACE_MANAGEMENT.md.
+
+
+## EXP-123 stable promotion (user approved 2026-10-03)
+
+The current stable branch is exp-123-cufft-format-benchmark, worktree
+/public/home/zhangkewei/zr/exp-123-cufft-format-benchmark. Its retained source
+anchor is 344fbb5970f533db838fcb8c85e0eaa025cbc419; immutable release tag:
+stable-exp123-cufft-format-20261003. Start all subsequent EXP branches from this
+tag/current explicitly approved stable successor, never from the old root EXP-075.
+
+Compared with validated EXP-122 source ed06208f30706f63126078a5c51af07fa0439fe7,
+rocFFT has only a config_sbrc.py comment change; executable source semantics
+are unchanged. This is an explicitly user-approved source/workflow promotion,
+not evidence of a new optimization or a new formal GPU measurement. EXP-123's
+historical measurements retain their original definitions. The unchanged EXP-122
+installed library remains the approved previous-arm binary until an identity-
+verified equivalent EXP-123 rebuild is explicitly registered; record its real
+build source ed06208f30706f63126078a5c51af07fa0439fe7, not a fabricated new build.
+
+The old rocfft-opt-pre-tile-lifetime branch/worktree and stable-exp122 tag remain
+prior-stable history. Keep operational documents synchronized across root,
+prior-stable and EXP-123 current-stable paths. Complete latest records remain
+root/EXP-123; preserve the prior-stable full historical record. Do not auto-merge
+new experiment results or move the immutable release tag. Measurement contract,
+official/A100 references and all user modifications remain unchanged.
