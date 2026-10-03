@@ -10,7 +10,8 @@ Use the exact original EXP-123 fft_test_1d.cpp measurement program, frozen at
 SHA256 849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da.
 Full protocol: docs/technical/FFT_MEASUREMENT_PROTOCOL.md. Shared entry points:
 /public/home/zhangkewei/zr/tools/fft_measurement/run.py and summarize.py;
-formal job: /public/home/zhangkewei/zr/jobs/measure_fft.slurm.
+formal submission: python3 manage.py measure --config CONFIG.json --execute.
+Compatibility submission helper: bash jobs/measure_fft.slurm CONFIG.json.
 
 Default matrix: double precision, batch=1, out-of-place, sizes 65536, 131072,
 262144, 524288, 1048576, each z2z_1d/d2z_1d/z2d_1d (15 cases; no 32K).
@@ -285,3 +286,59 @@ Historical scripts and evidence remain original. Environment-stale entry scripts
 are archived rather than silently repaired. Do not enable them without verifying
 their dependencies. Tool path adaptations do not change FFT parameters, accuracy
 thresholds, canonical measurement rules or validated optimization source.
+
+
+## Unified artifacts and task management (approved 2026-10-02; implemented 2026-10-03)
+
+This dated policy supersedes the previous installation-preservation and output
+path exceptions only for the approved migration. Source worktrees, official
+repository, validated optimization source/tag and measurement definitions stay
+unchanged. See docs/technical/WORKSPACE_MANAGEMENT.md for commands and recovery.
+
+Use manage.py with an explicit independent experiment configuration under
+configs/experiments/. Default is read-only preview; --execute submits the task
+or generates the requested report. The manager never changes source checkouts.
+New optimization still starts from the current valid stable source in an EXP
+branch. Source integration into the top checkout is a separate task.
+
+New build/install/cache belong to experiments/EXP-NNN/artifacts/ with unique IDs.
+Run CSVs, stdout/stderr, configuration, provenance and reports belong together
+under experiments/EXP-NNN/runs/<run-id>/; helper binaries remain artifacts.
+Formal measurement retains the exact frozen CPP, 15 cases, 3 warmups/50 events,
+8-round three-arm ordering, 720 processes and fixed A100 reference/formulas.
+Queued configurations freeze concrete library/source identities, not mutable
+aliases. No automatic source promotion. Quick validation is not formal evidence.
+
+Current installation registry: configs/installations.json. Current previous
+is the approved EXP-122 library; EXP-119 remains historical. Directory names do
+not prove source identity or acceptance. Historical/unknown installations cannot
+silently become official/previous/candidate. Candidate builds retain exact source
+state, CMake parameters, compiler and final library checksum.
+
+Main build/rocfft_build, build/hipfft_build, build/tools and install remain paired
+legacy development locations. Four compatibility links remain at
+install-exp096-official, exp122-A-install, exp119-stage1-install-clean and
+install-exp090-candidate. Keep the EXP-078 and fixed raw-baseline paths intact.
+The top-level count is now 43, subject to the explicit allowlist.
+
+Historical loose results/logs moved to results/historical/legacy-root and
+logs/historical/legacy-root. Keep them original; old diagnostic definitions do
+not change. partial_pass_tile_ownership uses these historical inputs while
+retaining original fixed baselines/Git root. Diagnostic plots write separately.
+tune_all.py is retired and removed; retain enumeration helpers and historical
+tuning data. Stale profiling/environment entries remain historical, not defaults.
+
+Ten explicitly approved invalid build trees were cleared after preserving
+configuration, compiler/install records and generated source records under
+experiments/EXP-NNN/records/builds/. Seven other old build/helper snapshots
+were grouped under corresponding artifacts/build/history. Installed libraries
+were preserved. Eight existing EXP-081 FFTW stale links remain unchanged and
+recorded; do not silently repair them. Existing archives/builds remains original.
+
+Audit and mapping: .worktree-archives/artifact-management-20261003/. Refresh
+identity/dependency checks before future restores. This implementation used only
+static and synthetic validation; no actual compilation/GPU jobs were run. The
+first new experiment must verify real compiler/runtime/GPU/library integration.
+Ask about new conflicts, dependencies or unexplained states; preserve prior
+user modifications and historical refs. Operational documents stay synchronized
+across root, stable and EXP-123; latest full records stay root/EXP-123 synchronized.
