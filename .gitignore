@@ -13,3 +13,25 @@ __pycache__/
 .codex-cli/
 .npm-cache/
 .tools/
+
+# User-approved organized output locations (2026-09-30)
+/tools/__pycache__/
+/build/tools/
+/results/validation/
+/results/enumeration/
+/results/tuning/
+/logs/jobs/
+/worktrees/
+/archives/repositories/
+/experiments/*/artifacts/build/
+/experiments/*/artifacts/install/
+/experiments/*/artifacts/cache/
+
+# Approved managed experiment outputs (2026-10-03)
+/experiments/*/artifacts/
+/experiments/*/runs/
+/experiments/*/records/builds/
+/results/historical/legacy-root/
+/logs/historical/legacy-root/
+/results/diagnostics/
+/tools/workspace_manager/__pycache__/

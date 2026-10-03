@@ -26,8 +26,6 @@
 #include "node_factory.h"
 #include "repo.h"
 #include "tuning_helper.h"
-#include "../../shared/environment.h"
-#include "logging.h"
 #include <numeric>
 
 /*****************************************************
@@ -387,14 +385,6 @@ void CC1DNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     }
     row2colPlan->outputLength = row2colPlan->length;
     std::swap(row2colPlan->outputLength[0], row2colPlan->outputLength[1]);
-
-    // The two block kernels have a common tile contract for the strict
-    // square, one-workgroup case.  The shim is kept on the parent until
-    // buffer assignment has supplied the final strides and ownership.
-    auto CCSBRC = NodeFactory::CreateFuseShim(
-        FT_STOCKHAM_CC_WITH_RC, {col2colPlan.get(), row2colPlan.get()});
-    if(CCSBRC->IsSchemeFusable())
-        fuseShims.emplace_back(std::move(CCSBRC));
 
     // CC , RC
     childNodes.emplace_back(std::move(col2colPlan));
@@ -1295,89 +1285,6 @@ SBRC_TRANSPOSE_TYPE SBRCNode::sbrc_transpose_type(unsigned int blockWidth) const
 {
     auto alignment_dimension = length[1];
     return (alignment_dimension % blockWidth == 0) ? TILE_ALIGNED : TILE_UNALIGNED;
-}
-
-/*****************************************************
- * Fused SBCC -> SBRC                         *
- *****************************************************/
-FusedSBCCSBRCNode::~FusedSBCCSBRCNode()
-{
-    if(ownsConsumerTwiddles && consumerTwiddles)
-    {
-        Repo::ReleaseTwiddle1D(consumerTwiddles);
-        consumerTwiddles = nullptr;
-    }
-}
-
-bool FusedSBCCSBRCNode::CreateDeviceResources()
-{
-    // The producer owns the regular and large-twiddle resources inherited
-    // from SBCC.  The consumer needs an independent regular twiddle table.
-    const bool producerResources = SBCCNode::CreateDeviceResources();
-    if(!producerResources)
-    {
-        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
-            rocfft_cerr << "CCSBRC fusion [resources] producer resources=false twiddles="
-                        << twiddles << " large=" << twiddles_large << std::endl;
-        return false;
-    }
-
-    if(consumerLength.empty() || consumerKernelFactors.empty())
-    {
-        if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
-            rocfft_cerr << "CCSBRC fusion [resources] consumer metadata empty length="
-                        << consumerLength.size() << " factors=" << consumerKernelFactors.size()
-                        << std::endl;
-        return false;
-    }
-
-    std::tie(consumerTwiddles, consumerTwiddlesSize)
-        = Repo::GetTwiddles1D(consumerLength[0],
-                              0,
-                              precision,
-                              deviceProp,
-                              0,
-                              false,
-                              consumerKernelFactors);
-    ownsConsumerTwiddles = consumerTwiddles != nullptr;
-    if(rocfft_getenv("ROCFFT_DEBUG_SBCC_SBRC_FUSION") == "1")
-        rocfft_cerr << "CCSBRC fusion [resources] producer=true consumer_length0="
-                    << consumerLength.front() << " consumer_factors="
-                    << consumerKernelFactors.size() << " consumer_twiddles=" << consumerTwiddles
-                    << std::endl;
-    return consumerTwiddles != nullptr;
-}
-
-bool FusedSBCCSBRCNode::CreateDevKernelArgs()
-{
-    const auto& producerOutput = producerOutStride.empty() ? outStride : producerOutStride;
-    devKernArg = kargs_create(length, inStride, producerOutput, iDist, producerODist);
-    consumerDevKernArg
-        = kargs_create(consumerLength,
-                       consumerInStride,
-                       consumerOutStride,
-                       consumerIDist,
-                       consumerODist);
-    return devKernArg != nullptr && consumerDevKernArg != nullptr;
-}
-
-void FusedSBCCSBRCNode::SetupGridParam_internal(GridParam& gp)
-{
-    if(fusedGrid.b_x == 0 || producerWgs == 0)
-    {
-        SBCCNode::SetupGridParam_internal(gp);
-        return;
-    }
-
-    bwd      = producerBwd;
-    wgs      = producerWgs;
-    lds      = fusedLdsElements ? fusedLdsElements : producerLdsElements;
-    gp.b_x   = fusedGrid.b_x;
-    gp.b_y   = fusedGrid.b_y;
-    gp.b_z   = fusedGrid.b_z;
-    gp.wgs_x = fusedWgs ? fusedWgs : producerWgs;
-    gp.wgs_y = fusedGrid.wgs_y;
-    gp.wgs_z = fusedGrid.wgs_z;
 }
 
 /*****************************************************

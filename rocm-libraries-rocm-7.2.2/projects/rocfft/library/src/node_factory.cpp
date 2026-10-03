@@ -134,6 +134,7 @@ NodeFactory::Map1DLength const NodeFactory::map1DLengthDouble = {
     {131072, 256}, //           CC (256cc + 512rc)
     {262144, 512}, //           CC (512cc + 512rc)
     {524288, 1024}, //          CC (1024cc + 512rc)
+    {1048576, 1024}, //         CC (1024cc + 1024rc)
 
     // ----------------------------------------------------------
     // non-pow2 lengths in (4096, 8192)
@@ -310,6 +311,38 @@ bool NodeFactory::CheckLarge1DMaps(const function_pool& pool)
     static bool doubleValid = NodeFactory::Large1DLengthsValid(
         pool, NodeFactory::map1DLengthDouble, rocfft_precision_double);
     return singleValid && doubleValid;
+}
+
+bool NodeFactory::Get1DBlockComputeDivisor(const function_pool& pool,
+                                           rocfft_precision     precision,
+                                           size_t               length,
+                                           size_t&              divLength1,
+                                           bool&                mapEntryFound)
+{
+    mapEntryFound = false;
+    const Map1DLength* map1DLength = nullptr;
+    if(precision == rocfft_precision_single || precision == rocfft_precision_half)
+        map1DLength = &NodeFactory::map1DLengthSingle;
+    else if(precision == rocfft_precision_double)
+        map1DLength = &NodeFactory::map1DLengthDouble;
+    else
+        return false;
+
+    const auto it = map1DLength->find(length);
+    if(it == map1DLength->end())
+        return false;
+
+    mapEntryFound = true;
+    const auto candidate = it->second;
+    if(candidate == 0 || length % candidate != 0)
+        return false;
+
+    if(!pool.has_SBCC_kernel(candidate, precision)
+       || !pool.has_SBRC_kernel(length / candidate, precision))
+        return false;
+
+    divLength1 = candidate;
+    return true;
 }
 
 // Checks whether the non-pow2 length input is supported for a Bluestein compute scheme
@@ -556,8 +589,6 @@ std::unique_ptr<FuseShim> NodeFactory::CreateFuseShim(FuseType                  
         return std::unique_ptr<TransC2R_FuseShim>(new TransC2R_FuseShim(components, type));
     case FT_STOCKHAM_R2C_TRANSPOSE:
         return std::unique_ptr<STK_R2CTrans_FuseShim>(new STK_R2CTrans_FuseShim(components, type));
-    case FT_STOCKHAM_CC_WITH_RC:
-        return std::unique_ptr<CCSBRCFuseShim>(new CCSBRCFuseShim(components, type));
     default:
         throw std::runtime_error("FuseType assertion failed, type not implemented");
         return nullptr;
@@ -652,39 +683,19 @@ ComputeScheme
         }
     }
 
-    size_t divLength1 = 1;
-    bool   failed     = false;
+    constexpr size_t legacy_block_compute_map_threshold = 524288;
+    size_t            divLength1                         = 1;
+    bool              failed                             = false;
 
     if(IsPo2(nodeData.length[0])) // multiple kernels involving transpose
     {
-        // TODO: wrap the below into a function and check with LDS size
-        size_t block_threshold = 524288;
-        if(nodeData.length[0] <= block_threshold)
+        bool mapEntryFound = false;
+        if(Get1DBlockComputeDivisor(pool,
+                                    nodeData.precision,
+                                    nodeData.length[0],
+                                    divLength1,
+                                    mapEntryFound))
         {
-            // Enable block compute under these conditions
-            if(nodeData.precision == rocfft_precision_single
-               || nodeData.precision == rocfft_precision_half)
-            {
-                if(map1DLengthSingle.find(nodeData.length[0]) != map1DLengthSingle.end())
-                {
-                    divLength1 = map1DLengthSingle.at(nodeData.length[0]);
-                }
-                else
-                {
-                    failed = true;
-                }
-            }
-            else
-            {
-                if(map1DLengthDouble.find(nodeData.length[0]) != map1DLengthDouble.end())
-                {
-                    divLength1 = map1DLengthDouble.at(nodeData.length[0]);
-                }
-                else
-                {
-                    failed = true;
-                }
-            }
             // for gfx906, 512 CC/RC isn't as fast, so use CRT
             // with a nicer length
             if((is_device_gcn_arch(nodeData.deviceProp, "gfx906")) && nodeData.length[0] == 262144)
@@ -696,6 +707,15 @@ ComputeScheme
             {
                 scheme = CS_L1D_CC;
             }
+        }
+        else if(!mapEntryFound
+                && nodeData.length[0] <= legacy_block_compute_map_threshold)
+        {
+            // Preserve the legacy missing-map failure in the old block range.
+            // A mapped pair that fails the LDS-aware kernel checks still falls
+            // through to the TRTRT fallback below.
+            scheme = CS_L1D_CC;
+            failed = true;
         }
         else
         {

@@ -42,6 +42,11 @@ private:
                                     const Map1DLength&   map1DLength,
                                     rocfft_precision     precision);
     static bool CheckLarge1DMaps(const function_pool& pool);
+    static bool Get1DBlockComputeDivisor(const function_pool& pool,
+                                         rocfft_precision     precision,
+                                         size_t               length,
+                                         size_t&              divLength1,
+                                         bool&                mapEntryFound);
 
 public:
     // Create node (user level) using this function

@@ -27,7 +27,6 @@
 #include "rtc_stockham_gen.h"
 #include "rtc_stockham_kernel.h"
 #include "tree_node.h"
-#include "tree_node_1D.h"
 
 #include "device/kernel-generator-embed.h"
 
@@ -36,23 +35,6 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
                                                               bool               enable_callbacks)
 {
     RTCStockhamGenerator generator;
-
-    if(const auto* fused = dynamic_cast<const FusedSBCCSBRCNode*>(&node))
-    {
-        generator.generate_name = [fused]() {
-            return fused_stockham_rtc_kernel_name(*fused);
-        };
-
-        generator.generate_src = [fused](const std::string& kernel_name) {
-            return fused_stockham_rtc(*fused, kernel_name);
-        };
-
-        generator.construct_rtckernel
-            = [](const std::string& kernel_name, const std::vector<char>& code, dim3, dim3) {
-                  return std::unique_ptr<RTCKernel>(new RTCKernelStockham(kernel_name, code));
-              };
-        return generator;
-    }
 
     std::optional<StockhamGeneratorSpecs> specs;
     std::optional<StockhamGeneratorSpecs> specs2d;
@@ -103,6 +85,58 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
         specs->half_lds              = kernel->half_lds;
         specs->direct_to_from_reg    = kernel->direct_to_from_reg;
         specs->ebtype                = node.ebtype;
+
+        // EXP-089: enable direct initial global-to-register loading for any
+        // power-of-two SBRC whose complete first-pass map can be proven from
+        // the generated Stockham configuration.  This also covers future
+        // lengths such as SBRC-1024 without adding a length whitelist.
+        const auto callback_type = node.GetCallbackType(enable_callbacks);
+        const auto is_power_of_two = [](size_t value) {
+            return value != 0 && (value & (value - 1)) == 0;
+        };
+        const bool static_pow2_sbrc_map = [&]() {
+            if(!is_power_of_two(specs->length) || specs->factors.empty()
+               || specs->threads_per_transform == 0
+               || specs->workgroup_size % specs->threads_per_transform != 0
+               || specs->length % specs->factors.front() != 0)
+                return false;
+
+            size_t factor_product = 1;
+            for(const auto factor : specs->factors)
+            {
+                if(!is_power_of_two(factor) || factor_product > specs->length / factor)
+                    return false;
+                factor_product *= factor;
+            }
+            return factor_product == specs->length;
+        }();
+        specs->static_initial_reg_load
+            = pool_scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
+              && node.scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
+              && node.sbrcTranstype == TILE_ALIGNED
+              && node.precision == rocfft_precision_double
+              && node.ebtype == EmbeddedType::NONE
+              && callback_type == CallbackType::NONE
+              && specs->direct_to_from_reg
+              && static_pow2_sbrc_map;
+        specs->static_initial_reg_load_linear
+            = specs->static_initial_reg_load
+              && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;
+
+        // The local SBRC-512 kernel is shared by several large 1D FFTs.
+        // Select the recurrence using the complete plan length, not the
+        // local transform length, and carry that decision into the RTC key.
+        const TreeNode* plan_root = &node;
+        while(plan_root->parent != nullptr)
+            plan_root = plan_root->parent;
+        const bool full_transform_is_128k = plan_root->dimension == 1
+                                             && plan_root->length.size() == 1
+                                             && plan_root->length.front() == 131072;
+        specs->sbrc_ordinary_twiddle_recurrence
+            = specs->static_initial_reg_load && full_transform_is_128k
+              && specs->length == 512 && specs->workgroup_size == 512
+              && specs->threads_per_transform == 128
+              && specs->factors == std::vector<unsigned int>{8, 8, 8};
 
         if(node.isPartialPassEnabled())
         {
@@ -253,47 +287,6 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
 {
     // construct arguments to pass to the kernel
     RTCKernelArgs kargs;
-
-    if(const auto* fused = dynamic_cast<const FusedSBCCSBRCNode*>(data.node))
-    {
-        // The fused source uses the producer ABI first and the consumer ABI
-        // second.  LDS handoff keeps the intermediate pointers as ABI
-        // placeholders; global handoff binds both stages to planner-owned
-        // storage.
-        kargs.append_ptr(fused->twiddles);
-        kargs.append_ptr(fused->twiddles_large);
-        if(fused->producerAotRtc)
-            kargs.append_size_t(fused->length.size());
-        kargs.append_ptr(kargs_lengths(fused->devKernArg));
-        kargs.append_ptr(kargs_stride_in(fused->devKernArg));
-        kargs.append_ptr(kargs_stride_out(fused->devKernArg));
-        kargs.append_size_t(fused->batch);
-        kargs.append_ptr(data.callbacks.load_cb_fn);
-        kargs.append_ptr(data.callbacks.load_cb_data);
-        kargs.append_unsigned_int(data.callbacks.load_cb_lds_bytes);
-        kargs.append_ptr(data.callbacks.store_cb_fn);
-        kargs.append_ptr(data.callbacks.store_cb_data);
-        kargs.append_ptr(data.bufIn[0]);
-        void* producer_output = data.bufOut[0];
-        void* consumer_input  = data.bufIn[0];
-        if(fused->globalTileHandoff)
-        {
-            producer_output = data.bufTemp;
-            consumer_input  = data.bufTemp;
-        }
-        kargs.append_ptr(producer_output);
-
-        kargs.append_ptr(fused->consumerTwiddles);
-        if(fused->consumerAotRtc)
-            kargs.append_size_t(fused->consumerLength.size());
-        kargs.append_ptr(kargs_lengths(fused->consumerDevKernArg));
-        kargs.append_ptr(kargs_stride_in(fused->consumerDevKernArg));
-        kargs.append_ptr(kargs_stride_out(fused->consumerDevKernArg));
-        kargs.append_size_t(fused->consumerBatch);
-        kargs.append_ptr(consumer_input);
-        kargs.append_ptr(data.bufOut[0]);
-        return kargs;
-    }
 
     // twiddles
     if(data.node->scheme == CS_KERNEL_STOCKHAM_PP)

@@ -1,0 +1,166 @@
+{
+  "input_dir": "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992",
+  "lengths": {
+    "131072": {
+      "candidate": {
+        "mean_ms": 7.607957272727273,
+        "range_ms": 0.006341636363636383,
+        "rounds_ms": [
+          7.611128090909091,
+          7.604786454545454
+        ],
+        "stdev_ms": 0.004484214076546485
+      },
+      "files": {
+        "candidate": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_131072_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_131072_r2.hipkernel.csv"
+        ],
+        "stable": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_131072_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_131072_r2.hipkernel.csv"
+        ]
+      },
+      "improvement_vs_official_percent": 15.040949055023223,
+      "improvement_vs_stable_percent": 0.003502191247350961,
+      "official_baseline_file": "/public/home/zhangkewei/zr/results/z2z_128k_official_7.2.2_20260831_172537.csv.hipkernel.csv",
+      "official_baseline_ms": 8.954852,
+      "paired_round_speedups": [
+        0.9992641993853761,
+        1.0008064896831543
+      ],
+      "speedup_vs_official": 1.1770376303375187,
+      "speedup_vs_stable": 1.000035023139051,
+      "stable": {
+        "mean_ms": 7.608223727272728,
+        "range_ms": 0.005391818181817776,
+        "rounds_ms": [
+          7.605527818181819,
+          7.610919636363636
+        ],
+        "stdev_ms": 0.0038125911992882705
+      }
+    },
+    "262144": {
+      "candidate": {
+        "mean_ms": 17.367239954545454,
+        "range_ms": 0.006595909090908236,
+        "rounds_ms": [
+          17.363942,
+          17.37053790909091
+        ],
+        "stdev_ms": 0.0046640120462712095
+      },
+      "files": {
+        "candidate": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_262144_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_262144_r2.hipkernel.csv"
+        ],
+        "stable": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_262144_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_262144_r2.hipkernel.csv"
+        ]
+      },
+      "improvement_vs_official_percent": 10.295116756802859,
+      "improvement_vs_stable_percent": -0.010445782012236116,
+      "official_baseline_file": "/public/home/zhangkewei/zr/results/z2z_256k_official_7.2.2_20260831_172537.csv.hipkernel.csv",
+      "official_baseline_ms": 19.360417545454546,
+      "paired_round_speedups": [
+        0.9999715135904257,
+        0.999819621433506
+      ],
+      "speedup_vs_official": 1.1147665142029333,
+      "speedup_vs_stable": 0.9998955530901743,
+      "stable": {
+        "mean_ms": 17.365426,
+        "range_ms": 0.00395727272727342,
+        "rounds_ms": [
+          17.363447363636364,
+          17.367404636363638
+        ],
+        "stdev_ms": 0.002798214380459618
+      }
+    },
+    "524288": {
+      "candidate": {
+        "mean_ms": 38.521133545454546,
+        "range_ms": 0.0334527272727243,
+        "rounds_ms": [
+          38.537859909090905,
+          38.50440718181818
+        ],
+        "stdev_ms": 0.023654650303727515
+      },
+      "files": {
+        "candidate": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_524288_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_524288_r2.hipkernel.csv"
+        ],
+        "stable": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_524288_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_524288_r2.hipkernel.csv"
+        ]
+      },
+      "improvement_vs_official_percent": 45.36746997033722,
+      "improvement_vs_stable_percent": -0.11948002890813658,
+      "official_baseline_file": "/public/home/zhangkewei/zr/results/z2z_512k_official_7.2.2_20260831_172537.csv.hipkernel.csv",
+      "official_baseline_ms": 70.5095179090909,
+      "paired_round_speedups": [
+        0.9977907227235073,
+        0.9998234110055676
+      ],
+      "speedup_vs_official": 1.83041129425463,
+      "speedup_vs_stable": 0.9988066255550504,
+      "stable": {
+        "mean_ms": 38.47516340909091,
+        "range_ms": 0.0448886363636376,
+        "rounds_ms": [
+          38.45271909090909,
+          38.49760772727273
+        ],
+        "stdev_ms": 0.03174105917094519
+      }
+    },
+    "65536": {
+      "candidate": {
+        "mean_ms": 3.4542543181818184,
+        "range_ms": 0.00084354545454568,
+        "rounds_ms": [
+          3.4538325454545453,
+          3.454676090909091
+        ],
+        "stdev_ms": 0.0005964767111483389
+      },
+      "files": {
+        "candidate": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_65536_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/candidate_65536_r2.hipkernel.csv"
+        ],
+        "stable": [
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_65536_r1.hipkernel.csv",
+          "/public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp090_paired_855992/stable_65536_r2.hipkernel.csv"
+        ]
+      },
+      "improvement_vs_official_percent": 7.454502016492793,
+      "improvement_vs_stable_percent": 0.03133755518158754,
+      "official_baseline_file": "/public/home/zhangkewei/zr/results/z2z_64k_official_7.2.2_20260831_172537.csv.hipkernel.csv",
+      "official_baseline_ms": 3.7324930909090908,
+      "paired_round_speedups": [
+        1.0007664739654958,
+        0.9998605842194862
+      ],
+      "speedup_vs_official": 1.0805495910543512,
+      "speedup_vs_stable": 1.0003134737868367,
+      "stable": {
+        "mean_ms": 3.455337136363636,
+        "range_ms": 0.0022853636363637797,
+        "rounds_ms": [
+          3.456479818181818,
+          3.4541944545454544
+        ],
+        "stdev_ms": 0.0016159961247499757
+      }
+    }
+  },
+  "metric": "(TotalDurationNs - generate_random_interleaved_data_kernel) / 11 / 1e6"
+}

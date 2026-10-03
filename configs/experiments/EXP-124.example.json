@@ -1,0 +1,36 @@
+{
+  "policy": "EXP123-event-50-three-arm-8-v1",
+  "experiment": "EXP-124",
+  "run_id": "EXP-124-REPLACE-run-id",
+  "gpu_arch": "gfx936",
+  "acceptance": "REPLACE with experiment-specific preregistered improvement/cross-size criteria",
+  "arms": {
+    "official": {
+      "registry_id": "install-exp096-official"
+    },
+    "previous": {
+      "registry_id": "exp122-A-install"
+    },
+    "candidate": {
+      "build_record": "/public/home/zhangkewei/zr/experiments/EXP-124/runs/REPLACE-build-run/build-provenance.json"
+    }
+  },
+  "schema_version": 1,
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "nodelist": "f09r1n01"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-124-REPLACE-build-id",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "REPLACE-40-digit-commit",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {}
+  },
+  "starting_stable_tag": "stable-main-exp123-20261003",
+  "starting_stable_branch": "main"
+}

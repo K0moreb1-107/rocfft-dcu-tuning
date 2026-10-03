@@ -305,6 +305,11 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                     Declaration{lds_linear, Literal{"true"}}};
     }
 
+    virtual bool use_static_initial_reg_load() const
+    {
+        return static_initial_reg_load;
+    }
+
     virtual StatementList set_lds_is_real()
     {
         if(half_lds)
@@ -351,6 +356,8 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         {
             const auto addr = vrender(index);
             // Match the folded bit to the Stockham group stride.
+            if(length == 256 && factors == std::vector<unsigned int>{8, 4, 8})
+                return Literal{"((" + addr + ") ^ ((" + addr + ") >> 3))"};
             if(length == 512)
                 return Literal{"((" + addr + ") ^ ((" + addr + ") >> 4))"};
             if(length == 1024)
@@ -370,6 +377,40 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                                  && factors == std::vector<unsigned int>{8, 8, 8}
                                  && workgroup_size == 256 && threads_per_transform == 64;
         return false;
+    }
+
+    // The [8,8,4,4] / TPT=64 layout has one register-local boundary:
+    // pass 2's Stockham store followed by pass 3's load is a 4x4
+    // transpose within each thread.  Keep this narrowly scoped until
+    // the same ownership relation is proved for another configuration.
+    bool use_register_local_exchange(unsigned int npass) const
+    {
+        return half_lds && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double && length == 1024
+               && threads_per_transform == 64
+               && factors == std::vector<unsigned int>{8, 8, 4, 4} && npass == 2;
+    }
+
+    StatementList register_local_exchange(unsigned int npass)
+    {
+        StatementList work;
+        if(!use_register_local_exchange(npass))
+            return work;
+
+        work += CommentLines{
+            "register-local Stockham exchange: transpose the 4x4 per-thread tile"};
+        for(unsigned int h = 0; h < 4; ++h)
+        {
+            for(unsigned int w = h + 1; w < 4; ++w)
+            {
+                const auto lhs = h * 4 + w;
+                const auto rhs = w * 4 + h;
+                work += Assign{t, R[lhs]};
+                work += Assign{R[lhs], R[rhs]};
+                work += Assign{R[rhs], t};
+            }
+        }
+        return work;
     }
 
     StatementList sync_threads() const
@@ -454,6 +495,27 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return work;
     }
 
+    bool use_ordinary_twiddle_recurrence()
+    {
+        const bool is_dp = precisions.size() == 1
+                           && precisions.front() == rocfft_precision_double;
+        const bool common_sbcc = half_lds && direct_to_from_reg && is_dp
+                                 && workgroup_size == 256;
+        const bool sbcc256 = length == 256 && threads_per_transform == 32
+                             && factors == std::vector<unsigned int>{8, 4, 8};
+        const bool sbcc512 = length == 512 && threads_per_transform == 64
+                             && factors == std::vector<unsigned int>{8, 8, 8};
+        const bool sbcc1024 = length == 1024 && threads_per_transform == 64
+                              && factors == std::vector<unsigned int>{8, 8, 4, 4};
+        const bool sbrc512 = sbrc_ordinary_twiddle_recurrence
+                             && scheme == "CS_KERNEL_STOCKHAM_BLOCK_RC" && is_dp
+                             && direct_to_from_reg && static_initial_reg_load
+                             && length == 512 && workgroup_size == 512
+                             && threads_per_transform == 128
+                             && factors == std::vector<unsigned int>{8, 8, 8};
+        return (common_sbcc && (sbcc256 || sbcc512 || sbcc1024)) || sbrc512;
+    }
+
     // The "stacked" twiddle table starts at the second factor, since
     // the first factor's values are not actually needed for
     // anything.  It still counts towards cumulative height, but we
@@ -471,6 +533,32 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             hr = h;
         StatementList work;
         Expression    loadFlag{thread < length / width};
+
+        if(use_ordinary_twiddle_recurrence() && (width == 4 || width == 8))
+        {
+            // Consecutive entries in a radix butterfly are powers of one base
+            // twiddle. Load that base once, then form the remaining powers in
+            // registers for the explicitly gated DP SBCC and SBRC layouts.
+            auto tid = thread + dt + h * threads_per_transform;
+            auto base_tidx
+                = cumheight - firstFactor + (width - 1) * (tid % cumheight);
+            work += Assign(W, twiddles[base_tidx]);
+            for(unsigned int w = 1; w < width; ++w)
+            {
+                auto ridx = hr * width + w;
+                if(w == 2)
+                    work += Assign(t,
+                                   ComplexLiteral{W.x() * W.x() - W.y() * W.y(),
+                                                  W.y() * W.x() + W.x() * W.y()});
+                else if(w > 2)
+                    work += Assign(t,
+                                   ComplexLiteral{t.x() * W.x() - t.y() * W.y(),
+                                                  t.y() * W.x() + t.x() * W.y()});
+                const auto& twiddle = w == 1 ? W : t;
+                work += Assign(R[ridx], TwiddleMultiply(R[ridx], twiddle));
+            }
+            return work;
+        }
 
         for(unsigned int w = 1; w < width; ++w)
         {
@@ -741,10 +829,14 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             }
 
             auto butterfly = std::mem_fn(&StockhamKernel::butterfly_generator);
+            const auto butterfly_guard
+                = use_static_initial_reg_load() && npass == 0
+                      ? ThreadGuardMode::GUARD_BY_IF
+                      : ThreadGuardMode::NO_GUARD;
             body += add_work(std::bind(butterfly, this, _1, _2, _3, _4, _5),
                              width,
                              height,
-                             ThreadGuardMode::NO_GUARD);
+                             butterfly_guard);
 
             if(npass == factors.size() - 1)
                 body += large_twiddles_multiply(width, height, cumheight);
@@ -752,7 +844,11 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             // internal lds store (half-with-linear and full-with-linear/nonlinear)
             StatementList reg2lds_full;
             StatementList reg2lds_half;
-            if(npass < factors.size() - 1)
+            if(npass < factors.size() - 1 && use_register_local_exchange(npass))
+            {
+                body += register_local_exchange(npass);
+            }
+            else if(npass < factors.size() - 1)
             {
                 // linear variant store (half) and load (half)
                 for(auto component : {Component::REAL, Component::IMAG})
@@ -866,8 +962,13 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             loadr += CommentLines{"load global into registers"};
             loadr += load_from_global(true);
 
-            body += If{direct_load_to_reg, loadr};
-            body += Else{loadlds};
+            if(use_static_initial_reg_load())
+                body += loadr;
+            else
+            {
+                body += If{direct_load_to_reg, loadr};
+                body += Else{loadlds};
+            }
         }
 
         body += LineBreak{};
@@ -891,6 +992,10 @@ struct StockhamKernel : public StockhamGeneratorSpecs
                         pre_post_lds_args};
         if(!direct_to_from_reg)
             body += preLoad;
+        else if(use_static_initial_reg_load())
+        {
+            // The specialized initial load already populated R.
+        }
         else
             body += If{!direct_load_to_reg, preLoad};
 

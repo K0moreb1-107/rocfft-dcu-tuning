@@ -74,12 +74,19 @@ struct StockhamKernelRC : public StockhamKernel
         return "SBRC";
     }
 
+    bool use_static_initial_reg_load() const override
+    {
+        return static_initial_reg_load;
+    }
+
     // TODO- support embedded Pre/Post
     StatementList set_direct_to_from_registers() override
     {
-        // RC: we never do "direct-to-reg", but do "direct-from-reg" and "non-linear"
+        // RC normally does not load directly to registers.  The exact
+        // SBRC-512 DP 2D aligned specialization is an exception.
         if(direct_to_from_reg)
-            return {Declaration{direct_load_to_reg, Literal{"false"}},
+            return {Declaration{direct_load_to_reg,
+                                Literal{static_initial_reg_load ? "true" : "false"}},
                     Declaration{direct_store_from_reg,
                                 And{directReg_type == "DirectRegType::TRY_ENABLE_IF_SUPPORT",
                                     sbrc_type != "SBRC_3D_FFT_ERC_TRANS_Z_XY"}},
@@ -392,9 +399,56 @@ struct StockhamKernelRC : public StockhamKernel
         return stmts;
     }
 
+    StatementList static_load_global_generator(unsigned int h,
+                                                    unsigned int hr,
+                                                    unsigned int width,
+                                                    unsigned int dt,
+                                                    Expression   guard) const
+    {
+        if(hr == 0)
+            hr = h;
+        (void)guard;
+        StatementList work;
+        const auto tid = Parens{thread + dt + h * threads_per_transform};
+        const auto row = static_initial_reg_load_linear
+                             ? Expression{thread_id / threads_per_transform}
+                             : Expression{thread_id % transforms_per_block};
+
+        // This is the exact inverse of load_lds_generator() for the first
+        // Stockham pass: R[hr*width+w] is the input element at tid plus the
+        // radix stride.  Only the global-to-LDS staging is removed.
+        for(unsigned int w = 0; w < width; ++w)
+        {
+            const auto idx = Parens{tid + w * length / width};
+            const auto global_idx
+                = Parens{Parens{Expression{idx}} * stride0 + row * stride_load_in};
+            work += Assign{R[hr * width + w], LoadGlobal{buf, offset_in + global_idx}};
+        }
+        return work;
+    }
+
     StatementList load_from_global(bool load_registers) override
     {
         StatementList stmts;
+
+        if(load_registers && static_initial_reg_load)
+        {
+            stmts += CommentLines{"static SBRC initial global-to-register load",
+                                   "generated from the first-pass LDS/register map"};
+            stmts += Assign{thread,
+                            static_initial_reg_load_linear
+                                ? Expression{thread_id % threads_per_transform}
+                                : Expression{thread_id / transforms_per_block}};
+
+            const auto width  = factors.front();
+            const auto height = static_cast<float>(length) / width / threads_per_transform;
+            auto       load_global = std::mem_fn(&StockhamKernelRC::static_load_global_generator);
+            stmts += add_work(std::bind(load_global, this, _1, _2, _3, _4, _5),
+                              width,
+                              height,
+                              ThreadGuardMode::GUARD_BY_IF);
+            return stmts;
+        }
 
         if(!load_registers)
         {

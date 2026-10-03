@@ -47,9 +47,7 @@ sbrc_kernels = [
     NS(length=289, factors=[17, 17], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=17, runtime_compile=True),
     NS(length=343, factors=[7, 7, 7], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=49, runtime_compile=True),
     NS(length=512, factors=[8, 8, 8], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=128),
+    NS(length=1024, factors=[8, 8, 4, 4], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=512, threads_per_transform=128, runtime_compile=True), # EXP-122; DP derives WGS=256, TPB=2
     NS(length=625, factors=[5, 5, 5, 5], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=128, threads_per_transform=125, runtime_compile=True),
-    # EXP-039: the forced 1M CC decomposition needs an SBRC(1024) leaf.
-    # Two transforms per block keep the DP LDS tile at 32 KiB.
-    NS(length=1024, factors=[8, 8, 4, 4], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=128, runtime_compile=True),
     NS(length=1331, factors=[11, 11, 11], scheme='CS_KERNEL_STOCKHAM_BLOCK_RC', workgroup_size=256, threads_per_transform=121, runtime_compile=True),
 ]

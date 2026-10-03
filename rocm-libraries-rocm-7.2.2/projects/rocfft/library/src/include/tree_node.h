@@ -26,9 +26,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
-#include <optional>
 #include <set>
-#include <string>
 #include <vector>
 
 #include "../../../shared/gpubuf.h"
@@ -65,7 +63,6 @@ enum FuseType
     FT_R2C_TRANSPOSE, // post-r2c + transpose
     FT_TRANSPOSE_C2R, // transpose + pre-c2r
     FT_STOCKHAM_R2C_TRANSPOSE, // Stokham + post-r2c + transpose (Advance of FT_R2C_TRANSPOSE)
-    FT_STOCKHAM_CC_WITH_RC, // SBCC + SBRC with an LDS-resident tile handoff
 };
 
 struct GridParam
@@ -85,98 +82,6 @@ struct GridParam
         , lds_bytes(0)
     {
     }
-};
-
-enum class TileLifetimeStatus
-{
-    NOT_APPLICABLE,
-    GLOBAL_HANDOFF_REQUIRED,
-    LDS_HANDOFF_ELIGIBLE,
-    TILE_MAPPING_AVAILABLE_BUT_FUSED_KERNEL_UNAVAILABLE,
-    OWNERSHIP_MATCHED_BUT_FUSED_KERNEL_UNAVAILABLE
-};
-
-// Planner-side contract for data that could stay in a producer tile while
-// the next transform consumes it.  This is descriptive only until a fused
-// generator and launch contract are available.
-struct TileLifetimeDescriptor
-{
-    TileLifetimeStatus status = TileLifetimeStatus::NOT_APPLICABLE;
-
-    ComputeScheme producerScheme = CS_NONE;
-    ComputeScheme consumerScheme = CS_NONE;
-    FMKey producerKernelKey;
-    FMKey consumerKernelKey;
-    std::vector<size_t> producerLength;
-    std::vector<size_t> consumerLength;
-    std::vector<size_t> producerOutputLength;
-    std::vector<size_t> consumerInputLength;
-    std::vector<size_t> producerFactors;
-    std::vector<size_t> consumerFactors;
-    size_t producerBatch = 1;
-    size_t consumerBatch = 1;
-    std::vector<size_t> producerOutputStride;
-    std::vector<size_t> consumerInputStride;
-    size_t producerOutputDistance = 0;
-    size_t consumerInputDistance = 0;
-    unsigned int producerTransformsPerBlock = 0;
-    unsigned int consumerTransformsPerBlock = 0;
-    unsigned int producerWorkgroupSize = 0;
-    unsigned int consumerWorkgroupSize = 0;
-    size_t producerTileCount = 0;
-    size_t consumerTileCount = 0;
-    size_t producerTileAxis = 1;
-    size_t consumerTileAxis = 1;
-    size_t producerTileWidth = 0;
-    size_t consumerTileWidth = 0;
-    size_t producerTilesPerPlane = 0;
-    size_t consumerTilesPerPlane = 0;
-    size_t producerPlaneCount = 0;
-    size_t consumerPlaneCount = 0;
-    size_t producerTileAxisInConsumerInput = 0;
-    size_t consumerTileAxisInProducerOutput = 0;
-    size_t producerTilesRequiredPerConsumerTile = 0;
-    size_t consumerTilesCoveredByProducerTile = 0;
-    size_t crossStageTilePairCount = 0;
-    GridParam producerGrid;
-    GridParam consumerGrid;
-    // Candidate launch shape for a future fused kernel.  A fused workgroup
-    // owns one consumer tile and may have to reproduce several producer tiles.
-    size_t fusedProducerTilesPerWorkgroup = 0;
-    size_t fusedConsumerTilesPerWorkgroup = 0;
-    size_t fusedWorkgroupCount = 0;
-    size_t fusedResidentLdsBytes = 0;
-    bool fusedResidentLdsFitsDevice = false;
-    // Streaming handoff keeps only the consumer tile resident.  A direct
-    // producer may use registers for its FFT output and repopulate this tile
-    // once per producer tile.
-    size_t fusedStreamingLdsBytes = 0;
-    bool fusedStreamingLdsFitsDevice = false;
-    bool requiresCrossWorkgroupTileReuse = false;
-    bool requiresProducerTileReplication = false;
-    size_t producerLarge1D = 0;
-    size_t consumerLarge1D = 0;
-    size_t producerLargeTwdBase = 0;
-    size_t consumerLargeTwdBase = 0;
-    size_t producerLargeTwdSteps = 0;
-    size_t consumerLargeTwdSteps = 0;
-    bool producerLargeTwdBatchIsTransformCount = false;
-    bool consumerLargeTwdBatchIsTransformCount = false;
-    SBRC_TRANSPOSE_TYPE consumerTransposeType = SBRC_TRANSPOSE_TYPE::NONE;
-    OperatingBuffer producerOutputBuffer = OB_UNINIT;
-    OperatingBuffer consumerInputBuffer = OB_UNINIT;
-    size_t intermediateBufferExternalReads = 0;
-    size_t intermediateBufferExternalWrites = 0;
-    bool producerConsumerBufferConnected = false;
-    bool intermediateBufferOwnershipProven = false;
-    bool canElideGlobalHandoff = false;
-    bool completeTileMapping = false;
-    bool completeTileOwnership = false;
-    bool samePlaneTileLinearization = false;
-    bool edgeTilesComplete = false;
-    bool fusedKernelAvailable = false;
-    bool globalHandoffRequired = false;
-    std::string reason;
 };
 
 // get the arch name, as a part of key of solution map
@@ -461,10 +366,6 @@ public:
     // one shim is a group of several "possibly" fusable nodes
     std::vector<std::unique_ptr<FuseShim>> fuseShims;
 
-    // Planner classification of inter-stage tile lifetime.  This is reset and
-    // rebuilt after buffer assignment and final tree normalization.
-    std::optional<TileLifetimeDescriptor> tileLifetime;
-
     // FIXME: document
     ComputeScheme   scheme = CS_NONE;
     OperatingBuffer obIn = OB_UNINIT, obOut = OB_UNINIT;
@@ -608,10 +509,6 @@ public:
 
     void ApplyFusion();
 
-    void AnalyzeTileLifetimes();
-
-    void CollectTileLifetimeContracts(std::vector<TileLifetimeDescriptor>& contracts) const;
-
     void RefreshTree();
 
     // Set strides and distances:
@@ -625,17 +522,6 @@ public:
                                size_t& cmplxForRealSize,
                                size_t& blueSize,
                                size_t& chirpSize);
-
-    // Fused nodes may need a planner-owned intermediate region in addition
-    // to the ordinary OB_TEMP allocation.  Sizes and offsets are measured in
-    // complex elements so they use the same units as tmpWorkBufSize.
-    virtual size_t AdditionalWorkBufSize() const
-    {
-        return 0;
-    }
-    virtual void SetAdditionalWorkBufOffset(size_t)
-    {
-    }
 
     // Output plan information for debug purposes:
     virtual void Print(rocfft_ostream& os, int indent = 0) const;
@@ -1664,10 +1550,6 @@ struct ExecPlan : public MultiPlanItem
 
     // flattened potentially-fusable shims of rootPlan
     std::vector<FuseShim*> fuseShims;
-
-    // Planner contracts for inter-stage tile lifetime.  These are metadata
-    // until a fused generator and launch path consume them.
-    std::vector<TileLifetimeDescriptor> tileLifetimeContracts;
 
     std::vector<GridParam> gridParam;
 

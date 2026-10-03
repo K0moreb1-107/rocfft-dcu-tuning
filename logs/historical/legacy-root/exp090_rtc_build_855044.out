@@ -1,0 +1,67 @@
+>>> 已激活 fft 环境
+-- The CXX compiler identification is Clang 17.0.0
+-- The C compiler identification is Clang 17.0.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/software/compiler/dtk-26.04/bin/hipcc - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/software/compiler/dtk-26.04/bin/hipcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx803
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx803 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx900
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx900 - Success
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx906
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx906 - Success
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx908
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx908 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx90a
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx90a - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx942
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx942 - Success
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx950
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx950 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1030
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1030 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1100
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1100 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1101
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1101 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1102
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1102 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1151
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1151 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1200
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1200 - Failed
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1201
+-- Performing Test COMPILER_HAS_TARGET_ID_gfx1201 - Failed
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HIP_CLANG_SUPPORTS_PARALLEL_JOBS
+-- Performing Test HIP_CLANG_SUPPORTS_PARALLEL_JOBS - Success
+-- Found Python3: /public/home/scnethpc2688/.conda/envs/fft/bin/python3.9 (found suitable version "3.9.25", minimum required is "3.6") found components: Interpreter
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
+-- Configuring done (34.6s)
+-- Generating done (1.8s)
+-- Build files have been written to: /public/home/zhangkewei/zr/build/exp090_candidate
+[ 12%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_bluestein_gen.cpp.o
+[ 25%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_realcomplex_gen.cpp.o
+[ 37%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o
+[ 50%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_transpose_gen.cpp.o
+[ 62%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_twiddle_gen.cpp.o
+[ 75%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_chirp_gen.cpp.o
+[ 87%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_test_harness.cpp.o
+[100%] Building CXX object library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o
+[100%] Built target rocfft-rtc-gen
+EXP-090 rtc generator build complete
+source_head=0473680e99b181e4660643425f53382f3a6afad7
