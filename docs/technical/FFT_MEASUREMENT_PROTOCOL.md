@@ -126,3 +126,26 @@ The old hipprof batch=1 and batch=1000 definitions/files remain historical or
 diagnostic, interpreted with their original divisors and exclusions. Keep all
 26 fixed baseline evidence files unchanged. Do not mix them with event means
 in the same numerator/denominator or silently revise historical percentages.
+
+
+## 2026-10-03 management integration (paths only)
+
+Use `python3 manage.py measure --config CONFIG.json` to preview, and append
+`--execute` to submit one frozen-config GPU task. Use `bash jobs/measure_fft.slurm
+CONFIG.json` only as a compatibility submission helper, not an sbatch job body.
+The manager creates the run/log directory before submission and reserves it for
+that exact preregistration. Matching workers claim it once; reused IDs, changed
+reservations and existing execution evidence are rejected.
+
+All process evidence, compile/Slurm logs, preregistration, plan, provenance and
+reports are grouped under `experiments/EXP-NNN/runs/<run-id>/`. Measurement
+executables use `experiments/EXP-NNN/artifacts/build/measurement/<run-id>/`;
+temporary files use its `artifacts/cache/<run-id>/`. Original historical runs
+retain their old structure. The dated paths here supersede earlier output-location
+examples only; timing, correctness, sample counts, order and A100 definitions
+above remain unchanged. Shared run.py/summarize.py implement the same contract.
+
+`manage.py validate` is a candidate-only 15-case quick correctness task, not the
+three-arm formal comparison or promotion evidence. Actual compilation/GPU
+integration was not exercised by the organization task and must be verified
+in the first authorized experiment. See WORKSPACE_MANAGEMENT.md.

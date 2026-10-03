@@ -1,6 +1,7 @@
 # Current experiment and top-level layout
 
-Updated 2026-09-30 following user-confirmed rounds 1-3.
+Updated 2026-10-03. Historical rounds 1-3 are retained below; current unified
+management is specified in the dated section at the end.
 The second material phase moved 135 entries; round 3 moved another 183 entries
 (169 files, 14 directories), leaving 59 top-level entries including exceptions.
 
@@ -21,8 +22,7 @@ The second material phase moved 135 entries; round 3 moved another 183 entries
 - Build submission: `bash jobs/submit_build.sh`; direct job: `sbatch jobs/build.slurm`.
 - Benchmarks: `sbatch jobs/job.slurm`, `sbatch jobs/job_bank.slurm`, `sbatch jobs/run_bench.sh`.
 - Enumeration: `python3 tools/enumerate_configs.py` or `sbatch jobs/submit_enum.sh`.
-- Tuning: `python3 tools/tune_all.py`; this retains its original tuning and
-  measurement semantics and must be used according to the measurement contract.
+- Retired tuning: `tune_all.py` removed 2026-10-03; historical progress and profiles retained.
 - Device information: `sbatch jobs/query_device.slurm`.
 - Validation: `sbatch jobs/validate_cc512k.slurm`; or
   `sbatch jobs/validate_cc_length.slurm <length>`.
@@ -91,9 +91,66 @@ never moves or deletes files automatically. Ask the user about new uncertainties
   contract, synchronized with active stable and EXP-123 operational copies.
 - `results/reference/a100/`: versioned original reference CSV and provenance.
 
-Use the root shared tools from all active worktrees. Measurement output belongs
-in `results/fft_measurement/<run_id>`, logs in `logs/fft_measurement`, binaries and
-temporary directories in `build/fft_measurement/<run_id>`. No top-level outputs.
+Use the root shared tools from all active worktrees. Measurement output and logs belong together under
+`experiments/EXP-NNN/runs/<run-id>/`; binaries and temporary directories use the
+matching `artifacts/build/measurement/<run-id>` and `artifacts/cache/<run-id>`.
+No top-level outputs. Prefer manage.py; jobs/measure_fft.slurm is a bash submission helper.
 Existing runall/hipprof profiling entries retain their historical or diagnostic
 purpose; their old metric is not the new primary event metric. Original EXP-123
 18-case programs/data remain historical evidence. New defaults omit 32K.
+
+
+## Unified artifacts and task management (approved 2026-10-02; implemented 2026-10-03)
+
+This dated policy supersedes the previous installation-preservation and output
+path exceptions only for the approved migration. Source worktrees, official
+repository, validated optimization source/tag and measurement definitions stay
+unchanged. See docs/technical/WORKSPACE_MANAGEMENT.md for commands and recovery.
+
+Use manage.py with an explicit independent experiment configuration under
+configs/experiments/. Default is read-only preview; --execute submits the task
+or generates the requested report. The manager never changes source checkouts.
+New optimization still starts from the current valid stable source in an EXP
+branch. Source integration into the top checkout is a separate task.
+
+New build/install/cache belong to experiments/EXP-NNN/artifacts/ with unique IDs.
+Run CSVs, stdout/stderr, configuration, provenance and reports belong together
+under experiments/EXP-NNN/runs/<run-id>/; helper binaries remain artifacts.
+Formal measurement retains the exact frozen CPP, 15 cases, 3 warmups/50 events,
+8-round three-arm ordering, 720 processes and fixed A100 reference/formulas.
+Queued configurations freeze concrete library/source identities, not mutable
+aliases. No automatic source promotion. Quick validation is not formal evidence.
+
+Current installation registry: configs/installations.json. Current previous
+is the approved EXP-122 library; EXP-119 remains historical. Directory names do
+not prove source identity or acceptance. Historical/unknown installations cannot
+silently become official/previous/candidate. Candidate builds retain exact source
+state, CMake parameters, compiler and final library checksum.
+
+Main build/rocfft_build, build/hipfft_build, build/tools and install remain paired
+legacy development locations. Four compatibility links remain at
+install-exp096-official, exp122-A-install, exp119-stage1-install-clean and
+install-exp090-candidate. Keep the EXP-078 and fixed raw-baseline paths intact.
+The top-level count is now 43, subject to the explicit allowlist.
+
+Historical loose results/logs moved to results/historical/legacy-root and
+logs/historical/legacy-root. Keep them original; old diagnostic definitions do
+not change. partial_pass_tile_ownership uses these historical inputs while
+retaining original fixed baselines/Git root. Diagnostic plots write separately.
+tune_all.py is retired and removed; retain enumeration helpers and historical
+tuning data. Stale profiling/environment entries remain historical, not defaults.
+
+Ten explicitly approved invalid build trees were cleared after preserving
+configuration, compiler/install records and generated source records under
+experiments/EXP-NNN/records/builds/. Seven other old build/helper snapshots
+were grouped under corresponding artifacts/build/history. Installed libraries
+were preserved. Eight existing EXP-081 FFTW stale links remain unchanged and
+recorded; do not silently repair them. Existing archives/builds remains original.
+
+Audit and mapping: .worktree-archives/artifact-management-20261003/. Refresh
+identity/dependency checks before future restores. This implementation used only
+static and synthetic validation; no actual compilation/GPU jobs were run. The
+first new experiment must verify real compiler/runtime/GPU/library integration.
+Ask about new conflicts, dependencies or unexplained states; preserve prior
+user modifications and historical refs. Operational documents stay synchronized
+across root, stable and EXP-123; latest full records stay root/EXP-123 synchronized.

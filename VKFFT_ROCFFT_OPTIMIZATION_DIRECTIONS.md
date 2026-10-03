@@ -4455,3 +4455,20 @@ reference is preserved at results/reference/a100/, SHA256
 See docs/technical/FFT_MEASUREMENT_PROTOCOL.md and shared tools/fft_measurement/.
 Old hipprof contracts, raw baselines and original EXP-123 programs remain intact.
 No source/tag promotion results from this policy update.
+
+
+### Workspace management implementation (2026-10-03; source unchanged)
+
+User-approved management plan resumed explicitly and implemented: 1,589 loose
+files and 29 directories grouped; 10 invalid build payloads cleared only after
+source/configuration provenance retention; 7 other build snapshots retained;
+tune_all.py retired. Main build/install, 4 install compatibility paths, fixed
+baselines/A100, validated source/tag and user changes retained. New manage.py
+provides preview-first parameterized build, quick validation, formal measurement
+and report, with independent configurations and immutable per-run evidence.
+
+No source merge/promotion, compiler execution or GPU job was performed. Frozen
+EXP-123 measurement definitions and original CPP remain unchanged. Source/version
+integration is a separate task. First new experiment requires actual compilation,
+loaded-library/GPU/runtime verification and correctness. Audit and mappings are
+.worktree-archives/artifact-management-20261003/. See WORKSPACE_MANAGEMENT.md.

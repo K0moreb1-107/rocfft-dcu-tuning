@@ -55,3 +55,23 @@ merged or index repaired. The primary repository still has its same three
 registered worktree paths; official remains separate at its original location.
 Round 3 audit and old/new path map: `.worktree-archives/top-level-20260930/`.
 See `EXPERIMENT_LAYOUT.md` for tool/job locations and protected exceptions.
+
+
+## 2026-10-03 artifacts and output organization
+
+Approved plan executed after the user's explicit resume instruction. Active Git
+worktree/source paths and validated tags were not moved or merged. 1,589 loose
+files and 29 directories were grouped. Main build/install and four necessary
+install compatibility links remain. Ten invalid build payloads were cleared
+after preserving their metadata/generated text source records; seven other
+build/helper snapshots are retained. tune_all.py is retired.
+
+Audit: .worktree-archives/artifact-management-20261003/ (actions.json,
+move-before.json, move-journal.jsonl, migration-complete.json, cleanup-journal.jsonl,
+cleanup-complete.json, originals and git-before). Original source/data names and
+checksums remain recorded. Cleaned build provenance archives are under the
+corresponding experiments/EXP-NNN/records/builds/<old-name>/.
+
+Earlier dated archives, repository relationships, missing-index v2 state and
+eight archived build trees remain unchanged. Eight stale FFTW links remain as
+original historical state. See docs/technical/WORKSPACE_MANAGEMENT.md.
