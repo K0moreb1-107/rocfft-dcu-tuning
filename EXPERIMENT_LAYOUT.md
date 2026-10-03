@@ -1,5 +1,9 @@
 # Current experiment and top-level layout
 
+Current path status (2026-10-03): the five former top-level aliases are retired;
+their real directories remain. Top-level entries: 36. Adaptation guide:
+`docs/technical/LEGACY_PATH_ADAPTATION.md`; old program adaptation is deferred.
+
 Current status after integration (2026-10-03): the sole primary checkout is
 `/public/home/zhangkewei/zr`, on `main`; stable tag
 `stable-main-exp123-20261003`. Use serial EXP-NNN branches in this checkout.
@@ -63,8 +67,9 @@ associated old-log analysis entries are archived as originals. Adapt them only
 after verifying the environment. Historical entry paths are translated through
 the dated migration maps; they are not all restored through top-level symlinks.
 
-`exp-078-sbrc-two-tier` remains the sole compatibility link for fixed EXP-091
-evidence. Both batch=1 and legacy fixed-baseline raw file hashes were checked.
+The former `exp-078-sbrc-two-tier` compatibility link is retired. Fixed EXP-091
+evidence remains in `archives/worktrees/exp-078-sbrc-two-tier/results/`.
+Both batch=1 and legacy fixed-baseline raw file hashes were checked.
 The formerly modified `validate_cc512k_output.bin` is preserved under the integration
 audit `working-originals/`; the controlled top-level file matches the stable tree.
 `gfx926_rocfft_solution_map.dat` remains an explicit runtime configuration exception.
@@ -244,3 +249,32 @@ source/old-number labels; EXP-029's missing independent record is disclosed.
 Recovery/audit: .worktree-archives/top-level-main-integration-20261003/.
 This integration performs static and synthetic checks only. Actual compilation
 and GPU/runtime verification remain required at the first new experiment.
+
+
+## Five top-level compatibility links retired (2026-10-03)
+
+The user approved removal of the EXP-078, EXP-119, EXP-122, EXP-090 and official
+EXP-096 top-level symbolic links. Their physical archive/install directories and
+all original evidence remain intact. The current top-level entry count is 36.
+Use the physical paths in configs/installations.json and the mapping below.
+Earlier dated statements about preserving these aliases describe former states.
+
+| Former absolute path | Current physical path |
+| --- | --- |
+| `/public/home/zhangkewei/zr/exp-078-sbrc-two-tier` | `/public/home/zhangkewei/zr/archives/worktrees/exp-078-sbrc-two-tier` |
+| `/public/home/zhangkewei/zr/exp119-stage1-install-clean` | `/public/home/zhangkewei/zr/experiments/EXP-119/artifacts/install/exp119-stage1-install-clean` |
+| `/public/home/zhangkewei/zr/exp122-A-install` | `/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install` |
+| `/public/home/zhangkewei/zr/install-exp090-candidate` | `/public/home/zhangkewei/zr/experiments/EXP-090/artifacts/install/install-exp090-candidate` |
+| `/public/home/zhangkewei/zr/install-exp096-official` | `/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official` |
+
+Historical source, scripts, binaries, CSV/JSON metadata and experiment records
+remain original; they may still contain the former paths. The known four old
+EXP-123 binaries have absolute RUNPATH dependencies, and the old submission
+scripts also set LD_PRELOAD/LD_LIBRARY_PATH to the former installations.
+No old program was adapted, rebuilt or executed in this task. When reuse is
+requested, follow docs/technical/LEGACY_PATH_ADAPTATION.md; do not recreate
+top-level aliases automatically or treat historical times as new event results.
+
+Current official/previous registry IDs remain unchanged and resolve directly
+to physical installation directories. Measurement definitions and source are
+unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003/.

@@ -94,7 +94,7 @@
       "eligible_formal_arm": false,
       "source_identity": "unconfirmed unless separately validated",
       "original_path": "exp119-stage1-install-clean",
-      "compatibility": true
+      "compatibility": false
     },
     "exp119-stage1-install-reuse": {
       "path": "experiments/EXP-119/artifacts/install/exp119-stage1-install-reuse",
@@ -118,7 +118,7 @@
       "eligible_formal_arm": true,
       "source_identity": "approved validated EXP-122 retained source",
       "original_path": "exp122-A-install",
-      "compatibility": true,
+      "compatibility": false,
       "arm": {
         "install": "/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install",
         "source_repo": "/public/home/zhangkewei/zr",
@@ -150,7 +150,7 @@
       "eligible_formal_arm": false,
       "source_identity": "unconfirmed unless separately validated",
       "original_path": "install-exp090-candidate",
-      "compatibility": true
+      "compatibility": false
     },
     "install-exp090-control": {
       "path": "experiments/EXP-090/artifacts/install/install-exp090-control",
@@ -182,7 +182,7 @@
       "eligible_formal_arm": true,
       "source_identity": "approved original baseline",
       "original_path": "install-exp096-official",
-      "compatibility": true,
+      "compatibility": false,
       "arm": {
         "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
         "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",

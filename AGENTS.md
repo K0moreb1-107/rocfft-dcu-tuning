@@ -83,16 +83,16 @@ still be batch-independent, but it must be validated with user batch=1.
 ## Historical hipprof: Fixed batch=1 baseline result files (EXP-091)
 
 Runtime: validated EXP-090 installation at
-`/public/home/zhangkewei/zr/install-exp090-candidate`, source commit
+`/public/home/zhangkewei/zr/experiments/EXP-090/artifacts/install/install-exp090-candidate`, source commit
 `0473680e99b181e4660643425f53382f3a6afad7`. Measurement job: `856749`.
 Raw files are the five `r1` through `r5` hipkernel CSVs for each length under:
 
-    /public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749/
+    /public/home/zhangkewei/zr/archives/worktrees/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749/
 
 The machine-readable and text summaries are:
 
-    /public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749.json
-    /public/home/zhangkewei/zr/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749.txt
+    /public/home/zhangkewei/zr/archives/worktrees/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749.json
+    /public/home/zhangkewei/zr/archives/worktrees/exp-078-sbrc-two-tier/results/exp091_batch1_baseline_856749.txt
 
 Canonical median times are 0.017346298 ms (64K), 0.019450103 ms (128K),
 0.023224602 ms (256K), and 0.051072366 ms (512K). The corresponding
@@ -243,8 +243,9 @@ Their original files and inactive Git markers are preserved; use the top-level s
 may require path adaptation before reuse. Consult `EXPERIMENT_LAYOUT.md` and the
 approved migration map before restoring or rerunning historical work.
 
-The EXP-078 top-level compatibility link preserves access to the fixed EXP-091
-baseline. Do not remove it without checking current baseline users. Eight historical experimental build trees are now in `archives/builds/`;
+Access the fixed EXP-091 baseline through its physical EXP-078 archive path.
+The former top-level compatibility links are retired; preserve their actual
+archive/install directories. Legacy reuse follows docs/technical/LEGACY_PATH_ADAPTATION.md. Eight historical experimental build trees are now in `archives/builds/`;
 their old absolute CMake paths are evidence, and reproduction requires rebuilding.
 Four EXP-082/083 Git directories are now in `archives/repositories/`, retaining
 their original names, refs and tracked states; known linked-worktree paths and,
@@ -314,10 +315,11 @@ silently become official/previous/candidate. Candidate builds retain exact sourc
 state, CMake parameters, compiler and final library checksum.
 
 Main build/rocfft_build, build/hipfft_build, build/tools and install remain paired
-legacy development locations. Four compatibility links remain at
-install-exp096-official, exp122-A-install, exp119-stage1-install-clean and
-install-exp090-candidate. Keep the EXP-078 and fixed raw-baseline paths intact.
-The top-level count is now 41, subject to the explicit allowlist.
+legacy development locations. Use the physical installation paths in
+configs/installations.json; the five former top-level aliases are retired.
+Preserve the EXP-078 archive and fixed raw-baseline files. Do not restore aliases
+automatically; adapt old programs only when requested.
+The top-level count is now 36, subject to the explicit allowlist.
 
 Historical loose results/logs moved to results/historical/legacy-root and
 logs/historical/legacy-root. Keep them original; old diagnostic definitions do
