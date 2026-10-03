@@ -4497,3 +4497,26 @@ prior-stable and EXP-123 current-stable paths. Complete latest records remain
 root/EXP-123; preserve the prior-stable full historical record. Do not auto-merge
 new experiment results or move the immutable release tag. Measurement contract,
 official/A100 references and all user modifications remain unchanged.
+
+
+### Prior-stable worktree consolidation (2026-10-03)
+
+User requested consolidation after EXP-123 became stable. Only two primary
+worktrees remain: root (exp-075-compact-late-lut) and
+exp-123-cufft-format-benchmark (current stable). The prior-stable
+exp-095-sbrc128k-only directory was moved intact to
+archives/worktrees/exp-095-sbrc128k-only; its .git marker is now .git.inactive.
+The original Git administration, inventory and recovery mapping are preserved
+in .worktree-archives/retire-exp122-worktree-20261003/. Do not run Git in this
+historical snapshot; restore registration explicitly when needed.
+
+The rocfft-opt-pre-tile-lifetime branch and all immutable tags remain. Its
+tracked source has no unique code requiring integration into EXP-123. Six
+untracked historical log/result entries and all ignored files are preserved
+in the snapshot. No installed library, baseline, source or existing user change
+was deleted. Current previous-arm source_repo references the active EXP-123
+repository, retaining the real EXP-122 binary build commit and checksum.
+Operational documents now synchronize only root/EXP-123; the prior-stable
+snapshot and its complete historical record are immutable archive material.
+Top-level worktree count: 3 to 2; top-level entries: 43 to 42. This is worktree
+consolidation, not an EXP-123 merge into the old top-level source checkout.
