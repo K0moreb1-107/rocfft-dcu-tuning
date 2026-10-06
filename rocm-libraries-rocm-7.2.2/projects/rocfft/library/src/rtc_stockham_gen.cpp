@@ -35,6 +35,7 @@ using namespace std::placeholders;
 #include "device/generator/stockham_gen_cr.h"
 #include "device/generator/stockham_gen_rc.h"
 #include "device/generator/stockham_gen_local_real.h"
+#include "device/generator/stockham_gen_real_post.h"
 #include "device/generator/stockham_gen_rr.h"
 #include "device/generator/stockham_pp_gen_cc.h"
 #include "device/generator/stockham_pp_gen_rr.h"
@@ -256,8 +257,11 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
         kernel_name += "_ordtwrec128k";
     if(specs.real_io.role != RealBlockRole::None)
     {
-        kernel_name += specs.real_io.role == RealBlockRole::HermitianColumns
-                           ? "_local_real_columns" : "_local_real_rows";
+        if(specs.real_io.role == RealBlockRole::PairedPostRows)
+            kernel_name += "_paired_post_rows";
+        else
+            kernel_name += specs.real_io.role == RealBlockRole::HermitianColumns
+                               ? "_local_real_columns" : "_local_real_rows";
         kernel_name += "_N" + std::to_string(specs.real_io.n);
         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
     }
@@ -347,6 +351,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
         {
             if(specs.real_io.role == RealBlockRole::LocalRealRows)
                 kernel = std::make_unique<StockhamKernelLocalRealRows>(specs);
+            else if(specs.real_io.role == RealBlockRole::PairedPostRows)
+                kernel = std::make_unique<StockhamKernelPairedPostRows>(specs);
             else
                 kernel = std::make_unique<StockhamKernelRC>(specs, fuseBluestein);
         }
@@ -482,8 +488,12 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
     if(scheme != CS_KERNEL_STOCKHAM_BLOCK_CC && scheme != CS_KERNEL_STOCKHAM_PP_BLOCK_CC)
         src += real2complex_device_h;
 
-    if(specs.real_io.role != RealBlockRole::None)
+    if(specs.real_io.role == RealBlockRole::HermitianColumns
+       || specs.real_io.role == RealBlockRole::LocalRealRows)
         src += local_real_device_helpers();
+    if(specs.real_io.role == RealBlockRole::PairedPostRows)
+        src += real_post_device_helpers(specs.real_io,
+                                       specs.workgroup_size / specs.threads_per_transform);
 
     src += lds2reg->render();
     src += reg2lds->render();

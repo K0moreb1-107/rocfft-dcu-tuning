@@ -259,6 +259,8 @@ bool AssignmentPolicy::ValidOutBuffer(ExecPlan&           execPlan,
     auto dataFits = [&execPlan](const TreeNode& node, OperatingBuffer buffer) {
         auto outLengthBlueN = {node.lengthBlueN};
         auto nodeLen        = (node.fuseBlue == BFT_NONE) ? node.GetOutputLength() : outLengthBlueN;
+        if(const auto view = node.GetPhysicalOutputBufferView())
+            nodeLen = view->length;
         auto bufLen         = buffer == OB_USER_OUT ? execPlan.rootPlan->GetOutputLength()
                                                     : execPlan.rootPlan->length;
 
@@ -376,6 +378,8 @@ bool AssignmentPolicy::CheckAssignmentValid(ExecPlan& execPlan)
         }
         else
         {
+            if(const auto view = node->GetPhysicalOutputBufferView())
+                return compute_ptrdiff(view->length, view->stride, node->batch, view->dist);
             return compute_ptrdiff(node->UseOutputLengthForPadding() ? outputLen : node->length,
                                    node->outStride,
                                    node->batch,

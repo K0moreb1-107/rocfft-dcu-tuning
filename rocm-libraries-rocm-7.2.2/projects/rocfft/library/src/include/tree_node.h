@@ -395,6 +395,8 @@ public:
     RealBlockIO      real_io;
     void*            local_real_twiddles = nullptr;
     size_t           local_real_twiddles_size = 0;
+    void*            real_post_twiddles = nullptr;
+    size_t           real_post_twiddles_size = 0;
     void*            twiddles_large      = nullptr;
     size_t           twiddles_large_size = 0;
     void*            twiddles_pp         = nullptr;
@@ -572,6 +574,14 @@ public:
         if(real_io.role == RealBlockRole::LocalRealRows)
             return {{real_io.rows + 1, real_io.columns}, inStride, iDist};
         return {length, inStride, iDist};
+    }
+
+    // The fused post-processing expands a virtual AxQ FFT to M+1 values.
+    std::optional<RealBufferView> GetPhysicalOutputBufferView() const
+    {
+        if(real_io.role == RealBlockRole::PairedPostRows)
+            return RealBufferView{{real_io.n / 2 + 1}, {1}, oDist};
+        return std::nullopt;
     }
 
     // Get row-major output length of this node.

@@ -6597,3 +6597,64 @@ Operational documents now synchronize only root/EXP-123; the prior-stable
 snapshot and its complete historical record are immutable archive material.
 Top-level worktree count: 3 to 2; top-level entries: 43 to 42. This is worktree
 consolidation, not an EXP-123 merge into the old top-level source checkout.
+
+
+### EXP-125 新局部实数分解：正式性能复核（任务889083）
+
+2026年10月6日。沿用 EXP125；候选来自稳定 EXP123 的干净基线，提交 `d79a74bc24f85bdedabefd3dbcb56e5085853764`，分支 `exp-125-local-real-f`。本轮新构建库校验值 `e1bf9b2b903611635624db88a3f2fa2af558ec73558e45efbf31af6860e73759`。源码只有一个本轮实现提交，此前 EXP125 的实现和安装未被当作本轮候选。
+
+前置构建及验证任务 888825 已通过二十项原始程序检查、六十项特殊频点及边界检查，两种加载路径、五个尺寸均证实每次执行只有两个融合核函数。
+
+正式性能任务 889083 正常完成，用时34分44秒。本轮测量默认寄存器加载路径。双精度、单批、非原位，十五种情形、八轮同卡交错对照，共七百二十个进程。全部正确性检查通过，最大误差约 `3.55×10^-15`；顺序、设备、库和原始记录校验值均通过复核，重新汇总与原报告一致。
+
+复数转实数相对稳定基线的耗时下降：64K为11.70%，128K为11.32%，256K为8.28%，512K为2.02%，1M为0.64%。前三个尺寸八轮全部更快。512K四轮更快、四轮更慢，中位数慢0.31%；1M五轮更快、三轮更慢。按已登记的算术平均规则五个尺寸均获益，但512K与1M尚不能认定稳定提升。全部慢样本原样保留。
+
+稳定对照使用批准的 EXP122 原始库，真实构建提交 `ed06208f30706f63126078a5c51af07fa0439fe7`；其变换源码语义与稳定 EXP123 一致。官方、稳定对照、候选及固定 A100 参考的全表见原始测量目录 `/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-performance-20261006-f`。
+
+完整复核与说明：`experiments/EXP-125/records/local-real-f/performance-889083/`。构建凭据：`experiments/EXP-125/runs/EXP-125-build-20261006-f/build-provenance.json`。正式配置：`configs/experiments/EXP-125-performance-f.json`。
+
+决定：保留本轮源码与证据；64K～256K有较明确收益，512K和1M有待进一步确认。不自动合并或晋升稳定版本，本次检查没有提交新的任务。
+
+
+### EXP-125 实数转复数末段后处理融合：实施与验证登记（2026年10月6日）
+
+沿用分支 `exp-125-local-real-f`，从已通过前处理验证及正式性能复核的提交
+`d79a74bc24f85bdedabefd3dbcb56e5085853764` 修改。此前失败的 EXP125 实现没有被复制。
+本轮源码提交与逐文件校验、完整源码归档固定在
+`experiments/EXP-125/source/paired-post-g/manifest.json`；实验编号仍为 EXP125。
+
+范围：64K、128K、256K、512K、1M，双精度，单批，非原位，单位步长，零偏移，
+实数输入与交错半谱输出，当前 gfx936 的已核对配置。显式指定方案和其他条件沿用原路径。
+保留半长复数变换及第一段列变换；末段把镜像行放进同一线程块，以已有完整输出共享存储
+完成后处理，删除独立后处理核函数。原有前处理实现及普通生成代码保持一致。
+
+代码修改十个文件：`real_block_io.h` 增加独立角色；`tree_node_real.h` 与
+`tree_node_real.cpp` 接入已有半长分解、限定条件及两种加载方式，并在分配子节点参数前
+设定输出距离；`tree_node.h` 描述多出一个频点的实际输出与独立旋转因子资源；
+`tree_node.cpp` 申请和释放原全局后处理旋转因子表；`assignment_policy.cpp` 按实际输出
+检查容量；`rtc_stockham_kernel.cpp` 传递资源及加载参数；`rtc_stockham_gen.cpp` 接入独立
+生成器和缓存名称；`stockham_gen_real_post.h` 分离镜像地址、数值组合与常规加载/写出节点；
+`CMakeLists.txt` 登记新头文件。末段不增加变换、矩阵、共享存储容量或同步屏障。
+
+首版使用原始完整后处理表。仍有镜像地址运算、频点组合、寄存器存活区间、写出连续段
+缩短和并行度变化等开销；不能据此认定性能获益。理论去掉一次半长复数矩阵读写，
+逻辑数据访问节省约 16N 字节（旋转因子及实际缓存事务另计）。
+
+离线前置要求：独立目录构建代码生成器；四个改动的主机源文件语法检查；
+120 份既有生成代码逐字一致（其中40份已有前处理）；20份新后处理代码离线编译通过，
+覆盖五个尺寸、寄存器/共享存储加载及回调开关；两个正确性程序编译通过。
+证据保存在 `experiments/EXP-125/artifacts/preflight/paired-post-g/generated-proof-*/`。
+无回调的十个核函数资源检查没有发现私有存储溢出；256点行变换使用58个向量寄存器，
+512点寄存器加载使用60个，共享存储加载使用61个。此为离线编译记录，设备构建可能不同。
+
+本轮只提交构建和设备正确性/实际融合验证，不提交正式性能。独立构建安装标识为
+`EXP-125-paired-post-g`，配置为 `configs/experiments/EXP-125-build-g.json` 和
+`configs/experiments/EXP-125-diagnostic-g.json`。原始程序检查25项；新增完整长度复数
+参考检查70项，覆盖冲激、直流、奈奎斯特、四分之一频点、混合频率和随机输入，检查全部
+半谱点、输入不变及边界；已有前处理回归60项。两种加载方式及五个尺寸均须每次只执行
+两段变换，且不再出现独立前/后处理核函数。所有误差严格小于十的负九次方。
+
+设备检查结果及任务编号以同目录提交记录和
+`experiments/EXP-125/runs/EXP-125-diagnostic-20261006-g/` 为准，当前待执行。
+性能结论、相对基线及官方提速、A100 对照均待用户后续授权的正式性能测试。
+提交设备任务后立即停止，等用户要求检查；不自动晋升稳定版本。

@@ -277,6 +277,63 @@ bool RealTransEvenNode::TryBuildLocalRealTree(size_t n)
     return true;
 }
 
+bool RealTransEvenNode::TryFusePairedPost(TreeNode& cfft, size_t n)
+{
+    auto geometry = RealBlockIO::ForLength(n);
+    if(!geometry || dimension != 1 || length.size() != 1 || batch != 1
+       || direction != -1 || precision != rocfft_precision_double
+       || placement != rocfft_placement_notinplace
+       || inArrayType != rocfft_array_type_real
+       || outArrayType != rocfft_array_type_hermitian_interleaved
+       || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
+       || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
+       || deviceProp.warpSize != 64 || cfft.scheme != CS_L1D_CC
+       || cfft.childNodes.size() != 2)
+        return false;
+
+    auto io = *geometry;
+    io.role = RealBlockRole::PairedPostRows;
+    io.pitch = io.rows; // Keep the ordinary packed CC intermediate matrix.
+    const char* mode = std::getenv("ROCFFT_EXP125_REAL_POST_LOAD");
+    if(mode && std::string(mode) == "lds")
+        io.load = RealBlockLoad::LDS;
+    else if(mode && std::string(mode) != "registers")
+        throw std::runtime_error("invalid EXP125 real post load mode");
+
+    auto& first = *cfft.childNodes.front();
+    auto& last = *cfft.childNodes.back();
+    if(first.scheme != CS_KERNEL_STOCKHAM_BLOCK_CC
+       || last.scheme != CS_KERNEL_STOCKHAM_BLOCK_RC
+       || first.length != std::vector<size_t>{io.columns, io.rows}
+       || last.length != std::vector<size_t>{io.rows, io.columns}
+       || first.large1D != n / 2 || last.ebtype != EmbeddedType::NONE)
+        return false;
+    FMKey rc_key(io.rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
+    if(!pool.has_function(rc_key))
+        return false;
+    const auto rc = pool.get_kernel(rc_key);
+    const size_t threads = io.rows == 256 ? 32 : 128;
+    const size_t workgroup = io.rows == 256 ? 256 : 512;
+    const std::vector<size_t> factors = io.rows == 256 ? std::vector<size_t>{4, 4, 4, 4}
+                                                     : std::vector<size_t>{8, 8, 8};
+    if(rc.threads_per_transform[0] != threads || rc.workgroup_size != workgroup
+       || rc.factors != factors || rc.transforms_per_block != workgroup / threads
+       || io.columns % rc.transforms_per_block != 0)
+        return false;
+
+    first.allowInplace = false;
+    first.allowedOutBuf = OB_TEMP;
+    first.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+    last.real_io = io;
+    last.allowInplace = false;
+    last.allowedOutBuf = OB_USER_OUT;
+    last.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+    last.comments.push_back("EXP125 real post: paired mirror rows and fused half spectrum stores");
+    cfft.allowInplace = false;
+    cfft.outputLength = {n / 2 + 1};
+    return true;
+}
+
 void RealTransEvenNode::AssignLocalRealParams()
 {
     const auto& io = childNodes.front()->real_io;
@@ -348,6 +405,12 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     auto cfftPlan          = NodeFactory::CreateExplicitNode(cfftPlanData, this, determined_scheme);
     // NB: the buffer is real, but we treat it as complex
     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
+
+    if(noSolution && TryFusePairedPost(*cfftPlan, realLength->at(0)))
+    {
+        childNodes.emplace_back(std::move(cfftPlan));
+        return;
+    }
 
     if(noSolution)
     {
@@ -437,6 +500,21 @@ void RealTransEvenNode::AssignParams_internal()
     if(local_real_pipeline)
     {
         AssignLocalRealParams();
+        return;
+    }
+    if(childNodes.size() == 1
+       && childNodes.front()->GetLastLeaf()->real_io.role == RealBlockRole::PairedPostRows)
+    {
+        auto& fftPlan = childNodes.front();
+        fftPlan->inStride = inStride;
+        fftPlan->iDist = iDist / 2;
+        fftPlan->outStride = outStride;
+        fftPlan->oDist = oDist;
+        fftPlan->AssignParams();
+        const auto& last = *fftPlan->GetLastLeaf();
+        if(last.inStride != std::vector<size_t>{1, last.real_io.rows}
+           || last.outStride != std::vector<size_t>{1, last.real_io.columns})
+            throw std::runtime_error("paired real post-processing requires a packed intermediate");
         return;
     }
     // definitely will have FFT.  pre/post processing

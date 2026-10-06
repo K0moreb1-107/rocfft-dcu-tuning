@@ -10,6 +10,7 @@ enum class RealBlockRole
     None,
     HermitianColumns,
     LocalRealRows,
+    PairedPostRows,
 };
 
 enum class RealBlockLoad

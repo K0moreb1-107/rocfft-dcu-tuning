@@ -151,6 +151,16 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
             specs->sbrc_ordinary_twiddle_recurrence = false;
         }
 
+        if(node.real_io.role == RealBlockRole::PairedPostRows)
+        {
+            // Preserve Q=512 scalar LDS exchanges in both initial load modes.
+            specs->direct_to_from_reg = true;
+            specs->static_initial_reg_load = node.real_io.load == RealBlockLoad::Registers
+                                             && callback_type == CallbackType::NONE;
+            specs->static_initial_reg_load_linear = specs->static_initial_reg_load;
+            specs->sbrc_ordinary_twiddle_recurrence = false;
+        }
+
         if(node.isPartialPassEnabled())
         {
             pp_params.off_dim     = node.ppOffDim;
@@ -339,6 +349,9 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
 
     if(data.node->real_io.role == RealBlockRole::LocalRealRows)
         kargs.append_ptr(data.node->local_real_twiddles);
+
+    if(data.node->real_io.role == RealBlockRole::PairedPostRows)
+        kargs.append_ptr(data.node->real_post_twiddles);
 
     append_load_store_args(kargs, *data.node);
 
