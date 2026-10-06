@@ -370,7 +370,10 @@ bool AssignmentPolicy::CheckAssignmentValid(ExecPlan& execPlan)
         auto outputLen   = node->fuseBlue == BFT_NONE ? node->GetOutputLength() : lengthBlueN;
 
         if(input)
-            return compute_ptrdiff(node->length, node->inStride, node->batch, node->iDist);
+        {
+            const auto view = node->GetInputBufferView();
+            return compute_ptrdiff(view.length, view.stride, node->batch, view.dist);
+        }
         else
         {
             return compute_ptrdiff(node->UseOutputLengthForPadding() ? outputLen : node->length,
@@ -1139,7 +1142,8 @@ void CollectTempBufOps(TreeNode&               node,
     if(!startNode && node.obIn == buf)
     {
         // Store this read
-        insertOp({node.length, node.inStride, node.iDist, TempBufOp::BufRead, node});
+        const auto view = node.GetInputBufferView();
+        insertOp({view.length, node.inStride, node.iDist, TempBufOp::BufRead, node});
 
         // If this is a parent node, its children can also continue
         // using the buffer

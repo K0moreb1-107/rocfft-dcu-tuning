@@ -63,6 +63,11 @@ protected:
     void BuildTree_internal(SchemeTreeVec& child_scheme_trees = EmptySchemeTreeVec) override;
 
 public:
+    // EXP-125: two direct leaves, bypassing the separate pre-processing tree.
+    bool local_real_pipeline = false;
+    bool TryBuildLocalRealTree(size_t n);
+    void AssignLocalRealParams();
+
     // 3D Even can possibly set this
     bool try_fuse_pre_post_processing = false;
 

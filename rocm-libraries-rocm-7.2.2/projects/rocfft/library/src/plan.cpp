@@ -3830,6 +3830,8 @@ void TreeNode::CopyNodeData(const TreeNode& srcNode)
 {
     dimension = srcNode.dimension;
     batch     = srcNode.batch;
+    if(scheme == srcNode.scheme)
+        real_io = srcNode.real_io;
     length    = srcNode.length;
     if(!srcNode.outputLength.empty())
         outputLength = srcNode.outputLength;

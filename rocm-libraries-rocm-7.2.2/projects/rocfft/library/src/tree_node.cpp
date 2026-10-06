@@ -52,6 +52,11 @@ TreeNode::~TreeNode()
             Repo::ReleaseTwiddle1D(twiddles);
         twiddles = nullptr;
     }
+    if(local_real_twiddles)
+    {
+        Repo::ReleaseTwiddle1D(local_real_twiddles);
+        local_real_twiddles = nullptr;
+    }
     if(twiddles_large)
     {
         Repo::ReleaseTwiddle1D(twiddles_large);
@@ -282,6 +287,12 @@ bool LeafNode::CreateDeviceResources()
                                                                 kernelFactors);
     }
 
+    if(real_io.role == RealBlockRole::LocalRealRows)
+    {
+        std::tie(local_real_twiddles, local_real_twiddles_size)
+            = Repo::GetTwiddles1D(2 * real_io.rows, real_io.rows / 2,
+                                  precision, deviceProp, 0, false, {});
+    }
     return CreateLargeTwdTable();
 }
 

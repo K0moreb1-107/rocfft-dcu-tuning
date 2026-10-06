@@ -23,6 +23,7 @@
 #pragma once
 #include "../../../../shared/arithmetic.h"
 #include "../kernels/device_enum.h"
+#include "../../include/real_block_io.h"
 #include "rocfft/rocfft.h"
 #include <ostream>
 #include <string>
@@ -65,6 +66,7 @@ struct StockhamGeneratorSpecs
     std::string  scheme;
 
     EmbeddedType ebtype = EmbeddedType::NONE;
+    RealBlockIO real_io;
 
     // this value indicating if the wgs, tpt are excatly what we want
     // (i.e. were already derived somewhere)

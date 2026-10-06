@@ -45,6 +45,7 @@
 #include "logging.h"
 #include "rocfft_mpi.h"
 #include "rtc_kernel.h"
+#include "real_block_io.h"
 #include <hip/hip_runtime_api.h>
 
 enum NodeType
@@ -391,6 +392,9 @@ public:
     // twiddle memory is owned by the repo
     void*            twiddles            = nullptr;
     size_t           twiddles_size       = 0;
+    RealBlockIO      real_io;
+    void*            local_real_twiddles = nullptr;
+    size_t           local_real_twiddles_size = 0;
     void*            twiddles_large      = nullptr;
     size_t           twiddles_large_size = 0;
     void*            twiddles_pp         = nullptr;
@@ -559,6 +563,16 @@ public:
     // many plans.  Throws an exception if this is not a transpose
     // node.
     void SetTransposeOutputLength();
+
+    // Physical reads may differ from the virtual transform geometry.
+    RealBufferView GetInputBufferView() const
+    {
+        if(real_io.role == RealBlockRole::HermitianColumns)
+            return {{real_io.n / 2 + 1}, {1}, iDist};
+        if(real_io.role == RealBlockRole::LocalRealRows)
+            return {{real_io.rows + 1, real_io.columns}, inStride, iDist};
+        return {length, inStride, iDist};
+    }
 
     // Get row-major output length of this node.
     std::vector<size_t> GetOutputLength() const

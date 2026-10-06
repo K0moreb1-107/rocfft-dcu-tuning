@@ -138,6 +138,19 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
               && specs->threads_per_transform == 128
               && specs->factors == std::vector<unsigned int>{8, 8, 8};
 
+        specs->real_io = node.real_io;
+        // The ordinary CC LDS entry uses an unswizzled complex staging layout.
+        if(node.real_io.role == RealBlockRole::HermitianColumns
+           && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
+            specs->half_lds = false;
+        if(node.real_io.role == RealBlockRole::LocalRealRows)
+        {
+            specs->direct_to_from_reg = true;
+            specs->static_initial_reg_load = true;
+            specs->static_initial_reg_load_linear = true;
+            specs->sbrc_ordinary_twiddle_recurrence = false;
+        }
+
         if(node.isPartialPassEnabled())
         {
             pp_params.off_dim     = node.ppOffDim;
@@ -323,6 +336,9 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
         if(array_type_is_planar(data.node->outArrayType))
             kargs.append_ptr(data.bufOut[1]);
     }
+
+    if(data.node->real_io.role == RealBlockRole::LocalRealRows)
+        kargs.append_ptr(data.node->local_real_twiddles);
 
     append_load_store_args(kargs, *data.node);
 

@@ -1009,6 +1009,11 @@ bool SBCCNode::KernelCheck(std::vector<FMKey>& kernel_keys)
     InitIntrinsicMode();
     // hardocded-tuning according to benchmark
     TuneIntrinsicMode();
+    if(real_io.role == RealBlockRole::HermitianColumns && real_io.load == RealBlockLoad::LDS)
+    {
+        dir2regMode = DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
+        intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+    }
 
     return true;
 }

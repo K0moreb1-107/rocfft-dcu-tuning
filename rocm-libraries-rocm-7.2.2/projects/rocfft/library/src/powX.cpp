@@ -757,13 +757,14 @@ void TransformPowX(const ExecPlan&                         execPlan,
             if(hipDeviceSynchronize() != hipSuccess)
                 throw std::runtime_error("hipDeviceSynchronize failure");
 
+            const auto inputView = data.node->GetInputBufferView();
             std::vector<hostbuf> bufInHost;
             CopyDeviceBufferToHost(data.node->inArrayType,
                                    data.node->precision,
                                    data.bufIn,
-                                   data.node->length,
-                                   data.node->inStride,
-                                   data.node->iDist,
+                                   inputView.length,
+                                   inputView.stride,
+                                   inputView.dist,
                                    data.node->batch,
                                    bufInHost);
 
@@ -771,9 +772,9 @@ void TransformPowX(const ExecPlan&                         execPlan,
                              data.node->inArrayType,
                              data.node->precision,
                              bufInHost,
-                             data.node->length,
-                             data.node->inStride,
-                             data.node->iDist,
+                             inputView.length,
+                             inputView.stride,
+                             inputView.dist,
                              data.node->batch);
             *kernelio_stream << "--- --- multiPlanIdx " << multiPlanIdx << " kernel " << i << " ("
                              << PrintScheme(data.node->scheme) << ") input hash: " << std::endl;
@@ -781,9 +782,9 @@ void TransformPowX(const ExecPlan&                         execPlan,
                            data.node->inArrayType,
                            data.node->precision,
                            bufInHost,
-                           data.node->length,
-                           data.node->inStride,
-                           data.node->iDist,
+                           inputView.length,
+                           inputView.stride,
+                           inputView.dist,
                            data.node->batch);
             *kernelio_stream << std::endl;
         }
