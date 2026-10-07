@@ -1,0 +1,109 @@
+{
+  "complete": true,
+  "experiment": "EXP-125",
+  "component": "rocfft",
+  "plan": {
+    "task": "build",
+    "component": "rocfft",
+    "source_identity": {
+      "repo": "/public/home/zhangkewei/zr",
+      "source": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+      "commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "source_status": "",
+      "tracked_state": "M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\n M VkFFT"
+    },
+    "paths": {
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i",
+      "logs": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/logs",
+      "build": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/EXP-125-pre-memory-i",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "cache": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/cache/EXP-125-build-20261007-i"
+    },
+    "commands": [
+      [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/EXP-125-pre-memory-i",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_INSTALL_PREFIX=/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DBUILD_CLIENTS_BENCH=ON",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DGPU_TARGETS=gfx936",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF"
+      ],
+      [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/EXP-125-pre-memory-i",
+        "--target",
+        "rocfft-rtc-gen",
+        "--parallel",
+        "16"
+      ],
+      [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/EXP-125-pre-memory-i",
+        "--parallel",
+        "16"
+      ],
+      [
+        "cmake",
+        "--install",
+        "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/EXP-125-pre-memory-i"
+      ]
+    ],
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "profile": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "GPU_TARGETS": "gfx936",
+      "BUILD_CLIENTS_BENCH": "ON",
+      "BUILD_CLIENTS_SAMPLES": "OFF",
+      "BUILD_CLIENTS_TESTS": "OFF",
+      "ROCFFT_BUILD_OFFLINE_TUNER": "OFF",
+      "ROCFFT_KERNEL_CACHE_ENABLE": "OFF",
+      "HAVE_STD_FILESYSTEM": "ON",
+      "CMAKE_SHARED_LINKER_FLAGS": "-lstdc++fs",
+      "CMAKE_EXE_LINKER_FLAGS": "-lstdc++fs",
+      "SQLITE_USE_SYSTEM_PACKAGE": "OFF",
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+    },
+    "runtime_validation": "not yet performed"
+  },
+  "job_id": "890730",
+  "start": "2026-10-07T10:13:13.221943+00:00",
+  "compiler_version": "dcc version: 25.10.0-0\nclang version 17.0.0 (http://112.11.119.99:55080/dcutoolkit/driverruntime/llvm-project.git ff5bf917a679c83afe927af051a20b86fef7b07d)\nTarget: x86_64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /public/software/compiler/dtk-26.04/llvm/bin\n",
+  "cmake_cache_sha256": "867f21fac25f9f18d38fdca3e7add580b3586e540f4a902cb3d142e92b953fb1",
+  "effective_cache": {
+    "AMDGPU_TARGETS": "gfx803;gfx900;gfx906;gfx908;gfx90a;gfx942;gfx950;gfx1030;gfx1100;gfx1101;gfx1102;gfx1151;gfx1200;gfx1201",
+    "CMAKE_BUILD_TYPE": "Release",
+    "CMAKE_CXX_COMPILER": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "CMAKE_CXX_FLAGS": "",
+    "CMAKE_PREFIX_PATH": "/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+    "GPU_TARGETS": "gfx936",
+    "SQLITE_3_50_2_SRC_URL": "file:///public/home/zhangkewei/zr/extern/sqlite/sqlite-amalgamation-3500200.zip",
+    "SQLITE_SRC_3_50_2_SHA3_256": "75c118e727ee6a9a3d2c0e7c577500b0c16a848d109027f087b915b671f61f8a"
+  },
+  "arm": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+    "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+  },
+  "end": "2026-10-07T10:17:57.141151+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "task": "measure",
+  "paths": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-stable-registry-preview-20261007",
+    "logs": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-stable-registry-preview-20261007/logs",
+    "build": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/measurement/EXP-125-stable-registry-preview-20261007",
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-stable-registry-preview-20261007",
+    "cache": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/cache/EXP-125-stable-registry-preview-20261007"
+  },
+  "resolved_preregistration": {
+    "schema_version": 1,
+    "policy": "EXP123-event-50-three-arm-8-v1",
+    "experiment": "EXP-125",
+    "run_id": "EXP-125-stable-registry-preview-20261007",
+    "gpu_arch": "gfx936",
+    "acceptance": "\u4ec5\u7528\u4e8e\u7a33\u5b9a\u767b\u8bb0\u7684\u53ea\u8bfb\u9884\u89c8\uff0c\u6838\u5bf9\u65b0\u7a33\u5b9a\u5bf9\u7167\u4e0e\u5b9e\u9645\u6784\u5efa\u5e93\u4e00\u81f4\uff0c\u4e0d\u63d0\u4ea4\u4efb\u52a1\uff0c\u4e0d\u4ea7\u751f\u6027\u80fd\u7ed3\u8bba\u3002",
+    "arms": {
+      "official": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+        "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+        "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+        "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+        "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+      },
+      "previous": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+        "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+      },
+      "candidate": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+        "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+      }
+    }
+  },
+  "processes": 720,
+  "cases": 15,
+  "timing_warmups": 3,
+  "event_iterations": 50,
+  "formal": true,
+  "notice": "Frozen 8-round three-arm protocol."
+}

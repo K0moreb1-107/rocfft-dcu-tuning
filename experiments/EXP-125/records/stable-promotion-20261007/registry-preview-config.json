@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "policy": "EXP123-event-50-three-arm-8-v1",
+  "experiment": "EXP-125",
+  "run_id": "EXP-125-stable-registry-preview-20261007",
+  "gpu_arch": "gfx936",
+  "acceptance": "仅用于稳定登记的只读预览，核对新稳定对照与实际构建库一致，不提交任务，不产生性能结论。",
+  "arms": {
+    "official": {
+      "registry_id": "install-exp096-official"
+    },
+    "previous": {
+      "registry_id": "EXP-125-pre-memory-i"
+    },
+    "candidate": {
+      "build_record": "experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+    }
+  }
+}

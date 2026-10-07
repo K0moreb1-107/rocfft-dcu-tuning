@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-125",
+  "run_id": "EXP-125-diagnostic-20261007-i",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "04:00:00",
+    "nodelist": "f13r4n15"
+  },
+  "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+  "baseline_commit": "7fc5daeadd170b36fe19850f0977d87b61dc1718",
+  "source_file_sha256": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h": "2c83103f4f0f77d7a262e900e9d52ec5c11c5d1fb2519067e7129e7318019a6f",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": "9331213ce0c64d00a2d5fc6109473686d11cf0c4b24f0feb96b160071cbc7a1c"
+  },
+  "source_archive_sha256": "2380907be77470015ef912d8dd7d16dd52de89d422d63129c020a0e77928d673",
+  "candidate_build_record": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json",
+  "official_install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+  "official_library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+  "baseline_library": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-post-memory-h/lib/librocfft.so.0.1",
+  "baseline_library_sha256": "6e9cfb1ac7252bf411cf9bc9e919ff54041ba5c730f8d97144bacb4493672232",
+  "rollback_manifest": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/rollback-manifest.json",
+  "rollback_manifest_sha256": "488c1d1576bbb6c8093e2be9d8b67896d944e7ac0020b898991e09598e7da4d4",
+  "measurement_source_sha256": "849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da",
+  "guard_programs": {
+    "post_guard_h": {
+      "source": "experiments/EXP-125/scripts/post_guard_h.cpp",
+      "sha256": "cfed9e3eb22303a67ed0162d2db204c460136cf2685832a235ae7ad559cf9f98"
+    },
+    "spectral_guard_f": {
+      "source": "experiments/EXP-125/scripts/spectral_guard_h_regression.cpp",
+      "sha256": "f777f44206690add3899a82ed7e41405dbe35e56c4e8128709f676533cd0a8fa"
+    },
+    "post_cache_guard_h": {
+      "source": "experiments/EXP-125/scripts/post_cache_guard_h.cpp",
+      "sha256": "93d4f15a8f87506a41c5931c3ccd9c850e0d3a0357b235088758c045b61bf354"
+    }
+  },
+  "worker_sha256": "07fe21f8266abc57fdf52fc273c01824a8303ac17f871a18723fbddb7731a14c",
+  "submission_script_sha256": "520f20bf55bb3255e762374d34db917edef44ea9932350fcdca9f06954c36104",
+  "formal": false,
+  "event_iterations": 50,
+  "scope": "five pre sizes, DP batch1 OOP, both entry modes; current post callbacks/cache and z2z regression",
+  "acceptance": {
+    "strict_error": "<1e-9",
+    "frozen_program_checks": 25,
+    "pre_reference_cases": 60,
+    "post_regression_cases": 140,
+    "cache_coexistence_cases": 120,
+    "guards": "all PASS",
+    "input_unchanged": "all PASS",
+    "executed_leaves": 2,
+    "no_separate_pre_post_kernel": true,
+    "compiled_pre_read_policy": "matches size/mode policy",
+    "pre_callback_generated_sources_byte_identical": 10
+  },
+  "stop_after_submission": true,
+  "formal_performance_authorized": false
+}

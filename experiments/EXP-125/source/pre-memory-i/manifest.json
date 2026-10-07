@@ -1,0 +1,32 @@
+{
+  "experiment": "EXP-125",
+  "revision": "pre-memory-i",
+  "source_branch": "exp-125-local-real-f",
+  "baseline_commit": "7fc5daeadd170b36fe19850f0977d87b61dc1718",
+  "measured_baseline_library_sha256": "6e9cfb1ac7252bf411cf9bc9e919ff54041ba5c730f8d97144bacb4493672232",
+  "files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h": {
+      "baseline_sha256": "823c7ebc2e31c6c962295a35a2a9279f2120ba164cb9c1bdd0897283701edfea",
+      "candidate_sha256": "2c83103f4f0f77d7a262e900e9d52ec5c11c5d1fb2519067e7129e7318019a6f"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": {
+      "baseline_sha256": "8f85eab25743cada51b0bb765fc161443601b9325dd082d4a164e9fe65ce6ee7",
+      "candidate_sha256": "9331213ce0c64d00a2d5fc6109473686d11cf0c4b24f0feb96b160071cbc7a1c"
+    }
+  },
+  "preflight_directory": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/preflight/pre-memory-design-20261007/attempt-5",
+  "policy": {
+    "small_register": "unchanged",
+    "small_lds": "BeforePair",
+    "large_register_and_lds": "BeforeAllPairs",
+    "callbacks": "unchanged"
+  },
+  "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+  "source_archive_sha256": "2380907be77470015ef912d8dd7d16dd52de89d422d63129c020a0e77928d673",
+  "change_patch_sha256": "040df938d69962748daf276186961805c7584f65108951c8e5689ed13c4360aa",
+  "preflight_proof": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/preflight/pre-memory-design-20261007/attempt-5/proof.json",
+  "preflight_proof_sha256": "3bc94a791244cdd6207d95217cc613c4c61817a309fd9763e4ddf15afd3de590",
+  "rollback_manifest": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/rollback-manifest.json",
+  "rollback_manifest_sha256": "488c1d1576bbb6c8093e2be9d8b67896d944e7ac0020b898991e09598e7da4d4",
+  "frozen_at": "2026-10-07T08:43:01.736382+00:00"
+}

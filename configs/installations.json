@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-03",
+  "updated": "2026-10-07",
   "aliases": {
     "official": "install-exp096-official",
-    "previous": "exp122-A-install"
+    "previous": "EXP-125-pre-memory-i"
   },
   "installations": {
     "exp080-install": {
@@ -126,7 +126,8 @@
         "library_sha256": "1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe",
         "source_state": "Historical approved previous source ed06208f30706f63126078a5c51af07fa0439fe7; original build checkout path no longer present. No claim about current checkout reproducing the old build state. The prior-stable worktree is now archived; source_repo points to the active EXP-123 repository retaining the real EXP-122 build commit. The active source repository is now the top-level main checkout; historical worktrees are archived. The library retains its original EXP-122 build identity.",
         "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-122/records/builds/exp122_A_512x128_clean/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
-      }
+      },
+      "superseded_as_default_previous_on": "2026-10-07"
     },
     "install": {
       "path": "install",
@@ -199,16 +200,50 @@
       "source_identity": "unconfirmed unless separately validated",
       "original_path": "tile-install",
       "compatibility": false
+    },
+    "EXP-125-pre-memory-i": {
+      "path": "experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "role": "previous",
+      "eligible_formal_arm": true,
+      "source_identity": "User-approved stable EXP-125 calculation source 1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "compatibility": false,
+      "arm": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+        "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+      },
+      "stable_tag": "stable-main-exp125-20261007",
+      "approved": "2026-10-07",
+      "approval_record": "experiments/EXP-125/records/stable-promotion-20261007/promotion.json",
+      "validation_job": "890730",
+      "formal_performance_job": "891149"
     }
   },
   "stable_source": {
     "branch": "main",
     "worktree": "/public/home/zhangkewei/zr",
-    "source_anchor": "27b00f0ba82235b4331d24acc953989bb980da97",
-    "tag": "stable-main-exp123-20261003",
-    "retained_kernel_source": "ed06208f30706f63126078a5c51af07fa0439fe7",
-    "previous_binary_registry_id": "exp122-A-install",
-    "binary_equivalence": "rocFFT diff from validated EXP-122 is comment-only; existing library retains original build identity",
-    "approved": "2026-10-03"
-  }
+    "source_anchor": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "management_tools_commit": "27d5c5e164c25975505d613e0109016e076bc346",
+    "tag": "stable-main-exp125-20261007",
+    "retained_kernel_source": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "previous_binary_registry_id": "EXP-125-pre-memory-i",
+    "binary_equivalence": "The retained rocFFT source subtree is identical to the actual EXP-125 i build source. Promotion changes instructions, registry and records only; the existing library keeps its original build identity.",
+    "approved": "2026-10-07",
+    "approval_record": "experiments/EXP-125/records/stable-promotion-20261007/promotion.json"
+  },
+  "stable_source_history": [
+    {
+      "branch": "main",
+      "worktree": "/public/home/zhangkewei/zr",
+      "source_anchor": "27b00f0ba82235b4331d24acc953989bb980da97",
+      "tag": "stable-main-exp123-20261003",
+      "retained_kernel_source": "ed06208f30706f63126078a5c51af07fa0439fe7",
+      "previous_binary_registry_id": "exp122-A-install",
+      "binary_equivalence": "rocFFT diff from validated EXP-122 is comment-only; existing library retains original build identity",
+      "approved": "2026-10-03"
+    }
+  ]
 }

@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "policy": "EXP123-event-50-three-arm-8-v1",
+  "experiment": "EXP-125",
+  "run_id": "EXP-125-performance-20261007-i-default-retest",
+  "gpu_arch": "gfx936",
+  "acceptance": "\u91cd\u65b0\u6d4b\u91cfEXP125\u5f53\u524d\u5df2\u9a8c\u8bc1\u7248\u672c\u5728\u9ed8\u8ba4\u8def\u5f84\u4e0b\u7684\u5b8c\u6574\u6027\u80fd\u3002\u4e94\u4e2a\u5c3a\u5bf8\u3001\u4e09\u79cd\u53d8\u6362\u5171\u5341\u4e94\u79cd\u60c5\u5f62\uff0c\u53cc\u7cbe\u5ea6\u3001\u6279\u91cf\u4e00\u3001\u8f93\u5165\u8f93\u51fa\u5206\u79bb\uff1b\u540c\u4e00\u5f20\u5361\u548c\u540c\u4e00\u6b21\u8bbe\u5907\u5206\u914d\u4e2d\u516b\u8f6e\u4ea4\u9519\u4e09\u7248\u672c\uff0c\u4e03\u767e\u4e8c\u5341\u4e2a\u8fdb\u7a0b\u3002\u6240\u6709\u539f\u59cb\u6b63\u786e\u6027\u68c0\u67e5\u3001\u7a0b\u5e8f\u8eab\u4efd\u3001\u6267\u884c\u987a\u5e8f\u53ca\u539f\u59cb\u6570\u636e\u6821\u9a8c\u5fc5\u987b\u901a\u8fc7\uff0c\u624d\u53ef\u4f5c\u4e3a\u6b63\u5f0f\u7ed3\u679c\u3002\u4f7f\u7528\u6bcf\u7248\u672c\u6bcf\u60c5\u5f62\u5168\u90e8\u5341\u516d\u4e2a\u8fdb\u7a0b\u5747\u503c\u7684\u7b97\u672f\u5e73\u5747\uff0c\u4fdd\u7559\u5168\u90e8\u6837\u672c\uff0c\u4e0d\u5220\u9664\u6162\u6837\u672c\u3002\u65b0\u603b\u8868\u7edf\u4e00\u4f7f\u7528\u672c\u6b21\u5b8c\u6574\u6279\u6b21\u7684\u6570\u636e\uff0c\u62a5\u544a\u5b98\u65b9\u53ca\u7a33\u5b9a\u7248\u672c\u52a0\u901f\u6bd4\u548c\u56fa\u5b9aA100\u76f8\u5bf9\u6027\u80fd\uff0c\u4e0e\u4e0a\u4e00\u6279\u6b21\u5dee\u5f02\u5982\u5b9e\u8bf4\u660e\uff1b\u4e0d\u628a\u5386\u53f2\u914d\u5bf9\u6536\u76ca\u518d\u6b21\u53e0\u52a0\u5230\u5f53\u524d\u8017\u65f6\uff0c\u4e0d\u81ea\u52a8\u63a8\u5e7f\u6216\u56de\u6eda\u6e90\u7801\u3002",
+  "resources": {
+    "cpus": 8,
+    "partition": "hx1hdnormal01",
+    "time_limit": "03:00:00",
+    "nodelist": "f13r4n15"
+  },
+  "arms": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+    },
+    "previous": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "ed06208f30706f63126078a5c51af07fa0439fe7",
+      "source_state": "Historical approved previous source ed06208f30706f63126078a5c51af07fa0439fe7; original build checkout path no longer present. No claim about current checkout reproducing the old build state. The prior-stable worktree is now archived; source_repo points to the active EXP-123 repository retaining the real EXP-122 build commit. The active source repository is now the top-level main checkout; historical worktrees are archived. The library retains its original EXP-122 build identity.",
+      "library_sha256": "1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-122/records/builds/exp122_A_512x128_clean/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+    },
+    "candidate": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+    }
+  },
+  "candidate_identity": {
+    "implementation": "pre-memory-i",
+    "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "branch": "exp-125-local-real-f",
+    "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+    "source_archive_sha256": "2380907be77470015ef912d8dd7d16dd52de89d422d63129c020a0e77928d673",
+    "load_mode": "program default; no explicit load selector"
+  },
+  "entry_validation": {
+    "job": "890730",
+    "record": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-diagnostic-20261007-i/pre-memory-validation.json",
+    "sha256": "42bbb70e9e9c82c27898cb11bd1984a5470c2f6e245f157a5d912e965ad468d2",
+    "review_record": "/public/home/zhangkewei/zr/experiments/EXP-125/records/pre-memory-i/result-review-890730-20261007.json",
+    "review_sha256": "aed263d9cd5ebb7ba07b46074a504a0b87fe65d320b8156679aab26f61e91799",
+    "total_numerical_cases": 345,
+    "fusion_groups": 30
+  },
+  "schedule_implementation": {
+    "worker": "/public/home/zhangkewei/zr/experiments/EXP-125/scripts/measure_default_retest_i.py",
+    "worker_sha256": "331cf841d51eba072837666717665479a407e11428f3d341a51ea38fbc54238d",
+    "odd": [
+      "official",
+      "previous",
+      "candidate",
+      "candidate",
+      "previous",
+      "official"
+    ],
+    "even": [
+      "candidate",
+      "previous",
+      "official",
+      "official",
+      "previous",
+      "candidate"
+    ],
+    "correction": "Reuse the prescribed order correction in an independent formal-only worker; shared tools and old evidence stay unchanged."
+  },
+  "required_file_sha256": {
+    "/public/home/zhangkewei/zr/AGENTS.md": "b7f333674bd2892963854404f11b685752412102cd9d1ad1096ad9192482b598",
+    "/public/home/zhangkewei/zr/manage.py": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223",
+    "/public/home/zhangkewei/zr/tools/workspace_manager/manager.py": "e5f997dccd952c7278037eefe7eb5794491b8edcbfa6277282a2199b7d12dcc3",
+    "/public/home/zhangkewei/zr/tools/fft_measurement/common.py": "4880f0a94cc7e03c3b6dbc5f0013cd4c4b000e3df9529163895b34371b1e14d2",
+    "/public/home/zhangkewei/zr/tools/fft_measurement/run.py": "fbca5174ad51821661448a9168857fbfd6f9842cfced52eb36e59b5cee5a36b0",
+    "/public/home/zhangkewei/zr/tools/fft_measurement/summarize.py": "2ac42daff7be72f7d268a35a44554e9f95c158082faa5f7dd10c72ae5631f963",
+    "/public/home/zhangkewei/zr/tools/fft_measurement/fft_test_1d.cpp": "849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da",
+    "/public/home/zhangkewei/zr/tools/fft_measurement/device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7",
+    "/public/home/zhangkewei/zr/docs/technical/FFT_MEASUREMENT_PROTOCOL.md": "1ff3030530d45cdce542e2c5332405f366c0d9f9dc258614b5ff1c81d08725f2",
+    "/public/home/zhangkewei/zr/docs/technical/WORKSPACE_MANAGEMENT.md": "c905f3d663f7693a91e12f162760f0ceaf840d3e8e3717e5db530697f273cebb",
+    "/public/home/zhangkewei/zr/configs/installations.json": "85e0696b006bcc684fb5716f558973706f3d081f96e6e3485f9a2351f5e4f3f3",
+    "/public/home/zhangkewei/zr/configs/experiments/EXP-125-performance-i.json": "1a92c6577e5bbbd548f7f8c8b03b4fe719dada00735e0812b9100134d647448c",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/source/pre-memory-i/manifest.json": "7b34b02dfda78305768f157128d16470fcbb899a5a744195b29140b69d1fb233",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json": "13023080bf92f6cdddaa4dc5cf6b8884bd826feb2574b223d35a333fd24b7b36",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-diagnostic-20261007-i/pre-memory-validation.json": "42bbb70e9e9c82c27898cb11bd1984a5470c2f6e245f157a5d912e965ad468d2",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/records/pre-memory-i/result-review-890730-20261007.json": "aed263d9cd5ebb7ba07b46074a504a0b87fe65d320b8156679aab26f61e91799",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/rollback-manifest.json": "488c1d1576bbb6c8093e2be9d8b67896d944e7ac0020b898991e09598e7da4d4",
+    "/public/home/zhangkewei/zr/results/reference/a100/A100_1d_32768_65536_131072_262144_524288_1048576.csv": "3b376eb69a77318ace8fbe537acfc7b3e82cdff1ea847f6177ed7ea82b27603b",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/source/pre-memory-i/source.tar": "2380907be77470015ef912d8dd7d16dd52de89d422d63129c020a0e77928d673",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h": "2c83103f4f0f77d7a262e900e9d52ec5c11c5d1fb2519067e7129e7318019a6f",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": "9331213ce0c64d00a2d5fc6109473686d11cf0c4b24f0feb96b160071cbc7a1c",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/source.tar": "6a143c93d02f30ca40e1456106b75f011c4ed0c84d085a6bea5ce0fc01343bc2",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/workspace-document-before.md": "d6e118619a7cefe4bcf2e7883b00021738d7d817ea7b1b2283c7aba490ef5aeb",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/h-build-provenance.json": "e84ec4cb0da831e2f57200dd1d15f78b6b6456d2563e4b0cc2c7ab8537f2c912",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/librocfft-h.so.0.1": "6e9cfb1ac7252bf411cf9bc9e919ff54041ba5c730f8d97144bacb4493672232",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/original-files/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h": "823c7ebc2e31c6c962295a35a2a9279f2120ba164cb9c1bdd0897283701edfea",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/original-files/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": "8f85eab25743cada51b0bb765fc161443601b9325dd082d4a164e9fe65ce6ee7",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/scripts/measure_default_retest_i.py": "331cf841d51eba072837666717665479a407e11428f3d341a51ea38fbc54238d",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/scripts/measure_default_retest_i.slurm": "fdf904c26e96ae281cbe663736b1f05d27a8d8c174a417569630438b636fa1c1",
+    "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official/lib/librocfft.so.0.1": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+    "/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install/lib/librocfft.so.0.1": "1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i/lib/librocfft.so.0.1": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677"
+  },
+  "automatic_promotion": false,
+  "stop_after_submission": true,
+  "report_presentation": {
+    "columns": [
+      "size/type",
+      "baseline_time_us",
+      "a100_time_us",
+      "current_time_us",
+      "speedup",
+      "performance_percent"
+    ],
+    "baseline_arm": "official",
+    "one_measurement_batch": true
+  },
+  "user_authorization": "\u91cd\u65b0\u6d4b\u4e00\u4e0b\u6240\u6709size\u7684\u6027\u80fd\uff1b\u53ea\u6d4b\u9ed8\u8ba4\u9009\u62e9\u7684\u8def\u5f84\uff1b\u63d0\u4ea4\u540e\u505c\u6b62\uff0c\u7b49\u5f85\u7528\u6237\u8981\u6c42\u68c0\u67e5\u3002"
+}

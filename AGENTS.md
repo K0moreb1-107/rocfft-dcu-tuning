@@ -226,8 +226,11 @@ source changes as a validated retained version.
 
 Stable branch: main
 Stable workspace: /public/home/zhangkewei/zr
-Retained source reference: EXP-123 27b00f0ba82235b4331d24acc953989bb980da97
-Valid tag: stable-main-exp123-20261003
+Retained source reference: EXP-125 1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d
+Management tools reference: 27d5c5e164c25975505d613e0109016e076bc346
+Valid tag: stable-main-exp125-20261007
+Approved stable installation: experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i
+Promotion record: experiments/EXP-125/records/stable-promotion-20261007/promotion.json
 
 ## Agent Delegation and Token-Efficiency Policy
 
@@ -310,7 +313,8 @@ Queued configurations freeze concrete library/source identities, not mutable
 aliases. No automatic source promotion. Quick validation is not formal evidence.
 
 Current installation registry: configs/installations.json. Current previous
-is the approved EXP-122 library; EXP-119 remains historical. Directory names do
+is the approved EXP-125-pre-memory-i library (user promoted 2026-10-07).
+The EXP-122 library remains the frozen previous arm of historical EXP-125 runs. Directory names do
 not prove source identity or acceptance. Historical/unknown installations cannot
 silently become official/previous/candidate. Candidate builds retain exact source
 state, CMake parameters, compiler and final library checksum.
