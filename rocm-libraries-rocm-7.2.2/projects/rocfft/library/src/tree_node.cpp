@@ -300,9 +300,14 @@ bool LeafNode::CreateDeviceResources()
     }
     if(real_io.role == RealBlockRole::PairedPostRows)
     {
+        const auto kernel         = GetKernel();
+        const auto rows_per_block = kernel.transforms_per_block;
+        if(rows_per_block == 0 || kernel.workgroup_size
+                                    != rows_per_block * kernel.threads_per_transform[0])
+            throw std::runtime_error("paired real post kernel geometry mismatch");
         std::tie(real_post_twiddles, real_post_twiddles_size)
-            = Repo::GetTwiddles1D(real_io.n, real_io.n / 4,
-                                  precision, deviceProp, 0, false, {});
+            = Repo::GetPackedRealPostTwiddles(
+                real_io.n, real_io.rows, rows_per_block, precision, deviceProp);
     }
     return CreateLargeTwdTable();
 }

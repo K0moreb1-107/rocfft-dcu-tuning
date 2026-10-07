@@ -43,6 +43,9 @@ std::string twiddle_rtc_kernel_name(TwiddleTableType type, rocfft_precision prec
     case TwiddleTableType::PARTIAL_PASS_N:
         kernel_name += "_pp_N";
         break;
+    case TwiddleTableType::PACKED_REAL_POST:
+        kernel_name += "_packed_real_post";
+        break;
     }
     kernel_name += rtc_precision_name(precision);
     return kernel_name;
@@ -62,6 +65,7 @@ static std::string twiddle_rtc_launch_bounds(TwiddleTableType type)
         break;
     case TwiddleTableType::LENGTH_N:
     case TwiddleTableType::HALF_N:
+    case TwiddleTableType::PACKED_REAL_POST:
         bounds += std::to_string(TWIDDLES_THREADS);
         break;
     }
@@ -102,6 +106,9 @@ static std::string twiddle_rtc_args(TwiddleTableType type, rocfft_precision prec
     case TwiddleTableType::PARTIAL_PASS_N:
         args += "size_t N";
         args += ", scalar_type* output";
+        break;
+    case TwiddleTableType::PACKED_REAL_POST:
+        args += "size_t N, size_t rows, size_t rows_per_block, scalar_type* output";
         break;
     }
     args += ")";
@@ -150,6 +157,26 @@ static std::string twiddle_rtc_body(TwiddleTableType type)
 
             output[i].x = c;
             output[i].y = s;
+        }
+        )_SRC";
+        break;
+    case TwiddleTableType::PACKED_REAL_POST:
+        body += R"_SRC(
+        const size_t j = threadIdx.x + blockIdx.x * blockDim.x;
+        if(j < N / 4)
+        {
+            const size_t columns = N / (2 * rows);
+            const size_t block = j / (rows_per_block * (rows / 2));
+            const size_t slot = j % rows_per_block;
+            const size_t column = (j / rows_per_block) % (rows / 2);
+            const size_t half = rows_per_block / 2;
+            const size_t s = block * half + slot % half;
+            const size_t row = slot < half ? s : (s == 0 ? columns / 2 : columns - s);
+            const size_t k = row + columns * column;
+            double c = cos(TWO_PI * k / N);
+            double s_phase = sin(TWO_PI * k / N);
+            output[j].x = c;
+            output[j].y = s_phase;
         }
         )_SRC";
         break;

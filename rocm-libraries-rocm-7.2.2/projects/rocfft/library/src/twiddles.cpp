@@ -256,6 +256,23 @@ public:
         half_N = attach_halfN ? (N + 1) / 2 : 0;
     }
 
+    void GeneratePackedRealPostTable(size_t rows, size_t rows_per_block,
+                                     hipStream_t& stream, gpubuf& output)
+    {
+        const auto table_length = N / 4;
+        if(output.alloc(table_length * sizeof(T)) != hipSuccess)
+            throw std::runtime_error("unable to allocate packed real post twiddles");
+        auto kernel = RTCKernelTwiddle::generate(
+            deviceProp.gcnArchName, TwiddleTableType::PACKED_REAL_POST, precision);
+        RTCKernelArgs kargs;
+        kargs.append_size_t(N);
+        kargs.append_size_t(rows);
+        kargs.append_size_t(rows_per_block);
+        kargs.append_ptr(output.data());
+        kernel.launch(kargs, dim3(DivRoundingUp<size_t>(table_length, TWIDDLES_THREADS)),
+                      dim3(TWIDDLES_THREADS), 0, deviceProp, stream);
+    }
+
     void GenerateTwiddleTable(const std::vector<size_t>& radices, hipStream_t& stream, gpubuf& twts)
     {
         auto use_radices = !radices.empty();
@@ -539,6 +556,50 @@ gpubuf twiddles_create(size_t                     N,
         return twiddles_create_pr<rocfft_complex<rocfft_fp16>>(
             N, length_limit, precision, deviceProp, largeTwdBase, attach_halfN, radices, deviceId);
     }
+}
+
+template <typename T>
+static gpubuf twiddles_create_packed_real_post_pr(size_t                 N,
+                                                size_t                 rows,
+                                                size_t                 rows_per_block,
+                                                rocfft_precision       precision,
+                                                const hipDeviceProp_t& deviceProp,
+                                                unsigned int           deviceId)
+{
+    if(deviceId >= twiddle_streams.size())
+        twiddle_streams.resize(deviceId + 1);
+    hipStream_wrapper_t& stream = twiddle_streams[deviceId];
+    if(!stream)
+        stream.alloc();
+
+    gpubuf         twts;
+    TwiddleTable<T> table(precision, deviceProp, N, N / 4, false);
+    table.GeneratePackedRealPostTable(rows, rows_per_block, stream, twts);
+    if(hipStreamSynchronize(stream) != hipSuccess)
+        throw std::runtime_error("hipStream failure");
+    return twts;
+}
+
+gpubuf twiddles_create_packed_real_post(size_t                 N,
+                                      size_t                 rows,
+                                      size_t                 rows_per_block,
+                                      rocfft_precision       precision,
+                                      const hipDeviceProp_t& deviceProp,
+                                      unsigned int           deviceId)
+{
+    switch(precision)
+    {
+    case rocfft_precision_single:
+        return twiddles_create_packed_real_post_pr<rocfft_complex<float>>(
+            N, rows, rows_per_block, precision, deviceProp, deviceId);
+    case rocfft_precision_double:
+        return twiddles_create_packed_real_post_pr<rocfft_complex<double>>(
+            N, rows, rows_per_block, precision, deviceProp, deviceId);
+    case rocfft_precision_half:
+        return twiddles_create_packed_real_post_pr<rocfft_complex<rocfft_fp16>>(
+            N, rows, rows_per_block, precision, deviceProp, deviceId);
+    }
+    throw std::runtime_error("unsupported packed real post twiddle precision");
 }
 
 template <typename T>

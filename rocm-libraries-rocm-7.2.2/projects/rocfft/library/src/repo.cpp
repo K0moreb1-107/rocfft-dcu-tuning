@@ -192,6 +192,29 @@ std::pair<void*, size_t> Repo::GetTwiddles1D(size_t                     length,
         });
 }
 
+std::pair<void*, size_t> Repo::GetPackedRealPostTwiddles(size_t                 length,
+                                                          size_t                 rows,
+                                                          size_t                 rows_per_block,
+                                                          rocfft_precision       precision,
+                                                          const hipDeviceProp_t& deviceProp)
+{
+    if(rows == 0 || rows % 2 != 0 || rows_per_block == 0 || rows_per_block % 2 != 0
+       || length == 0 || length % rows != 0 || (length / rows) % 2 != 0
+       || (length / rows / 2) % rows_per_block != 0)
+        throw std::runtime_error("invalid packed real post twiddle geometry");
+
+    std::lock_guard<std::mutex> lck(mtx);
+    Repo&                       repo = Repo::GetRepo();
+    repo_twd_key_1D_t key{length, length / 4, precision, 0, false, {}};
+    key.real_post_rows           = rows;
+    key.real_post_rows_per_block = rows_per_block;
+    return GetTwiddlesInternal(
+        key, repo.twiddles_1D, repo.twiddles_1D_reverse, [&](unsigned int deviceId) {
+            return twiddles_create_packed_real_post(
+                length, rows, rows_per_block, precision, deviceProp, deviceId);
+        });
+}
+
 std::pair<void*, size_t> Repo::GetTwiddles2D(size_t                     length0,
                                              size_t                     length1,
                                              rocfft_precision           precision,

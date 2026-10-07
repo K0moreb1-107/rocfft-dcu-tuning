@@ -37,13 +37,15 @@ struct RealPostLoadVisitor : BaseVisitor
 struct StockhamKernelPairedPostRows : StockhamKernelRC
 {
     const unsigned int columns, rows, rows_per_block;
+    const bool preload_post_twiddles;
     Variable post_twiddles{"real_post_twiddles", "const scalar_type", true, true};
 
-    explicit StockhamKernelPairedPostRows(const StockhamGeneratorSpecs& specs)
+    StockhamKernelPairedPostRows(const StockhamGeneratorSpecs& specs, bool preload_twiddles)
         : StockhamKernelRC(specs, false)
         , columns(specs.real_io.columns)
         , rows(specs.real_io.rows)
         , rows_per_block(transforms_per_block)
+        , preload_post_twiddles(preload_twiddles)
     {
         if(specs.real_io.role != RealBlockRole::PairedPostRows || length != rows
            || specs.real_io.n != 2 * columns * rows || specs.real_io.pitch != rows
@@ -91,6 +93,21 @@ struct StockhamKernelPairedPostRows : StockhamKernelRC
             Declaration{column}, Declaration{k}, Declaration{lhs}, Declaration{rhs},
             Declaration{own}, Declaration{other}};
 
+        // The table follows this block's lower-half stores, in thread order.
+        Variable tile{"post_twiddle_tile", "const scalar_type* __restrict__"};
+        stmts += Declaration{tile, post_twiddles
+                                      + tile_index_in_plane * (rows * rows_per_block / 2)};
+        std::vector<Variable> phases;
+        if(preload_post_twiddles)
+        {
+            // Read after the FFT's final LDS synchronization, before any post stores.
+            for(unsigned int i = 0; i < rows * rows_per_block / (2 * workgroup_size); ++i)
+            {
+                phases.emplace_back("post_phase_" + std::to_string(i), "const scalar_type");
+                stmts += Declaration{phases.back(), tile[thread_id + i * workgroup_size]};
+            }
+        }
+
         // Each row owns its lower half. The mirrored upper half is consumed once.
         for(unsigned int i = 0; i < rows * rows_per_block / (2 * workgroup_size); ++i)
         {
@@ -106,7 +123,10 @@ struct StockhamKernelPairedPostRows : StockhamKernelRC
                 Assign{lhs, lds_complex[slot * rows + column]},
                 Assign{rhs, lds_complex[peer * rows + rows - column
                                        - Ternary{Expression{row == 0}, Expression{Literal{0}}, Expression{Literal{1}}}]},
-                Call{"real_post_pair", {scalar_type}, {lhs, rhs, post_twiddles[k], own, other}},
+                Call{"real_post_pair", {scalar_type},
+                     {lhs, rhs, preload_post_twiddles ? Expression{phases[i]}
+                                                    : Expression{tile[thread_id + i * workgroup_size]},
+                      own, other}},
                 StoreGlobal{buf, k, own},
                 StoreGlobal{buf, m - k, other}};
             // Test before forming the zero-row mirror address (which would be Q).

@@ -264,6 +264,11 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
                                ? "_local_real_columns" : "_local_real_rows";
         kernel_name += "_N" + std::to_string(specs.real_io.n);
         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
+        if(specs.real_io.role == RealBlockRole::PairedPostRows)
+        {
+            kernel_name += "_twd_packed";
+            kernel_name += cbtype == CallbackType::NONE ? "_post_preload" : "_post_stream";
+        }
     }
     return kernel_name;
 }
@@ -352,7 +357,7 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
             if(specs.real_io.role == RealBlockRole::LocalRealRows)
                 kernel = std::make_unique<StockhamKernelLocalRealRows>(specs);
             else if(specs.real_io.role == RealBlockRole::PairedPostRows)
-                kernel = std::make_unique<StockhamKernelPairedPostRows>(specs);
+                kernel = std::make_unique<StockhamKernelPairedPostRows>(specs, cbtype == CallbackType::NONE);
             else
                 kernel = std::make_unique<StockhamKernelRC>(specs, fuseBluestein);
         }

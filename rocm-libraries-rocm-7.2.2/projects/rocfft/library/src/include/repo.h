@@ -45,6 +45,10 @@ class Repo
         // buffers are in device memory, so we need per-device
         // twiddles
         int deviceId = 0;
+        // Zero denotes the existing natural-order tables. Packed real-post
+        // tables depend on the FFT row length and rows per workgroup.
+        size_t real_post_rows           = 0;
+        size_t real_post_rows_per_block = 0;
 
         bool operator<(const repo_twd_key_1D_t& other) const
         {
@@ -60,6 +64,10 @@ class Repo
                 return attach_halfN < other.attach_halfN;
             if(radices != other.radices)
                 return radices < other.radices;
+            if(real_post_rows != other.real_post_rows)
+                return real_post_rows < other.real_post_rows;
+            if(real_post_rows_per_block != other.real_post_rows_per_block)
+                return real_post_rows_per_block < other.real_post_rows_per_block;
             return deviceId < other.deviceId;
         }
     };
@@ -196,6 +204,11 @@ public:
                                                   size_t                     largeTwdBase,
                                                   bool                       attach_halfN,
                                                   const std::vector<size_t>& radices);
+    static std::pair<void*, size_t> GetPackedRealPostTwiddles(size_t                 length,
+                                                             size_t                 rows,
+                                                             size_t                 rows_per_block,
+                                                             rocfft_precision       precision,
+                                                             const hipDeviceProp_t& deviceProp);
     static std::pair<void*, size_t> GetTwiddles2D(size_t                     length0,
                                                   size_t                     length1,
                                                   rocfft_precision           precision,

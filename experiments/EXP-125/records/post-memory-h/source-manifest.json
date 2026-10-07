@@ -1,0 +1,44 @@
+{
+  "experiment": "EXP-125",
+  "revision": "post-memory-h",
+  "source_branch": "exp-125-local-real-f",
+  "baseline_commit": "dc254562cb023dcf63b7d2b3e4451eb4aa433bfb",
+  "files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h": {
+      "baseline_sha256": "194e22d4d29685943a947edb5085a7dc65449caf40c86fe67fb85bacb6481d87",
+      "candidate_sha256": "03bb1c434f9fcd6a76218890bb9be28f3f67eda6445346e7fe08424393274e74"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": {
+      "baseline_sha256": "2e49e806b77f33b17d25fbb3b50e003a42af07d3c93acfe1638eae0fbc9d29e8",
+      "candidate_sha256": "8f85eab25743cada51b0bb765fc161443601b9325dd082d4a164e9fe65ce6ee7"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/repo.h": {
+      "baseline_sha256": "e4111feda4a2be1910f340a22d71855700578d3e9cf5a4490fe9b504e94c7dce",
+      "candidate_sha256": "378958a717025c11364c9e8d71b3f36bebf1697c4eed0e45d0b5ae2d4405f77f"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/repo.cpp": {
+      "baseline_sha256": "0d679ea615b22ee5a7d742328c7baaae7e2e1b9e281a93935724d00bb9fafc7f",
+      "candidate_sha256": "5920d3454fd55b4f4df17f65e84462cc851a44c859a0e9ef1af5c00e5580f679"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "baseline_sha256": "8bc6dc158c918e7014fe8c629900f50b30d36bd5098d1d526ffa85673a7e207d",
+      "candidate_sha256": "582ab37edbbb251fb3677896165b3591f5b2cf9a25b7c07be3463e5ffe7b6800"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h": {
+      "baseline_sha256": "8f6858f2c580fb9340a2c479fdf5a19b3043bfddf785d1e2c65fd671605fc85d",
+      "candidate_sha256": "41c99d6d7d5445e2edc9e51bf1145020cc13f0b5f9b17d451c16c767fceacd3a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/twiddles.cpp": {
+      "baseline_sha256": "cba1469314163d83ba66a1a147b0959d44a5d7869171e36b0f9e5f789a02c622",
+      "candidate_sha256": "685e59a7bc4bff2c991f18aefe9018d2f28f737252b7e963d611033112fa2b37"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_twiddle_gen.h": {
+      "baseline_sha256": "08e4d52b11674382554bd175bcf652467bf0eddda576b301558aa109b428faf3",
+      "candidate_sha256": "45cc7e2cd4c53c441383df91fdb787c8993447a4bdf88b4b92772c5018ad66c0"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_twiddle_gen.cpp": {
+      "baseline_sha256": "e1e261ae508280b7d9ed6e956e738bdca1279d01dc98c77782eac4ef5bf1dd85",
+      "candidate_sha256": "10ea2d62dee682a10ae39e736e4665eebc0f691787a3e632d7f75236f6e3a4b9"
+    }
+  }
+}

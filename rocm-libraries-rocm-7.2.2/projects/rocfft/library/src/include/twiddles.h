@@ -37,6 +37,12 @@ gpubuf twiddles_create(size_t                     N,
                        bool                       attach_halfN,
                        const std::vector<size_t>& radices,
                        unsigned int               deviceId);
+gpubuf twiddles_create_packed_real_post(size_t                 N,
+                                        size_t                 rows,
+                                        size_t                 rows_per_block,
+                                        rocfft_precision       precision,
+                                        const hipDeviceProp_t& deviceProp,
+                                        unsigned int           deviceId);
 gpubuf twiddles_create_2D(size_t                     N1,
                           size_t                     N2,
                           rocfft_precision           precision,
