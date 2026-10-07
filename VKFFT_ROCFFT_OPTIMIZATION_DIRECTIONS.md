@@ -6689,3 +6689,14 @@ consolidation, not an EXP-123 merge into the old top-level source checkout.
 保留官方原版和此前批准的 EXP122 安装身份，已验证后处理安装也保持原样。
 本轮不提交正式性能测试，性能及相对官方、稳定版本和 A100 的结果均待后续授权测试。
 提交构建与正确性验证后立即停止，等用户要求检查，不自动晋升稳定版本。
+
+
+### 2026-10-07：EXP125前处理系数读取调度实施与恢复点
+
+用户授权按已完成评估的方案实施，并要求保存当前代码以便发生负收益时恢复。继续EXP125，基底为已测提交7fc5daeadd170b36fe19850f0977d87b61dc1718，分支exp-125-local-real-f。修改前建立标签exp-125-before-pre-memory-i-20261007，完整计算源码356份文件逐一对照版本内容，两个源文件另存原件，旧库副本与原库校验值一致。恢复目录/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007，原安装保持原样。
+
+仅修改stockham_gen_local_real.h和rtc_stockham_gen.cpp两个计算文件，复用已通过离线检查的原型原件。64K/128K默认寄存器路径保持原实现、共享存储路径逐对提前；256K至1M两条普通路径一次声明四个系数。回调和后处理生成代码保持原样。策略与名称共用选择函数，不改变数据布局、算术及同步。八份目标代码离线编译通过，另外132份生成代码逐字一致；实际设备验证仍待新任务。
+
+独立构建、安装标识EXP-125-pre-memory-i，配置configs/experiments/EXP-125-build-i.json与configs/experiments/EXP-125-diagnostic-i.json，源码归档experiments/EXP-125/source/pre-memory-i/。验证沿用已通过的数值程序，包括原始程序25项、前处理边界与特殊频点60项、后处理参考及回调140项、表共存与释放120项，并检查30组严格两段执行记录及新读取策略实际进入即时编译源码。前处理回调代码以静态逐字一致保护，本轮没有新增其设备用例。
+
+完整机制、范围、冻结凭据及恢复说明见experiments/EXP-125/records/pre-memory-i/实施与恢复记录.md。若测得负收益，可直接回用原安装；源码仅恢复两个计算文件并新建恢复提交，保留本轮历史和证据。正式性能尚未提交，也不自动晋升稳定版本。构建与正确性验证提交后立即停止，等待用户检查指令。

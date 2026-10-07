@@ -264,6 +264,9 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
                                ? "_local_real_columns" : "_local_real_rows";
         kernel_name += "_N" + std::to_string(specs.real_io.n);
         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
+        if(specs.real_io.role == RealBlockRole::LocalRealRows)
+            kernel_name += local_real_twiddle_suffix(
+                local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
         if(specs.real_io.role == RealBlockRole::PairedPostRows)
         {
             kernel_name += "_twd_packed";
@@ -355,7 +358,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_RC)
         {
             if(specs.real_io.role == RealBlockRole::LocalRealRows)
-                kernel = std::make_unique<StockhamKernelLocalRealRows>(specs);
+                kernel = std::make_unique<StockhamKernelLocalRealRows>(
+                    specs, local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
             else if(specs.real_io.role == RealBlockRole::PairedPostRows)
                 kernel = std::make_unique<StockhamKernelPairedPostRows>(specs, cbtype == CallbackType::NONE);
             else

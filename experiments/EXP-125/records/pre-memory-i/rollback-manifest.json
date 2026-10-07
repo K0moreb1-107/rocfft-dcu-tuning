@@ -1,0 +1,32 @@
+{
+  "complete": true,
+  "created_at": "2026-10-07T08:38:13.042335+00:00",
+  "baseline_commit": "7fc5daeadd170b36fe19850f0977d87b61dc1718",
+  "baseline_tag": "exp-125-before-pre-memory-i-20261007",
+  "branch": "exp-125-local-real-f",
+  "directory": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007",
+  "source_archive": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/source.tar",
+  "source_archive_sha256": "6a143c93d02f30ca40e1456106b75f011c4ed0c84d085a6bea5ce0fc01343bc2",
+  "archive_files_verified_against_git": 356,
+  "original_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h": {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/original-files/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h",
+      "sha256": "823c7ebc2e31c6c962295a35a2a9279f2120ba164cb9c1bdd0897283701edfea"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/original-files/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp",
+      "sha256": "8f85eab25743cada51b0bb765fc161443601b9325dd082d4a164e9fe65ce6ee7"
+    }
+  },
+  "measured_library": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-post-memory-h/lib/librocfft.so.0.1",
+  "library_sha256": "6e9cfb1ac7252bf411cf9bc9e919ff54041ba5c730f8d97144bacb4493672232",
+  "library_backup": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/librocfft-h.so.0.1",
+  "library_backup_sha256": "6e9cfb1ac7252bf411cf9bc9e919ff54041ba5c730f8d97144bacb4493672232",
+  "measured_install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-post-memory-h",
+  "document_backup": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/workspace-document-before.md",
+  "document_backup_sha256": "d6e118619a7cefe4bcf2e7883b00021738d7d817ea7b1b2283c7aba490ef5aeb",
+  "build_provenance_backup": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/rollback/pre-memory-i-before-20261007/h-build-provenance.json",
+  "build_provenance_backup_sha256": "e84ec4cb0da831e2f57200dd1d15f78b6b6456d2563e4b0cc2c7ab8537f2c912",
+  "source_unchanged_at_backup": true,
+  "scheduler_submissions": 0
+}

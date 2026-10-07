@@ -33,6 +33,34 @@ __device__ __forceinline__ void local_real_pair(T p, T q, T w, T& own, T& other)
 )src";
 }
 
+enum class LocalRealTwiddleLoad
+{
+    Inline,
+    BeforePair,
+    BeforeAllPairs,
+};
+
+inline LocalRealTwiddleLoad local_real_twiddle_load(const RealBlockIO& io, bool callbacks)
+{
+    if(callbacks || io.role != RealBlockRole::LocalRealRows)
+        return LocalRealTwiddleLoad::Inline;
+    if(io.rows == 512)
+        return LocalRealTwiddleLoad::BeforeAllPairs;
+    if(io.rows == 256 && io.load == RealBlockLoad::LDS)
+        return LocalRealTwiddleLoad::BeforePair;
+    return LocalRealTwiddleLoad::Inline;
+}
+
+inline const char* local_real_twiddle_suffix(LocalRealTwiddleLoad load)
+{
+    switch(load)
+    {
+    case LocalRealTwiddleLoad::BeforePair:     return "_pre_twiddle_first";
+    case LocalRealTwiddleLoad::BeforeAllPairs: return "_pre_twiddle_preload";
+    default:                                 return "";
+    }
+}
+
 struct LocalRealFoldVisitor : BaseVisitor
 {
     const RealBlockIO io;
@@ -98,8 +126,10 @@ struct StockhamKernelLocalRealRows : StockhamKernelRC
     const RealBlockIO io;
     Variable pre_twiddles{"local_real_twiddles", "const scalar_type", true, true};
 
-    explicit StockhamKernelLocalRealRows(const StockhamGeneratorSpecs& specs)
-        : StockhamKernelRC(specs, false), io(specs.real_io)
+    const LocalRealTwiddleLoad phase_load;
+
+    StockhamKernelLocalRealRows(const StockhamGeneratorSpecs& specs, LocalRealTwiddleLoad phase_load)
+        : StockhamKernelRC(specs, false), io(specs.real_io), phase_load(phase_load)
     {
         const auto first = factors.front();
         const auto k = length / first;
@@ -149,18 +179,42 @@ struct StockhamKernelLocalRealRows : StockhamKernelRC
             active += Declaration{exchanged};
 
         const auto base = offset_in + row * stride_load_in;
+        std::vector<Variable> phases;
+        if(phase_load != LocalRealTwiddleLoad::Inline)
+        {
+            for(unsigned int h = 0; h < butterflies; ++h)
+                for(unsigned int w = 0; w < f / 2; ++w)
+                {
+                    phases.emplace_back("pre_phase_" + std::to_string(phases.size()),
+                                        "const scalar_type");
+                    if(phase_load == LocalRealTwiddleLoad::BeforeAllPairs)
+                        active += Declaration{phases.back(),
+                                              pre_twiddles[lane + h * threads_per_transform + w * k]};
+                }
+        }
         for(unsigned int h = 0; h < butterflies; ++h)
         {
             for(unsigned int w = 0; w < f / 2; ++w)
             {
                 active += Assign{j, lane + h * threads_per_transform + w * k};
+                const Expression phase = phase_load == LocalRealTwiddleLoad::Inline
+                                             ? Expression{pre_twiddles[j]}
+                                             : Expression{phases[h * (f / 2) + w]};
+                if(phase_load == LocalRealTwiddleLoad::BeforePair)
+                {
+                    Expression value = pre_twiddles[j];
+                    if(h == 0 && w == 0)
+                        value = Ternary{Expression{j == 0}, Expression{Literal{"scalar_type{0,0}"}},
+                                        Expression{pre_twiddles[j]}};
+                    active += Declaration{phases[h * (f / 2) + w], value};
+                }
                 active += Assign{p, LoadGlobal{buf, base + j}};
                 active += Assign{q, LoadGlobal{buf, base + length - j}};
                 active += If{j == 0,
                              {Assign{own, ComplexLiteral{p.x() + q.x(), p.x() - q.x()}},
                               Assign{other, ComplexLiteral{0, 0}}}};
                 active += Else{{Call{"local_real_pair", {scalar_type},
-                                      {p, q, pre_twiddles[j], own, other}}}};
+                                      {p, q, phase, own, other}}}};
 
                 if(!registers)
                 {
