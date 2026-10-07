@@ -80,13 +80,33 @@ class Contract(unittest.TestCase):
         e['csv_sha256']=hashlib.sha256(self.virtual[str(p)]).hexdigest();self.dump('processes.json',self.entries)
     def test_schedule_pairwise_balance_and_counts(self):
         s=schedule();self.assertEqual(len(s),720)
-        self.assertTrue(all(v==16 for v in Counter((e['N'],e['func'],e['arm']) for e in s).values()))
+        self.assertEqual([e['index'] for e in s],list(range(720)))
+        counts=Counter((e['N'],e['func'],e['arm']) for e in s)
+        self.assertEqual(set(counts),{(n,f,a) for n in SIZES for f in FUNCS for a in ARMS})
+        self.assertTrue(all(v==16 for v in counts.values()))
         for start in range(0,720,6):
             block=[x['arm'] for x in s[start:start+6]]
             for a,b in (('official','previous'),('official','candidate'),('previous','candidate')):
                 pair=[v for v in block if v in (a,b)]
-                self.assertIn(pair,([a,b,b,a],[b,a,a,b]))
+                expected=[a,b,b,a] if s[start]['round']%2 else [b,a,a,b]
+                self.assertEqual(pair,expected)
         self.assertNotIn(32768,[e['N'] for e in s])
+    def test_measurement_and_aggregation_share_schedule(self):
+        import common
+        import run
+        import summarize
+        self.assertIs(run.schedule,common.schedule)
+        self.assertIs(summarize.schedule,common.schedule)
+        self.assertEqual(run.plan(self.m)['schedule'],schedule())
+    def test_repeated_odd_order_in_even_round_rejected(self):
+        # Reproduce the old reversal-of-a-palindrome bug in round two.
+        odd_order=[e['arm'] for e in self.entries[:6]]
+        for entry,arm in zip(self.entries[6:12],odd_order):
+            entry['arm']=arm
+            entry['library_sha256']=self.m['arms'][arm]['library_sha256']
+        self.dump('processes.json',self.entries)
+        with self.assertRaisesRegex(ValueError,'schedule/order mismatch'):
+            aggregate(self.run,self.ref)
     def test_formula_all16_including_outlier(self):
         _,_,rows=aggregate(self.run,self.ref)
         self.assertEqual(len(rows),15)

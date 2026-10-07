@@ -39,9 +39,10 @@ def schedule():
     for n in SIZES:
         for func in FUNCS:
             for round_no in range(1, 9):
-                arms = ('official', 'previous', 'candidate', 'candidate', 'previous', 'official')
-                if round_no % 2 == 0:
-                    arms = arms[::-1]
+                # Alternate which version runs at the outside of each round.
+                arms = (('official', 'previous', 'candidate', 'candidate', 'previous', 'official')
+                        if round_no % 2 else
+                        ('candidate', 'previous', 'official', 'official', 'previous', 'candidate'))
                 for slot, arm in enumerate(arms, 1):
                     out.append(dict(index=len(out), N=n, func=func, round=round_no, slot=slot, arm=arm))
     return out

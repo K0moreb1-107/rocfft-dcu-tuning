@@ -22,7 +22,8 @@ Use original mean_ms; plan_ms, first_ms and per_tf_ms are diagnostics only.
 No hipprof N+1 division or kernel subtraction applies to these event times.
 
 Formal comparison: 8 rounds per case, one GPU UUID and one allocation;
-odd official/previous/candidate/candidate/previous/official, even the reverse.
+odd official/previous/candidate/candidate/previous/official;
+even candidate/previous/official/official/previous/candidate.
 Each arm has 16 process means (800 events/case); full matrix 720 processes.
 Arithmetic mean of all 16 mean_ms values is primary; no outlier removal.
 Retain every process CSV/log, exact order, allocation/GPU/runtime identity,

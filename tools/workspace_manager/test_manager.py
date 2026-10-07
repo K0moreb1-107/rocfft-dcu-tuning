@@ -73,6 +73,26 @@ class ManagedTasks(unittest.TestCase):
             return 'synthetic-job\n'
         with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),contextlib.redirect_stdout(io.StringIO()):manager.submit('build',self.cfg)
 
+    def test_measure_submission_uses_unified_worker(self):
+        def fake_sbatch(argv,**kwargs):
+            self.assertEqual(argv[-3:-1],[str(self.root/'jobs/workspace_task.slurm'),'measure'])
+            self.assertEqual(json.loads(Path(argv[-1]).read_text()),self.cfg)
+            return 'synthetic-job\n'
+        with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),contextlib.redirect_stdout(io.StringIO()):
+            manager.submit('measure',self.cfg)
+    def test_measure_worker_uses_correct_shared_schedule(self):
+        import run
+        def inspect_plan(cfg):
+            plan=run.plan(cfg)
+            self.assertEqual(plan['processes'],720)
+            self.assertEqual([e['arm'] for e in plan['schedule'][:6]],
+                             ['official','previous','candidate','candidate','previous','official'])
+            self.assertEqual([e['arm'] for e in plan['schedule'][6:12]],
+                             ['candidate','previous','official','official','previous','candidate'])
+        allocation={'SLURM_JOB_ID':'synthetic-job','SLURM_JOB_GPUS':'0','SLURM_JOB_NUM_NODES':'1'}
+        with patch.object(manager,'load',return_value=self.cfg),patch.object(common,'manifest',return_value=self.cfg),patch.dict(os.environ,allocation,clear=True),patch.object(sys,'argv',['manage.py','measure','--config','fake','--worker']),patch.object(run,'execute',side_effect=inspect_plan) as execute:
+            manager.main()
+            execute.assert_called_once_with(self.cfg)
     def test_submission_failure_keeps_evidence(self):
         with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=OSError('synthetic failure')):
             with self.assertRaises(OSError):manager.submit('build',self.cfg)

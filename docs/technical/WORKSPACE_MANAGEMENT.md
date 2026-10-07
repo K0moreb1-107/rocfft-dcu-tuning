@@ -223,3 +223,12 @@ top-level aliases automatically or treat historical times as new event results.
 Current official/previous registry IDs remain unchanged and resolve directly
 to physical installation directories. Measurement definitions and source are
 unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003/.
+
+
+## 统一测量入口轮次顺序修复（2026-10-07）
+
+共享轮次生成函数现在明确区分奇数轮和偶数轮：奇数轮为官方、稳定、当前、当前、稳定、官方；偶数轮为当前、稳定、官方、官方、稳定、当前。原来的实现倒置了一个前后对称的顺序，偶数轮因此没有改变。此次修复恢复已批准的顺序，测量程序、十五种情形、三次预热、五十次事件、八轮和七百二十个进程的定义保持原样。
+
+后续性能任务统一通过 `python3 manage.py measure --config CONFIG.json --execute` 提交，结果通过统一汇总入口生成，不需要实验专用的顺序修正脚本。运行与汇总直接使用同一个共享轮次函数。
+
+历史原始数据、配置和汇总保持原样，不将旧执行顺序改写成新顺序。修复后的严格汇总会拒绝仍在偶数轮重复奇数轮顺序的历史记录；核对这些历史结果时，应使用其原始工具及已登记的实际执行计划。已经使用正确顺序的独立测量记录与修复后的共享顺序一致。
