@@ -1,0 +1,11 @@
+{
+  "name": "measurement-test_contract",
+  "argv": [
+    "/usr/local/python3.12/bin/python3",
+    "/public/home/zhangkewei/zr/tools/fft_measurement/test_contract.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_batch (__main__.Contract.test_batch) ... ok\ntest_fail (__main__.Contract.test_fail) ... ok\ntest_formula_all16_including_outlier (__main__.Contract.test_formula_all16_including_outlier) ... ok\ntest_gpu_change (__main__.Contract.test_gpu_change) ... ok\ntest_hash_change (__main__.Contract.test_hash_change) ... ok\ntest_incomplete (__main__.Contract.test_incomplete) ... ok\ntest_iterations (__main__.Contract.test_iterations) ... ok\ntest_job_change (__main__.Contract.test_job_change) ... ok\ntest_library_mismatch (__main__.Contract.test_library_mismatch) ... ok\ntest_measurement_and_aggregation_share_schedule (__main__.Contract.test_measurement_and_aggregation_share_schedule) ... ok\ntest_missing_process (__main__.Contract.test_missing_process) ... ok\ntest_nan (__main__.Contract.test_nan) ... ok\ntest_nonzero_exit (__main__.Contract.test_nonzero_exit) ... ok\ntest_real_csv_schema_reader (__main__.Contract.test_real_csv_schema_reader) ... ok\ntest_reference_modified (__main__.Contract.test_reference_modified) ... ok\ntest_repeated_odd_order_in_even_round_rejected (__main__.Contract.test_repeated_odd_order_in_even_round_rejected) ... ok\ntest_requires_preregistration (__main__.Contract.test_requires_preregistration) ... ok\ntest_reused_process_csv (__main__.Contract.test_reused_process_csv) ... ok\ntest_schedule_pairwise_balance_and_counts (__main__.Contract.test_schedule_pairwise_balance_and_counts) ... ok\ntest_strict_error (__main__.Contract.test_strict_error) ... ok\ntest_wrong_case (__main__.Contract.test_wrong_case) ... ok\ntest_wrong_order (__main__.Contract.test_wrong_order) ... ok\n\n----------------------------------------------------------------------\nRan 22 tests in 10.062s\n\nOK\n"
+}

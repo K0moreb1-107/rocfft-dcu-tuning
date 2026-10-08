@@ -1,0 +1,41 @@
+{
+  "head_before": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "status_before": "M VkFFT",
+  "files": {
+    "AGENTS.md": {
+      "before_sha256": "2771a3e8a817aaffce55a6a73470640ccf27e86a50667d83319fc44bc96c1fdb",
+      "after_sha256": "050fa777e01577b20e2b849e57da3ee17a6a090cbbdd7e79fc365838dac0dea2"
+    },
+    "docs/technical/FFT_MEASUREMENT_PROTOCOL.md": {
+      "before_sha256": "1ff3030530d45cdce542e2c5332405f366c0d9f9dc258614b5ff1c81d08725f2",
+      "after_sha256": "3573366de353fa0e4f4a7f10e22e5ddac21cbaa1ce9221ad236af16d0fad1ab3"
+    },
+    "docs/technical/WORKSPACE_MANAGEMENT.md": {
+      "before_sha256": "9c7e149135bc3b2b5f72f504eb807dfd2f066502537e67428faed0b9597ef77e",
+      "after_sha256": "25c838de62685644cbaa907a4f0cce1f977f365622e78c3bf32c9545f0dccdc5"
+    },
+    "tools/fft_measurement/common.py": {
+      "before_sha256": "35a986770bfcc4cd8664c1f091c52f762d6d8f2885dc616af3e607ed8efe4dbd",
+      "after_sha256": "15525afa510de098e522393ceebd0c48cb8859489f49e2e30172e2bdda9f42b9"
+    },
+    "tools/fft_measurement/run.py": {
+      "before_sha256": "fbca5174ad51821661448a9168857fbfd6f9842cfced52eb36e59b5cee5a36b0",
+      "after_sha256": "5a2661563aefd112af9b889e4abcfd4be3ee7ae7d37060c0d35d838591432944"
+    },
+    "tools/workspace_manager/manager.py": {
+      "before_sha256": "e5f997dccd952c7278037eefe7eb5794491b8edcbfa6277282a2199b7d12dcc3",
+      "after_sha256": "bb4485e40569491d54d48c64ef855d2890f02bb3f313f73b4815097a26fef40c"
+    },
+    "jobs/workspace_task.slurm": {
+      "before_sha256": "0397854c373184a08e7081ae4760951f9fd439d4b8e256790bd38551bb76f704",
+      "after_sha256": "e3dbb63419659b1bd9f13179f6b9f0060a6fb9740fc913744c02d50c85cf30c3"
+    },
+    "tools/workspace_manager/test_manager.py": {
+      "before_sha256": "2369bea46c6e1426397287c4a16105fa6522c741800fda76883ea87ef8fa329b",
+      "after_sha256": "1748de0a6049ed30bef8757d9e0529726b96edce85b76045b6017fc244fc9eb7"
+    }
+  },
+  "measurement_source_sha256": "849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da",
+  "current_library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+  "real_gpu_job_submitted": false
+}

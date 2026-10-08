@@ -1,0 +1,20 @@
+{
+  "name": "scheduler-test-only",
+  "argv": [
+    "sbatch",
+    "--test-only",
+    "--parsable",
+    "--exclusive",
+    "--partition=hx1hdnormal01",
+    "--cpus-per-task=8",
+    "--time=03:00:00",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--nodelist=f13r4n15",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "measure",
+    "/public/home/zhangkewei/zr/experiments/EXP-125/records/measurement-node-exclusive-20261008/preview-config.json"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "sbatch: Job 893920 to start at 2027-09-09T05:45:18 using 128 processors on nodes f13r4n15 in partition hx1hdnormal01\n"
+}

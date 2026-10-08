@@ -26,6 +26,14 @@ odd official/previous/candidate/candidate/previous/official;
 even candidate/previous/official/official/previous/candidate.
 Each arm has 16 process means (800 events/case); full matrix 720 processes.
 Arithmetic mean of all 16 mean_ms values is primary; no outlier removal.
+Effective 2026-10-08, formal performance submissions explicitly request
+node exclusivity with sbatch --exclusive. Within that allocation, run the
+measurement worker in one srun step requesting one DCU and the configured
+CPU count. The allocation may own multiple DCUs; the measurement step and
+HIP-visible device count must remain one. Record both job and step device
+assignments. This changes resource isolation only; the frozen timing program,
+samples, ordering and formulas remain unchanged. Historical submissions keep
+their original resource records and are not relabelled as node-exclusive.
 Retain every process CSV/log, exact order, allocation/GPU/runtime identity,
 source state, library path/hash, executable/compiler and build provenance.
 Any missing/failed/mismatched case invalidates formal aggregation. Single

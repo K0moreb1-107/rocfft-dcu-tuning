@@ -242,3 +242,14 @@ unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003
 后续配置的稳定对照可使用 `arms.previous.registry_id` 值 `EXP-125-pre-memory-i`。统一入口会冻结该库的真实构建提交、路径、校验值及凭据。官方版本身份不变；EXP122原登记继续支持历史明确指定的稳定对照，已提交任务的冻结配置和历史表格不重新解析或改写。
 
 构建及数值、实际融合验证见任务890730；当前完整性能依据为任务891149。范围为一维、双精度、批量一、输入输出分离、64K至1M五个尺寸和默认加载路径。当前任意偶数扩展仅为评估方案。完整保留说明与性能限制见 `experiments/EXP-125/records/stable-promotion-20261007`。旧EXP123标签、EXP122库和h恢复材料原样保留。
+
+## Formal performance node exclusivity (2026-10-08)
+
+The user requested explicit node-exclusive performance submissions. manage.py
+measure now adds sbatch --exclusive and freezes resources.node_exclusive=true.
+The generic job worker launches a one-DCU srun step with the requested CPU
+count, preserving scheduler device visibility and the original single-GPU
+runtime identity checks. Job and step GPU assignments are retained separately.
+Preview reports this policy; build and quick-validation allocation behavior is
+unchanged. Existing queued/completed historical commands and tables are not
+rewritten. No FFT source, installed library or frozen measurement CPP changed.

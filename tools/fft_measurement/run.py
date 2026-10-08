@@ -7,7 +7,7 @@ import re
 import socket
 import subprocess
 from pathlib import Path
-from common import ARMS, POLICY, ROOT, SOURCE_SHA, inside, manifest, reference, require, schedule, sha, write_json
+from common import ARMS, POLICY, ROOT, SOURCE_SHA, inside, manifest, reference, require, schedule, sha, single_gpu_allocation, write_json
 from summarize import report
 
 HERE = Path(__file__).resolve().parent
@@ -20,10 +20,7 @@ def plan(m):
     return dict(policy=POLICY, run_id=m['run_id'], cases=15, rounds=8, processes=720, processes_per_case_arm=16, events_per_case_arm=800, schedule=schedule())
 
 def execute(m):
-    require(os.environ.get('SLURM_JOB_ID') and os.environ.get('SLURM_JOB_GPUS'), 'execute requires a Slurm GPU allocation')
-    require(os.environ.get('SLURM_JOB_NUM_NODES', '1') == '1', 'one-node allocation required')
-    job_gpus = os.environ['SLURM_JOB_GPUS'].split(',')
-    require(len(job_gpus) == 1 and job_gpus[0].strip(), 'exactly one allocated GPU required')
+    allocation = single_gpu_allocation(os.environ)
     require(sha(HERE / 'fft_test_1d.cpp') == SOURCE_SHA, 'frozen source changed')
     reference()
     for arm in ARMS:
@@ -49,6 +46,7 @@ def execute(m):
     require(gpu['count'] == 1 and gpu['arch'].split(':')[0] == m['gpu_arch'], 'GPU does not match preregistration')
     require(re.fullmatch('[0-9a-f]{32}', gpu['uuid']) is not None and int(gpu['uuid'], 16) != 0, 'invalid GPU UUID')
     provenance = dict(policy=POLICY, source_sha256=SOURCE_SHA, source_origin='EXP-123 frozen fft_test_1d.cpp', job_id=os.environ['SLURM_JOB_ID'], allocation_gpu=os.environ['SLURM_JOB_GPUS'], host=socket.gethostname(), gpu=gpu, start=datetime.datetime.now(datetime.timezone.utc).isoformat(), complete=False, compiler_version=command([DTK/'bin/hipcc', '--version'], env), environment={k:v for k,v in env.items() if k.startswith(('HIP', 'ROCM', 'ROCFFT', 'ROCR', 'CUDA', 'SLURM', 'FFT_TEST'))}, arms={})
+    provenance.update(allocation)
     binaries = {}
     arm_env = {}
     # As in the original retest, compile once against the official ABI, preload the exact arm library.

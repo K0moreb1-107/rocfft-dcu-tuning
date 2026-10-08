@@ -68,6 +68,7 @@ class ManagedTasks(unittest.TestCase):
         def fake_sbatch(argv,**kwargs):
             logs=manager.locations(self.cfg,'build')['logs']
             self.assertTrue(logs.is_dir())
+            self.assertNotIn('--exclusive',argv)
             self.assertIn('--output='+str(logs/'slurm_%j.out'),argv)
             frozen=Path(argv[-1]);self.assertEqual(json.loads(frozen.read_text()),self.cfg)
             return 'synthetic-job\n'
@@ -76,6 +77,7 @@ class ManagedTasks(unittest.TestCase):
     def test_measure_submission_uses_unified_worker(self):
         def fake_sbatch(argv,**kwargs):
             self.assertEqual(argv[-3:-1],[str(self.root/'jobs/workspace_task.slurm'),'measure'])
+            self.assertIn('--exclusive',argv)
             self.assertEqual(json.loads(Path(argv[-1]).read_text()),self.cfg)
             return 'synthetic-job\n'
         with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),contextlib.redirect_stdout(io.StringIO()):
@@ -89,10 +91,42 @@ class ManagedTasks(unittest.TestCase):
                              ['official','previous','candidate','candidate','previous','official'])
             self.assertEqual([e['arm'] for e in plan['schedule'][6:12]],
                              ['candidate','previous','official','official','previous','candidate'])
-        allocation={'SLURM_JOB_ID':'synthetic-job','SLURM_JOB_GPUS':'0','SLURM_JOB_NUM_NODES':'1'}
+        allocation={'SLURM_JOB_ID':'synthetic-job','SLURM_JOB_GPUS':'0,1,2,3,4,5,6,7',
+                    'SLURM_STEP_GPUS':'0','SLURM_JOB_NUM_NODES':'1'}
         with patch.object(manager,'load',return_value=self.cfg),patch.object(common,'manifest',return_value=self.cfg),patch.dict(os.environ,allocation,clear=True),patch.object(sys,'argv',['manage.py','measure','--config','fake','--worker']),patch.object(run,'execute',side_effect=inspect_plan) as execute:
             manager.main()
             execute.assert_called_once_with(self.cfg)
+
+    def test_measure_preview_freezes_exclusive_request(self):
+        base={'install':str(self.root/'version'),'library_sha256':'b'*64}
+        cfg=dict(self.cfg,arms={arm:dict(base) for arm in common.ARMS},resources={'cpus':8})
+        with patch.object(manager,'measurement',return_value=copy.deepcopy(cfg)),patch.object(common,'sha',return_value='b'*64):
+            planned=manager.task_plan('measure',cfg)
+        self.assertTrue(planned['node_exclusive'])
+        self.assertTrue(planned['resolved_preregistration']['resources']['node_exclusive'])
+        self.assertEqual(planned['resolved_preregistration']['resources']['cpus'],8)
+        self.assertNotIn('node_exclusive',cfg['resources'])
+
+    def test_single_gpu_step_in_exclusive_allocation(self):
+        env={'SLURM_JOB_ID':'synthetic-job','SLURM_JOB_GPUS':'0,1,2,3,4,5,6,7',
+             'SLURM_JOB_NUM_NODES':'1','SLURM_STEP_GPUS':'3'}
+        identity=common.single_gpu_allocation(env)
+        self.assertEqual(identity['allocation_gpu'],'0,1,2,3,4,5,6,7')
+        self.assertEqual(identity['step_gpu'],'3')
+        self.assertEqual(identity['measurement_gpu'],'3')
+
+    def test_single_gpu_allocation_remains_compatible(self):
+        identity=common.single_gpu_allocation({'SLURM_JOB_ID':'synthetic-job','SLURM_JOB_GPUS':'0'})
+        self.assertEqual(identity['measurement_gpu'],'0')
+        self.assertIsNone(identity['step_gpu'])
+
+    def test_multiple_or_missing_measurement_gpus_rejected(self):
+        base={'SLURM_JOB_ID':'synthetic-job','SLURM_JOB_GPUS':'0,1,2,3,4,5,6,7','SLURM_JOB_NUM_NODES':'1'}
+        for changed in ({},{'SLURM_STEP_GPUS':'0,1'},{'SLURM_STEP_GPUS':''},
+                        {'SLURM_STEP_GPUS':'0','SLURM_JOB_NUM_NODES':'2'},
+                        {'SLURM_STEP_GPUS':'0','SLURM_JOB_GPUS':''}):
+            with self.subTest(changed=changed),self.assertRaises(ValueError):
+                common.single_gpu_allocation(dict(base,**changed))
     def test_submission_failure_keeps_evidence(self):
         with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=OSError('synthetic failure')):
             with self.assertRaises(OSError):manager.submit('build',self.cfg)

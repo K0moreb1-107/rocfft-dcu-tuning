@@ -142,13 +142,16 @@ def build_plan(cfg):
 
 def task_plan(task,cfg):
     if task=='build':return build_plan(cfg)
-    m=measurement(cfg);p=locations(m,task)
+    m=measurement(cfg)
+    if task=='measure':m.setdefault('resources',{})['node_exclusive']=True
+    p=locations(m,task)
     if task=='report':return {'task':task,'run':str(p['run']),'command':[PYTHON,str(ROOT/'tools/fft_measurement/summarize.py'),str(p['run'])]}
     for arm in common.ARMS:
         require(common.sha(inside(m['arms'][arm]['install'])/'lib/librocfft.so.0.1')==m['arms'][arm]['library_sha256'],arm+': library hash mismatch')
     return {'task':task,'paths':{k:str(v) for k,v in p.items()},'resolved_preregistration':m,
             'processes':720 if task=='measure' else 15,'cases':15,'timing_warmups':3,'event_iterations':50,
-            'formal':task=='measure','notice':'Quick correctness is not formal promotion evidence.' if task=='validate' else 'Frozen 8-round three-arm protocol.'}
+            'formal':task=='measure','node_exclusive':task=='measure',
+            'notice':'Quick correctness is not formal promotion evidence.' if task=='validate' else 'Frozen 8-round three-arm protocol in an exclusive node allocation.'}
 
 def allocate(cfg,task):
     p=locations(cfg,task)
@@ -166,11 +169,12 @@ def submit(task,cfg):
         return subprocess.run(planned['command'],check=True)
     frozen=planned.get('resolved_preregistration',cfg)
     p=allocate(frozen,task)
-    r=cfg.get('resources',{})
+    r=frozen.get('resources',{})
     argv=['sbatch','--parsable','--chdir='+str(ROOT),
           '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
           '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
           '--time='+r.get('time_limit','02:00:00')]
+    if task=='measure':argv.append('--exclusive')
     if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
     argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
     dumps(p['run']/'submission-command.json',argv)
@@ -277,8 +281,7 @@ def main():
         cfg=load(args.config)
         if args.worker:
             require(not args.execute and args.task!='report','invalid worker mode')
-            require(os.environ.get('SLURM_JOB_ID') and len(os.environ.get('SLURM_JOB_GPUS','').split(','))==1 and os.environ.get('SLURM_JOB_GPUS'),'one-GPU Slurm allocation required')
-            require(os.environ.get('SLURM_JOB_NUM_NODES','1')=='1','one node required')
+            common.single_gpu_allocation(os.environ)
             if args.task=='build':execute_build(cfg)
             elif args.task=='validate':execute_validate(cfg)
             else:

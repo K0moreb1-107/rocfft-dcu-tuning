@@ -273,3 +273,25 @@ top-level aliases automatically or treat historical times as new event results.
 Current official/previous registry IDs remain unchanged and resolve directly
 to physical installation directories. Measurement definitions and source are
 unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003/.
+
+## Explicit node exclusivity (user requested 2026-10-08)
+
+New formal performance submissions use sbatch --exclusive. This is a resource
+isolation change: the frozen timing source, 15 cases, 3 warmups, 50 events,
+eight-round ordering and arithmetic aggregation stay unchanged. Historical
+submission records and performance tables retain their original resource mode.
+
+An exclusive job can own all node GRES. The unified worker therefore starts
+one srun --exclusive step with --nodes=1 --ntasks=1 --gres=dcu:1 and the
+configured --cpus-per-task. Validate the single assigned step GPU (falling back
+to the job assignment for legacy single-GPU workers), and still require one
+HIP-visible GPU UUID. Preserve scheduler-provided device visibility; do not
+hardcode a physical device index. Record allocation_gpu, step_gpu and
+measurement_gpu in provenance. Build and quick-validation submissions keep
+their existing allocation mode.
+
+Preview output and frozen formal manifests set resources.node_exclusive=true;
+the actual submission command explicitly includes --exclusive. For this
+registered partition the checked OverSubscribe setting is NO; it does not
+override the explicit request with forced sharing. Real exclusive-node/single-
+GPU step execution remains a check in the next authorized performance run.

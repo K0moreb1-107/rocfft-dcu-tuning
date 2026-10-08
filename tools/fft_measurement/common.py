@@ -22,6 +22,17 @@ def require(condition, message):
     if not condition:
         raise ValueError(message)
 
+def single_gpu_allocation(env):
+    require(env.get('SLURM_JOB_ID') and env.get('SLURM_JOB_GPUS', '').strip(),
+            'Slurm GPU allocation required')
+    require(env.get('SLURM_JOB_NUM_NODES', '1') == '1', 'one-node allocation required')
+    job_gpu = env['SLURM_JOB_GPUS']
+    step_gpu = env.get('SLURM_STEP_GPUS') or None
+    selected = (step_gpu if step_gpu is not None else job_gpu).strip()
+    require(re.fullmatch(r'[0-9]+', selected) is not None,
+            'exactly one GPU must be assigned to the measurement allocation or step')
+    return dict(allocation_gpu=job_gpu, step_gpu=step_gpu, measurement_gpu=selected)
+
 def sha(path):
     h = hashlib.sha256()
     with Path(path).open('rb') as f:

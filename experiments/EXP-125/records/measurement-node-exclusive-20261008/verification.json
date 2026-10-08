@@ -1,0 +1,144 @@
+{
+  "checks": [
+    {
+      "name": "diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "shell-syntax",
+      "argv": [
+        "bash",
+        "-n",
+        "jobs/workspace_task.slurm"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "manager-tests",
+      "argv": [
+        "/usr/local/python3.12/bin/python3",
+        "tools/workspace_manager/test_manager.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_allocator_refuses_reused_install (__main__.ManagedTasks.test_allocator_refuses_reused_install) ... ok\ntest_allocator_refuses_reused_run (__main__.ManagedTasks.test_allocator_refuses_reused_run) ... ok\ntest_build_plan_does_not_reuse_shared_install (__main__.ManagedTasks.test_build_plan_does_not_reuse_shared_install) ... ok\ntest_build_reserved_path_override_refused (__main__.ManagedTasks.test_build_reserved_path_override_refused) ... ok\ntest_build_source_commit_drift_rejected (__main__.ManagedTasks.test_build_source_commit_drift_rejected) ... ok\ntest_claim_refuses_evidence_and_double_execution (__main__.ManagedTasks.test_claim_refuses_evidence_and_double_execution) ... ok\ntest_common_paths_are_experiment_scoped (__main__.ManagedTasks.test_common_paths_are_experiment_scoped) ... ok\ntest_escape_and_output_root_rejected (__main__.ManagedTasks.test_escape_and_output_root_rejected) ... ok\ntest_formal_reservation_once_only (__main__.ManagedTasks.test_formal_reservation_once_only) ... ok\ntest_formal_wrong_reservation_refused (__main__.ManagedTasks.test_formal_wrong_reservation_refused) ... ok\ntest_frozen_reservation_mismatch_refused (__main__.ManagedTasks.test_frozen_reservation_mismatch_refused) ... ok\ntest_incomplete_candidate_record_refused (__main__.ManagedTasks.test_incomplete_candidate_record_refused) ... ok\ntest_measure_preview_freezes_exclusive_request (__main__.ManagedTasks.test_measure_preview_freezes_exclusive_request) ... ok\ntest_measure_submission_uses_unified_worker (__main__.ManagedTasks.test_measure_submission_uses_unified_worker) ... ok\ntest_measure_worker_uses_correct_shared_schedule (__main__.ManagedTasks.test_measure_worker_uses_correct_shared_schedule) ... ok\ntest_missing_candidate_build_record_refused (__main__.ManagedTasks.test_missing_candidate_build_record_refused) ... ok\ntest_multiple_or_missing_measurement_gpus_rejected (__main__.ManagedTasks.test_multiple_or_missing_measurement_gpus_rejected) ... ok\ntest_old_registry_entry_not_promoted (__main__.ManagedTasks.test_old_registry_entry_not_promoted) ... ok\ntest_placeholder_refused (__main__.ManagedTasks.test_placeholder_refused) ... ok\ntest_preview_never_submits_or_allocates (__main__.ManagedTasks.test_preview_never_submits_or_allocates) ... ok\ntest_queue_configuration_does_not_re_resolve_registry (__main__.ManagedTasks.test_queue_configuration_does_not_re_resolve_registry) ... ok\ntest_single_gpu_allocation_remains_compatible (__main__.ManagedTasks.test_single_gpu_allocation_remains_compatible) ... ok\ntest_single_gpu_step_in_exclusive_allocation (__main__.ManagedTasks.test_single_gpu_step_in_exclusive_allocation) ... ok\ntest_submission_failure_keeps_evidence (__main__.ManagedTasks.test_submission_failure_keeps_evidence) ... ok\ntest_submission_prepares_logs_before_sbatch (__main__.ManagedTasks.test_submission_prepares_logs_before_sbatch) ... ok\ntest_worker_without_allocation_rejected (__main__.ManagedTasks.test_worker_without_allocation_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 26 tests in 2.065s\n\nOK\n"
+    },
+    {
+      "name": "measurement-test_contract",
+      "argv": [
+        "/usr/local/python3.12/bin/python3",
+        "/public/home/zhangkewei/zr/tools/fft_measurement/test_contract.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_batch (__main__.Contract.test_batch) ... ok\ntest_fail (__main__.Contract.test_fail) ... ok\ntest_formula_all16_including_outlier (__main__.Contract.test_formula_all16_including_outlier) ... ok\ntest_gpu_change (__main__.Contract.test_gpu_change) ... ok\ntest_hash_change (__main__.Contract.test_hash_change) ... ok\ntest_incomplete (__main__.Contract.test_incomplete) ... ok\ntest_iterations (__main__.Contract.test_iterations) ... ok\ntest_job_change (__main__.Contract.test_job_change) ... ok\ntest_library_mismatch (__main__.Contract.test_library_mismatch) ... ok\ntest_measurement_and_aggregation_share_schedule (__main__.Contract.test_measurement_and_aggregation_share_schedule) ... ok\ntest_missing_process (__main__.Contract.test_missing_process) ... ok\ntest_nan (__main__.Contract.test_nan) ... ok\ntest_nonzero_exit (__main__.Contract.test_nonzero_exit) ... ok\ntest_real_csv_schema_reader (__main__.Contract.test_real_csv_schema_reader) ... ok\ntest_reference_modified (__main__.Contract.test_reference_modified) ... ok\ntest_repeated_odd_order_in_even_round_rejected (__main__.Contract.test_repeated_odd_order_in_even_round_rejected) ... ok\ntest_requires_preregistration (__main__.Contract.test_requires_preregistration) ... ok\ntest_reused_process_csv (__main__.Contract.test_reused_process_csv) ... ok\ntest_schedule_pairwise_balance_and_counts (__main__.Contract.test_schedule_pairwise_balance_and_counts) ... ok\ntest_strict_error (__main__.Contract.test_strict_error) ... ok\ntest_wrong_case (__main__.Contract.test_wrong_case) ... ok\ntest_wrong_order (__main__.Contract.test_wrong_order) ... ok\n\n----------------------------------------------------------------------\nRan 22 tests in 10.062s\n\nOK\n"
+    },
+    {
+      "name": "submission-preview",
+      "argv": [
+        "/usr/local/python3.12/bin/python3",
+        "manage.py",
+        "measure",
+        "--config",
+        "/public/home/zhangkewei/zr/experiments/EXP-125/records/measurement-node-exclusive-20261008/preview-config.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"task\": \"measure\",\n  \"paths\": {\n    \"run\": \"/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-node-exclusive-preview-20261008\",\n    \"logs\": \"/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-node-exclusive-preview-20261008/logs\",\n    \"build\": \"/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/measurement/EXP-125-node-exclusive-preview-20261008\",\n    \"install\": \"/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-node-exclusive-preview-20261008\",\n    \"cache\": \"/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/cache/EXP-125-node-exclusive-preview-20261008\"\n  },\n  \"resolved_preregistration\": {\n    \"schema_version\": 1,\n    \"policy\": \"EXP123-event-50-three-arm-8-v1\",\n    \"experiment\": \"EXP-125\",\n    \"gpu_arch\": \"gfx936\",\n    \"resources\": {\n      \"cpus\": 8,\n      \"partition\": \"hx1hdnormal01\",\n      \"time_limit\": \"03:00:00\",\n      \"nodelist\": \"f13r4n15\",\n      \"node_exclusive\": true\n    },\n    \"arms\": {\n      \"official\": {\n        \"install\": \"/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official\",\n        \"source_repo\": \"/public/home/zhangkewei/zr/official-rocm722-source\",\n        \"source_commit\": \"dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef\",\n        \"source_state\": \"Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.\",\n        \"library_sha256\": \"3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5\",\n        \"build_provenance\": \"/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit.\"\n      },\n      \"previous\": {\n        \"install\": \"/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install\",\n        \"source_repo\": \"/public/home/zhangkewei/zr\",\n        \"source_commit\": \"ed06208f30706f63126078a5c51af07fa0439fe7\",\n        \"source_state\": \"Historical approved previous source ed06208f30706f63126078a5c51af07fa0439fe7; original build checkout path no longer present. No claim about current checkout reproducing the old build state. The prior-stable worktree is now archived; source_repo points to the active EXP-123 repository retaining the real EXP-122 build commit. The active source repository is now the top-level main checkout; historical worktrees are archived. The library retains its original EXP-122 build identity.\",\n        \"library_sha256\": \"1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe\",\n        \"build_provenance\": \"/public/home/zhangkewei/zr/experiments/EXP-122/records/builds/exp122_A_512x128_clean/provenance.json; approved original source/library mapping retained in experiment records and migration audit.\"\n      },\n      \"candidate\": {\n        \"install\": \"/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i\",\n        \"source_repo\": \"/public/home/zhangkewei/zr\",\n        \"source_commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\",\n        \"source_state\": \"{\\\"commit\\\": \\\"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\\\", \\\"repo\\\": \\\"/public/home/zhangkewei/zr\\\", \\\"source\\\": \\\"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\\\", \\\"source_status\\\": \\\"\\\", \\\"tracked_state\\\": \\\"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\\\n M VkFFT\\\"}\",\n        \"library_sha256\": \"243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677\",\n        \"build_provenance\": \"/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json\"\n      }\n    },\n    \"run_id\": \"EXP-125-node-exclusive-preview-20261008\",\n    \"acceptance\": \"\\u53ea\\u8bfb\\u6838\\u5bf9\\u72ec\\u5360\\u8282\\u70b9\\u7684\\u63d0\\u4ea4\\u914d\\u7f6e\\u53ca\\u539f\\u6709\\u6d4b\\u91cf\\u5b9a\\u4e49\\uff0c\\u4e0d\\u6267\\u884c\\u6027\\u80fd\\u6d4b\\u91cf\\uff0c\\u4e5f\\u4e0d\\u4f5c\\u4e3a\\u6027\\u80fd\\u7ed3\\u679c\\u6216\\u6e90\\u7801\\u63a8\\u5e7f\\u8bc1\\u636e\\u3002\"\n  },\n  \"processes\": 720,\n  \"cases\": 15,\n  \"timing_warmups\": 3,\n  \"event_iterations\": 50,\n  \"formal\": true,\n  \"node_exclusive\": true,\n  \"notice\": \"Frozen 8-round three-arm protocol in an exclusive node allocation.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "scheduler-test-only",
+      "argv": [
+        "sbatch",
+        "--test-only",
+        "--parsable",
+        "--exclusive",
+        "--partition=hx1hdnormal01",
+        "--cpus-per-task=8",
+        "--time=03:00:00",
+        "--chdir=/public/home/zhangkewei/zr",
+        "--nodelist=f13r4n15",
+        "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+        "measure",
+        "/public/home/zhangkewei/zr/experiments/EXP-125/records/measurement-node-exclusive-20261008/preview-config.json"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "sbatch: Job 893920 to start at 2027-09-09T05:45:18 using 128 processors on nodes f13r4n15 in partition hx1hdnormal01\n"
+    }
+  ],
+  "preview": {
+    "task": "measure",
+    "paths": {
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-node-exclusive-preview-20261008",
+      "logs": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-node-exclusive-preview-20261008/logs",
+      "build": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/measurement/EXP-125-node-exclusive-preview-20261008",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-node-exclusive-preview-20261008",
+      "cache": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/cache/EXP-125-node-exclusive-preview-20261008"
+    },
+    "resolved_preregistration": {
+      "schema_version": 1,
+      "policy": "EXP123-event-50-three-arm-8-v1",
+      "experiment": "EXP-125",
+      "gpu_arch": "gfx936",
+      "resources": {
+        "cpus": 8,
+        "partition": "hx1hdnormal01",
+        "time_limit": "03:00:00",
+        "nodelist": "f13r4n15",
+        "node_exclusive": true
+      },
+      "arms": {
+        "official": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+          "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+          "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+          "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+          "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+        },
+        "previous": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "ed06208f30706f63126078a5c51af07fa0439fe7",
+          "source_state": "Historical approved previous source ed06208f30706f63126078a5c51af07fa0439fe7; original build checkout path no longer present. No claim about current checkout reproducing the old build state. The prior-stable worktree is now archived; source_repo points to the active EXP-123 repository retaining the real EXP-122 build commit. The active source repository is now the top-level main checkout; historical worktrees are archived. The library retains its original EXP-122 build identity.",
+          "library_sha256": "1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-122/records/builds/exp122_A_512x128_clean/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+        }
+      },
+      "run_id": "EXP-125-node-exclusive-preview-20261008",
+      "acceptance": "\u53ea\u8bfb\u6838\u5bf9\u72ec\u5360\u8282\u70b9\u7684\u63d0\u4ea4\u914d\u7f6e\u53ca\u539f\u6709\u6d4b\u91cf\u5b9a\u4e49\uff0c\u4e0d\u6267\u884c\u6027\u80fd\u6d4b\u91cf\uff0c\u4e5f\u4e0d\u4f5c\u4e3a\u6027\u80fd\u7ed3\u679c\u6216\u6e90\u7801\u63a8\u5e7f\u8bc1\u636e\u3002"
+    },
+    "processes": 720,
+    "cases": 15,
+    "timing_warmups": 3,
+    "event_iterations": 50,
+    "formal": true,
+    "node_exclusive": true,
+    "notice": "Frozen 8-round three-arm protocol in an exclusive node allocation."
+  },
+  "preserved": {
+    "measurement_source_sha256": "849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da",
+    "current_library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677"
+  },
+  "real_gpu_job_submitted": false
+}
