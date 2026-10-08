@@ -7048,3 +7048,10 @@ EXP125前处理读取调整的性能评估。正式主对比沿用官方、批�
 统一安装登记的后续稳定对照改为现有 `EXP-125-pre-memory-i` 安装，库校验值 `243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677`，保留实际构建提交与凭据，不重新编译或覆盖安装。历史EXP125测量仍使用冻结的EXP122对照，旧标签、失败分支、原始记录和h恢复点均保留。任意偶数扩展尚处于设计评估，不属于本次已实现版本。
 
 本次只更新稳定身份、操作说明及结果记录，计算源码和测量定义保持不变，不提交新的计算卡任务。具体保留身份、验证依据、性能限制与恢复位置见 `experiments/EXP-125/records/stable-promotion-20261007/promotion.json` 及 `稳定版本说明.md`。
+
+
+### 2026-10-08：EXP125节点独占下重测官方基线与当前最新版请求
+
+配置：/public/home/zhangkewei/zr/configs/experiments/EXP-125-performance-exclusive-retest-20261008.json。运行标识：EXP-125-performance-20261008-exclusive-retest。
+官方原始ROCm 7.2.2为基线，EXP125 i为最新版本。保持15种情形、3次预热、50次计时及八轮三位置交错，共720个进程。稳定与待测位置均使用同一已验证EXP125 i库，各自样本独立保存；当前正式时间取待测位置16个均值，不合并两组样本。
+明确申请节点独占，在节点内仅用一张卡。详细请求与身份见 /public/home/zhangkewei/zr/experiments/EXP-125/records/exclusive-retest-20261008/request.md；实际作业编号与提交命令由统一入口保存在运行目录。提交后立即停止，等待用户要求检查，不自动推广或回滚源码。
