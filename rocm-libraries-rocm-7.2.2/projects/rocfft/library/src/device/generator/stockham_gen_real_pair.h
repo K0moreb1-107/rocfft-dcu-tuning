@@ -197,8 +197,10 @@ struct StockhamKernelGenericPairedPostRows : StockhamKernelRC
             StatementList values;
             values += If{k == 0,
                          {Assign{p, lds_complex[slot * length + column]},
-                          StoreGlobal{buf, Literal{0}, ComplexLiteral{p.x() + p.y(), Literal{0}}},
-                          StoreGlobal{buf, real_pair_size(m), ComplexLiteral{p.x() - p.y(), Literal{0}}}}};
+                          Assign{own, ComplexLiteral{p.x() + p.y(), Literal{0}}},
+                          StoreGlobal{buf, Literal{0}, own},
+                          Assign{own, ComplexLiteral{p.x() - p.y(), Literal{0}}},
+                          StoreGlobal{buf, real_pair_size(m), own}}};
             auto other_column = Parens{(Literal{length} - column
                                         - Ternary{Expression{row == 0}, Expression{Literal{0}}, Expression{Literal{1}}})
                                        % Literal{length}};
@@ -217,7 +219,8 @@ struct StockhamKernelGenericPairedPostRows : StockhamKernelRC
             const unsigned int midpoint_slot = rows % 2 == 0 ? 0 : t / 2;
             stmts += If{And{tile_index_in_plane == 0, thread_id == 0},
                          {Assign{p, lds_complex[midpoint_slot * length + length / 2]},
-                          StoreGlobal{buf, real_pair_size(m / 2), ComplexLiteral{p.x(), -p.y()}}}};
+                          Assign{own, ComplexLiteral{p.x(), -p.y()}},
+                          StoreGlobal{buf, real_pair_size(m / 2), own}}};
         }
         return stmts;
     }
