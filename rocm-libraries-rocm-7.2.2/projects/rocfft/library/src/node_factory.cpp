@@ -206,6 +206,28 @@ NodeFactory::Map1DLength const NodeFactory::map1DLengthDouble = {
     {106496, 208}, //           CC (208cc + 512rc)
     {110592, 216}, //           CC (216cc + 512rc)
     {114688, 224}, //           CC (224cc + 512rc)
+    // EXP-126: large-even CC coverage, existing block kernels only.
+    {33600, 168}, // CC (168cc + 200rc)
+    {41600, 208}, // CC (208cc + 200rc)
+    {44800, 224}, // CC (224cc + 200rc)
+    {67200, 336}, // CC (336cc + 200rc)
+    {117649, 343}, // CC (343cc + 343rc)
+    {130000, 208}, // CC (208cc + 625rc)
+    {147968, 289}, // CC (289cc + 512rc)
+    {160000, 256}, // CC (256cc + 625rc)
+    {180625, 289}, // CC (289cc + 625rc)
+    {196608, 1024}, // CC (1024cc + 192rc)
+    {204800, 1024}, // CC (1024cc + 200rc)
+    {214375, 343}, // CC (343cc + 625rc)
+    {295936, 289}, // CC (289cc + 1024rc)
+    {320000, 512}, // CC (512cc + 625rc)
+    {344064, 336}, // CC (336cc + 1024rc)
+    {351232, 343}, // CC (343cc + 1024rc)
+    {384659, 289}, // CC (289cc + 1331rc)
+    {447216, 336}, // CC (336cc + 1331rc)
+    {456533, 343}, // CC (343cc + 1331rc)
+    {640000, 1024}, // CC (1024cc + 625rc)
+    {1362944, 1024}, // CC (1024cc + 1331rc)
 };
 
 NodeFactory::Map1DLength const NodeFactory::map1DLengthTRTRT = {

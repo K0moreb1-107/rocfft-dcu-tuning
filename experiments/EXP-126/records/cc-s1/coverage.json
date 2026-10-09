@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "expected_size_count": 29,
+  "geometries": {
+    "73728": {
+      "C": 192,
+      "Q": 192,
+      "new_map_entry": false
+    },
+    "163840": {
+      "C": 160,
+      "Q": 512,
+      "new_map_entry": false
+    },
+    "393216": {
+      "C": 1024,
+      "Q": 192,
+      "new_map_entry": true
+    },
+    "409600": {
+      "C": 1024,
+      "Q": 200,
+      "new_map_entry": true
+    },
+    "688128": {
+      "C": 336,
+      "Q": 1024,
+      "new_map_entry": true
+    },
+    "77760": {
+      "C": 160,
+      "Q": 243,
+      "new_map_entry": false
+    },
+    "142688": {
+      "C": 208,
+      "Q": 343,
+      "new_map_entry": false
+    },
+    "320000": {
+      "C": 256,
+      "Q": 625,
+      "new_map_entry": true
+    },
+    "640000": {
+      "C": 512,
+      "Q": 625,
+      "new_map_entry": true
+    },
+    "894432": {
+      "C": 336,
+      "Q": 1331,
+      "new_map_entry": true
+    },
+    "137200": {
+      "C": 343,
+      "Q": 200,
+      "new_map_entry": false
+    },
+    "175616": {
+      "C": 343,
+      "Q": 256,
+      "new_map_entry": false
+    },
+    "295936": {
+      "C": 289,
+      "Q": 512,
+      "new_map_entry": true
+    },
+    "591872": {
+      "C": 289,
+      "Q": 1024,
+      "new_map_entry": true
+    },
+    "702464": {
+      "C": 343,
+      "Q": 1024,
+      "new_map_entry": true
+    },
+    "69938": {
+      "C": 289,
+      "Q": 121,
+      "new_map_entry": false
+    },
+    "235298": {
+      "C": 343,
+      "Q": 343,
+      "new_map_entry": true
+    },
+    "428750": {
+      "C": 343,
+      "Q": 625,
+      "new_map_entry": true
+    },
+    "769318": {
+      "C": 289,
+      "Q": 1331,
+      "new_map_entry": true
+    },
+    "913066": {
+      "C": 343,
+      "Q": 1331,
+      "new_map_entry": true
+    },
+    "260000": {
+      "C": 208,
+      "Q": 625,
+      "new_map_entry": true
+    },
+    "361250": {
+      "C": 289,
+      "Q": 625,
+      "new_map_entry": true
+    },
+    "67200": {
+      "C": 168,
+      "Q": 200,
+      "new_map_entry": true
+    },
+    "83200": {
+      "C": 208,
+      "Q": 200,
+      "new_map_entry": true
+    },
+    "89600": {
+      "C": 224,
+      "Q": 200,
+      "new_map_entry": true
+    },
+    "134400": {
+      "C": 336,
+      "Q": 200,
+      "new_map_entry": true
+    },
+    "1280000": {
+      "C": 1024,
+      "Q": 625,
+      "new_map_entry": true
+    },
+    "2097152": {
+      "C": 1024,
+      "Q": 1024,
+      "new_map_entry": false
+    },
+    "2725888": {
+      "C": 1024,
+      "Q": 1331,
+      "new_map_entry": true
+    }
+  },
+  "families": {
+    "EE": [
+      73728,
+      163840,
+      393216,
+      409600,
+      2097152
+    ],
+    "EO": [
+      77760,
+      142688,
+      640000,
+      1280000,
+      2725888
+    ],
+    "OE": [
+      137200,
+      175616,
+      295936,
+      591872,
+      702464
+    ],
+    "OO": [
+      69938,
+      235298,
+      428750,
+      769318,
+      913066
+    ],
+    "pre_tail": [
+      320000,
+      640000,
+      1280000,
+      428750,
+      361250
+    ],
+    "post_tail": [
+      67200,
+      83200,
+      89600,
+      134400,
+      409600
+    ]
+  },
+  "stable_regression_sizes": [
+    131072,
+    262144,
+    524288,
+    1048576
+  ],
+  "first_phase": "CC only; no TRTRT, Bluestein, or small-N device work",
+  "minimum_real_N_exclusive": 65536,
+  "upper_limit": "frozen program signed-int range and legal existing CC kernels",
+  "attribution": "new map entries change both decomposition choice and fusion",
+  "table_tail": "ceil(axis/2) modulo (actual T/2) is nonzero",
+  "timing": "default selected paths, frozen 8-round protocol, explicit cases; no fabricated A100 references"
+}

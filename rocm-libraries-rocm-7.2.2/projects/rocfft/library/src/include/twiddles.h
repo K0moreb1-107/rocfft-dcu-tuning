@@ -42,7 +42,8 @@ gpubuf twiddles_create_packed_real_post(size_t                 N,
                                         size_t                 rows_per_block,
                                         rocfft_precision       precision,
                                         const hipDeviceProp_t& deviceProp,
-                                        unsigned int           deviceId);
+                                        unsigned int           deviceId,
+                                        bool generic_pair = false);
 gpubuf twiddles_create_2D(size_t                     N1,
                           size_t                     N2,
                           rocfft_precision           precision,

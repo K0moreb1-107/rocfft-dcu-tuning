@@ -77,6 +77,13 @@ def measurement(cfg):
             built=json.loads(record_path.read_text())
             require(built.get('complete') is True and built.get('component')=='rocfft','incomplete or wrong build record')
             require(built['experiment']==cfg['experiment'], 'candidate build belongs to another experiment')
+            if built['plan'].get('post_build_validation_command'):
+                validated = json.loads((record_path.parent/'post-build-validation.json').read_text())
+                require(validated.get('complete') is True, 'declared build validation incomplete or failed')
+                require(validated.get('source_commit') == built['arm']['source_commit']
+                        and validated.get('library_sha256') == built['arm']['library_sha256']
+                        and validated.get('command') == built['plan']['post_build_validation_command'],
+                        'declared build validation identity mismatch')
             record=built['arm']
             require(common.sha(inside(record['install'])/'lib/librocfft.so.0.1')==record['library_sha256'], 'candidate build/library mismatch')
         else: continue
@@ -106,10 +113,32 @@ def source_identity(cfg):
     return {'repo':str(repo),'source':str(source),'commit':commit,'source_status':state,
             'tracked_state':git('status','--porcelain=v1','--untracked-files=no')}
 
+def validation_hook(cfg):
+    hook = cfg.get('post_build_validation')
+    if hook is None:
+        return None
+    require(cfg['build'].get('component', 'rocfft') == 'rocfft', 'validator requires rocFFT build')
+    require(isinstance(hook, dict) and set(hook) == {'script', 'sha256', 'inputs'}, 'invalid validation hook')
+    base = inside(ROOT/'experiments'/cfg['experiment'])
+    require(isinstance(hook['inputs'], list), 'validation inputs must be a list')
+    files = [dict(path=hook['script'], sha256=hook['sha256'])] + hook['inputs']
+    for entry in files:
+        require(set(entry) == {'path', 'sha256'}, 'invalid validation input')
+        path = inside(entry['path'], base)
+        require(common.sha(path) == entry['sha256'], 'frozen validation source changed')
+        blob = subprocess.check_output(['git', '-C', str(ROOT), 'show',
+            cfg['build']['source_commit'] + ':' + str(path.relative_to(ROOT))])
+        require(hashlib.sha256(blob).hexdigest() == entry['sha256'], 'validation source is not committed')
+    p = locations(cfg, 'build')
+    return [PYTHON, str(inside(hook['script'], base)), '--config', str(p['run']/'submit-manifest.json'),
+            '--build-record', str(p['run']/'build-provenance.json'), '--run', str(p['run']),
+            '--build', str(p['build']), '--cache', str(p['cache'])]
+
 def build_plan(cfg):
     b=cfg['build'];component=b.get('component','rocfft')
     require(component in ('rocfft','hipfft'),'unsupported component')
     state=source_identity(cfg);p=locations(cfg,'build')
+    validation_hook(cfg)
     compiler=b.get('compiler',DTK+'/bin/hipcc')
     require(compiler==DTK+'/bin/hipcc','unregistered compiler profile')
     flags=dict(PROFILE)
@@ -137,7 +166,7 @@ def build_plan(cfg):
     if component=='rocfft':commands.append(['cmake','--build',str(p['build']),'--target','rocfft-rtc-gen','--parallel',str(cpus)])
     commands.extend([['cmake','--build',str(p['build']),'--parallel',str(cpus)],['cmake','--install',str(p['build'])]])
     return {'task':'build','component':component,'source_identity':state,'paths':{k:str(v) for k,v in p.items()},
-            'commands':commands,
+            'commands':commands,'post_build_validation_command':validation_hook(cfg),
             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
 
 def task_plan(task,cfg):
@@ -149,7 +178,7 @@ def task_plan(task,cfg):
     for arm in common.ARMS:
         require(common.sha(inside(m['arms'][arm]['install'])/'lib/librocfft.so.0.1')==m['arms'][arm]['library_sha256'],arm+': library hash mismatch')
     return {'task':task,'paths':{k:str(v) for k,v in p.items()},'resolved_preregistration':m,
-            'processes':720 if task=='measure' else 15,'cases':15,'timing_warmups':3,'event_iterations':50,
+            'processes':len(common.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':3,'event_iterations':50,
             'formal':task=='measure','node_exclusive':task=='measure',
             'notice':'Quick correctness is not formal promotion evidence.' if task=='validate' else 'Frozen 8-round three-arm protocol in an exclusive node allocation.'}
 
@@ -231,6 +260,19 @@ def execute_build(cfg):
     finally:
         record['end']=datetime.datetime.now(datetime.timezone.utc).isoformat();dumps(p['run']/'build-provenance.json',record)
     dumps(p['run']/'candidate-arm.json',{'build_record':str(p['run']/'build-provenance.json')})
+    hook = validation_hook(cfg)
+    if hook:
+        validation = dict(complete=False, command=hook, source_commit=record['arm']['source_commit'],
+                          library_sha256=record['arm']['library_sha256'])
+        try:
+            with (p['logs']/'post-build-validation.txt').open('xb') as stream:
+                subprocess.run(hook, env=env, stdout=stream, stderr=subprocess.STDOUT, check=True)
+            require(source_identity(cfg)==planned['source_identity'], 'source changed during validation')
+            require(common.sha(lib)==record['arm']['library_sha256'], 'library changed during validation')
+            validation['complete'] = True
+        finally:
+            validation['log_sha256'] = common.sha(p['logs']/'post-build-validation.txt')
+            dumps(p['run']/'post-build-validation.json', validation)
     print(p['run']/'build-provenance.json')
 
 def execute_validate(cfg):
@@ -256,16 +298,15 @@ def execute_validate(cfg):
             'source_sha256':common.SOURCE_SHA,'binary_sha256':common.sha(binary),'identity_binary_sha256':common.sha(identity),
             'compiler_version':subprocess.check_output([DTK+'/bin/hipcc','--version'],env=env,text=True),'compile_commands':commands,'checks':[]}
     try:
-        for n in common.SIZES:
-            for func in common.FUNCS:
-                require(common.sha(lib)==expected,'library changed')
-                require(common.sha(binary)==record['binary_sha256'] and common.sha(identity)==record['identity_binary_sha256'],'quick-check executable changed')
-                require(json.loads(subprocess.check_output([str(identity)],env=environment(p['cache']),text=True))==gpu,'GPU changed')
-                case=p['run']/'processes'/('%d_%s'%(n,func));case.mkdir(parents=True)
-                with (case/'stdout.txt').open('xb') as out,(case/'stderr.txt').open('xb') as err:
-                    subprocess.run([str(binary),str(n),'1',func,'1'],env=dict(env,FFT_TEST_OUT=str(case)),stdout=out,stderr=err,check=True)
-                rows=common.read_rows(case/'fft_test_1d.csv');require(len(rows)==1,'unexpected quick-check row count');common.validate_row(rows[0],n,func)
-                record['checks'].append({'N':n,'func':func,'check':'PASS','csv_sha256':common.sha(case/'fft_test_1d.csv')})
+        for n,func in common.cases(m):
+            require(common.sha(lib)==expected,'library changed')
+            require(common.sha(binary)==record['binary_sha256'] and common.sha(identity)==record['identity_binary_sha256'],'quick-check executable changed')
+            require(json.loads(subprocess.check_output([str(identity)],env=environment(p['cache']),text=True))==gpu,'GPU changed')
+            case=p['run']/'processes'/('%d_%s'%(n,func));case.mkdir(parents=True)
+            with (case/'stdout.txt').open('xb') as out,(case/'stderr.txt').open('xb') as err:
+                subprocess.run([str(binary),str(n),'1',func,'1'],env=dict(env,FFT_TEST_OUT=str(case)),stdout=out,stderr=err,check=True)
+            rows=common.read_rows(case/'fft_test_1d.csv');require(len(rows)==1,'unexpected quick-check row count');common.validate_row(rows[0],n,func)
+            record['checks'].append({'N':n,'func':func,'check':'PASS','csv_sha256':common.sha(case/'fft_test_1d.csv')})
         require(common.sha(lib)==expected,'library changed at completion');record['complete']=True
     finally:dumps(p['run']/'quick-correctness.json',record)
     print(p['run']/'quick-correctness.json')

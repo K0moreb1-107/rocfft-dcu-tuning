@@ -355,3 +355,25 @@ first new experiment must verify real compiler/runtime/GPU/library integration.
 Ask about new conflicts, dependencies or unexplained states; preserve prior
 user modifications and historical refs. Operational documents and the complete latest record are maintained
 only at the top level; retired worktree snapshots remain immutable.
+
+
+## Explicit experiment case matrices (user authorized 2026-10-09/10)
+
+The default frozen 15-case matrix remains unchanged. An experiment may preregister
+an explicit nonempty list of unique {N, func} cases and a case_scope explanation.
+Use this for EXP-126 large-even CC coverage: real N >65536, multiple actual sizes
+per parity and paired-tail family, larger N allowed when existing CC kernels and
+resources permit. Validate actual fusion before formal timing. Do not force load
+paths in measurement. Expanded matrices retain the exact frozen CPP, three
+warmups, fifty events, eight-round three-arm ordering, 48 processes per case,
+sixteen process means and 800 events per case/arm, strict correctness and all raw
+evidence. Default runs still contain 720 processes. Unmatched A100 sizes retain
+null Performance values; never manufacture reference times. Missing or failed
+cases invalidate aggregation for the entire explicit matrix.
+
+A managed build may carry a frozen, committed post_build_validation script and
+its explicit hashed inputs under that experiment. Preview verifies the identities
+and shows its command. Run it only after saving the build's immutable identity;
+record validation completion separately and require its success before formal
+measurement from that build record. Validation failure never becomes a
+formal acceptance or automatic promotion. All task submission uses manage.py.

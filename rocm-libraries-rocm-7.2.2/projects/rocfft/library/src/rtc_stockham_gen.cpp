@@ -36,6 +36,7 @@ using namespace std::placeholders;
 #include "device/generator/stockham_gen_rc.h"
 #include "device/generator/stockham_gen_local_real.h"
 #include "device/generator/stockham_gen_real_post.h"
+#include "device/generator/stockham_gen_real_pair.h"
 #include "device/generator/stockham_gen_rr.h"
 #include "device/generator/stockham_pp_gen_cc.h"
 #include "device/generator/stockham_pp_gen_rr.h"
@@ -257,7 +258,13 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
         kernel_name += "_ordtwrec128k";
     if(specs.real_io.role != RealBlockRole::None)
     {
-        if(specs.real_io.role == RealBlockRole::PairedPostRows)
+        if(specs.real_io.role == RealBlockRole::PairedPreColumns)
+            kernel_name += "_paired_pre_columns_v1_C" + std::to_string(specs.real_io.columns)
+                           + "_Q" + std::to_string(specs.real_io.rows);
+        else if(specs.real_io.role == RealBlockRole::GenericPairedPostRows)
+            kernel_name += "_generic_paired_post_v1_C" + std::to_string(specs.real_io.columns)
+                           + "_Q" + std::to_string(specs.real_io.rows);
+        else if(specs.real_io.role == RealBlockRole::PairedPostRows)
             kernel_name += "_paired_post_rows";
         else
             kernel_name += specs.real_io.role == RealBlockRole::HermitianColumns
@@ -347,6 +354,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
         {
             if(specs.real_io.role == RealBlockRole::HermitianColumns)
                 kernel = std::make_unique<StockhamKernelHermitianColumns>(specs, largeTwdBatchIsTransformCount);
+            else if(specs.real_io.role == RealBlockRole::PairedPreColumns)
+                kernel = std::make_unique<StockhamKernelPairedPreColumns>(specs);
             else
                 kernel = std::make_unique<StockhamKernelCC>(specs, largeTwdBatchIsTransformCount, fuseBluestein);
         }
@@ -362,6 +371,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
                     specs, local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
             else if(specs.real_io.role == RealBlockRole::PairedPostRows)
                 kernel = std::make_unique<StockhamKernelPairedPostRows>(specs, cbtype == CallbackType::NONE);
+            else if(specs.real_io.role == RealBlockRole::GenericPairedPostRows)
+                kernel = std::make_unique<StockhamKernelGenericPairedPostRows>(specs);
             else
                 kernel = std::make_unique<StockhamKernelRC>(specs, fuseBluestein);
         }
@@ -500,6 +511,9 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
     if(specs.real_io.role == RealBlockRole::HermitianColumns
        || specs.real_io.role == RealBlockRole::LocalRealRows)
         src += local_real_device_helpers();
+    if(specs.real_io.role == RealBlockRole::PairedPreColumns
+       || specs.real_io.role == RealBlockRole::GenericPairedPostRows)
+        src += real_pair_layout_device_helpers();
     if(specs.real_io.role == RealBlockRole::PairedPostRows)
         src += real_post_device_helpers(specs.real_io,
                                        specs.workgroup_size / specs.threads_per_transform);

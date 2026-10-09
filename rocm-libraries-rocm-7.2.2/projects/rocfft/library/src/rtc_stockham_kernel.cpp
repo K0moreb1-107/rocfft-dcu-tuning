@@ -151,6 +151,16 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
             specs->sbrc_ordinary_twiddle_recurrence = false;
         }
 
+        if(node.real_io.role == RealBlockRole::PairedPreColumns
+           || node.real_io.role == RealBlockRole::GenericPairedPostRows)
+        {
+            specs->half_lds = false;
+            specs->direct_to_from_reg = false;
+            specs->static_initial_reg_load = false;
+            specs->static_initial_reg_load_linear = false;
+            specs->sbrc_ordinary_twiddle_recurrence = false;
+        }
+
         if(node.real_io.role == RealBlockRole::PairedPostRows)
         {
             // Preserve Q=512 scalar LDS exchanges in both initial load modes.
@@ -347,10 +357,12 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
             kargs.append_ptr(data.bufOut[1]);
     }
 
-    if(data.node->real_io.role == RealBlockRole::LocalRealRows)
+    if(data.node->real_io.role == RealBlockRole::LocalRealRows
+       || data.node->real_io.role == RealBlockRole::PairedPreColumns)
         kargs.append_ptr(data.node->local_real_twiddles);
 
-    if(data.node->real_io.role == RealBlockRole::PairedPostRows)
+    if(data.node->real_io.role == RealBlockRole::PairedPostRows
+       || data.node->real_io.role == RealBlockRole::GenericPairedPostRows)
         kargs.append_ptr(data.node->real_post_twiddles);
 
     append_load_store_args(kargs, *data.node);

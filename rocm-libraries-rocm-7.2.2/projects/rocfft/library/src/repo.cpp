@@ -30,6 +30,7 @@
 #include "node_factory.h"
 #include "plan.h"
 #include "repo.h"
+#include "real_block_io.h"
 #include "rocfft/rocfft.h"
 #include "twiddles.h"
 // Implementation of Class Repo
@@ -196,22 +197,26 @@ std::pair<void*, size_t> Repo::GetPackedRealPostTwiddles(size_t                 
                                                           size_t                 rows,
                                                           size_t                 rows_per_block,
                                                           rocfft_precision       precision,
-                                                          const hipDeviceProp_t& deviceProp)
+                                                          const hipDeviceProp_t& deviceProp,
+                                                          bool generic_pair)
 {
-    if(rows == 0 || rows % 2 != 0 || rows_per_block == 0 || rows_per_block % 2 != 0
+    if(!generic_pair && (rows == 0 || rows % 2 != 0 || rows_per_block == 0 || rows_per_block % 2 != 0
        || length == 0 || length % rows != 0 || (length / rows) % 2 != 0
-       || (length / rows / 2) % rows_per_block != 0)
+       || (length / rows / 2) % rows_per_block != 0))
         throw std::runtime_error("invalid packed real post twiddle geometry");
 
     std::lock_guard<std::mutex> lck(mtx);
     Repo&                       repo = Repo::GetRepo();
-    repo_twd_key_1D_t key{length, length / 4, precision, 0, false, {}};
+    const size_t table_length = generic_pair
+        ? RealBlockIO::PostTableSize(length, rows, rows_per_block) : length / 4;
+    repo_twd_key_1D_t key{length, table_length, precision, 0, false, {}};
     key.real_post_rows           = rows;
     key.real_post_rows_per_block = rows_per_block;
+    key.real_pair_layout_version = generic_pair ? 1 : 0;
     return GetTwiddlesInternal(
         key, repo.twiddles_1D, repo.twiddles_1D_reverse, [&](unsigned int deviceId) {
             return twiddles_create_packed_real_post(
-                length, rows, rows_per_block, precision, deviceProp, deviceId);
+                length, rows, rows_per_block, precision, deviceProp, deviceId, generic_pair);
         });
 }
 

@@ -7,7 +7,7 @@ import re
 import socket
 import subprocess
 from pathlib import Path
-from common import ARMS, POLICY, ROOT, SOURCE_SHA, inside, manifest, reference, require, schedule, sha, single_gpu_allocation, write_json
+from common import ARMS, POLICY, ROOT, SOURCE_SHA, inside, manifest, reference, require, cases, schedule, sha, single_gpu_allocation, write_json
 from summarize import report
 
 HERE = Path(__file__).resolve().parent
@@ -17,7 +17,7 @@ def command(args, env=None):
     return subprocess.check_output([str(a) for a in args], env=env, stderr=subprocess.STDOUT, text=True)
 
 def plan(m):
-    return dict(policy=POLICY, run_id=m['run_id'], cases=15, rounds=8, processes=720, processes_per_case_arm=16, events_per_case_arm=800, schedule=schedule())
+    return dict(policy=POLICY, run_id=m['run_id'], cases=len(cases(m)), rounds=8, processes=len(schedule(m)), processes_per_case_arm=16, events_per_case_arm=800, schedule=schedule(m))
 
 def execute(m):
     allocation = single_gpu_allocation(os.environ)
@@ -75,7 +75,7 @@ def execute(m):
     entries = []
     write_json(run / 'provenance.json', provenance)
     try:
-        for item in schedule():
+        for item in schedule(m):
             arm = item['arm']
             a = m['arms'][arm]
             lib = Path(provenance['arms'][arm]['actual_library'])

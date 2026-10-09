@@ -334,6 +334,106 @@ bool RealTransEvenNode::TryFusePairedPost(TreeNode& cfft, size_t n)
     return true;
 }
 
+
+// Keep candidate discovery read-only. Register and mutate only after every
+// geometry, kernel and resource check has succeeded.
+bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
+{
+    if(n <= 65536 || RealBlockIO::ForLength(n) || dimension != 1 || length.size() != 1
+       || batch != 1 || precision != rocfft_precision_double
+       || placement != rocfft_placement_notinplace
+       || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
+       || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
+       || cfft.scheme != CS_L1D_CC || cfft.childNodes.size() != 2)
+        return false;
+    const bool pre = direction == 1;
+    if((pre && (inArrayType != rocfft_array_type_hermitian_interleaved
+                || outArrayType != rocfft_array_type_real))
+       || (!pre && (direction != -1 || inArrayType != rocfft_array_type_real
+                    || outArrayType != rocfft_array_type_hermitian_interleaved)))
+        return false;
+    auto& first = *cfft.childNodes.front();
+    auto& last = *cfft.childNodes.back();
+    if(first.scheme != CS_KERNEL_STOCKHAM_BLOCK_CC
+       || last.scheme != CS_KERNEL_STOCKHAM_BLOCK_RC || first.length.size() != 2
+       || last.length != std::vector<size_t>{first.length[1], first.length[0]}
+       || first.large1D != n / 2 || first.ebtype != EmbeddedType::NONE
+       || last.ebtype != EmbeddedType::NONE || first.fuseBlue != BFT_NONE
+       || last.fuseBlue != BFT_NONE)
+        return false;
+    auto geometry = RealBlockIO::ForDecomposition(n, first.length[0], first.length[1]);
+    if(!geometry)
+        return false;
+    auto io = *geometry;
+    const auto& boundary = pre ? first : last;
+    FMKey key(boundary.length[0], precision, boundary.scheme, pre ? NONE : TILE_ALIGNED);
+    if(!pool.has_function(key))
+        return false;
+    const auto kernel = pool.get_kernel(key);
+    const int p = kernel.threads_per_transform[0];
+    if(p <= 0 || kernel.transforms_per_block == 0 || kernel.factors.empty()
+       || product(kernel.factors.begin(), kernel.factors.end()) != boundary.length[0])
+        return false;
+    size_t extra_lds = 0;
+    if(pre)
+    {
+        size_t base = 0, steps = 0;
+        get_large_twd_base_steps(n / 2, kernel.use_3steps_large_twd, base, steps);
+        if(base > 0 && base < 8 && steps > 0)
+            extra_lds = 3 * (size_t(1) << base) * complex_type_size(precision);
+    }
+    if(extra_lds >= deviceProp.sharedMemPerBlock)
+        return false;
+    const size_t max_slots = std::min<size_t>(deviceProp.maxThreadsPerBlock / p,
+        (deviceProp.sharedMemPerBlock - extra_lds)
+            / complex_type_size(precision) / boundary.length[0]);
+    // Preserve P and factors. A single full-LDS, even-slot configuration is
+    // sufficient; a one-slot ordinary kernel may use the legal paired minimum.
+    const size_t slots = std::min<size_t>(std::max<unsigned int>(2, kernel.transforms_per_block),
+                                         max_slots) & ~size_t(1);
+    if(slots < 2 || RealBlockIO::PairBlocks(pre ? io.rows : io.columns, slots)
+                       > std::numeric_limits<unsigned int>::max())
+        return false;
+    const size_t table_length = pre ? (n / 4 + (n / 2) % 2)
+                                   : RealBlockIO::PostTableSize(n, io.rows, slots);
+    if(table_length > std::numeric_limits<size_t>::max() / complex_type_size(precision))
+        return false;
+    auto config = kernel.get_kernel_config();
+    config.transforms_per_block = slots;
+    config.workgroup_size = p * slots;
+    config.half_lds = false;
+    config.direct_to_from_reg = false;
+    key.kernel_config = config;
+
+    pool.add_new_kernel(key);
+    first.allowInplace = false;
+    first.allowedOutBuf = OB_TEMP;
+    first.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+    last.allowInplace = false;
+    last.allowedOutBuf = OB_USER_OUT;
+    last.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+    auto& selected = pre ? first : last;
+    selected.specified_key = std::make_unique<FMKey>(key);
+    selected.dir2regMode = DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
+    selected.intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+    if(!pre)
+        selected.sbrcTranstype = TILE_ALIGNED;
+    selected.real_io = io;
+    selected.real_io.role = pre ? RealBlockRole::PairedPreColumns
+                               : RealBlockRole::GenericPairedPostRows;
+    selected.comments.push_back(pre ? "EXP126 paired pre columns: unique input owners"
+                                    : "EXP126 paired post rows: generic parity and tail masks");
+    selected.comments.push_back("EXP126 pair geometry C=" + std::to_string(io.columns)
+        + " Q=" + std::to_string(io.rows) + " T=" + std::to_string(slots)
+        + " W=" + std::to_string(config.workgroup_size)
+        + " LDS=" + std::to_string(slots * boundary.length[0] * complex_type_size(precision)
+                                    + extra_lds));
+    cfft.allowInplace = false;
+    if(!pre)
+        cfft.outputLength = {n / 2 + 1};
+    return true;
+}
+
 void RealTransEvenNode::AssignLocalRealParams()
 {
     const auto& io = childNodes.front()->real_io;
@@ -406,7 +506,8 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     // NB: the buffer is real, but we treat it as complex
     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
 
-    if(noSolution && TryFusePairedPost(*cfftPlan, realLength->at(0)))
+    if(noSolution && (TryFusePairedPost(*cfftPlan, realLength->at(0))
+                      || TryFuseGenericRealPair(*cfftPlan, realLength->at(0))))
     {
         childNodes.emplace_back(std::move(cfftPlan));
         return;
@@ -503,17 +604,20 @@ void RealTransEvenNode::AssignParams_internal()
         return;
     }
     if(childNodes.size() == 1
-       && childNodes.front()->GetLastLeaf()->real_io.role == RealBlockRole::PairedPostRows)
+       && (childNodes.front()->GetLastLeaf()->real_io.role == RealBlockRole::PairedPostRows
+           || childNodes.front()->GetLastLeaf()->real_io.role == RealBlockRole::GenericPairedPostRows
+           || childNodes.front()->GetFirstLeaf()->real_io.role == RealBlockRole::PairedPreColumns))
     {
         auto& fftPlan = childNodes.front();
         fftPlan->inStride = inStride;
-        fftPlan->iDist = iDist / 2;
+        fftPlan->iDist = direction == -1 ? iDist / 2 : iDist;
         fftPlan->outStride = outStride;
-        fftPlan->oDist = oDist;
+        fftPlan->oDist = direction == -1 ? oDist : oDist / 2;
         fftPlan->AssignParams();
         const auto& last = *fftPlan->GetLastLeaf();
-        if(last.inStride != std::vector<size_t>{1, last.real_io.rows}
-           || last.outStride != std::vector<size_t>{1, last.real_io.columns})
+        const auto& io = direction == 1 ? fftPlan->GetFirstLeaf()->real_io : last.real_io;
+        if(last.inStride != std::vector<size_t>{1, io.rows}
+           || last.outStride != std::vector<size_t>{1, io.columns})
             throw std::runtime_error("paired real post-processing requires a packed intermediate");
         return;
     }

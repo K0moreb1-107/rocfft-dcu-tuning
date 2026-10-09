@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 #include "rtc_twiddle_gen.h"
+#include "device/generator/real_pair_layout.h"
 #include "device/kernel-generator-embed.h"
 #include "rtc_kernel.h"
 #include "twiddles.h"
@@ -46,6 +47,9 @@ std::string twiddle_rtc_kernel_name(TwiddleTableType type, rocfft_precision prec
     case TwiddleTableType::PACKED_REAL_POST:
         kernel_name += "_packed_real_post";
         break;
+    case TwiddleTableType::PACKED_REAL_POST_GENERIC:
+        kernel_name += "_packed_real_post_generic_v1";
+        break;
     }
     kernel_name += rtc_precision_name(precision);
     return kernel_name;
@@ -66,6 +70,7 @@ static std::string twiddle_rtc_launch_bounds(TwiddleTableType type)
     case TwiddleTableType::LENGTH_N:
     case TwiddleTableType::HALF_N:
     case TwiddleTableType::PACKED_REAL_POST:
+    case TwiddleTableType::PACKED_REAL_POST_GENERIC:
         bounds += std::to_string(TWIDDLES_THREADS);
         break;
     }
@@ -108,6 +113,7 @@ static std::string twiddle_rtc_args(TwiddleTableType type, rocfft_precision prec
         args += ", scalar_type* output";
         break;
     case TwiddleTableType::PACKED_REAL_POST:
+    case TwiddleTableType::PACKED_REAL_POST_GENERIC:
         args += "size_t N, size_t rows, size_t rows_per_block, scalar_type* output";
         break;
     }
@@ -157,6 +163,28 @@ static std::string twiddle_rtc_body(TwiddleTableType type)
 
             output[i].x = c;
             output[i].y = s;
+        }
+        )_SRC";
+        break;
+    case TwiddleTableType::PACKED_REAL_POST_GENERIC:
+        body += R"_SRC(
+        const size_t j = size_t(threadIdx.x) + size_t(blockIdx.x) * blockDim.x;
+        const size_t columns = N / (2 * rows);
+        const size_t half_row = rows / 2 + rows % 2;
+        const size_t pairs = columns / 2 + columns % 2;
+        const size_t half = rows_per_block / 2;
+        const size_t blocks = pairs / half + (pairs % half != 0);
+        if(j < blocks * rows_per_block * half_row)
+        {
+            const size_t slot = j % rows_per_block;
+            const size_t column = (j / rows_per_block) % half_row;
+            const size_t block = j / (rows_per_block * half_row);
+            const size_t row = real_pair_row(columns, rows_per_block, slot, block);
+            const size_t k = row + columns * column;
+            const bool active = row < columns && k > 0 && 2 * k < N / 2;
+            const double angle = active ? TWO_PI * k / N : 0.0;
+            output[j].x = cos(angle);
+            output[j].y = sin(angle);
         }
         )_SRC";
         break;
@@ -250,6 +278,8 @@ std::string
     src += "static const unsigned int TWIDDLES_MAX_RADICES = "
            + std::to_string(TWIDDLES_MAX_RADICES) + ";\n";
 
+    if(type == TwiddleTableType::PACKED_REAL_POST_GENERIC)
+        src += real_pair_layout_device_helpers();
     src += radices_t_str;
     src += twiddle_rtc_header;
     src += twiddle_rtc_launch_bounds(type);

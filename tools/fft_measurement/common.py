@@ -45,17 +45,33 @@ def inside(path, root=ROOT):
     require(p == root.resolve() or root.resolve() in p.parents, 'path outside approved workspace: ' + str(p))
     return p
 
-def schedule():
+def cases(m=None):
+    if m is None or 'cases' not in m:
+        return [(n, f) for n in SIZES for f in FUNCS]
+    require(isinstance(m.get('case_scope'), str) and len(m['case_scope'].strip()) >= 10,
+            'explicit cases require a preregistered case_scope')
+    items = m['cases']
+    require(isinstance(items, list) and bool(items), 'cases must be a nonempty list')
+    result = []
+    for item in items:
+        require(isinstance(item, dict) and set(item) == {'N', 'func'}, 'invalid case fields')
+        n, f = item['N'], item['func']
+        require(type(n) is int and 0 < n <= 2147483647, 'N exceeds frozen program int range')
+        require(f in FUNCS, 'unknown transform type')
+        require((n, f) not in result, 'duplicate measurement case')
+        result.append((n, f))
+    return result
+
+def schedule(m=None):
     out = []
-    for n in SIZES:
-        for func in FUNCS:
-            for round_no in range(1, 9):
-                # Alternate which version runs at the outside of each round.
-                arms = (('official', 'previous', 'candidate', 'candidate', 'previous', 'official')
-                        if round_no % 2 else
-                        ('candidate', 'previous', 'official', 'official', 'previous', 'candidate'))
-                for slot, arm in enumerate(arms, 1):
-                    out.append(dict(index=len(out), N=n, func=func, round=round_no, slot=slot, arm=arm))
+    for n, func in cases(m):
+        for round_no in range(1, 9):
+            # Alternate which version runs at the outside of each round.
+            arms = (('official', 'previous', 'candidate', 'candidate', 'previous', 'official')
+                    if round_no % 2 else
+                    ('candidate', 'previous', 'official', 'official', 'previous', 'candidate'))
+            for slot, arm in enumerate(arms, 1):
+                out.append(dict(index=len(out), N=n, func=func, round=round_no, slot=slot, arm=arm))
     return out
 
 def manifest(path):
@@ -78,6 +94,7 @@ def validate_manifest(m):
         require(isinstance(a.get('build_provenance'), str) and len(a['build_provenance'].strip()) >= 10 and 'REPLACE' not in a['build_provenance'], arm + ': build/source provenance required')
     require(m['arms']['official']['source_commit'] == OFFICIAL_COMMIT, 'official source is fixed')
     require(m['arms']['official']['library_sha256'] == OFFICIAL_SHA, 'official library is fixed')
+    cases(m)
     return m
 
 def read_rows(path):

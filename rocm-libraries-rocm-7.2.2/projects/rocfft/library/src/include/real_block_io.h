@@ -3,6 +3,8 @@
 
 #include <cstddef>
 #include <optional>
+#include <limits>
+#include <stdexcept>
 #include <vector>
 
 enum class RealBlockRole
@@ -11,6 +13,8 @@ enum class RealBlockRole
     HermitianColumns,
     LocalRealRows,
     PairedPostRows,
+    PairedPreColumns,
+    GenericPairedPostRows,
 };
 
 enum class RealBlockLoad
@@ -26,6 +30,36 @@ struct RealBlockIO
     RealBlockRole role = RealBlockRole::None;
     RealBlockLoad load = RealBlockLoad::Registers;
     size_t        n = 0, columns = 0, rows = 0, pitch = 0;
+
+    static std::optional<RealBlockIO> ForDecomposition(size_t n, size_t columns, size_t rows)
+    {
+        if(n <= 65536 || n % 2 != 0 || columns == 0 || rows == 0
+           || columns > std::numeric_limits<unsigned int>::max()
+           || rows > std::numeric_limits<unsigned int>::max()
+           || n / 2 / columns != rows || n / 2 % columns != 0)
+            return std::nullopt;
+        return RealBlockIO{RealBlockRole::None, RealBlockLoad::LDS, n, columns, rows, rows};
+    }
+
+    static size_t PairBlocks(size_t axis, size_t slots)
+    {
+        if(axis == 0 || slots < 2 || slots % 2 != 0)
+            throw std::runtime_error("invalid real pair block geometry");
+        const size_t pairs = axis / 2 + axis % 2;
+        return pairs / (slots / 2) + (pairs % (slots / 2) != 0);
+    }
+
+    static size_t PostTableSize(size_t n, size_t rows, size_t slots)
+    {
+        if(n == 0 || n % 2 != 0 || rows == 0 || (n / 2) % rows != 0)
+            throw std::runtime_error("invalid real pair table geometry");
+        const size_t blocks = PairBlocks(n / 2 / rows, slots);
+        const size_t half_row = rows / 2 + rows % 2;
+        if(blocks > std::numeric_limits<size_t>::max() / slots
+           || blocks * slots > std::numeric_limits<size_t>::max() / half_row)
+            throw std::runtime_error("real pair table length overflows");
+        return blocks * slots * half_row;
+    }
 
     static std::optional<RealBlockIO> ForLength(size_t n)
     {

@@ -59,7 +59,9 @@ enum struct TwiddleTableType
     // N * N table for length N partial pass
     PARTIAL_PASS_N,
     // Quarter-length real-post table, packed in workgroup/thread order.
-    PACKED_REAL_POST
+    PACKED_REAL_POST,
+    // Paired rows with odd axes and partial workgroups.
+    PACKED_REAL_POST_GENERIC
 };
 
 // generate name for twiddle-compute kernel

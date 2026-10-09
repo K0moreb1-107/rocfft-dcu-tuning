@@ -569,7 +569,8 @@ public:
     // Physical reads may differ from the virtual transform geometry.
     RealBufferView GetInputBufferView() const
     {
-        if(real_io.role == RealBlockRole::HermitianColumns)
+        if(real_io.role == RealBlockRole::HermitianColumns
+           || real_io.role == RealBlockRole::PairedPreColumns)
             return {{real_io.n / 2 + 1}, {1}, iDist};
         if(real_io.role == RealBlockRole::LocalRealRows)
             return {{real_io.rows + 1, real_io.columns}, inStride, iDist};
@@ -579,7 +580,8 @@ public:
     // The fused post-processing expands a virtual AxQ FFT to M+1 values.
     std::optional<RealBufferView> GetPhysicalOutputBufferView() const
     {
-        if(real_io.role == RealBlockRole::PairedPostRows)
+        if(real_io.role == RealBlockRole::PairedPostRows
+           || real_io.role == RealBlockRole::GenericPairedPostRows)
             return RealBufferView{{real_io.n / 2 + 1}, {1}, oDist};
         return std::nullopt;
     }
