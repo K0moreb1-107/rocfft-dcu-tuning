@@ -7,6 +7,8 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <map>
+#include <memory>
 #include <stdexcept>
 #include <sstream>
 #include <string>
@@ -102,9 +104,26 @@ struct Plan
     ~Plan() { if(value) (void)rocfft_plan_destroy(value); }
 };
 
+static Plan& plan_for(size_t n, bool post, double scale,
+                      std::map<double, std::unique_ptr<Plan>>& plans)
+{
+    auto& second = plans[scale];
+    if(!second)
+    {
+        rocfft_plan_description description = nullptr;
+        fft_check(rocfft_plan_description_create(&description));
+        fft_check(rocfft_plan_description_set_scale_factor(description, scale));
+        Plan first(n, post, description);
+        second = std::make_unique<Plan>(n, post, description);
+        fft_check(rocfft_plan_description_destroy(description));
+        // Release the first cache owner before executing the retained plan.
+    }
+    return *second;
+}
+
 static void validate_case(size_t n, const std::string& direction, const std::string& input_path,
                           const std::string& expected_path, double scale, bool callbacks,
-                          const std::string& pattern)
+                          const std::string& pattern, Plan& second)
 {
     const size_t m = n / 2;
     const bool post = direction == "d2z";
@@ -114,13 +133,6 @@ static void validate_case(size_t n, const std::string& direction, const std::str
     const size_t out_bytes = out_elements * (post ? sizeof(Complex) : sizeof(double));
     const auto original = read_binary(input_path, in_bytes);
     const auto expected = read_binary(expected_path, out_bytes);
-    rocfft_plan_description description = nullptr;
-    fft_check(rocfft_plan_description_create(&description));
-    fft_check(rocfft_plan_description_set_scale_factor(description, scale));
-    Plan first(n, post, description), second(n, post, description);
-    // Both plans hold the same table cache entry. Release one owner first.
-    fft_check(rocfft_plan_destroy(first.value)); first.value = nullptr;
-    fft_check(rocfft_plan_description_destroy(description));
     fft_check(rocfft_plan_get_print(second.value));
     size_t work_bytes = 0;
     fft_check(rocfft_plan_get_work_buffer_size(second.value, &work_bytes));
@@ -209,15 +221,18 @@ int main(int argc, char** argv)
         fft_check(rocfft_setup());
         std::string line, pattern, input, expected;
         size_t count = 0;
+        std::map<double, std::unique_ptr<Plan>> plans;
         while(std::getline(list, line))
         {
             double scale;
             std::istringstream item(line);
             if(!(item >> pattern >> scale >> input >> expected)) throw std::runtime_error("bad reference list");
-            validate_case(n, direction, input, expected, scale, callbacks, pattern);
+            validate_case(n, direction, input, expected, scale, callbacks, pattern,
+                          plan_for(n, direction == "d2z", scale, plans));
             ++count;
         }
         if(count == 0) throw std::runtime_error("empty reference list");
+        plans.clear();
         fft_check(rocfft_cleanup());
         std::cout << "EVEN_CC_ALL_PASS cases=" << count << '\n';
         return 0;
