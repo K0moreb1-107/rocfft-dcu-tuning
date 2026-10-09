@@ -1,0 +1,118 @@
+{
+  "job": "894456",
+  "local_reaggregation_matches_server": true,
+  "raw_process_files_sha256_verified": 2160,
+  "all_correctness_pass": true,
+  "maximum_error": 3.25665e-15,
+  "a100_raw_sha256_verified": true,
+  "scheduler_all_steps_completed": true,
+  "node_exclusive_and_single_gpu_verified": true,
+  "elapsed": "00:34:22",
+  "rows": [
+    {
+      "N": 65536,
+      "func": "z2z_1d",
+      "official": 0.0278306,
+      "previous": 0.0271768,
+      "candidate": 0.02699339375
+    },
+    {
+      "N": 65536,
+      "func": "d2z_1d",
+      "official": 0.0301274,
+      "previous": 0.0263428,
+      "candidate": 0.02608000625
+    },
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "official": 0.0303544,
+      "previous": 0.0274864,
+      "candidate": 0.0272006
+    },
+    {
+      "N": 131072,
+      "func": "z2z_1d",
+      "official": 0.0313325625,
+      "previous": 0.02924394375,
+      "candidate": 0.02935595625
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d",
+      "official": 0.03176780625,
+      "previous": 0.02787360625,
+      "candidate": 0.0274162
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "official": 0.03186219375,
+      "previous": 0.0282786,
+      "candidate": 0.0276876
+    },
+    {
+      "N": 262144,
+      "func": "z2z_1d",
+      "official": 0.0427065125,
+      "previous": 0.037053512499999997,
+      "candidate": 0.0377501125
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "official": 0.036243975,
+      "previous": 0.03296678125,
+      "candidate": 0.03262638125
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "official": 0.03668719375,
+      "previous": 0.03376356875,
+      "candidate": 0.03298579375
+    },
+    {
+      "N": 524288,
+      "func": "z2z_1d",
+      "official": 0.097858525,
+      "previous": 0.0663387,
+      "candidate": 0.06621070625
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "official": 0.049846775,
+      "previous": 0.040839175,
+      "candidate": 0.040947581250000004
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "official": 0.047816175,
+      "previous": 0.04183796875,
+      "candidate": 0.04163258125
+    },
+    {
+      "N": 1048576,
+      "func": "z2z_1d",
+      "official": 0.1825285,
+      "previous": 0.1196879375,
+      "candidate": 0.11974375
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "official": 0.1137099375,
+      "previous": 0.073571525,
+      "candidate": 0.073277125
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "official": 0.1141769375,
+      "previous": 0.07626174375,
+      "candidate": 0.07628794375
+    }
+  ]
+}

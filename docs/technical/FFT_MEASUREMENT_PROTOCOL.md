@@ -295,3 +295,8 @@ the actual submission command explicitly includes --exclusive. For this
 registered partition the checked OverSubscribe setting is NO; it does not
 override the explicit request with forced sharing. Real exclusive-node/single-
 GPU step execution remains a check in the next authorized performance run.
+
+
+## Exclusive-node single-GPU runtime verification (2026-10-09)
+
+Job 894456 completed all 720 processes and original correctness checks. Accounting confirms 128 CPUs/8 DCUs for the exclusive job and 8 CPUs/1 DCU for step 894456.0. The HIP-visible device count was one throughout the run; job/step assignments, UUID and hashes were independently verified. Runtime evidence: experiments/EXP-125/records/exclusive-retest-20261008/result-review-894456-20261009.md. The frozen timing definition and retained FFT implementation are unchanged.

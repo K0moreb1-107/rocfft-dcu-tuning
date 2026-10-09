@@ -253,3 +253,8 @@ runtime identity checks. Job and step GPU assignments are retained separately.
 Preview reports this policy; build and quick-validation allocation behavior is
 unchanged. Existing queued/completed historical commands and tables are not
 rewritten. No FFT source, installed library or frozen measurement CPP changed.
+
+
+## Verified exclusive-node measurement execution (2026-10-09)
+
+The unified entry completed real exclusive-node measurement job 894456 with a one-DCU, eight-CPU step. All 720 original correctness checks and 2160 raw-file checks passed; server and local reaggregation matched. The exclusive submission and single-GPU worker path now have actual runtime validation. See experiments/EXP-125/records/exclusive-retest-20261008/result-review-894456-20261009.md.
