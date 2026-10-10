@@ -123,7 +123,12 @@ def main():
         quick += [(n,f) for n in coverage['stable_regression_sizes'] for f in mgr.common.FUNCS]
         for n,func in quick:
             audit();case=run/'quick'/('%d_%s'%(n,func))
-            run_logged([frozen,n,1,func,1],dict(env,FFT_TEST_OUT=str(case)),case)
+            # Preserve the actual plan and generated source even if a quick
+            # correctness check fails before the richer guard matrix begins.
+            case_env=dict(env,FFT_TEST_OUT=str(case),ROCFFT_LAYER='40',
+                          ROCFFT_LOG_PLAN_PATH=str(case/'plan.txt'),
+                          ROCFFT_LOG_RTC_PATH=str(case/'rtc.txt'))
+            run_logged([frozen,n,1,func,1],case_env,case)
             rows=mgr.common.read_rows(case/'fft_test_1d.csv')
             mgr.require(len(rows)==1,'wrong quick-check row count');mgr.common.validate_row(rows[0],n,func)
             record['quick_checks'].append(dict(N=n,func=func,check='PASS',csv_sha256=mgr.common.sha(case/'fft_test_1d.csv')))

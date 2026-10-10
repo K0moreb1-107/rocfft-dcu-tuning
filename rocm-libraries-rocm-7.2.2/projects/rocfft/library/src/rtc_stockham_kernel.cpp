@@ -154,8 +154,11 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
         if(node.real_io.role == RealBlockRole::PairedPreColumns
            || node.real_io.role == RealBlockRole::GenericPairedPostRows)
         {
-            specs->half_lds = false;
-            specs->direct_to_from_reg = false;
+            // Do not silently mask a planner/resource mismatch at generation.
+            if(!node.specified_key || specs->half_lds || specs->direct_to_from_reg
+               || node.dir2regMode != DirectRegType::FORCE_OFF_OR_NOT_SUPPORT
+               || node.intrinsicMode != IntrinsicAccessType::DISABLE_BOTH)
+                throw std::runtime_error("generic real pair requires its exact full-LDS kernel configuration");
             specs->static_initial_reg_load = false;
             specs->static_initial_reg_load_linear = false;
             specs->sbrc_ordinary_twiddle_recurrence = false;

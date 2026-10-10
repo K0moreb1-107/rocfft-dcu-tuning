@@ -191,11 +191,36 @@ bool LeafNode::KernelCheck(std::vector<FMKey>& kernel_keys)
         return true;
     }
 
-    specified_key = nullptr;
-    if(!kernel_keys.empty())
+    // Generic real-pair boundaries register an exact full-LDS geometry before
+    // sanity checking. Preserve it through the same key-validation path used
+    // for solution-map kernels; clearing it would restore the ordinary kernel.
+    const bool generic_real_pair = real_io.role == RealBlockRole::PairedPreColumns
+                                   || real_io.role == RealBlockRole::GenericPairedPostRows;
+    std::optional<FMKey> assigned_key;
+    if(generic_real_pair)
     {
-        FMKey assignedKey = kernel_keys.front();
-        kernel_keys.erase(kernel_keys.begin());
+        if(!specified_key)
+            return false;
+        assigned_key = *specified_key;
+        if(!kernel_keys.empty())
+        {
+            if(kernel_keys.front() != *assigned_key)
+                return false;
+            kernel_keys.erase(kernel_keys.begin());
+        }
+    }
+    else
+    {
+        specified_key = nullptr;
+        if(!kernel_keys.empty())
+        {
+            assigned_key = kernel_keys.front();
+            kernel_keys.erase(kernel_keys.begin());
+        }
+    }
+    if(assigned_key)
+    {
+        const auto& assignedKey = *assigned_key;
 
         // check if the assigned key is consistent with the node information
         if((length[0] != assignedKey.lengths[0])
@@ -231,6 +256,14 @@ bool LeafNode::KernelCheck(std::vector<FMKey>& kernel_keys)
         GetKernelPartialPassFactors();
 
     auto kernel = GetKernel();
+    if(generic_real_pair
+       && (kernel.half_lds || kernel.direct_to_from_reg
+           || specified_key->kernel_config.intrinsic_buffer_inst
+           || kernel.transforms_per_block < 2 || kernel.transforms_per_block % 2 != 0
+           || kernel.threads_per_transform[0] <= 0
+           || kernel.workgroup_size
+                  != kernel.threads_per_transform[0] * kernel.transforms_per_block))
+        return false;
     dir2regMode = (kernel.direct_to_from_reg) ? DirectRegType::TRY_ENABLE_IF_SUPPORT
                                               : DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
 
