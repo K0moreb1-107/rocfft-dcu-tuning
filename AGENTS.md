@@ -4,58 +4,20 @@ This file is authoritative for all subsequent rocFFT optimization experiments
 in /public/home/zhangkewei/zr. Do not change the measurement definition without
 recording the reason and updating this file first.
 
-## Primary event measurement (approved 2026-09-30)
+## 性能测量（2026-10-10）
 
-Use the exact original EXP-123 fft_test_1d.cpp measurement program, frozen at
-SHA256 849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da.
-Full protocol: docs/technical/FFT_MEASUREMENT_PROTOCOL.md. Shared entry points:
-/public/home/zhangkewei/zr/tools/fft_measurement/run.py and summarize.py;
-formal submission: python3 manage.py measure --config CONFIG.json --execute.
-Compatibility submission helper: bash jobs/measure_fft.slurm CONFIG.json.
-
-Default matrix: double precision, batch=1, out-of-place, sizes 65536, 131072,
-262144, 524288, 1048576, each z2z_1d/d2z_1d/z2d_1d (15 cases; no 32K).
-Correctness remains enabled with the original strict <1e-9 checks. Preserve
-initialization, inputs, 3 timing warmups, and 50 separately synchronized HIP
-event measurements of rocfft_execute per process. Explicitly force 50 iterations.
-Use original mean_ms; plan_ms, first_ms and per_tf_ms are diagnostics only.
-No hipprof N+1 division or kernel subtraction applies to these event times.
-
-Formal comparison: 8 rounds per case, one GPU UUID and one allocation;
-odd official/previous/candidate/candidate/previous/official;
-even candidate/previous/official/official/previous/candidate.
-Each arm has 16 process means (800 events/case); full matrix 720 processes.
-Arithmetic mean of all 16 mean_ms values is primary; no outlier removal.
-Effective 2026-10-08, formal performance submissions explicitly request
-node exclusivity with sbatch --exclusive. Within that allocation, run the
-measurement worker in one srun step requesting one DCU and the configured
-CPU count. The allocation may own multiple DCUs; the measurement step and
-HIP-visible device count must remain one. Record both job and step device
-assignments. This changes resource isolation only; the frozen timing program,
-samples, ordering and formulas remain unchanged. Historical submissions keep
-their original resource records and are not relabelled as node-exclusive.
-Retain every process CSV/log, exact order, allocation/GPU/runtime identity,
-source state, library path/hash, executable/compiler and build provenance.
-Any missing/failed/mismatched case invalidates formal aggregation. Single
-50-event processes are quick checks only, not formal promotion evidence.
-
-Always report previous/candidate and official/candidate speedups plus
-A100 Performance = fixed matching A100 mean_ms / candidate mean_ms *100%.
-Official source/install are original ROCm 7.2.2; previous is the preregistered
-immediately preceding valid stable version, not permanently EXP-119.
-Candidate identity and experiment-specific acceptance criteria must be
-preregistered before measurement. Do not impose new global percentage gates
-or reuse old hipprof gates without preregistration. All correctness checks PASS
-is required. No automatic source promotion from a report.
-
-A100 raw reference is results/reference/a100/ beneath the workspace root,
-SHA256 3b376eb69a77318ace8fbe537acfc7b3e82cdff1ea847f6177ed7ea82b27603b.
-The user confirmed A100 provenance; retain all 18 original rows and select
-the 15 matched cases. The historical mixed table is not a formal new baseline.
-
-The following hipprof sections preserve historical/diagnostic definitions and
-evidence. They do not govern new primary event measurements. Never mix event
-and hipprof metrics in one ratio or rewrite old results with the new protocol.
+统一入口：`python3 manage.py measure --config CONFIG.json` 预览，加 `--execute` 提交。
+新测量使用 `FFT-event-samples-single-v2`：双精度、批量一、非原位、默认计划；
+每个尺寸／类型／版本一个独立进程，三次预热，默认50次逐次同步的完整变换事件计时。
+次数可在登记中调整，同一比较各版本相同；保留原输入、初始化和严格 `<1e-9` 正确性。
+对照与当前紧邻执行，各尺寸／类型交替先后；默认两版本，需要时显式增加稳定对照。
+节点独占、单卡执行，登记具体源码、库、程序校验值、设备、顺序和验收要求；缺项或失败不汇总。
+逐次耗时先存入预分配数组，计时结束再写文件；保留全部样本，不删慢点。
+输出两列散点和测量序号—耗时图，均值与中位数分别计算加速比：对照统计量／当前统计量。
+图形重叠或顺序漂移时标注差异不明确，不自动重测或推广。A100仅报告匹配的历史均值相对性能。
+历史及已提交任务保留登记时的协议、次数和统计定义；缺少原始样本不构造散点或单次中位数。
+任务900813继续旧版八轮三版本测量，用户要求重测时才应用新规则，不中断或补测。
+细则、样本格式和旧版协议见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。
 
 ## Historical hipprof scope and matching conditions
 
@@ -184,12 +146,10 @@ and the canonical metric in one comparison table.
 
 ## Required record for every future experiment
 
-Record the exact commit and source/build state, changed files, preregistered
-acceptance criteria, job/allocation/GPU UUID, correctness, raw evidence,
-official/previous/candidate arithmetic event mean_ms, previous and official
-speedups, matched A100 Performance and final decision. Preserve all raw process
-CSV/logs and hashes. Label any additional hipprof/PMC measurement as diagnostic
-with its own original definition. Do not recompute old comparisons silently.
+Record source/build identity, changed files, protocol and acceptance, allocation/GPU,
+correctness, raw samples/logs/hashes, each declared version's mean and median,
+both speedups, matched A100 mean reference and decision. Keep diagnostic metrics
+separate; historical records retain their original measurement definition.
 
 ## Required experiment result record
 
@@ -235,7 +195,7 @@ source changes as a validated retained version.
 Stable branch: main
 Stable workspace: /public/home/zhangkewei/zr
 Retained source reference: EXP-125 1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d
-Management tools reference: 27d5c5e164c25975505d613e0109016e076bc346
+Management tools: measurement-samples-v2-20261010 (versioned measurement entry).
 Valid tag: stable-main-exp125-20261007
 Approved stable installation: experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i
 Promotion record: experiments/EXP-125/records/stable-promotion-20261007/promotion.json
@@ -315,10 +275,9 @@ branch. The stable source now lives in the top-level main checkout.
 New build/install/cache belong to experiments/EXP-NNN/artifacts/ with unique IDs.
 Run CSVs, stdout/stderr, configuration, provenance and reports belong together
 under experiments/EXP-NNN/runs/<run-id>/; helper binaries remain artifacts.
-Formal measurement retains the exact frozen CPP, 15 cases, 3 warmups/50 events,
-8-round three-arm ordering, 720 processes and fixed A100 reference/formulas.
-Queued configurations freeze concrete library/source identities, not mutable
-aliases. No automatic source promotion. Quick validation is not formal evidence.
+New formal measurements use the current versioned sample protocol above.
+Previously submitted manifests select their registered legacy protocol unchanged.
+Unified preview must show concrete library identities, process count and event count.
 
 Current installation registry: configs/installations.json. Current previous
 is the approved EXP-125-pre-memory-i library (user promoted 2026-10-07).
@@ -364,12 +323,8 @@ an explicit nonempty list of unique {N, func} cases and a case_scope explanation
 Use this for EXP-126 large-even CC coverage: real N >65536, multiple actual sizes
 per parity and paired-tail family, larger N allowed when existing CC kernels and
 resources permit. Validate actual fusion before formal timing. Do not force load
-paths in measurement. Expanded matrices retain the exact frozen CPP, three
-warmups, fifty events, eight-round three-arm ordering, 48 processes per case,
-sixteen process means and 800 events per case/arm, strict correctness and all raw
-evidence. Default runs still contain 720 processes. Unmatched A100 sizes retain
-null Performance values; never manufacture reference times. Missing or failed
-cases invalidate aggregation for the entire explicit matrix.
+paths in measurement. Expanded matrices use the measurement protocol and repetition count registered
+for that run. Default-path coverage and all correctness/evidence checks remain required.
 
 A managed build may carry a frozen, committed post_build_validation script and
 its explicit hashed inputs under that experiment. Preview verifies the identities

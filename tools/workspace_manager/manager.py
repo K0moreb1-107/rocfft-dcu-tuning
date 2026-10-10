@@ -62,10 +62,18 @@ def dumps(path, value):
 def registry():
     return json.loads((ROOT/'configs/installations.json').read_text(encoding='utf-8'))
 
+def measurement_protocol(cfg):
+    if cfg.get('policy') == common.POLICY:
+        return common
+    import sample_contract
+    return sample_contract
+
 def measurement(cfg):
     m=copy.deepcopy(cfg)
+    protocol=measurement_protocol(m)
     fields=('install','source_repo','source_commit','source_state','library_sha256','build_provenance')
-    for arm in common.ARMS:
+    selected=common.ARMS if protocol is common else protocol.arms(m)
+    for arm in selected:
         a=m['arms'][arm]
         if a.get('registry_id'):
             record=registry()['installations'][a['registry_id']]
@@ -95,7 +103,7 @@ def measurement(cfg):
         # Queue workers consume frozen concrete identities, never mutable aliases.
         a.pop('registry_id',None)
         a.pop('build_record',None)
-    return common.validate_manifest(m)
+    return protocol.validate_manifest(m)
 
 def source_identity(cfg):
     b=cfg['build'];repo=inside(b['source_repo'],allow_root=True);source=inside(b['source_dir'])
@@ -174,13 +182,24 @@ def task_plan(task,cfg):
     m=measurement(cfg)
     if task=='measure':m.setdefault('resources',{})['node_exclusive']=True
     p=locations(m,task)
-    if task=='report':return {'task':task,'run':str(p['run']),'command':[PYTHON,str(ROOT/'tools/fft_measurement/summarize.py'),str(p['run'])]}
-    for arm in common.ARMS:
+    protocol=measurement_protocol(m)
+    selected=common.ARMS if protocol is common else protocol.arms(m)
+    if task=='report':
+        registered=p['run']/'preregistration.json'
+        if registered.is_file():
+            stored=json.loads(registered.read_text(encoding='utf-8'))
+            protocol=measurement_protocol(stored)
+        script='summarize.py' if protocol is common else 'summarize_samples.py'
+        return {'task':task,'run':str(p['run']),'command':[PYTHON,str(ROOT/'tools/fft_measurement'/script),str(p['run'])]}
+    for arm in selected:
         require(common.sha(inside(m['arms'][arm]['install'])/'lib/librocfft.so.0.1')==m['arms'][arm]['library_sha256'],arm+': library hash mismatch')
     return {'task':task,'paths':{k:str(v) for k,v in p.items()},'resolved_preregistration':m,
-            'processes':len(common.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':3,'event_iterations':50,
+            'processes':len(protocol.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':3,
+            'event_iterations':protocol.iterations(m) if task=='measure' and protocol is not common else 50,
             'formal':task=='measure','node_exclusive':task=='measure',
-            'notice':'Quick correctness is not formal promotion evidence.' if task=='validate' else 'Frozen 8-round three-arm protocol in an exclusive node allocation.'}
+            'notice':('Quick correctness is not formal promotion evidence.' if task=='validate' else
+                      'Frozen 8-round three-arm protocol in an exclusive node allocation.' if protocol is common else
+                      'One process per case/version; all event samples retained, mean and median ratios, distribution and order plots.')}
 
 def allocate(cfg,task):
     p=locations(cfg,task)
@@ -280,7 +299,8 @@ def execute_validate(cfg):
     m=measurement(cfg);task_plan('validate',m);p=claim(m,'validate');env=environment(p['cache'])
     here=ROOT/'tools/fft_measurement';require(common.sha(here/'fft_test_1d.cpp')==common.SOURCE_SHA,'frozen source changed')
     identity=p['build']/'device_identity';binary=p['build']/'fft_test_1d'
-    official=inside(m['arms']['official']['install']);candidate=inside(m['arms']['candidate']['install'])
+    reference_arm=next(arm for arm in common.ARMS if arm in m['arms'] and arm!='candidate')
+    official=inside(m['arms'][reference_arm]['install']);candidate=inside(m['arms']['candidate']['install'])
     commands=[[DTK+'/bin/hipcc','-O3','-std=c++17',str(here/'device_identity.cpp'),'-o',str(identity)],
               [DTK+'/bin/hipcc','-O3','-std=c++17',str(here/'fft_test_1d.cpp'),'-I'+str(official/'include'),'-L'+str(official/'lib'),'-Wl,-rpath,'+str(official/'lib'),'-lrocfft','-o',str(binary)]]
     for i,argv in enumerate(commands):
@@ -326,8 +346,12 @@ def main():
             if args.task=='build':execute_build(cfg)
             elif args.task=='validate':execute_validate(cfg)
             else:
-                import run
-                run.execute(common.manifest(args.config))
+                protocol=measurement_protocol(cfg)
+                if protocol is common:
+                    import run as worker
+                else:
+                    import run_samples as worker
+                worker.execute(protocol.manifest(args.config))
         elif args.execute:submit(args.task,cfg)
         else:print(json.dumps(task_plan(args.task,cfg),indent=2))
     except (ValueError,OSError,KeyError,TypeError,subprocess.CalledProcessError) as error:

@@ -27,7 +27,7 @@ class ManagedTasks(unittest.TestCase):
         self.addCleanup(cleanup)
         self.addCleanup(patch.stopall)
         patch.object(manager,'ROOT',self.root).start()
-        self.cfg={'schema_version':1,'experiment':'EXP-999','run_id':'EXP-999-test', 'build':{'build_id':'EXP-999-build'}}
+        self.cfg={'schema_version':1,'policy':common.POLICY,'experiment':'EXP-999','run_id':'EXP-999-test', 'build':{'build_id':'EXP-999-build'}}
 
     def test_escape_and_output_root_rejected(self):
         for value in ('../escape',str(self.root)):
