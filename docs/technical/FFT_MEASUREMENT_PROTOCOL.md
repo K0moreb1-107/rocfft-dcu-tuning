@@ -1,4 +1,79 @@
-# FFT measurement protocol (approved 2026-09-30)
+# FFT性能测量协议
+
+## 当前规则（用户批准，2026-10-10）
+
+协议标识：`FFT-event-samples-single-v2`。新配置省略 `policy` 时采用此规则；
+已经登记的 `EXP123-event-50-three-arm-8-v1` 保留原方式。
+本次只更新工具和规则，不重新测量历史结果，不中断、补测或改变任务900813。
+
+### 工作负载、计时与样本
+
+- 双精度、一维、批量为一、输入输出分离，使用库默认选择的计划。
+- 一个“尺寸＋类型＋版本”只启动一个独立进程。默认计时50次，配置字段
+  `event_iterations` 可指定正整数；同一运行各版本相同，预览和提交清单冻结次数。
+- 保留EXP-123的初始化、输入、正确性检查及三次预热，误差严格小于 `1e-9`。
+  每次事件窗口包围一次完整 `rocfft_execute`，每次单独同步；计划创建、输入复制、
+  校验和预热位于窗口外。不将50次合为一个计时窗口，不扣内核时间、不做次数加一除法。
+- 新程序为 `tools/fft_measurement/fft_test_1d_samples.cpp`，在旧程序上增加样本记录。
+  样本数组在预热前分配，循环内只保存读出的事件耗时；结束后统一写文件。
+  旧程序 `fft_test_1d.cpp` 及旧统计模块保留原字节，旧源程序校验值不变。
+- 每进程保存原14列汇总和新增 `fft_test_1d.samples.csv`，列为
+  `func,N,batch,sample_index,elapsed_ms`。序号从1连续到登记次数，耗时以毫秒保存，
+  输出双精度往返所需精度；全部样本参与统计，不剔除慢点。
+
+### 版本选择与执行顺序
+
+`arms` 包含当前版本 `candidate` 和至少一种对照：官方原版 `official` 或已批准
+稳定版 `previous`。默认示例为官方＋当前两版本；需要时显式增加稳定对照，
+每版本仍只测一个进程。固定具体源码提交、库路径／校验值及构建来源，不能混用对照身份。
+
+同一尺寸／类型的各版本紧邻、串行运行；按登记的案例顺序交替正序和逆序。
+这可分散先后顺序影响，但一组连续样本不能证明跨进程、跨时刻的稳定性。
+保留节点独占，一个执行步骤只使用一张卡；记录任务与步骤分配、设备唯一标识、
+架构／运行时、程序／库校验值、编译器、源状态、完整顺序和进程起止时间。
+运行时编译缓存仍关闭，各进程临时目录独立，不并行做性能诊断。
+
+### 统计与展示
+
+从原始单次耗时分别计算均值、中位数、最小／最大值及25%、75%分位数。
+分位数对排序样本的 `(样本数−1)×比例` 位置做线性插值。
+
+```
+均值加速比 = 对照样本均值 / 当前样本均值
+中位数加速比 = 对照样本中位数 / 当前样本中位数
+```
+
+二者大于一表示加速，不计算逐点比值再平均。均值与中位数结论不同时，结合慢点解释。
+每个案例输出一个独立矢量图：左侧各版本一列散点，标记均值、中位数及中间50%区间；
+右侧按各版本内部测量序号排列同一批耗时。横向展开只避免点重叠，不修改纵轴数据；
+右图相同序号不代表两版本同步测量。图形重叠或耗时随序号漂移时标注差异不明确，
+是否加次数或独立重测由用户决定，不能为得到加速结论反复筛选结果。
+
+输出 `comparison.csv`、`comparison.md`、`summary.json` 和 `plots/*.svg`。
+比较表同时列各版本均值／中位数及相应加速比。逐次记录和未舍入表为依据。
+缺进程、缺样本、序号错误、校验失败、汇总与样本不符、来源或设备不一致时拒绝汇总。
+图形在所有计时结束后用绘图库生成，不在计时期间导入或绘制。
+
+A100固定历史参考仍验证原校验值，仅匹配尺寸／类型的均值：
+`A100均值 / 当前均值 × 100%`。新增尺寸没有参考则留空；没有A100逐次样本，
+不构造A100中位数或中位数相对性能。它是历史跨设备参考，不是同卡对照。
+
+### 统一入口与旧任务兼容
+
+```
+python3 manage.py measure --config CONFIG.json
+python3 manage.py measure --config CONFIG.json --execute
+python3 manage.py report --config CONFIG.json
+```
+
+首次命令仅预览，第二条提交。新模板为 `tools/fft_measurement/manifest.example.json`；
+旧模板留存为 `manifest.v1.example.json`。次数、协议、来源在提交前登记，输出目录不复用。
+报告按运行目录中的已登记协议选择统计模块；新协议不修改旧结果。
+旧版数据只保留进程均值／最小／最大，不能还原单次散点或单次耗时中位数；
+进程均值的中位数只能按旧定义注明。任务900813及历史测量继续旧版分析，
+用户提出重测后才使用新规则。提交新任务后停止，待用户要求检查。
+
+## 旧版登记与实施记录（2026-09-30起）
 
 Current path status (2026-10-03): the five former top-level aliases are retired;
 their real directories remain. Top-level entries: 36. Adaptation guide:
@@ -11,7 +86,7 @@ Temporary worktrees require explicit user agreement. Earlier dated sections
 record prior states and are superseded by the final main/branch section.
 
 
-This is the primary contract for future rocFFT optimization measurements in
+This is the historical v1 contract for already registered measurements in
 `/public/home/zhangkewei/zr`. Source: the user's specified conversation
 `codex://threads/01a0e6cd-9ded-7570-93df-5a5a0ca88255`, EXP-123's final event table.
 The user confirmed the NVIDIA reference is **A100**. This policy does not relabel
