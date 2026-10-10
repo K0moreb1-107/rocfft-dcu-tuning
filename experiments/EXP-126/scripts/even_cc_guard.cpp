@@ -147,22 +147,25 @@ static void validate_case(size_t n, const std::string& direction, const std::str
     rocfft_execution_info info = nullptr;
     fft_check(rocfft_execution_info_create(&info));
     if(work_bytes) fft_check(rocfft_execution_info_set_work_buffer(info, work.data(), work_bytes));
+    // Execution info borrows these arrays until both rounds have finished.
+    void* load_functions[1] = {nullptr};
+    void* store_functions[1] = {nullptr};
+    void* load_user_data[1] = {load_data.data()};
+    void* store_user_data[1] = {store_data.data()};
     if(callbacks)
     {
-        void* load_fn = nullptr;void* store_fn = nullptr;
         if(post)
         {
-            hip_check(hipMemcpyFromSymbol(&load_fn, HIP_SYMBOL(load_real_pointer), sizeof(load_fn)));
-            hip_check(hipMemcpyFromSymbol(&store_fn, HIP_SYMBOL(store_complex_pointer), sizeof(store_fn)));
+            hip_check(hipMemcpyFromSymbol(&load_functions[0], HIP_SYMBOL(load_real_pointer), sizeof(load_functions[0])));
+            hip_check(hipMemcpyFromSymbol(&store_functions[0], HIP_SYMBOL(store_complex_pointer), sizeof(store_functions[0])));
         }
         else
         {
-            hip_check(hipMemcpyFromSymbol(&load_fn, HIP_SYMBOL(load_complex_pointer), sizeof(load_fn)));
-            hip_check(hipMemcpyFromSymbol(&store_fn, HIP_SYMBOL(store_real_pointer), sizeof(store_fn)));
+            hip_check(hipMemcpyFromSymbol(&load_functions[0], HIP_SYMBOL(load_complex_pointer), sizeof(load_functions[0])));
+            hip_check(hipMemcpyFromSymbol(&store_functions[0], HIP_SYMBOL(store_real_pointer), sizeof(store_functions[0])));
         }
-        void* load_user = load_data.data();void* store_user = store_data.data();
-        fft_check(rocfft_execution_info_set_load_callback(info, &load_fn, &load_user, 0));
-        fft_check(rocfft_execution_info_set_store_callback(info, &store_fn, &store_user, 0));
+        fft_check(rocfft_execution_info_set_load_callback(info, load_functions, load_user_data, 0));
+        fft_check(rocfft_execution_info_set_store_callback(info, store_functions, store_user_data, 0));
     }
     double max_error = 0;
     for(unsigned int round = 0; round < 2; ++round)
