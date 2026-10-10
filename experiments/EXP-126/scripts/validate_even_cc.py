@@ -112,7 +112,8 @@ def main():
                   source_commit=built['arm']['source_commit'], library_sha256=expected_lib,
                   default_path_only=True, numpy_version=np.__version__,
                   reference='independent full-length NumPy FFT; reusable reference scratch, retained input/reference hashes and recipe',
-                  binaries=binaries, compile_commands=commands, quick_checks=[], fusion_evidence=[], coverage={},
+                  binaries=binaries, compile_commands=commands, quick_checks=[], quick_failures=[],
+                  fusion_evidence=[], guard_failures=[], coverage={},
                   start=datetime.datetime.now(datetime.timezone.utc).isoformat())
     def audit():
         mgr.require(mgr.common.sha(lib)==expected_lib,'library changed')
@@ -125,48 +126,62 @@ def main():
             audit();case=run/'quick'/('%d_%s'%(n,func))
             # Preserve the actual plan and generated source even if a quick
             # correctness check fails before the richer guard matrix begins.
-            case_env=dict(env,FFT_TEST_OUT=str(case),ROCFFT_LAYER='40',
+            case_env=dict(env,FFT_TEST_OUT=str(case),ROCFFT_LAYER='41',
+                          ROCFFT_LOG_TRACE_PATH=str(case/'trace.txt'),
                           ROCFFT_LOG_PLAN_PATH=str(case/'plan.txt'),
                           ROCFFT_LOG_RTC_PATH=str(case/'rtc.txt'))
-            run_logged([frozen,n,1,func,1],case_env,case)
-            rows=mgr.common.read_rows(case/'fft_test_1d.csv')
-            mgr.require(len(rows)==1,'wrong quick-check row count');mgr.common.validate_row(rows[0],n,func)
+            try:
+                run_logged([frozen,n,1,func,1],case_env,case)
+                rows=mgr.common.read_rows(case/'fft_test_1d.csv')
+                mgr.require(len(rows)==1,'wrong quick-check row count');mgr.common.validate_row(rows[0],n,func)
+            except (subprocess.CalledProcessError, ValueError) as error:
+                record['quick_failures'].append(dict(N=n,func=func,check='FAIL',
+                    error=str(error),returncode=getattr(error,'returncode',None),evidence=str(case)))
+                continue
             record['quick_checks'].append(dict(N=n,func=func,check='PASS',csv_sha256=mgr.common.sha(case/'fft_test_1d.csv')))
+        mgr.require(not record['quick_failures'],
+                    'quick correctness failures: '+str(record['quick_failures']))
         for n_text,g in geometry.items():
             n=int(n_text);c=g['C'];q=g['Q']
             for direction in ('z2d','d2z'):
                 for callbacks in (False,True):
                     audit();case=run/'guards'/str(n)/direction/('callbacks' if callbacks else 'plain')
                     list_path, refs = reference_list(n,c,q,direction,callbacks,scratch)
-                    case_env=dict(env,ROCFFT_LAYER='44',ROCFFT_LOG_PLAN_PATH=str(case/'plan.txt'),
-                                  ROCFFT_LOG_RTC_PATH=str(case/'rtc.txt'),ROCFFT_LOG_PROFILE_PATH=str(case/'profile.txt'))
-                    run_logged([guard,n,direction,list_path,'callbacks' if callbacks else 'plain'],case_env,case)
-                    stdout=(case/'stdout.txt').read_text();rtc=(case/'rtc.txt').read_text();plan=(case/'plan.txt').read_text()+stdout
-                    count=len(refs)
-                    mgr.require(stdout.count('EVEN_CC_GUARD_PASS')==count and 'EVEN_CC_ALL_PASS cases=%d'%count in stdout,
-                                'incomplete reference/guard checks')
-                    schemes=re.findall(r'CS_KERNEL_[A-Z0-9_]+',(case/'profile.txt').read_text())
-                    mgr.require(len(schemes)==4*count and schemes.count('CS_KERNEL_STOCKHAM_BLOCK_CC')==2*count
-                                and schemes.count('CS_KERNEL_STOCKHAM_BLOCK_RC')==2*count,'expected exactly two executed CC leaves')
-                    mgr.require('CS_L1D_CC' in plan and 'CS_L1D_TRTRT' not in plan
-                                and 'CS_KERNEL_R_TO_CMPLX' not in plan and 'CS_KERNEL_CMPLX_TO_R' not in plan,
-                                'separate real processing or transpose path remains')
-                    role='paired_pre_columns' if direction=='z2d' else 'generic_paired_post'
-                    names=set(re.findall(r'fft_rtc_[A-Za-z0-9_]+',rtc))
-                    specialized={name for name in names if '_'+role+'_v1_' in name}
-                    suffix='_%s_v1_C%d_Q%d_N%d_lds'%(role,c,q,n)
-                    mgr.require(specialized and all(suffix in name for name in specialized),'wrong fused generator identity')
-                    if direction=='d2z':mgr.require('twiddle_gen_packed_real_post_generic_v1_dp' in rtc,'wrong post table generator')
-                    layouts=set(re.findall(r'EXP126 pair geometry C=(\d+) Q=(\d+) T=(\d+) W=(\d+) LDS=(\d+)',plan))
-                    mgr.require(len(layouts)==1,'ambiguous or absent actual paired geometry')
-                    actual_c,actual_q,t,w,lds=map(int,next(iter(layouts)))
-                    mgr.require((actual_c,actual_q)==(c,q) and t>=2 and t%2==0,'wrong matrix pair layout')
-                    axis=q if direction=='z2d' else c
-                    tail=bool(((axis+1)//2)%(t//2))
-                    record['fusion_evidence'].append(dict(N=n,direction=direction,callbacks=callbacks,
-                        cases=count,executed_leaves_per_transform=2,check='PASS',C=c,Q=q,T=t,W=w,LDS=lds,
-                        true_pair_tail=tail,kernel_names=sorted(specialized),references=refs,
-                        evidence_sha256={p:mgr.common.sha(case/p) for p in ('stdout.txt','stderr.txt','plan.txt','rtc.txt','profile.txt')}))
+                    try:
+                        case_env=dict(env,ROCFFT_LAYER='45',ROCFFT_LOG_TRACE_PATH=str(case/'trace.txt'),ROCFFT_LOG_PLAN_PATH=str(case/'plan.txt'),
+                                      ROCFFT_LOG_RTC_PATH=str(case/'rtc.txt'),ROCFFT_LOG_PROFILE_PATH=str(case/'profile.txt'))
+                        run_logged([guard,n,direction,list_path,'callbacks' if callbacks else 'plain'],case_env,case)
+                        stdout=(case/'stdout.txt').read_text();rtc=(case/'rtc.txt').read_text();plan=(case/'plan.txt').read_text()+stdout
+                        count=len(refs)
+                        mgr.require(stdout.count('EVEN_CC_GUARD_PASS')==count and 'EVEN_CC_ALL_PASS cases=%d'%count in stdout,
+                                    'incomplete reference/guard checks')
+                        schemes=re.findall(r'CS_KERNEL_[A-Z0-9_]+',(case/'profile.txt').read_text())
+                        mgr.require(len(schemes)==4*count and schemes.count('CS_KERNEL_STOCKHAM_BLOCK_CC')==2*count
+                                    and schemes.count('CS_KERNEL_STOCKHAM_BLOCK_RC')==2*count,'expected exactly two executed CC leaves')
+                        mgr.require('CS_L1D_CC' in plan and 'CS_L1D_TRTRT' not in plan
+                                    and 'CS_KERNEL_R_TO_CMPLX' not in plan and 'CS_KERNEL_CMPLX_TO_R' not in plan,
+                                    'separate real processing or transpose path remains')
+                        role='paired_pre_columns' if direction=='z2d' else 'generic_paired_post'
+                        names=set(re.findall(r'fft_rtc_[A-Za-z0-9_]+',rtc))
+                        specialized={name for name in names if '_'+role+'_v1_' in name}
+                        suffix='_%s_v1_C%d_Q%d_N%d_lds'%(role,c,q,n)
+                        mgr.require(specialized and all(suffix in name for name in specialized),'wrong fused generator identity')
+                        if direction=='d2z':mgr.require('twiddle_gen_packed_real_post_generic_v1_dp' in rtc,'wrong post table generator')
+                        layouts=set(re.findall(r'EXP126 pair geometry C=(\d+) Q=(\d+) T=(\d+) W=(\d+) LDS=(\d+)',plan))
+                        mgr.require(len(layouts)==1,'ambiguous or absent actual paired geometry')
+                        actual_c,actual_q,t,w,lds=map(int,next(iter(layouts)))
+                        mgr.require((actual_c,actual_q)==(c,q) and t>=2 and t%2==0,'wrong matrix pair layout')
+                        axis=q if direction=='z2d' else c
+                        tail=bool(((axis+1)//2)%(t//2))
+                        record['fusion_evidence'].append(dict(N=n,direction=direction,callbacks=callbacks,
+                            cases=count,executed_leaves_per_transform=2,check='PASS',C=c,Q=q,T=t,W=w,LDS=lds,
+                            true_pair_tail=tail,kernel_names=sorted(specialized),references=refs,
+                            evidence_sha256={p:mgr.common.sha(case/p) for p in ('stdout.txt','stderr.txt','plan.txt','rtc.txt','profile.txt')}))
+                    except (subprocess.CalledProcessError, ValueError) as error:
+                        record['guard_failures'].append(dict(N=n,direction=direction,callbacks=callbacks,
+                            check='FAIL',error=str(error),returncode=getattr(error,'returncode',None),evidence=str(case)))
+        mgr.require(not record['guard_failures'],
+                    'reference/guard failures: '+str(record['guard_failures']))
         for family, sizes in coverage['families'].items():
             mgr.require(len(sizes)==5 and len(set(sizes))==5,'family must contain five distinct sizes')
             for n in sizes:

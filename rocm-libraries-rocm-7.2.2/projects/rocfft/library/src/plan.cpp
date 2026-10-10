@@ -3779,7 +3779,12 @@ void get_large_twd_base_steps(size_t large1DLen, bool use3steps, size_t& base, s
 {
     // use3steps, then 16^3 ~ 64^3, basically enough for 262144
     // else, base is 8 (2^8 = 256), could be 2-steps 256^2 = 65536, if exceed, then is 256^3, and so on..
-    base = use3steps ? std::min((size_t)6, std::max((size_t)4, (CeilPo2(large1DLen) + 2) / 3)) : 8;
+    // Small bases encode at most 64^3 entries. Larger CC plans use the
+    // existing base-8 lookup rather than requesting an unsupported fourth step.
+    const bool use_small_base = use3steps && large1DLen <= (size_t{1} << 18);
+    base = use_small_base
+               ? std::min((size_t)6, std::max((size_t)4, (CeilPo2(large1DLen) + 2) / 3))
+               : 8;
 
     // but we still want to know the exact steps we will loop
     steps                  = 0;
