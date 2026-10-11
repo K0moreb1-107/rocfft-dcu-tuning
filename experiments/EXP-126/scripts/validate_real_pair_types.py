@@ -169,12 +169,12 @@ def main():
                                     'separate real processing or transpose path remains')
                         role='paired_pre_columns' if direction=='z2d' else 'generic_paired_post'
                         names=set(re.findall(r'fft_rtc_[A-Za-z0-9_]+',rtc))
+                        scalar_variant=cfg['validation']['scalar_capacity']
                         version=3 if scalar_variant and direction=='d2z' and q==1331 else 2
                         specialized={name for name in names if '_'+role+'_v'+str(version)+'_' in name}
                         modes=set(re.findall(r'EXP126 pair backend=(\w+) phase=packed_v1 final=(\w+)',plan))
                         mgr.require(len(modes)==1,'missing or ambiguous backend selection')
                         backend,final_phase=next(iter(modes))
-                        scalar_variant=cfg['validation']['scalar_capacity']
                         expected_scalar=scalar_variant and ((direction=='z2d' and c==1024)
                                                            or (direction=='d2z' and q==1331))
                         expected_direct=(direction=='z2d' and c in (160,208,289,336,512,1024)) or (direction=='d2z' and q in (512,1331))
