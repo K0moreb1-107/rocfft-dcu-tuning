@@ -374,10 +374,9 @@ bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
     if(p <= 0 || kernel.transforms_per_block == 0 || kernel.factors.empty()
        || product(kernel.factors.begin(), kernel.factors.end()) != boundary.length[0])
         return false;
-    size_t extra_lds = 0;
+    size_t extra_lds = 0, base = 0, steps = 0;
     if(pre)
     {
-        size_t base = 0, steps = 0;
         get_large_twd_base_steps(n / 2, kernel.use_3steps_large_twd, base, steps);
         if(base > 0 && base < 8 && steps > 0)
             extra_lds = 3 * (size_t(1) << base) * complex_type_size(precision);
@@ -394,15 +393,20 @@ bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
     if(slots < 2 || RealBlockIO::PairBlocks(pre ? io.rows : io.columns, slots)
                        > std::numeric_limits<unsigned int>::max())
         return false;
-    const size_t table_length = pre ? (n / 4 + (n / 2) % 2)
-                                   : RealBlockIO::PostTableSize(n, io.rows, slots);
+#ifndef ROCFFT_REAL_PAIR_SCALAR_CAPACITY
+#define ROCFFT_REAL_PAIR_SCALAR_CAPACITY 0
+#endif
+    io.SelectPairExchange(pre, kernel.factors, p, slots, base, steps,
+                          ROCFFT_REAL_PAIR_SCALAR_CAPACITY != 0);
+    const size_t table_length = RealBlockIO::PairTableSize(n, pre ? io.columns : io.rows, slots);
     if(table_length > std::numeric_limits<size_t>::max() / complex_type_size(precision))
         return false;
     auto config = kernel.get_kernel_config();
     config.transforms_per_block = slots;
     config.workgroup_size = p * slots;
-    config.half_lds = false;
-    config.direct_to_from_reg = false;
+    config.half_lds = io.ScalarPairIO();
+    config.direct_to_from_reg = io.DirectPairIO();
+    config.intrinsic_buffer_inst = false;
     key.kernel_config = config;
 
     pool.add_new_kernel(key);
@@ -414,7 +418,8 @@ bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
     last.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
     auto& selected = pre ? first : last;
     selected.specified_key = std::make_unique<FMKey>(key);
-    selected.dir2regMode = DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
+    selected.dir2regMode = io.DirectPairIO() ? DirectRegType::TRY_ENABLE_IF_SUPPORT
+                                              : DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
     selected.intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
     if(!pre)
         selected.sbrcTranstype = TILE_ALIGNED;
@@ -427,7 +432,10 @@ bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
         + " Q=" + std::to_string(io.rows) + " T=" + std::to_string(slots)
         + " W=" + std::to_string(config.workgroup_size)
         + " LDS=" + std::to_string(slots * boundary.length[0] * complex_type_size(precision)
-                                    + extra_lds));
+                                    / (io.ScalarPairIO() ? 2 : 1) + extra_lds));
+    selected.comments.push_back(std::string("EXP126 pair backend=") + io.ExchangeName()
+        + " phase=packed_v1 final="
+        + (io.final_phase == RealPairFinalPhase::AtStore ? "store" : "transform"));
     cfft.allowInplace = false;
     if(!pre)
         cfft.outputLength = {n / 2 + 1};

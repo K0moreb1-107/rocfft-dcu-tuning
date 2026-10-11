@@ -228,6 +228,20 @@ NodeFactory::Map1DLength const NodeFactory::map1DLengthDouble = {
     {456533, 343}, // CC (343cc + 1331rc)
     {640000, 1024}, // CC (1024cc + 625rc)
     {1362944, 1024}, // CC (1024cc + 1331rc)
+    // EXP-126 type repair: five actual members per affected boundary family.
+    {50544, 208}, // CC (208cc + 243rc)
+    {54880, 160}, // CC (160cc + 343rc)
+    {61952, 512}, // CC (512cc + 121rc)
+    {64512, 336}, // CC (336cc + 192rc)
+    {100000, 160}, // CC (160cc + 625rc)
+    {115248, 336}, // CC (336cc + 343rc)
+    {163840, 160}, // CC (160cc + 1024rc)
+    {172032, 336}, // CC (336cc + 512rc)
+    {175616, 512}, // CC (512cc + 343rc)
+    {212992, 208}, // CC (208cc + 1024rc)
+    {276848, 208}, // CC (208cc + 1331rc)
+    {681472, 512}, // CC (512cc + 1331rc)
+
 };
 
 NodeFactory::Map1DLength const NodeFactory::map1DLengthTRTRT = {

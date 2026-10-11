@@ -1,0 +1,29 @@
+{
+  "complete": true,
+  "gpu_execution": false,
+  "generated_sources": 710,
+  "distinct_offline_compiled": 399,
+  "host_syntax_checks": 5,
+  "actual_default_layouts": 176,
+  "boundary_cpu_models": 99,
+  "legacy_byte_identical_sources": 158,
+  "references": {
+    "generation-proof.json": {
+      "sha256": "f60ecb753053f215b53c9b7a9ef6aad4459e00ea95b388a491dee7768e2db9fc",
+      "directory": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/type-implementation-20261011/generated-1"
+    },
+    "compilation-proof.json": {
+      "sha256": "4919e761215bd39c6e0c7274955c60c718d2ea811ef1926d34acc10bf77cd6d2",
+      "directory": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/type-implementation-20261011/offline-1"
+    },
+    "model-proof.json": {
+      "sha256": "c7403c51fb9365a1f8794eaf481a491ef8a193fe02c9ae3b06d721131879d6bf",
+      "directory": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/type-implementation-20261011/exchange-model-2"
+    },
+    "legacy-proof.json": {
+      "sha256": "bda5bf1b379595ac352970c8035d0b2f20e6ca47751cb7d682c7c14ef8af7129",
+      "directory": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/type-implementation-20261011/legacy-identity-1"
+    }
+  },
+  "acceptance": "Pending full GPU transform, callback/scale, input/guard and actual CC validation; not performance evidence."
+}

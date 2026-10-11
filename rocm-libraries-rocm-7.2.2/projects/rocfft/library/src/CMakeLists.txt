@@ -405,6 +405,12 @@ add_library( rocfft
   ${rocfft_source}
   ${relative_rocfft_headers_public}
   )
+
+# Separate registered builds compare the same plan with two boundary backends.
+option(ROCFFT_REAL_PAIR_SCALAR_CAPACITY "Use scalar exchange for verified real pair capacity families" OFF)
+target_compile_definitions(rocfft PRIVATE
+  ROCFFT_REAL_PAIR_SCALAR_CAPACITY=$<BOOL:${ROCFFT_REAL_PAIR_SCALAR_CAPACITY}>)
+
 rocfft_add_coverage_flags( rocfft )
 
 # rocFFT contains default implementations of callback functions that

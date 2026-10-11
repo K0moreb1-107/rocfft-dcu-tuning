@@ -155,12 +155,16 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
            || node.real_io.role == RealBlockRole::GenericPairedPostRows)
         {
             // Do not silently mask a planner/resource mismatch at generation.
-            if(!node.specified_key || specs->half_lds || specs->direct_to_from_reg
-               || node.dir2regMode != DirectRegType::FORCE_OFF_OR_NOT_SUPPORT
+            if(!node.specified_key || specs->half_lds != node.real_io.ScalarPairIO()
+               || specs->direct_to_from_reg != node.real_io.DirectPairIO()
+               || node.dir2regMode != (node.real_io.DirectPairIO()
+                   ? DirectRegType::TRY_ENABLE_IF_SUPPORT
+                   : DirectRegType::FORCE_OFF_OR_NOT_SUPPORT)
                || node.intrinsicMode != IntrinsicAccessType::DISABLE_BOTH)
-                throw std::runtime_error("generic real pair requires its exact full-LDS kernel configuration");
-            specs->static_initial_reg_load = false;
-            specs->static_initial_reg_load_linear = false;
+                throw std::runtime_error("generic real pair requires its exact exchange configuration");
+            specs->static_initial_reg_load = node.real_io.DirectPairIO();
+            specs->static_initial_reg_load_linear
+                = node.real_io.role == RealBlockRole::GenericPairedPostRows;
             specs->sbrc_ordinary_twiddle_recurrence = false;
         }
 

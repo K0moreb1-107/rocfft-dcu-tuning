@@ -259,10 +259,10 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
     if(specs.real_io.role != RealBlockRole::None)
     {
         if(specs.real_io.role == RealBlockRole::PairedPreColumns)
-            kernel_name += "_paired_pre_columns_v1_C" + std::to_string(specs.real_io.columns)
+            kernel_name += "_paired_pre_columns_v2_C" + std::to_string(specs.real_io.columns)
                            + "_Q" + std::to_string(specs.real_io.rows);
         else if(specs.real_io.role == RealBlockRole::GenericPairedPostRows)
-            kernel_name += "_generic_paired_post_v1_C" + std::to_string(specs.real_io.columns)
+            kernel_name += "_generic_paired_post_v2_C" + std::to_string(specs.real_io.columns)
                            + "_Q" + std::to_string(specs.real_io.rows);
         else if(specs.real_io.role == RealBlockRole::PairedPostRows)
             kernel_name += "_paired_post_rows";
@@ -271,6 +271,12 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
                                ? "_local_real_columns" : "_local_real_rows";
         kernel_name += "_N" + std::to_string(specs.real_io.n);
         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
+        if(specs.real_io.IsGenericPair())
+        {
+            kernel_name += "_" + std::string(specs.real_io.ExchangeName()) + "_packed1";
+            kernel_name += specs.real_io.final_phase == RealPairFinalPhase::AtStore
+                               ? "_phase_store" : "_phase_fft";
+        }
         if(specs.real_io.role == RealBlockRole::LocalRealRows)
             kernel_name += local_real_twiddle_suffix(
                 local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));

@@ -257,7 +257,8 @@ bool LeafNode::KernelCheck(std::vector<FMKey>& kernel_keys)
 
     auto kernel = GetKernel();
     if(generic_real_pair
-       && (kernel.half_lds || kernel.direct_to_from_reg
+       && (kernel.half_lds != real_io.ScalarPairIO()
+           || kernel.direct_to_from_reg != real_io.DirectPairIO()
            || specified_key->kernel_config.intrinsic_buffer_inst
            || kernel.transforms_per_block < 2 || kernel.transforms_per_block % 2 != 0
            || kernel.threads_per_transform[0] <= 0
@@ -334,8 +335,8 @@ bool LeafNode::CreateDeviceResources()
     if(real_io.role == RealBlockRole::PairedPreColumns)
     {
         std::tie(local_real_twiddles, local_real_twiddles_size)
-            = Repo::GetTwiddles1D(real_io.n, real_io.n / 4 + (real_io.n / 2) % 2,
-                                  precision, deviceProp, 0, false, {});
+            = Repo::GetPackedRealPostTwiddles(real_io.n, real_io.columns,
+                GetKernel().transforms_per_block, precision, deviceProp, true);
     }
     if(real_io.role == RealBlockRole::PairedPostRows
        || real_io.role == RealBlockRole::GenericPairedPostRows)
@@ -384,7 +385,9 @@ void LeafNode::SetupGridParam(GridParam& gp)
                 gp.lds_bytes /= 2;
         }
     }
-    if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC)
+    if(real_io.IsGenericPair() && real_io.ScalarPairIO())
+        gp.lds_bytes /= 2;
+    if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC && !real_io.IsGenericPair())
     {
         // SBCC support half-lds conditionally
         if((dir2regMode == DirectRegType::TRY_ENABLE_IF_SUPPORT) && (ebtype == EmbeddedType::NONE)

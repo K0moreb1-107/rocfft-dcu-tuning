@@ -74,6 +74,7 @@ struct StockhamKernelCC : public StockhamKernel
 
     bool use_late_large_twiddle_lds() const
     {
+        if(real_io.IsGenericPair()) return false;
         const bool common = direct_to_from_reg && half_lds && precisions.size() == 1
                             && precisions.front() == rocfft_precision_double
                             && workgroup_size == 256;

@@ -351,6 +351,8 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
     Expression lds_address(const Expression& index) const
     {
+        // The generic scalar backend preserves the verified ordinary exchange.
+        if(real_io.IsGenericPair()) return index;
         if(half_lds && precisions.size() == 1
            && precisions.front() == rocfft_precision_double)
         {
@@ -385,7 +387,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
     // the same ownership relation is proved for another configuration.
     bool use_register_local_exchange(unsigned int npass) const
     {
-        return half_lds && precisions.size() == 1
+        return !real_io.IsGenericPair() && half_lds && precisions.size() == 1
                && precisions.front() == rocfft_precision_double && length == 1024
                && threads_per_transform == 64
                && factors == std::vector<unsigned int>{8, 8, 4, 4} && npass == 2;
@@ -497,6 +499,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
     bool use_ordinary_twiddle_recurrence()
     {
+        if(real_io.IsGenericPair()) return false;
         const bool is_dp = precisions.size() == 1
                            && precisions.front() == rocfft_precision_double;
         const bool common_sbcc = half_lds && direct_to_from_reg && is_dp
@@ -706,6 +709,50 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return stmts;
     }
 
+    // Coordinate maps do not depend on shared storage layout or swizzling.
+    using RegisterIO = std::function<StatementList(Expression, Variable)>;
+    StatementList first_pass_io(const RegisterIO& io)
+    {
+        const auto width = factors.front();
+        auto work = [&](unsigned int h, unsigned int hr, unsigned int w, unsigned int dt, Expression) {
+            if(hr == 0) hr = h;
+            StatementList body;
+            const auto tid = Parens{thread + dt + h * threads_per_transform};
+            for(unsigned int j = 0; j < w; ++j)
+                body += io(tid + j * length / w, R[hr * w + j]);
+            return body;
+        };
+        return add_work(work, width, static_cast<float>(length) / width / threads_per_transform,
+                        ThreadGuardMode::GUARD_BY_IF);
+    }
+    StatementList last_pass_io(const RegisterIO& io)
+    {
+        const auto width = factors.back();
+        const auto cumheight = product(factors.begin(), factors.end() - 1);
+        auto work = [&](unsigned int h, unsigned int hr, unsigned int w, unsigned int dt, Expression) {
+            if(hr == 0) hr = h;
+            StatementList body;
+            const auto tid = Parens{thread + dt + h * threads_per_transform};
+            for(unsigned int j = 0; j < w; ++j)
+                body += io(Parens{tid / cumheight} * (w * cumheight)
+                           + tid % cumheight + j * cumheight, R[hr * w + j]);
+            return body;
+        };
+        return add_work(work, width, static_cast<float>(length) / width / threads_per_transform,
+                        ThreadGuardMode::GUARD_BY_IF);
+    }
+    StatementList clear_initial_registers()
+    {
+        StatementList body;
+        for(unsigned int i = 0; i < nregisters; ++i)
+            body += Assign{R[i], ComplexLiteral{Literal{0}, Literal{0}}};
+        return body;
+    }
+    virtual std::string load_callback_type_name() const { return callback_type.name; }
+    virtual std::string store_callback_type_name() const { return callback_type.name; }
+    // Registers may be ready after shared input; this hook protects its reuse.
+    virtual StatementList initial_registers_ready() { return {}; }
+
     Function generate_lds_to_reg_input_function()
     {
         std::string function_name = "lds_to_reg_input_length" + std::to_string(length) + "_device";
@@ -726,10 +773,12 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         unsigned int width  = factors[0];
         float        height = static_cast<float>(length) / width / threads_per_transform;
         body += If{lds_reg_sync, sync_threads()};
+        if(real_io.IsGenericPair()) body += clear_initial_registers();
         body += add_work(std::bind(load_lds, this, _1, _2, _3, _4, _5, Component::BOTH),
                          width,
                          height,
-                         ThreadGuardMode::NO_GUARD);
+                         real_io.IsGenericPair() ? ThreadGuardMode::GUARD_BY_IF
+                                                 : ThreadGuardMode::NO_GUARD);
 
         return f;
     }
@@ -830,7 +879,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
             auto butterfly = std::mem_fn(&StockhamKernel::butterfly_generator);
             const auto butterfly_guard
-                = use_static_initial_reg_load() && npass == 0
+                = (use_static_initial_reg_load() || real_io.IsGenericPair()) && npass == 0
                       ? ThreadGuardMode::GUARD_BY_IF
                       : ThreadGuardMode::NO_GUARD;
             body += add_work(std::bind(butterfly, this, _1, _2, _3, _4, _5),
@@ -931,8 +980,8 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         // half-lds
         body += set_lds_is_real();
 
-        body += CallbackLoadDeclaration{scalar_type.name, callback_type.name};
-        body += CallbackStoreDeclaration{scalar_type.name, callback_type.name};
+        body += CallbackLoadDeclaration{scalar_type.name, load_callback_type_name()};
+        body += CallbackStoreDeclaration{scalar_type.name, store_callback_type_name()};
 
         body += LineBreak{};
         body += CommentLines{"large twiddles"};
@@ -1001,6 +1050,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
         body += LineBreak{};
         body += CommentLines{"transform"};
+        body += initial_registers_ready();
         for(unsigned int c = 0; c < n_device_calls; ++c)
         {
             auto templates = device_call_templates();
