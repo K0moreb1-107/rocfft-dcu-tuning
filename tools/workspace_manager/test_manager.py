@@ -72,7 +72,8 @@ class ManagedTasks(unittest.TestCase):
             self.assertIn('--output='+str(logs/'slurm_%j.out'),argv)
             frozen=Path(argv[-1]);self.assertEqual(json.loads(frozen.read_text()),self.cfg)
             return 'synthetic-job\n'
-        with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),contextlib.redirect_stdout(io.StringIO()):manager.submit('build',self.cfg)
+        planned={'submission_command':manager.submission_command('build',self.cfg)}
+        with patch.object(manager,'task_plan',return_value=planned),patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),contextlib.redirect_stdout(io.StringIO()):manager.submit('build',self.cfg)
 
     def test_measure_submission_uses_unified_worker(self):
         def fake_sbatch(argv,**kwargs):
@@ -80,8 +81,64 @@ class ManagedTasks(unittest.TestCase):
             self.assertIn('--exclusive',argv)
             self.assertEqual(json.loads(Path(argv[-1]).read_text()),self.cfg)
             return 'synthetic-job\n'
-        with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),contextlib.redirect_stdout(io.StringIO()):
+        planned={'submission_command':manager.submission_command('measure',self.cfg)}
+        with patch.object(manager,'task_plan',return_value=planned),patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),contextlib.redirect_stdout(io.StringIO()):
             manager.submit('measure',self.cfg)
+
+    def test_dependency_preview_matches_submission_and_frozen_manifest(self):
+        base={'install':str(self.root/'version'),'library_sha256':'b'*64}
+        for task,dependency in (('build','afterany:905360'),('validate','afterok:905360'),
+                                ('measure','afterany:905361')):
+            with self.subTest(task=task):
+                cfg=copy.deepcopy(self.cfg);cfg['run_id']+='-'+task
+                cfg.update(arms={arm:dict(base) for arm in common.ARMS},
+                           resources={'cpus':16,'nodelist':'test-node','dependency':dependency})
+                with patch.object(manager,'build_plan',return_value={'task':'build'}),\
+                     patch.object(manager,'measurement',side_effect=copy.deepcopy),\
+                     patch.object(common,'sha',return_value='b'*64):
+                    planned=manager.task_plan(task,cfg)
+                    frozen=planned.get('resolved_preregistration',cfg)
+                    command=planned['submission_command']
+                    self.assertFalse(manager.locations(cfg,task)['run'].exists())
+                    self.assertEqual(command[-3:-1],[str(self.root/'jobs/workspace_task.slurm'),task])
+                    self.assertIn('--dependency='+dependency,command[:-3])
+                    self.assertEqual('--exclusive' in command,task=='measure')
+                    def fake_sbatch(argv,**kwargs):
+                        self.assertEqual(argv,command)
+                        self.assertEqual(json.loads(Path(argv[-1]).read_text()),frozen)
+                        return 'synthetic-job\n'
+                    with patch.object(manager.subprocess,'check_output',side_effect=fake_sbatch),\
+                         contextlib.redirect_stdout(io.StringIO()):
+                        manager.submit(task,cfg)
+                p=manager.locations(cfg,task)
+                self.assertEqual(json.loads((p['run']/'submission-command.json').read_text()),command)
+                self.assertEqual(json.loads((p['run']/'submit-manifest.json').read_text())
+                                 ['resources']['dependency'],dependency)
+
+    def test_invalid_dependency_rejected_before_allocation(self):
+        for value in (None,True,False,0,'','afterany:0','afterany:01','afterany:abc',
+                      'afterok:-1','afterany:1:2','afterok:1,afterany:2','afterany:1\n--exclusive'):
+            with self.subTest(value=value):
+                cfg=dict(self.cfg,resources={'dependency':value})
+                with patch.object(manager,'build_plan',return_value={}),\
+                     patch.object(manager,'allocate') as allocate,\
+                     patch.object(manager.subprocess,'check_output') as sbatch:
+                    with self.assertRaises(ValueError):manager.submit('build',cfg)
+                    allocate.assert_not_called();sbatch.assert_not_called()
+                self.assertFalse(manager.locations(cfg,'build')['run'].exists())
+
+    def test_absent_dependency_preserves_legacy_submission_command(self):
+        for task in ('build','validate','measure'):
+            with self.subTest(task=task):
+                p=manager.locations(self.cfg,task)
+                expected=['sbatch','--parsable','--chdir='+str(self.root),
+                          '--output='+str(p['logs']/'slurm_%j.out'),
+                          '--error='+str(p['logs']/'slurm_%j.err'),
+                          '--cpus-per-task=8','--partition=hx1hdnormal01','--time=02:00:00']
+                if task=='measure':expected.append('--exclusive')
+                expected.extend([str(self.root/'jobs/workspace_task.slurm'),task,
+                                 str(p['run']/'submit-manifest.json')])
+                self.assertEqual(manager.submission_command(task,self.cfg),expected)
     def test_measure_worker_uses_correct_shared_schedule(self):
         import run
         def inspect_plan(cfg):
@@ -128,7 +185,8 @@ class ManagedTasks(unittest.TestCase):
             with self.subTest(changed=changed),self.assertRaises(ValueError):
                 common.single_gpu_allocation(dict(base,**changed))
     def test_submission_failure_keeps_evidence(self):
-        with patch.object(manager,'task_plan',return_value={}),patch.object(manager.subprocess,'check_output',side_effect=OSError('synthetic failure')):
+        planned={'submission_command':manager.submission_command('build',self.cfg)}
+        with patch.object(manager,'task_plan',return_value=planned),patch.object(manager.subprocess,'check_output',side_effect=OSError('synthetic failure')):
             with self.assertRaises(OSError):manager.submit('build',self.cfg)
         self.assertTrue((manager.locations(self.cfg,'build')['run']/'submission-failed.json').exists())
 

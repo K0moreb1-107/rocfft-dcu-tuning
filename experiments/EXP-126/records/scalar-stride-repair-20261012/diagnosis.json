@@ -1,0 +1,33 @@
+{
+  "root_cause": "linear post-row staging confused row pitch with element stride",
+  "baseline_commit": "d9d29c3f1a23f5f69b22753672170d04ff91fde0",
+  "actual_rtc": {
+    "path": "experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011/quick/553696_d2z_1d/rtc.txt",
+    "sha256": "c6a3df7ac5f00b38398e9e763f44dc29ba69a6792b67651ad32e7219371c8f7a",
+    "line_stride": 1331,
+    "scalar_capacity": 2662
+  },
+  "failed_sizes": [
+    553696,
+    769318,
+    894432,
+    913066,
+    1362944,
+    2725888
+  ],
+  "addresses_per_component": {
+    "old_writes": 2662,
+    "old_out_of_bounds": 2659,
+    "old_unique": 1332,
+    "old_max": 1771561,
+    "fixed_unique": 2662,
+    "fixed_max": 2661
+  },
+  "scope": "all scalar post rows; pre columns unchanged",
+  "extra_sync": 0,
+  "extra_shared_bytes": 0,
+  "extra_branches": 0,
+  "old_model_defect": "post stride_lds=1 masked error; restore real row pitch while helper keeps SB_UNIT element stride 1",
+  "gpu_validation": "pending",
+  "performance": "not submitted"
+}

@@ -1,0 +1,54 @@
+{
+  "complete": true,
+  "gpu_validation": "pending",
+  "performance": "not submitted",
+  "cpu_targets": "experiments/EXP-126/artifacts/preflight/scalar-stride-repair-20261012/cpu-attempt-1/proof.json",
+  "host_syntax_checks": 5,
+  "generated_sources": 710,
+  "layouts": 176,
+  "source_comparison": {
+    "changed": 24,
+    "unchanged": 686,
+    "complex_all_identical": true,
+    "changed_sizes": [
+      553696,
+      769318,
+      894432,
+      913066,
+      1362944,
+      2725888
+    ]
+  },
+  "offline_compilation": {
+    "unique_sources": 24,
+    "all_pass": true,
+    "all_private_segment_zero": true,
+    "max_vgpr": 123,
+    "directory": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/scalar-stride-repair-20261012/offline-1"
+  },
+  "model": {
+    "cases": 99,
+    "all_pass": true,
+    "directory": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/scalar-stride-repair-20261012/exchange-model-2",
+    "source_sha256": "4d6436f07ad61aa105aab825c338f67237179620ea98e19a262b51ef09f9120b"
+  },
+  "negative_control": {
+    "old_source_reproduced": true,
+    "returncode": 1,
+    "stderr": "vector::_M_range_check: __n (which is 161051) >= this->size() (which is 2662)\n",
+    "directory": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/scalar-stride-repair-20261012/exchange-model-1"
+  },
+  "manager": {
+    "tests": 29,
+    "all_pass": true,
+    "log": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/preflight/scalar-stride-repair-20261012/manager-tests.log",
+    "log_sha256": "202253f94789b30b24992fd83ff19529707c7fa334ed7ccad1f6b769b7b54daf"
+  },
+  "proofs": {
+    "generation-proof.json": "5b8bf502bd4d849afeaa546dc1a0818d17adf4b5ede856c351540a39c69ed09e",
+    "compilation-proof.json": "c551363dd89731f01242b42f1b8e508d1d0091b5d79efba75b15d04f8703314a",
+    "model-before-proof.json": "c8ade7827e4da1e16120535f0aa05b10fa87b8ac3b6e3e7b4129cb84e56e67a4",
+    "model-after-proof.json": "fd24bc21d39e39d9cb99c3e5f012c0f2e1ece4d3f4c959860c9a2951585d3a35",
+    "manager-proof.json": "d8c124837185b858a404dba35d1437955e578a0412b205d79edb7023385b504a"
+  }
+}

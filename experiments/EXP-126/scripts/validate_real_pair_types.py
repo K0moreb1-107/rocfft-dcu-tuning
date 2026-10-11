@@ -169,7 +169,8 @@ def main():
                                     'separate real processing or transpose path remains')
                         role='paired_pre_columns' if direction=='z2d' else 'generic_paired_post'
                         names=set(re.findall(r'fft_rtc_[A-Za-z0-9_]+',rtc))
-                        specialized={name for name in names if '_'+role+'_v2_' in name}
+                        version=3 if scalar_variant and direction=='d2z' and q==1331 else 2
+                        specialized={name for name in names if '_'+role+'_v'+str(version)+'_' in name}
                         modes=set(re.findall(r'EXP126 pair backend=(\w+) phase=packed_v1 final=(\w+)',plan))
                         mgr.require(len(modes)==1,'missing or ambiguous backend selection')
                         backend,final_phase=next(iter(modes))
@@ -180,7 +181,7 @@ def main():
                         expected='direct_scalar' if expected_scalar else 'direct_complex' if expected_direct else 'staged_complex'
                         mgr.require(backend==expected,'wrong registered default backend')
                         mgr.require(final_phase==('store' if direction=='z2d' and c==289 else 'transform'),'wrong final phase location')
-                        suffix='_%s_v2_C%d_Q%d_N%d_%s_%s_packed1_phase_%s'%(role,c,q,n,
+                        suffix='_%s_v%d_C%d_Q%d_N%d_%s_%s_packed1_phase_%s'%(role,version,c,q,n,
                             'lds' if backend=='staged_complex' else 'reg',backend,'store' if final_phase=='store' else 'fft')
                         mgr.require(specialized and all(suffix in name for name in specialized),'wrong fused generator identity')
                         mgr.require('twiddle_gen_packed_real_post_generic_v1_dp' in rtc,'wrong packed pair table generator')

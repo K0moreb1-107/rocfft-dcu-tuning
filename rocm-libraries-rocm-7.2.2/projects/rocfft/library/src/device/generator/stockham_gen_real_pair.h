@@ -319,7 +319,8 @@ struct StockhamKernelGenericPairedPostRows : StockhamKernelRC
         const auto store_field = [&](bool imaginary) {
             StatementList stage{Assign{thread,thread_id%threads_per_transform}};
             stage += last_pass_io([&](Expression index,Variable reg) {
-                return StatementList{Assign{lds_real[offset_lds+index*stride_lds],
+                // Post rows use linear LDS: stride_lds is the row pitch, not the element stride.
+                return StatementList{Assign{lds_real[offset_lds+index],
                     imaginary ? reg.y() : reg.x()}};
             });
             return stage;

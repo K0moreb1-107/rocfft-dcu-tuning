@@ -52,6 +52,10 @@ python3 manage.py build --config configs/experiments/EXP-124.json --execute
 The first command previews. `--execute` submits a one-node Slurm task with logs
 prepared beforehand, freezes the submitted configuration, and uses independent
 build/install/cache paths. It does not overwrite an existing build or run.
+To serialize independent candidates, set `resources.dependency` to
+`afterany:<job-id>`; use `afterok:<job-id>` when the predecessor must succeed.
+Preview shows the exact submission command, including `--dependency`.
+Omit the field when no dependency is required. `SBATCH_DEPENDENCY` does not set it.
 rocFFT builds check the RTC generator target before the full build. Compiler,
 resolved CMake cache including GPU_TARGETS/AMDGPU_TARGETS, Git state, compile
 commands and final library hash are retained. Dependencies and compiler paths

@@ -178,7 +178,10 @@ def build_plan(cfg):
             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
 
 def task_plan(task,cfg):
-    if task=='build':return build_plan(cfg)
+    if task=='build':
+        planned=build_plan(cfg)
+        planned['submission_command']=submission_command(task,cfg)
+        return planned
     m=measurement(cfg)
     if task=='measure':m.setdefault('resources',{})['node_exclusive']=True
     p=locations(m,task)
@@ -194,6 +197,7 @@ def task_plan(task,cfg):
     for arm in selected:
         require(common.sha(inside(m['arms'][arm]['install'])/'lib/librocfft.so.0.1')==m['arms'][arm]['library_sha256'],arm+': library hash mismatch')
     return {'task':task,'paths':{k:str(v) for k,v in p.items()},'resolved_preregistration':m,
+            'submission_command':submission_command(task,m),
             'processes':len(protocol.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':3,
             'event_iterations':protocol.iterations(m) if task=='measure' and protocol is not common else 50,
             'formal':task=='measure','node_exclusive':task=='measure',
@@ -211,20 +215,33 @@ def allocate(cfg,task):
     dumps(p['run']/'submit-manifest.json',cfg)
     return p
 
-def submit(task,cfg):
-    planned=task_plan(task,cfg)
-    if task=='report':
-        return subprocess.run(planned['command'],check=True)
-    frozen=planned.get('resolved_preregistration',cfg)
-    p=allocate(frozen,task)
-    r=frozen.get('resources',{})
+def submission_command(task,cfg):
+    require(task in ('build','validate','measure'),'task does not support submission')
+    p=locations(cfg,task)
+    r=cfg.get('resources',{})
+    require(isinstance(r,dict),'resources must be an object')
+    dependency=r.get('dependency')
+    if 'dependency' in r:
+        require(isinstance(dependency,str)
+                and re.fullmatch(r'(afterany|afterok):[1-9][0-9]*',dependency),
+                'dependency must be afterany:<job-id> or afterok:<job-id>')
     argv=['sbatch','--parsable','--chdir='+str(ROOT),
           '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
           '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
           '--time='+r.get('time_limit','02:00:00')]
     if task=='measure':argv.append('--exclusive')
     if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
+    if dependency:argv.append('--dependency='+dependency)
     argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
+    return argv
+
+def submit(task,cfg):
+    planned=task_plan(task,cfg)
+    if task=='report':
+        return subprocess.run(planned['command'],check=True)
+    frozen=planned.get('resolved_preregistration',cfg)
+    argv=planned['submission_command']
+    p=allocate(frozen,task)
     dumps(p['run']/'submission-command.json',argv)
     try:
         job=subprocess.check_output(argv,text=True).strip()

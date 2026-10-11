@@ -262,7 +262,10 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
             kernel_name += "_paired_pre_columns_v2_C" + std::to_string(specs.real_io.columns)
                            + "_Q" + std::to_string(specs.real_io.rows);
         else if(specs.real_io.role == RealBlockRole::GenericPairedPostRows)
-            kernel_name += "_generic_paired_post_v2_C" + std::to_string(specs.real_io.columns)
+            kernel_name += std::string(specs.real_io.ScalarPairIO()
+                                          ? "_generic_paired_post_v3_C"
+                                          : "_generic_paired_post_v2_C")
+                           + std::to_string(specs.real_io.columns)
                            + "_Q" + std::to_string(specs.real_io.rows);
         else if(specs.real_io.role == RealBlockRole::PairedPostRows)
             kernel_name += "_paired_post_rows";
