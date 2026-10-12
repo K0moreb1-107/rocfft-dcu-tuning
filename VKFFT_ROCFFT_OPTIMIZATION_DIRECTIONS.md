@@ -7307,3 +7307,5 @@ EXP126候选及全部证据保留。未自动回滚、推广或推送，下一�
 复数库源码d9d29c3f1a23f5f69b22753672170d04ff91fde0，SHA256为5ea08ddfc38bd92f9f54e82e23864fef278a62f06e794a39ef536d2d6e38e076；标量库源码423568684fe739532f8187598b9200f500f26645，SHA256为61121f1f9207e308f6abd08502fe0bd372877dfc024d5593563a6c90b51e9f16。原始运行目录为experiments/EXP-126/runs/EXP-126-performance-type-complex-20261012-v2与EXP-126-performance-type-capacity-20261012-v2；完整结果、未舍入数据、类型统计、样本审计、程序及图保存在experiments/EXP-126/records/type-performance-20261012/result-review-906044-906045。
 
 结论：正确性与测量流程通过，尚不满足全量采用。两候选与全部证据保留，EXP125继续稳定；本轮只完成结果检查和记录，未修改计算代码、重新测量、提交新任务、推广或推送。
+
+报告列说明及跨批比较措辞的校对版见上述结果目录的report-language-r1；仅修正说明文字，表格数据和图不变，初版冻结报告保留。
