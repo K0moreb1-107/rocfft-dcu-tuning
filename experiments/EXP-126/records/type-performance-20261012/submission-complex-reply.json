@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/manage.py",
+    "measure",
+    "--config",
+    "/public/home/zhangkewei/zr/configs/experiments/EXP-126-performance-type-complex-20261012-v2.json",
+    "--execute"
+  ],
+  "reply": "{\"job\": \"906044\", \"run\": \"/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-complex-20261012-v2\"}\n"
+}

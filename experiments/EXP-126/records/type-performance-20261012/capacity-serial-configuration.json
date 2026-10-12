@@ -1,0 +1,528 @@
+{
+  "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-126-performance-type-capacity-20261012-v2-serial.json",
+  "sha256": "302a50faf0b7beddda3364ed6613ce003d47c7ef6d849d51a23ca56a943b7035",
+  "dependency": "afterany:906044",
+  "manifest": {
+    "schema_version": 1,
+    "policy": "FFT-event-samples-single-v2",
+    "experiment": "EXP-126",
+    "run_id": "EXP-126-performance-type-capacity-20261012-v2",
+    "gpu_arch": "gfx936",
+    "resources": {
+      "partition": "hx1hdnormal01",
+      "cpus": 8,
+      "time_limit": "03:00:00",
+      "nodelist": "f13r4n15",
+      "node_exclusive": true,
+      "dependency": "afterany:906044"
+    },
+    "event_iterations": 50,
+    "timing_source_sha256": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+    "case_scope": "44个已验证新偶数尺寸的z2d与d2z共88项，新范围N严格大于65536，最大2725888；八类受影响内核每类至少五个实际尺寸，保留四种奇偶及前后处理尾块。另加原65536至1048576五个尺寸的三类型回归共15项，合计103项；65536仅作旧版回归。",
+    "cases": [
+      {
+        "N": 65536,
+        "func": "z2z_1d"
+      },
+      {
+        "N": 65536,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 65536,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 67200,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 67200,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 69938,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 69938,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 73728,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 73728,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 77760,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 77760,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 83200,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 83200,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 89600,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 89600,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 101088,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 101088,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 109760,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 109760,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 123904,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 123904,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 129024,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 129024,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 131072,
+        "func": "z2z_1d"
+      },
+      {
+        "N": 131072,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 131072,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 134400,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 134400,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 137200,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 137200,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 142688,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 142688,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 163840,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 163840,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 175616,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 175616,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 196608,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 196608,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 200000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 200000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 212992,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 212992,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 229376,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 229376,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 230496,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 230496,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 235298,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 235298,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 260000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 260000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 262144,
+        "func": "z2z_1d"
+      },
+      {
+        "N": 262144,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 262144,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 295936,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 295936,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 320000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 320000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 327680,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 327680,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 344064,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 344064,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 351232,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 351232,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 361250,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 361250,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 393216,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 393216,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 409600,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 409600,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 425984,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 425984,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 428750,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 428750,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 524288,
+        "func": "z2z_1d"
+      },
+      {
+        "N": 524288,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 524288,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 553696,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 553696,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 591872,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 591872,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 640000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 640000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 688128,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 688128,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 702464,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 702464,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 769318,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 769318,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 894432,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 894432,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 913066,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 913066,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 1048576,
+        "func": "z2z_1d"
+      },
+      {
+        "N": 1048576,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 1048576,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 1280000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 1280000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 1362944,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 1362944,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 2097152,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 2097152,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 2725888,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 2725888,
+        "func": "z2d_1d"
+      }
+    ],
+    "arms": {
+      "official": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+        "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+        "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+        "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+        "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit.",
+        "registry_id": "install-exp096-official"
+      },
+      "previous": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+        "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json",
+        "registry_id": "EXP-125-pre-memory-i"
+      },
+      "candidate": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-scalar-stride-20261012-v2",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "423568684fe739532f8187598b9200f500f26645",
+        "source_state": "{\"commit\": \"423568684fe739532f8187598b9200f500f26645\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+        "library_sha256": "61121f1f9207e308f6abd08502fe0bd372877dfc024d5593563a6c90b51e9f16",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-scalar-stride-build-20261012-v2/build-provenance.json",
+        "build_record": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-scalar-stride-build-20261012-v2/build-provenance.json"
+      }
+    },
+    "acceptance": "默认选择、一维、双精度、批量一、非原位。官方原版及EXP125稳定版与登记候选在同一节点独占申请、同一张可见卡上逐案例紧邻串行执行，案例之间交替顺序；每个尺寸／类型／版本一个进程，三次预热、50次逐次同步完整变换事件。原始正确性严格小于1e-9，保留全部样本、身份、日志和时间顺序；任一失败或缺失拒绝整批汇总。均值与中位数各计算对官方及稳定版的加速比，匹配尺寸才报告A100历史均值性能。逐类保留退化及重叠、漂移的不明确结果，不设新的收益门槛，不自动重测、推广或推送。新增CC分解与融合共同影响官方／稳定对比；两候选位于不同申请，各自有同批对照，候选之间绝对耗时不作为同卡紧邻比较。",
+    "candidate_variant": "capacity",
+    "comparison_roles": {
+      "official": "官方原始ROCm 7.2.2基线",
+      "previous": "已批准EXP125 i稳定版",
+      "candidate": "地址修复后的标量容量候选"
+    },
+    "candidate_validation": {
+      "variant": "capacity",
+      "job": "905660",
+      "arm": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-scalar-stride-20261012-v2",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "423568684fe739532f8187598b9200f500f26645",
+        "source_state": "{\"commit\": \"423568684fe739532f8187598b9200f500f26645\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+        "library_sha256": "61121f1f9207e308f6abd08502fe0bd372877dfc024d5593563a6c90b51e9f16",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-scalar-stride-build-20261012-v2/build-provenance.json"
+      },
+      "validation_complete": true,
+      "quick_count": 103,
+      "guard_groups": 176,
+      "reference_cases": 2464,
+      "records_sha256": {
+        "build-provenance.json": "22fc62f4a74fcdcd79c014906f1bed6224a0753364398c36377d9c46af726e1b",
+        "post-build-validation.json": "3f3a4710c2c984552602755e35806b5e578fb56f095182b2f476bc64b0b58b98",
+        "even-cc-validation.json": "2d90cf1a36341a905f1ca5705d8c69a60e0767aec928d67ae1a835f1026dc814",
+        "submit-manifest.json": "1f0964c8c67021c5b9c47a2d4a4fd79f519909eaca3c781607dc80e76844332b"
+      },
+      "validation_run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-scalar-stride-build-20261012-v2"
+    },
+    "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-126/records/type-repair-20261011/coverage.json",
+    "coverage_sha256": "94448c1f06ef8e9333db300727ef3c0188022127cc5e4f3d41d3f63f541ce3a7",
+    "measurement_tools_sha256": {
+      "common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+      "sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+      "run_samples.py": "2776f825db992eb7ee9c02a8a2438751eec774db60a93b57f4d52ca7b226ab6a",
+      "summarize_samples.py": "79ccb30a3af5065176a9cc61b99f3ca0642b0c14e5419089188c2dded68fa9c9",
+      "plot_samples.py": "8f97f99eb0eba173a67f7429c0dcbf52415af7e96ae5ac83a2d49894b7722b2d",
+      "fft_test_1d_samples.cpp": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+      "device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7"
+    },
+    "automatic_promotion": false,
+    "stop_after_submission": true,
+    "batch_submission": {
+      "order": [
+        "complex",
+        "capacity"
+      ],
+      "capacity_dependency": "afterany:returned-complex-performance-job",
+      "no_status_or_results_after_submission": true
+    },
+    "measurement_conditions": {
+      "precision": "double",
+      "batch": 1,
+      "placement": "out-of-place",
+      "load_path": "default",
+      "forced_load_selector": false,
+      "processes_per_case_arm": 1,
+      "warmups_per_process": 3,
+      "event_iterations_per_process": 50
+    },
+    "user_authorization": "检查结果，没问题就提交性能测试，有问题就修复并重新提交；此前同意登记两种候选，只测默认路径，提交后停止。"
+  }
+}

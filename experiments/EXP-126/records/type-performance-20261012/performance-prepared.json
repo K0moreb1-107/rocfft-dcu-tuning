@@ -1,0 +1,68 @@
+{
+  "complete": true,
+  "submitted": false,
+  "record": "/public/home/zhangkewei/zr/experiments/EXP-126/records/type-performance-20261012",
+  "preregistration": "/public/home/zhangkewei/zr/experiments/EXP-126/records/type-performance-20261012/preregistration.md",
+  "head": "3511ae84d0e4b5e3e4e9d2bdab81b14671375373",
+  "computing_source_tree": "faabedcd23be727e83264ccd7a6d8a9e5c8aff40",
+  "configurations": [
+    {
+      "variant": "complex",
+      "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-126-performance-type-complex-20261012-v2.json",
+      "config_sha256": "ad6f8bf651e36534752742aa48f72ae1db98b29cf0ce48987f002bc40c24ca4b",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-complex-20261012-v2",
+      "candidate": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-type-complex-20261011",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "d9d29c3f1a23f5f69b22753672170d04ff91fde0",
+        "source_state": "{\"commit\": \"d9d29c3f1a23f5f69b22753672170d04ff91fde0\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+        "library_sha256": "5ea08ddfc38bd92f9f54e82e23864fef278a62f06e794a39ef536d2d6e38e076",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-complex-build-20261011/build-provenance.json"
+      },
+      "cases": 103,
+      "processes": 309,
+      "event_iterations": 50,
+      "events": 15450,
+      "validation_job": "905360",
+      "config_role": "final for complex; committed template for capacity, exact dependency resolved during this batch submission"
+    },
+    {
+      "variant": "capacity",
+      "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-126-performance-type-capacity-20261012-v2.json",
+      "config_sha256": "650344ef6f77613d75e317b0cf799c571338a388c29f951609c493b38d9a4bfc",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-capacity-20261012-v2",
+      "candidate": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-scalar-stride-20261012-v2",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "423568684fe739532f8187598b9200f500f26645",
+        "source_state": "{\"commit\": \"423568684fe739532f8187598b9200f500f26645\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+        "library_sha256": "61121f1f9207e308f6abd08502fe0bd372877dfc024d5593563a6c90b51e9f16",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-scalar-stride-build-20261012-v2/build-provenance.json"
+      },
+      "cases": 103,
+      "processes": 309,
+      "event_iterations": 50,
+      "events": 15450,
+      "validation_job": "905660",
+      "config_role": "final for complex; committed template for capacity, exact dependency resolved during this batch submission"
+    }
+  ],
+  "policy": "FFT-event-samples-single-v2",
+  "total_processes": 618,
+  "total_events": 30900,
+  "stop_after_batch_submission": true,
+  "manager_sha256": "edf85ecae34ec414ced04f4bcecba671743e3ceaf7092da48451e98609bd7c3d",
+  "job_entry_sha256": "e3dbb63419659b1bd9f13179f6b9f0060a6fb9740fc913744c02d50c85cf30c3",
+  "tools_sha256": {
+    "common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+    "sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+    "run_samples.py": "2776f825db992eb7ee9c02a8a2438751eec774db60a93b57f4d52ca7b226ab6a",
+    "summarize_samples.py": "79ccb30a3af5065176a9cc61b99f3ca0642b0c14e5419089188c2dded68fa9c9",
+    "plot_samples.py": "8f97f99eb0eba173a67f7429c0dcbf52415af7e96ae5ac83a2d49894b7722b2d",
+    "fft_test_1d_samples.cpp": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+    "device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7"
+  },
+  "dependency_plan": "capacity afterany returned complex performance job; no status/results inspection after either submission",
+  "protected_stable_main": "e57a604992e02140c499702e1af0d9cc943d666e",
+  "tracked_status": "M VkFFT"
+}

@@ -1,0 +1,94 @@
+{
+  "complete": true,
+  "policy": "FFT-event-samples-single-v2",
+  "total_processes": 618,
+  "total_samples": 30900,
+  "source_head": "3511ae84d0e4b5e3e4e9d2bdab81b14671375373",
+  "protected_stable_main": "e57a604992e02140c499702e1af0d9cc943d666e",
+  "serial_dependency_observed": true,
+  "same_gpu_between_jobs": true,
+  "candidate_comparison_scope": "same GPU, separate sequential allocations; own neighboring official/stable controls, no direct interleaving of candidates",
+  "accounting": "906044|COMPLETED|0:0|00:15:15|2026-10-12T08:31:52|2026-10-12T08:47:07|f13r4n15\n906044.batch|COMPLETED|0:0|00:15:15|2026-10-12T08:31:52|2026-10-12T08:47:07|f13r4n15\n906044.extern|COMPLETED|0:0|00:15:15|2026-10-12T08:31:52|2026-10-12T08:47:07|f13r4n15\n906044.0|COMPLETED|0:0|00:15:15|2026-10-12T08:31:52|2026-10-12T08:47:07|f13r4n15\n906045|COMPLETED|0:0|00:15:16|2026-10-12T08:47:07|2026-10-12T09:02:23|f13r4n15\n906045.batch|COMPLETED|0:0|00:15:16|2026-10-12T08:47:07|2026-10-12T09:02:23|f13r4n15\n906045.extern|COMPLETED|0:0|00:15:17|2026-10-12T08:47:07|2026-10-12T09:02:24|f13r4n15\n906045.0|COMPLETED|0:0|00:15:16|2026-10-12T08:47:08|2026-10-12T09:02:24|f13r4n15",
+  "jobs": {
+    "complex": {
+      "job": "906044",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-complex-20261012-v2",
+      "processes": 309,
+      "event_samples": 15450,
+      "all_correctness_pass": true,
+      "max_err_a": 5.0330110449673766e-15,
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135333861396635353633306331",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "host": "f13r4n15",
+      "start": "2026-10-12T00:31:56.140123+00:00",
+      "end": "2026-10-12T00:46:50.247995+00:00",
+      "complete": true,
+      "records_sha256": {
+        "preregistration.json": "bc9a8548eb848b4a8e3083fc5f63828a241db33007c452209e4571366860af87",
+        "submit-manifest.json": "32a9f985c197fd192b7fc1532ab40ac9e2822f31396bfc4f2e6da33c18effaa3",
+        "provenance.json": "0dd30d9d92632b94f6b3169459a380c693ec9d4b8087ecb466593d12249dbfae",
+        "processes.json": "df66fcdea49d106f3af34b8b024c57c26ebdc11c9ac4bc42df6d4b0bca967a54",
+        "summary.json": "2b74ce4ae7ed6b8a09ba771fad784ad78bf9f70a11e64afe624cd76bae25a1c7",
+        "comparison.csv": "9372f1441453f60e639b28ecf70f02b6e3e4c4c0c2e5a7f7b40016cd68f6a753",
+        "comparison.md": "303ff9bf24bd74d2960ba182d2a5ac379cfd732a4d45756331e7305e62d3f2f8",
+        "submission.json": "06079594c758811c0777d47d66e5c75b0e09388b05f4e0ad6af50c765accfe51"
+      },
+      "library_sha256": {
+        "official": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+        "previous": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "candidate": "5ea08ddfc38bd92f9f54e82e23864fef278a62f06e794a39ef536d2d6e38e076"
+      },
+      "source_commit": {
+        "official": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+        "previous": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "candidate": "d9d29c3f1a23f5f69b22753672170d04ff91fde0"
+      },
+      "binary_sha256": "6339570226c586c08d2ca5b3465131ec52c23b94bb74b1d1f508be17c6ea09f2"
+    },
+    "capacity": {
+      "job": "906045",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-capacity-20261012-v2",
+      "processes": 309,
+      "event_samples": 15450,
+      "all_correctness_pass": true,
+      "max_err_a": 5.0330110449673766e-15,
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135333861396635353633306331",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "host": "f13r4n15",
+      "start": "2026-10-12T00:47:11.690237+00:00",
+      "end": "2026-10-12T01:02:06.951969+00:00",
+      "complete": true,
+      "records_sha256": {
+        "preregistration.json": "f77e0134d6d75566036180e6b88ab3cc82eccdcdf4c69c39e7e6f1fbec4ac871",
+        "submit-manifest.json": "e1e9501c55229c4cc9bc83b3a4d85e296d4c62167e87e4f158ea7bbbece11e73",
+        "provenance.json": "548bb84f20e98ee272251a1733f6d4a63ab9ffc6156566cb0606d072d8809aaf",
+        "processes.json": "e810ea842bfd2fdeb00eb9bd8e139841b270dbcb7092a7dda0b6bfaf3c77ebf9",
+        "summary.json": "cabc81435de69bddffbc6af574b514793c5a51bc1e0739a9d3cc347b4b7640c4",
+        "comparison.csv": "12649727bca3775a335b4617da6ce155e43ea548e40c4c9945a2ade4f8b00a68",
+        "comparison.md": "fab6b7e37f95ab8bcacfdffe46d0d55799fe1eeb12676ab6ab210dde8fb0969d",
+        "submission.json": "85afe3586d5652ef219d6bfc8be792efd0247cf408a3fc68febf676a7fa99502"
+      },
+      "library_sha256": {
+        "official": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+        "previous": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "candidate": "61121f1f9207e308f6abd08502fe0bd372877dfc024d5593563a6c90b51e9f16"
+      },
+      "source_commit": {
+        "official": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+        "previous": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "candidate": "423568684fe739532f8187598b9200f500f26645"
+      },
+      "binary_sha256": "6339570226c586c08d2ca5b3465131ec52c23b94bb74b1d1f508be17c6ea09f2"
+    }
+  }
+}
