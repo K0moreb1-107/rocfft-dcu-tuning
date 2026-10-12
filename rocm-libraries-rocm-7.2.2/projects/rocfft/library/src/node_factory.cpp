@@ -242,6 +242,29 @@ NodeFactory::Map1DLength const NodeFactory::map1DLengthDouble = {
     {276848, 208}, // CC (208cc + 1331rc)
     {681472, 512}, // CC (512cc + 1331rc)
 
+    // EXP-126 independent coverage: three previously unmeasured N per family.
+    {35152, 208}, // CC (208cc + 169rc)
+    {43904, 343}, // CC (343cc + 128rc)
+    {46240, 160}, // CC (160cc + 289rc)
+    {48841, 289}, // CC (289cc + 169rc)
+    {55488, 289}, // CC (289cc + 192rc)
+    {60112, 208}, // CC (208cc + 289rc)
+    {64000, 125}, // CC (125cc + 512rc)
+    {81648, 336}, // CC (336cc + 243rc)
+    {83349, 343}, // CC (343cc + 243rc)
+    {86016, 336}, // CC (336cc + 256rc)
+    {86528, 512}, // CC (512cc + 169rc)
+    {97104, 336}, // CC (336cc + 289rc)
+    {99127, 289}, // CC (289cc + 343rc)
+    {122880, 240}, // CC (240cc + 512rc)
+    {124416, 512}, // CC (512cc + 243rc)
+    {128000, 1024}, // CC (1024cc + 125rc)
+    {173056, 1024}, // CC (1024cc + 169rc)
+    {212960, 160}, // CC (160cc + 1331rc)
+    {248832, 1024}, // CC (1024cc + 243rc)
+    {255552, 192}, // CC (192cc + 1331rc)
+    {298144, 224}, // CC (224cc + 1331rc)
+
 };
 
 NodeFactory::Map1DLength const NodeFactory::map1DLengthTRTRT = {
