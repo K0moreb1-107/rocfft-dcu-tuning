@@ -1,0 +1,2110 @@
+{
+  "schema_version": 1,
+  "expected_size_count": 44,
+  "geometries": {
+    "73728": {
+      "C": 192,
+      "Q": 192,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 48,
+            "T": 10,
+            "W": 480,
+            "LDS": 33792,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 48,
+            "T": 10,
+            "W": 480,
+            "LDS": 33792,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "163840": {
+      "C": 160,
+      "Q": 512,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "393216": {
+      "C": 1024,
+      "Q": 192,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 65536,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "409600": {
+      "C": 1024,
+      "Q": 200,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 65536,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "688128": {
+      "C": 336,
+      "Q": 1024,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "77760": {
+      "C": 160,
+      "Q": 243,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 27,
+            "T": 8,
+            "W": 216,
+            "LDS": 31104,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 27,
+            "T": 8,
+            "W": 216,
+            "LDS": 31104,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "142688": {
+      "C": 208,
+      "Q": 343,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "320000": {
+      "C": 256,
+      "Q": 625,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "640000": {
+      "C": 512,
+      "Q": 625,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "894432": {
+      "C": 336,
+      "Q": 1331,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 42592,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 21296,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "137200": {
+      "C": 343,
+      "Q": 200,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "175616": {
+      "C": 343,
+      "Q": 256,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "295936": {
+      "C": 289,
+      "Q": 512,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 30816,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 30816,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "591872": {
+      "C": 289,
+      "Q": 1024,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 27744,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 27744,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "702464": {
+      "C": 343,
+      "Q": 1024,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "69938": {
+      "C": 289,
+      "Q": 121,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 30816,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 11,
+            "T": 10,
+            "W": 110,
+            "LDS": 19360,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 30816,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 11,
+            "T": 10,
+            "W": 110,
+            "LDS": 19360,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "235298": {
+      "C": 343,
+      "Q": 343,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "428750": {
+      "C": 343,
+      "Q": 625,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 25024,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "769318": {
+      "C": 289,
+      "Q": 1331,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 27744,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 42592,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 27744,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 21296,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "913066": {
+      "C": 343,
+      "Q": 1331,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 42592,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 21296,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "260000": {
+      "C": 208,
+      "Q": 625,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "361250": {
+      "C": 289,
+      "Q": 625,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 30816,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 17,
+            "T": 6,
+            "W": 102,
+            "LDS": 30816,
+            "backend": "direct_complex",
+            "final_phase": "store"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "67200": {
+      "C": 168,
+      "Q": 200,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 42,
+            "T": 6,
+            "W": 252,
+            "LDS": 16128,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 42,
+            "T": 6,
+            "W": 252,
+            "LDS": 16128,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "83200": {
+      "C": 208,
+      "Q": 200,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "89600": {
+      "C": 224,
+      "Q": 200,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 8,
+            "W": 448,
+            "LDS": 28672,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 8,
+            "W": 448,
+            "LDS": 28672,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "134400": {
+      "C": 336,
+      "Q": 200,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 40,
+            "T": 10,
+            "W": 400,
+            "LDS": 32000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "1280000": {
+      "C": 1024,
+      "Q": 625,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 65536,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "2097152": {
+      "C": 1024,
+      "Q": 1024,
+      "new_map_entry": false,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 65536,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "2725888": {
+      "C": 1024,
+      "Q": 1331,
+      "new_map_entry": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 65536,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 42592,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 21296,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "109760": {
+      "C": 160,
+      "Q": 343,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "200000": {
+      "C": 160,
+      "Q": 625,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 125,
+            "T": 2,
+            "W": 250,
+            "LDS": 20000,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "327680": {
+      "C": 160,
+      "Q": 1024,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 12,
+            "W": 192,
+            "LDS": 30720,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "101088": {
+      "C": 208,
+      "Q": 243,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 27,
+            "T": 8,
+            "W": 216,
+            "LDS": 31104,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 27,
+            "T": 8,
+            "W": 216,
+            "LDS": 31104,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "425984": {
+      "C": 208,
+      "Q": 1024,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 2,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "129024": {
+      "C": 336,
+      "Q": 192,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "230496": {
+      "C": 336,
+      "Q": 343,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "123904": {
+      "C": 512,
+      "Q": 121,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 11,
+            "T": 10,
+            "W": 110,
+            "LDS": 19360,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 11,
+            "T": 10,
+            "W": 110,
+            "LDS": 19360,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "196608": {
+      "C": 512,
+      "Q": 192,
+      "new_map_entry": false,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 32,
+            "T": 8,
+            "W": 256,
+            "LDS": 24576,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "351232": {
+      "C": 512,
+      "Q": 343,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 49,
+            "T": 4,
+            "W": 196,
+            "LDS": 21952,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "1362944": {
+      "C": 512,
+      "Q": 1331,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 42592,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 64,
+            "T": 4,
+            "W": 256,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 21296,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "212992": {
+      "C": 208,
+      "Q": 512,
+      "new_map_entry": false,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "229376": {
+      "C": 224,
+      "Q": 512,
+      "new_map_entry": false,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 8,
+            "W": 448,
+            "LDS": 28672,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 8,
+            "W": 448,
+            "LDS": 28672,
+            "backend": "staged_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "344064": {
+      "C": 336,
+      "Q": 512,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 56,
+            "T": 6,
+            "W": 336,
+            "LDS": 32256,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 128,
+            "T": 4,
+            "W": 512,
+            "LDS": 32768,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        }
+      }
+    },
+    "553696": {
+      "C": 208,
+      "Q": 1331,
+      "new_map_entry": true,
+      "new_type_coverage": true,
+      "expected_default_geometry": {
+        "complex": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 42592,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          }
+        },
+        "capacity": {
+          "z2d": {
+            "P": 16,
+            "T": 8,
+            "W": 128,
+            "LDS": 26624,
+            "backend": "direct_complex",
+            "final_phase": "transform"
+          },
+          "d2z": {
+            "P": 121,
+            "T": 2,
+            "W": 242,
+            "LDS": 21296,
+            "backend": "direct_scalar",
+            "final_phase": "transform"
+          }
+        }
+      }
+    }
+  },
+  "families": {
+    "EE": [
+      73728,
+      163840,
+      393216,
+      409600,
+      2097152
+    ],
+    "EO": [
+      77760,
+      142688,
+      640000,
+      1280000,
+      2725888
+    ],
+    "OE": [
+      137200,
+      175616,
+      295936,
+      591872,
+      702464
+    ],
+    "OO": [
+      69938,
+      235298,
+      428750,
+      769318,
+      913066
+    ],
+    "pre_tail": [
+      320000,
+      640000,
+      1280000,
+      428750,
+      361250
+    ],
+    "post_tail": [
+      67200,
+      83200,
+      89600,
+      134400,
+      409600
+    ]
+  },
+  "stable_regression_sizes": [
+    65536,
+    131072,
+    262144,
+    524288,
+    1048576
+  ],
+  "first_phase": "CC only; no TRTRT, Bluestein, or small-N device work",
+  "minimum_real_N_exclusive": 65536,
+  "upper_limit": "frozen program signed-int range and legal existing CC kernels",
+  "attribution": "Original 29 preserved; new class members use identical supplemented CC maps for both future control and candidate.",
+  "table_tail": "ceil(axis/2) modulo (actual T/2) is nonzero",
+  "timing": "No formal performance in build validation; future default-only single-v2 event samples.",
+  "kernel_families": {
+    "pre_160": {
+      "direction": "z2d",
+      "local_length": 160,
+      "sizes": [
+        77760,
+        109760,
+        163840,
+        200000,
+        327680
+      ]
+    },
+    "pre_208": {
+      "direction": "z2d",
+      "local_length": 208,
+      "sizes": [
+        83200,
+        101088,
+        142688,
+        260000,
+        425984
+      ]
+    },
+    "pre_336": {
+      "direction": "z2d",
+      "local_length": 336,
+      "sizes": [
+        129024,
+        134400,
+        230496,
+        688128,
+        894432
+      ]
+    },
+    "pre_512": {
+      "direction": "z2d",
+      "local_length": 512,
+      "sizes": [
+        123904,
+        196608,
+        351232,
+        640000,
+        1362944
+      ]
+    },
+    "pre_1024": {
+      "direction": "z2d",
+      "local_length": 1024,
+      "sizes": [
+        393216,
+        409600,
+        1280000,
+        2097152,
+        2725888
+      ]
+    },
+    "pre_289": {
+      "direction": "z2d",
+      "local_length": 289,
+      "sizes": [
+        69938,
+        295936,
+        361250,
+        591872,
+        769318
+      ]
+    },
+    "post_512": {
+      "direction": "d2z",
+      "local_length": 512,
+      "sizes": [
+        163840,
+        212992,
+        229376,
+        295936,
+        344064
+      ]
+    },
+    "post_1331": {
+      "direction": "d2z",
+      "local_length": 1331,
+      "sizes": [
+        553696,
+        769318,
+        894432,
+        913066,
+        2725888
+      ]
+    }
+  },
+  "new_type_map_entries": {
+    "109760": {
+      "C": 160,
+      "Q": 343
+    },
+    "200000": {
+      "C": 160,
+      "Q": 625
+    },
+    "327680": {
+      "C": 160,
+      "Q": 1024
+    },
+    "101088": {
+      "C": 208,
+      "Q": 243
+    },
+    "425984": {
+      "C": 208,
+      "Q": 1024
+    },
+    "129024": {
+      "C": 336,
+      "Q": 192
+    },
+    "230496": {
+      "C": 336,
+      "Q": 343
+    },
+    "123904": {
+      "C": 512,
+      "Q": 121
+    },
+    "351232": {
+      "C": 512,
+      "Q": 343
+    },
+    "1362944": {
+      "C": 512,
+      "Q": 1331
+    },
+    "344064": {
+      "C": 336,
+      "Q": 512
+    },
+    "553696": {
+      "C": 208,
+      "Q": 1331
+    }
+  }
+}

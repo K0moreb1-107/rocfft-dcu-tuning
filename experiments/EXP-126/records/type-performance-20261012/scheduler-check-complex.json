@@ -1,0 +1,21 @@
+{
+  "submitted": false,
+  "command": [
+    "sbatch",
+    "--test-only",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-complex-20261012-v2/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-complex-20261012-v2/logs/slurm_%j.err",
+    "--cpus-per-task=8",
+    "--partition=hx1hdnormal01",
+    "--time=03:00:00",
+    "--exclusive",
+    "--nodelist=f13r4n15",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "measure",
+    "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-performance-type-complex-20261012-v2/submit-manifest.json"
+  ],
+  "returncode": 0,
+  "output": "sbatch: Job 906041 to start at 2026-10-14T12:49:52 using 128 processors on nodes f13r4n15 in partition hx1hdnormal01\n"
+}
