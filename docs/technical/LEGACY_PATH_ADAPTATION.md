@@ -66,7 +66,9 @@ OLD_BIN="$ZR_ROOT/archives/worktrees/exp-123-cufft-format-benchmark/exp123_rocff
 
 这些旧脚本设置 LD_PRELOAD，因此仅用环境变量在外部启动而不处理脚本内部赋值，并不能保证适配成功。
 复制后逐项适配程序位置、安装路径、输出与日志位置、作业环境；提交前准备日志目录。
-旧 outlier 复测方法只用于明确请求的历史复现；新的正式测量使用所有 16 个过程 mean_ms 的算术均值，不剔除异常值。
+旧异常点复测方法及16个进程均值的汇总仅用于原登记协议的历史复现。
+以后性能分析只用原始逐次耗时中位数，保留全部样本；缺少逐次样本不构造中位数。
+当前规则见 `FFT_MEASUREMENT_PROTOCOL.md`，不把进程均值的中位数作为新口径证据。
 其他历史脚本和程序尚未逐项核验；日后复现时按相同步骤处理，不能据本清单认定全部旧程序已可运行。
 
 ## EXP-091 原始基线
@@ -78,7 +80,7 @@ EXP-091 本身完成测量、诊断和分析，没有引入新的 kernel/planner
 条件：double precision、z2z、batch=1、out-of-place；64K/128K/256K/512K。
 作业 856749，hipprof --stats，-N 10000，每个规模五次独立进程；主结果是五次 canonical 时间的中位数。
 canonical 使用 TotalDurationNs，扣除 bench 初始化额外内核后除以 N+1=10001；保留变换和 twiddle 时间。
-这是旧 profiling GPU-kernel 指标，不能直接与现行 HIP 事件 mean_ms 相除比较。
+这是旧内核剖析计时指标，不能直接与现行完整变换事件样本中位数相除比较。
 
 | 规模 | 原始 canonical 中位数（ms） |
 | --- | ---: |

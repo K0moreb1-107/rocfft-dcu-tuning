@@ -4,7 +4,7 @@ This file is authoritative for all subsequent rocFFT optimization experiments
 in /public/home/zhangkewei/zr. Do not change the measurement definition without
 recording the reason and updating this file first.
 
-## 性能测量（2026-10-10）
+## 性能测量（2026-10-12）
 
 统一入口：`python3 manage.py measure --config CONFIG.json` 预览，加 `--execute` 提交。
 新测量使用 `FFT-event-samples-single-v2`：双精度、批量一、非原位、默认计划；
@@ -13,10 +13,12 @@ recording the reason and updating this file first.
 对照与当前紧邻执行，各尺寸／类型交替先后；默认两版本，需要时显式增加稳定对照。
 节点独占、单卡执行，登记具体源码、库、程序校验值、设备、顺序和验收要求；缺项或失败不汇总。
 逐次耗时先存入预分配数组，计时结束再写文件；保留全部样本，不删慢点。
-输出两列散点和测量序号—耗时图，均值与中位数分别计算加速比：对照统计量／当前统计量。
-图形重叠或顺序漂移时标注差异不明确，不自动重测或推广。A100仅报告匹配的历史均值相对性能。
-历史及已提交任务保留登记时的协议、次数和统计定义；缺少原始样本不构造散点或单次中位数。
-任务900813继续旧版八轮三版本测量，用户要求重测时才应用新规则，不中断或补测。
+以后性能分析和验收只用原始逐次耗时的中位数；加速比＝对照中位数／当前中位数。
+均值可保留在原始记录或兼容输出，不参与性能结论、类型判断或验收。
+保留两列散点和测量序号—耗时图；图形重叠或顺序漂移时标注差异不明确，不自动重测或推广。
+A100只有历史均值时单列参考，不与当前中位数混算加速比或相对性能。
+历史登记、原表和任务900813保留原口径；以后重新分析已有逐次样本时另存中位数报告。
+缺少逐次样本不构造中位数，不用进程均值的中位数替代；用户要求重测时才执行。
 细则、样本格式和旧版协议见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。
 
 ## Historical hipprof scope and matching conditions
@@ -146,10 +148,9 @@ and the canonical metric in one comparison table.
 
 ## Required record for every future experiment
 
-Record source/build identity, changed files, protocol and acceptance, allocation/GPU,
-correctness, raw samples/logs/hashes, each declared version's mean and median,
-both speedups, matched A100 mean reference and decision. Keep diagnostic metrics
-separate; historical records retain their original measurement definition.
+记录源码／构建身份、修改文件、协议和验收、任务／设备、正确性及原始样本／日志／校验值。
+各版本耗时及各对照加速比只用逐次样本中位数；A100缺少匹配中位数时只留历史参考。
+诊断指标单列，历史原件保留登记时的统计定义；记录最终决定。
 
 ## Required experiment result record
 

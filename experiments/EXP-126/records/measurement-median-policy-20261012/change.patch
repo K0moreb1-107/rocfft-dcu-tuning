@@ -1,0 +1,134 @@
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -7 +7 @@
+-## 性能测量（2026-10-10）
++## 性能测量（2026-10-12）
+@@ -16,4 +16,6 @@
+-输出两列散点和测量序号—耗时图，均值与中位数分别计算加速比：对照统计量／当前统计量。
+-图形重叠或顺序漂移时标注差异不明确，不自动重测或推广。A100仅报告匹配的历史均值相对性能。
+-历史及已提交任务保留登记时的协议、次数和统计定义；缺少原始样本不构造散点或单次中位数。
+-任务900813继续旧版八轮三版本测量，用户要求重测时才应用新规则，不中断或补测。
++以后性能分析和验收只用原始逐次耗时的中位数；加速比＝对照中位数／当前中位数。
++均值可保留在原始记录或兼容输出，不参与性能结论、类型判断或验收。
++保留两列散点和测量序号—耗时图；图形重叠或顺序漂移时标注差异不明确，不自动重测或推广。
++A100只有历史均值时单列参考，不与当前中位数混算加速比或相对性能。
++历史登记、原表和任务900813保留原口径；以后重新分析已有逐次样本时另存中位数报告。
++缺少逐次样本不构造中位数，不用进程均值的中位数替代；用户要求重测时才执行。
+@@ -149,4 +151,3 @@
+-Record source/build identity, changed files, protocol and acceptance, allocation/GPU,
+-correctness, raw samples/logs/hashes, each declared version's mean and median,
+-both speedups, matched A100 mean reference and decision. Keep diagnostic metrics
+-separate; historical records retain their original measurement definition.
++记录源码／构建身份、修改文件、协议和验收、任务／设备、正确性及原始样本／日志／校验值。
++各版本耗时及各对照加速比只用逐次样本中位数；A100缺少匹配中位数时只留历史参考。
++诊断指标单列，历史原件保留登记时的统计定义；记录最终决定。
+--- a/docs/technical/FFT_MEASUREMENT_PROTOCOL.md
++++ b/docs/technical/FFT_MEASUREMENT_PROTOCOL.md
+@@ -3 +3 @@
+-## 当前规则（用户批准，2026-10-10）
++## 当前规则（用户批准，2026-10-12；采样流程沿用2026-10-10）
+@@ -7 +7,2 @@
+-本次只更新工具和规则，不重新测量历史结果，不中断、补测或改变任务900813。
++本次只修改分析规则，不改采样程序、次数或计时窗口，不自动重测历史结果。
++已有登记、原始数据和原报告保持原样；以后分析已有逐次样本时另存中位数报告。
+@@ -38,10 +39,14 @@
+-从原始单次耗时分别计算均值、中位数、最小／最大值及25%、75%分位数。
+-分位数对排序样本的 `(样本数−1)×比例` 位置做线性插值。
+-
+-```
+-均值加速比 = 对照样本均值 / 当前样本均值
+-中位数加速比 = 对照样本中位数 / 当前样本中位数
+-```
+-
+-二者大于一表示加速，不计算逐点比值再平均。均值与中位数结论不同时，结合慢点解释。
+-每个案例输出一个独立矢量图：左侧各版本一列散点，标记均值、中位数及中间50%区间；
++以后性能结论、类型判断、验收及默认方案选择只用原始单次耗时的中位数。
++偶数个样本取排序后中间两个值的算术平均；这是中位数定义，不是全体样本均值。
++同时保留最小／最大值及25%、75%分位数；分位数对排序样本的
++`(样本数−1)×比例` 位置做线性插值。全部慢点保留，不剔除样本。
++
++```
++加速比 = 对照样本中位数 / 当前样本中位数
++```
++
++大于一表示更快，小于一表示退化；不计算逐点比值再取中位数，
++不取进程均值的中位数代替逐次耗时中位数。均值及旧均值加速比字段可保留在
++原始记录或工具兼容输出中，不用于以后性能分析、验收或选择默认实现。
++
++每个案例输出一个独立矢量图：左侧各版本一列散点，分析标记中位数及中间50%区间；
+@@ -52,8 +57,10 @@
+-输出 `comparison.csv`、`comparison.md`、`summary.json` 和 `plots/*.svg`。
+-比较表同时列各版本均值／中位数及相应加速比。逐次记录和未舍入表为依据。
+-缺进程、缺样本、序号错误、校验失败、汇总与样本不符、来源或设备不一致时拒绝汇总。
+-图形在所有计时结束后用绘图库生成，不在计时期间导入或绘制。
+-
+-A100固定历史参考仍验证原校验值，仅匹配尺寸／类型的均值：
+-`A100均值 / 当前均值 × 100%`。新增尺寸没有参考则留空；没有A100逐次样本，
+-不构造A100中位数或中位数相对性能。它是历史跨设备参考，不是同卡对照。
++统一入口继续保存 `comparison.csv`、`comparison.md`、`summary.json` 和 `plots/*.svg`
++等兼容输出；以后正式比较表和正文只使用各版本中位数及对应加速比。
++自动输出中的均值字段或标记仅作留档，不用于报告的性能判断。
++逐次记录和未舍入统计量为依据；缺进程、缺样本、序号错误、校验失败、
++汇总与样本不符、来源或设备不一致时拒绝汇总。图形在所有计时结束后生成。
++
++A100固定历史参考继续校验原校验值，只有均值时可单列为历史参考，
++不与当前中位数混算加速比或相对性能，也不再用均值比值作性能分析。
++没有同条件A100逐次样本及中位数时，A100中位数加速比／相对性能留空；
++不能把历史均值当作中位数。它是跨设备参考，不是同卡对照。
+@@ -71,4 +78,5 @@
+-报告按运行目录中的已登记协议选择统计模块；新协议不修改旧结果。
+-旧版数据只保留进程均值／最小／最大，不能还原单次散点或单次耗时中位数；
+-进程均值的中位数只能按旧定义注明。任务900813及历史测量继续旧版分析，
+-用户提出重测后才使用新规则。提交新任务后停止，待用户要求检查。
++统一入口按运行目录中的登记协议保存兼容输出；历史原表和任务900813不改写。
++以后重新分析已有逐次样本时，另存按上述规则计算的中位数报告，不覆盖旧报告。
++旧版只有进程均值／最小／最大时，不能还原单次散点或单次耗时中位数；
++按原定义归档并注明缺少新口径所需样本，不把进程均值的中位数冒充单次中位数。
++用户提出重测后才使用现行规则。提交新任务后停止，待用户要求检查。
+--- a/docs/technical/WORKSPACE_MANAGEMENT.md
++++ b/docs/technical/WORKSPACE_MANAGEMENT.md
+@@ -13,0 +14,6 @@
++
++当前测量及分析规则（2026-10-12）：采用单进程逐次样本协议，默认三次预热及50次计时。
++以后正式耗时、加速判断和验收只用样本中位数；加速比＝对照中位数／当前中位数。
++均值仅作原始记录或兼容输出；历史原表不改写，缺少逐次样本不构造中位数。
++A100只有历史均值时单列参考，不混算中位数加速比或相对性能。
++具体规则见 [FFT_MEASUREMENT_PROTOCOL.md](FFT_MEASUREMENT_PROTOCOL.md)，以下旧流程按登记协议保留。
+@@ -81,3 +87,4 @@
+-promotion evidence. Formal measure calls the existing 720-process three-arm
+-8-round program. Report calls the existing strict aggregator, requires complete
+-evidence, and includes previous/official speedups and fixed A100 Performance.
++promotion evidence. Already registered EXP123-event-50-three-arm-8-v1 runs retain
++the 720-process three-arm 8-round program and its original aggregate outputs.
++New measurements use FFT-event-samples-single-v2; future performance analysis
++uses sample medians as specified above. Reports still require complete evidence.
+@@ -102,3 +109,4 @@
+-a mismatched reservation causes rejection. Formal aggregation still requires all
+-15 cases, correct order, all 16 process means per arm/case, valid hashes and one
+-GPU/allocation identity. Do not delete failed evidence or substitute quick checks.
++a mismatched reservation causes rejection. Legacy eight-round aggregation requires
++its registered 15 cases and 16 process means per arm/case. Single-process sample runs require
++all registered cases and raw samples. Both require correct order, valid hashes and
++one GPU/allocation identity. Do not delete failed evidence or substitute quick checks.
+--- a/docs/technical/LEGACY_PATH_ADAPTATION.md
++++ b/docs/technical/LEGACY_PATH_ADAPTATION.md
+@@ -69 +69,3 @@
+-旧 outlier 复测方法只用于明确请求的历史复现；新的正式测量使用所有 16 个过程 mean_ms 的算术均值，不剔除异常值。
++旧异常点复测方法及16个进程均值的汇总仅用于原登记协议的历史复现。
++以后性能分析只用原始逐次耗时中位数，保留全部样本；缺少逐次样本不构造中位数。
++当前规则见 `FFT_MEASUREMENT_PROTOCOL.md`，不把进程均值的中位数作为新口径证据。
+@@ -81 +83 @@
+-这是旧 profiling GPU-kernel 指标，不能直接与现行 HIP 事件 mean_ms 相除比较。
++这是旧内核剖析计时指标，不能直接与现行完整变换事件样本中位数相除比较。
+--- a/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md
++++ b/VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md
+@@ -7311,0 +7312,9 @@
++
++
++## 2026年10月12日：用户确认以后性能分析只用中位数
++
++用户明确要求以后不用均值分析加速比。正式耗时、加速判断、整类比较、验收及默认方案选择只用原始逐次耗时中位数，加速比＝对照中位数／当前中位数；继续保存全部样本、散点及测量序号图，不剔除慢点。均值和旧均值比值只保留在原始记录或兼容输出，不用于以后性能结论。
++
++同步更新AGENTS.md、FFT_MEASUREMENT_PROTOCOL.md、WORKSPACE_MANAGEMENT.md及LEGACY_PATH_ADAPTATION.md。采样程序、计时窗口、三次预热、默认50次、批量一、默认计划及正确性规则不变。历史登记、任务900813、906044／906045原表及原证据不改写；以后重新分析已有逐次样本时另存中位数报告，缺少逐次样本不推算中位数，不以进程均值的中位数替代。A100只有历史均值时单列参考，不与当前中位数混算加速比或相对性能。
++
++本次只修改说明文件；未修改计算源码、测量工具、安装库、稳定身份或历史运行配置，未重测或提交新任务。更新依据与逐文件差异见 `experiments/EXP-126/records/measurement-median-policy-20261012`。

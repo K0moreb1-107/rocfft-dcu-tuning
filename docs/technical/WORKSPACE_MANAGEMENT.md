@@ -12,6 +12,12 @@ Temporary worktrees require explicit user agreement. Earlier dated sections
 record prior states and are superseded by the final main/branch section.
 
 
+当前测量及分析规则（2026-10-12）：采用单进程逐次样本协议，默认三次预热及50次计时。
+以后正式耗时、加速判断和验收只用样本中位数；加速比＝对照中位数／当前中位数。
+均值仅作原始记录或兼容输出；历史原表不改写，缺少逐次样本不构造中位数。
+A100只有历史均值时单列参考，不混算中位数加速比或相对性能。
+具体规则见 [FFT_MEASUREMENT_PROTOCOL.md](FFT_MEASUREMENT_PROTOCOL.md)，以下旧流程按登记协议保留。
+
 Implemented 2026-10-03. This entry manages paths and task provenance; it does not
 change or promote optimization source. Source branches remain an explicit choice.
 
@@ -78,9 +84,10 @@ python3 manage.py report --config configs/experiments/EXP-124-formal.json --exec
 
 Validation is a 15-case candidate quick correctness check using the original
 frozen program, strict original error checks and 50 events; it is not formal
-promotion evidence. Formal measure calls the existing 720-process three-arm
-8-round program. Report calls the existing strict aggregator, requires complete
-evidence, and includes previous/official speedups and fixed A100 Performance.
+promotion evidence. Already registered EXP123-event-50-three-arm-8-v1 runs retain
+the 720-process three-arm 8-round program and its original aggregate outputs.
+New measurements use FFT-event-samples-single-v2; future performance analysis
+uses sample medians as specified above. Reports still require complete evidence.
 Reporting can also be repeated directly with `tools/fft_measurement/summarize.py`
 against the completed run directory. No task automatically promotes source.
 
@@ -99,9 +106,10 @@ evidence remain available under that run; investigate and choose a fresh identif
 for a subsequent attempt. A submitted configuration is frozen before queueing.
 
 Only the first matching worker may claim a run. Existing execution evidence or
-a mismatched reservation causes rejection. Formal aggregation still requires all
-15 cases, correct order, all 16 process means per arm/case, valid hashes and one
-GPU/allocation identity. Do not delete failed evidence or substitute quick checks.
+a mismatched reservation causes rejection. Legacy eight-round aggregation requires
+its registered 15 cases and 16 process means per arm/case. Single-process sample runs require
+all registered cases and raw samples. Both require correct order, valid hashes and
+one GPU/allocation identity. Do not delete failed evidence or substitute quick checks.
 
 Actual compiler/runtime/GPU integration was **not run** during this organization
 task. The first authorized new experiment must verify real compilation, linked
