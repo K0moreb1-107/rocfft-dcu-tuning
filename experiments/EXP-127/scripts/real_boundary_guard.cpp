@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <map>
 #include <memory>
 #include <stdexcept>
@@ -81,6 +82,32 @@ __device__ auto load_real_pointer = load_real;
 __device__ auto load_complex_pointer = load_complex;
 __device__ auto store_real_pointer = store_real;
 __device__ auto store_complex_pointer = store_complex;
+
+
+// Offset-scope callbacks use a scalar gain, preserving the exact impulse/DC
+// references while proving callback indices start at the shifted user view.
+__device__ double scope_load_real(double* data,size_t offset,void* userdata,void*)
+{
+    if(!counted(static_cast<CallbackData*>(userdata),offset)) return 0;
+    return data[offset]*0.75;
+}
+__device__ Complex scope_load_complex(Complex* data,size_t offset,void* userdata,void*)
+{
+    if(!counted(static_cast<CallbackData*>(userdata),offset)) return {0,0};
+    const auto v=data[offset];return {v.x*0.75,v.y*0.75};
+}
+__device__ void scope_store_real(double* data,size_t offset,double value,void* userdata,void*)
+{
+    if(counted(static_cast<CallbackData*>(userdata),offset)) data[offset]=value*1.125;
+}
+__device__ void scope_store_complex(Complex* data,size_t offset,Complex value,void* userdata,void*)
+{
+    if(counted(static_cast<CallbackData*>(userdata),offset)) data[offset]={value.x*1.125,value.y*1.125};
+}
+__device__ auto scope_load_real_pointer=scope_load_real;
+__device__ auto scope_load_complex_pointer=scope_load_complex;
+__device__ auto scope_store_real_pointer=scope_store_real;
+__device__ auto scope_store_complex_pointer=scope_store_complex;
 
 static std::vector<unsigned char> read_binary(const std::string& path, size_t bytes)
 {
@@ -217,8 +244,8 @@ int main(int argc, char** argv)
 {
     try
     {
-        if(argc == 4 && std::string(argv[1]) == "scope")
-            return validate_scope(argv[2], argv[3]);
+        if((argc == 4 || argc == 5) && std::string(argv[1]) == "scope")
+            return validate_scope(argv[2], argv[3], argc == 5 ? std::stoull(argv[4]) : 0);
         if(argc != 5) return 2;
         const size_t n = std::stoull(argv[1]);
         const std::string direction(argv[2]);

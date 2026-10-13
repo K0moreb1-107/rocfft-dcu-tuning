@@ -143,6 +143,20 @@ struct rocfft_plan_description_t
     std::array<size_t, 2> inOffset  = {0, 0};
     std::array<size_t, 2> outOffset = {0, 0};
 
+    // User-view offsets are separate from a node's internal Bluestein offsets.
+    bool has_user_offsets() const
+    {
+        return inOffset[0] || outOffset[0]
+               || (array_type_is_planar(inArrayType) && inOffset[1])
+               || (array_type_is_planar(outArrayType) && outOffset[1]);
+    }
+
+    // Each planar buffer stores real scalars; interleaved buffers store pairs.
+    static rocfft_array_type buffer_element_type(rocfft_array_type type)
+    {
+        return array_type_is_planar(type) ? rocfft_array_type_real : type;
+    }
+
     std::vector<rocfft_field_t> inFields;
     std::vector<rocfft_field_t> outFields;
 

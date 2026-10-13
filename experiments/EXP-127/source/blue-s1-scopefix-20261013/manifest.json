@@ -1,0 +1,135 @@
+{
+  "parent_commit": "7ffff02587bbf2c77cecf9ae836b22f14aba8d8b",
+  "starting_stable_commit": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "branch": "exp-127-real-bluestein-boundary",
+  "initial_freeze": "/public/home/zhangkewei/zr/experiments/EXP-127/source/blue-s1-20261013/manifest.json",
+  "initial_freeze_sha256": "97f3e2e5121b0cb5f35f5eead0d6e64f646aeebf600c5dc9c0431255b3efab15",
+  "parent_freeze": "/public/home/zhangkewei/zr/experiments/EXP-127/source/blue-s1-repair-20261013/manifest.json",
+  "parent_freeze_sha256": "b1c6d5b512f280c7502509a84c44da814b49d1f17edfc24a8933a2504227efd5",
+  "source_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "candidate_sha256": "324372343c06312a8664bf3a1743e9c0c7c5f79ba43a38c37bfab9af5a821fec"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": {
+      "candidate_sha256": "71d7ec19dc37a6e701502289e871a2326e0435d0123421ea438e62f52867947a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp": {
+      "candidate_sha256": "a8aaa833277ec2a545532aec0fcd58fbbcd23e4db666645ec200618216120728"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp": {
+      "candidate_sha256": "4b4c0b56c38448246b439bd5a446e96e9b0cfb3b3de150b7be2824ea2985081b"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "candidate_sha256": "f9cbf0f405a19e0b0e3810cc39b70e84ddbfd0f04a6cff5f4955dcf350c604b9"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "candidate_sha256": "3fe6c6ca632e4d31a1641db8b6096ee04009769f9c4fad54fcf5f7b8e2a2477e"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_boundary_io.h": {
+      "candidate_sha256": "4e21653870324d1f77a02c5726348926a6408ac47b6b68dba925324213268ef6"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h": {
+      "candidate_sha256": "c4bb63c82fc37192a680c18216cab1816c264b75fe973dac287190305b761aa2"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "candidate_sha256": "cac26b9460395a5a529e049631dc69440b0f6829d9e7006af229dbac58bc5b96"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": {
+      "candidate_sha256": "fcf97c9fc522e1d9e1ff2cdd24fa313cef79a2df989130d293ead0123664caa1"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_bluestein.h": {
+      "candidate_sha256": "0d2e57015e1e9f656909dcbab803ac81c304820a29067517fa89bcab20dfa8e3"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rc.h": {
+      "candidate_sha256": "b81063889488b8e2db515fcbb213d811d32b570a7d601d31f666bf10492ec72c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": {
+      "candidate_sha256": "b6613457b60c319b2e9a583db5b45cc94b177a2e283264a89daba71beafd7d30"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": {
+      "candidate_sha256": "b28227a80741315f3798e80ed1b165a5eba966ecba4b34724c9c835122d04bc7"
+    }
+  },
+  "computation_changes": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": {
+      "before_sha256": "2a914e90ba30233f2dd6ce9d09e81426483bacd003865bc6ec3e905922caf34c",
+      "after_sha256": "71d7ec19dc37a6e701502289e871a2326e0435d0123421ea438e62f52867947a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": {
+      "before_sha256": "93b5c4066ade4de8ce9288e550b682288c5f35fac14a8158c8cc837ab08d0a28",
+      "after_sha256": "b6613457b60c319b2e9a583db5b45cc94b177a2e283264a89daba71beafd7d30"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "before_sha256": "f7f6b2552e8028ea6de8f0c874b874887e53badbbf7bc38b53c36161eb955559",
+      "after_sha256": "f9cbf0f405a19e0b0e3810cc39b70e84ddbfd0f04a6cff5f4955dcf350c604b9"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "before_sha256": "8891891ab9527e4cb66e9cf4fb53e8db3adc99e494749d1b65b95b9e1cf71db5",
+      "after_sha256": "3fe6c6ca632e4d31a1641db8b6096ee04009769f9c4fad54fcf5f7b8e2a2477e"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": {
+      "before_sha256": "2e9adad80d39b67e780b6a96f7c04576c8072c638b7800a2b29ba562c8864cb3",
+      "after_sha256": "b28227a80741315f3798e80ed1b165a5eba966ecba4b34724c9c835122d04bc7"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "before_sha256": "9da17f53cf2c48781643380592755b0301dcc9b66430ac56c8421bfb1a7712b1",
+      "after_sha256": "cac26b9460395a5a529e049631dc69440b0f6829d9e7006af229dbac58bc5b96"
+    }
+  },
+  "validation_inputs": {
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "ff16f33dc18e12f9b33c71576b6206158ca70f22a452ed9d570873afabd9040f",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "678efa94547c3364d369f468d870abb13f14cb2f237bcc23f1b67f96a9ec94e9",
+    "experiments/EXP-127/scripts/user_offset_contract_check.cpp": "f3083342bc73cf0f8fdfaa752048d9bffb31c46890a17e0c70326c2c15ed9830",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "bbef410c3b779e68e1be1479b0b335ce9f052a14a2b335e1774ade331f554d8d",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/coverage.json": "3d36c9c1420b1506f595b9b791dc466529a3c71758867ce3612f07f0622b6bf8",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/preregistration.md": "42fc714dfd831f1d06bb375d2d949c0da87a83262da915ac5c1b4a8fe43bda0b",
+    "experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp": "d32073f75382bf3b809815c634bcd43f9589c3285b35d930f3db21c0511156de"
+  },
+  "native_evidence": {
+    "coverage.json": "3d36c9c1420b1506f595b9b791dc466529a3c71758867ce3612f07f0622b6bf8",
+    "native/configure.log": "36ae1027274f425e1543d112088645465926540c42e0c0d7cf2653599fd3b171",
+    "native/generator-build.log": "db11afac344261ed1e8525c2d3898cdae83e6aff850e26e3e3199ed78ccec351",
+    "native/progress.json": "b1abd61aaa4a0e7cee09b1b43f2fa9012325fedd47d3c241ad04aa308251c338",
+    "native-v2/generator-build.log": "007352bb4b8ac905dcacba45497972a21b280cf70ec377a3b922506ab8ac9014",
+    "native-v2/generator-support-build.log": "83c6ca4bd6a16815a629852704750e18292b7e0f835099b6b41c194bd542b546",
+    "native-v2/guard-syntax.log": "be779db28e2348fc010a561f986cefb6b55457dcf4392a3dacc7b06a726a95a7",
+    "native-v2/host-contract-compile.log": "6c43b409518b3271f4416662e7884db7f61c9e879c5929c8d968cf1bda302a60",
+    "native-v2/host-contract-execute.log": "1d1f83e17d97795173decad3e0f995511ddd810b7d53619c09d65c0544e229dc",
+    "native-v2/progress.json": "419eda4c41f69f7cb16494e3fe9f6ce8c6c8f4a2dd6da8ebffa90278d1918538",
+    "native-v2/syntax-plan.log": "39443e691a9b7f9f221b885e5fd4c8cbb9983ee41d60bf5107b66b633ca966be",
+    "native-v2/syntax-transform.log": "ed49c4e4000916effbc676779934e446e61ee7982c517967b394ce1a6439f043",
+    "native-v2/syntax-tree_node.log": "31ce2d8de36e681e0f10a2bb95d8f872f056276f8c63344bfe9c8f3d1bd5991a",
+    "native-v2/syntax-tree_node_real.log": "09cf68ab1f38db404cf128ba2d20ef51347435267046b23d09b0cb203f635035",
+    "native-v3/exporter-compile.log": "2ed697a0e56ac75d1ec065662f03be614ae5a0ae0518e9ecab20927f205b28ab",
+    "native-v3/exporter-execute.log": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9",
+    "native-v3/exporter-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-v3/generator-build.log": "007352bb4b8ac905dcacba45497972a21b280cf70ec377a3b922506ab8ac9014",
+    "native-v3/host-contract-compile.log": "e94d15632dac8c46b2d6c638e3f525e61d7a0003091fce4964e44def7b1d0d4e",
+    "native-v3/host-contract-execute.log": "6cf68109924be0133351c79352fd700429e1812398f218dfbf29c9596389a7da",
+    "native-v3/native-check.json": "99d91dce6382c22b52542d30da5212c306e7b62c308ea1b338ae56ca9cda1d3f",
+    "native-v3/progress.json": "b19e0622071e737f450eacff3272299f0553968c02cff088a7daae12761a4876",
+    "native-v3/synchronized-correction.json": "615a5761e09d5e292a1513cbed02c09b9a97a069b0db299d2c73ee8c270da513",
+    "native-v3/syntax-plan.log": "6f0039f4616d23ff8eea1eb5ed57b2e81797b605d6176899b99885c0d3a67175",
+    "native-v3/syntax-transform.log": "6e410aae137ea8cefc0147c8387e612e2450e81676912a0cd5a06782d2badb9d",
+    "native-v3/syntax-tree_node.log": "ac63c9f25fc9d688b9f596470c59b93ee7c8d96c28e0791b009926fe257a8bf4",
+    "native-v3/syntax-tree_node_real.log": "5380a7b4364f8b2c05d4571cb8321e794c6d8066e0bd3ba2a2ad24be042575c6",
+    "preregistration.md": "42fc714dfd831f1d06bb375d2d949c0da87a83262da915ac5c1b4a8fe43bda0b",
+    "synced-source.json": "3774eb0f2ca6b0f61428935f40d12fb0a90af59417c3f83e7c723a83c8d57b3b"
+  },
+  "native_check": "native-v3/native-check.json",
+  "gpu_execution": false,
+  "old_jobs": {
+    "build_validation": "913601",
+    "performance": "913602"
+  },
+  "libraries": {
+    "candidate_parent": "65df7b6ea97f9c3766af595eb10fd845bc01f71639a0c40fa7275dac2d40759b",
+    "initial_candidate": "ba0fa36084815b93b0523ef5cea3dd8d50779f3ee2f6d4bb95c565d2f96653e6",
+    "previous": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad"
+  },
+  "scope_checks": 92,
+  "scope_actual_executions": 82,
+  "scope_plan_only": 10,
+  "independent_reference_checks": 1400,
+  "independent_reference_executions": 2800
+}

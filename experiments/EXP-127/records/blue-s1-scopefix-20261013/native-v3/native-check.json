@@ -1,0 +1,1013 @@
+{
+  "complete": true,
+  "gpu_execution": false,
+  "parent_commit": "7ffff02587bbf2c77cecf9ae836b22f14aba8d8b",
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGPU_TARGETS=gfx936",
+        "-DBUILD_CLIENTS_BENCH=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native/configure.log",
+      "sha256": "36ae1027274f425e1543d112088645465926540c42e0c0d7cf2653599fd3b171"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v2/generator-support-build.log",
+      "sha256": "83c6ca4bd6a16815a629852704750e18292b7e0f835099b6b41c194bd542b546"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/shared",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/real_boundary_guard.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v2/guard-syntax.log",
+      "sha256": "be779db28e2348fc010a561f986cefb6b55457dcf4392a3dacc7b06a726a95a7"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013",
+        "--target",
+        "rocfft-rtc-gen",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/generator-build.log",
+      "sha256": "007352bb4b8ac905dcacba45497972a21b280cf70ec377a3b922506ab8ac9014"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "-fsyntax-only",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/syntax-plan.log",
+      "sha256": "6f0039f4616d23ff8eea1eb5ed57b2e81797b605d6176899b99885c0d3a67175"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "-fsyntax-only",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/syntax-tree_node.log",
+      "sha256": "ac63c9f25fc9d688b9f596470c59b93ee7c8d96c28e0791b009926fe257a8bf4"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "-fsyntax-only",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/syntax-tree_node_real.log",
+      "sha256": "5380a7b4364f8b2c05d4571cb8321e794c6d8066e0bd3ba2a2ad24be042575c6"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "-fsyntax-only",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/syntax-transform.log",
+      "sha256": "6e410aae137ea8cefc0147c8387e612e2450e81676912a0cd5a06782d2badb9d"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-s1-repair-20261013/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "-UNDEBUG",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/shared",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/user_offset_contract_check.cpp",
+        "-L/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-blue-s1-repair-20261013/lib",
+        "-Wl,-rpath,/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-blue-s1-repair-20261013/lib",
+        "-lrocfft",
+        "-lstdc++fs",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/user_offset_contract_check"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/host-contract-compile.log",
+      "sha256": "e94d15632dac8c46b2d6c638e3f525e61d7a0003091fce4964e44def7b1d0d4e"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/user_offset_contract_check"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/host-contract-execute.log",
+      "sha256": "6cf68109924be0133351c79352fd700429e1812398f218dfbf29c9596389a7da"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "--offload-arch=gfx936",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/exporter.o"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/exporter-compile.log",
+      "sha256": "2ed697a0e56ac75d1ec065662f03be614ae5a0ae0518e9ecab20927f205b28ab"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/exporter.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/rc-source-exporter"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/exporter-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/rc-source-exporter",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-scopefix-20261013/generated"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-scopefix-20261013/native-v3/exporter-execute.log",
+      "sha256": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9"
+    }
+  ],
+  "variants": [
+    {
+      "index": 0,
+      "length": 64,
+      "linear": 0,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "b7bd5f4a070c35e77cf2ae1c35eb74e2a893367cbb96064ffc728745e407b6d7"
+    },
+    {
+      "index": 1,
+      "length": 64,
+      "linear": 0,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "3b4aa5b94139c7de1898501ccb3135967e571227b459e3f4547a978e8e288715"
+    },
+    {
+      "index": 2,
+      "length": 64,
+      "linear": 0,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "7b0f617c8294d2c67f541af1bd8500bbdd38558b6a55840e33d66cc55c7a3fd6"
+    },
+    {
+      "index": 3,
+      "length": 64,
+      "linear": 0,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "a3377fe6f9795beb777ef08312ab17c74048615587e9030893d6cec20a0024a4"
+    },
+    {
+      "index": 4,
+      "length": 64,
+      "linear": 0,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "0fcdae372e561deff6bc9e6931c0339240b1a5ec9badc02d87fc78c1386c302c"
+    },
+    {
+      "index": 5,
+      "length": 64,
+      "linear": 0,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "9ad6ce9e4dbf1256b0d437fd627832f4bb1c019b7ac32565b3d7c6b2359878f9"
+    },
+    {
+      "index": 6,
+      "length": 64,
+      "linear": 0,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "2ed44a340886e149aac6f30293962a72c9551f0e71fddfb79aea2d89e240fb0f"
+    },
+    {
+      "index": 7,
+      "length": 64,
+      "linear": 0,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "1102d48006d4b20f588247dcd0cc75ed05d4d46573a17864a776e55a90bbb475"
+    },
+    {
+      "index": 8,
+      "length": 64,
+      "linear": 1,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "3a7e1afaf28031a0b728415a62b03a71bb37f60408fc16ad6ebdaf3d1cf4cb61"
+    },
+    {
+      "index": 9,
+      "length": 64,
+      "linear": 1,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "c0b4385589e6c49187cac0f867dbca310d43f901040ccba3975cfd328ee8b35b"
+    },
+    {
+      "index": 10,
+      "length": 64,
+      "linear": 1,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "e6df12408ddbae0533c81e8ac6acdbe4910c087b597d0c8bc01f53f3a0619a1c"
+    },
+    {
+      "index": 11,
+      "length": 64,
+      "linear": 1,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "73ed87a0d4e21577865d11dbe9492e394eb4f583880cec38c15e99c2773ad31a"
+    },
+    {
+      "index": 12,
+      "length": 64,
+      "linear": 1,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "15ac690a4ea96dc6b7681a2247ad85d55b940ae7bb5d2c4e1a741d8125a68413"
+    },
+    {
+      "index": 13,
+      "length": 64,
+      "linear": 1,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "a775df42643b9a62b722ec608db63f78fc96642da6d47d9aeb41b1e08544ceaf"
+    },
+    {
+      "index": 14,
+      "length": 64,
+      "linear": 1,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "6b226dd953f40dc56229765a79102f59650ec04630f3bf7d4b4b4ee9f21627f4"
+    },
+    {
+      "index": 15,
+      "length": 64,
+      "linear": 1,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "ebdc0c0a85df43867b89021e74eeec804c6173a23452c92537e0da8b7c4643f7"
+    },
+    {
+      "index": 16,
+      "length": 128,
+      "linear": 0,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "ba25aa634d3bb0f6c4b2d13f11c82533b6dac349af97badf7ffbffbc4b11a451"
+    },
+    {
+      "index": 17,
+      "length": 128,
+      "linear": 0,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "af332efc2653a75f59c853f052ae23f7fe80e7532792925bcf1e4d3cb5aaa0c6"
+    },
+    {
+      "index": 18,
+      "length": 128,
+      "linear": 0,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "e496a1bb656867d78d5f23a64778514485c827782b2fbd6af66ce4120609d7c6"
+    },
+    {
+      "index": 19,
+      "length": 128,
+      "linear": 0,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "be3a348f576d8bd60bcc5de539779b6e5456076fa6e3b5ea58defa0aa2842e9b"
+    },
+    {
+      "index": 20,
+      "length": 128,
+      "linear": 0,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "fcb9e17bab7e6fb5a072d1f992f142cdbf7233779cbc80eff0c717de57c211c3"
+    },
+    {
+      "index": 21,
+      "length": 128,
+      "linear": 0,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "c517fa793852e9088f08d77851a37c2f032ed03bd80cd0f23c6f2d5ff8a85179"
+    },
+    {
+      "index": 22,
+      "length": 128,
+      "linear": 0,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "252971c00905952544d7b37f3441a4033fb5ed9e191070a644c43e003680a066"
+    },
+    {
+      "index": 23,
+      "length": 128,
+      "linear": 0,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "a24869de52aaa68e30a83bc9979d661308d01edfe2afef87db981c8114e93062"
+    },
+    {
+      "index": 24,
+      "length": 128,
+      "linear": 1,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "3c198ff0675d9e0d38ed1dd54138122c1cf28b9499e962332ef3df7ebb8c6cf2"
+    },
+    {
+      "index": 25,
+      "length": 128,
+      "linear": 1,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "35e391c8d703dba8268e8762c923b2861f2991041b6527e8677233f752841466"
+    },
+    {
+      "index": 26,
+      "length": 128,
+      "linear": 1,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "012bad57c6b25eee318717345ffcad30d7677beb452f2bb9d4f8be50f89a445f"
+    },
+    {
+      "index": 27,
+      "length": 128,
+      "linear": 1,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "66e487b9c0b14373cf91a518c83be414e2bfe243f7c32a70f51fe6d60a385503"
+    },
+    {
+      "index": 28,
+      "length": 128,
+      "linear": 1,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "9e76ef7d2d9b3da0447101882163856e0bdd8d504f434a6dec504f5572446ccd"
+    },
+    {
+      "index": 29,
+      "length": 128,
+      "linear": 1,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "30e7011c4eca86abd889a4206383fe377c9179d7dad746c1504165e8879aef07"
+    },
+    {
+      "index": 30,
+      "length": 128,
+      "linear": 1,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "a948dd9445fbe91f60bbf0abe8a2c5b01e2b6ed4a12ac15cc2b953f2825b92c2"
+    },
+    {
+      "index": 31,
+      "length": 128,
+      "linear": 1,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "4b598d9a6bb67e39fbf6eb16eb7ceafbd1504a37c24716c0a7faf54005108498"
+    },
+    {
+      "index": 32,
+      "length": 256,
+      "linear": 0,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "7a4940e0b7bed697b06e9d81f1820525be52c1bef61abd077b9ae432c5355705"
+    },
+    {
+      "index": 33,
+      "length": 256,
+      "linear": 0,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "2bfa25f5f6bdda608eb788f70d17a52899ce4698ea4d062e801356ab800fa19b"
+    },
+    {
+      "index": 34,
+      "length": 256,
+      "linear": 0,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "a6ac1b2ac1e8bd03306d991b8f35a82be308d73cae693289f85b628edb8a3be9"
+    },
+    {
+      "index": 35,
+      "length": 256,
+      "linear": 0,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "0b9fdc8e749ce8e6e0134063cc21035d423d1eaf46f9326a5dc2658223fa1163"
+    },
+    {
+      "index": 36,
+      "length": 256,
+      "linear": 0,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "f20c6e60bad9fe1b3bdfe3b9c43f3c6def808888663ab5d390b9d8827f1c82b7"
+    },
+    {
+      "index": 37,
+      "length": 256,
+      "linear": 0,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "088a3a599c6dfcc10263a086c549dbc25b611b9f0fc4634c479189bfef2fa328"
+    },
+    {
+      "index": 38,
+      "length": 256,
+      "linear": 0,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "569d4527e688b2d5b21cd753d4641fcf89e21b56b0c99601fe44ab6e269deaa3"
+    },
+    {
+      "index": 39,
+      "length": 256,
+      "linear": 0,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "3ba12a63e9db442799dbaa86fd246a900381fa2b3c373e0294559378797663c5"
+    },
+    {
+      "index": 40,
+      "length": 256,
+      "linear": 1,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "c0c30ae0c24ebf802fbb0f9e7b67b63623d0ccf1c42a821ff8b552cd5a6a6b1f"
+    },
+    {
+      "index": 41,
+      "length": 256,
+      "linear": 1,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "7c9fc84aa7118cb042e901d4032b20e48b2cc9f61493ed10f9204ca300d0ffa0"
+    },
+    {
+      "index": 42,
+      "length": 256,
+      "linear": 1,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "4f61f20c73bf9323ced9eb6d5ec83598757b7a595e9740e5c70b755d261d7d68"
+    },
+    {
+      "index": 43,
+      "length": 256,
+      "linear": 1,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "44632593463c296a281a2373df5565cbae93005468590f9229e3671c750c0314"
+    },
+    {
+      "index": 44,
+      "length": 256,
+      "linear": 1,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "b922f18d6fad962220c485e2e243f6afe3329bd933335563f97ee58fad0cbd4f"
+    },
+    {
+      "index": 45,
+      "length": 256,
+      "linear": 1,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "5fa1f9e1183a9b6ef0775587885096ce3e8c2c8c2b508543568c94e62632737e"
+    },
+    {
+      "index": 46,
+      "length": 256,
+      "linear": 1,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "bc38518389a7c5603f8d19444ebc8e5d252ccd415831554861aac1c3145affa1"
+    },
+    {
+      "index": 47,
+      "length": 256,
+      "linear": 1,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "a4641eb46f4497f71fa057ad1765a53af77a4c20062b2bb56d193ce1179f2343"
+    },
+    {
+      "index": 48,
+      "length": 512,
+      "linear": 0,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "354916152022229338a4115850effb9e76ea6c3b2be60da56ea088b0ffb0a3d7"
+    },
+    {
+      "index": 49,
+      "length": 512,
+      "linear": 0,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "534543ba3066b5e976fdd8bc4362d51db8954ce8cf1a8f5c63fd6f9f397c37ac"
+    },
+    {
+      "index": 50,
+      "length": 512,
+      "linear": 0,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "493dd376e8fb14402bcf98a64161a5fbe52019400b0e0443ff209928b7bb1357"
+    },
+    {
+      "index": 51,
+      "length": 512,
+      "linear": 0,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "6c9bce503945a96a4ac4240fc4fae2350c3c95753f8abf678232fbaa3fc40dc3"
+    },
+    {
+      "index": 52,
+      "length": 512,
+      "linear": 0,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "596b130249e7a1d322592fe948d85cc007bf7513fd97fd15ff0ce9f8b889380a"
+    },
+    {
+      "index": 53,
+      "length": 512,
+      "linear": 0,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "b29ba279b047e08d397d8fee86d77af011a9b1d3f9d207fe446fd6f6f32ee947"
+    },
+    {
+      "index": 54,
+      "length": 512,
+      "linear": 0,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "1f30654e2e3c42190982809146e4668e768e74a86dcc609ed2f96490966ca487"
+    },
+    {
+      "index": 55,
+      "length": 512,
+      "linear": 0,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "c2abcadcacf23cc2d46fb101d70588a9bcd7534a11b5bfb7b66653f492c8828f"
+    },
+    {
+      "index": 56,
+      "length": 512,
+      "linear": 1,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "b033aae30fe723b4b7e7e2b5c4b6a2b313158d5694705deb072407f9ab1ba08c"
+    },
+    {
+      "index": 57,
+      "length": 512,
+      "linear": 1,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "dd5047ea53fe9d2e96b0b02ec80d597af2deeeb13e898c5f60ea1796b280de7f"
+    },
+    {
+      "index": 58,
+      "length": 512,
+      "linear": 1,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "cd037dca9a9c7c8a0346356ee5781fe79dc39ad942bd51b3efeeb3db8cef85c7"
+    },
+    {
+      "index": 59,
+      "length": 512,
+      "linear": 1,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "6405fbfa8f9a564f18550cf3d9afc283960b1f5daf8e095dea962e0785cd1047"
+    },
+    {
+      "index": 60,
+      "length": 512,
+      "linear": 1,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "b07d262a72b71deda2be3cc43cf346b2d1d1517c3388d09b2cb3e174ff0587f3"
+    },
+    {
+      "index": 61,
+      "length": 512,
+      "linear": 1,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "e42cfe4d2527d09b2643bebffa784cd55cd6d9d42e45726082d4c9eab7cfa25b"
+    },
+    {
+      "index": 62,
+      "length": 512,
+      "linear": 1,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "4c81eeb385dbee9ac881e25708899040ecbbdb7b4aaa2fc51d38d53a5fb921d1"
+    },
+    {
+      "index": 63,
+      "length": 512,
+      "linear": 1,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "5998e231007c2b8e583671d2eefa96ccd79523ffa725d92078908d922a35ba1c"
+    },
+    {
+      "index": 64,
+      "length": 1024,
+      "linear": 0,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "21024be34c0de45172c7c25f68c866e101f724909c6a9bb78fec98fc92b6e36c"
+    },
+    {
+      "index": 65,
+      "length": 1024,
+      "linear": 0,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "257b8a2ea612b129851c267e965d20aba62e42d632c156a89bb900c237718dc9"
+    },
+    {
+      "index": 66,
+      "length": 1024,
+      "linear": 0,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "e2696725667fb06d9e35aa1c3eaf3a0dbb9061054f9eb1dae10bb9d54b1a79b3"
+    },
+    {
+      "index": 67,
+      "length": 1024,
+      "linear": 0,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "6b41ddc5273964e4fa6ce708c59da8bb30373886cbc4b305ed6e25b12e631f7a"
+    },
+    {
+      "index": 68,
+      "length": 1024,
+      "linear": 0,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "87db2f2d50e81b14ff7a7b968f3e16feae4b6150732cbe1e3e6813124914b52d"
+    },
+    {
+      "index": 69,
+      "length": 1024,
+      "linear": 0,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "612c0ce4789cf476aaff07e83998862a8d7d4cc81cf2f213c7bbeb10c1609425"
+    },
+    {
+      "index": 70,
+      "length": 1024,
+      "linear": 0,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "d8d8f4cc4942ebf747f25c3e42ee8e76c0168ed294ed846aa26c0eddf93848d1"
+    },
+    {
+      "index": 71,
+      "length": 1024,
+      "linear": 0,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "9df791ac556f99f064ce13461d529a0dc2bf4850103c2d6805ac4157019da3fe"
+    },
+    {
+      "index": 72,
+      "length": 1024,
+      "linear": 1,
+      "blue": 0,
+      "planar": 0,
+      "sha256": "4a2dd46f595c010a20d5e09dd707579a8f8155caafabc832362f35b50f0caacf"
+    },
+    {
+      "index": 73,
+      "length": 1024,
+      "linear": 1,
+      "blue": 0,
+      "planar": 1,
+      "sha256": "807f5b09dd339d22519b76796183d20f95cc6a1c7ce288c0d83733815d9f0776"
+    },
+    {
+      "index": 74,
+      "length": 1024,
+      "linear": 1,
+      "blue": 1,
+      "planar": 0,
+      "sha256": "4a28443fe5dfa67e076c2d7ab5bff1a0edfe6f5f633d6c6c30ac11fd22a238c9"
+    },
+    {
+      "index": 75,
+      "length": 1024,
+      "linear": 1,
+      "blue": 1,
+      "planar": 1,
+      "sha256": "e15a4b05ade1b43402e3f135d21e24b53242f8bf93de8539e265d294e9f5a602"
+    },
+    {
+      "index": 76,
+      "length": 1024,
+      "linear": 1,
+      "blue": 2,
+      "planar": 0,
+      "sha256": "c7ab1d63c8282d3da8f6c6972b3f0b5cb7dbb66148c3fdbbc79acc396179c470"
+    },
+    {
+      "index": 77,
+      "length": 1024,
+      "linear": 1,
+      "blue": 2,
+      "planar": 1,
+      "sha256": "6ea77e882a204d794c0d67f4fb3174ad6294e5ea4f7381ee72d2b2e10e313420"
+    },
+    {
+      "index": 78,
+      "length": 1024,
+      "linear": 1,
+      "blue": 3,
+      "planar": 0,
+      "sha256": "1d91505de0ed990674f04a777517b259269ba4ddf39e651f1ca8eafa62837049"
+    },
+    {
+      "index": 79,
+      "length": 1024,
+      "linear": 1,
+      "blue": 3,
+      "planar": 1,
+      "sha256": "37aa0bc43ae98721b08c7ce8ade76d599eb0a61bb2cd58a23c97f6832ac2fb67"
+    }
+  ],
+  "unchanged_generated_sources": 80,
+  "native_descriptors": 400,
+  "native_pointer_units": 60,
+  "libraries": {
+    "candidate_parent": "65df7b6ea97f9c3766af595eb10fd845bc01f71639a0c40fa7275dac2d40759b",
+    "initial_candidate": "ba0fa36084815b93b0523ef5cea3dd8d50779f3ee2f6d4bb95c565d2f96653e6",
+    "previous": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad"
+  },
+  "source_inputs": {
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "ff16f33dc18e12f9b33c71576b6206158ca70f22a452ed9d570873afabd9040f",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "678efa94547c3364d369f468d870abb13f14cb2f237bcc23f1b67f96a9ec94e9",
+    "experiments/EXP-127/scripts/user_offset_contract_check.cpp": "f3083342bc73cf0f8fdfaa752048d9bffb31c46890a17e0c70326c2c15ed9830",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "bbef410c3b779e68e1be1479b0b335ce9f052a14a2b335e1774ade331f554d8d",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/coverage.json": "3d36c9c1420b1506f595b9b791dc466529a3c71758867ce3612f07f0622b6bf8",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/preregistration.md": "42fc714dfd831f1d06bb375d2d949c0da87a83262da915ac5c1b4a8fe43bda0b",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": "71d7ec19dc37a6e701502289e871a2326e0435d0123421ea438e62f52867947a",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": "b6613457b60c319b2e9a583db5b45cc94b177a2e283264a89daba71beafd7d30",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": "f9cbf0f405a19e0b0e3810cc39b70e84ddbfd0f04a6cff5f4955dcf350c604b9",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "3fe6c6ca632e4d31a1641db8b6096ee04009769f9c4fad54fcf5f7b8e2a2477e",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": "b28227a80741315f3798e80ed1b165a5eba966ecba4b34724c9c835122d04bc7",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": "cac26b9460395a5a529e049631dc69440b0f6829d9e7006af229dbac58bc5b96"
+  },
+  "source_status": " M rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h\n M rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h\n M rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp\n M rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp\n M rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp\n M rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp"
+}

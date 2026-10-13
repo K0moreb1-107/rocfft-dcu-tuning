@@ -250,18 +250,29 @@ def main():
                     except (subprocess.CalledProcessError,ValueError) as error:
                         record['failures'].append(dict(stage='guard',N=n,direction=direction,callbacks=callbacks,
                             error=str(error),evidence=str(case)))
-        for mode in coverage['scope_modes']:
-            for direction in ('d2z','z2d'):
-                audit();case=run/'scope'/mode/direction
-                try:
-                    run_logged([guard,'scope',mode,direction],logged_env(case),case)
-                    text=(case/'stdout.txt').read_text()+(case/'plan.txt').read_text()
-                    mgr.require('REAL_BOUNDARY_SCOPE_PASS' in text,'scope validation incomplete')
-                    mgr.require('_real_pre_blue_v1' not in text and '_real_post_blue_v1' not in text,'new role leaked outside scope')
-                    record['scope_checks'].append(dict(mode=mode,direction=direction,check='PASS',plan_only=mode=='single',
-                        evidence_sha256={p:mgr.common.sha(case/p) for p in ('stdout.txt','stderr.txt','plan.txt')}))
-                except (subprocess.CalledProcessError,ValueError) as error:
-                    record['failures'].append(dict(stage='scope',mode=mode,direction=direction,error=str(error),evidence=str(case)))
+        scopes=[dict(mode=mode,direction=direction,N=None,plan_only=mode=='single')
+            for mode in coverage['scope_modes'] for direction in ('d2z','z2d')]
+        scopes+=coverage['offset_scope_cases']
+        mgr.require(len(scopes)==coverage['expected_scope_checks'],'wrong scope registration')
+        for item in scopes:
+            mode,direction,n=item['mode'],item['direction'],item['N']
+            audit();case=run/'scope'/mode/(str(n) if n is not None else 'original')/direction
+            argv=[guard,'scope',mode,direction]+([n] if n is not None else [])
+            try:
+                run_logged(argv,logged_env(case),case)
+                text=(case/'stdout.txt').read_text()+(case/'plan.txt').read_text()
+                mgr.require('REAL_BOUNDARY_SCOPE_PASS' in text,'scope validation incomplete')
+                mgr.require('_real_pre_blue_v1' not in text and '_real_post_blue_v1' not in text,'new role leaked outside scope')
+                # All retained and generic CC fusion entries must respect the
+                # same user-view gate, not just the new Bluestein boundary.
+                if mode.startswith('offset'):
+                    mgr.require(not any(role in text for role in
+                        ('real IO:','EXP126 pair backend=','EXP125 local real','EXP125 real post:')),
+                        'retained real pair role leaked into user-offset layout')
+                record['scope_checks'].append(dict(item,check='PASS',
+                    evidence_sha256={p:mgr.common.sha(case/p) for p in ('stdout.txt','stderr.txt','plan.txt')}))
+            except (subprocess.CalledProcessError,ValueError) as error:
+                record['failures'].append(dict(item,stage='scope',error=str(error),evidence=str(case)))
         mgr.require(not record['failures'],'independent correctness/scope failures; see retained evidence')
         for family,sizes in coverage['families'].items():
             mgr.require(len(sizes)==len(set(sizes))==5,'each family requires five distinct sizes')
@@ -271,7 +282,7 @@ def main():
             record['families'][family]=dict(sizes=sizes,actual_fusion='PASS')
         mgr.require(len(record['quick_checks'])==coverage['expected_quick_checks']
             and len(record['matched_plans'])==40 and len(record['guard_groups'])==80
-            and len(record['scope_checks'])==18
+            and len(record['scope_checks'])==coverage['expected_scope_checks']
             and len(record['complex_guard_groups'])==20 and len(record['stable_diagnostics'])==5,
             'incomplete matrix')
         audit();mgr.require(mgr.source_identity(cfg)==built['plan']['source_identity'],'source changed during validation')

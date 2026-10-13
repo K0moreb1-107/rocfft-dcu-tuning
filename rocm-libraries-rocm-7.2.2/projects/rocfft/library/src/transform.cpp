@@ -20,6 +20,7 @@
 * THE SOFTWARE.
 *******************************************************************************/
 
+#include <array>
 #include <cassert>
 #include <cstdlib>
 #include <iostream>
@@ -476,6 +477,31 @@ void ExecPlan::ExecuteAsync(const rocfft_plan                       plan,
     // we have a single or multi device plan.
     auto in_transform_ptrs  = mgpuPlan ? in_buffer_copy.data() : in_buffer;
     auto out_transform_ptrs = mgpuPlan ? out_buffer_copy.data() : out_buffer;
+
+    // Apply each user view exactly once, in that view's element units. Internal
+    // node offsets remain reserved for temporary/communication buffers.
+    // The zero-offset path keeps its existing pointers and allocates no vectors.
+    std::array<void*, 2> input_with_offset;
+    std::array<void*, 2> output_with_offset;
+    if(!mgpuPlan && plan->desc.has_user_offsets())
+    {
+        const auto shift = [plan](void* const                 buffers[],
+                                  rocfft_array_type          type,
+                                  const std::array<size_t, 2>& offsets,
+                                  std::array<void*, 2>&      result) {
+            const auto planes = array_type_is_planar(type) ? 2u : 1u;
+            for(unsigned int plane = 0; plane < planes; ++plane)
+                result[plane] = ptr_offset(buffers[plane], offsets[plane], plan->precision,
+                                           plan->desc.buffer_element_type(type));
+        };
+        shift(in_buffer, plan->desc.inArrayType, plan->desc.inOffset, input_with_offset);
+        in_transform_ptrs = input_with_offset.data();
+        if(rootPlan->placement == rocfft_placement_notinplace)
+        {
+            shift(out_buffer, plan->desc.outArrayType, plan->desc.outOffset, output_with_offset);
+            out_transform_ptrs = output_with_offset.data();
+        }
+    }
 
     gpubuf autoAllocWorkBuf;
 

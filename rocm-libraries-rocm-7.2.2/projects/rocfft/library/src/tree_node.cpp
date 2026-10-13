@@ -87,6 +87,7 @@ NodeMetaData::NodeMetaData(TreeNode* refNode)
         batch      = refNode->batch;
         direction  = refNode->direction;
         rootIsC2C  = refNode->IsRootPlanC2CTransform();
+        rootHasUserOffsets = refNode->rootHasUserOffsets;
         deviceProp = refNode->deviceProp;
     }
 }

@@ -1,0 +1,31 @@
+{
+  "before": {
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "ff16f33dc18e12f9b33c71576b6206158ca70f22a452ed9d570873afabd9040f",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "678efa94547c3364d369f468d870abb13f14cb2f237bcc23f1b67f96a9ec94e9",
+    "experiments/EXP-127/scripts/user_offset_contract_check.cpp": "de55084936d62806577f03aa53da05ce98137bb4206d9a0873fc22babadc05c5",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "bbef410c3b779e68e1be1479b0b335ce9f052a14a2b335e1774ade331f554d8d",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/coverage.json": "3d36c9c1420b1506f595b9b791dc466529a3c71758867ce3612f07f0622b6bf8",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/preregistration.md": "22bfb9ccf6faa04e0594294b59d81f2b848de7d5a87c715333d4ce458422351c",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": "921af47642b891aaa5168209a0fcd3041de68fd1a62ab9d21b5c4f82a125b312",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": "ced435c22d0e4f974a9570dee3c443c0ea103d118227f3ec9e2d1b3977a2315d",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": "f9cbf0f405a19e0b0e3810cc39b70e84ddbfd0f04a6cff5f4955dcf350c604b9",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "3fe6c6ca632e4d31a1641db8b6096ee04009769f9c4fad54fcf5f7b8e2a2477e",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": "46504bae36c81862db23323bb214a380b93a0bbc899e979e65b9ac56ea505744",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": "cac26b9460395a5a529e049631dc69440b0f6829d9e7006af229dbac58bc5b96"
+  },
+  "after": {
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "ff16f33dc18e12f9b33c71576b6206158ca70f22a452ed9d570873afabd9040f",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "678efa94547c3364d369f468d870abb13f14cb2f237bcc23f1b67f96a9ec94e9",
+    "experiments/EXP-127/scripts/user_offset_contract_check.cpp": "f3083342bc73cf0f8fdfaa752048d9bffb31c46890a17e0c70326c2c15ed9830",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "bbef410c3b779e68e1be1479b0b335ce9f052a14a2b335e1774ade331f554d8d",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/coverage.json": "3d36c9c1420b1506f595b9b791dc466529a3c71758867ce3612f07f0622b6bf8",
+    "experiments/EXP-127/records/blue-s1-scopefix-20261013/preregistration.md": "42fc714dfd831f1d06bb375d2d949c0da87a83262da915ac5c1b4a8fe43bda0b",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": "71d7ec19dc37a6e701502289e871a2326e0435d0123421ea438e62f52867947a",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": "b6613457b60c319b2e9a583db5b45cc94b177a2e283264a89daba71beafd7d30",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": "f9cbf0f405a19e0b0e3810cc39b70e84ddbfd0f04a6cff5f4955dcf350c604b9",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "3fe6c6ca632e4d31a1641db8b6096ee04009769f9c4fad54fcf5f7b8e2a2477e",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": "b28227a80741315f3798e80ed1b165a5eba966ecba4b34724c9c835122d04bc7",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": "cac26b9460395a5a529e049631dc69440b0f6829d9e7006af229dbac58bc5b96"
+  },
+  "corrected_reason": "planar user offsets count real scalars, not full complex pairs"
+}

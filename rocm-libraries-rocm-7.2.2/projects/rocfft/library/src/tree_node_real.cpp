@@ -220,7 +220,7 @@ bool RealTransEvenNode::TryBuildLocalRealTree(size_t n)
        || inArrayType != rocfft_array_type_hermitian_interleaved
        || outArrayType != rocfft_array_type_real
        || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
-       || iOffset != 0 || oOffset != 0)
+       || rootHasUserOffsets || iOffset != 0 || oOffset != 0)
         return false;
 
     auto io = *geometry;
@@ -286,7 +286,7 @@ bool RealTransEvenNode::TryFusePairedPost(TreeNode& cfft, size_t n)
        || inArrayType != rocfft_array_type_real
        || outArrayType != rocfft_array_type_hermitian_interleaved
        || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
-       || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
+       || rootHasUserOffsets || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
        || deviceProp.warpSize != 64 || cfft.scheme != CS_L1D_CC
        || cfft.childNodes.size() != 2)
         return false;
@@ -343,7 +343,7 @@ bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
        || batch != 1 || precision != rocfft_precision_double
        || placement != rocfft_placement_notinplace
        || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
-       || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
+       || rootHasUserOffsets || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
        || cfft.scheme != CS_L1D_CC || cfft.childNodes.size() != 2)
         return false;
     const bool pre = direction == 1;
@@ -447,7 +447,7 @@ bool RealTransEvenNode::TryFuseBluesteinBoundary(TreeNode& cfft, size_t n)
     if(n <= 65536 || n % 2 != 0 || dimension != 1 || length.size() != 1 || batch != 1
        || precision != rocfft_precision_double || placement != rocfft_placement_notinplace
        || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
-       || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
+       || rootHasUserOffsets || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
        || cfft.scheme != CS_BLUESTEIN || cfft.typeBlue != BT_MULTI_KERNEL
        || cfft.childNodes.size() != 6 || cfft.length != std::vector<size_t>{n / 2})
         return false;

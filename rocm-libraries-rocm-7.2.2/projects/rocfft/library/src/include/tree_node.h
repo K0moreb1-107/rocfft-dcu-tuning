@@ -190,6 +190,7 @@ struct NodeMetaData
     rocfft_array_type       outArrayType = rocfft_array_type_unset;
     hipDeviceProp_t         deviceProp   = {};
     bool                    rootIsC2C;
+    bool                    rootHasUserOffsets = false;
 
     explicit NodeMetaData(TreeNode* refNode);
 };
@@ -319,6 +320,7 @@ public:
 
     // Offsets to start of data in buffer:
     size_t iOffset = 0, oOffset = 0;
+    bool   rootHasUserOffsets = false;
 
     // Direction of the transform (-1: forward, +1: inverse)
     int direction = -1;

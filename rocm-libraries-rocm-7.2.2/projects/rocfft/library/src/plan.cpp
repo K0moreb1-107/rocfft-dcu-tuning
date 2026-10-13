@@ -860,6 +860,7 @@ rocfft_status check_array_type_validity(const rocfft_plan plan)
 // tree plan.
 void set_rootplan_params(const rocfft_plan plan, NodeMetaData& planData)
 {
+    planData.rootHasUserOffsets = plan->desc.has_user_offsets();
     planData.dimension = plan->rank;
     planData.batch     = plan->batch;
     for(size_t i = 0; i < plan->rank; i++)
@@ -3466,6 +3467,31 @@ rocfft_status rocfft_plan_create_internal(rocfft_plan                   plan,
         if(rcfft != rocfft_status_success)
             return rcfft;
 
+        // Ordinary single-device buffers apply user offsets at execution time.
+        // Validate byte arithmetic here, before allocating or compiling kernels.
+        if(plan->desc.inFields.empty() && plan->desc.outFields.empty()
+           && plan->desc.has_user_offsets())
+        {
+            const auto input_bytes
+                = element_size(precision, plan->desc.buffer_element_type(plan->desc.inArrayType));
+            const auto output_bytes
+                = element_size(precision, plan->desc.buffer_element_type(plan->desc.outArrayType));
+            const auto input_planes = array_type_is_planar(plan->desc.inArrayType) ? 2u : 1u;
+            const auto output_planes = array_type_is_planar(plan->desc.outArrayType) ? 2u : 1u;
+            for(unsigned int plane = 0; plane < input_planes; ++plane)
+                if(plan->desc.inOffset[plane] > std::numeric_limits<size_t>::max() / input_bytes)
+                    return rocfft_status_invalid_offset;
+            for(unsigned int plane = 0; plane < output_planes; ++plane)
+                if(plan->desc.outOffset[plane] > std::numeric_limits<size_t>::max() / output_bytes)
+                    return rocfft_status_invalid_offset;
+            // In-place real and complex views must start at the same byte.
+            if(placement == rocfft_placement_inplace)
+                for(unsigned int plane = 0; plane < input_planes; ++plane)
+                    if(plan->desc.inOffset[plane] * input_bytes
+                       != plan->desc.outOffset[plane] * output_bytes)
+                        return rocfft_status_invalid_offset;
+        }
+
         log_bench(rocfft_bench_command(plan));
 
         // Construct the plan
@@ -3851,6 +3877,7 @@ void TreeNode::CopyNodeData(const TreeNode& srcNode)
     iDistBlue       = srcNode.iDistBlue;
     oDist           = srcNode.oDist;
     oDistBlue       = srcNode.oDistBlue;
+    rootHasUserOffsets = srcNode.rootHasUserOffsets;
     iOffset         = srcNode.iOffset;
     oOffset         = srcNode.oOffset;
     placement       = srcNode.placement;
@@ -3898,6 +3925,7 @@ void TreeNode::CopyNodeData(const NodeMetaData& data)
     iDistBlue     = data.iDistBlue;
     oDist         = data.oDist;
     oDistBlue     = data.oDistBlue;
+    rootHasUserOffsets = data.rootHasUserOffsets;
     iOffset       = data.iOffset;
     oOffset       = data.oOffset;
     placement     = data.placement;
