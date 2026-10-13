@@ -1,0 +1,105 @@
+{
+  "parent_commit": "ef087f5e95ad567ab47b4b0bec2562c7a9cf846a",
+  "starting_stable_commit": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "branch": "exp-127-real-bluestein-boundary",
+  "initial_freeze_sha256": "97f3e2e5121b0cb5f35f5eead0d6e64f646aeebf600c5dc9c0431255b3efab15",
+  "initial_freeze": "/public/home/zhangkewei/zr/experiments/EXP-127/source/blue-s1-20261013/manifest.json",
+  "source_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rc.h": {
+      "before_sha256": "fc4db50f374535317ce89b5bc1588a19615aa4990bdbafcc1637c14a6f4f370e",
+      "after_sha256": "b81063889488b8e2db515fcbb213d811d32b570a7d601d31f666bf10492ec72c"
+    }
+  },
+  "initial_source_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "baseline_sha256": "b718d5ed2ae095d4026ac6497ad5869e691939da6647f1a88ba0feaec2f34b4b",
+      "candidate_sha256": "324372343c06312a8664bf3a1743e9c0c7c5f79ba43a38c37bfab9af5a821fec"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": {
+      "baseline_sha256": "fa10db1f4f16b4c240d4021f154cd417fae09bd2798284fad157a3643f2c6650",
+      "candidate_sha256": "2a914e90ba30233f2dd6ce9d09e81426483bacd003865bc6ec3e905922caf34c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp": {
+      "baseline_sha256": "19cc7d0a197f867de69975c27a92fb5f6c54a84555fe250a283b61f1a8e339e5",
+      "candidate_sha256": "a8aaa833277ec2a545532aec0fcd58fbbcd23e4db666645ec200618216120728"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp": {
+      "baseline_sha256": "a37dde1a268cc1641eed1d763db0be3d2ad15aaae474794fc669190d4c88b0bd",
+      "candidate_sha256": "4b4c0b56c38448246b439bd5a446e96e9b0cfb3b3de150b7be2824ea2985081b"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "baseline_sha256": "624ad759a493e1a21e714d94b19d2a0a1e7f311e3dac227b918ab4a8e3308b30",
+      "candidate_sha256": "f7f6b2552e8028ea6de8f0c874b874887e53badbbf7bc38b53c36161eb955559"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "baseline_sha256": "4d9819b69eaa87cf7bbcc879dcca7382fc2a2b434301b58c95fada6729a7a94b",
+      "candidate_sha256": "8891891ab9527e4cb66e9cf4fb53e8db3adc99e494749d1b65b95b9e1cf71db5"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_boundary_io.h": {
+      "baseline_sha256": null,
+      "candidate_sha256": "4e21653870324d1f77a02c5726348926a6408ac47b6b68dba925324213268ef6"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h": {
+      "baseline_sha256": "73a3ea9c177441efb85a7d36bc4667433470bcdbf6de224ce5e38cc434d9a8dc",
+      "candidate_sha256": "c4bb63c82fc37192a680c18216cab1816c264b75fe973dac287190305b761aa2"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "baseline_sha256": "276f3c7d6fedfecf39546818aec5b111aa17fe28de32d5bb4f0b677ef803dbff",
+      "candidate_sha256": "9da17f53cf2c48781643380592755b0301dcc9b66430ac56c8421bfb1a7712b1"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": {
+      "baseline_sha256": "a23013ba83de65612cc84e065d980533335e9aaf5a3a7ea6f90e027c74098880",
+      "candidate_sha256": "fcf97c9fc522e1d9e1ff2cdd24fa313cef79a2df989130d293ead0123664caa1"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_bluestein.h": {
+      "baseline_sha256": null,
+      "candidate_sha256": "0d2e57015e1e9f656909dcbab803ac81c304820a29067517fa89bcab20dfa8e3"
+    }
+  },
+  "validation_inputs": {
+    "experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp": "d32073f75382bf3b809815c634bcd43f9589c3285b35d930f3db21c0511156de",
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "63b768d94c3b0e1690d4e47667ec26731da69c8198866eac09283ada5e5096ce",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "1349b2cdc1f6981aaed615ff8874d6fe58077636a9c08e1dfbdd10dfcdd6c0e9",
+    "experiments/EXP-127/records/blue-s1-repair-20261013/coverage.json": "6a05ad0b72195fb2e533ba025e03c6cb04c2f13269f76aa99ff9dd2cc3725bba",
+    "experiments/EXP-127/records/blue-s1-repair-20261013/preregistration.md": "fe2e11f3a407a20b97fbfed5560a63baa17f0ef1675fe560a7ae682aebb8da51"
+  },
+  "native_evidence": {
+    "native-progress.json": "d728c7dcde84c47499121aafd3a5621eecfb98dbe207facb5db19a421caa89f7",
+    "preregistration.md": "fe2e11f3a407a20b97fbfed5560a63baa17f0ef1675fe560a7ae682aebb8da51",
+    "exporter-compile.log": "b6f015265a8fa8c44629c2bb2cf476594ffefd48cb9cabbbeaf790ac633e4a7d",
+    "coverage.json": "6a05ad0b72195fb2e533ba025e03c6cb04c2f13269f76aa99ff9dd2cc3725bba",
+    "native-v2/exporter-compile.log": "2ed697a0e56ac75d1ec065662f03be614ae5a0ae0518e9ecab20927f205b28ab",
+    "native-v2/native-progress.json": "9aed453e9a87208e665a4e4c98b69f98de2f164d9fc0f13a70d19da05c721cc4",
+    "native-v2/before-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-v2/before-export.log": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9",
+    "native-v2/configure.log": "d416f5197422259914a57c9d8a3469130568dbbeddbde71ea27f162f67dadfd3",
+    "native-v2/generator-build.log": "0a573d198c92d4bd8186ee82ce1e0f85532e07dd9713e4e3e08677bfde026d7d",
+    "native-v4/generator-common-support-build.log": "5901fdd11ec9915cb1e53f882177907b470ac6613088432ebb5a7f4bdc48b8bd",
+    "native-v4/native-progress.json": "03647faeb5392f350f15d81d94206c810bff251056df9d9fc620245266b0101f",
+    "native-v4/after-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-v4/after-export.log": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9",
+    "native-v3/common-support-build.log": "bf78b447bf52c9503dc31045fb5324fa05f065078dea5c339bb18e2ae482c4b2",
+    "native-v3/native-progress.json": "e7f3da188f362affd767e8594489a01d13a6e521db4a7000ef7f3b6fa410ae4e",
+    "native-v5/gpu-compile-50.log": "107cd42af5f5a28f17ab2dc29358bbc880bdc570c5fac7055a38c69f8cc1008b",
+    "native-v5/gpu-compile-52.log": "2c7d3ecb020478ee0c1fc404f083c8d4103aea01b51d88f738575fb8c1e46736",
+    "native-v5/gpu-compile-58.log": "29b1be1ccb66d04393142391ad541484ac16b764e17bec0310c5de4528db7524",
+    "native-v5/gpu-compile-62.log": "9b2ae3f15508daa9bc498f9a9f48aeb1474b4d9c9a80b948ec5894f309500de7",
+    "native-v5/gpu-compile-66.log": "7b108afe886e448b33f7c36d8bfff3f14efcf20f2800fa868a8738c07a32a0ae",
+    "native-v5/gpu-compile-68.log": "9bbbac32101638acfd01c222c74a35770cf5bccfde71e1bfb082450426802c93",
+    "native-v5/gpu-compile-70.log": "9c31071185c422fc66144bd15ebdd576b5588b1e79845c9f1912c38088f9e268",
+    "native-v5/gpu-compile-74.log": "1a22e9663803149c9c3fc0bd27069c8e68d8f8760bf93aaa992c1eb3fcb4250f",
+    "native-v5/gpu-compile-76.log": "0b2062afb6207e990b9f6a93618ceda14c28260d904e4a6ac5ee7b78d93584da",
+    "native-v5/native-check.json": "127f0448de411c744afed8124b8604e49c3fb69890976de594d1a963d0f2517e",
+    "native-v5/native-progress.json": "49e0ac61c47a53c88ae37b62d631a56b44ea07adc63a8dbac27710f0840937e7",
+    "native-v5/gpu-compile-54.log": "656b999ebc7063b28b391cb24095a03abe44b04733353844a582c2db3a669dc0",
+    "native-v5/gpu-compile-60.log": "b0dc4fb009a962144374911c07b85121604464706bf3016b0bb835ce4d0e5ed1",
+    "native-v5/gpu-compile-78.log": "19c1cd0cbfb9c8fdb7ac6db376a03ecf2c40b3decd29094828fab03c05782e54",
+    "native-v5/guard-syntax.log": "e374787c59be5bd760b441a56479d028b0272071f119fd86ad9e92e4a1cbe091"
+  },
+  "old_jobs": {
+    "build_validation": "911854",
+    "performance": "912075"
+  },
+  "previous_library_sha256": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad",
+  "gpu_execution": false
+}

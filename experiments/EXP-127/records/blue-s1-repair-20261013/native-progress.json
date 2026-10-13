@@ -1,0 +1,36 @@
+{
+  "complete": false,
+  "steps": [
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013/exporter.o",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp"
+      ],
+      "code": 1,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/exporter-compile.log",
+      "sha256": "b6f015265a8fa8c44629c2bb2cf476594ffefd48cb9cabbbeaf790ac633e4a7d"
+    }
+  ]
+}

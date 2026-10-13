@@ -95,16 +95,19 @@ static std::vector<unsigned char> read_binary(const std::string& path, size_t by
 struct Plan
 {
     rocfft_plan value = nullptr;
-    Plan(size_t n, bool post, rocfft_plan_description description)
+    Plan(size_t n, const std::string& direction, rocfft_plan_description description)
     {
-        fft_check(rocfft_plan_create(&value, rocfft_placement_notinplace,
-            post ? rocfft_transform_type_real_forward : rocfft_transform_type_real_inverse,
+        const auto type = direction == "d2z" ? rocfft_transform_type_real_forward
+                        : direction == "z2d" ? rocfft_transform_type_real_inverse
+                        : direction == "cforward" ? rocfft_transform_type_complex_forward
+                                                  : rocfft_transform_type_complex_inverse;
+        fft_check(rocfft_plan_create(&value, rocfft_placement_notinplace, type,
             rocfft_precision_double, 1, &n, 1, description));
     }
     ~Plan() { if(value) (void)rocfft_plan_destroy(value); }
 };
 
-static Plan& plan_for(size_t n, bool post, double scale,
+static Plan& plan_for(size_t n, const std::string& direction, double scale,
                       std::map<double, std::unique_ptr<Plan>>& plans)
 {
     auto& second = plans[scale];
@@ -113,8 +116,8 @@ static Plan& plan_for(size_t n, bool post, double scale,
         rocfft_plan_description description = nullptr;
         fft_check(rocfft_plan_description_create(&description));
         fft_check(rocfft_plan_description_set_scale_factor(description, scale));
-        Plan first(n, post, description);
-        second = std::make_unique<Plan>(n, post, description);
+        Plan first(n, direction, description);
+        second = std::make_unique<Plan>(n, direction, description);
         fft_check(rocfft_plan_description_destroy(description));
         // Release the first cache owner before executing the retained plan.
     }
@@ -126,11 +129,11 @@ static void validate_case(size_t n, const std::string& direction, const std::str
                           const std::string& pattern, Plan& second)
 {
     const size_t m = n / 2;
-    const bool post = direction == "d2z";
-    const size_t in_elements = post ? n : m + 1;
-    const size_t out_elements = post ? m + 1 : n;
-    const size_t in_bytes = in_elements * (post ? sizeof(double) : sizeof(Complex));
-    const size_t out_bytes = out_elements * (post ? sizeof(Complex) : sizeof(double));
+    const bool input_real = direction == "d2z", output_real = direction == "z2d";
+    const size_t in_elements = output_real ? m + 1 : n;
+    const size_t out_elements = input_real ? m + 1 : n;
+    const size_t in_bytes = in_elements * (input_real ? sizeof(double) : sizeof(Complex));
+    const size_t out_bytes = out_elements * (output_real ? sizeof(double) : sizeof(Complex));
     const auto original = read_binary(input_path, in_bytes);
     const auto expected = read_binary(expected_path, out_bytes);
     fft_check(rocfft_plan_get_print(second.value));
@@ -154,16 +157,14 @@ static void validate_case(size_t n, const std::string& direction, const std::str
     void* store_user_data[1] = {store_data.data()};
     if(callbacks)
     {
-        if(post)
-        {
+        if(input_real)
             hip_check(hipMemcpyFromSymbol(&load_functions[0], HIP_SYMBOL(load_real_pointer), sizeof(load_functions[0])));
-            hip_check(hipMemcpyFromSymbol(&store_functions[0], HIP_SYMBOL(store_complex_pointer), sizeof(store_functions[0])));
-        }
         else
-        {
             hip_check(hipMemcpyFromSymbol(&load_functions[0], HIP_SYMBOL(load_complex_pointer), sizeof(load_functions[0])));
+        if(output_real)
             hip_check(hipMemcpyFromSymbol(&store_functions[0], HIP_SYMBOL(store_real_pointer), sizeof(store_functions[0])));
-        }
+        else
+            hip_check(hipMemcpyFromSymbol(&store_functions[0], HIP_SYMBOL(store_complex_pointer), sizeof(store_functions[0])));
         fft_check(rocfft_execution_info_set_load_callback(info, load_functions, load_user_data, 0));
         fft_check(rocfft_execution_info_set_store_callback(info, store_functions, store_user_data, 0));
     }
@@ -221,7 +222,7 @@ int main(int argc, char** argv)
         if(argc != 5) return 2;
         const size_t n = std::stoull(argv[1]);
         const std::string direction(argv[2]);
-        if(n <= 65536 || n % 2 || (direction != "d2z" && direction != "z2d")) return 2;
+        if(n <= 65536 || n % 2 || (direction != "d2z" && direction != "z2d" && direction != "cforward" && direction != "cinverse")) return 2;
         const bool callbacks = std::string(argv[4]) == "callbacks";
         std::ifstream list(argv[3]);
         if(!list) throw std::runtime_error("missing reference list");
@@ -235,7 +236,7 @@ int main(int argc, char** argv)
             std::istringstream item(line);
             if(!(item >> pattern >> scale >> input >> expected)) throw std::runtime_error("bad reference list");
             validate_case(n, direction, input, expected, scale, callbacks, pattern,
-                          plan_for(n, direction == "d2z", scale, plans));
+                          plan_for(n, direction, scale, plans));
             ++count;
         }
         if(count == 0) throw std::runtime_error("empty reference list");

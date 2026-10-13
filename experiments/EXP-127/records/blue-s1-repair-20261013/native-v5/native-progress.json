@@ -1,0 +1,356 @@
+{
+  "complete": false,
+  "steps": [
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--offload-arch=gfx936",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter.o",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/exporter-compile.log",
+      "sha256": "2ed697a0e56ac75d1ec065662f03be614ae5a0ae0518e9ecab20927f205b28ab"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-before"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/before-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-before",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-before"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/before-export.log",
+      "sha256": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9"
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGPU_TARGETS=gfx936",
+        "-DBUILD_CLIENTS_BENCH=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/configure.log",
+      "sha256": "d416f5197422259914a57c9d8a3469130568dbbeddbde71ea27f162f67dadfd3"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2",
+        "--target",
+        "rocfft-rtc-gen",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/generator-build.log",
+      "sha256": "0a573d198c92d4bd8186ee82ce1e0f85532e07dd9713e4e3e08677bfde026d7d"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v4/generator-common-support-build.log",
+      "sha256": "5901fdd11ec9915cb1e53f882177907b470ac6613088432ebb5a7f4bdc48b8bd"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-after"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v4/after-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-after",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v4/after-export.log",
+      "sha256": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_50.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_50.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-50.log",
+      "sha256": "107cd42af5f5a28f17ab2dc29358bbc880bdc570c5fac7055a38c69f8cc1008b"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_52.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_52.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-52.log",
+      "sha256": "2c7d3ecb020478ee0c1fc404f083c8d4103aea01b51d88f738575fb8c1e46736"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_54.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_54.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-54.log",
+      "sha256": "656b999ebc7063b28b391cb24095a03abe44b04733353844a582c2db3a669dc0"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_58.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_58.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-58.log",
+      "sha256": "29b1be1ccb66d04393142391ad541484ac16b764e17bec0310c5de4528db7524"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_60.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_60.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-60.log",
+      "sha256": "b0dc4fb009a962144374911c07b85121604464706bf3016b0bb835ce4d0e5ed1"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_62.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_62.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-62.log",
+      "sha256": "9b2ae3f15508daa9bc498f9a9f48aeb1474b4d9c9a80b948ec5894f309500de7"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_66.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_66.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-66.log",
+      "sha256": "7b108afe886e448b33f7c36d8bfff3f14efcf20f2800fa868a8738c07a32a0ae"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_68.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_68.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-68.log",
+      "sha256": "9bbbac32101638acfd01c222c74a35770cf5bccfde71e1bfb082450426802c93"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-70.log",
+      "sha256": "9c31071185c422fc66144bd15ebdd576b5588b1e79845c9f1912c38088f9e268"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_74.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_74.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-74.log",
+      "sha256": "1a22e9663803149c9c3fc0bd27069c8e68d8f8760bf93aaa992c1eb3fcb4250f"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_76.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_76.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-76.log",
+      "sha256": "0b2062afb6207e990b9f6a93618ceda14c28260d904e4a6ac5ee7b78d93584da"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_78.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_78.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-78.log",
+      "sha256": "19c1cd0cbfb9c8fdb7ac6db376a03ecf2c40b3decd29094828fab03c05782e54"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/shared",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/real_boundary_guard.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/guard-syntax.log",
+      "sha256": "e374787c59be5bd760b441a56479d028b0272071f119fd86ad9e92e4a1cbe091"
+    }
+  ]
+}

@@ -40,15 +40,23 @@ def references(n,direction,callbacks,scratch):
             rng=np.random.default_rng(127+n)
             value=rng.normal(size=m+1)+1j*rng.normal(size=m+1)
             value[0]=value[0].real;value[-1]=value[-1].real
+        complex_transform=direction in ('cforward','cinverse')
+        if complex_transform:
+            value=x.astype(np.complex128)+0.25j*np.roll(x,3)
+            if pattern=='random':
+                value+=1j*np.random.default_rng(127+n+1).normal(size=n)
         raw=np.ascontiguousarray(value,dtype='<f8' if direction=='d2z' else '<c16')
         input_path=scratch/(pattern+'-input.bin');raw.tofile(input_path)
         if callbacks:value=value*0.75+(np.arange(len(value))%7)*0.03125
-        transformed=np.fft.rfft(value) if direction=='d2z' else np.fft.irfft(value,n=n)*n
+        if complex_transform:
+            transformed=np.fft.fft(value) if direction=='cforward' else np.fft.ifft(value)*n
+        else:
+            transformed=np.fft.rfft(value) if direction=='d2z' else np.fft.irfft(value,n=n)*n
         for scale in (1.0,0.375):
             expected=transformed*scale
             if callbacks:expected=expected*1.125+(np.arange(len(expected))%5)*0.015625
             path=scratch/(pattern+'-'+str(scale)+'-expected.bin')
-            np.ascontiguousarray(expected,dtype='<c16' if direction=='d2z' else '<f8').tofile(path)
+            np.ascontiguousarray(expected,dtype='<c16' if direction!='z2d' else '<f8').tofile(path)
             rows.append('%s %.17g %s %s'%(pattern,scale,input_path,path))
             metadata.append(dict(pattern=pattern,scale=scale,input=str(input_path),expected=str(path),
                                  input_sha256=mgr.common.sha(input_path),
@@ -123,7 +131,7 @@ def main():
         allocation=mgr.common.single_gpu_allocation(os.environ),source_commit=built['arm']['source_commit'],
         library_sha256=digest,matched_stable=stable,binaries=binaries,compile_commands=commands,
         default_path_only=True,numpy_version=np.__version__,quick_checks=[],matched_plans=[],
-        guard_groups=[],scope_checks=[],failures=[],families={},
+        guard_groups=[],complex_guard_groups=[],stable_diagnostics=[],scope_checks=[],failures=[],families={},
         reference='Independent full-length NumPy real FFT; retained recipe and all binary hashes',
         start=datetime.datetime.now(datetime.timezone.utc).isoformat())
     def audit():
@@ -145,10 +153,53 @@ def main():
                 mgr.common.validate_row(rows[0],n,func)
                 text=(case/'plan.txt').read_text()+(case/'stdout.txt').read_text()
                 if item['kind']!='target':mgr.require('_real_pre_blue_v1' not in text and '_real_post_blue_v1' not in text,'scope leaked')
+                if n in coverage['fused_complex_controls'] and func=='z2z_1d':
+                    rtc=(case/'rtc.txt').read_text()
+                    mgr.require('Fused chirp + padding w/ fwd FFT' in text
+                        and 'static SBRC initial global-to-register load' in rtc,
+                        'complex regression did not cover the repaired default path')
+                    for role in ('fwd_chirp','fwd_chirp_mul','inv_chirp_mul'):
+                        mgr.require('bluestein_load_rc_'+role+'_device' in rtc,
+                                    'complex regression missing convolution stage')
                 record['quick_checks'].append(dict(item,check='PASS',csv_sha256=mgr.common.sha(case/'fft_test_1d.csv')))
             except (subprocess.CalledProcessError,ValueError) as error:
                 record['failures'].append(dict(stage='quick',case=item,error=str(error),evidence=str(case)))
         mgr.require(not record['failures'],'quick failures; see retained evidence')
+        # Retained-library failures remain diagnostic evidence, never accepted
+        # correctness or a time comparison against a mathematically invalid arm.
+        for n in coverage['fused_complex_controls']:
+            case=run/'stable-diagnostic'/str(n);audit()
+            try:
+                run_logged([frozen,n,1,'z2z_1d',1],logged_env(case,stable_env,'41'),case)
+            except subprocess.CalledProcessError as error:
+                mgr.require(error.returncode==2,'stable diagnostic runtime error')
+            rows=mgr.common.read_rows(case/'fft_test_1d.csv')
+            mgr.require(len(rows)==1,'incomplete stable diagnostic')
+            record['stable_diagnostics'].append(dict(N=n,formal=False,row=rows[0],
+                csv_sha256=mgr.common.sha(case/'fft_test_1d.csv'),
+                plan_sha256=mgr.common.sha(case/'plan.txt'),rtc_sha256=mgr.common.sha(case/'rtc.txt')))
+        for n in coverage['fused_complex_controls']:
+            for direction in ('cforward','cinverse'):
+                for callbacks in (False,True):
+                    audit();case=run/'complex-guards'/str(n)/direction/('callbacks' if callbacks else 'plain')
+                    reference_dir=scratch/str(n)/direction/('callbacks' if callbacks else 'plain')
+                    reference_dir.mkdir(parents=True)
+                    reference_list,refs=references(n,direction,callbacks,reference_dir)
+                    try:
+                        run_logged([guard,n,direction,reference_list,'callbacks' if callbacks else 'plain'],logged_env(case),case)
+                        stdout=(case/'stdout.txt').read_text();plan=(case/'plan.txt').read_text()
+                        mgr.require(stdout.count('REAL_BOUNDARY_GUARD_PASS')==len(refs)
+                            and 'REAL_BOUNDARY_ALL_PASS cases=%d'%len(refs) in stdout,'incomplete complex reference')
+                        mgr.require('Fused chirp + padding w/ fwd FFT' in plan
+                            and '_real_pre_blue_v1' not in plan and '_real_post_blue_v1' not in plan,
+                            'complex regression changed scope/plan')
+                        record['complex_guard_groups'].append(dict(N=n,direction=direction,callbacks=callbacks,
+                            check='PASS',references=refs,executions=2*len(refs),
+                            evidence_sha256={p:mgr.common.sha(case/p)
+                                for p in ('stdout.txt','stderr.txt','plan.txt','rtc.txt','profile.txt')}))
+                    except (subprocess.CalledProcessError,ValueError) as error:
+                        record['failures'].append(dict(stage='complex-guard',N=n,direction=direction,callbacks=callbacks,
+                            error=str(error),evidence=str(case)))
         for n_text,g in coverage['sizes'].items():
             n=int(n_text);m=n//2
             for direction in ('z2d','d2z'):
@@ -220,7 +271,9 @@ def main():
             record['families'][family]=dict(sizes=sizes,actual_fusion='PASS')
         mgr.require(len(record['quick_checks'])==coverage['expected_quick_checks']
             and len(record['matched_plans'])==40 and len(record['guard_groups'])==80
-            and len(record['scope_checks'])==18,'incomplete matrix')
+            and len(record['scope_checks'])==18
+            and len(record['complex_guard_groups'])==20 and len(record['stable_diagnostics'])==5,
+            'incomplete matrix')
         audit();mgr.require(mgr.source_identity(cfg)==built['plan']['source_identity'],'source changed during validation')
         record['complete']=True
     finally:

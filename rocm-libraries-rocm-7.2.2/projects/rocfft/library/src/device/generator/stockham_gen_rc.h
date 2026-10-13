@@ -422,6 +422,14 @@ struct StockhamKernelRC : public StockhamKernel
             const auto idx = Parens{tid + w * length / width};
             const auto global_idx
                 = Parens{Parens{Expression{idx}} * stride0 + row * stride_load_in};
+            if(emitGlobalId)
+            {
+                // Bluestein's visitor replaces the physical load index with
+                // these logical indices. Use this register's row/element map.
+                const auto logical_idx = Parens{row * length + idx};
+                work += Assign{global_data_id, global_load_data_offset + logical_idx};
+                work += Assign{global_transf_id, global_load_transf_offset + logical_idx};
+            }
             work += Assign{R[hr * width + w], LoadGlobal{buf, offset_in + global_idx}};
         }
         return work;

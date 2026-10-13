@@ -1,0 +1,76 @@
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:3105:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1229:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1251:7: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1229:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1268:57: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+                                                        ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1229:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1285:58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1229:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1296:48: note: in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+                                               ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1229:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1306:49: note: in instantiation of function template specialization 'store_cb_default<float>' requested here
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1229:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1317:50: note: in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2701:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2928:1: note: in instantiation of function template specialization 'inverse_length1024_SBRC_device<rocfft_complex<double>, false, SBRC_2D, TILE_ALIGNED, SB_NONUNIT, false, true>' requested here
+inverse_length1024_SBRC_device<scalar_type,lds_is_real,sbrc_type,transpose_type,lds_linear ? SB_UNIT : SB_NONUNIT,lds_linear,direct_load_to_reg>(R,lds_real,lds_complex,twiddles,stride_lds,offset_lds,thread_in_device,true);
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1956:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2275:1: note: in instantiation of function template specialization 'InvRad8B1<rocfft_complex<double>>' requested here
+InvRad8B1(R + 0,R + 1,R + 2,R + 3,R + 4,R + 5,R + 6,R + 7);
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2928:1: note: in instantiation of function template specialization 'inverse_length1024_SBRC_device<rocfft_complex<double>, false, SBRC_2D, TILE_ALIGNED, SB_NONUNIT, false, true>' requested here
+inverse_length1024_SBRC_device<scalar_type,lds_is_real,sbrc_type,transpose_type,lds_linear ? SB_UNIT : SB_NONUNIT,lds_linear,direct_load_to_reg>(R,lds_real,lds_complex,twiddles,stride_lds,offset_lds,thread_in_device,true);
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:1869:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2559:1: note: in instantiation of function template specialization 'InvRad4B1<rocfft_complex<double>>' requested here
+InvRad4B1(R + 0,R + 1,R + 2,R + 3);
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2928:1: note: in instantiation of function template specialization 'inverse_length1024_SBRC_device<rocfft_complex<double>, false, SBRC_2D, TILE_ALIGNED, SB_NONUNIT, false, true>' requested here
+inverse_length1024_SBRC_device<scalar_type,lds_is_real,sbrc_type,transpose_type,lds_linear ? SB_UNIT : SB_NONUNIT,lds_linear,direct_load_to_reg>(R,lds_real,lds_complex,twiddles,stride_lds,offset_lds,thread_in_device,true);
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2263:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2937:1: note: in instantiation of function template specialization 'lds_from_reg_output_length1024_device<rocfft_complex<double>, SB_NONUNIT, true>' requested here
+lds_from_reg_output_length1024_device<scalar_type,lds_linear ? SB_UNIT : SB_NONUNIT,true>(R,lds_complex,stride_lds,offset_lds,thread_in_device,true);
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2722:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp:2951:1: note: in instantiation of function template specialization 'bluestein_store_rc_inv_chirp_mul_device<rocfft_complex<double>, CallbackType::NONE>' requested here
+bluestein_store_rc_inv_chirp_mul_device<scalar_type, cbtype>(chirp,global_transf_id,offset_out + tid_hor * stride0_out + (((thread + 0 + 0) / 256) * 1024 + (thread + 0 + 0) % 256 + 0) * stride_store_out,length_N_blue,length_M_blue,buf_out,R[0],store_cb_fn,store_cb_data);
+^
+12 warnings generated when compiling for gfx936.

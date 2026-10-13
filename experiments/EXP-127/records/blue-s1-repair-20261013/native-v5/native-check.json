@@ -1,0 +1,1171 @@
+{
+  "complete": true,
+  "gpu_execution": false,
+  "stable_rc_source_sha256": "fc4db50f374535317ce89b5bc1588a19615aa4990bdbafcc1637c14a6f4f370e",
+  "source_manifest": {
+    "experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp": {
+      "before": null,
+      "after": "d32073f75382bf3b809815c634bcd43f9589c3285b35d930f3db21c0511156de"
+    },
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": {
+      "before": "9231574e91cf26a8277c905c12b330c434adb322159787b0238915b06150fcd0",
+      "after": "63b768d94c3b0e1690d4e47667ec26731da69c8198866eac09283ada5e5096ce"
+    },
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": {
+      "before": "387f25f75851066453f1eb7fc7bc7bf2cd8fc9f13b9a51d0de76cbfecfe041dd",
+      "after": "1349b2cdc1f6981aaed615ff8874d6fe58077636a9c08e1dfbdd10dfcdd6c0e9"
+    },
+    "experiments/EXP-127/records/blue-s1-repair-20261013/coverage.json": {
+      "before": null,
+      "after": "6a05ad0b72195fb2e533ba025e03c6cb04c2f13269f76aa99ff9dd2cc3725bba"
+    },
+    "experiments/EXP-127/records/blue-s1-repair-20261013/preregistration.md": {
+      "before": null,
+      "after": "fe2e11f3a407a20b97fbfed5560a63baa17f0ef1675fe560a7ae682aebb8da51"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rc.h": {
+      "before": "fc4db50f374535317ce89b5bc1588a19615aa4990bdbafcc1637c14a6f4f370e",
+      "after": "b81063889488b8e2db515fcbb213d811d32b570a7d601d31f666bf10492ec72c"
+    }
+  },
+  "variants": [
+    {
+      "index": 0,
+      "length": 64,
+      "linear": false,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "b7bd5f4a070c35e77cf2ae1c35eb74e2a893367cbb96064ffc728745e407b6d7",
+      "after_sha256": "b7bd5f4a070c35e77cf2ae1c35eb74e2a893367cbb96064ffc728745e407b6d7"
+    },
+    {
+      "index": 1,
+      "length": 64,
+      "linear": false,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "3b4aa5b94139c7de1898501ccb3135967e571227b459e3f4547a978e8e288715",
+      "after_sha256": "3b4aa5b94139c7de1898501ccb3135967e571227b459e3f4547a978e8e288715"
+    },
+    {
+      "index": 2,
+      "length": 64,
+      "linear": false,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "54ca692917da44831e38cda47508cfe8a52c37e0eda16652ff77ac910d176ae5",
+      "after_sha256": "7b0f617c8294d2c67f541af1bd8500bbdd38558b6a55840e33d66cc55c7a3fd6"
+    },
+    {
+      "index": 3,
+      "length": 64,
+      "linear": false,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "5593e595e901e0d76c119d20128576547922de5b548fbab7643e5a4a868222c2",
+      "after_sha256": "a3377fe6f9795beb777ef08312ab17c74048615587e9030893d6cec20a0024a4"
+    },
+    {
+      "index": 4,
+      "length": 64,
+      "linear": false,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "db6c11a9c6b67432d228527ef636a9853fc307948eaad9b1b2d7d009d26e4895",
+      "after_sha256": "0fcdae372e561deff6bc9e6931c0339240b1a5ec9badc02d87fc78c1386c302c"
+    },
+    {
+      "index": 5,
+      "length": 64,
+      "linear": false,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "1aaaca0f589b5b52727e8fcb8e9dcb0af3c0eb2f2c2e4bb462b030c197c0bbef",
+      "after_sha256": "9ad6ce9e4dbf1256b0d437fd627832f4bb1c019b7ac32565b3d7c6b2359878f9"
+    },
+    {
+      "index": 6,
+      "length": 64,
+      "linear": false,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "3c255361ad7d806af241636f507d1dcf7a1df6da0b4f4ff18074110a080ac4cf",
+      "after_sha256": "2ed44a340886e149aac6f30293962a72c9551f0e71fddfb79aea2d89e240fb0f"
+    },
+    {
+      "index": 7,
+      "length": 64,
+      "linear": false,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "51a37b3311d489dfb14ebe1bc99bc40a03b0f4755750c4c408bd888734a5b35e",
+      "after_sha256": "1102d48006d4b20f588247dcd0cc75ed05d4d46573a17864a776e55a90bbb475"
+    },
+    {
+      "index": 8,
+      "length": 64,
+      "linear": true,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "3a7e1afaf28031a0b728415a62b03a71bb37f60408fc16ad6ebdaf3d1cf4cb61",
+      "after_sha256": "3a7e1afaf28031a0b728415a62b03a71bb37f60408fc16ad6ebdaf3d1cf4cb61"
+    },
+    {
+      "index": 9,
+      "length": 64,
+      "linear": true,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "c0b4385589e6c49187cac0f867dbca310d43f901040ccba3975cfd328ee8b35b",
+      "after_sha256": "c0b4385589e6c49187cac0f867dbca310d43f901040ccba3975cfd328ee8b35b"
+    },
+    {
+      "index": 10,
+      "length": 64,
+      "linear": true,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "3507eab314bc58ac4c9ad9cdfdf417f67b1c38da93d419ce57683860cbf8c2c5",
+      "after_sha256": "e6df12408ddbae0533c81e8ac6acdbe4910c087b597d0c8bc01f53f3a0619a1c"
+    },
+    {
+      "index": 11,
+      "length": 64,
+      "linear": true,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "ddb857d17a1b691036dd28e4784b2ba6c52b14ba9f4b06bcf5eae94bb175add9",
+      "after_sha256": "73ed87a0d4e21577865d11dbe9492e394eb4f583880cec38c15e99c2773ad31a"
+    },
+    {
+      "index": 12,
+      "length": 64,
+      "linear": true,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "5677e76b8aeb32bf0b42642963abf4f41a6bbb6bd1082941983b35099bfb3e3f",
+      "after_sha256": "15ac690a4ea96dc6b7681a2247ad85d55b940ae7bb5d2c4e1a741d8125a68413"
+    },
+    {
+      "index": 13,
+      "length": 64,
+      "linear": true,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "2965f5ee8d7b702073012ccf706157560056ac99f71880367c1701ab2d5732fc",
+      "after_sha256": "a775df42643b9a62b722ec608db63f78fc96642da6d47d9aeb41b1e08544ceaf"
+    },
+    {
+      "index": 14,
+      "length": 64,
+      "linear": true,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "4cb4dd089885fc82780223a9906e41ea687a05bff1eabeed43914bc6ddd70f44",
+      "after_sha256": "6b226dd953f40dc56229765a79102f59650ec04630f3bf7d4b4b4ee9f21627f4"
+    },
+    {
+      "index": 15,
+      "length": 64,
+      "linear": true,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "b3f2226c5e115ecb1e1d581c3bad555943a1c7c1a09376cd2b1b1da0fc8eea47",
+      "after_sha256": "ebdc0c0a85df43867b89021e74eeec804c6173a23452c92537e0da8b7c4643f7"
+    },
+    {
+      "index": 16,
+      "length": 128,
+      "linear": false,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "ba25aa634d3bb0f6c4b2d13f11c82533b6dac349af97badf7ffbffbc4b11a451",
+      "after_sha256": "ba25aa634d3bb0f6c4b2d13f11c82533b6dac349af97badf7ffbffbc4b11a451"
+    },
+    {
+      "index": 17,
+      "length": 128,
+      "linear": false,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "af332efc2653a75f59c853f052ae23f7fe80e7532792925bcf1e4d3cb5aaa0c6",
+      "after_sha256": "af332efc2653a75f59c853f052ae23f7fe80e7532792925bcf1e4d3cb5aaa0c6"
+    },
+    {
+      "index": 18,
+      "length": 128,
+      "linear": false,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "bedf35182c9921cd1031e2a48b9dc20969aa514a64618eb78c504e69ea0ee840",
+      "after_sha256": "e496a1bb656867d78d5f23a64778514485c827782b2fbd6af66ce4120609d7c6"
+    },
+    {
+      "index": 19,
+      "length": 128,
+      "linear": false,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "a034c4efba80e4985fdb27b397be3203e6f369ceb246ed985ca6376f774e4ad1",
+      "after_sha256": "be3a348f576d8bd60bcc5de539779b6e5456076fa6e3b5ea58defa0aa2842e9b"
+    },
+    {
+      "index": 20,
+      "length": 128,
+      "linear": false,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "5e5fdad68a9b8a6cb2024d8f645d61cff3cde6836638560dd073166674a06940",
+      "after_sha256": "fcb9e17bab7e6fb5a072d1f992f142cdbf7233779cbc80eff0c717de57c211c3"
+    },
+    {
+      "index": 21,
+      "length": 128,
+      "linear": false,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "a41374d80369569798c484d46a5a49376765a555aa3be09d3d9f15550fb17478",
+      "after_sha256": "c517fa793852e9088f08d77851a37c2f032ed03bd80cd0f23c6f2d5ff8a85179"
+    },
+    {
+      "index": 22,
+      "length": 128,
+      "linear": false,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "dc6db0163a63e79794309ec92fc61163053fcf4e256c1228e5b77f5b3a0a2608",
+      "after_sha256": "252971c00905952544d7b37f3441a4033fb5ed9e191070a644c43e003680a066"
+    },
+    {
+      "index": 23,
+      "length": 128,
+      "linear": false,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "291f079d1cd97781b6a31cdf3d9ff4a16f55ae6b9598f10be0b034e81b0352cb",
+      "after_sha256": "a24869de52aaa68e30a83bc9979d661308d01edfe2afef87db981c8114e93062"
+    },
+    {
+      "index": 24,
+      "length": 128,
+      "linear": true,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "3c198ff0675d9e0d38ed1dd54138122c1cf28b9499e962332ef3df7ebb8c6cf2",
+      "after_sha256": "3c198ff0675d9e0d38ed1dd54138122c1cf28b9499e962332ef3df7ebb8c6cf2"
+    },
+    {
+      "index": 25,
+      "length": 128,
+      "linear": true,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "35e391c8d703dba8268e8762c923b2861f2991041b6527e8677233f752841466",
+      "after_sha256": "35e391c8d703dba8268e8762c923b2861f2991041b6527e8677233f752841466"
+    },
+    {
+      "index": 26,
+      "length": 128,
+      "linear": true,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "e6bf2c8b6aef0c1425d21b884bb2b8993c008971803a3758ac0232657ede8846",
+      "after_sha256": "012bad57c6b25eee318717345ffcad30d7677beb452f2bb9d4f8be50f89a445f"
+    },
+    {
+      "index": 27,
+      "length": 128,
+      "linear": true,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "8dc05eb01a519f5e98fc8cc18f560dc3026a518853d3987d339d2911d654a397",
+      "after_sha256": "66e487b9c0b14373cf91a518c83be414e2bfe243f7c32a70f51fe6d60a385503"
+    },
+    {
+      "index": 28,
+      "length": 128,
+      "linear": true,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "8ab9432bba03e1589e5dbc36f958ad405b04ed725d2fd3a45da3242a507a0ec1",
+      "after_sha256": "9e76ef7d2d9b3da0447101882163856e0bdd8d504f434a6dec504f5572446ccd"
+    },
+    {
+      "index": 29,
+      "length": 128,
+      "linear": true,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "b316dd8d97b053274a176e7d77944a7ec6bd9531adb854f1aadd795dd0b1e341",
+      "after_sha256": "30e7011c4eca86abd889a4206383fe377c9179d7dad746c1504165e8879aef07"
+    },
+    {
+      "index": 30,
+      "length": 128,
+      "linear": true,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "232707c16b16f31256ad9905a4c399e34e05b0f50c8a412acede8ff8fee7b915",
+      "after_sha256": "a948dd9445fbe91f60bbf0abe8a2c5b01e2b6ed4a12ac15cc2b953f2825b92c2"
+    },
+    {
+      "index": 31,
+      "length": 128,
+      "linear": true,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "3fd131d52382b89d37d596e22f3a94fc68db8ed4df886c13e779a9fec309ab6b",
+      "after_sha256": "4b598d9a6bb67e39fbf6eb16eb7ceafbd1504a37c24716c0a7faf54005108498"
+    },
+    {
+      "index": 32,
+      "length": 256,
+      "linear": false,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "7a4940e0b7bed697b06e9d81f1820525be52c1bef61abd077b9ae432c5355705",
+      "after_sha256": "7a4940e0b7bed697b06e9d81f1820525be52c1bef61abd077b9ae432c5355705"
+    },
+    {
+      "index": 33,
+      "length": 256,
+      "linear": false,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "2bfa25f5f6bdda608eb788f70d17a52899ce4698ea4d062e801356ab800fa19b",
+      "after_sha256": "2bfa25f5f6bdda608eb788f70d17a52899ce4698ea4d062e801356ab800fa19b"
+    },
+    {
+      "index": 34,
+      "length": 256,
+      "linear": false,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "f7a4431516ad05b6aaad7918e0f200059ba774efd2c33f531540470d1b818cb0",
+      "after_sha256": "a6ac1b2ac1e8bd03306d991b8f35a82be308d73cae693289f85b628edb8a3be9"
+    },
+    {
+      "index": 35,
+      "length": 256,
+      "linear": false,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "892a8b6334adba879a1df87e03498d7a9127bad6a22f0b2d04138ee8df1e3071",
+      "after_sha256": "0b9fdc8e749ce8e6e0134063cc21035d423d1eaf46f9326a5dc2658223fa1163"
+    },
+    {
+      "index": 36,
+      "length": 256,
+      "linear": false,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "5be7355c32051dfd30de9f046dd91abbb206133c2eeaedf927b2f9e97a812add",
+      "after_sha256": "f20c6e60bad9fe1b3bdfe3b9c43f3c6def808888663ab5d390b9d8827f1c82b7"
+    },
+    {
+      "index": 37,
+      "length": 256,
+      "linear": false,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "3881b3b40af4c836fc52b7dcef3e0facba6226199c1849f7f38e69461d14a90b",
+      "after_sha256": "088a3a599c6dfcc10263a086c549dbc25b611b9f0fc4634c479189bfef2fa328"
+    },
+    {
+      "index": 38,
+      "length": 256,
+      "linear": false,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "3b90451cf3807151086683ef4754a69248564140ee14fcae4271f56a96f0f52a",
+      "after_sha256": "569d4527e688b2d5b21cd753d4641fcf89e21b56b0c99601fe44ab6e269deaa3"
+    },
+    {
+      "index": 39,
+      "length": 256,
+      "linear": false,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "51e92d49df03b961c7d2240a1d9fdf1f43b6a5a52a56608c78dd051ecf8c4868",
+      "after_sha256": "3ba12a63e9db442799dbaa86fd246a900381fa2b3c373e0294559378797663c5"
+    },
+    {
+      "index": 40,
+      "length": 256,
+      "linear": true,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "c0c30ae0c24ebf802fbb0f9e7b67b63623d0ccf1c42a821ff8b552cd5a6a6b1f",
+      "after_sha256": "c0c30ae0c24ebf802fbb0f9e7b67b63623d0ccf1c42a821ff8b552cd5a6a6b1f"
+    },
+    {
+      "index": 41,
+      "length": 256,
+      "linear": true,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "7c9fc84aa7118cb042e901d4032b20e48b2cc9f61493ed10f9204ca300d0ffa0",
+      "after_sha256": "7c9fc84aa7118cb042e901d4032b20e48b2cc9f61493ed10f9204ca300d0ffa0"
+    },
+    {
+      "index": 42,
+      "length": 256,
+      "linear": true,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "dbcb4f167c8669ba8fa650b8659f29b9453eb1b0de5623ce8811f9b9ad28f5ad",
+      "after_sha256": "4f61f20c73bf9323ced9eb6d5ec83598757b7a595e9740e5c70b755d261d7d68"
+    },
+    {
+      "index": 43,
+      "length": 256,
+      "linear": true,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "c0c79a0931c1a287815c1f309e9d650cfc8bb88c0619c9d1a7f827ce92005f61",
+      "after_sha256": "44632593463c296a281a2373df5565cbae93005468590f9229e3671c750c0314"
+    },
+    {
+      "index": 44,
+      "length": 256,
+      "linear": true,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "d0acedf9585ec713b8d27a3bbf8d3d211c65f43e01a02958275b823efc4c446a",
+      "after_sha256": "b922f18d6fad962220c485e2e243f6afe3329bd933335563f97ee58fad0cbd4f"
+    },
+    {
+      "index": 45,
+      "length": 256,
+      "linear": true,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "8e8dc144a9d5fa5dbafccfa63387ce9460b610f0dfa21136205ab2a1f06a2098",
+      "after_sha256": "5fa1f9e1183a9b6ef0775587885096ce3e8c2c8c2b508543568c94e62632737e"
+    },
+    {
+      "index": 46,
+      "length": 256,
+      "linear": true,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "116324d99e5851f52b0bda47a4be8c59cc879b753196ceacbee4f615abfb843d",
+      "after_sha256": "bc38518389a7c5603f8d19444ebc8e5d252ccd415831554861aac1c3145affa1"
+    },
+    {
+      "index": 47,
+      "length": 256,
+      "linear": true,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "a2599547b56e92b381c36b4f28ee6b4568eb5e6e56acc00c34bc729320ba038d",
+      "after_sha256": "a4641eb46f4497f71fa057ad1765a53af77a4c20062b2bb56d193ce1179f2343"
+    },
+    {
+      "index": 48,
+      "length": 512,
+      "linear": false,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "354916152022229338a4115850effb9e76ea6c3b2be60da56ea088b0ffb0a3d7",
+      "after_sha256": "354916152022229338a4115850effb9e76ea6c3b2be60da56ea088b0ffb0a3d7"
+    },
+    {
+      "index": 49,
+      "length": 512,
+      "linear": false,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "534543ba3066b5e976fdd8bc4362d51db8954ce8cf1a8f5c63fd6f9f397c37ac",
+      "after_sha256": "534543ba3066b5e976fdd8bc4362d51db8954ce8cf1a8f5c63fd6f9f397c37ac"
+    },
+    {
+      "index": 50,
+      "length": 512,
+      "linear": false,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "b8b0bb463aaf07dad7b45b94237b8633f02d0b33bb9a3400a690f7c716bde6e8",
+      "after_sha256": "493dd376e8fb14402bcf98a64161a5fbe52019400b0e0443ff209928b7bb1357"
+    },
+    {
+      "index": 51,
+      "length": 512,
+      "linear": false,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "54dc0301e1fc8ea29f6892cd9d40f41c76e10f52dd9cb3cd05499103e94f67d9",
+      "after_sha256": "6c9bce503945a96a4ac4240fc4fae2350c3c95753f8abf678232fbaa3fc40dc3"
+    },
+    {
+      "index": 52,
+      "length": 512,
+      "linear": false,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "b71a9b541212344f0c12c8372f20a3908abf74ec749833188600d42f95743586",
+      "after_sha256": "596b130249e7a1d322592fe948d85cc007bf7513fd97fd15ff0ce9f8b889380a"
+    },
+    {
+      "index": 53,
+      "length": 512,
+      "linear": false,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "c184037a1326b06b5a10072b14eefc19386988e44eac66dae84daafac49e9efd",
+      "after_sha256": "b29ba279b047e08d397d8fee86d77af011a9b1d3f9d207fe446fd6f6f32ee947"
+    },
+    {
+      "index": 54,
+      "length": 512,
+      "linear": false,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "f7f071749bf0f6eda6470979117e929bbf5ea56e40b82b34b18a7aac9ad92b34",
+      "after_sha256": "1f30654e2e3c42190982809146e4668e768e74a86dcc609ed2f96490966ca487"
+    },
+    {
+      "index": 55,
+      "length": 512,
+      "linear": false,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "7a2b429499a8e1f13576ec67d7e3d924e20ef49a438b2c3a2f91b5ae640078bf",
+      "after_sha256": "c2abcadcacf23cc2d46fb101d70588a9bcd7534a11b5bfb7b66653f492c8828f"
+    },
+    {
+      "index": 56,
+      "length": 512,
+      "linear": true,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "b033aae30fe723b4b7e7e2b5c4b6a2b313158d5694705deb072407f9ab1ba08c",
+      "after_sha256": "b033aae30fe723b4b7e7e2b5c4b6a2b313158d5694705deb072407f9ab1ba08c"
+    },
+    {
+      "index": 57,
+      "length": 512,
+      "linear": true,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "dd5047ea53fe9d2e96b0b02ec80d597af2deeeb13e898c5f60ea1796b280de7f",
+      "after_sha256": "dd5047ea53fe9d2e96b0b02ec80d597af2deeeb13e898c5f60ea1796b280de7f"
+    },
+    {
+      "index": 58,
+      "length": 512,
+      "linear": true,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "8886561f46e9746bf1c21cd5d3c1f342d401b1ae5948f15579318c110187c9d3",
+      "after_sha256": "cd037dca9a9c7c8a0346356ee5781fe79dc39ad942bd51b3efeeb3db8cef85c7"
+    },
+    {
+      "index": 59,
+      "length": 512,
+      "linear": true,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "b353f46e67c99864730819fd029afe36b26644521ccbcba864a3a716379f5fe8",
+      "after_sha256": "6405fbfa8f9a564f18550cf3d9afc283960b1f5daf8e095dea962e0785cd1047"
+    },
+    {
+      "index": 60,
+      "length": 512,
+      "linear": true,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "b4550cfc1a2a57638f591d838545f04f473919acae2dbf9857311f42e394d812",
+      "after_sha256": "b07d262a72b71deda2be3cc43cf346b2d1d1517c3388d09b2cb3e174ff0587f3"
+    },
+    {
+      "index": 61,
+      "length": 512,
+      "linear": true,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "a4e46a1550ef893fd650c1845b78874df53ec240cba8be970229820b3bf62150",
+      "after_sha256": "e42cfe4d2527d09b2643bebffa784cd55cd6d9d42e45726082d4c9eab7cfa25b"
+    },
+    {
+      "index": 62,
+      "length": 512,
+      "linear": true,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "c981aed97d4d706008bd68fff956b1f836f6cbf76c409ec0ddb2bb4a93427c20",
+      "after_sha256": "4c81eeb385dbee9ac881e25708899040ecbbdb7b4aaa2fc51d38d53a5fb921d1"
+    },
+    {
+      "index": 63,
+      "length": 512,
+      "linear": true,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "500ff8a09e40bde6bb888498d341c30192f67816776bfc5616317035c05c7dc9",
+      "after_sha256": "5998e231007c2b8e583671d2eefa96ccd79523ffa725d92078908d922a35ba1c"
+    },
+    {
+      "index": 64,
+      "length": 1024,
+      "linear": false,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "21024be34c0de45172c7c25f68c866e101f724909c6a9bb78fec98fc92b6e36c",
+      "after_sha256": "21024be34c0de45172c7c25f68c866e101f724909c6a9bb78fec98fc92b6e36c"
+    },
+    {
+      "index": 65,
+      "length": 1024,
+      "linear": false,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "257b8a2ea612b129851c267e965d20aba62e42d632c156a89bb900c237718dc9",
+      "after_sha256": "257b8a2ea612b129851c267e965d20aba62e42d632c156a89bb900c237718dc9"
+    },
+    {
+      "index": 66,
+      "length": 1024,
+      "linear": false,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "28c739b9bc037570c740624bbe12234fedec05c2d989c90618ee774e90f10932",
+      "after_sha256": "e2696725667fb06d9e35aa1c3eaf3a0dbb9061054f9eb1dae10bb9d54b1a79b3"
+    },
+    {
+      "index": 67,
+      "length": 1024,
+      "linear": false,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "6aba5cd64cc462fa6cdd5d317ab22c4b37f66ddf26b1fb2247bd7ecc69937829",
+      "after_sha256": "6b41ddc5273964e4fa6ce708c59da8bb30373886cbc4b305ed6e25b12e631f7a"
+    },
+    {
+      "index": 68,
+      "length": 1024,
+      "linear": false,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "02b97190c55ec5a647cfadfd750ef62ee19f6795cad4e7820184fc5444a7a015",
+      "after_sha256": "87db2f2d50e81b14ff7a7b968f3e16feae4b6150732cbe1e3e6813124914b52d"
+    },
+    {
+      "index": 69,
+      "length": 1024,
+      "linear": false,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "5835ba244217658ea3cfcf2b970a587504f0d18db5d6aa3f6646e5efbbbd31c9",
+      "after_sha256": "612c0ce4789cf476aaff07e83998862a8d7d4cc81cf2f213c7bbeb10c1609425"
+    },
+    {
+      "index": 70,
+      "length": 1024,
+      "linear": false,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "3fe4dc90f419d4958c366da9c0b694034577f68798a206fa24e29eef49c4bef1",
+      "after_sha256": "d8d8f4cc4942ebf747f25c3e42ee8e76c0168ed294ed846aa26c0eddf93848d1"
+    },
+    {
+      "index": 71,
+      "length": 1024,
+      "linear": false,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "2eeaaf5c632f2d62c90f789a35085ee71021a186310a68b9fda830d3c1a6626e",
+      "after_sha256": "9df791ac556f99f064ce13461d529a0dc2bf4850103c2d6805ac4157019da3fe"
+    },
+    {
+      "index": 72,
+      "length": 1024,
+      "linear": true,
+      "blue": 0,
+      "planar": false,
+      "before_sha256": "4a2dd46f595c010a20d5e09dd707579a8f8155caafabc832362f35b50f0caacf",
+      "after_sha256": "4a2dd46f595c010a20d5e09dd707579a8f8155caafabc832362f35b50f0caacf"
+    },
+    {
+      "index": 73,
+      "length": 1024,
+      "linear": true,
+      "blue": 0,
+      "planar": true,
+      "before_sha256": "807f5b09dd339d22519b76796183d20f95cc6a1c7ce288c0d83733815d9f0776",
+      "after_sha256": "807f5b09dd339d22519b76796183d20f95cc6a1c7ce288c0d83733815d9f0776"
+    },
+    {
+      "index": 74,
+      "length": 1024,
+      "linear": true,
+      "blue": 1,
+      "planar": false,
+      "before_sha256": "b3608685eaf8292b8dc2717f232eb186f396d714e6228126f384df7afed89722",
+      "after_sha256": "4a28443fe5dfa67e076c2d7ab5bff1a0edfe6f5f633d6c6c30ac11fd22a238c9"
+    },
+    {
+      "index": 75,
+      "length": 1024,
+      "linear": true,
+      "blue": 1,
+      "planar": true,
+      "before_sha256": "e7c9c01b84a2e782876f2a96ef21b178e0b226cade7ebc1eb271aaa6380c29de",
+      "after_sha256": "e15a4b05ade1b43402e3f135d21e24b53242f8bf93de8539e265d294e9f5a602"
+    },
+    {
+      "index": 76,
+      "length": 1024,
+      "linear": true,
+      "blue": 2,
+      "planar": false,
+      "before_sha256": "04c8830899126a2d60d59651071fa8d0a7bf04f485ae33a56f758ae4e347b4f7",
+      "after_sha256": "c7ab1d63c8282d3da8f6c6972b3f0b5cb7dbb66148c3fdbbc79acc396179c470"
+    },
+    {
+      "index": 77,
+      "length": 1024,
+      "linear": true,
+      "blue": 2,
+      "planar": true,
+      "before_sha256": "5665fd84a6f058bf44709969d4c48d019779a8ff8ee4040a49ccf8636a6070a0",
+      "after_sha256": "6ea77e882a204d794c0d67f4fb3174ad6294e5ea4f7381ee72d2b2e10e313420"
+    },
+    {
+      "index": 78,
+      "length": 1024,
+      "linear": true,
+      "blue": 3,
+      "planar": false,
+      "before_sha256": "fd5f966ac38c8ce9c5981e0c1a9d4e57c67eeefbd4ff03f1abcbfd1ae181a67b",
+      "after_sha256": "1d91505de0ed990674f04a777517b259269ba4ddf39e651f1ca8eafa62837049"
+    },
+    {
+      "index": 79,
+      "length": 1024,
+      "linear": true,
+      "blue": 3,
+      "planar": true,
+      "before_sha256": "04a1963b087925de5694bc2c2f2667744dbaa0a2a6222d98bcb805da499f693b",
+      "after_sha256": "37aa0bc43ae98721b08c7ce8ade76d599eb0a61bb2cd58a23c97f6832ac2fb67"
+    }
+  ],
+  "ordinary_sources_unchanged": 20,
+  "inherited_bug_reproduced_variants": 60,
+  "address_maps": [
+    {
+      "length": 64,
+      "linear": false,
+      "owned_elements": 512,
+      "bijective": true
+    },
+    {
+      "length": 64,
+      "linear": true,
+      "owned_elements": 512,
+      "bijective": true
+    },
+    {
+      "length": 128,
+      "linear": false,
+      "owned_elements": 1024,
+      "bijective": true
+    },
+    {
+      "length": 128,
+      "linear": true,
+      "owned_elements": 1024,
+      "bijective": true
+    },
+    {
+      "length": 256,
+      "linear": false,
+      "owned_elements": 2048,
+      "bijective": true
+    },
+    {
+      "length": 256,
+      "linear": true,
+      "owned_elements": 2048,
+      "bijective": true
+    },
+    {
+      "length": 512,
+      "linear": false,
+      "owned_elements": 2048,
+      "bijective": true
+    },
+    {
+      "length": 512,
+      "linear": true,
+      "owned_elements": 2048,
+      "bijective": true
+    },
+    {
+      "length": 1024,
+      "linear": false,
+      "owned_elements": 2048,
+      "bijective": true
+    },
+    {
+      "length": 1024,
+      "linear": true,
+      "owned_elements": 2048,
+      "bijective": true
+    }
+  ],
+  "device_compiled_variants": 12,
+  "steps": [
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--offload-arch=gfx936",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter.o",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/exporter-compile.log",
+      "sha256": "2ed697a0e56ac75d1ec065662f03be614ae5a0ae0518e9ecab20927f205b28ab"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-before"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/before-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-before",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-before"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/before-export.log",
+      "sha256": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9"
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGPU_TARGETS=gfx936",
+        "-DBUILD_CLIENTS_BENCH=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/configure.log",
+      "sha256": "d416f5197422259914a57c9d8a3469130568dbbeddbde71ea27f162f67dadfd3"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2",
+        "--target",
+        "rocfft-rtc-gen",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v2/generator-build.log",
+      "sha256": "0a573d198c92d4bd8186ee82ce1e0f85532e07dd9713e4e3e08677bfde026d7d"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v4/generator-common-support-build.log",
+      "sha256": "5901fdd11ec9915cb1e53f882177907b470ac6613088432ebb5a7f4bdc48b8bd"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-after"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v4/after-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/exporter-after",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v4/after-export.log",
+      "sha256": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_50.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_50.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-50.log",
+      "sha256": "107cd42af5f5a28f17ab2dc29358bbc880bdc570c5fac7055a38c69f8cc1008b"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_52.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_52.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-52.log",
+      "sha256": "2c7d3ecb020478ee0c1fc404f083c8d4103aea01b51d88f738575fb8c1e46736"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_54.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_54.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-54.log",
+      "sha256": "656b999ebc7063b28b391cb24095a03abe44b04733353844a582c2db3a669dc0"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_58.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_58.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-58.log",
+      "sha256": "29b1be1ccb66d04393142391ad541484ac16b764e17bec0310c5de4528db7524"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_60.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_60.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-60.log",
+      "sha256": "b0dc4fb009a962144374911c07b85121604464706bf3016b0bb835ce4d0e5ed1"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_62.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_62.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-62.log",
+      "sha256": "9b2ae3f15508daa9bc498f9a9f48aeb1474b4d9c9a80b948ec5894f309500de7"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_66.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_66.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-66.log",
+      "sha256": "7b108afe886e448b33f7c36d8bfff3f14efcf20f2800fa868a8738c07a32a0ae"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_68.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_68.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-68.log",
+      "sha256": "9bbbac32101638acfd01c222c74a35770cf5bccfde71e1bfb082450426802c93"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_70.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-70.log",
+      "sha256": "9c31071185c422fc66144bd15ebdd576b5588b1e79845c9f1912c38088f9e268"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_74.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_74.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-74.log",
+      "sha256": "1a22e9663803149c9c3fc0bd27069c8e68d8f8760bf93aaa992c1eb3fcb4250f"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_76.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_76.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-76.log",
+      "sha256": "0b2062afb6207e990b9f6a93618ceda14c28260d904e4a6ac5ee7b78d93584da"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "/public/software/compiler/dtk-26.04/include/hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_78.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-repair-20261013-v2/generated-after/rc_index_check_78.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/gpu-compile-78.log",
+      "sha256": "19c1cd0cbfb9c8fdb7ac6db376a03ecf2c40b3decd29094828fab03c05782e54"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/shared",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/real_boundary_guard.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-repair-20261013/native-v5/guard-syntax.log",
+      "sha256": "e374787c59be5bd760b441a56479d028b0272071f119fd86ad9e92e4a1cbe091"
+    }
+  ]
+}
