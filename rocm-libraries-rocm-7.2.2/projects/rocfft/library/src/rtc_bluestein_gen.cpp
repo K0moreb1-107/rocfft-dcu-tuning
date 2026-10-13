@@ -26,6 +26,7 @@
 #include "device/kernel-generator-embed.h"
 #include "rtc_kernel.h"
 #include "rtc_test_harness.h"
+#include "device/generator/real_boundary_bluestein.h"
 
 std::string bluestein_single_rtc_kernel_name(const BluesteinSingleSpecs& specs)
 {
@@ -159,6 +160,9 @@ std::string bluestein_multi_rtc_kernel_name(const BluesteinMultiSpecs& specs)
         throw std::runtime_error("invalid bluestein rtc scheme");
     }
 
+    if(specs.scheme != CS_KERNEL_CHIRP)
+        kernel_name += "_io_v2";
+    kernel_name += specs.real_boundary.NameSuffix();
     kernel_name += rtc_precision_name(specs.precision);
     kernel_name += rtc_array_type_name(specs.inArrayType);
     kernel_name += rtc_array_type_name(specs.outArrayType);
@@ -247,6 +251,19 @@ std::string bluestein_multi_rtc(const std::string& kernel_name, const BluesteinM
         return src;
     }
 
+    if(specs.real_boundary.Active())
+    {
+        if(!specs.real_boundary.Valid()
+           || specs.real_boundary.container != RealBoundaryContainer::Bluestein
+           || specs.scheme != (specs.real_boundary.Pre() ? CS_KERNEL_PAD_MUL : CS_KERNEL_RES_MUL))
+            throw std::runtime_error("invalid real Bluestein boundary specification");
+        auto func = real_boundary_bluestein_kernel(kernel_name, specs);
+        src += real_boundary_bluestein_helpers();
+        src += func.render();
+        write_standalone_test_harness(func, src);
+        return src;
+    }
+
     // function arguments
     Variable numof{"numof", "const size_t"};
     Variable totalWI{"totalWI", "const size_t"};
@@ -258,7 +275,6 @@ std::string bluestein_multi_rtc(const std::string& kernel_name, const BluesteinM
     Variable lengths{"lengths", "const size_t", true, true};
     Variable stride_in{"stride_in", "const size_t", true, true};
     Variable stride_out{"stride_out", "const size_t", true, true};
-    Variable scale_factor{"scale_factor", "const real_type_t<scalar_type>"};
 
     Function func{kernel_name};
     func.launch_bounds = LAUNCH_BOUNDS_BLUESTEIN_MULTI_KERNEL;
@@ -275,7 +291,6 @@ std::string bluestein_multi_rtc(const std::string& kernel_name, const BluesteinM
     func.arguments.append(stride_out);
     for(const auto& arg : get_callback_args().arguments)
         func.arguments.append(arg);
-    func.arguments.append(scale_factor);
 
     // local variables
     Variable tx{"tx", "size_t"};
@@ -392,6 +407,7 @@ std::string bluestein_multi_rtc(const std::string& kernel_name, const BluesteinM
     if(array_type_is_planar(specs.outArrayType))
         func = make_planar(func, "output");
 
+    func = make_callback_realcomplex(func, specs.cbtype);
     src += func.render();
     write_standalone_test_harness(func, src);
     return src;

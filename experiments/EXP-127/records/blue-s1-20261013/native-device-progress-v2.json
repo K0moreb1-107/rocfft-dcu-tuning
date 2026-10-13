@@ -1,0 +1,38 @@
+{
+  "complete": false,
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v2-host-support.log",
+      "sha256": "633930b2e68ab7039cf75087de480021d4f5516b2166371be5e8433b59731647"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "c++",
+        "-std=c++17",
+        "-O2",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/blue_gen_smoke.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v2.o"
+      ],
+      "code": 1,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v2-exporter-compile.log",
+      "sha256": "6df12d4518f7111f4a16b0195d1629d972f9475cd743fecd2a38b215cb12e974"
+    }
+  ]
+}

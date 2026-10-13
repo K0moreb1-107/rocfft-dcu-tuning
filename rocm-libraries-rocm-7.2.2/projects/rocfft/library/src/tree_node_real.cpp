@@ -442,6 +442,54 @@ bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
     return true;
 }
 
+bool RealTransEvenNode::TryFuseBluesteinBoundary(TreeNode& cfft, size_t n)
+{
+    if(n <= 65536 || n % 2 != 0 || dimension != 1 || length.size() != 1 || batch != 1
+       || precision != rocfft_precision_double || placement != rocfft_placement_notinplace
+       || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
+       || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
+       || cfft.scheme != CS_BLUESTEIN || cfft.typeBlue != BT_MULTI_KERNEL
+       || cfft.childNodes.size() != 6 || cfft.length != std::vector<size_t>{n / 2})
+        return false;
+    const bool pre = direction == 1;
+    if((pre && (inArrayType != rocfft_array_type_hermitian_interleaved
+                || outArrayType != rocfft_array_type_real))
+       || (!pre && (direction != -1 || inArrayType != rocfft_array_type_real
+                    || outArrayType != rocfft_array_type_hermitian_interleaved)))
+        return false;
+    auto& pad = *cfft.childNodes[1];
+    auto& res = *cfft.childNodes[5];
+    if(pad.scheme != CS_KERNEL_PAD_MUL || res.scheme != CS_KERNEL_RES_MUL
+       || pad.length != cfft.length || res.length != cfft.length
+       || pad.lengthBlue != cfft.lengthBlue || res.lengthBlue != cfft.lengthBlue
+       || cfft.lengthBlue < n - 1 || cfft.lengthBlue > std::numeric_limits<size_t>::max() / 3)
+        return false;
+    RealBoundaryIO boundary{pre ? RealBoundaryDirection::Pre : RealBoundaryDirection::Post,
+                            RealBoundaryContainer::Bluestein, n};
+    const size_t tasks = boundary.PairTasks() + (pre ? cfft.lengthBlue - n / 2 : 0);
+    const size_t blocks = (tasks - 1) / 64 + 1;
+    if(blocks > static_cast<size_t>(deviceProp.maxGridSize[0])
+       || blocks > std::numeric_limits<unsigned int>::max()
+       || boundary.TableLength() > std::numeric_limits<size_t>::max() / complex_type_size(precision))
+        return false;
+
+    // Parent metadata describes its user view; only the selected leaf executes
+    // the boundary and acquires phase resources. Nothing reaches nested FFTs.
+    cfft.real_boundary = boundary;
+    auto& selected = pre ? pad : res;
+    selected.real_boundary = boundary;
+    cfft.allowInplace = false;
+    res.allowedOutBuf = OB_USER_OUT;
+    res.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+    if(!pre)
+    {
+        cfft.outputLength = {n / 2 + 1};
+        res.outputLength = cfft.outputLength;
+    }
+    selected.comments.push_back("EXP127 real Bluestein boundary: unique pair owners; ordinary convolution preserved");
+    return true;
+}
+
 void RealTransEvenNode::AssignLocalRealParams()
 {
     const auto& io = childNodes.front()->real_io;
@@ -515,7 +563,8 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
 
     if(noSolution && (TryFusePairedPost(*cfftPlan, realLength->at(0))
-                      || TryFuseGenericRealPair(*cfftPlan, realLength->at(0))))
+                      || TryFuseGenericRealPair(*cfftPlan, realLength->at(0))
+                      || TryFuseBluesteinBoundary(*cfftPlan, realLength->at(0))))
     {
         childNodes.emplace_back(std::move(cfftPlan));
         return;
@@ -609,6 +658,16 @@ void RealTransEvenNode::AssignParams_internal()
     if(local_real_pipeline)
     {
         AssignLocalRealParams();
+        return;
+    }
+    if(childNodes.size() == 1 && childNodes.front()->real_boundary.Active())
+    {
+        auto& fftPlan = childNodes.front();
+        fftPlan->inStride = inStride;
+        fftPlan->outStride = outStride;
+        fftPlan->iDist = direction == -1 ? iDist / 2 : iDist;
+        fftPlan->oDist = direction == -1 ? oDist : oDist / 2;
+        fftPlan->AssignParams();
         return;
     }
     if(childNodes.size() == 1

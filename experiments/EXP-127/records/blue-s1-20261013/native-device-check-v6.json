@@ -1,0 +1,535 @@
+{
+  "complete": true,
+  "gpu_execution": false,
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-host-support.log",
+      "sha256": "633930b2e68ab7039cf75087de480021d4f5516b2166371be5e8433b59731647"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--offload-arch=gfx936",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5.o",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/blue_gen_smoke.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-exporter-compile.log",
+      "sha256": "32166f2c53d120ecd4850371f56bb97b61080d320d18abf950da57a09198f9bc"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_bluestein_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-exporter-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-export.log",
+      "sha256": "ff1d04e0ea2a38c5dca772fbeddd2e583e70240e6a7b49d5c514f8d3f2d7ece4"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-00.log",
+      "sha256": "54f0766181a9e2395389db4b6b524ab676f424256658d4fbaa7329d9ec4ef4df"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-01.log",
+      "sha256": "371b31608568e5fec35993f0b7fbff1e4867e588ad370c920fc13feba8b888f0"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-10.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-10.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-02.log",
+      "sha256": "12b4a7c42511900e733307a906bbfdad60c5b8f9ea0eca62dba22ce726258c65"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-11.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-11.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-03.log",
+      "sha256": "ac6e667914df16e7e9e3c9b94ffb962c9d4b30344d37f5f7dbddfc9ae5547d10"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-12.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-12.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-04.log",
+      "sha256": "d40984511bbcda39c0f2a61e165bfea12d2f453753fffe65f2d815aa1c7092fe"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-13.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-13.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-05.log",
+      "sha256": "be3e348c360b9ffe729d0a90cc3f0f83b1e2b557c7e3810b38986309a7c607d6"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-14.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-14.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-06.log",
+      "sha256": "e8107d6e01d5f884e7d3c63512163e24e7f1db77bc8cf97b75c3b929b743356f"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-15.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-15.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-07.log",
+      "sha256": "99472271802cd2bc3a189f3efb0ddf6931e8a13ee627b2ddd06d37f5332d2eb0"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-2.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-2.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-08.log",
+      "sha256": "cc7f1bdd38f7eba48f899fa8b10f8b49e3c0ce582b1767395d9efec72c946570"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-3.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-3.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-09.log",
+      "sha256": "117c2fff4325bc7a80bddb5c163e5f067df15d73d10558a0b08b2c6fb588f5a5"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-4.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-4.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-10.log",
+      "sha256": "b437e0353d9c917ed9c02d951c3cdb50ed49d376d013057253752ac0a8ea411c"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-5.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-5.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-11.log",
+      "sha256": "1f2d695207f3d3ef0706e5cc0f290dd0ba6fb76098bd3e60b5354a5d9f6c6ea7"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-6.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-6.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-12.log",
+      "sha256": "853627f75beab86256e4b6be8d11a15e8228a5321142fafb4f08157f9c066c66"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-7.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-7.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-13.log",
+      "sha256": "90d50f622f3c49e08b88f34f385743d86d19e42f608e4334a44a818a21647d0e"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-8.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-8.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-14.log",
+      "sha256": "b543a6081240be8cb186d96f8d5623383153ebd7e5dfa9bc00ced8d87de753ce"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-include",
+        "hip/hip_runtime.h",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-9.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-9.v6.hsaco"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-gpu-15.log",
+      "sha256": "44c8fa70bbbed7d478740a4c3cbc919144d91b4afd09d87cc52448b5821c8b1a"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-syntax-1.log",
+      "sha256": "c869b98798b732e6627684a1a029d69ebef5c494ef35423aaad29b9c65268b80"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-syntax-2.log",
+      "sha256": "e1f54296f0479b98af4cab01c1430a637c68215c38eb34872b4f129ac4b10adb"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-syntax-3.log",
+      "sha256": "b10aeb15968fad7393be9afe4e1f93e9b6a59048c7a33417176ef3fc281234d9"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-Drocfft_EXPORTS",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/library/src/device",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/include/rocfft",
+        "-I/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-fgpu-rdc",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-xhip",
+        "--offload-arch=gfx936",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-syntax-4.log",
+      "sha256": "09f22c9bb32c55487a775c3c1504527ec49ce626b264e2a34accfe1d25086ad6"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-fsyntax-only",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/shared",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/real_boundary_guard.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v6-guard-syntax.log",
+      "sha256": "cd5f9e5b628d4906c897a0413944075a3bf77551b7b6e2fa88ad6dde10183417"
+    }
+  ],
+  "generated_variants": 16,
+  "source_sha256": {
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp": "41ef9974b5467173ff527c57012cb91639e8a51add53188c856be83209a74581",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp": "41ef9974b5467173ff527c57012cb91639e8a51add53188c856be83209a74581",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-10.cpp": "0a8c356f012c9161d45491521b9feef40aac9e0a8c90452c666be1612cb1eb12",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-11.cpp": "b1b8bd20fafe66c5749d98353617ffbd6d003efd72551a33458a89a0308977d4",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-12.cpp": "bb092cf0fcd3acc15c8c70c2c998fe652e0f41dbade1987aa001203bbbbd0705",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-13.cpp": "496c6f6a98f367d107539ba14bc12a683d7ec889f1ead869bfff72a5687cafa0",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-14.cpp": "512d50c75877683f1a4345ff76c248a87c863ea4cb89dd9292fdc0f22ff22d6e",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-15.cpp": "7f30a5fd280d2c7142dedeaae45c1cef1394b870c27d77dcc84f5c8ae228b3e4",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-2.cpp": "d6ece8ec9824a432182574182510cefa1eee07e85d9478439ac45fc756b9ccdb",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-3.cpp": "d6ece8ec9824a432182574182510cefa1eee07e85d9478439ac45fc756b9ccdb",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-4.cpp": "f2331911b2fa3511ac1f661edcee49887a8ebf3430a48ad9d7a60faadd2d37c4",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-5.cpp": "f2331911b2fa3511ac1f661edcee49887a8ebf3430a48ad9d7a60faadd2d37c4",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-6.cpp": "85c58f093d4e1200d591c4bc436e2651f906a4d249d60d45b34c074ab30791eb",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-7.cpp": "85c58f093d4e1200d591c4bc436e2651f906a4d249d60d45b34c074ab30791eb",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-8.cpp": "ab501c122163bd6a10f4a3191679e7ab5f7a7b4c56181c7e2413a90b2903d292",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-9.cpp": "2c54f12a79728a5573ead199f8c4b88853931a58ccd9d8cf33c1f2836eda09e0"
+  },
+  "device_object_sha256": {
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.v6.hsaco": "9e337907f4da140e99b83b0e81cb9b3e8b47181941235c7effc27f5e730af132",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-11.v6.hsaco": "6248dc667b364c07b9e7b0db7a5d72c4d364415c50dbe7e70f175c19925f51d0",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-15.v6.hsaco": "84dc12ede99451888a8b8764a43f3087f965a16dc5a7e9c35324856397a594ed",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-2.v6.hsaco": "72fce0a19095f85d543c78b8ef38100b4e0941edb4ac3911e14cc0c9f3cb02f4",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-3.v6.hsaco": "72fce0a19095f85d543c78b8ef38100b4e0941edb4ac3911e14cc0c9f3cb02f4",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-4.v6.hsaco": "06eff207faa88160d6b5ef96eb5216fede365ca8732f8a8451dc18cf7e7a9d6d",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-5.v6.hsaco": "06eff207faa88160d6b5ef96eb5216fede365ca8732f8a8451dc18cf7e7a9d6d",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-6.v6.hsaco": "148b4442d67dc6470bfffc9da4e68b0253d8daab7a07c97ad7ea1decbeb068cd",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-7.v6.hsaco": "148b4442d67dc6470bfffc9da4e68b0253d8daab7a07c97ad7ea1decbeb068cd",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-8.v6.hsaco": "dce62011d1b306828441658338e28ffdec22e805abbcd8f793918d68492ce1d9",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-9.v6.hsaco": "843ce989b3019eb0f498731e1b1116f033959b6631e87e389264fe62a24fa693",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.v6.hsaco": "9e337907f4da140e99b83b0e81cb9b3e8b47181941235c7effc27f5e730af132",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-10.v6.hsaco": "9ea7a3e2374adc3bfd90ed441f4cf5d25c064abd9f9b2563a12a586e1af5318d",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-12.v6.hsaco": "aaeab3afbaedd2fe8147b3ab6b8e18047f3a45a79e8cb9ba96c94796353b29c0",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-13.v6.hsaco": "46e4378f602366c02132f10a27224d7b4d41f85ef9809f22e857fce94154be55",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-14.v6.hsaco": "e2bed10ac65fffe109cfcb2aa321fbc3dd05e16bc76cca2536e2909f5a2dbd31"
+  },
+  "boundary_runtime_parity_cache_check": true,
+  "host_generated_abi_check": true
+}

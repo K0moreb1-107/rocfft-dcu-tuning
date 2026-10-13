@@ -1,0 +1,43 @@
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:743:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:765:7: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:743:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:782:57: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+                                                        ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:743:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:799:58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:743:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:810:48: note: in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+                                               ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:743:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:820:49: note: in instantiation of function template specialization 'store_cb_default<float>' requested here
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:743:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:831:50: note: in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:1010:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-1.cpp:1076:1: note: in instantiation of function template specialization 'real_pair_pre<rocfft_complex<double>>' requested here
+real_pair_pre(p,q,real_phase[k],own,other);
+^
+7 warnings generated when compiling for gfx936.

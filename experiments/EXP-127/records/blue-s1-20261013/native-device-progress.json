@@ -1,0 +1,40 @@
+{
+  "complete": false,
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-host-support.log",
+      "sha256": "61be9676e47174451562d681b007ad41c442bd567b7deb5a13ab2c0d42df4b63"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-std=c++17",
+        "-O2",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/blue_gen_smoke.cpp",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_bluestein_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke"
+      ],
+      "code": 1,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-exporter.log",
+      "sha256": "7c11d6c4aa7e26ac305e608a791013348ac56db1bc95b382f92411b7ef9322a4"
+    }
+  ]
+}

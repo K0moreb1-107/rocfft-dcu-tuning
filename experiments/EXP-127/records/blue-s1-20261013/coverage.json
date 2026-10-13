@@ -1,0 +1,387 @@
+{
+  "evidence": "source-model preregistration; actual default planning is required",
+  "expected_size_count": 20,
+  "families": {
+    "Bluestein-Meven-Lmixed": [
+      65540,
+      201840,
+      371288,
+      560372,
+      681468
+    ],
+    "Bluestein-Meven-Lpow2": [
+      117652,
+      507752,
+      776688,
+      888376,
+      999996
+    ],
+    "Bluestein-Modd-Lmixed": [
+      65538,
+      201038,
+      370546,
+      559910,
+      681470
+    ],
+    "Bluestein-Modd-Lpow2": [
+      117654,
+      507378,
+      776406,
+      888202,
+      999998
+    ]
+  },
+  "sizes": {
+    "65540": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 65540,
+      "M": 32770,
+      "L": 67200,
+      "actual_default_plan_not_proven": true
+    },
+    "201840": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 201840,
+      "M": 100920,
+      "L": 204800,
+      "actual_default_plan_not_proven": true
+    },
+    "371288": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 371288,
+      "M": 185644,
+      "L": 384659,
+      "actual_default_plan_not_proven": true
+    },
+    "560372": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 560372,
+      "M": 280186,
+      "L": 640000,
+      "actual_default_plan_not_proven": true
+    },
+    "681468": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 681468,
+      "M": 340734,
+      "L": 681472,
+      "actual_default_plan_not_proven": true
+    },
+    "117652": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 117652,
+      "M": 58826,
+      "L": 131072,
+      "actual_default_plan_not_proven": true
+    },
+    "507752": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 507752,
+      "M": 253876,
+      "L": 524288,
+      "actual_default_plan_not_proven": true
+    },
+    "776688": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 776688,
+      "M": 388344,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "888376": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 888376,
+      "M": 444188,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "999996": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 999996,
+      "M": 499998,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "65538": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 65538,
+      "M": 32769,
+      "L": 67200,
+      "actual_default_plan_not_proven": true
+    },
+    "201038": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 201038,
+      "M": 100519,
+      "L": 204800,
+      "actual_default_plan_not_proven": true
+    },
+    "370546": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 370546,
+      "M": 185273,
+      "L": 384659,
+      "actual_default_plan_not_proven": true
+    },
+    "559910": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 559910,
+      "M": 279955,
+      "L": 640000,
+      "actual_default_plan_not_proven": true
+    },
+    "681470": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 681470,
+      "M": 340735,
+      "L": 681472,
+      "actual_default_plan_not_proven": true
+    },
+    "117654": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 117654,
+      "M": 58827,
+      "L": 131072,
+      "actual_default_plan_not_proven": true
+    },
+    "507378": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 507378,
+      "M": 253689,
+      "L": 524288,
+      "actual_default_plan_not_proven": true
+    },
+    "776406": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 776406,
+      "M": 388203,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "888202": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 888202,
+      "M": 444101,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "999998": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 999998,
+      "M": 499999,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    }
+  },
+  "controls": [
+    {
+      "N": 65536,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 65536,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 131072,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 262144,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 524288,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 1048576,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 81920,
+      "func": "d2z_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 81920,
+      "func": "z2d_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 97682,
+      "func": "d2z_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 65610,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 65610,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 65824,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 65824,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 67914,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 67914,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 69972,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 69972,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 1837462,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 1837462,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 65538,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein"
+    },
+    {
+      "N": 117652,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein"
+    },
+    {
+      "N": 681470,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein"
+    }
+  ],
+  "patterns": [
+    "impulse",
+    "last",
+    "dc",
+    "nyquist",
+    "middle",
+    "tones",
+    "random"
+  ],
+  "scales": [
+    1.0,
+    0.375
+  ],
+  "directions": [
+    "z2d",
+    "d2z"
+  ],
+  "callbacks": [
+    false,
+    true
+  ],
+  "execution_rounds": 2,
+  "strict_error": 1e-09,
+  "expected_quick_checks": 74,
+  "expected_guard_groups": 80,
+  "expected_reference_cases": 1120,
+  "expected_executions": 2240,
+  "scope_modes": [
+    "batch",
+    "stride",
+    "offset",
+    "inplace",
+    "planar",
+    "multidim",
+    "small",
+    "odd",
+    "single"
+  ],
+  "formal_performance_submitted": false
+}

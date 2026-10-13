@@ -62,6 +62,11 @@ TreeNode::~TreeNode()
         Repo::ReleaseTwiddle1D(real_post_twiddles);
         real_post_twiddles = nullptr;
     }
+    if(real_boundary_twiddles)
+    {
+        Repo::ReleaseTwiddle1D(real_boundary_twiddles);
+        real_boundary_twiddles = nullptr;
+    }
     if(twiddles_large)
     {
         Repo::ReleaseTwiddle1D(twiddles_large);
@@ -307,6 +312,15 @@ bool LeafNode::CreateDevKernelArgs()
 
 bool LeafNode::CreateDeviceResources()
 {
+    if(real_boundary.Active())
+    {
+        if(!real_boundary.Valid())
+            throw std::runtime_error("invalid real boundary descriptor");
+        std::tie(real_boundary_twiddles, real_boundary_twiddles_size)
+            = Repo::GetTwiddles1D(real_boundary.n, real_boundary.TableLength(),
+                                  precision, deviceProp, 0, false, {});
+    }
+
     if(need_chirp)
     {
         std::tie(chirp, chirp_size) = Repo::GetChirp(lengthBlueN, precision, deviceProp);

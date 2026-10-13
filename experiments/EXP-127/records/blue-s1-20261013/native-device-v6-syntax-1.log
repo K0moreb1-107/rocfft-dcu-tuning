@@ -1,0 +1,1586 @@
+dcc: warning: -lpthread: 'linker' input unused [-Wunused-command-line-argument]
+dcc: warning: -lm: 'linker' input unused [-Wunused-command-line-argument]
+dcc: warning: -lrt: 'linker' input unused [-Wunused-command-line-argument]
+dcc: warning: -Wl,--enable-new-dtags: 'linker' input unused [-Wunused-command-line-argument]
+dcc: warning: -Wl,-rpath=/public/software/compiler/dtk-26.04/hip/lib:/public/software/compiler/dtk-26.04/lib: 'linker' input unused [-Wunused-command-line-argument]
+dcc: warning: -lamdhip64: 'linker' input unused [-Wunused-command-line-argument]
+dcc: warning: -lclang_rt.builtins-x86_64: 'linker' input unused [-Wunused-command-line-argument]
+dcc: warning: argument unused during compilation: '-fuse-ld=lld' [-Wunused-command-line-argument]
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:21:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:50:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:54:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:58:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:62:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:66:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:70:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:74:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:102:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:21:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:50:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:54:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:58:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:62:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:66:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:70:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:74:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:102:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:21:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:50:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:54:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:58:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:62:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:66:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:70:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:74:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:102:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:In file included from 145/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::525::
+ In file included from warning: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:void function is missing a return statement [-Wreturn-type]29
+:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:145:5: warning:     }void function is missing a return statement [-Wreturn-type]
+
+    ^
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:145:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::154154::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:154:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::163163::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:163:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::172172::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:172:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:284:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2925:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.hIn file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h284::295:
+:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h :warning: 284void function is missing a return statement [-Wreturn-type]:
+5: warning: void function is missing a return statement [-Wreturn-type]    }
+
+    ^
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::420420::11::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+}}
+
+^^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:420:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:463:5: warning: void function is missing a return statement [-Wreturn-type]
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h    }:
+463    ^:
+5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:463:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:410:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:410:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:410:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::433433::11::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+}}
+
+^^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:433:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:::262626:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:::282828:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:::454545:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:::262626:
+:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:::109109109:::131313:::   warning: warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+
+            }            }            }
+
+
+            ^            ^            ^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:::225225225:::555:::   warning: warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+
+    }
+    }    }    ^
+
+
+    ^    ^
+
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2626:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h::2828:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h::4545:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h::173173::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:298:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:298:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:45:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:173:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:298:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1270:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1270:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1270:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1375:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1375:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1375:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:21:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:34:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:74:7: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+      ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:91:57: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+                                                        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:108:58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:119:48: note: in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+                                               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:129:49: note: in instantiation of function template specialization 'store_cb_default<float>' requested here
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:140:50: note: in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:21:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:34:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:74:7: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+      ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:91:57: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+                                                        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:108:58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:119:48: note: in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+                                               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:129:49: note: in instantiation of function template specialization 'store_cb_default<float>' requested here
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:140:50: note: in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:21:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:34:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:74:7: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+      ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:91:57: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+                                                        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:108:58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:119:48: note: in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+                                               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:129:49: note: in instantiation of function template specialization 'store_cb_default<float>' requested here
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:140:50: note: in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:248:29: note: in instantiation of member function 'FieldParser<bool>::parse' requested here
+        FieldParser<bool>().parse("use_3steps", ret.use_3steps_large_twd, current);
+                            ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:248:29: note: in instantiation of member function 'FieldParser<bool>::parse' requested here
+        FieldParser<bool>().parse("use_3steps", ret.use_3steps_large_twd, current);
+                            ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:248:29: note: in instantiation of member function 'FieldParser<bool>::parse' requested here
+        FieldParser<bool>().parse("use_3steps", ret.use_3steps_large_twd, current);
+                            ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:252:31: note: in instantiation of member function 'FieldParser<unsigned long>::parse' requested here
+        FieldParser<size_t>().parse("tpb", tpb, current);
+                              ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:254:28: note: in instantiation of member function 'FieldParser<int>::parse' requested here
+        FieldParser<int>().parse("wgs", ret.workgroup_size, current);
+                           ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:188:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:216:29: note: in instantiation of member function 'StringToVector<int>::Get' requested here
+        StringToVector<T>().Get(vec, current);
+                            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:252:31: note: in instantiation of member function 'FieldParser<unsigned long>::parse' requested here
+        FieldParser<size_t>().parse("tpb", tpb, current);
+                              ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:254:28: note: in instantiation of member function 'FieldParser<int>::parse' requested here
+        FieldParser<int>().parse("wgs", ret.workgroup_size, current);
+                           ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:188:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:216:29: note: in instantiation of member function 'StringToVector<int>::Get' requested here
+        StringToVector<T>().Get(vec, current);
+                            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:256:37: note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:188:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:216:29: note: in instantiation of member function 'StringToVector<unsigned long>::Get' requested here
+        StringToVector<T>().Get(vec, current);
+                            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:256:37: note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:269:40: note: in instantiation of member function 'FieldParser<std::basic_string<char>>::parse' requested here
+            FieldParser<std::string>().parse("ebtype", ebTypeStr, current);
+                                       ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:256:37: note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:188:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:216:29: note: in instantiation of member function 'StringToVector<unsigned long>::Get' requested here
+        StringToVector<T>().Get(vec, current);
+                            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:256:37: note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:269:40: note: in instantiation of member function 'FieldParser<std::basic_string<char>>::parse' requested here
+            FieldParser<std::string>().parse("ebtype", ebTypeStr, current);
+                                       ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:456:37: note: in instantiation of member function 'FieldParser<KernelConfig>::parse' requested here
+        FieldParser<KernelConfig>().parse("kernelConfig", config, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:456:37: note: in instantiation of member function 'FieldParser<KernelConfig>::parse' requested here
+        FieldParser<KernelConfig>().parse("kernelConfig", config, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:252:31: note: in instantiation of member function 'FieldParser<unsigned long>::parse' requested here
+        FieldParser<size_t>().parse("tpb", tpb, current);
+                              ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:254:28: note: in instantiation of member function 'FieldParser<int>::parse' requested here
+        FieldParser<int>().parse("wgs", ret.workgroup_size, current);
+                           ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:188:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:216:29: note: in instantiation of member function 'StringToVector<int>::Get' requested here
+        StringToVector<T>().Get(vec, current);
+                            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:256:37: note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:188:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:216:29: note: in instantiation of member function 'StringToVector<unsigned long>::Get' requested here
+        StringToVector<T>().Get(vec, current);
+                            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:256:37: note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:269:40: note: in instantiation of member function 'FieldParser<std::basic_string<char>>::parse' requested here
+            FieldParser<std::string>().parse("ebtype", ebTypeStr, current);
+                                       ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:456:37: note: in instantiation of member function 'FieldParser<KernelConfig>::parse' requested here
+        FieldParser<KernelConfig>().parse("kernelConfig", config, current);
+                                    ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp25In file included from ::
+25/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppIn file included from :
+:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.hIn file included from 25:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:
+29:In file included from :
+29/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.hIn file included from :
+:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.hIn file included from 29:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:
+32:In file included from :
+32/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.hIn file included from :
+:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.hIn file included from 32:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h:
+24:In file included from :
+24/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h:
+:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h24:::
+114114/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h:::55114:::  5warning: warning: :void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type] 
+
+warning: void function is missing a return statement [-Wreturn-type]
+    }    }    }
+
+
+    ^    ^    ^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h:::676767:::999:::   note: note: note: in instantiation of member function 'gpubuf_t<unsigned long>::free' requested herein instantiation of member function 'gpubuf_t<unsigned long>::free' requested herein instantiation of member function 'gpubuf_t<unsigned long>::free' requested here
+
+
+        free();        free();
+        free();
+        ^
+        ^
+        ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h264/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:::2645264:::5 5:note: : in instantiation of member function 'gpubuf_t<unsigned long>::~gpubuf_t' requested here note: 
+note: in instantiation of member function 'gpubuf_t<unsigned long>::~gpubuf_t' requested herein instantiation of member function 'gpubuf_t<unsigned long>::~gpubuf_t' requested here
+    TreeNode(TreeNode* p)
+
+    ^
+    TreeNode(TreeNode* p)
+    ^    TreeNode(TreeNode* p)
+
+    ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2525:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::2929:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::3232:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h::2424:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h::114114::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h::6767::99::  note: note: in instantiation of member function 'gpubuf_t<>::free' requested herein instantiation of member function 'gpubuf_t<>::free' requested here
+
+        free();
+        free();        ^
+
+        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h880::8805::5 :note: in instantiation of member function 'gpubuf_t<>::~gpubuf_t' requested here note: 
+in instantiation of member function 'gpubuf_t<>::~gpubuf_t' requested here
+    InternalTempBuffer(int comm_rank)    InternalTempBuffer(int comm_rank)
+
+    ^    ^
+
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:32:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h::26In file included from 24:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:
+In file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h26:::
+11428In file included from ::
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h5In file included from ::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h28 ::
+warning: 33In file included from void function is missing a return statement [-Wreturn-type]:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:    }:33
+50:
+    ^:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h
+5:50:: 5/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.hwarning: ::void function is missing a return statement [-Wreturn-type] 67
+warning: :void function is missing a return statement [-Wreturn-type]9
+    }:
+     ^    }note: 
+
+in instantiation of member function 'gpubuf_t<>::free' requested here    ^
+
+        free();/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h
+:        ^68
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h::9:68/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h ::note: 9880in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::free' requested here::
+ 5note: :in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::free' requested here        free(); 
+
+note:         ^in instantiation of member function 'gpubuf_t<>::~gpubuf_t' requested here
+        free();
+
+        ^/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+:1144:    InternalTempBuffer(int comm_rank)5/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+::    ^
+ 1144note: :in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::~hip_object_wrapper_t' requested here5
+: note: in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::~hip_object_wrapper_t' requested here
+    CommPointToPoint(int               local_comm_rank,
+    ^
+    CommPointToPoint(int               local_comm_rank,
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:In file included from 26/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:
+:In file included from 26/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:
+:In file included from 28/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:
+:In file included from 28/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:
+:In file included from 33/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:
+:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h33::
+50/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h::550:: 5warning: :void function is missing a return statement [-Wreturn-type] 
+warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^    }
+
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:68/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h::968:: 9note: :in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::free' requested here 
+note: in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::free' requested here
+        free();
+        ^        free();
+
+        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1144/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h::51144:: 5note: :in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::~hip_object_wrapper_t' requested here 
+note: in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::~hip_object_wrapper_t' requested here
+    CommPointToPoint(int               local_comm_rank,
+    ^    CommPointToPoint(int               local_comm_rank,
+
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:33:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:50:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:68:9: note: in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::free' requested here
+        free();
+        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1144:5: note: in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::~hip_object_wrapper_t' requested here
+    CommPointToPoint(int               local_comm_rank,
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:33:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:50:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:68:9: note: in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::free' requested here
+        free();
+        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1144:5: note: in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::~hip_object_wrapper_t' requested here
+    CommPointToPoint(int               local_comm_rank,
+    ^
+42 warnings generated when compiling for gfx906.
+42 warnings generated when compiling for gfx926.
+42 warnings generated when compiling for host.
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2121:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h::2525:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:50:5: warning: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:void function is missing a return statement [-Wreturn-type]50
+:5: warning: void function is missing a return statement [-Wreturn-type]
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:54:5: warning: void function is missing a return statement [-Wreturn-type]
+    }In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:    ^:54
+21::
+5In file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h :warning: 25void function is missing a return statement [-Wreturn-type]:
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:50:    }5
+:    ^ 
+warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:58:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:58:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:54:5: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.hwarning: :void function is missing a return statement [-Wreturn-type]62
+:5:    } 
+warning:     ^
+void function is missing a return statement [-Wreturn-type]
+    }/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h
+:    ^62
+:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:58:5: warning: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.hvoid function is missing a return statement [-Wreturn-type]:
+66:5    }:
+     ^/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.hwarning: 
+:void function is missing a return statement [-Wreturn-type]66
+:5:    } 
+warning:     ^void function is missing a return statement [-Wreturn-type]
+
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:62:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h    ^:
+70/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h::570:: 5warning: :void function is missing a return statement [-Wreturn-type] 
+warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^    }
+
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:66:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h::7474::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:70:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:74:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h::102102::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }
+    }    ^
+
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h:102:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:145:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:154:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:145:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:163:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:154:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:145:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:172:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:154:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:163:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:172:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:163:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:172:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppIn file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:25:
+25:
+In file included from :
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.hIn file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:29:
+29:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:::284284284:::555:::   warning: warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+
+    }    }    }
+
+
+    ^    ^    ^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:420:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:420:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:420:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:463:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:463:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:463:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:410:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:410:1:In file included from  /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppwarning: :void function is missing a return statement [-Wreturn-type]25
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:410:}1
+:^ 
+warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::433433::11::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+}}
+
+^^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:433:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:45:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:26:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:109:13: warning: void function is missing a return statement [-Wreturn-type]
+            }
+            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:225:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:45:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:26:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:109:13: warning: void function is missing a return statement [-Wreturn-type]
+            }
+            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:225:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:45:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:26:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:109:13: warning: void function is missing a return statement [-Wreturn-type]
+            }
+            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rocfft_ostream.hpp:225:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2626:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h::2828:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h::4545:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h::173173::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:298:1: warning: void function is missing a return statement [-Wreturn-type]/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h
+:298:}1
+:^ 
+warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:45:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:173:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/logging.h:298:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1270:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1270:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:28:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1270:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1375:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1375:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:1375:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppIn file included from :21:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:21In file included from In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.hIn file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp25:::
+2521In file included from :
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.hIn file included from In file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_kernel.h34:::
+3425:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.hIn file included from ::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_kernel.h5252:::3411:
+::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h  :warning: warning: 52void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]:
+
+1: warning: void function is missing a return statement [-Wreturn-type]
+}}}
+
+
+^^^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:::747474:::777:::   note: note: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested herein instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested herein instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+
+
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;    = store_cb_default<rocfft_complex<rocfft_fp16>>;    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+
+
+      ^      ^      ^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:::525252:::111:::   warning: warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+
+}}
+}
+^
+^
+^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:91:91:91:57:57:57: : note:  note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested herenote: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;                                                        ^static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+
+
+                                                        ^                                                        ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h::5252::11:: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h warning: :warning: void function is missing a return statement [-Wreturn-type]52void function is missing a return statement [-Wreturn-type]
+:
+1}:
+} ^
+warning: 
+^void function is missing a return statement [-Wreturn-type]
+
+}/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:^:108
+108::5858:: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h note: :note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here108in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+:
+58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;                                                         ^
+
+                                                         ^
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h::52/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h52:::1521::: 1 warning: :warning: void function is missing a return statement [-Wreturn-type] void function is missing a return statement [-Wreturn-type]
+warning: 
+void function is missing a return statement [-Wreturn-type]}
+}
+
+}^^
+
+
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h119119:::1194848:::48  :note: note:  in instantiation of function template specialization 'store_cb_default<_Float16>' requested herein instantiation of function template specialization 'store_cb_default<_Float16>' requested herenote: 
+
+in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;                                               ^                                               ^
+
+
+                                               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:::525252:::111:::   warning: warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+
+}}
+}
+^
+^
+^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h129/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:::12949129:::49 49:note: : in instantiation of function template specialization 'store_cb_default<float>' requested here note: 
+note: in instantiation of function template specialization 'store_cb_default<float>' requested herein instantiation of function template specialization 'store_cb_default<float>' requested here
+
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+static __device__ auto store_cb_default_float = store_cb_default<float>;static __device__ auto store_cb_default_float = store_cb_default<float>;
+
+                                                ^                                                ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h}::
+5252^::
+11:: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h: warning: 140warning: void function is missing a return statement [-Wreturn-type]:void function is missing a return statement [-Wreturn-type]
+50
+:} }
+note: 
+^in instantiation of function template specialization 'store_cb_default<double>' requested here^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h140::14050::50 static __device__ auto store_cb_default_double = store_cb_default<double>;:note: 
+ in instantiation of function template specialization 'store_cb_default<double>' requested here                                                 ^note: 
+
+in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppIn file included from ::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp2525::
+:
+25In file included from In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.hIn file included from ::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h2929::
+:
+29In file included from In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.hIn file included from ::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h3030::
+:
+30/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:
+::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h201201:::20155:::5  :warning: warning:  void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]warning: 
+
+void function is missing a return statement [-Wreturn-type]
+    }    }    }
+
+
+    ^    ^    ^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::248248::2929::  /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.hnote: note: :in instantiation of member function 'FieldParser<bool>::parse' requested herein instantiation of member function 'FieldParser<bool>::parse' requested here248
+
+:29: note: in instantiation of member function 'FieldParser<bool>::parse' requested here
+        FieldParser<bool>().parse("use_3steps", ret.use_3steps_large_twd, current);        FieldParser<bool>().parse("use_3steps", ret.use_3steps_large_twd, current);
+
+                            ^                            ^
+
+        FieldParser<bool>().parse("use_3steps", ret.use_3steps_large_twd, current);
+                            ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2525:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::2929:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::3030:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::201201::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::252252::3131::  note: note: in instantiation of member function 'FieldParser<unsigned long>::parse' requested herein instantiation of member function 'FieldParser<unsigned long>::parse' requested here
+
+        FieldParser<size_t>().parse("tpb", tpb, current);        FieldParser<size_t>().parse("tpb", tpb, current);
+
+                              ^                              ^
+
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:252:31: note: in instantiation of member function 'FieldParser<unsigned long>::parse' requested hereIn file included from 
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2525:
+:
+In file included from         FieldParser<size_t>().parse("tpb", tpb, current);In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:                              ^:29
+29:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::3030:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::201201::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::254254::2828::  note: note: in instantiation of member function 'FieldParser<int>::parse' requested herein instantiation of member function 'FieldParser<int>::parse' requested here
+
+        FieldParser<int>().parse("wgs", ret.workgroup_size, current);        FieldParser<int>().parse("wgs", ret.workgroup_size, current);
+
+                           ^                           ^
+
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:201:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:254:28: note: in instantiation of member function 'FieldParser<int>::parse' requested here
+        FieldParser<int>().parse("wgs", ret.workgroup_size, current);
+                           ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppIn file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h25::
+30In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::29217:
+:In file included from 5/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:: 30warning: :
+void function is missing a return statement [-Wreturn-type]/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h
+:217:5:    } 
+warning:     ^void function is missing a return statement [-Wreturn-type]
+
+    }/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h
+:    ^255
+:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h
+:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2525:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::2929:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::3030:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::188188::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::216216::2929::  note: note: in instantiation of member function 'StringToVector<int>::Get' requested herein instantiation of member function 'StringToVector<int>::Get' requested here
+
+        StringToVector<T>().Get(vec, current);        StringToVector<T>().Get(vec, current);
+
+                            ^                            ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::255255::3434::  note: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested herein instantiation of member function 'VectorFieldParser<int>::parse' requested here
+
+        VectorFieldParser<int>().parse("tpt", tpt, current);        VectorFieldParser<int>().parse("tpt", tpt, current);
+
+                                 ^                                 ^
+
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:29:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:30:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:188:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:216:29: note: in instantiation of member function 'StringToVector<int>::Get' requested here
+        StringToVector<T>().Get(vec, current);
+                            ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:255:34: note: in instantiation of member function 'VectorFieldParser<int>::parse' requested here
+        VectorFieldParser<int>().parse("tpt", tpt, current);
+                                 ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2525:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::2929:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::3030:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::217217::55::  warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+    }    }
+
+    ^In file included from     ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp
+:25:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:29:256:
+256:In file included from :37/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h37::: 30 note: :
+note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.hin instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+:
+217:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);    ^        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+
+
+                                    ^                                    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:256:37: note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::2525:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::2929:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:::303025:
+:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.hIn file included from ::/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h188188:::2955:
+::In file included from   /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.hwarning: warning: :void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]30
+
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:    }188    }
+:
+    ^5    ^
+:
+ warning: void function is missing a return statement [-Wreturn-type]/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h
+:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h216::    }21629
+::    ^29 
+:note:  in instantiation of member function 'StringToVector<unsigned long>::Get' requested herenote: 
+in instantiation of member function 'StringToVector<unsigned long>::Get' requested here/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h
+:        StringToVector<T>().Get(vec, current);216
+:                            ^29
+:         StringToVector<T>().Get(vec, current);note: /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h
+in instantiation of member function 'StringToVector<unsigned long>::Get' requested here:                            ^
+256
+:37:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h :note: 256in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        StringToVector<T>().Get(vec, current);:
+37                            ^:
+ note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h
+:256        VectorFieldParser<size_t>().parse("factors", ret.factors, current);:
+37                                    ^:
+ note: in instantiation of member function 'VectorFieldParser<unsigned long>::parse' requested here
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+        VectorFieldParser<size_t>().parse("factors", ret.factors, current);
+                                    ^
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:25In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppIn file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h25::
+29In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.hIn file included from In file included from :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h29:::
+2530In file included from :
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.hIn file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:30:201:
+29:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h:
+5:In file included from :201/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h ::warning: 530void function is missing a return statement [-Wreturn-type]::
+
+ /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.hwarning: :void function is missing a return statement [-Wreturn-type]    }201
+
+:    ^5
+:    } 
+warning:     ^void function is missing a return statement [-Wreturn-type]
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h
+:269:40    }:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h
+ :    ^note: 269
+in instantiation of member function 'FieldParser<std::basic_string<char>>::parse' requested here:
+40: note: in instantiation of member function 'FieldParser<std::basic_string<char>>::parse' requested here/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h
+:269:40: note: in instantiation of member function 'FieldParser<std::basic_string<char>>::parse' requested here            FieldParser<std::string>().parse("ebtype", ebTypeStr, current);
+
+                                       ^
+            FieldParser<std::string>().parse("ebtype", ebTypeStr, current);
+                                       ^
+            FieldParser<std::string>().parse("ebtype", ebTypeStr, current);
+                                       ^
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:In file included from :25/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp25:
+::
+In file included from 25In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:In file included from :29/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h29:
+::
+In file included from 29In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:In file included from :30/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h30:
+::
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h30/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h::
+:201/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/data_descriptor.h201:::52015::: 5 warning: :warning: void function is missing a return statement [-Wreturn-type] void function is missing a return statement [-Wreturn-type]
+warning: 
+void function is missing a return statement [-Wreturn-type]
+    }    }
+    }
+    ^
+    ^
+    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:::456456456:::373737:::   note: note: note: in instantiation of member function 'FieldParser<KernelConfig>::parse' requested herein instantiation of member function 'FieldParser<KernelConfig>::parse' requested herein instantiation of member function 'FieldParser<KernelConfig>::parse' requested here
+
+
+        FieldParser<KernelConfig>().parse("kernelConfig", config, current);        FieldParser<KernelConfig>().parse("kernelConfig", config, current);        FieldParser<KernelConfig>().parse("kernelConfig", config, current);
+
+
+                                    ^                                    ^                                    ^
+
+
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:2525:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h::2929:
+:
+In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h::3232:
+In file included from :
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cppIn file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h:25:24:
+24:
+In file included from :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h:::11429114::
+:5In file included from 5:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h: : 32warning: warning: :
+void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]In file included from 
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h:24:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h:114:5:     }    }warning: 
+
+    ^void function is missing a return statement [-Wreturn-type]    ^
+
+
+    }
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h:::676767:::99:9: : note:  note: in instantiation of member function 'gpubuf_t<unsigned long>::free' requested herenote: in instantiation of member function 'gpubuf_t<unsigned long>::free' requested here
+in instantiation of member function 'gpubuf_t<unsigned long>::free' requested here
+
+        free();
+        free();        ^        free();
+
+
+        ^        ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:264/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:5:264:264: :5note: 5:in instantiation of member function 'gpubuf_t<unsigned long>::~gpubuf_t' requested here: 
+ note: note: in instantiation of member function 'gpubuf_t<unsigned long>::~gpubuf_t' requested herein instantiation of member function 'gpubuf_t<unsigned long>::~gpubuf_t' requested here
+
+    TreeNode(TreeNode* p)
+    ^
+    TreeNode(TreeNode* p)    TreeNode(TreeNode* p)
+
+    ^    ^
+
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp::252525:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_pool.h:::292929:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/function_map_key.h:::323232:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h:::242424:
+:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h:::114114114:::555:::   warning: warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+
+    }    }    }
+
+
+    ^    ^    ^
+
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/gpubuf.h:::676767:::999:::   note: note: note: in instantiation of member function 'gpubuf_t<>::free' requested herein instantiation of member function 'gpubuf_t<>::free' requested herein instantiation of member function 'gpubuf_t<>::free' requested here
+
+
+        free();
+        free();        free();        ^
+
+
+        ^        ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h880/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:::8805880:::5 5:note: : in instantiation of member function 'gpubuf_t<>::~gpubuf_t' requested here note: 
+note: in instantiation of member function 'gpubuf_t<>::~gpubuf_t' requested herein instantiation of member function 'gpubuf_t<>::~gpubuf_t' requested here
+
+    InternalTempBuffer(int comm_rank)
+    ^
+    InternalTempBuffer(int comm_rank)    InternalTempBuffer(int comm_rank)
+
+    ^    ^
+
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:::262626:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:::282828:
+:
+:
+In file included from In file included from In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:::333333:
+:
+:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:::505050:::555:::   warning: warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+
+    }    }
+    }
+    ^
+    ^
+    ^
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h68/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:::68968:::9 9:note: : in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::free' requested here note: 
+note: in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::free' requested herein instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::free' requested here
+
+        free();
+        ^        free();
+        free();
+
+        ^        ^/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+
+:1144:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h5/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:::1144 1144:note: :5in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::~hip_object_wrapper_t' requested here5:
+:  note: note: in instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::~hip_object_wrapper_t' requested herein instantiation of member function 'hip_object_wrapper_t<ihipStream_t *, &hipStreamCreate, &hipStreamDestroy>::~hip_object_wrapper_t' requested here
+
+    CommPointToPoint(int               local_comm_rank,
+    ^
+    CommPointToPoint(int               local_comm_rank,    CommPointToPoint(int               local_comm_rank,
+
+    ^    ^
+
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:26:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:In file included from 28In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp:In file included from :26/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h26:
+::
+In file included from 33In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/kernel_launch.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:28:28:
+50:
+In file included from :In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h5/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:::33 33:
+warning: :
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.hvoid function is missing a return statement [-Wreturn-type]/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:
+:5050:    }:5
+5:    ^: 
+ warning: warning: void function is missing a return statement [-Wreturn-type]void function is missing a return statement [-Wreturn-type]
+
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:    }68    }
+:
+    ^9    ^
+:
+ note: in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::free' requested here
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h:/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../../../shared/hip_object_wrapper.h68        free();::
+689        ^::
+9 :/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.hnote:  :in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::free' requested herenote: 1144
+in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::free' requested here:        free();
+5
+:        ^         free();
+note: 
+in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::~hip_object_wrapper_t' requested here        ^/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+
+:1144:5/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h:: 1144note: :    CommPointToPoint(int               local_comm_rank,in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::~hip_object_wrapper_t' requested here5
+
+:    ^ 
+note: in instantiation of member function 'hip_object_wrapper_t<ihipEvent_t *, &hipEventCreate, &hipEventDestroy>::~hip_object_wrapper_t' requested here
+    CommPointToPoint(int               local_comm_rank,
+    ^
+    CommPointToPoint(int               local_comm_rank,
+    ^
+4242 warning warningss generated generated when compiling for  when compiling for gfx938gfx928.
+.
+42 warnings generated when compiling for gfx936.

@@ -3836,7 +3836,10 @@ void TreeNode::CopyNodeData(const TreeNode& srcNode)
     dimension = srcNode.dimension;
     batch     = srcNode.batch;
     if(scheme == srcNode.scheme)
+    {
         real_io = srcNode.real_io;
+        real_boundary = srcNode.real_boundary;
+    }
     length    = srcNode.length;
     if(!srcNode.outputLength.empty())
         outputLength = srcNode.outputLength;
@@ -4342,6 +4345,14 @@ void TreeNode::Print(rocfft_ostream& os, const int indent) const
         os << "\n" << indentStr << "large1D: " << large1D;
         os << "\n" << indentStr << "largeTwdBase: " << largeTwdBase;
         os << "\n" << indentStr << "largeTwdSteps: " << ltwdSteps;
+    }
+    if(real_boundary.Active())
+    {
+        os << "\n" << indentStr << "real boundary: " << real_boundary.NameSuffix()
+           << " N=" << real_boundary.n << " M=" << real_boundary.HalfLength()
+           << " pair_tasks=" << real_boundary.PairTasks();
+        if(real_boundary_twiddles)
+            os << " phase_entries=" << real_boundary_twiddles_size / complex_type_size(precision);
     }
     if(twiddles)
     {

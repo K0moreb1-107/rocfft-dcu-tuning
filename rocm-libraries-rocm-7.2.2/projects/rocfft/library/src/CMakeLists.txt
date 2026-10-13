@@ -176,6 +176,8 @@ set( kgen_logic_files
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/real_pair_layout.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_real_pair.h
      ${CMAKE_SOURCE_DIR}/library/src/include/real_block_io.h
+     ${CMAKE_SOURCE_DIR}/library/src/include/real_boundary_io.h
+     ${CMAKE_SOURCE_DIR}/library/src/device/generator/real_boundary_bluestein.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_rr.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_pp_gen_cc.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_pp_gen_rr.h

@@ -46,6 +46,7 @@
 #include "rocfft_mpi.h"
 #include "rtc_kernel.h"
 #include "real_block_io.h"
+#include "real_boundary_io.h"
 #include <hip/hip_runtime_api.h>
 
 enum NodeType
@@ -393,6 +394,9 @@ public:
     void*            twiddles            = nullptr;
     size_t           twiddles_size       = 0;
     RealBlockIO      real_io;
+    RealBoundaryIO   real_boundary;
+    void*            real_boundary_twiddles = nullptr;
+    size_t           real_boundary_twiddles_size = 0;
     void*            local_real_twiddles = nullptr;
     size_t           local_real_twiddles_size = 0;
     void*            real_post_twiddles = nullptr;
@@ -569,6 +573,8 @@ public:
     // Physical reads may differ from the virtual transform geometry.
     RealBufferView GetInputBufferView() const
     {
+        if(real_boundary.Pre())
+            return {{real_boundary.HalfLength() + 1}, {1}, iDist};
         if(real_io.role == RealBlockRole::HermitianColumns
            || real_io.role == RealBlockRole::PairedPreColumns)
             return {{real_io.n / 2 + 1}, {1}, iDist};
@@ -580,6 +586,8 @@ public:
     // The fused post-processing expands a virtual AxQ FFT to M+1 values.
     std::optional<RealBufferView> GetPhysicalOutputBufferView() const
     {
+        if(real_boundary.Post())
+            return RealBufferView{{real_boundary.HalfLength() + 1}, {1}, oDist};
         if(real_io.role == RealBlockRole::PairedPostRows
            || real_io.role == RealBlockRole::GenericPairedPostRows)
             return RealBufferView{{real_io.n / 2 + 1}, {1}, oDist};

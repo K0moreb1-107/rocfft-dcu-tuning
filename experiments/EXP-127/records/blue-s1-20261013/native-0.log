@@ -1,0 +1,46 @@
+-- The CXX compiler identification is unknown
+-- The C compiler identification is Clang 17.0.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - failed
+-- Check for working CXX compiler: /public/software/compiler/dtk-26.04/bin/hipcc
+-- Check for working CXX compiler: /public/software/compiler/dtk-26.04/bin/hipcc - broken
+CMake Error at /usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:60 (message):
+  The C++ compiler
+
+    "/public/software/compiler/dtk-26.04/bin/hipcc"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: /public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013/CMakeFiles/CMakeScratch/TryCompile-ahUQgC
+    
+    Run Build Command(s):/usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c4591/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c4591.dir/build.make CMakeFiles/cmTC_c4591.dir/build
+    gmake[1]: Entering directory '/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013/CMakeFiles/CMakeScratch/TryCompile-ahUQgC'
+    Building CXX object CMakeFiles/cmTC_c4591.dir/testCXXCompiler.cxx.o
+    /public/software/compiler/dtk-26.04/bin/hipcc    -o CMakeFiles/cmTC_c4591.dir/testCXXCompiler.cxx.o -c /public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013/CMakeFiles/CMakeScratch/TryCompile-ahUQgC/testCXXCompiler.cxx
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    dcc: error: unable to make temporary file: No such file or directory
+    gmake[1]: *** [CMakeFiles/cmTC_c4591.dir/build.make:78: CMakeFiles/cmTC_c4591.dir/testCXXCompiler.cxx.o] Error 1
+    gmake[1]: Leaving directory '/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013/CMakeFiles/CMakeScratch/TryCompile-ahUQgC'
+    gmake: *** [Makefile:127: cmTC_c4591/fast] Error 2
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:50 (project)
+
+
+-- Configuring incomplete, errors occurred!

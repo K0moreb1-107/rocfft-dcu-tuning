@@ -1,0 +1,93 @@
+{
+  "complete": false,
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-host-support.log",
+      "sha256": "633930b2e68ab7039cf75087de480021d4f5516b2166371be5e8433b59731647"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--offload-arch=gfx936",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5.o",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/blue_gen_smoke.cpp"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-exporter-compile.log",
+      "sha256": "32166f2c53d120ecd4850371f56bb97b61080d320d18abf950da57a09198f9bc"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_bluestein_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-exporter-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/blue_gen_smoke-v5",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-export.log",
+      "sha256": "ff1d04e0ea2a38c5dca772fbeddd2e583e70240e6a7b49d5c514f8d3f2d7ece4"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-std=c++17",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.hsaco"
+      ],
+      "code": 1,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-device-v5-gpu-00.log",
+      "sha256": "c6be0528340b52c8b9fb16350543263513484116512856c35f8a39231ae35238"
+    }
+  ]
+}

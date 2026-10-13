@@ -26,6 +26,7 @@
 #include "kernel_launch.h"
 #include "rtc_bluestein_gen.h"
 #include "tree_node.h"
+#include <limits>
 
 RTCKernel::RTCGenerator RTCKernelBluesteinSingle::generate_from_node(const LeafNode&    node,
                                                                      const std::string& gpu_arch,
@@ -148,6 +149,15 @@ RTCKernel::RTCGenerator RTCKernelBluesteinMulti::generate_from_node(const LeafNo
         numof = N;
     }
 
+    if(node.real_boundary.Active())
+    {
+        if(!node.real_boundary.Valid() || node.real_boundary.HalfLength() != N
+           || node.real_boundary.container != RealBoundaryContainer::Bluestein
+           || scheme != (node.real_boundary.Pre() ? CS_KERNEL_PAD_MUL : CS_KERNEL_RES_MUL)
+           || node.batch != 1 || node.length.size() != 1)
+            throw std::runtime_error("invalid real Bluestein boundary launch");
+        numof = node.real_boundary.PairTasks() + (node.real_boundary.Pre() ? M - N : 0);
+    }
     size_t count = node.batch;
     for(size_t i = 1; i < node.length.size(); i++)
         count *= node.length[i];
@@ -161,8 +171,11 @@ RTCKernel::RTCGenerator RTCKernelBluesteinMulti::generate_from_node(const LeafNo
     }
     else
     {
-        generator.gridDim
-            = {(static_cast<unsigned int>(count) - 1) / LAUNCH_BOUNDS_BLUESTEIN_MULTI_KERNEL + 1};
+        const size_t blocks = (count - 1) / LAUNCH_BOUNDS_BLUESTEIN_MULTI_KERNEL + 1;
+        if(blocks > std::numeric_limits<unsigned int>::max()
+           || blocks > static_cast<size_t>(node.deviceProp.maxGridSize[0]))
+            throw std::runtime_error("Bluestein grid exceeds device limits");
+        generator.gridDim = {static_cast<unsigned int>(blocks)};
         generator.blockDim = {LAUNCH_BOUNDS_BLUESTEIN_MULTI_KERNEL};
     }
 
@@ -172,7 +185,8 @@ RTCKernel::RTCGenerator RTCKernelBluesteinMulti::generate_from_node(const LeafNo
                               node.outArrayType,
                               node.GetCallbackType(enable_callbacks),
                               node.loadOps,
-                              node.storeOps};
+                              node.storeOps,
+                              node.real_boundary};
 
     generator.generate_name = [=]() { return bluestein_multi_rtc_kernel_name(specs); };
 
@@ -234,6 +248,22 @@ RTCKernelArgs RTCKernelBluesteinMulti::get_launch_args(DeviceCallIn& data)
         else if(scheme == CS_KERNEL_PAD_MUL)
         {
             bufOut0 = static_cast<char*>(bufOut0) + M * cBytes;
+        }
+
+        if(data.node->real_boundary.Active())
+        {
+            kargs.append_size_t(N);
+            kargs.append_size_t(M);
+            kargs.append_ptr(data.node->real_boundary_twiddles);
+            kargs.append_ptr(bufIn0);
+            kargs.append_ptr(bufOut0);
+            kargs.append_ptr(data.callbacks.load_cb_fn);
+            kargs.append_ptr(data.callbacks.load_cb_data);
+            kargs.append_unsigned_int(data.callbacks.load_cb_lds_bytes);
+            kargs.append_ptr(data.callbacks.store_cb_fn);
+            kargs.append_ptr(data.callbacks.store_cb_data);
+            append_load_store_args(kargs, *data.node);
+            return kargs;
         }
 
         kargs.append_size_t(numof);

@@ -24,6 +24,7 @@
 #include "../device/kernels/callback.h"
 #include "compute_scheme.h"
 #include "load_store_ops.h"
+#include "real_boundary_io.h"
 #include "rocfft/rocfft.h"
 #include <vector>
 
@@ -52,6 +53,7 @@ static const unsigned int LAUNCH_BOUNDS_BLUESTEIN_MULTI_KERNEL = 64;
 // multi-kernel bluestein
 struct BluesteinMultiSpecs
 {
+
     ComputeScheme           scheme;
     rocfft_precision        precision;
     rocfft_array_type       inArrayType;
@@ -59,6 +61,7 @@ struct BluesteinMultiSpecs
     CallbackType            cbtype;
     std::optional<LoadOps>  loadOps;
     std::optional<StoreOps> storeOps;
+    RealBoundaryIO real_boundary;
 };
 
 std::string bluestein_multi_rtc_kernel_name(const BluesteinMultiSpecs& specs);

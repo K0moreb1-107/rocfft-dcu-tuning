@@ -1,0 +1,117 @@
+{
+  "complete": false,
+  "commands": [
+    [
+      "cmake",
+      "-S",
+      "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+      "-B",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013",
+      "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+      "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DGPU_TARGETS=gfx936",
+      "-DBUILD_CLIENTS_BENCH=OFF",
+      "-DBUILD_CLIENTS_TESTS=OFF",
+      "-DBUILD_CLIENTS_SAMPLES=OFF",
+      "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+      "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+      "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+      "-DHAVE_STD_FILESYSTEM=ON",
+      "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+      "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+      "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+      "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+      "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+      "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+      "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+    ],
+    [
+      "cmake",
+      "--build",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013",
+      "--target",
+      "rocfft-rtc-gen",
+      "-j16"
+    ]
+  ],
+  "source_sha256": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "before": "b718d5ed2ae095d4026ac6497ad5869e691939da6647f1a88ba0feaec2f34b4b",
+      "after": "324372343c06312a8664bf3a1743e9c0c7c5f79ba43a38c37bfab9af5a821fec"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": {
+      "before": "fa10db1f4f16b4c240d4021f154cd417fae09bd2798284fad157a3643f2c6650",
+      "after": "2a914e90ba30233f2dd6ce9d09e81426483bacd003865bc6ec3e905922caf34c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp": {
+      "before": "19cc7d0a197f867de69975c27a92fb5f6c54a84555fe250a283b61f1a8e339e5",
+      "after": "a8aaa833277ec2a545532aec0fcd58fbbcd23e4db666645ec200618216120728"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp": {
+      "before": "a37dde1a268cc1641eed1d763db0be3d2ad15aaae474794fc669190d4c88b0bd",
+      "after": "4b4c0b56c38448246b439bd5a446e96e9b0cfb3b3de150b7be2824ea2985081b"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "before": "624ad759a493e1a21e714d94b19d2a0a1e7f311e3dac227b918ab4a8e3308b30",
+      "after": "f7f6b2552e8028ea6de8f0c874b874887e53badbbf7bc38b53c36161eb955559"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "before": "4d9819b69eaa87cf7bbcc879dcca7382fc2a2b434301b58c95fada6729a7a94b",
+      "after": "8891891ab9527e4cb66e9cf4fb53e8db3adc99e494749d1b65b95b9e1cf71db5"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_boundary_io.h": {
+      "before": null,
+      "after": "4e21653870324d1f77a02c5726348926a6408ac47b6b68dba925324213268ef6"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h": {
+      "before": "73a3ea9c177441efb85a7d36bc4667433470bcdbf6de224ce5e38cc434d9a8dc",
+      "after": "c4bb63c82fc37192a680c18216cab1816c264b75fe973dac287190305b761aa2"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "before": "276f3c7d6fedfecf39546818aec5b111aa17fe28de32d5bb4f0b677ef803dbff",
+      "after": "9da17f53cf2c48781643380592755b0301dcc9b66430ac56c8421bfb1a7712b1"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": {
+      "before": "a23013ba83de65612cc84e065d980533335e9aaf5a3a7ea6f90e027c74098880",
+      "after": "fcf97c9fc522e1d9e1ff2cdd24fa313cef79a2df989130d293ead0123664caa1"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_bluestein.h": {
+      "before": null,
+      "after": "0d2e57015e1e9f656909dcbab803ac81c304820a29067517fa89bcab20dfa8e3"
+    }
+  },
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGPU_TARGETS=gfx936",
+        "-DBUILD_CLIENTS_BENCH=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+      ],
+      "code": 1,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/blue-s1-20261013/native-0.log",
+      "sha256": "21c0adc9e71b6bab08292f7214a9a6cee64ab648ab20ccfd8794bc74c80fdf58",
+      "start": "2026-10-13T04:27:07.389129+00:00"
+    }
+  ]
+}

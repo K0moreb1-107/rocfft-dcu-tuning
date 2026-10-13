@@ -69,6 +69,7 @@ public:
     void AssignLocalRealParams();
     bool TryFusePairedPost(TreeNode& cfft, size_t n);
     bool TryFuseGenericRealPair(TreeNode& cfft, size_t n);
+    bool TryFuseBluesteinBoundary(TreeNode& cfft, size_t n);
 
     // 3D Even can possibly set this
     bool try_fuse_pre_post_processing = false;

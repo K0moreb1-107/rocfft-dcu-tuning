@@ -1,0 +1,115 @@
+{
+  "base_commit": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "branch": "exp-127-real-bluestein-boundary",
+  "stable_tag": "完成CC路径前后处理融合",
+  "stable_library": {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-heldout-complex-20261012/lib/librocfft.so.0.1",
+    "sha256": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad"
+  },
+  "source_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "baseline_sha256": "b718d5ed2ae095d4026ac6497ad5869e691939da6647f1a88ba0feaec2f34b4b",
+      "candidate_sha256": "324372343c06312a8664bf3a1743e9c0c7c5f79ba43a38c37bfab9af5a821fec"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": {
+      "baseline_sha256": "fa10db1f4f16b4c240d4021f154cd417fae09bd2798284fad157a3643f2c6650",
+      "candidate_sha256": "2a914e90ba30233f2dd6ce9d09e81426483bacd003865bc6ec3e905922caf34c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp": {
+      "baseline_sha256": "19cc7d0a197f867de69975c27a92fb5f6c54a84555fe250a283b61f1a8e339e5",
+      "candidate_sha256": "a8aaa833277ec2a545532aec0fcd58fbbcd23e4db666645ec200618216120728"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp": {
+      "baseline_sha256": "a37dde1a268cc1641eed1d763db0be3d2ad15aaae474794fc669190d4c88b0bd",
+      "candidate_sha256": "4b4c0b56c38448246b439bd5a446e96e9b0cfb3b3de150b7be2824ea2985081b"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "baseline_sha256": "624ad759a493e1a21e714d94b19d2a0a1e7f311e3dac227b918ab4a8e3308b30",
+      "candidate_sha256": "f7f6b2552e8028ea6de8f0c874b874887e53badbbf7bc38b53c36161eb955559"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "baseline_sha256": "4d9819b69eaa87cf7bbcc879dcca7382fc2a2b434301b58c95fada6729a7a94b",
+      "candidate_sha256": "8891891ab9527e4cb66e9cf4fb53e8db3adc99e494749d1b65b95b9e1cf71db5"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_boundary_io.h": {
+      "baseline_sha256": null,
+      "candidate_sha256": "4e21653870324d1f77a02c5726348926a6408ac47b6b68dba925324213268ef6"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h": {
+      "baseline_sha256": "73a3ea9c177441efb85a7d36bc4667433470bcdbf6de224ce5e38cc434d9a8dc",
+      "candidate_sha256": "c4bb63c82fc37192a680c18216cab1816c264b75fe973dac287190305b761aa2"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "baseline_sha256": "276f3c7d6fedfecf39546818aec5b111aa17fe28de32d5bb4f0b677ef803dbff",
+      "candidate_sha256": "9da17f53cf2c48781643380592755b0301dcc9b66430ac56c8421bfb1a7712b1"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": {
+      "baseline_sha256": "a23013ba83de65612cc84e065d980533335e9aaf5a3a7ea6f90e027c74098880",
+      "candidate_sha256": "fcf97c9fc522e1d9e1ff2cdd24fa313cef79a2df989130d293ead0123664caa1"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_bluestein.h": {
+      "baseline_sha256": null,
+      "candidate_sha256": "0d2e57015e1e9f656909dcbab803ac81c304820a29067517fa89bcab20dfa8e3"
+    }
+  },
+  "validation_inputs": {
+    "experiments/EXP-127/scripts/blue_gen_smoke.cpp": "34ba186a389e82c11788f99414815758f2e03745d97b1d7f1966ce7e3253c09d",
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "9231574e91cf26a8277c905c12b330c434adb322159787b0238915b06150fcd0",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "3bc8c1b0ec43660438caa43a539d5c07e1d583ceae7ae032c1e0c668faec79d1",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "387f25f75851066453f1eb7fc7bc7bf2cd8fc9f13b9a51d0de76cbfecfe041dd",
+    "experiments/EXP-127/records/blue-s1-20261013/coverage.json": "1eb68b075639a700f7b5fe637182277780ea3752c71df046258548033faa74be",
+    "experiments/EXP-127/records/blue-s1-20261013/preregistration.md": "92338ce3b2801aea137e561d3bb321e77ab63b913a53997c5d491ec51efd3676"
+  },
+  "native_evidence": {
+    "native-preflight.json": "da6a6400ba6ecb860be29c84123b20cd1049a4184d29452a137d67dfaa221999",
+    "native-0-v2.log": "d4b9599521c09fee5cf53a5615ca0034b0bd0923e2fa007c68141391ee482ba0",
+    "native-1-v2.log": "295629ef46ccc0bbb75d587933031670a1594dc12a0eb39ee8e4fe5536dbb2dd",
+    "native-device-host-support.log": "61be9676e47174451562d681b007ad41c442bd567b7deb5a13ab2c0d42df4b63",
+    "native-device-progress.json": "214cbf7d894accd60ab354305bf531c4b533f3f2bca0a8c05c365b7296561759",
+    "native-device-progress-v2.json": "188597e0fdb8f2fc37edbed5d7f7619f8eefeffc6e177de5edddbc503551deef",
+    "native-device-v2-exporter-compile.log": "6df12d4518f7111f4a16b0195d1629d972f9475cd743fecd2a38b215cb12e974",
+    "native-device-progress-v3.json": "71223208fe330952e9c70f6c6f232569f8695db058ab913c05341ee0874db2b7",
+    "native-device-v3-exporter-compile.log": "5d9f94e7f07bb51d969fbb3aabb61072b1ed23582c2bcb91415a9feecd9b4f61",
+    "native-device-v4-exporter-compile.log": "32166f2c53d120ecd4850371f56bb97b61080d320d18abf950da57a09198f9bc",
+    "native-device-progress-v5.json": "085d72275d89d452ea660df3d40256b8a2123e4de581ba5641a8890f59377d63",
+    "native-device-v5-exporter-compile.log": "32166f2c53d120ecd4850371f56bb97b61080d320d18abf950da57a09198f9bc",
+    "native-device-v5-gpu-00.log": "c6be0528340b52c8b9fb16350543263513484116512856c35f8a39231ae35238",
+    "native-device-progress-v6.json": "3cd260a82f9f01de0e2c7a29dea6d5325010d8774216aecc7ec5d19b5c5b9549",
+    "native-device-v6-gpu-05.log": "be3e348c360b9ffe729d0a90cc3f0f83b1e2b557c7e3810b38986309a7c607d6",
+    "native-device-v6-gpu-07.log": "99472271802cd2bc3a189f3efb0ddf6931e8a13ee627b2ddd06d37f5332d2eb0",
+    "native-device-v6-gpu-11.log": "1f2d695207f3d3ef0706e5cc0f290dd0ba6fb76098bd3e60b5354a5d9f6c6ea7",
+    "native-device-v6-gpu-12.log": "853627f75beab86256e4b6be8d11a15e8228a5321142fafb4f08157f9c066c66",
+    "native-device-v6-gpu-13.log": "90d50f622f3c49e08b88f34f385743d86d19e42f608e4334a44a818a21647d0e",
+    "native-device-v6-gpu-15.log": "44c8fa70bbbed7d478740a4c3cbc919144d91b4afd09d87cc52448b5821c8b1a",
+    "native-device-v6-syntax-1.log": "c869b98798b732e6627684a1a029d69ebef5c494ef35423aaad29b9c65268b80",
+    "native-device-v6-syntax-2.log": "e1f54296f0479b98af4cab01c1430a637c68215c38eb34872b4f129ac4b10adb",
+    "native-device-v6-syntax-4.log": "09f22c9bb32c55487a775c3c1504527ec49ce626b264e2a34accfe1d25086ad6",
+    "native-device-v6-guard-syntax.log": "cd5f9e5b628d4906c897a0413944075a3bf77551b7b6e2fa88ad6dde10183417",
+    "native-device-check-v6.json": "72ac2a231b53ddeab8fdb73c83ff16d1a34f4539517cca86041e1a0ded600d60",
+    "source-before-native.json": "39649ce3593e0d8a4bedfb419df98947660dda2fa76c4ff9ea7fe4e5e3534e6e",
+    "native-0.log": "21c0adc9e71b6bab08292f7214a9a6cee64ab648ab20ccfd8794bc74c80fdf58",
+    "native-preflight-v2.json": "669b75f2ab2462d9e12c7407497e2ecfa8275202f0afb5b883cae86a86122ba0",
+    "native-device-exporter.log": "7c11d6c4aa7e26ac305e608a791013348ac56db1bc95b382f92411b7ef9322a4",
+    "native-device-v2-host-support.log": "633930b2e68ab7039cf75087de480021d4f5516b2166371be5e8433b59731647",
+    "native-device-v3-host-support.log": "633930b2e68ab7039cf75087de480021d4f5516b2166371be5e8433b59731647",
+    "native-device-v4-host-support.log": "633930b2e68ab7039cf75087de480021d4f5516b2166371be5e8433b59731647",
+    "native-device-progress-v4.json": "fe1fef1b64d4a485d74ef4251b0c4ba9dc62bc6ac98022cc1b85d7b815bae33f",
+    "native-device-v4-exporter-link.log": "4b7a80d1f5b14e8e36a675ac559911463b8240bafbb8f69899ae66056d52c768",
+    "native-device-v5-host-support.log": "633930b2e68ab7039cf75087de480021d4f5516b2166371be5e8433b59731647",
+    "native-device-v5-exporter-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-device-v5-export.log": "ff1d04e0ea2a38c5dca772fbeddd2e583e70240e6a7b49d5c514f8d3f2d7ece4",
+    "native-device-v6-gpu-00.log": "54f0766181a9e2395389db4b6b524ab676f424256658d4fbaa7329d9ec4ef4df",
+    "native-device-v6-gpu-01.log": "371b31608568e5fec35993f0b7fbff1e4867e588ad370c920fc13feba8b888f0",
+    "native-device-v6-gpu-02.log": "12b4a7c42511900e733307a906bbfdad60c5b8f9ea0eca62dba22ce726258c65",
+    "native-device-v6-gpu-03.log": "ac6e667914df16e7e9e3c9b94ffb962c9d4b30344d37f5f7dbddfc9ae5547d10",
+    "native-device-v6-gpu-04.log": "d40984511bbcda39c0f2a61e165bfea12d2f453753fffe65f2d815aa1c7092fe",
+    "native-device-v6-gpu-06.log": "e8107d6e01d5f884e7d3c63512163e24e7f1db77bc8cf97b75c3b929b743356f",
+    "native-device-v6-gpu-08.log": "cc7f1bdd38f7eba48f899fa8b10f8b49e3c0ce582b1767395d9efec72c946570",
+    "native-device-v6-gpu-09.log": "117c2fff4325bc7a80bddb5c163e5f067df15d73d10558a0b08b2c6fb588f5a5",
+    "native-device-v6-gpu-10.log": "b437e0353d9c917ed9c02d951c3cdb50ed49d376d013057253752ac0a8ea411c",
+    "native-device-v6-gpu-14.log": "b543a6081240be8cb186d96f8d5623383153ebd7e5dfa9bc00ced8d87de753ce",
+    "native-device-v6-syntax-3.log": "b10aeb15968fad7393be9afe4e1f93e9b6a59048c7a33417176ef3fc281234d9"
+  },
+  "gpu_execution": false,
+  "formal_performance_submitted": false
+}

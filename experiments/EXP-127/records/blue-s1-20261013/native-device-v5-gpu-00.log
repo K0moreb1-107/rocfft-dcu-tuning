@@ -1,0 +1,27 @@
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp:89:5: error: unknown type name '__forceinline__'
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp:89:21: warning: 'device' attribute only applies to functions and variables [-Wignored-attributes]
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+                    ^
+/public/software/compiler/dtk-26.04/dcc/lib/clang/17.0.0/include/__clang_hip_runtime_wrapper.h:22:35: note: expanded from macro '__device__'
+#define __device__ __attribute__((device))
+                                  ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp:89:32: warning: 'host' attribute only applies to functions [-Wignored-attributes]
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+                               ^
+/public/software/compiler/dtk-26.04/dcc/lib/clang/17.0.0/include/__clang_hip_runtime_wrapper.h:21:33: note: expanded from macro '__host__'
+#define __host__ __attribute__((host))
+                                ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp:89:55: error: expected ';' at end of declaration list
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+                                                      ^
+                                                      ;
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp:982:12: error: unknown type name '__forceinline__'
+__device__ __forceinline__ size_t real_pair_row(
+           ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-blue-native-20261013-v2/generated-boundary-v5/generated-0.cpp:982:34: error: expected ';' after top level declarator
+__device__ __forceinline__ size_t real_pair_row(
+                                 ^
+                                 ;
+2 warnings and 4 errors generated when compiling for gfx936.

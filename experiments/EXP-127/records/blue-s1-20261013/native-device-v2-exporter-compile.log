@@ -1,0 +1,87 @@
+In file included from /public/home/zhangkewei/zr/experiments/EXP-127/scripts/blue_gen_smoke.cpp:1:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h:24:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:24:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:24:
+/public/software/compiler/dtk-26.04/hip/include/hip/hip_fp16.h:33:2: error: ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+#error("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+ ^
+In file included from /public/home/zhangkewei/zr/experiments/EXP-127/scripts/blue_gen_smoke.cpp:1:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h:24:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/callback.h:24:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:47:5: error: unknown type name '__device__'
+    __device__ __host__ rocfft_complex()                      = default;
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:47:24: error: expected ';' at end of declaration list
+    __device__ __host__ rocfft_complex()                      = default;
+                       ^
+                       ;
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:48:5: error: unknown type name '__device__'
+    __device__ __host__ rocfft_complex(const rocfft_complex&) = default;
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:48:16: error: duplicate member '__host__'
+    __device__ __host__ rocfft_complex(const rocfft_complex&) = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:47:16: note: previous declaration is here
+    __device__ __host__ rocfft_complex()                      = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:48:24: error: expected ';' at end of declaration list
+    __device__ __host__ rocfft_complex(const rocfft_complex&) = default;
+                       ^
+                       ;
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:49:5: error: unknown type name '__device__'
+    __device__ __host__ rocfft_complex(rocfft_complex&&)      = default;
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:49:16: error: duplicate member '__host__'
+    __device__ __host__ rocfft_complex(rocfft_complex&&)      = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:47:16: note: previous declaration is here
+    __device__ __host__ rocfft_complex()                      = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:49:24: error: expected ';' at end of declaration list
+    __device__ __host__ rocfft_complex(rocfft_complex&&)      = default;
+                       ^
+                       ;
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:50:5: error: unknown type name '__device__'
+    __device__ __host__ rocfft_complex& operator=(const rocfft_complex& rhs) & = default;
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:50:16: error: duplicate member '__host__'
+    __device__ __host__ rocfft_complex& operator=(const rocfft_complex& rhs) & = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:47:16: note: previous declaration is here
+    __device__ __host__ rocfft_complex()                      = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:50:24: error: expected ';' at end of declaration list
+    __device__ __host__ rocfft_complex& operator=(const rocfft_complex& rhs) & = default;
+                       ^
+                       ;
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:51:5: error: unknown type name '__device__'
+    __device__ __host__ rocfft_complex& operator=(rocfft_complex&& rhs) & = default;
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:51:16: error: duplicate member '__host__'
+    __device__ __host__ rocfft_complex& operator=(rocfft_complex&& rhs) & = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:47:16: note: previous declaration is here
+    __device__ __host__ rocfft_complex()                      = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:51:24: error: expected ';' at end of declaration list
+    __device__ __host__ rocfft_complex& operator=(rocfft_complex&& rhs) & = default;
+                       ^
+                       ;
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:52:5: error: unknown type name '__device__'
+    __device__                          __host__ ~rocfft_complex()        = default;
+    ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:52:41: error: duplicate member '__host__'
+    __device__                          __host__ ~rocfft_complex()        = default;
+                                        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:47:16: note: previous declaration is here
+    __device__ __host__ rocfft_complex()                      = default;
+               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:52:49: error: expected ';' at end of declaration list
+    __device__                          __host__ ~rocfft_complex()        = default;
+                                                ^
+                                                ;
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/../device/kernels/../../../../shared/rocfft_complex.h:55:5: error: unknown type name '__device__'
+    __device__ __host__ constexpr rocfft_complex(Treal real, Treal imag)
+    ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
