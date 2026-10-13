@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-07",
+  "updated": "2026-10-13",
   "aliases": {
     "official": "install-exp096-official",
-    "previous": "EXP-125-pre-memory-i"
+    "previous": "EXP-126-heldout-complex-20261012"
   },
   "installations": {
     "exp080-install": {
@@ -219,20 +219,46 @@
       "approved": "2026-10-07",
       "approval_record": "experiments/EXP-125/records/stable-promotion-20261007/promotion.json",
       "validation_job": "890730",
-      "formal_performance_job": "891149"
+      "formal_performance_job": "891149",
+      "superseded_as_default_previous_on": "2026-10-13"
+    },
+    "EXP-126-heldout-complex-20261012": {
+      "path": "experiments/EXP-126/artifacts/install/EXP-126-heldout-complex-20261012",
+      "role": "previous",
+      "eligible_formal_arm": true,
+      "compatibility": false,
+      "source_identity": "用户批准保留的EXP126 CC路径前后处理融合；计算源码与任务908730的构建一致",
+      "arm": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-heldout-complex-20261012",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+        "source_state": "{\"commit\": \"06baff81d85a7f24fd240cd32c849244b05ae3b9\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M AGENTS.md\\n M VkFFT\\n M docs/technical/WORKSPACE_MANAGEMENT.md\\n M tools/workspace_manager/manager.py\"}",
+        "library_sha256": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-complex-build-20261012/build-provenance.json"
+      },
+      "stable_tag": "完成CC路径前后处理融合",
+      "approved": "2026-10-13",
+      "approval_record": "experiments/EXP-126/records/stable-promotion-20261013/promotion.json",
+      "validation_job": "908730",
+      "formal_performance_job": "909379",
+      "cmake": {
+        "ROCFFT_REAL_PAIR_SCALAR_CAPACITY": "OFF"
+      },
+      "known_limitations": "部分类型和尺寸仍有性能退化，按用户要求作为CC融合功能阶段稳定版；细节优化后续进行"
     }
   },
   "stable_source": {
     "branch": "main",
     "worktree": "/public/home/zhangkewei/zr",
-    "source_anchor": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
-    "management_tools_commit": "27d5c5e164c25975505d613e0109016e076bc346",
-    "tag": "stable-main-exp125-20261007",
-    "retained_kernel_source": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
-    "previous_binary_registry_id": "EXP-125-pre-memory-i",
-    "binary_equivalence": "The retained rocFFT source subtree is identical to the actual EXP-125 i build source. Promotion changes instructions, registry and records only; the existing library keeps its original build identity.",
-    "approved": "2026-10-07",
-    "approval_record": "experiments/EXP-125/records/stable-promotion-20261007/promotion.json"
+    "source_anchor": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "tag": "完成CC路径前后处理融合",
+    "retained_kernel_source": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "rocfft_source_tree": "842c6f35410bfda22fd0c7c61d172d371d2f21a6",
+    "previous_binary_registry_id": "EXP-126-heldout-complex-20261012",
+    "management_tools_commit": "66c6315e51cfde6390361a778f86df97e4e99a3b",
+    "binary_equivalence": "稳定标签中的rocFFT源码子树与任务908730实际构建的06baff81完全相同；安装库保留原始构建身份",
+    "approved": "2026-10-13",
+    "approval_record": "experiments/EXP-126/records/stable-promotion-20261013/promotion.json"
   },
   "stable_source_history": [
     {
@@ -244,6 +270,18 @@
       "previous_binary_registry_id": "exp122-A-install",
       "binary_equivalence": "rocFFT diff from validated EXP-122 is comment-only; existing library retains original build identity",
       "approved": "2026-10-03"
+    },
+    {
+      "branch": "main",
+      "worktree": "/public/home/zhangkewei/zr",
+      "source_anchor": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "management_tools_commit": "27d5c5e164c25975505d613e0109016e076bc346",
+      "tag": "stable-main-exp125-20261007",
+      "retained_kernel_source": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "previous_binary_registry_id": "EXP-125-pre-memory-i",
+      "binary_equivalence": "The retained rocFFT source subtree is identical to the actual EXP-125 i build source. Promotion changes instructions, registry and records only; the existing library keeps its original build identity.",
+      "approved": "2026-10-07",
+      "approval_record": "experiments/EXP-125/records/stable-promotion-20261007/promotion.json"
     }
   ]
 }

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-126",
+  "run_id": "EXP-126-heldout-capacity-build-20261012",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "04:00:00",
+    "nodelist": "f13r4n15"
+  },
+  "baseline_commit": "a15798143f3074bfceabb8e4a6326f8ddf5063f3",
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "source_freeze_manifest": "/public/home/zhangkewei/zr/experiments/EXP-126/source/extended-type-coverage-06baff81/manifest.json",
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-126-heldout-capacity-20261012",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_REAL_PAIR_SCALAR_CAPACITY": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-126/scripts/validate_real_pair_extended_20261012.py",
+    "sha256": "6b7c548782812dbd4f2c36a7e19bafbcd4abefbfafd5253aecacddeae3adcbb6",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-126/scripts/even_cc_guard.cpp",
+        "sha256": "1ee78f68a71d1a2337bc00c2857207054e66ece1683acf9586c9893c3eefc07e"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-126/records/extended-type-coverage-20261012/coverage.json",
+        "sha256": "f03b0b9b81a4d1be1b455553f6b3b100f625c15c650517ce0bd47f677691e6b1"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-126/records/extended-type-coverage-20261012/preregistration.md",
+        "sha256": "61bacafa28f818dc4ddc6b1e2c6ccacf31e0751b0c7e4fba0d3ab26f25404f38"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-126/records/extended-type-coverage-20261012/coverage.json",
+    "guard_source": "/public/home/zhangkewei/zr/experiments/EXP-126/scripts/even_cc_guard.cpp",
+    "scalar_capacity": true
+  },
+  "candidate_variant": "capacity",
+  "acceptance": "八类各三个未测N、两组其他局部内核对照；25个新实数尺寸、65项基础检查、100组实际融合及1400项独立参考各两轮，保留15项旧版回归。只用默认路径；全部通过后才提交已准备的53项性能清单。",
+  "user_authorization": "你再测试一下各个类型各取3个其他的size看看优化是否覆盖，需要确保你优化的不是某个具体kernel而是整个类型",
+  "stop_after_submission": true
+}

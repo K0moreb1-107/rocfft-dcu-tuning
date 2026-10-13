@@ -1,0 +1,20 @@
+{
+  "complete": true,
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/experiments/EXP-126/scripts/validate_real_pair_extended_20261012.py",
+    "--config",
+    "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-capacity-build-20261012/submit-manifest.json",
+    "--build-record",
+    "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-capacity-build-20261012/build-provenance.json",
+    "--run",
+    "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-capacity-build-20261012",
+    "--build",
+    "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-capacity-20261012",
+    "--cache",
+    "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/cache/EXP-126-heldout-capacity-build-20261012"
+  ],
+  "source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+  "library_sha256": "546b95f3ce83ab183844c67f108fe84af712f1d29027d9138bf8759c444325ad",
+  "log_sha256": "837bb330e118c0a404f60a04b95f2a4ac7b6da0edde5f99e1f4a89f5e9e949ab"
+}

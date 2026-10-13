@@ -1,0 +1,82 @@
+{
+  "approved": "2026-10-13",
+  "user_instruction": "将当前版本作为新的稳定版本提交到服务器本地和云端，标签为完成CC路径前后处理融合；至于CC路径前后处理融合细节的优化此后再进行",
+  "branch": "main",
+  "tag": "完成CC路径前后处理融合",
+  "experiment": "EXP-126",
+  "build_source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+  "rocfft_source_tree": "842c6f35410bfda22fd0c7c61d172d371d2f21a6",
+  "default_variant": "complex",
+  "cmake": {
+    "ROCFFT_REAL_PAIR_SCALAR_CAPACITY": "OFF"
+  },
+  "approved_library": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-heldout-complex-20261012",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "source_state": "{\"commit\": \"06baff81d85a7f24fd240cd32c849244b05ae3b9\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M AGENTS.md\\n M VkFFT\\n M docs/technical/WORKSPACE_MANAGEMENT.md\\n M tools/workspace_manager/manager.py\"}",
+    "library_sha256": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-complex-build-20261012/build-provenance.json"
+  },
+  "alternate_capacity_library": {
+    "library": "experiments/EXP-126/artifacts/install/EXP-126-heldout-capacity-20261012/lib/librocfft.so.0.1",
+    "sha256": "546b95f3ce83ab183844c67f108fe84af712f1d29027d9138bf8759c444325ad"
+  },
+  "validation_jobs": [
+    "908730",
+    "908731"
+  ],
+  "performance_jobs": [
+    "909379",
+    "909381"
+  ],
+  "validation": {
+    "all_checks_pass": true,
+    "quick_per_variant": 65,
+    "guard_groups_per_variant": 100,
+    "reference_cases_per_variant": 1400,
+    "executions_per_reference_case": 2,
+    "maximum_recorded_error": 4.588921835117314e-15,
+    "actual_fusion_pass": true
+  },
+  "performance": {
+    "protocol": "FFT-event-samples-single-v2",
+    "analysis_statistic": "median_of_raw_event_samples",
+    "formal_cases_per_variant": 53,
+    "processes": 318,
+    "raw_event_samples": 15900,
+    "report": "experiments/EXP-126/records/extended-type-coverage-20261012/result-review-20261013/结果检查.md",
+    "known_type_regressions_preserved": true,
+    "not_a_claim_of_universal_speedup": true
+  },
+  "previous_stable_tag": "stable-main-exp125-20261007",
+  "previous_library_registry_id": "EXP-125-pre-memory-i",
+  "history_integration": {
+    "original_source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "saved_tools_commit": "66c6315e51cfde6390361a778f86df97e4e99a3b",
+    "integrated_commit": "447486d0f95450cfc700e88b2406dc0fe682719c",
+    "main_before_promotion": "e57a604992e02140c499702e1af0d9cc943d666e",
+    "source_tree": "842c6f35410bfda22fd0c7c61d172d371d2f21a6",
+    "main_is_now_ancestor": true,
+    "merge_tree_identical_to_saved_candidate": true,
+    "resolved_files": [
+      "AGENTS.md",
+      "docs/technical/FFT_MEASUREMENT_PROTOCOL.md",
+      "tools/workspace_manager/manager.py"
+    ],
+    "original_conflicts": [
+      "AGENTS.md",
+      "docs/technical/FFT_MEASUREMENT_PROTOCOL.md",
+      "tools/workspace_manager/manager.py"
+    ],
+    "save_output": "[exp-126-even-cc-pair-s1 66c6315e] 保留已验证的延迟测量入口与多任务成功依赖\n 4 files changed, 181 insertions(+), 2 deletions(-)\n create mode 100644 tools/workspace_manager/deferred.py",
+    "merge_output": "[exp-126-even-cc-pair-s1 447486d0] 合并稳定分支测量历史，保留已验证的CC源码与当前测量规则",
+    "compute_source_unchanged": true,
+    "new_jobs_submitted": false,
+    "record": "/public/home/zhangkewei/zr/experiments/EXP-126/records/stable-promotion-20261013"
+  },
+  "no_compute_changes": true,
+  "no_rebuild": true,
+  "no_new_measurements_or_jobs": true,
+  "remaining_work": "CC类型性能退化及细节优化后续实施；转置和卷积融合仍未实现"
+}

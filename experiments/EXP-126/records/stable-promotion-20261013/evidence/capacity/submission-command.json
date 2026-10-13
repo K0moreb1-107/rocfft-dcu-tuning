@@ -1,0 +1,15 @@
+[
+  "sbatch",
+  "--parsable",
+  "--chdir=/public/home/zhangkewei/zr",
+  "--output=/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-capacity-build-20261012/logs/slurm_%j.out",
+  "--error=/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-capacity-build-20261012/logs/slurm_%j.err",
+  "--cpus-per-task=16",
+  "--partition=hx1hdnormal01",
+  "--time=04:00:00",
+  "--nodelist=f13r4n15",
+  "--dependency=afterany:908730",
+  "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+  "build",
+  "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-capacity-build-20261012/submit-manifest.json"
+]

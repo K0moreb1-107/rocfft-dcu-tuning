@@ -4,10 +4,10 @@ Current path status (2026-10-03): the five former top-level aliases are retired;
 their real directories remain. Top-level entries: 36. Adaptation guide:
 [LEGACY_PATH_ADAPTATION.md](LEGACY_PATH_ADAPTATION.md); old program adaptation is deferred.
 
-Current status after user-approved promotion (2026-10-07): the sole primary
+Current status after user-approved promotion (2026-10-13): the sole primary
 checkout is `/public/home/zhangkewei/zr`, on `main`; stable tag
-`stable-main-exp125-20261007`. The default previous-arm registry ID is
-`EXP-125-pre-memory-i`, retaining its actual EXP-125 i build identity. Use serial EXP-NNN branches in this checkout.
+`完成CC路径前后处理融合`. The default previous-arm registry ID is
+`EXP-126-heldout-complex-20261012`, retaining source `06baff81` and its actual build identity. Use serial EXP-NNN branches in this checkout.
 Temporary worktrees require explicit user agreement. Earlier dated sections
 record prior states and are superseded by the final main/branch section.
 
@@ -251,7 +251,7 @@ unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003
 历史原始数据、配置和汇总保持原样，不将旧执行顺序改写成新顺序。修复后的严格汇总会拒绝仍在偶数轮重复奇数轮顺序的历史记录；核对这些历史结果时，应使用其原始工具及已登记的实际执行计划。已经使用正确顺序的独立测量记录与修复后的共享顺序一致。
 
 
-## 当前EXP125稳定版本（用户批准于2026-10-07）
+## 历史EXP125稳定版本（用户批准于2026-10-07）
 
 稳定标签为 `stable-main-exp125-20261007`，分支为 `main`。计算源码保留任务890730、891149实际验证的提交 `1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d`；统一测量入口修复为 `27d5c5e164c25975505d613e0109016e076bc346`。稳定登记不改动计算源码或现有安装库。
 
@@ -274,3 +274,12 @@ rewritten. No FFT source, installed library or frozen measurement CPP changed.
 ## Verified exclusive-node measurement execution (2026-10-09)
 
 The unified entry completed real exclusive-node measurement job 894456 with a one-DCU, eight-CPU step. All 720 original correctness checks and 2160 raw-file checks passed; server and local reaggregation matched. The exclusive submission and single-GPU worker path now have actual runtime validation. See experiments/EXP-125/records/exclusive-retest-20261008/result-review-894456-20261009.md.
+
+
+## 当前CC融合稳定版本（用户批准于2026-10-13）
+
+稳定分支为 `main`，标签为 `完成CC路径前后处理融合`。沿用源码默认复数交换，构建选项 `ROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF`，稳定对照登记为 `EXP-126-heldout-complex-20261012`。统一入口冻结真实构建提交、安装路径、库校验值及凭据；新登记不会改写既有任务的具体身份。
+
+实际计算源码为 `06baff81d85a7f24fd240cd32c849244b05ae3b9`；稳定提交只同步历史、说明、结果与登记。构建／正确性／实际融合依据908730，性能依据909379，标量候选908731／909381原样保留。完整批准依据、范围、已知退化及恢复入口见 `experiments/EXP-126/records/stable-promotion-20261013`。本次按用户要求保留已完成的CC融合功能，细节优化另行实施。
+
+官方基线、旧EXP125标签与库、两种候选、历史原始样本及冻结配置均保留。此前EXP125段落描述当时状态，以本节和当前安装登记为准。转置与卷积融合尚未实现。

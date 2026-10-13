@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-126",
+  "run_id": "EXP-126-heldout-complex-build-20261012",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "04:00:00",
+    "nodelist": "f13r4n15"
+  },
+  "baseline_commit": "a15798143f3074bfceabb8e4a6326f8ddf5063f3",
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "source_freeze_manifest": "/public/home/zhangkewei/zr/experiments/EXP-126/source/extended-type-coverage-06baff81/manifest.json",
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-126-heldout-complex-20261012",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_REAL_PAIR_SCALAR_CAPACITY": "OFF"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-126/scripts/validate_real_pair_extended_20261012.py",
+    "sha256": "6b7c548782812dbd4f2c36a7e19bafbcd4abefbfafd5253aecacddeae3adcbb6",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-126/scripts/even_cc_guard.cpp",
+        "sha256": "1ee78f68a71d1a2337bc00c2857207054e66ece1683acf9586c9893c3eefc07e"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-126/records/extended-type-coverage-20261012/coverage.json",
+        "sha256": "f03b0b9b81a4d1be1b455553f6b3b100f625c15c650517ce0bd47f677691e6b1"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-126/records/extended-type-coverage-20261012/preregistration.md",
+        "sha256": "61bacafa28f818dc4ddc6b1e2c6ccacf31e0751b0c7e4fba0d3ab26f25404f38"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-126/records/extended-type-coverage-20261012/coverage.json",
+    "guard_source": "/public/home/zhangkewei/zr/experiments/EXP-126/scripts/even_cc_guard.cpp",
+    "scalar_capacity": false
+  },
+  "candidate_variant": "complex",
+  "acceptance": "\u516b\u7c7b\u5404\u4e09\u4e2a\u672a\u6d4bN\u3001\u4e24\u7ec4\u5176\u4ed6\u5c40\u90e8\u5185\u6838\u5bf9\u7167\uff1b25\u4e2a\u65b0\u5b9e\u6570\u5c3a\u5bf8\u300165\u9879\u57fa\u7840\u68c0\u67e5\u3001100\u7ec4\u5b9e\u9645\u878d\u5408\u53ca1400\u9879\u72ec\u7acb\u53c2\u8003\u5404\u4e24\u8f6e\uff0c\u4fdd\u755915\u9879\u65e7\u7248\u56de\u5f52\u3002\u53ea\u7528\u9ed8\u8ba4\u8def\u5f84\uff1b\u5168\u90e8\u901a\u8fc7\u540e\u624d\u63d0\u4ea4\u5df2\u51c6\u5907\u768453\u9879\u6027\u80fd\u6e05\u5355\u3002",
+  "user_authorization": "\u4f60\u518d\u6d4b\u8bd5\u4e00\u4e0b\u5404\u4e2a\u7c7b\u578b\u5404\u53d63\u4e2a\u5176\u4ed6\u7684size\u770b\u770b\u4f18\u5316\u662f\u5426\u8986\u76d6\uff0c\u9700\u8981\u786e\u4fdd\u4f60\u4f18\u5316\u7684\u4e0d\u662f\u67d0\u4e2a\u5177\u4f53kernel\u800c\u662f\u6574\u4e2a\u7c7b\u578b",
+  "stop_after_submission": true
+}

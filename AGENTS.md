@@ -195,11 +195,12 @@ source changes as a validated retained version.
 
 Stable branch: main
 Stable workspace: /public/home/zhangkewei/zr
-Retained source reference: EXP-125 1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d
-Management tools: measurement-samples-v2-20261010 (versioned measurement entry).
-Valid tag: stable-main-exp125-20261007
-Approved stable installation: experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i
-Promotion record: experiments/EXP-125/records/stable-promotion-20261007/promotion.json
+Retained source reference: EXP-126 06baff81d85a7f24fd240cd32c849244b05ae3b9
+Management tools: sample-v2, median analysis, explicit dependencies and deferred queue; retained with stable tag.
+Valid tag: 完成CC路径前后处理融合
+Approved stable installation: experiments/EXP-126/artifacts/install/EXP-126-heldout-complex-20261012 (ROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF)
+Promotion record: experiments/EXP-126/records/stable-promotion-20261013/promotion.json
+用户于2026-10-13保留CC融合功能版本；已记录的性能退化留待后续优化，转置／卷积融合尚未实现。
 
 ## Agent Delegation and Token-Efficiency Policy
 
@@ -283,7 +284,8 @@ Unified preview must show concrete library identities, process count and event c
 预览注明候选库校验值待生成，验证成功后核对并冻结实际库身份，再开始计时。
 
 Current installation registry: configs/installations.json. Current previous
-is the approved EXP-125-pre-memory-i library (user promoted 2026-10-07).
+is the approved EXP-126-heldout-complex-20261012 library (user promoted 2026-10-13).
+The EXP-125 library remains available by its original registry ID and frozen historical manifests.
 The EXP-122 library remains the frozen previous arm of historical EXP-125 runs. Directory names do
 not prove source identity or acceptance. Historical/unknown installations cannot
 silently become official/previous/candidate. Candidate builds retain exact source
