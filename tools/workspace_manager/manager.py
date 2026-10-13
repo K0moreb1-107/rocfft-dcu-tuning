@@ -178,6 +178,10 @@ def build_plan(cfg):
             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
 
 def task_plan(task,cfg):
+    if 'deferred_measurement' in cfg:
+        require(task=='measure', 'deferred submission is only for measurement')
+        from tools.workspace_manager import deferred
+        return deferred.plan(cfg)
     if task=='build':
         planned=build_plan(cfg)
         planned['submission_command']=submission_command(task,cfg)
@@ -223,8 +227,8 @@ def submission_command(task,cfg):
     dependency=r.get('dependency')
     if 'dependency' in r:
         require(isinstance(dependency,str)
-                and re.fullmatch(r'(afterany|afterok):[1-9][0-9]*',dependency),
-                'dependency must be afterany:<job-id> or afterok:<job-id>')
+                and re.fullmatch(r'(afterany|afterok):[1-9][0-9]*(?::[1-9][0-9]*)*',dependency),
+                'dependency must be afterany:<job-id>[:job-id...] or afterok:<job-id>[:job-id...]')
     argv=['sbatch','--parsable','--chdir='+str(ROOT),
           '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
           '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
@@ -362,6 +366,9 @@ def main():
             common.single_gpu_allocation(os.environ)
             if args.task=='build':execute_build(cfg)
             elif args.task=='validate':execute_validate(cfg)
+            elif 'deferred_measurement' in cfg:
+                from tools.workspace_manager import deferred
+                deferred.execute(cfg)
             else:
                 protocol=measurement_protocol(cfg)
                 if protocol is common:

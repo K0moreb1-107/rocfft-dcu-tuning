@@ -62,6 +62,10 @@ To serialize independent candidates, set `resources.dependency` to
 `afterany:<job-id>`; use `afterok:<job-id>` when the predecessor must succeed.
 Preview shows the exact submission command, including `--dependency`.
 Omit the field when no dependency is required. `SBATCH_DEPENDENCY` does not set it.
+多个任务须成功时使用 `afterok:任务号:任务号`。用户明确要求验证前先排队时，
+`deferred_measurement` 登记固定原测量配置、实际已提交构建配置、任务号和工具校验值；
+统一入口分别保留排队记录和最终测量记录。候选库在构建与验证成功后才核对、冻结，
+缺少验证或身份不符即拒绝计时；原测量配置、计时程序及统计定义不改写。
 rocFFT builds check the RTC generator target before the full build. Compiler,
 resolved CMake cache including GPU_TARGETS/AMDGPU_TARGETS, Git state, compile
 commands and final library hash are retained. Dependencies and compiler paths

@@ -279,6 +279,8 @@ under experiments/EXP-NNN/runs/<run-id>/; helper binaries remain artifacts.
 New formal measurements use the current versioned sample protocol above.
 Previously submitted manifests select their registered legacy protocol unchanged.
 Unified preview must show concrete library identities, process count and event count.
+用户明确要求提前排队时，可用统一入口的延迟解析登记：固定已提交构建、输入校验值及成功依赖；
+预览注明候选库校验值待生成，验证成功后核对并冻结实际库身份，再开始计时。
 
 Current installation registry: configs/installations.json. Current previous
 is the approved EXP-125-pre-memory-i library (user promoted 2026-10-07).
