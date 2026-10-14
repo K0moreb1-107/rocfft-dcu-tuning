@@ -383,3 +383,9 @@ GPU step execution remains a check in the next authorized performance run.
 ## Exclusive-node single-GPU runtime verification (2026-10-09)
 
 Job 894456 completed all 720 processes and original correctness checks. Accounting confirms 128 CPUs/8 DCUs for the exclusive job and 8 CPUs/1 DCU for step 894456.0. The HIP-visible device count was one throughout the run; job/step assignments, UUID and hashes were independently verified. Runtime evidence: experiments/EXP-125/records/exclusive-retest-20261008/result-review-894456-20261009.md. The frozen timing definition and retained FFT implementation are unchanged.
+
+## 最新A100资料导入（2026-10-14）
+
+最新登记为 `results/reference/a100/latest.json`，版本 `test_fft_261012`：327个尺寸、981个组合，
+10次预热及30个逐次样本。全部原件保留，另存样本中位数；条件差异和引用方式见
+[A100_REFERENCE_DATA.md](A100_REFERENCE_DATA.md)。本次不改变服务器采样协议、冻结参考或已有报告。

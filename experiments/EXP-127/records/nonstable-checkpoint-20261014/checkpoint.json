@@ -1,0 +1,17 @@
+{
+  "parent_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+  "branch": "exp-127-real-bluestein-boundary",
+  "source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "stable_refs_unchanged": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "promoted": false,
+  "candidate_build_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+  "candidate_install": "experiments/EXP-127/artifacts/install/EXP-127-tr-s2-linkfix-20261014",
+  "candidate_library_sha256": "9eaa2f80d76c11f3008c97ee015ab482fb8947d98d28dcd5a14374f45ff9de38",
+  "validation_job": "920231",
+  "performance_job": "920232",
+  "acceptance": "Correctness passed. Rows-boundary performance regressions remain. This is a non-stable checkpoint, not a promotion.",
+  "reference_manifest": "results/reference/a100/test_fft_261012/manifest.json",
+  "reference_manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+  "created_utc": "2026-10-14T15:45:25.826383+00:00",
+  "authorization": "当前版本先提交，但是不作为最新稳定版本；随后挑选匹配新A100数据的CC实际融合尺寸测官方基线与当前版本。"
+}

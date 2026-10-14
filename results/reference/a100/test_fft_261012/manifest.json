@@ -1,0 +1,285 @@
+{
+  "schema": "a100-reference-dataset-v1",
+  "dataset_id": "test_fft_261012",
+  "origin": "user-provided test_fft_261012.tar.gz, imported 2026-10-14",
+  "dataset_dir": "results/reference/a100/test_fft_261012",
+  "archive_file": "test_fft_261012.tar.gz",
+  "archive_size": 381007,
+  "archive_sha256": "a67bce27ab5d4eca23182ca7d0e57c7e22e62720454c50de4085519fe2966ef6",
+  "original_entries": [
+    {
+      "name": "test_fft",
+      "directory": true,
+      "size": 0,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T03:20:55+00:00"
+    },
+    {
+      "name": "test_fft/src",
+      "directory": true,
+      "size": 0,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T03:00:55+00:00"
+    },
+    {
+      "name": "test_fft/src/fft_test_1d.cu",
+      "directory": false,
+      "size": 11140,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:00:55+00:00",
+      "sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35"
+    },
+    {
+      "name": "test_fft/analysis",
+      "directory": true,
+      "size": 0,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T03:12:42+00:00"
+    },
+    {
+      "name": "test_fft/analysis/run_fft_tests_prime_1d.py",
+      "directory": false,
+      "size": 2598,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T02:53:00+00:00",
+      "sha256": "5771480b221c0b3ba06f33a83e9d41ef6506cf8b3c46643608167e3de72c7f00"
+    },
+    {
+      "name": "test_fft/analysis/run_all_size_1d.py",
+      "directory": false,
+      "size": 4185,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:12:42+00:00",
+      "sha256": "ef77f74f1e17a40b9db5be582da6c8e2c856c9a44ac47b7d3b9914148c75bbcd"
+    },
+    {
+      "name": "test_fft/bin",
+      "directory": true,
+      "size": 0,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T02:47:52+00:00"
+    },
+    {
+      "name": "test_fft/bin/fft_test_1d",
+      "directory": false,
+      "size": 1041912,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T02:47:52+00:00",
+      "sha256": "fa76285664acf244f68bb2bfc282657c243cd715c5d109d3819be849d5528569"
+    },
+    {
+      "name": "test_fft/data",
+      "directory": true,
+      "size": 0,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T03:12:55+00:00"
+    },
+    {
+      "name": "test_fft/data/results_prime",
+      "directory": true,
+      "size": 0,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T03:01:44+00:00"
+    },
+    {
+      "name": "test_fft/data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "directory": false,
+      "size": 6299,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:01:16+00:00",
+      "sha256": "33784636ea6295adf516410d5d6cfd4abcb04c1ee0e02043865ea6f66369ad0a"
+    },
+    {
+      "name": "test_fft/data/results_prime/A100_1d_6561_to_531441_5sizes.csv",
+      "directory": false,
+      "size": 5306,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:01:22+00:00",
+      "sha256": "74dc624e41aa5c6e9d5896718498244583ff963013be73e14fdfc4b415b97fb6"
+    },
+    {
+      "name": "test_fft/data/results_prime/A100_1d_3125_to_390625_4sizes.csv",
+      "directory": false,
+      "size": 4322,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:01:28+00:00",
+      "sha256": "afd2a5e50289a5fb7ec5ffde404b5a810383b8f0dce6b37c75cbd485d0c914dc"
+    },
+    {
+      "name": "test_fft/data/results_prime/A100_1d_2401_to_823543_4sizes.csv",
+      "directory": false,
+      "size": 4325,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:01:33+00:00",
+      "sha256": "b33f73811e9e7bd8325372ac9d6c26f82252bc7096c0f0b556da52f0af91e481"
+    },
+    {
+      "name": "test_fft/data/results_prime/A100_1d_1331_to_161051_3sizes.csv",
+      "directory": false,
+      "size": 3341,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:01:38+00:00",
+      "sha256": "5413acd7aee8fb83db7918dcd276aede5154a69c3c5cb7dd80ab6e6d9ad1d7d0"
+    },
+    {
+      "name": "test_fft/data/results_prime/A100_1d_2197_to_371293_3sizes.csv",
+      "directory": false,
+      "size": 3341,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:01:42+00:00",
+      "sha256": "91ac4bc9253492d67c637932d9a17696ec4b87bde4c8411c7e2830013545c67f"
+    },
+    {
+      "name": "test_fft/data/results_prime/A100_1d_4913_to_83521_2sizes.csv",
+      "directory": false,
+      "size": 2357,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:01:44+00:00",
+      "sha256": "74b999b8dd9a4bc22dce041d46587125106307697a3c5a419c09bf0dc281139e"
+    },
+    {
+      "name": "test_fft/data/results",
+      "directory": true,
+      "size": 0,
+      "mode": "0o755",
+      "mtime_utc": "2026-10-12T03:19:42+00:00"
+    },
+    {
+      "name": "test_fft/data/results/A100_1d_32771_to_524287_50sizes.csv",
+      "directory": false,
+      "size": 49538,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:14:04+00:00",
+      "sha256": "0b1bf6d6a76606507a90e2cf15961446e506733c658497ae377af60a7d430288"
+    },
+    {
+      "name": "test_fft/data/results/A100_1d_32912_to_524160_50sizes.csv",
+      "directory": false,
+      "size": 49538,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:15:09+00:00",
+      "sha256": "cdd491b7c1eb24e9d8d066416879f4ae563daad6d93782d8e0203a5f894420b6"
+    },
+    {
+      "name": "test_fft/data/results/A100_1d_32770_to_524286_50sizes.csv",
+      "directory": false,
+      "size": 49538,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:16:16+00:00",
+      "sha256": "47c6586458f62a530aef20137849ad192ba741cd1c1834fa466b0d4657f26123"
+    },
+    {
+      "name": "test_fft/data/results/A100_1d_32805_to_521703_50sizes.csv",
+      "directory": false,
+      "size": 49538,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:17:22+00:00",
+      "sha256": "097f2d2d5e967bfca37fc88a3c501b6dcaf11cb9572d23a9f06fc1dcdaac3692"
+    },
+    {
+      "name": "test_fft/data/results/A100_1d_32769_to_524285_50sizes.csv",
+      "directory": false,
+      "size": 49538,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:18:29+00:00",
+      "sha256": "881c2af833859c9b5539c42bbd37ff092f73cbdc0e6474100ce9e2c84a9ee847"
+    },
+    {
+      "name": "test_fft/data/results/A100_1d_32777_to_524281_50sizes.csv",
+      "directory": false,
+      "size": 49538,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:19:42+00:00",
+      "sha256": "d7a273f7b3e721e242abe7f490e4c75005644622da25fcf2a22af4f4444b7c7b"
+    },
+    {
+      "name": "test_fft/check_nvidia_env.sh",
+      "directory": false,
+      "size": 7597,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:20:18+00:00",
+      "sha256": "d8caaa61a65a3ecd20b14aac64ee133c8ad24810b6b110b960d4147d0349ddeb"
+    },
+    {
+      "name": "test_fft/nvidia_env_report.txt",
+      "directory": false,
+      "size": 9979,
+      "mode": "0o644",
+      "mtime_utc": "2026-10-12T03:20:55+00:00",
+      "sha256": "eba6d8f53a66726316c9232c41bc7fa70e376c9baba285b5caac6663b87cbcee"
+    }
+  ],
+  "supplemental_files": {
+    "medians.csv": {
+      "size": 100288,
+      "sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6"
+    },
+    "samples.csv": {
+      "size": 831989,
+      "sha256": "5d215740f0aa9b32ce683d77fb41d2f9b8737a2d9318abd7544bb28d80438791"
+    },
+    "audit.json": {
+      "size": 10597,
+      "sha256": "83b92d0213b254bad9fd1821b429263f53ad3e70f1155f299e0a836d58129640"
+    },
+    "previous/AGENTS.md": {
+      "size": 21005,
+      "sha256": "c5f5abc2ec395f6863c11781ae1bd6ff468c5f5749e43b5c5fa0be5436a4c66a"
+    },
+    "previous/FFT_MEASUREMENT_PROTOCOL.md": {
+      "size": 24129,
+      "sha256": "859b95bbcd29bbb464a664b1c33ef3644ea33b0dc135509588b4fd80167c16d5"
+    },
+    "README.md": {
+      "size": 1750,
+      "sha256": "37f61e2a74dbdb6dbf21d7ceae2720704c2582acb0318aff280aac7c0d1b0ff6"
+    }
+  },
+  "hardware": "NVIDIA A100-PCIE-40GB",
+  "hardware_evidence": "test_fft/nvidia_env_report.txt (supplied snapshot)",
+  "program_source": "test_fft/src/fft_test_1d.cu",
+  "program_binary": "test_fft/bin/fft_test_1d",
+  "program_platform": "CUDA/cuFFT; not the active AMD rocFFT measurement harness",
+  "conditions": {
+    "dimensions": 1,
+    "precision": "double",
+    "batch": 1,
+    "placement": "out-of-place",
+    "warmup_times": 10,
+    "test_times": 30,
+    "timing_unit": "ms"
+  },
+  "counts": {
+    "csv_count": 13,
+    "size_count": 327,
+    "case_count": 981,
+    "sample_count": 29430,
+    "greater_than_65536_sizes": 235
+  },
+  "statistic": "median of all recorded individual event samples",
+  "numerical_correctness_checked_by_source": false,
+  "source_binary_build_provenance": "not supplied; binary mtime predates source mtime",
+  "execution_during_import": false,
+  "current_rocfft_measurement_protocol_changed": false,
+  "historical_reference_preserved": "results/reference/a100/A100_1d_32768_65536_131072_262144_524288_1048576.csv",
+  "comparison_limits": [
+    "warmup=10/sample=30 differs from current warmup=3/sample=50",
+    "source uses ramp input and has no numerical output verification",
+    "host environment snapshot does not establish clocks during measurements",
+    "not a replacement for historical frozen A100 mean-only reference"
+  ],
+  "protected_before_sha256": {
+    "AGENTS.md": "c5f5abc2ec395f6863c11781ae1bd6ff468c5f5749e43b5c5fa0be5436a4c66a",
+    "EXPERIMENT_LAYOUT.md": "6c029528d9a04469e10380ad1f078f1885024c9cb57ce1b32625fca1587762f1",
+    "docs/technical/FFT_MEASUREMENT_PROTOCOL.md": "859b95bbcd29bbb464a664b1c33ef3644ea33b0dc135509588b4fd80167c16d5",
+    "VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md": "f9deb7389ff5351e57375c2fc8ff07ee5296b33e9efd38b22a4d5121baa872e2",
+    "configs/installations.json": "ca318e8e51b5b34ab9283d9eb54e7e7826bce567ea6601d5388a2f475c1de499",
+    "tools/fft_measurement/fft_test_1d.cpp": "849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da",
+    "tools/fft_measurement/fft_test_1d_samples.cpp": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+    "tools/fft_measurement/common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+    "tools/fft_measurement/sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+    "tools/fft_measurement/summarize_samples.py": "79ccb30a3af5065176a9cc61b99f3ca0642b0c14e5419089188c2dded68fa9c9",
+    "results/reference/a100/A100_1d_32768_65536_131072_262144_524288_1048576.csv": "3b376eb69a77318ace8fbe537acfc7b3e82cdff1ea847f6177ed7ea82b27603b",
+    "results/reference/a100/provenance.json": "ad4da6d7c0c4ff95d0df47cdc6f76a2e78b64221cc711f47e9d8d12c2afe68fe"
+  }
+}

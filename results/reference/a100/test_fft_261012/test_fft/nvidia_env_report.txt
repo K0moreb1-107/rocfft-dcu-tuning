@@ -1,0 +1,205 @@
+NVIDIA/CUDA static environment report (no load test)
+Report time: 2026-10-12 11:20:55 CST
+Hostname: autodl-container-7145478fa9-64fa1424
+Kernel: Linux 5.15.0-86-generic
+OS: Ubuntu 22.04.5 LTS
+
+========== 1. GPU, driver, visibility ==========
+GPU 0: NVIDIA A100-PCIE-40GB (UUID: GPU-93b370a2-cd55-416c-8dea-76c3a0f7e863)
+index, name, driver_version, pstate, compute_mode, temperature.gpu, utilization.gpu [%], utilization.memory [%], memory.used [MiB], memory.total [MiB]
+0, NVIDIA A100-PCIE-40GB, 595.71.05, P0, Default, 32, 0 %, 0 %, 0 MiB, 40960 MiB
+GPU device nodes:
+crw-rw-rw- 1 root root 507,   0 Oct 12 10:35 /dev/nvidia-uvm
+crw-rw-rw- 1 root root 507,   1 Oct 12 10:35 /dev/nvidia-uvm-tools
+crw-rw-rw- 1 root root 195,   6 Oct 12 10:35 /dev/nvidia6
+crw-rw-rw- 1 root root 195, 255 Oct 12 10:35 /dev/nvidiactl
+
+/dev/nvidia-caps:
+total 0
+cr-------- 1 root root 234, 1 Oct 12 10:35 nvidia-cap1
+cr--r--r-- 1 root root 234, 2 Oct 12 10:35 nvidia-cap2
+
+========== 2. GPU clocks, power, limits ==========
+index, name, clocks.current.sm [MHz], clocks.current.memory [MHz], clocks.max.sm [MHz], clocks.max.memory [MHz], power.draw [W], power.limit [W]
+0, NVIDIA A100-PCIE-40GB, 210 MHz, 1215 MHz, 1410 MHz, 1215 MHz, 36.11 W, 250.00 W
+-- Clock limiting/event reasons (driver-dependent) --
+GPU 00000000:00:0C.0
+    Performance State                                  : P0
+    Clocks Event Reasons
+        Idle                                           : Active
+        Applications Clocks Setting                    : Not Active
+        SW Power Cap                                   : Not Active
+        HW Slowdown                                    : Not Active
+            HW Thermal Slowdown                        : Not Active
+            HW Power Brake Slowdown                    : Not Active
+        SW Thermal Slowdown                            : Not Active
+    Clocks Event Reasons Counters
+        SW Power Capping                               : 290951 us
+        SW Thermal Slowdown                            : 0 us
+        HW Thermal Slowdown                            : 0 us
+-- Temperature, Power and Clock details --
+GPU 00000000:00:0C.0
+        GPU Current Temp                               : 32 C
+        GPU T.Limit Temp                               : N/A
+        GPU Slowdown Temp                              : 92 C
+        GPU Max Operating Temp                         : 85 C
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : 36.18 W
+        Current Power Limit                            : 250.00 W
+        Requested Power Limit                          : 250.00 W
+        Default Power Limit                            : 250.00 W
+        Min Power Limit                                : 150.00 W
+        Max Power Limit                                : 250.00 W
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : N/A
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : N/A
+        Current Power Limit                            : N/A
+        Requested Power Limit                          : N/A
+        Default Power Limit                            : N/A
+        Min Power Limit                                : N/A
+        Max Power Limit                                : N/A
+        Graphics                                       : 210 MHz
+        Graphics                                       : Requested functionality has been deprecated
+        Graphics                                       : Requested functionality has been deprecated
+        Graphics                                       : 1410 MHz
+        Graphics                                       : 1410 MHz
+    SM Clock Samples
+    Memory Clock Samples
+
+========== 3. GPU topology, PCIe and sharing ==========
+index, pci.bus_id, pcie.link.gen.current, pcie.link.gen.max, pcie.link.width.current, pcie.link.width.max, mig.mode.current
+0, 00000000:00:0C.0, 4, 4, 16, 16, Disabled
+-- GPU topology --
+	[4mGPU0	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	0-79	0-1		N/A
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+-- GPU compute processes (snapshot only) --
+gpu_uuid, pid, used_gpu_memory [MiB]
+
+========== 4. CUDA toolchain and runtime ==========
+PATH nvcc: /usr/local/cuda-12.8/bin/nvcc
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2025 NVIDIA Corporation
+Built on Fri_Feb_21_20:23:50_PST_2025
+Cuda compilation tools, release 12.8, V12.8.93
+Build cuda_12.8.r12.8/compiler.35583870_0
+CUDA path: /usr/local/cuda -> /usr/local/cuda-12.8
+  nvcc: /usr/local/cuda/bin/nvcc
+Copyright (c) 2005-2025 NVIDIA Corporation
+Built on Fri_Feb_21_20:23:50_PST_2025
+Cuda compilation tools, release 12.8, V12.8.93
+Build cuda_12.8.r12.8/compiler.35583870_0
+  cuFFT: /usr/local/cuda/lib64/libcufft.so
+  cuFFT: /usr/local/cuda/targets/x86_64-linux/lib/libcufft.so
+CUDA path: /usr/local/cuda-12 -> /usr/local/cuda-12.8
+  nvcc: /usr/local/cuda-12/bin/nvcc
+Copyright (c) 2005-2025 NVIDIA Corporation
+Built on Fri_Feb_21_20:23:50_PST_2025
+Cuda compilation tools, release 12.8, V12.8.93
+Build cuda_12.8.r12.8/compiler.35583870_0
+  cuFFT: /usr/local/cuda-12/lib64/libcufft.so
+  cuFFT: /usr/local/cuda-12/targets/x86_64-linux/lib/libcufft.so
+CUDA path: /usr/local/cuda-12.8 -> /usr/local/cuda-12.8
+  nvcc: /usr/local/cuda-12.8/bin/nvcc
+Copyright (c) 2005-2025 NVIDIA Corporation
+Built on Fri_Feb_21_20:23:50_PST_2025
+Cuda compilation tools, release 12.8, V12.8.93
+Build cuda_12.8.r12.8/compiler.35583870_0
+  cuFFT: /usr/local/cuda-12.8/lib64/libcufft.so
+  cuFFT: /usr/local/cuda-12.8/targets/x86_64-linux/lib/libcufft.so
+-- CUDA/cuFFT libraries in loader cache --
+	libcufft.so.11 (libc6,x86-64) => /usr/local/cuda/targets/x86_64-linux/lib/libcufft.so.11
+	libcufft.so (libc6,x86-64) => /usr/local/cuda/targets/x86_64-linux/lib/libcufft.so
+	libcudart.so.12 (libc6,x86-64) => /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.12
+	libcudart.so (libc6,x86-64) => /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so
+	libcuda.so.1 (libc6,x86-64) => /usr/lib/x86_64-linux-gnu/libcuda.so.1
+	libcuda.so (libc6,x86-64) => /usr/lib/x86_64-linux-gnu/libcuda.so
+Selected environment variables (no secrets):
+  CUDA_VISIBLE_DEVICES=<unset>
+  NVIDIA_VISIBLE_DEVICES=<unset>
+  CUDA_HOME=/usr/local/cuda-12.8
+  CUDA_PATH=<unset>
+  CUDA_DEVICE_ORDER=<unset>
+  CUDA_MODULE_LOADING=<unset>
+  CUDA_CACHE_DISABLE=<unset>
+  CUDA_CACHE_MAXSIZE=<unset>
+  CUDA_CACHE_PATH=<unset>
+  OMP_NUM_THREADS=10
+
+========== 5. Container / cgroup CPU allocation ==========
+PID 1 process: bash /init/boot/boot.sh 
+
+Self cgroup [/proc/self/cgroup]:
+  0::/
+CPU affinity: Cpus_allowed_list:	0-79
+nproc (visible logical CPUs): 10
+Architecture:                       x86_64
+CPU(s):                             80
+On-line CPU(s) list:                0-79
+Model name:                         Intel Xeon Processor (Skylake, IBRS)
+Thread(s) per core:                 2
+Socket(s):                          2
+NUMA node(s):                       2
+NUMA node0 CPU(s):                  0-39
+NUMA node1 CPU(s):                  40-79
+Cgroup: v2
+CPU quota (quota/period usec; max = unlimited) [/sys/fs/cgroup/cpu.max]:
+  1000000 100000
+CPU throttling totals (since cgroup creation) [/sys/fs/cgroup/cpu.stat]:
+  usage_usec 962711891
+  user_usec 154890066
+  system_usec 807821824
+  nr_periods 27533
+  nr_throttled 3
+  throttled_usec 236551
+Effective cpuset [/sys/fs/cgroup/cpuset.cpus.effective]:
+  0-79
+Memory quota (max = unlimited) [/sys/fs/cgroup/memory.max]:
+  77309411328
+Current cgroup memory usage (bytes) [/sys/fs/cgroup/memory.current]:
+  459812864
+Cgroup memory events [/sys/fs/cgroup/memory.events]:
+  low 0
+  high 0
+  max 0
+  oom 0
+  oom_kill 0
+
+========== 6. CPU frequency, memory, NUMA ==========
+               total        used        free      shared  buff/cache   available
+Mem:           629Gi        33Gi        16Gi        74Mi       579Gi       592Gi
+Swap:             0B          0B          0B
+numactl not installed (NUMA topology detail omitted)
+CPU pressure snapshot (container/host scope may vary) [/proc/pressure/cpu]:
+  some avg10=0.01 avg60=0.09 avg300=0.06 total=86430036630
+  full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+Memory pressure snapshot (container/host scope may vary) [/proc/pressure/memory]:
+  some avg10=0.00 avg60=0.00 avg300=0.00 total=663045206
+  full avg10=0.00 avg60=0.00 avg300=0.00 total=556695574
+
+========== 7. Filesystem, process limits ==========
+Working directory: /root/test_fft
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          30G   57M   30G   1% /
+overlay          30G   57M   30G   1% /
+/      overlay overlay
+Open files ulimit (-n): 1024
+Locked memory ulimit (-l, KiB): unlimited
+Stack ulimit (-s, KiB): 8192
+
+========== Interpretation ==========
+1) P-State/clocks are snapshots. Low idle clocks or an Idle clock-event reason alone are not proof of a benchmark problem.
+2) CPU quotas and nr_throttled/throttled_usec can indicate possible host-side launch/synchronization contention, not GPU kernel slowdown by themselves.
+3) nvidia-smi driver CUDA Version is an upper supported version, not the installed nvcc Toolkit version.
+4) Container visibility of GPU power/clock controls can be incomplete; a missing field does not mean the feature is disabled.
+5) This report only reads state once; it cannot establish whether clocks, power, or neighbors changed during FFT timing.

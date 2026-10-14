@@ -1,0 +1,71 @@
+{
+  "schema": "a100-reference-import-receipt-v1",
+  "completed_utc": "2026-10-14T15:37:36.883682+00:00",
+  "destination": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012",
+  "archive_sha256": "a67bce27ab5d4eca23182ca7d0e57c7e22e62720454c50de4085519fe2966ef6",
+  "original_files": 19,
+  "csv_count": 13,
+  "size_count": 327,
+  "case_count": 981,
+  "sample_count": 29430,
+  "copied_files": {
+    "test_fft/src/fft_test_1d.cu": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+    "test_fft/analysis/run_fft_tests_prime_1d.py": "5771480b221c0b3ba06f33a83e9d41ef6506cf8b3c46643608167e3de72c7f00",
+    "test_fft/analysis/run_all_size_1d.py": "ef77f74f1e17a40b9db5be582da6c8e2c856c9a44ac47b7d3b9914148c75bbcd",
+    "test_fft/bin/fft_test_1d": "fa76285664acf244f68bb2bfc282657c243cd715c5d109d3819be849d5528569",
+    "test_fft/data/results_prime/A100_1d_32768_to_1048576_6sizes.csv": "33784636ea6295adf516410d5d6cfd4abcb04c1ee0e02043865ea6f66369ad0a",
+    "test_fft/data/results_prime/A100_1d_6561_to_531441_5sizes.csv": "74dc624e41aa5c6e9d5896718498244583ff963013be73e14fdfc4b415b97fb6",
+    "test_fft/data/results_prime/A100_1d_3125_to_390625_4sizes.csv": "afd2a5e50289a5fb7ec5ffde404b5a810383b8f0dce6b37c75cbd485d0c914dc",
+    "test_fft/data/results_prime/A100_1d_2401_to_823543_4sizes.csv": "b33f73811e9e7bd8325372ac9d6c26f82252bc7096c0f0b556da52f0af91e481",
+    "test_fft/data/results_prime/A100_1d_1331_to_161051_3sizes.csv": "5413acd7aee8fb83db7918dcd276aede5154a69c3c5cb7dd80ab6e6d9ad1d7d0",
+    "test_fft/data/results_prime/A100_1d_2197_to_371293_3sizes.csv": "91ac4bc9253492d67c637932d9a17696ec4b87bde4c8411c7e2830013545c67f",
+    "test_fft/data/results_prime/A100_1d_4913_to_83521_2sizes.csv": "74b999b8dd9a4bc22dce041d46587125106307697a3c5a419c09bf0dc281139e",
+    "test_fft/data/results/A100_1d_32771_to_524287_50sizes.csv": "0b1bf6d6a76606507a90e2cf15961446e506733c658497ae377af60a7d430288",
+    "test_fft/data/results/A100_1d_32912_to_524160_50sizes.csv": "cdd491b7c1eb24e9d8d066416879f4ae563daad6d93782d8e0203a5f894420b6",
+    "test_fft/data/results/A100_1d_32770_to_524286_50sizes.csv": "47c6586458f62a530aef20137849ad192ba741cd1c1834fa466b0d4657f26123",
+    "test_fft/data/results/A100_1d_32805_to_521703_50sizes.csv": "097f2d2d5e967bfca37fc88a3c501b6dcaf11cb9572d23a9f06fc1dcdaac3692",
+    "test_fft/data/results/A100_1d_32769_to_524285_50sizes.csv": "881c2af833859c9b5539c42bbd37ff092f73cbdc0e6474100ce9e2c84a9ee847",
+    "test_fft/data/results/A100_1d_32777_to_524281_50sizes.csv": "d7a273f7b3e721e242abe7f490e4c75005644622da25fcf2a22af4f4444b7c7b",
+    "test_fft/check_nvidia_env.sh": "d8caaa61a65a3ecd20b14aac64ee133c8ad24810b6b110b960d4147d0349ddeb",
+    "test_fft/nvidia_env_report.txt": "eba6d8f53a66726316c9232c41bc7fa70e376c9baba285b5caac6663b87cbcee"
+  },
+  "supplemental_files": {
+    "medians.csv": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+    "samples.csv": "5d215740f0aa9b32ce683d77fb41d2f9b8737a2d9318abd7544bb28d80438791",
+    "audit.json": "83b92d0213b254bad9fd1821b429263f53ad3e70f1155f299e0a836d58129640",
+    "previous/AGENTS.md": "c5f5abc2ec395f6863c11781ae1bd6ff468c5f5749e43b5c5fa0be5436a4c66a",
+    "previous/FFT_MEASUREMENT_PROTOCOL.md": "859b95bbcd29bbb464a664b1c33ef3644ea33b0dc135509588b4fd80167c16d5",
+    "README.md": "37f61e2a74dbdb6dbf21d7ceae2720704c2582acb0318aff280aac7c0d1b0ff6",
+    "manifest.json": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c"
+  },
+  "updated_entries": {
+    "AGENTS.md": "dbde70bbc58c150226b33903344567532bf292d1262861f3be8dd5702b1ffe02",
+    "docs/technical/FFT_MEASUREMENT_PROTOCOL.md": "fcf99c14d7bbed0962a7076fb7e05df4abed9fd89cf84609028094fb16589bcc",
+    "docs/technical/A100_REFERENCE_DATA.md": "06c82947a1c6cdb1ffe49eb8a3ecf17e4059addb48cfa79eefebcfa075b63246",
+    "results/reference/a100/latest.json": "14ab687c8b60cf19e1759ad01e543fd0927c00547e8ced4797f8e37cbe4178cc"
+  },
+  "unchanged_protected_files": {
+    "EXPERIMENT_LAYOUT.md": "6c029528d9a04469e10380ad1f078f1885024c9cb57ce1b32625fca1587762f1",
+    "VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md": "f9deb7389ff5351e57375c2fc8ff07ee5296b33e9efd38b22a4d5121baa872e2",
+    "configs/installations.json": "ca318e8e51b5b34ab9283d9eb54e7e7826bce567ea6601d5388a2f475c1de499",
+    "tools/fft_measurement/fft_test_1d.cpp": "849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da",
+    "tools/fft_measurement/fft_test_1d_samples.cpp": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+    "tools/fft_measurement/common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+    "tools/fft_measurement/sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+    "tools/fft_measurement/summarize_samples.py": "79ccb30a3af5065176a9cc61b99f3ca0642b0c14e5419089188c2dded68fa9c9",
+    "results/reference/a100/A100_1d_32768_65536_131072_262144_524288_1048576.csv": "3b376eb69a77318ace8fbe537acfc7b3e82cdff1ea847f6177ed7ea82b27603b",
+    "results/reference/a100/provenance.json": "ad4da6d7c0c4ff95d0df47cdc6f76a2e78b64221cc711f47e9d8d12c2afe68fe"
+  },
+  "head": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+  "stable_refs": "697f6f0a8a3ffa9dd255d911b488856722f4e839\n697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "legacy_reference_cases_validated": 15,
+  "top_level_check": {
+    "root": "/public/home/zhangkewei/zr",
+    "top_count": 36,
+    "unexpected": []
+  },
+  "tracked_status": " M AGENTS.md\n M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\n M VkFFT\n M docs/technical/FFT_MEASUREMENT_PROTOCOL.md\n",
+  "failed_attempt_preserved": "results/reference/a100/import-history/test_fft_261012-attempt1-20261014",
+  "numerical_or_gpu_program_executed": false,
+  "new_jobs_submitted": false
+}

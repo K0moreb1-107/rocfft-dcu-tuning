@@ -1,0 +1,15 @@
+{
+  "schema": "a100-reference-latest-v1",
+  "dataset_id": "test_fft_261012",
+  "dataset_dir": "results/reference/a100/test_fft_261012",
+  "manifest": "results/reference/a100/test_fft_261012/manifest.json",
+  "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+  "median_table": "results/reference/a100/test_fft_261012/medians.csv",
+  "samples": "results/reference/a100/test_fft_261012/samples.csv",
+  "program_source": "results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+  "archive_sha256": "a67bce27ab5d4eca23182ca7d0e57c7e22e62720454c50de4085519fe2966ef6",
+  "warmup_times": 10,
+  "test_times": 30,
+  "scope": "latest imported A100 reference; historical frozen reference unchanged",
+  "same_condition_acceptance_with_current_rocfft_protocol": false
+}

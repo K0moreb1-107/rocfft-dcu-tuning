@@ -337,3 +337,6 @@ and shows its command. Run it only after saving the build's immutable identity;
 record validation completion separately and require its success before formal
 measurement from that build record. Validation failure never becomes a
 formal acceptance or automatic promotion. All task submission uses manage.py.
+
+最新A100资料见 `results/reference/a100/latest.json` 与 `docs/technical/A100_REFERENCE_DATA.md`。
+当前参考为10次预热、30次逐次计时；按样本中位数引用并注明条件差异，历史冻结参考及服务器协议不改写。
