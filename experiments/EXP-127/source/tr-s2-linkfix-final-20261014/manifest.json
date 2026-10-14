@@ -1,0 +1,145 @@
+{
+  "parent_commit": "9aa80d89bff34d0019bab86f15e50321aa8d0610",
+  "starting_stable_commit": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "branch": "exp-127-real-bluestein-boundary",
+  "parent_freeze": "/public/home/zhangkewei/zr/experiments/EXP-127/source/tr-s2-20261014/manifest.json",
+  "parent_freeze_sha256": "b68219f48c016cc12d5182acf57eb2c048f32d51b7925e7564815656c1e8e79a",
+  "source_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "candidate_sha256": "5cf3d5030f19322699a783a4d48f74d1305d96dc05850c5234268ef4eb41b40c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": {
+      "candidate_sha256": "71d7ec19dc37a6e701502289e871a2326e0435d0123421ea438e62f52867947a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp": {
+      "candidate_sha256": "a8aaa833277ec2a545532aec0fcd58fbbcd23e4db666645ec200618216120728"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp": {
+      "candidate_sha256": "4b4c0b56c38448246b439bd5a446e96e9b0cfb3b3de150b7be2824ea2985081b"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "candidate_sha256": "e3a33c87e667fd81c9d44c92cfa6dea434d482575b3031f3b8a2438d897bed05"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "candidate_sha256": "5c6a84b205d4c73db6b519fdf324538dc5a41edd82016fa9dda637808edae225"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_boundary_io.h": {
+      "candidate_sha256": "4e21653870324d1f77a02c5726348926a6408ac47b6b68dba925324213268ef6"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h": {
+      "candidate_sha256": "c4bb63c82fc37192a680c18216cab1816c264b75fe973dac287190305b761aa2"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "candidate_sha256": "472587540eadb3ebb82b1339fd13645043ca432f80c7a37dbe2c0524b7b3312c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": {
+      "candidate_sha256": "655fc54902bda76f89d707e7c52d27b92b5006d938243c73309d0ca9b651b778"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_bluestein.h": {
+      "candidate_sha256": "0d2e57015e1e9f656909dcbab803ac81c304820a29067517fa89bcab20dfa8e3"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rc.h": {
+      "candidate_sha256": "b81063889488b8e2db515fcbb213d811d32b570a7d601d31f666bf10492ec72c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": {
+      "candidate_sha256": "b6613457b60c319b2e9a583db5b45cc94b177a2e283264a89daba71beafd7d30"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": {
+      "candidate_sha256": "b28227a80741315f3798e80ed1b165a5eba966ecba4b34724c9c835122d04bc7"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/fuse_shim.cpp": {
+      "candidate_sha256": "c4abb7c7ac1b7138f7ea4d33507d8907bd700ec17c1a78a1188da3a89fbc54e8"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": {
+      "candidate_sha256": "36089729974dc650a6c0ca3c8345c6d3bf4f68b56f1b89f406fd54da3508cd0a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp": {
+      "candidate_sha256": "71614d9d1588ee0db9792f2f1c99f3a28260f899913a7efed4b4d09879686893"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_gen.cpp": {
+      "candidate_sha256": "2885dc465719d9e3b96b07fe942af2f868ac1aa4fe54967d1109074a111cf0ef"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_kernel.cpp": {
+      "candidate_sha256": "4373b936dd2de91b7c89e099f8e99168e18879e6b9aa8f34e9c85c4072bcbcc8"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp": {
+      "candidate_sha256": "3eae3e164514f193d9814578001b2d7927725624fe1c7f10ac412930c1d76e01"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_transpose_gen.h": {
+      "candidate_sha256": "01bdce3f82c5b614f26d71fab0ff0a0885fd69073a47845eb90468aa8bfa13e3"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_transpose.h": {
+      "candidate_sha256": "0511cd865d5b5a60fcc7b4d935b71c71c7f77fbfad03a5f5187ca08ba8674800"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen.h": {
+      "candidate_sha256": "eb4e44b9e83bf1cb93897468ce310582df837a7e04ee3190fa757a4aae74cd2f"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_boundary_rr.h": {
+      "candidate_sha256": "773030584fb638b613d0ce9bff503829619b1c5e52960771c35fad9022d2df88"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real_boundary.cpp": {
+      "candidate_sha256": "705f4df047aabbb4f880a88e0a29b3db98241ed0bcc42f87e2345eb173ed5dd4"
+    }
+  },
+  "computation_changes": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "before_sha256": "abba3f173ad403256b3ba62327b663d5860ccef24f4dc5e191e8352b7734be38",
+      "after_sha256": "e3a33c87e667fd81c9d44c92cfa6dea434d482575b3031f3b8a2438d897bed05"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "before_sha256": "7d4e7d118e661a20a2a3fea2e69acf9f037f8b3bf1ffefe13dc91de97131c90f",
+      "after_sha256": "5cf3d5030f19322699a783a4d48f74d1305d96dc05850c5234268ef4eb41b40c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real_boundary.cpp": {
+      "before_sha256": null,
+      "after_sha256": "705f4df047aabbb4f880a88e0a29b3db98241ed0bcc42f87e2345eb173ed5dd4"
+    }
+  },
+  "method_body_sha256": "96321d69c512bd567d2ecc7ab94e546fac51ebbfd57a7457ee6b5d76a560b24e",
+  "validation_inputs": {
+    "experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp": "dc524e90149958b855191a49fee7f5ca8044ae0f37a03b2befade05f60859e56",
+    "experiments/EXP-127/scripts/trtrt_native_check.py": "ade3fbe5f8d020b5346fc53ad9aa4f27483100496b62afcb145321cc39f3070a",
+    "experiments/EXP-127/scripts/trtrt_native_export.cpp": "de7dc77440d3c61d83401df83693451b7e707af7bfe194afa4387128d8318f85",
+    "experiments/EXP-127/scripts/validate_trtrt_boundary.py": "d932ddc43261184f704113a506f2fb556affd922fb63f4563b1f31661035d796",
+    "experiments/EXP-127/records/tr-s2-20261014/coverage.json": "641d073510ec88a25472a4be57b0611c8e9d4b0cdb5cf61584c5cbbdf188c817",
+    "experiments/EXP-127/records/tr-s2-20261014/preregistration.md": "859d194a960609b405ba1c268e4a12f3d16d72d293cddefbf85c5f66f40af3b1",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "bbef410c3b779e68e1be1479b0b335ce9f052a14a2b335e1774ade331f554d8d",
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "ff16f33dc18e12f9b33c71576b6206158ca70f22a452ed9d570873afabd9040f",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "678efa94547c3364d369f468d870abb13f14cb2f237bcc23f1b67f96a9ec94e9",
+    "experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp": "d32073f75382bf3b809815c634bcd43f9589c3285b35d930f3db21c0511156de",
+    "experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v2/native-check.json": "df53a0feeee8ffdfefbc918c7960ae4a5433d8d7fdecf5e4de59e3516094541e",
+    "experiments/EXP-127/records/tr-s2-linkfix-20261014/change-manifest.json": "2bba279777ce6e816d8c6bd5b722881815e9b44a95b3f8b250bbe84376b41bcd",
+    "experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v3/native-check.json": "0f50f73b38913babb1552d958785eb2120fef929db184fd303bc61f78e5566d0",
+    "experiments/EXP-127/records/tr-s2-linkfix-20261014/current-change-manifest.json": "0b89645cce17acaee812f17a9531bbeb3e877cc8b1a4c0bce751ad084795d47f",
+    "experiments/EXP-127/records/tr-s2-linkfix-20261014/formatting-correction.json": "f584f80c73d9e49bde130b3097eb68fa3323283903116362ff42408e3d927094"
+  },
+  "native_check": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v3/native-check.json",
+  "native_check_sha256": "0f50f73b38913babb1552d958785eb2120fef929db184fd303bc61f78e5566d0",
+  "inherited_generated_code_check": {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-candidate-v5/native-check.json",
+    "sha256": "38564f86a88d9af600bbe71c69e79f66817617899e41fa6bf5115ed33f1d7390",
+    "reason": "Only relocates identical host calculation and adds its existing shared launch target; all kernel generators, invocation data and frozen validators byte-identical.",
+    "copied_method_sha256": "96321d69c512bd567d2ecc7ab94e546fac51ebbfd57a7457ee6b5d76a560b24e"
+  },
+  "libraries": {
+    "blue": "3f895cf68e71261448f3274e2645550aaeb839e360aea7b59aa7331ab0db58ed",
+    "stable": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad"
+  },
+  "matched_previous": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-blue-scopefix-20261013",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "7942bf0ab470bbabcfd4119a102eb9c92ae88ebf",
+    "source_state": "{\"commit\": \"7942bf0ab470bbabcfd4119a102eb9c92ae88ebf\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+    "library_sha256": "3f895cf68e71261448f3274e2645550aaeb839e360aea7b59aa7331ab0db58ed",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-blue-scopefix-build-20261013/build-provenance.json"
+  },
+  "independent_reference_checks": 2800,
+  "independent_reference_executions": 5600,
+  "scope_checks": 208,
+  "actual_gpu_execution": false,
+  "enabled_targets_full_build": "PASS",
+  "change": "Identical rows-key implementation moved to shared RTC launch; full native all-target link passed.",
+  "interrupted_freeze": "/public/home/zhangkewei/zr/experiments/EXP-127/source/tr-s2-linkfix-20261014/manifest.json",
+  "interrupted_freeze_sha256": "409a0c859179f8fef3aed276725b94025d4bfe217626dbb210f49001ad07346a",
+  "executable_function_content_unchanged": true
+}

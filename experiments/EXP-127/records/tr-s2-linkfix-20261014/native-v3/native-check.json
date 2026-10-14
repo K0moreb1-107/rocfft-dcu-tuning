@@ -1,0 +1,186 @@
+{
+  "complete": true,
+  "gpu_execution": false,
+  "parent_commit": "9aa80d89bff34d0019bab86f15e50321aa8d0610",
+  "start": "2026-10-14T13:31:08.230856+00:00",
+  "change": {
+    "parent_commit": "9aa80d89bff34d0019bab86f15e50321aa8d0610",
+    "branch": "exp-127-real-bluestein-boundary",
+    "files": {
+      "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+        "before_sha256": "abba3f173ad403256b3ba62327b663d5860ccef24f4dc5e191e8352b7734be38",
+        "after_sha256": "e3a33c87e667fd81c9d44c92cfa6dea434d482575b3031f3b8a2438d897bed05"
+      },
+      "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+        "before_sha256": "7d4e7d118e661a20a2a3fea2e69acf9f037f8b3bf1ffefe13dc91de97131c90f",
+        "after_sha256": "5cf3d5030f19322699a783a4d48f74d1305d96dc05850c5234268ef4eb41b40c"
+      },
+      "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real_boundary.cpp": {
+        "before_sha256": null,
+        "after_sha256": "705f4df047aabbb4f880a88e0a29b3db98241ed0bcc42f87e2345eb173ed5dd4"
+      }
+    },
+    "method_body_sha256": "96321d69c512bd567d2ecc7ab94e546fac51ebbfd57a7457ee6b5d76a560b24e",
+    "change": "Relocate unchanged rows-key calculation into the existing shared RTC launch target; no GPU math, geometry, selection, generated source or validation change."
+  },
+  "source_build": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_INSTALL_PREFIX=/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/unused-native-install",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DBUILD_CLIENTS_BENCH=ON",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DGPU_TARGETS=gfx936",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+        "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native/configure.log",
+      "sha256": "a49c2e824923facb8176ed9158e4060775c3321a933734a752f74c6012de676c"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+        "--target",
+        "rocfft-rtc-gen",
+        "--parallel",
+        "16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native/generator-build.log",
+      "sha256": "379b2da5585315ff2753814fcce066293451c8ed72a37ded238b4b109a14c353",
+      "recovered_from_completed_output": true
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+        "--parallel",
+        "16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v2/full-native-build.log",
+      "sha256": "bb43db966f0c8fec97f1662023cc91105e4be13bebc8d3c1404c723452a5228f"
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol",
+        "diff",
+        "--check",
+        "--",
+        "rocm-libraries-rocm-7.2.2/projects/rocfft"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v2/source-whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+        "--parallel",
+        "16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v3/full-native-incremental.log",
+      "sha256": "ae713c49f407f0067d6c4e7c97598599d740bb426aa7a3cb5cda170521548cf2"
+    }
+  ],
+  "shared_definition": {
+    "object": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/library/src/CMakeFiles/rocfft-rtc-launch.dir/tree_node_real_boundary.cpp.o",
+    "sha256": "0faff72739a0eb013a18413d7aba2ee69d48558837f19beec795702eb082c2f9",
+    "symbols": [
+      "0000000000000000 T LeafNode::MakeRealBoundaryRowsKey(FMKey&) const"
+    ],
+    "old_definition_removed": true
+  },
+  "link_checks": [
+    {
+      "target": "rocfft",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/library/src/CMakeFiles/rocfft.dir/link.txt",
+      "sha256": "f2d158d5d8646aba49575148ea8cbd93d68a536ba3621d1ccf11bca2d8a393d4",
+      "contains_shared_definition_once": true
+    },
+    {
+      "target": "rocfft_kernel_config_search",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/library/src/CMakeFiles/rocfft_kernel_config_search.dir/link.txt",
+      "sha256": "9c622263bcee360abaa2b21ef2d0529912c42314637df180f24ee28e64bb39f6",
+      "contains_shared_definition_once": true
+    }
+  ],
+  "built_artifacts": {
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/library/src/rocfft_kernel_config_search": "5a9d858f6e3a593317e8ad6480dbb969ddcd701e713a44c5271931ee50700d82",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/library/src/rocfft_aot_helper": "effe6288fa3360119e66b8305f6ad70a67cd451279020aec01ea6db6dce4e3ef",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/library/src/rocfft_rtc_helper": "440b54a95dfbd86b0c1c2af8659d143212d56ae9024e8555f9479a144e1ed1c3",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/clients/staging/rocfft-bench": "5d2cff5a2a429a165bcc3132b33dc07a5c54dd74de90e924feec9546db696f8f",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/library/src/librocfft.so.0.1": "b0b342e4d4ee3cf00c467561131750bab33b7217d06601d3ecb0e85c0cfb5720"
+  },
+  "inherited_generated_code_check": {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-candidate-v5/native-check.json",
+    "sha256": "38564f86a88d9af600bbe71c69e79f66817617899e41fa6bf5115ed33f1d7390",
+    "reason": "Only relocates identical host calculation and adds its existing shared launch target; all kernel generators, invocation data and frozen validators byte-identical.",
+    "copied_method_sha256": "96321d69c512bd567d2ecc7ab94e546fac51ebbfd57a7457ee6b5d76a560b24e"
+  },
+  "libraries": {
+    "blue": "3f895cf68e71261448f3274e2645550aaeb839e360aea7b59aa7331ab0db58ed",
+    "stable": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad"
+  },
+  "end": "2026-10-14T13:31:22.958256+00:00",
+  "source_inputs": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": "5cf3d5030f19322699a783a4d48f74d1305d96dc05850c5234268ef4eb41b40c",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": "71d7ec19dc37a6e701502289e871a2326e0435d0123421ea438e62f52867947a",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp": "a8aaa833277ec2a545532aec0fcd58fbbcd23e4db666645ec200618216120728",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp": "4b4c0b56c38448246b439bd5a446e96e9b0cfb3b3de150b7be2824ea2985081b",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": "e3a33c87e667fd81c9d44c92cfa6dea434d482575b3031f3b8a2438d897bed05",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "5c6a84b205d4c73db6b519fdf324538dc5a41edd82016fa9dda637808edae225",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_boundary_io.h": "4e21653870324d1f77a02c5726348926a6408ac47b6b68dba925324213268ef6",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h": "c4bb63c82fc37192a680c18216cab1816c264b75fe973dac287190305b761aa2",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": "472587540eadb3ebb82b1339fd13645043ca432f80c7a37dbe2c0524b7b3312c",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": "655fc54902bda76f89d707e7c52d27b92b5006d938243c73309d0ca9b651b778",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_bluestein.h": "0d2e57015e1e9f656909dcbab803ac81c304820a29067517fa89bcab20dfa8e3",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rc.h": "b81063889488b8e2db515fcbb213d811d32b570a7d601d31f666bf10492ec72c",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": "b6613457b60c319b2e9a583db5b45cc94b177a2e283264a89daba71beafd7d30",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": "b28227a80741315f3798e80ed1b165a5eba966ecba4b34724c9c835122d04bc7",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/fuse_shim.cpp": "c4abb7c7ac1b7138f7ea4d33507d8907bd700ec17c1a78a1188da3a89fbc54e8",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": "36089729974dc650a6c0ca3c8345c6d3bf4f68b56f1b89f406fd54da3508cd0a",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp": "71614d9d1588ee0db9792f2f1c99f3a28260f899913a7efed4b4d09879686893",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_gen.cpp": "2885dc465719d9e3b96b07fe942af2f868ac1aa4fe54967d1109074a111cf0ef",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_kernel.cpp": "4373b936dd2de91b7c89e099f8e99168e18879e6b9aa8f34e9c85c4072bcbcc8",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp": "3eae3e164514f193d9814578001b2d7927725624fe1c7f10ac412930c1d76e01",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_transpose_gen.h": "01bdce3f82c5b614f26d71fab0ff0a0885fd69073a47845eb90468aa8bfa13e3",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_transpose.h": "0511cd865d5b5a60fcc7b4d935b71c71c7f77fbfad03a5f5187ca08ba8674800",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen.h": "eb4e44b9e83bf1cb93897468ce310582df837a7e04ee3190fa757a4aae74cd2f",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_boundary_rr.h": "773030584fb638b613d0ce9bff503829619b1c5e52960771c35fad9022d2df88",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real_boundary.cpp": "705f4df047aabbb4f880a88e0a29b3db98241ed0bcc42f87e2345eb173ed5dd4"
+  },
+  "correctness_executed": false,
+  "formal_performance_executed": false,
+  "stable_unchanged": true,
+  "prior_preflight": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v2/native-check.json",
+  "prior_preflight_sha256": "df53a0feeee8ffdfefbc918c7960ae4a5433d8d7fdecf5e4de59e3516094541e",
+  "formatting_only": true
+}

@@ -1,0 +1,87 @@
+{
+  "complete": false,
+  "gpu_execution": false,
+  "parent_commit": "9aa80d89bff34d0019bab86f15e50321aa8d0610",
+  "start": "2026-10-14T13:01:48.390101+00:00",
+  "change": {
+    "parent_commit": "9aa80d89bff34d0019bab86f15e50321aa8d0610",
+    "branch": "exp-127-real-bluestein-boundary",
+    "files": {
+      "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+        "before_sha256": "abba3f173ad403256b3ba62327b663d5860ccef24f4dc5e191e8352b7734be38",
+        "after_sha256": "e3a33c87e667fd81c9d44c92cfa6dea434d482575b3031f3b8a2438d897bed05"
+      },
+      "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+        "before_sha256": "7d4e7d118e661a20a2a3fea2e69acf9f037f8b3bf1ffefe13dc91de97131c90f",
+        "after_sha256": "5cf3d5030f19322699a783a4d48f74d1305d96dc05850c5234268ef4eb41b40c"
+      },
+      "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real_boundary.cpp": {
+        "before_sha256": null,
+        "after_sha256": "129e143aa44562dbdeed9e53f8853651263ce4834b0d893b297d606d5630fdd5"
+      }
+    },
+    "method_body_sha256": "96321d69c512bd567d2ecc7ab94e546fac51ebbfd57a7457ee6b5d76a560b24e",
+    "change": "Relocate unchanged rows-key calculation into the existing shared RTC launch target; no GPU math, geometry, selection, generated source or validation change."
+  },
+  "source_build": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_INSTALL_PREFIX=/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014/unused-native-install",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DBUILD_CLIENTS_BENCH=ON",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DGPU_TARGETS=gfx936",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+        "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native/configure.log",
+      "sha256": "a49c2e824923facb8176ed9158e4060775c3321a933734a752f74c6012de676c"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+        "--target",
+        "rocfft-rtc-gen",
+        "--parallel",
+        "16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native/generator-build.log",
+      "sha256": "379b2da5585315ff2753814fcce066293451c8ed72a37ded238b4b109a14c353",
+      "recovered_from_completed_output": true
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-link-native-20261014",
+        "--parallel",
+        "16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native-v2/full-native-build.log",
+      "sha256": "bb43db966f0c8fec97f1662023cc91105e4be13bebc8d3c1404c723452a5228f"
+    }
+  ]
+}

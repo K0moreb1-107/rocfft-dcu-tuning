@@ -1,0 +1,20 @@
+{
+  "parent_commit": "9aa80d89bff34d0019bab86f15e50321aa8d0610",
+  "branch": "exp-127-real-bluestein-boundary",
+  "files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "before_sha256": "abba3f173ad403256b3ba62327b663d5860ccef24f4dc5e191e8352b7734be38",
+      "after_sha256": "e3a33c87e667fd81c9d44c92cfa6dea434d482575b3031f3b8a2438d897bed05"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "before_sha256": "7d4e7d118e661a20a2a3fea2e69acf9f037f8b3bf1ffefe13dc91de97131c90f",
+      "after_sha256": "5cf3d5030f19322699a783a4d48f74d1305d96dc05850c5234268ef4eb41b40c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real_boundary.cpp": {
+      "before_sha256": null,
+      "after_sha256": "129e143aa44562dbdeed9e53f8853651263ce4834b0d893b297d606d5630fdd5"
+    }
+  },
+  "method_body_sha256": "96321d69c512bd567d2ecc7ab94e546fac51ebbfd57a7457ee6b5d76a560b24e",
+  "change": "Relocate unchanged rows-key calculation into the existing shared RTC launch target; no GPU math, geometry, selection, generated source or validation change."
+}

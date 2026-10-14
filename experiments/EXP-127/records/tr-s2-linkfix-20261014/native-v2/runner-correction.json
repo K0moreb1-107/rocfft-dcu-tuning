@@ -1,0 +1,7 @@
+{
+  "reason": "The manager JSON writer is exclusive-create; write one immutable step record per command, not repeated progress.json.",
+  "original_failure": "FileExistsError while saving the completed generator-build step",
+  "compute_source_changed": false,
+  "generator_build_complete": true,
+  "original_records": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-linkfix-20261014/native"
+}
