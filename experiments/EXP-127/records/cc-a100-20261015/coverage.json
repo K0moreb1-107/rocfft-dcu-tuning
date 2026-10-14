@@ -1,0 +1,442 @@
+{
+  "schema": "cc-a100-followup-v1",
+  "experiment": "EXP-127",
+  "checkpoint_commit": "8254e85a682495328b67c5cfa05d2a0accf78888",
+  "source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "candidate_build_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+  "stable_unchanged": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "factor_interpretation": "4 is included in powers of 2; use exactly {2,3,7,11,13,17}; exclude 5",
+  "matched_A100_sizes": [
+    120224,
+    131072,
+    142688,
+    262144,
+    524288,
+    1048576
+  ],
+  "additional_CC_sizes": [
+    101088,
+    123904,
+    129024,
+    166698,
+    596288,
+    702464
+  ],
+  "eligible_A100_sizes": [
+    120224,
+    131072,
+    134784,
+    142688,
+    151008,
+    159744,
+    212058,
+    237276,
+    251328,
+    262144,
+    266112,
+    333396,
+    352836,
+    373248,
+    395136,
+    418176,
+    442442,
+    495616,
+    524288,
+    1048576
+  ],
+  "excluded_non_CC_A100_sizes": [
+    134784,
+    151008,
+    159744,
+    212058,
+    237276,
+    251328,
+    266112,
+    333396,
+    352836,
+    373248,
+    395136,
+    418176,
+    442442,
+    495616
+  ],
+  "geometries": {
+    "101088": {
+      "C": 208,
+      "Q": 243,
+      "factors": {
+        "2": 5,
+        "3": 5,
+        "13": 1
+      },
+      "matched_a100": false,
+      "implementation": "EXP126 generic CC",
+      "parity": "even/odd"
+    },
+    "120224": {
+      "C": 208,
+      "Q": 289,
+      "factors": {
+        "2": 5,
+        "13": 1,
+        "17": 2
+      },
+      "matched_a100": true,
+      "implementation": "EXP126 generic CC",
+      "parity": "even/odd"
+    },
+    "123904": {
+      "C": 512,
+      "Q": 121,
+      "factors": {
+        "2": 10,
+        "11": 2
+      },
+      "matched_a100": false,
+      "implementation": "EXP126 generic CC",
+      "parity": "even/odd"
+    },
+    "129024": {
+      "C": 336,
+      "Q": 192,
+      "factors": {
+        "2": 11,
+        "3": 2,
+        "7": 1
+      },
+      "matched_a100": false,
+      "implementation": "EXP126 generic CC",
+      "parity": "even/even"
+    },
+    "131072": {
+      "C": 256,
+      "Q": 256,
+      "factors": {
+        "2": 17
+      },
+      "matched_a100": true,
+      "implementation": "EXP125 power-of-two",
+      "parity": "even/even"
+    },
+    "142688": {
+      "C": 208,
+      "Q": 343,
+      "factors": {
+        "2": 5,
+        "7": 3,
+        "13": 1
+      },
+      "matched_a100": true,
+      "implementation": "EXP126 generic CC",
+      "parity": "even/odd"
+    },
+    "166698": {
+      "C": 343,
+      "Q": 243,
+      "factors": {
+        "2": 1,
+        "3": 5,
+        "7": 3
+      },
+      "matched_a100": false,
+      "implementation": "EXP126 generic CC",
+      "parity": "odd/odd"
+    },
+    "262144": {
+      "C": 256,
+      "Q": 512,
+      "factors": {
+        "2": 18
+      },
+      "matched_a100": true,
+      "implementation": "EXP125 power-of-two",
+      "parity": "even/even"
+    },
+    "524288": {
+      "C": 512,
+      "Q": 512,
+      "factors": {
+        "2": 19
+      },
+      "matched_a100": true,
+      "implementation": "EXP125 power-of-two",
+      "parity": "even/even"
+    },
+    "596288": {
+      "C": 224,
+      "Q": 1331,
+      "factors": {
+        "2": 6,
+        "7": 1,
+        "11": 3
+      },
+      "matched_a100": false,
+      "implementation": "EXP126 generic CC",
+      "parity": "even/odd"
+    },
+    "702464": {
+      "C": 343,
+      "Q": 1024,
+      "factors": {
+        "2": 11,
+        "7": 3
+      },
+      "matched_a100": false,
+      "implementation": "EXP126 generic CC",
+      "parity": "odd/even"
+    },
+    "1048576": {
+      "C": 1024,
+      "Q": 512,
+      "factors": {
+        "2": 20
+      },
+      "matched_a100": true,
+      "implementation": "EXP125 power-of-two",
+      "parity": "even/even"
+    }
+  },
+  "cases": [
+    {
+      "N": 101088,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 243,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 101088,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 243,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 120224,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 289,
+      "a100_median_ms": "0.040960",
+      "a100_source_file": "data/results/A100_1d_32912_to_524160_50sizes.csv",
+      "a100_source_row": 72
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 289,
+      "a100_median_ms": "0.040960",
+      "a100_source_file": "data/results/A100_1d_32912_to_524160_50sizes.csv",
+      "a100_source_row": 73
+    },
+    {
+      "N": 123904,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 121,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 123904,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 121,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 129024,
+      "func": "d2z_1d",
+      "C": 336,
+      "Q": 192,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 129024,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 192,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 256,
+      "a100_median_ms": "0.028672",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 9
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 256,
+      "a100_median_ms": "0.028672",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 10
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 343,
+      "a100_median_ms": "0.032768",
+      "a100_source_file": "data/results/A100_1d_32912_to_524160_50sizes.csv",
+      "a100_source_row": 81
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 343,
+      "a100_median_ms": "0.032768",
+      "a100_source_file": "data/results/A100_1d_32912_to_524160_50sizes.csv",
+      "a100_source_row": 82
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 243,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 243,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 512,
+      "a100_median_ms": "0.035840",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 12
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 512,
+      "a100_median_ms": "0.034816",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 13
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 512,
+      "a100_median_ms": "0.041984",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 15
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 512,
+      "a100_median_ms": "0.045056",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 16
+    },
+    {
+      "N": 596288,
+      "func": "d2z_1d",
+      "C": 224,
+      "Q": 1331,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 596288,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 1331,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 702464,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 1024,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 702464,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 1024,
+      "a100_median_ms": null,
+      "a100_source_file": null,
+      "a100_source_row": null
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 512,
+      "a100_median_ms": "0.081920",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 18
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 512,
+      "a100_median_ms": "0.076800",
+      "a100_source_file": "data/results_prime/A100_1d_32768_to_1048576_6sizes.csv",
+      "a100_source_row": 19
+    }
+  ],
+  "size_count": 12,
+  "case_count": 24,
+  "arms": [
+    "official",
+    "candidate"
+  ],
+  "processes": 48,
+  "event_iterations": 50,
+  "event_samples": 2400,
+  "warmups": 3,
+  "batch": 1,
+  "precision": "double",
+  "placement": "out-of-place",
+  "plan_selection": "default; no forced registers/LDS/solution overrides",
+  "validation": "same accepted candidate installation; strict frozen per-process correctness during measurement; CPU production-plan preflight",
+  "a100_dataset": "results/reference/a100/test_fft_261012",
+  "a100_median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+  "a100_conditions": {
+    "warmups": 10,
+    "event_iterations": 30
+  },
+  "a100_comparison": "cross-device reference only; conditions differ; missing sizes stay blank",
+  "baseline": "original official ROCm 7.2.2 default plan; any decomposition difference is part of the measured change",
+  "automatic_promotion": false,
+  "stop_after_submission": true
+}

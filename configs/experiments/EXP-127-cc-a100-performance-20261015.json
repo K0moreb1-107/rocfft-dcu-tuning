@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "policy": "FFT-event-samples-single-v2",
+  "experiment": "EXP-127",
+  "run_id": "EXP-127-cc-a100-performance-20261015",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "04:00:00",
+    "nodelist": "f13r4n15",
+    "node_exclusive": true
+  },
+  "event_iterations": 50,
+  "timing_source_sha256": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+  "cases": [
+    {
+      "N": 101088,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 101088,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 120224,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 123904,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 123904,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 129024,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 129024,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 596288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 596288,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 702464,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 702464,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d"
+    }
+  ],
+  "case_scope": "12个N>65536偶数尺寸，两个实数方向共24项，因子集合为2、3、7、11、13、17（4归入2的幂）；其中6个N精确匹配新A100数据，补充6个既有CC成员覆盖行列四种奇偶组合及1024列／1331行。当前生产计划主机预检查全部为两段CC并带前／后处理；不强制加载或修改方案表。",
+  "arms": {
+    "official": {
+      "registry_id": "install-exp096-official"
+    },
+    "candidate": {
+      "build_record": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-tr-s2-linkfix-build-20261014/build-provenance.json"
+    }
+  },
+  "acceptance": "已验收构建920231、库9eaa2f80与本次主机生产计划检查对应；每个尺寸／类型／版本一个独立进程，默认路径、双精度、批量一、非原位，逐进程严格正确性小于1e-9。节点独占、单卡、三次预热、50次逐次同步完整变换事件，官方与当前紧邻、交替先后，仅用全部逐次样本中位数分析，保留散点与序号图；不自动推广。官方按其原默认分解，不为匹配当前CC而强制选择；分解差异纳入整体测量并注明。A100的10／30条件差异单列，缺少N精确匹配时留空。",
+  "measurement_conditions": {
+    "precision": "double",
+    "batch": 1,
+    "placement": "out-of-place",
+    "load_path": "default",
+    "forced_load_selector": false,
+    "processes_per_case_arm": 1,
+    "warmups_per_process": 3,
+    "event_iterations_per_process": 50
+  },
+  "analysis_statistic": "median_of_raw_event_samples",
+  "checkpoint_commit": "8254e85a682495328b67c5cfa05d2a0accf78888",
+  "rocfft_source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "candidate_build_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+  "required_validation_job": "920231",
+  "candidate_variant": "current-EXP127-CC-complex-default-no-forced-selectors",
+  "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-a100-20261015/coverage.json",
+  "coverage_sha256": "332ad27bf329e8fcee1649a8f02329f7ea7381bd3e1c13d88aa41a191cc39ad5",
+  "host_plan_preflight": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-a100-20261015/host-plan-proof.json",
+  "host_plan_preflight_sha256": "cc8af5e0eec8c2359681e36a62e20f8dc6443e0c3d279d4dc72c400e2b906c86",
+  "a100_reference": {
+    "dataset": "test_fft_261012",
+    "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+    "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+    "matched_sizes": [
+      120224,
+      131072,
+      142688,
+      262144,
+      524288,
+      1048576
+    ],
+    "warmups": 10,
+    "event_iterations": 30,
+    "same_conditions_as_this_run": false,
+    "automatic_performance_ratio": false
+  },
+  "starting_stable_tag": "完成CC路径前后处理融合",
+  "automatic_promotion": false,
+  "stop_after_submission": true,
+  "user_authorization": "当前版本先提交，但是不作为最新稳定版本；挑选CC前后处理融合、指定因子的尺寸，尽量匹配新A100数据，测官方baseline和当前时间。"
+}
