@@ -24,6 +24,7 @@
 #include "../../../../shared/arithmetic.h"
 #include "../kernels/device_enum.h"
 #include "../../include/real_block_io.h"
+#include "../../include/real_boundary_io.h"
 #include "rocfft/rocfft.h"
 #include <ostream>
 #include <string>
@@ -67,6 +68,7 @@ struct StockhamGeneratorSpecs
 
     EmbeddedType ebtype = EmbeddedType::NONE;
     RealBlockIO real_io;
+    RealBoundaryIO real_boundary;
 
     // this value indicating if the wgs, tpt are excatly what we want
     // (i.e. were already derived somewhere)

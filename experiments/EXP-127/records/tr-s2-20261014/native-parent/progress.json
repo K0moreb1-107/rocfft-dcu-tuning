@@ -1,0 +1,124 @@
+{
+  "complete": false,
+  "gpu_execution": false,
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014",
+        "-DCMAKE_C_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGPU_TARGETS=gfx936",
+        "-DBUILD_CLIENTS_BENCH=OFF",
+        "-DBUILD_CLIENTS_TESTS=OFF",
+        "-DBUILD_CLIENTS_SAMPLES=OFF",
+        "-DROCFFT_KERNEL_CACHE_ENABLE=OFF",
+        "-DROCFFT_BUILD_OFFLINE_TUNER=OFF",
+        "-DSQLITE_USE_SYSTEM_PACKAGE=OFF",
+        "-DHAVE_STD_FILESYSTEM=ON",
+        "-DCMAKE_SHARED_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXE_LINKER_FLAGS=-lstdc++fs",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF",
+        "-DCMAKE_PREFIX_PATH=/public/home/zhangkewei/zr/extern/rocm-cmake;/public/home/zhangkewei/zr/extern/hiprtc",
+        "-Dhiprtc_DIR=/public/home/zhangkewei/zr/extern/hiprtc",
+        "-DFETCHCONTENT_SOURCE_DIR_SQLITE_LOCAL=/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/build/EXP-126-heldout-complex-20261012/_deps/sqlite_local-src"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/configure.log",
+      "sha256": "7f1090487772bc5113a8743d5ff0bc54c4d3d1769a7e1ded58eeb25dffe823d7"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014",
+        "--target",
+        "rocfft-rtc-gen",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/generator-build.log",
+      "sha256": "e4c8294b48463402fc30fb545dbbea4729afc8822fa5229674bf179dd326e911"
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014",
+        "--target",
+        "generator",
+        "rocfft-rtc-common",
+        "-j16"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/support-build.log",
+      "sha256": "65cebf1535b7cad723c7ef1277ad630d89ae141c868ade90fc4fa6892a98dd0a"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/trtrt_native_export.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/exporter.o"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/exporter-compile.log",
+      "sha256": "ecea042ef67208074c7afaa33d24c57b2d845a267c651e1e7a4d93a69a1d3ba2"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/exporter.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_transpose_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_bluestein_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/source-exporter"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/exporter-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/source-exporter",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-parent-20261014/generated-parent"
+      ],
+      "code": 0,
+      "log": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-parent/exporter-execute.log",
+      "sha256": "d5596eddf9b32acdb725ffca6be5c340987668311a8a537583e5e710f6c98d42"
+    }
+  ]
+}

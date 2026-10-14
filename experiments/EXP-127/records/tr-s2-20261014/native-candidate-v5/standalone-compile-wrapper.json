@@ -1,0 +1,9 @@
+{
+  "reason": "Standalone compilation needs HIP runtime declarations supplied by the runtime compiler environment",
+  "added_arguments": [
+    "-include",
+    "hip/hip_runtime.h"
+  ],
+  "computation_unchanged": true,
+  "previous_failure": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-candidate-v4/progress.json"
+}

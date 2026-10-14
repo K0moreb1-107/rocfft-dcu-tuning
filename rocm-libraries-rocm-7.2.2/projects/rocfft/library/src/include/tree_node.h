@@ -798,6 +798,9 @@ public:
     bool         CreateDeviceResources() override;
     void         SetupGridParam(GridParam& gp) override;
     FMKey        GetKernelKey() const override;
+    // Preserve the ordinary FFT core while checking the paired row container.
+    bool         MakeRealBoundaryRowsKey(FMKey& key) const;
+    std::string  RealBoundaryPlanComment() const;
     virtual void GetKernelFactors();
     virtual void GetKernelPartialPassFactors();
 };

@@ -1,0 +1,56 @@
+{
+  "complete": true,
+  "remote_source_modified": false,
+  "jobs_queried": false,
+  "files_fixed": {
+    "candidate/experiments/EXP-127/scripts/validate_trtrt_boundary.py": "d932ddc43261184f704113a506f2fb556affd922fb63f4563b1f31661035d796",
+    "candidate/experiments/EXP-127/scripts/trtrt_native_check.py": "a0d598c3eacef9602e8ce393ee49c80c490c9347f86ae6a5e9a4365f50b3d7d7",
+    "candidate/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp": "bf5232d24652dd8b272dd841d93cac7f76785699c551932ad378f577bad025e3",
+    "candidate/experiments/EXP-127/records/tr-s2-20261014/coverage.json": "641d073510ec88a25472a4be57b0611c8e9d4b0cdb5cf61584c5cbbdf188c817"
+  },
+  "coverage_counts": {
+    "quick_checks": 121,
+    "matched_plans": 93,
+    "guard_groups": 100,
+    "blue_guard_groups": 80,
+    "complex_guard_groups": 20,
+    "scope_checks": 208,
+    "fallback_plan_checks": 3,
+    "fallback_scope_checks": 6
+  },
+  "references": {
+    "trtrt": 1400,
+    "blue": 1120,
+    "complex": 280,
+    "total": 2800
+  },
+  "executions": {
+    "trtrt": 2800,
+    "blue": 2240,
+    "complex": 560,
+    "total": 5600
+  },
+  "scope_plan_only": 20,
+  "scope_executions": 188,
+  "checks": [
+    "Syntax and imports",
+    "Actual default rows table has 455 eligible DP configurations",
+    "Registered A/B TPT agrees with default table",
+    "Quick and scope case keys are unique",
+    "Frozen reference/guard/scope helper hashes agree with accepted parent originals",
+    "Folded row axis/batch is normalized only for two outer row children",
+    "Old AOT row lacking RTC source is supplemented by committed default table",
+    "Whole-log callback FFT of length 1 is excluded from inner core identity",
+    "Unitstride/static_dim variants preserve core identity",
+    "Incorrect TPT/half/radices/slots/user-input writes are rejected",
+    "Actual plan fixtures: 342 Bluestein z2z leaves, 56 CC d2z leaves, 56 CC z2d leaves have exactly one OB_* output parsed",
+    "Capacity fallback explicitly requires 1024 / radix16,16,4 / TPB4 / WGS256 / prior TR or RT and ordinary real processing",
+    "Native config extraction disables half for single-radix and honors precision-specific pool override",
+    "Compilation command Paths are converted to strings for ordinary JSON serialization"
+  ],
+  "limitations": [
+    "Device validation remains pending; this review ran no GPU APIs.",
+    "Native index exporter was inspected, not compiled by this reviewer.",
+    "Default-table half_lds proof is source based when the parent ordinary row was precompiled."
+  ]
+}

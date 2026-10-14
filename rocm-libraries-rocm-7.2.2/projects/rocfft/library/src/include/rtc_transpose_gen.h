@@ -22,6 +22,7 @@
 #define RTC_TRANSPOSE_GEN
 
 #include "load_store_ops.h"
+#include "real_boundary_io.h"
 #include "rocfft/rocfft.h"
 #include "rtc_kernel.h"
 
@@ -43,6 +44,7 @@ struct TransposeSpecs
     std::optional<LoadOps>  loadOps;
     std::optional<StoreOps> storeOps;
     bool                    grid3D;
+    RealBoundaryIO          real_boundary{};
 };
 
 // generate name for RTC transpose kernel

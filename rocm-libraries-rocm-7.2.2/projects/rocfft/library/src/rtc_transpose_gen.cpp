@@ -21,6 +21,7 @@
 #include "rtc_transpose_gen.h"
 #include "../../shared/array_predicate.h"
 #include "device/generator/generator.h"
+#include "device/generator/real_boundary_transpose.h"
 #include "rtc_test_harness.h"
 
 #include "device/kernel-generator-embed.h"
@@ -74,6 +75,8 @@ std::string transpose_rtc_kernel_name(const TransposeSpecs& specs)
     if(!specs.grid3D)
         kernel_name += "_grid1D";
 
+    if(specs.real_boundary.Active())
+        kernel_name += specs.real_boundary.NameSuffix();
     return kernel_name;
 }
 
@@ -94,6 +97,15 @@ std::string transpose_rtc(const std::string& kernel_name, const TransposeSpecs& 
 
     // twiddle code assumes scalar type is named T
     src += "typedef scalar_type T;\n";
+
+    if(specs.real_boundary.Active())
+    {
+        src += real_pair_layout_device_helpers();
+        auto func = real_boundary_transpose_kernel(kernel_name, specs);
+        src += func.render();
+        write_standalone_test_harness(func, src);
+        return src;
+    }
 
     // arguments to transpose kernel
     Variable input_var{"input", "scalar_type", true, true};

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_native_check.py", line 146, in <module>
+    main()
+  File "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_native_check.py", line 116, in main
+    run(base_command(entry)+['-I'+str(source/'library/src'), '-c', cpp, '-o', object_path],
+  File "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_native_check.py", line 114, in run
+    raise RuntimeError('native step failed: '+name)
+RuntimeError: native step failed: exporter-compile

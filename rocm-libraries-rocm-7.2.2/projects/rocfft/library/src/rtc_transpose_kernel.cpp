@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 #include <numeric>
+#include <limits>
 
 #include "../../shared/arithmetic.h"
 #include "../../shared/array_predicate.h"
@@ -105,6 +106,30 @@ RTCKernel::RTCGenerator RTCKernelTranspose::generate_from_node(const LeafNode&  
                          node.storeOps,
                          grid3D};
 
+    if(node.real_boundary.Active())
+    {
+        if(!node.real_boundary.Valid()
+           || node.real_boundary.container != RealBoundaryContainer::Transpose
+           || node.scheme != CS_KERNEL_TRANSPOSE || node.length.size() != 2
+           || node.batch != 1 || node.large1D || node.precision != rocfft_precision_double)
+            throw std::runtime_error("invalid real transpose boundary");
+        const size_t axis = node.real_boundary.Pre() ? length[0] : length[1];
+        const size_t span = node.real_boundary.Pre() ? length[1] : length[0];
+        if(!axis || !span || axis > std::numeric_limits<size_t>::max() / span
+           || axis * span != node.real_boundary.HalfLength())
+            throw std::runtime_error("invalid real transpose geometry");
+        const size_t axis_blocks = axis / tileX + (axis % tileX != 0);
+        const size_t owner_rows = span / 2 + 1;
+        const size_t span_blocks = owner_rows / tileX + (owner_rows % tileX != 0);
+        if(axis_blocks > size_t(node.deviceProp.maxGridSize[0]) / span_blocks)
+            throw std::runtime_error("real transpose grid exceeds device limit");
+        generator.gridDim = {static_cast<unsigned int>(axis_blocks * span_blocks), 1, 1};
+        specs.real_boundary = node.real_boundary;
+        specs.grid3D = false;
+        specs.diagonal = false;
+        specs.tileAligned = false;
+    }
+
     generator.generate_name = [=]() { return transpose_rtc_kernel_name(specs); };
 
     generator.generate_src
@@ -123,6 +148,28 @@ RTCKernel::RTCGenerator RTCKernelTranspose::generate_from_node(const LeafNode&  
 RTCKernelArgs RTCKernelTranspose::get_launch_args(DeviceCallIn& data)
 {
     RTCKernelArgs kargs;
+    if(data.node->real_boundary.Active())
+    {
+        // The two 32x33 arrays are static shared storage. Pass no duplicate
+        // dynamic allocation and use size_t for all user/matrix addresses.
+        const auto& boundary = data.node->real_boundary;
+        kargs.append_ptr(data.bufIn[0]);
+        kargs.append_ptr(data.bufOut[0]);
+        kargs.append_ptr(data.node->real_boundary_twiddles);
+        kargs.append_size_t(boundary.Pre() ? data.node->length[0] : data.node->length[1]);
+        kargs.append_size_t(boundary.Pre() ? data.node->length[1] : data.node->length[0]);
+        kargs.append_size_t(data.node->inStride[0]);
+        kargs.append_size_t(data.node->inStride[1]);
+        kargs.append_size_t(data.node->outStride[0]);
+        kargs.append_size_t(data.node->outStride[1]);
+        kargs.append_ptr(data.callbacks.load_cb_fn);
+        kargs.append_ptr(data.callbacks.load_cb_data);
+        kargs.append_unsigned_int(data.callbacks.load_cb_lds_bytes);
+        kargs.append_ptr(data.callbacks.store_cb_fn);
+        kargs.append_ptr(data.callbacks.store_cb_data);
+        append_load_store_args(kargs, *data.node);
+        return kargs;
+    }
     kargs.append_ptr(data.bufIn[0]);
     if(array_type_is_planar(data.node->inArrayType))
         kargs.append_ptr(data.bufIn[1]);

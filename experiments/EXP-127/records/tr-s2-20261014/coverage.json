@@ -1,0 +1,2857 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-127",
+  "stage": "tr-s2-20261014",
+  "evidence": "Source-derived preregistration; candidate final default plans and compiled/executed roles required",
+  "parent_source_commit": "7942bf0ab470bbabcfd4119a102eb9c92ae88ebf",
+  "previous_arm": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-blue-scopefix-20261013",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "7942bf0ab470bbabcfd4119a102eb9c92ae88ebf",
+    "source_state": "{\"commit\": \"7942bf0ab470bbabcfd4119a102eb9c92ae88ebf\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+    "library_sha256": "3f895cf68e71261448f3274e2645550aaeb839e360aea7b59aa7331ab0db58ed",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-blue-scopefix-build-20261013/build-provenance.json"
+  },
+  "families": {
+    "TRTRT-TR0-RT0": [
+      69972,
+      214326,
+      663552,
+      1995840,
+      6000000
+    ],
+    "TRTRT-TR0-RT1": [
+      67914,
+      135252,
+      270336,
+      567000,
+      1193400
+    ],
+    "TRTRT-TR1-RT0": [
+      65610,
+      145002,
+      319488,
+      841500,
+      2539732
+    ],
+    "TRTRT-TR1-RT1": [
+      65824,
+      133280,
+      294912,
+      589560,
+      1170450
+    ],
+    "TRTRT-recursive-R1": [
+      1837462,
+      2839714,
+      4343092,
+      5345344,
+      5797836
+    ]
+  },
+  "sizes": {
+    "69972": {
+      "group": "TRTRT-TR0-RT0",
+      "N": 69972,
+      "M": 34986,
+      "A": 238,
+      "B": 147,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": false,
+      "A_P": 17,
+      "A_T": 3,
+      "B_P": 21,
+      "B_T": 3,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 33792
+    },
+    "214326": {
+      "group": "TRTRT-TR0-RT0",
+      "N": 214326,
+      "M": 107163,
+      "A": 441,
+      "B": 243,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": false,
+      "A_P": 63,
+      "A_T": 1,
+      "B_P": 81,
+      "B_T": 3,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 33792
+    },
+    "663552": {
+      "group": "TRTRT-TR0-RT0",
+      "N": 663552,
+      "M": 331776,
+      "A": 576,
+      "B": 576,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": false,
+      "A_P": 96,
+      "A_T": 1,
+      "B_P": 96,
+      "B_T": 1,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 33792
+    },
+    "1995840": {
+      "group": "TRTRT-TR0-RT0",
+      "N": 1995840,
+      "M": 997920,
+      "A": 1008,
+      "B": 990,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": false,
+      "A_P": 56,
+      "A_T": 1,
+      "B_P": 110,
+      "B_T": 1,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 33792
+    },
+    "6000000": {
+      "group": "TRTRT-TR0-RT0",
+      "N": 6000000,
+      "M": 3000000,
+      "A": 1875,
+      "B": 1600,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": false,
+      "A_P": 125,
+      "A_T": 2,
+      "B_P": 100,
+      "B_T": 2,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 33792
+    },
+    "67914": {
+      "group": "TRTRT-TR0-RT1",
+      "N": 67914,
+      "M": 33957,
+      "A": 231,
+      "B": 147,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "A_P": 33,
+      "A_T": 7,
+      "B_P": 21,
+      "B_T": 3,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 22272
+    },
+    "135252": {
+      "group": "TRTRT-TR0-RT1",
+      "N": 135252,
+      "M": 67626,
+      "A": 289,
+      "B": 234,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "A_P": 17,
+      "A_T": 7,
+      "B_P": 26,
+      "B_T": 2,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 27840
+    },
+    "270336": {
+      "group": "TRTRT-TR0-RT1",
+      "N": 270336,
+      "M": 135168,
+      "A": 384,
+      "B": 352,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "A_P": 32,
+      "A_T": 4,
+      "B_P": 32,
+      "B_T": 2,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 24640
+    },
+    "567000": {
+      "group": "TRTRT-TR0-RT1",
+      "N": 567000,
+      "M": 283500,
+      "A": 540,
+      "B": 525,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "A_P": 54,
+      "A_T": 4,
+      "B_P": 105,
+      "B_T": 1,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 34624
+    },
+    "1193400": {
+      "group": "TRTRT-TR0-RT1",
+      "N": 1193400,
+      "M": 596700,
+      "A": 765,
+      "B": 780,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "A_P": 51,
+      "A_T": 5,
+      "B_P": 78,
+      "B_T": 3,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 33792,
+      "post_scratch_bytes": 49024
+    },
+    "65610": {
+      "group": "TRTRT-TR1-RT0",
+      "N": 65610,
+      "M": 32805,
+      "A": 243,
+      "B": 135,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": false,
+      "A_P": 81,
+      "A_T": 3,
+      "B_P": 9,
+      "B_T": 14,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 30464,
+      "post_scratch_bytes": 33792
+    },
+    "145002": {
+      "group": "TRTRT-TR1-RT0",
+      "N": 145002,
+      "M": 72501,
+      "A": 429,
+      "B": 169,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": false,
+      "A_P": 39,
+      "A_T": 3,
+      "B_P": 13,
+      "B_T": 19,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 48960,
+      "post_scratch_bytes": 33792
+    },
+    "319488": {
+      "group": "TRTRT-TR1-RT0",
+      "N": 319488,
+      "M": 159744,
+      "A": 416,
+      "B": 384,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": false,
+      "A_P": 32,
+      "A_T": 2,
+      "B_P": 32,
+      "B_T": 4,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 24640,
+      "post_scratch_bytes": 33792
+    },
+    "841500": {
+      "group": "TRTRT-TR1-RT0",
+      "N": 841500,
+      "M": 420750,
+      "A": 750,
+      "B": 561,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": false,
+      "A_P": 250,
+      "A_T": 1,
+      "B_P": 51,
+      "B_T": 5,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 35968,
+      "post_scratch_bytes": 33792
+    },
+    "2539732": {
+      "group": "TRTRT-TR1-RT0",
+      "N": 2539732,
+      "M": 1269866,
+      "A": 2197,
+      "B": 578,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": false,
+      "A_P": 169,
+      "A_T": 1,
+      "B_P": 34,
+      "B_T": 7,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 55584,
+      "post_scratch_bytes": 33792
+    },
+    "65824": {
+      "group": "TRTRT-TR1-RT1",
+      "N": 65824,
+      "M": 32912,
+      "A": 187,
+      "B": 176,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": true,
+      "A_P": 17,
+      "A_T": 7,
+      "B_P": 16,
+      "B_T": 4,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 11328,
+      "post_scratch_bytes": 18048
+    },
+    "133280": {
+      "group": "TRTRT-TR1-RT1",
+      "N": 133280,
+      "M": 66640,
+      "A": 272,
+      "B": 245,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": true,
+      "A_P": 17,
+      "A_T": 7,
+      "B_P": 35,
+      "B_T": 7,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 23616,
+      "post_scratch_bytes": 26208
+    },
+    "294912": {
+      "group": "TRTRT-TR1-RT1",
+      "N": 294912,
+      "M": 147456,
+      "A": 384,
+      "B": 384,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": true,
+      "A_P": 32,
+      "A_T": 4,
+      "B_P": 32,
+      "B_T": 4,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 24640,
+      "post_scratch_bytes": 24640
+    },
+    "589560": {
+      "group": "TRTRT-TR1-RT1",
+      "N": 589560,
+      "M": 294780,
+      "A": 578,
+      "B": 510,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": true,
+      "A_P": 34,
+      "A_T": 7,
+      "B_P": 34,
+      "B_T": 7,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 49056,
+      "post_scratch_bytes": 55584
+    },
+    "1170450": {
+      "group": "TRTRT-TR1-RT1",
+      "N": 1170450,
+      "M": 585225,
+      "A": 765,
+      "B": 765,
+      "TR_scheme_predicate": true,
+      "RT_scheme_predicate": true,
+      "A_P": 51,
+      "A_T": 5,
+      "B_P": 51,
+      "B_T": 5,
+      "actual_buffer_fusion_not_proven": true,
+      "pre_scratch_bytes": 49024,
+      "post_scratch_bytes": 49024
+    },
+    "1837462": {
+      "group": "TRTRT-recursive-R1",
+      "N": 1837462,
+      "M": 918731,
+      "A": 289,
+      "B": 3179,
+      "A_P": 17,
+      "A_T": 7,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "actual_default_plan_not_proven": true
+    },
+    "2839714": {
+      "group": "TRTRT-recursive-R1",
+      "N": 2839714,
+      "M": 1419857,
+      "A": 289,
+      "B": 4913,
+      "A_P": 17,
+      "A_T": 7,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "actual_default_plan_not_proven": true
+    },
+    "4343092": {
+      "group": "TRTRT-recursive-R1",
+      "N": 4343092,
+      "M": 2171546,
+      "A": 578,
+      "B": 3757,
+      "A_P": 34,
+      "A_T": 7,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": true,
+      "actual_default_plan_not_proven": true
+    },
+    "5345344": {
+      "group": "TRTRT-recursive-R1",
+      "N": 5345344,
+      "M": 2672672,
+      "A": 1156,
+      "B": 2312,
+      "A_P": 68,
+      "A_T": 3,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": false,
+      "actual_default_plan_not_proven": true
+    },
+    "5797836": {
+      "group": "TRTRT-recursive-R1",
+      "N": 5797836,
+      "M": 2898918,
+      "A": 1331,
+      "B": 2178,
+      "A_P": 121,
+      "A_T": 2,
+      "TR_scheme_predicate": false,
+      "RT_scheme_predicate": false,
+      "actual_default_plan_not_proven": true
+    }
+  },
+  "expected_size_count": 25,
+  "actual_classification": "Candidate final outer TR/RT and recursive R1; parent lack of fusion due to buffer assignment does not classify the candidate",
+  "slot_policy": "Rows retain factors/TPT/half_lds, TPB becomes orig-(orig%2), exact workgroup TPT*TPB; no size exception",
+  "frozen_helpers": {
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "bbef410c3b779e68e1be1479b0b335ce9f052a14a2b335e1774ade331f554d8d",
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "ff16f33dc18e12f9b33c71576b6206158ca70f22a452ed9d570873afabd9040f",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "678efa94547c3364d369f468d870abb13f14cb2f237bcc23f1b67f96a9ec94e9"
+  },
+  "quick_cases": [
+    {
+      "N": 65540,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 65540,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 201840,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 201840,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 371288,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 371288,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 560372,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 560372,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 681468,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 681468,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 117652,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 117652,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 507752,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 507752,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 776688,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 776688,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 888376,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 888376,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 999996,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 999996,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 65538,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 65538,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 201038,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 201038,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 370546,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 370546,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 559910,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 559910,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 681470,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 681470,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 117654,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 117654,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 507378,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 507378,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 776406,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 776406,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 888202,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 888202,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 999998,
+      "func": "d2z_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 999998,
+      "func": "z2d_1d",
+      "kind": "blue"
+    },
+    {
+      "N": 65536,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 65536,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 131072,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 262144,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 524288,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 1048576,
+      "func": "z2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "kind": "old_five"
+    },
+    {
+      "N": 81920,
+      "func": "d2z_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 81920,
+      "func": "z2d_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 97682,
+      "func": "d2z_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d",
+      "kind": "generic_cc"
+    },
+    {
+      "N": 65538,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein"
+    },
+    {
+      "N": 117652,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein"
+    },
+    {
+      "N": 681470,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein"
+    },
+    {
+      "N": 131070,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein_fused_regression"
+    },
+    {
+      "N": 262138,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein_fused_regression"
+    },
+    {
+      "N": 262142,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein_fused_regression"
+    },
+    {
+      "N": 524286,
+      "func": "z2z_1d",
+      "kind": "complex_bluestein_fused_regression"
+    },
+    {
+      "N": 69972,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 69972,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 214326,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 214326,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 663552,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 663552,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1995840,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1995840,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 6000000,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 6000000,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 67914,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 67914,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 135252,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 135252,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 270336,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 270336,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 567000,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 567000,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1193400,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1193400,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 65610,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 65610,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 145002,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 145002,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 319488,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 319488,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 841500,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 841500,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 2539732,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 2539732,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 65824,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 65824,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 133280,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 133280,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 294912,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 294912,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 589560,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 589560,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1170450,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1170450,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1837462,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 1837462,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 2839714,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 2839714,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 4343092,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 4343092,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 5345344,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 5345344,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 5797836,
+      "func": "d2z_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 5797836,
+      "func": "z2d_1d",
+      "kind": "trtrt"
+    },
+    {
+      "N": 2048000,
+      "func": "d2z_1d",
+      "kind": "capacity_fallback"
+    },
+    {
+      "N": 2064384,
+      "func": "d2z_1d",
+      "kind": "capacity_fallback"
+    },
+    {
+      "N": 2088960,
+      "func": "z2d_1d",
+      "kind": "capacity_fallback"
+    }
+  ],
+  "deduplicated_old_controls": [
+    {
+      "N": 65610,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 65610,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 65824,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 65824,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 67914,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 67914,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 69972,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 69972,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 1837462,
+      "func": "d2z_1d",
+      "kind": "transpose_unchanged"
+    },
+    {
+      "N": 1837462,
+      "func": "z2d_1d",
+      "kind": "transpose_unchanged"
+    }
+  ],
+  "blue_regression_sizes": {
+    "65540": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 65540,
+      "M": 32770,
+      "L": 67200,
+      "actual_default_plan_not_proven": true
+    },
+    "201840": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 201840,
+      "M": 100920,
+      "L": 204800,
+      "actual_default_plan_not_proven": true
+    },
+    "371288": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 371288,
+      "M": 185644,
+      "L": 384659,
+      "actual_default_plan_not_proven": true
+    },
+    "560372": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 560372,
+      "M": 280186,
+      "L": 640000,
+      "actual_default_plan_not_proven": true
+    },
+    "681468": {
+      "group": "Bluestein-Meven-Lmixed",
+      "N": 681468,
+      "M": 340734,
+      "L": 681472,
+      "actual_default_plan_not_proven": true
+    },
+    "117652": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 117652,
+      "M": 58826,
+      "L": 131072,
+      "actual_default_plan_not_proven": true
+    },
+    "507752": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 507752,
+      "M": 253876,
+      "L": 524288,
+      "actual_default_plan_not_proven": true
+    },
+    "776688": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 776688,
+      "M": 388344,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "888376": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 888376,
+      "M": 444188,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "999996": {
+      "group": "Bluestein-Meven-Lpow2",
+      "N": 999996,
+      "M": 499998,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "65538": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 65538,
+      "M": 32769,
+      "L": 67200,
+      "actual_default_plan_not_proven": true
+    },
+    "201038": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 201038,
+      "M": 100519,
+      "L": 204800,
+      "actual_default_plan_not_proven": true
+    },
+    "370546": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 370546,
+      "M": 185273,
+      "L": 384659,
+      "actual_default_plan_not_proven": true
+    },
+    "559910": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 559910,
+      "M": 279955,
+      "L": 640000,
+      "actual_default_plan_not_proven": true
+    },
+    "681470": {
+      "group": "Bluestein-Modd-Lmixed",
+      "N": 681470,
+      "M": 340735,
+      "L": 681472,
+      "actual_default_plan_not_proven": true
+    },
+    "117654": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 117654,
+      "M": 58827,
+      "L": 131072,
+      "actual_default_plan_not_proven": true
+    },
+    "507378": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 507378,
+      "M": 253689,
+      "L": 524288,
+      "actual_default_plan_not_proven": true
+    },
+    "776406": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 776406,
+      "M": 388203,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "888202": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 888202,
+      "M": 444101,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    },
+    "999998": {
+      "group": "Bluestein-Modd-Lpow2",
+      "N": 999998,
+      "M": 499999,
+      "L": 1048576,
+      "actual_default_plan_not_proven": true
+    }
+  },
+  "fused_complex_controls": [
+    117652,
+    131070,
+    262138,
+    262142,
+    524286
+  ],
+  "scope_cases": [
+    {
+      "mode": "batch",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "batch",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "stride",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "stride",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "inplace",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "inplace",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "planar",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "planar",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "multidim",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "multidim",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "small",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "small",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "odd",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "odd",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "single",
+      "direction": "d2z",
+      "N": null,
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "single",
+      "direction": "z2d",
+      "N": null,
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 65536,
+      "direction": "d2z",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 65536,
+      "direction": "z2d",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 131072,
+      "direction": "d2z",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 131072,
+      "direction": "z2d",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 262144,
+      "direction": "d2z",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 262144,
+      "direction": "z2d",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 524288,
+      "direction": "d2z",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 524288,
+      "direction": "z2d",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 1048576,
+      "direction": "d2z",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 1048576,
+      "direction": "z2d",
+      "family": "retained-power2",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 81920,
+      "direction": "d2z",
+      "family": "generic-cc",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 81920,
+      "direction": "z2d",
+      "family": "generic-cc",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 97682,
+      "direction": "d2z",
+      "family": "generic-cc",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 97682,
+      "direction": "z2d",
+      "family": "generic-cc",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 166698,
+      "direction": "d2z",
+      "family": "generic-cc",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 166698,
+      "direction": "z2d",
+      "family": "generic-cc",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 65538,
+      "direction": "d2z",
+      "family": "bluestein-other-parities",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 65538,
+      "direction": "z2d",
+      "family": "bluestein-other-parities",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 117652,
+      "direction": "d2z",
+      "family": "bluestein-other-parities",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 117652,
+      "direction": "z2d",
+      "family": "bluestein-other-parities",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 117654,
+      "direction": "d2z",
+      "family": "bluestein-other-parities",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 117654,
+      "direction": "z2d",
+      "family": "bluestein-other-parities",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_input",
+      "N": 65540,
+      "direction": "d2z",
+      "family": "offset_input",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_input",
+      "N": 65540,
+      "direction": "z2d",
+      "family": "offset_input",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_output",
+      "N": 81920,
+      "direction": "d2z",
+      "family": "offset_output",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_output",
+      "N": 81920,
+      "direction": "z2d",
+      "family": "offset_output",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_even",
+      "N": 131072,
+      "direction": "d2z",
+      "family": "offset_even",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_even",
+      "N": 131072,
+      "direction": "z2d",
+      "family": "offset_even",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 65540,
+      "direction": "d2z",
+      "family": "offset_planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 65540,
+      "direction": "z2d",
+      "family": "offset_planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 81920,
+      "direction": "d2z",
+      "family": "offset_planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 81920,
+      "direction": "z2d",
+      "family": "offset_planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 131072,
+      "direction": "d2z",
+      "family": "offset_planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 131072,
+      "direction": "z2d",
+      "family": "offset_planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 65540,
+      "direction": "d2z",
+      "family": "offset_inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 65540,
+      "direction": "z2d",
+      "family": "offset_inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 81920,
+      "direction": "d2z",
+      "family": "offset_inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 81920,
+      "direction": "z2d",
+      "family": "offset_inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 131072,
+      "direction": "d2z",
+      "family": "offset_inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 131072,
+      "direction": "z2d",
+      "family": "offset_inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 65538,
+      "direction": "cforward",
+      "family": "complex-interleaved",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 65538,
+      "direction": "cinverse",
+      "family": "complex-interleaved",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 131072,
+      "direction": "cforward",
+      "family": "complex-interleaved",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 131072,
+      "direction": "cinverse",
+      "family": "complex-interleaved",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 131070,
+      "direction": "cforward",
+      "family": "complex-interleaved",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset",
+      "N": 131070,
+      "direction": "cinverse",
+      "family": "complex-interleaved",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 65538,
+      "direction": "cforward",
+      "family": "complex-planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 65538,
+      "direction": "cinverse",
+      "family": "complex-planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 131072,
+      "direction": "cforward",
+      "family": "complex-planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 131072,
+      "direction": "cinverse",
+      "family": "complex-planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 131070,
+      "direction": "cforward",
+      "family": "complex-planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_planar",
+      "N": 131070,
+      "direction": "cinverse",
+      "family": "complex-planar",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 131072,
+      "direction": "cforward",
+      "family": "complex-inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 131072,
+      "direction": "cinverse",
+      "family": "complex-inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 131070,
+      "direction": "cforward",
+      "family": "complex-inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace",
+      "N": 131070,
+      "direction": "cinverse",
+      "family": "complex-inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace_planar",
+      "N": 131072,
+      "direction": "cforward",
+      "family": "complex-planar-inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace_planar",
+      "N": 131072,
+      "direction": "cinverse",
+      "family": "complex-planar-inplace",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 65540,
+      "direction": "d2z",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 65540,
+      "direction": "z2d",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 81920,
+      "direction": "d2z",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 81920,
+      "direction": "z2d",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 131072,
+      "direction": "d2z",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 131072,
+      "direction": "z2d",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 131070,
+      "direction": "cforward",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_callbacks",
+      "N": 131070,
+      "direction": "cinverse",
+      "family": "offset_callbacks",
+      "plan_only": false,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_overflow",
+      "N": 65540,
+      "direction": "d2z",
+      "family": "offset_overflow",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_overflow",
+      "N": 65540,
+      "direction": "z2d",
+      "family": "offset_overflow",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_overflow",
+      "N": 65540,
+      "direction": "cforward",
+      "family": "offset_overflow",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_overflow",
+      "N": 65540,
+      "direction": "cinverse",
+      "family": "offset_overflow",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace_mismatch",
+      "N": 65540,
+      "direction": "d2z",
+      "family": "offset_inplace_mismatch",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace_mismatch",
+      "N": 65540,
+      "direction": "z2d",
+      "family": "offset_inplace_mismatch",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace_mismatch",
+      "N": 65540,
+      "direction": "cforward",
+      "family": "offset_inplace_mismatch",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "offset_inplace_mismatch",
+      "N": 65540,
+      "direction": "cinverse",
+      "family": "offset_inplace_mismatch",
+      "plan_only": true,
+      "origin": "frozen-blue-scope"
+    },
+    {
+      "mode": "batch",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "batch",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "stride",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "stride",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "inplace",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "inplace",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "planar",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "planar",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "multidim",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "multidim",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "single",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "single",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "d2z",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "z2d",
+      "N": 69972,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT0"
+    },
+    {
+      "mode": "batch",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "batch",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "stride",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "stride",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "inplace",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "inplace",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "planar",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "planar",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "multidim",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "multidim",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "single",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "single",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "d2z",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "z2d",
+      "N": 67914,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR0-RT1"
+    },
+    {
+      "mode": "batch",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "batch",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "stride",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "stride",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "inplace",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "inplace",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "planar",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "planar",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "multidim",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "multidim",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "single",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "single",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "d2z",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "z2d",
+      "N": 65610,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT0"
+    },
+    {
+      "mode": "batch",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "batch",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "stride",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "stride",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "inplace",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "inplace",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "planar",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "planar",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "multidim",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "multidim",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "single",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "single",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "d2z",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "z2d",
+      "N": 65824,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-TR1-RT1"
+    },
+    {
+      "mode": "batch",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "batch",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "stride",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "stride",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "inplace",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "inplace",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "planar",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "planar",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "multidim",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "multidim",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "single",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "single",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": true,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_input",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_output",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_planar",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "d2z",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "z2d",
+      "N": 1837462,
+      "plan_only": false,
+      "origin": "TRTRT-TRTRT-recursive-R1"
+    },
+    {
+      "mode": "small",
+      "direction": "d2z",
+      "N": 2048000,
+      "plan_only": false,
+      "origin": "TRTRT-capacity-fallback"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "d2z",
+      "N": 2048000,
+      "plan_only": false,
+      "origin": "TRTRT-capacity-fallback"
+    },
+    {
+      "mode": "small",
+      "direction": "d2z",
+      "N": 2064384,
+      "plan_only": false,
+      "origin": "TRTRT-capacity-fallback"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "d2z",
+      "N": 2064384,
+      "plan_only": false,
+      "origin": "TRTRT-capacity-fallback"
+    },
+    {
+      "mode": "small",
+      "direction": "z2d",
+      "N": 2088960,
+      "plan_only": false,
+      "origin": "TRTRT-capacity-fallback"
+    },
+    {
+      "mode": "offset_callbacks",
+      "direction": "z2d",
+      "N": 2088960,
+      "plan_only": false,
+      "origin": "TRTRT-capacity-fallback"
+    }
+  ],
+  "original_scope_count": 92,
+  "additional_tr_scope_count": 110,
+  "expected_counts": {
+    "quick_checks": 121,
+    "matched_plans": 93,
+    "guard_groups": 100,
+    "blue_guard_groups": 80,
+    "complex_guard_groups": 20,
+    "scope_checks": 208,
+    "fallback_plan_checks": 3,
+    "fallback_scope_checks": 6
+  },
+  "expected_references": {
+    "trtrt": 1400,
+    "blue": 1120,
+    "complex": 280,
+    "total": 2800
+  },
+  "expected_executions": {
+    "trtrt": 2800,
+    "blue": 2240,
+    "complex": 560,
+    "total": 5600
+  },
+  "acceptance": "All 25 TRTRT N must fuse in both directions; five distinct actual fused N per family, independent full reference <1e-9, no role leakage, retain existing outer and recursive TR/RT and T2 phase; no automatic promotion",
+  "expected_scope_plan_only": 20,
+  "expected_scope_executions": 188,
+  "fallback_sizes": {
+    "2048000": {
+      "N": 2048000,
+      "A": 1024,
+      "B": 1000,
+      "direction": "d2z",
+      "M": 1024000,
+      "group": "TRTRT-capacity-fallback",
+      "boundary_span": 1024,
+      "original_tpb": 4,
+      "TPT": 64,
+      "half_lds": true,
+      "required_scratch_bytes": 65600,
+      "shared_limit_bytes": 65536,
+      "actual_default_plan_not_proven": true
+    },
+    "2064384": {
+      "N": 2064384,
+      "A": 1024,
+      "B": 1008,
+      "direction": "d2z",
+      "M": 1032192,
+      "group": "TRTRT-capacity-fallback",
+      "boundary_span": 1024,
+      "original_tpb": 4,
+      "TPT": 64,
+      "half_lds": true,
+      "required_scratch_bytes": 65600,
+      "shared_limit_bytes": 65536,
+      "actual_default_plan_not_proven": true
+    },
+    "2088960": {
+      "N": 2088960,
+      "A": 1020,
+      "B": 1024,
+      "direction": "z2d",
+      "M": 1044480,
+      "group": "TRTRT-capacity-fallback",
+      "boundary_span": 1024,
+      "original_tpb": 4,
+      "TPT": 64,
+      "half_lds": true,
+      "required_scratch_bytes": 65600,
+      "shared_limit_bytes": 65536,
+      "actual_default_plan_not_proven": true
+    }
+  },
+  "additional_capacity_fallback_scope_count": 6
+}

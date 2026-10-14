@@ -1,0 +1,15 @@
+{
+  "reason": "Index exporter must include the AST and binding declarations first; compile CPU check as ordinary C++",
+  "changed": {
+    "experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp": {
+      "before_sha256": "bf5232d24652dd8b272dd841d93cac7f76785699c551932ad378f577bad025e3",
+      "after_sha256": "dc524e90149958b855191a49fee7f5ca8044ae0f37a03b2befade05f60859e56"
+    },
+    "experiments/EXP-127/scripts/trtrt_native_check.py": {
+      "before_sha256": "27ddcbe042f85c7deb7db8c67aec8a5db344aceaf7094e08bff5ddad780292d0",
+      "after_sha256": "4c4bb4ee8a4cb1dcb30c46829f187949626b6d02709c2f439dea9191209f19e7"
+    }
+  },
+  "computation_unchanged": true,
+  "original_failure": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-candidate-v2/progress.json"
+}

@@ -38,6 +38,7 @@ using namespace std::placeholders;
 #include "device/generator/stockham_gen_real_post.h"
 #include "device/generator/stockham_gen_real_pair.h"
 #include "device/generator/stockham_gen_rr.h"
+#include "device/generator/stockham_gen_real_boundary_rr.h"
 #include "device/generator/stockham_pp_gen_cc.h"
 #include "device/generator/stockham_pp_gen_rr.h"
 
@@ -289,6 +290,7 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
             kernel_name += cbtype == CallbackType::NONE ? "_post_preload" : "_post_stream";
         }
     }
+    kernel_name += specs.real_boundary.NameSuffix();
     return kernel_name;
 }
 
@@ -356,7 +358,13 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
     {
         std::unique_ptr<StockhamKernel> kernel;
         if(scheme == CS_KERNEL_STOCKHAM)
-            kernel = std::make_unique<StockhamKernelRR>(specs);
+        {
+            if(specs.real_boundary.container == RealBoundaryContainer::Rows
+               && specs.real_boundary.Active())
+                kernel = std::make_unique<StockhamKernelRealBoundaryRows>(specs);
+            else
+                kernel = std::make_unique<StockhamKernelRR>(specs);
+        }
         else if(scheme == CS_KERNEL_STOCKHAM_PP)
             kernel = std::make_unique<StockhamPartialPassKernelRR>(specs, params_pp);
         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC)
@@ -521,7 +529,9 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
        || specs.real_io.role == RealBlockRole::LocalRealRows)
         src += local_real_device_helpers();
     if(specs.real_io.role == RealBlockRole::PairedPreColumns
-       || specs.real_io.role == RealBlockRole::GenericPairedPostRows)
+       || specs.real_io.role == RealBlockRole::GenericPairedPostRows
+       || (specs.real_boundary.Active()
+           && specs.real_boundary.container == RealBoundaryContainer::Rows))
         src += real_pair_layout_device_helpers();
     if(specs.real_io.role == RealBlockRole::PairedPostRows)
         src += real_post_device_helpers(specs.real_io,

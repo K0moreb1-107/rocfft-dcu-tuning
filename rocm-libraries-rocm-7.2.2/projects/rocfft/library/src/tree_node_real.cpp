@@ -490,6 +490,95 @@ bool RealTransEvenNode::TryFuseBluesteinBoundary(TreeNode& cfft, size_t n)
     return true;
 }
 
+bool RealTransEvenNode::TryFuseTRTRTBoundary(TreeNode& cfft, size_t n)
+{
+    if(n <= 65536 || n % 2 != 0 || dimension != 1 || length.size() != 1 || batch != 1
+       || precision != rocfft_precision_double || placement != rocfft_placement_notinplace
+       || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
+       || rootHasUserOffsets || iOffset != 0 || oOffset != 0
+       || !is_device_gcn_arch(deviceProp, "gfx936") || cfft.scheme != CS_L1D_TRTRT
+       || cfft.childNodes.size() != 5 || cfft.length != std::vector<size_t>{n / 2})
+        return false;
+    const bool pre = direction == 1;
+    if((pre && (inArrayType != rocfft_array_type_hermitian_interleaved
+                || outArrayType != rocfft_array_type_real))
+       || (!pre && (direction != -1 || inArrayType != rocfft_array_type_real
+                    || outArrayType != rocfft_array_type_hermitian_interleaved)))
+        return false;
+
+    auto& first = *cfft.childNodes[0];
+    auto& row1 = *cfft.childNodes[1];
+    auto& middle = *cfft.childNodes[2];
+    auto& row2 = *cfft.childNodes[3];
+    auto& last = *cfft.childNodes[4];
+    if(first.scheme != CS_KERNEL_TRANSPOSE || middle.scheme != CS_KERNEL_TRANSPOSE
+       || last.scheme != CS_KERNEL_TRANSPOSE || first.length.size() != 2
+       || first.length[0] == 0 || first.length[1] == 0
+       || first.length[0] > std::numeric_limits<size_t>::max() / first.length[1]
+       || first.length[0] * first.length[1] != n / 2
+       || row1.length != std::vector<size_t>{first.length[1], first.length[0]}
+       || middle.length != row1.length || row2.scheme != CS_KERNEL_STOCKHAM
+       || row2.length != first.length || last.length != first.length
+       || first.large1D != 0 || last.large1D != 0 || middle.large1D != n / 2)
+        return false;
+
+    // Both possible containers must be legal before removing the standalone
+    // real boundary.  In particular, never sacrifice a pre-existing TR/RT.
+    const size_t transpose_scratch = 2 * 32 * 33 * complex_type_size(precision);
+    const size_t tiles_x = (first.length[0] - 1) / 32 + 1;
+    const size_t tiles_y = (first.length[1] - 1) / 32 + 1;
+    if(transpose_scratch > static_cast<size_t>(deviceProp.sharedMemPerBlock)
+       || deviceProp.maxThreadsPerBlock < 32 * 32
+       || deviceProp.maxThreadsDim[0] < 32 || deviceProp.maxThreadsDim[1] < 32
+       || tiles_x > static_cast<size_t>(deviceProp.maxGridSize[0]) / tiles_y
+       || tiles_x > std::numeric_limits<unsigned int>::max() / tiles_y
+       || n / 4 + (n % 4 != 0)
+              > std::numeric_limits<size_t>::max() / complex_type_size(precision))
+        return false;
+    auto& selected = pre ? first : last;
+    auto& row = pre ? row1 : row2;
+    for(const auto& shim : cfft.fuseShims)
+    {
+        if(!shim->IsSchemeFusable())
+            continue;
+        if((pre && shim->FirstFuseNode() == &selected && shim->LastFuseNode() == &row)
+           || (!pre && shim->FirstFuseNode() == &row && shim->LastFuseNode() == &selected))
+        {
+            const auto* leaf = dynamic_cast<const LeafNode*>(&row);
+            FMKey key = FMKey::EmptyFMKey();
+            if(!leaf || !leaf->MakeRealBoundaryRowsKey(key))
+                return false;
+        }
+    }
+
+    RealBoundaryIO boundary{pre ? RealBoundaryDirection::Pre : RealBoundaryDirection::Post,
+                            RealBoundaryContainer::Transpose, n};
+    cfft.real_boundary = boundary;
+    selected.real_boundary = boundary;
+    cfft.allowInplace = false;
+    std::function<void(TreeNode&)> preserve_input = [&](TreeNode& node) {
+        if(node.isLeafNode())
+            node.allowedOutBuf &= ~size_t(OB_USER_IN);
+        for(auto& child : node.childNodes)
+            preserve_input(*child);
+    };
+    preserve_input(cfft);
+    first.allowedOutBuf = OB_TEMP;
+    row1.GetLastLeaf()->allowedOutBuf = OB_USER_OUT;
+    middle.allowedOutBuf = OB_TEMP;
+    row2.allowedOutBuf = OB_TEMP;
+    last.allowedOutBuf = OB_USER_OUT;
+    for(auto* node : {&first, row1.GetLastLeaf(), &middle, &row2, &last})
+        node->allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+    if(!pre)
+    {
+        cfft.outputLength = {n / 2 + 1};
+        last.outputLength = cfft.outputLength;
+    }
+    selected.comments.push_back(static_cast<LeafNode&>(selected).RealBoundaryPlanComment());
+    return true;
+}
+
 void RealTransEvenNode::AssignLocalRealParams()
 {
     const auto& io = childNodes.front()->real_io;
@@ -564,7 +653,8 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
 
     if(noSolution && (TryFusePairedPost(*cfftPlan, realLength->at(0))
                       || TryFuseGenericRealPair(*cfftPlan, realLength->at(0))
-                      || TryFuseBluesteinBoundary(*cfftPlan, realLength->at(0))))
+                      || TryFuseBluesteinBoundary(*cfftPlan, realLength->at(0))
+                      || TryFuseTRTRTBoundary(*cfftPlan, realLength->at(0))))
     {
         childNodes.emplace_back(std::move(cfftPlan));
         return;

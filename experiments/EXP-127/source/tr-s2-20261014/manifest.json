@@ -1,0 +1,292 @@
+{
+  "parent_commit": "7942bf0ab470bbabcfd4119a102eb9c92ae88ebf",
+  "starting_stable_commit": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "branch": "exp-127-real-bluestein-boundary",
+  "parent_freeze": "/public/home/zhangkewei/zr/experiments/EXP-127/source/blue-s1-scopefix-20261013/manifest.json",
+  "parent_freeze_sha256": "106813a946733359b1ce9ee0e57eedadc7ec77eb1035e4ed9f729d370da0fa1b",
+  "source_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "candidate_sha256": "7d4e7d118e661a20a2a3fea2e69acf9f037f8b3bf1ffefe13dc91de97131c90f"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp": {
+      "candidate_sha256": "71d7ec19dc37a6e701502289e871a2326e0435d0123421ea438e62f52867947a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp": {
+      "candidate_sha256": "a8aaa833277ec2a545532aec0fcd58fbbcd23e4db666645ec200618216120728"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_kernel.cpp": {
+      "candidate_sha256": "4b4c0b56c38448246b439bd5a446e96e9b0cfb3b3de150b7be2824ea2985081b"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "candidate_sha256": "abba3f173ad403256b3ba62327b663d5860ccef24f4dc5e191e8352b7734be38"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "candidate_sha256": "5c6a84b205d4c73db6b519fdf324538dc5a41edd82016fa9dda637808edae225"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_boundary_io.h": {
+      "candidate_sha256": "4e21653870324d1f77a02c5726348926a6408ac47b6b68dba925324213268ef6"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_bluestein_gen.h": {
+      "candidate_sha256": "c4bb63c82fc37192a680c18216cab1816c264b75fe973dac287190305b761aa2"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "candidate_sha256": "472587540eadb3ebb82b1339fd13645043ca432f80c7a37dbe2c0524b7b3312c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": {
+      "candidate_sha256": "655fc54902bda76f89d707e7c52d27b92b5006d938243c73309d0ca9b651b778"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_bluestein.h": {
+      "candidate_sha256": "0d2e57015e1e9f656909dcbab803ac81c304820a29067517fa89bcab20dfa8e3"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rc.h": {
+      "candidate_sha256": "b81063889488b8e2db515fcbb213d811d32b570a7d601d31f666bf10492ec72c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/transform.cpp": {
+      "candidate_sha256": "b6613457b60c319b2e9a583db5b45cc94b177a2e283264a89daba71beafd7d30"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/plan.h": {
+      "candidate_sha256": "b28227a80741315f3798e80ed1b165a5eba966ecba4b34724c9c835122d04bc7"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/fuse_shim.cpp": {
+      "candidate_sha256": "c4abb7c7ac1b7138f7ea4d33507d8907bd700ec17c1a78a1188da3a89fbc54e8"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": {
+      "candidate_sha256": "36089729974dc650a6c0ca3c8345c6d3bf4f68b56f1b89f406fd54da3508cd0a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp": {
+      "candidate_sha256": "71614d9d1588ee0db9792f2f1c99f3a28260f899913a7efed4b4d09879686893"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_gen.cpp": {
+      "candidate_sha256": "2885dc465719d9e3b96b07fe942af2f868ac1aa4fe54967d1109074a111cf0ef"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_kernel.cpp": {
+      "candidate_sha256": "4373b936dd2de91b7c89e099f8e99168e18879e6b9aa8f34e9c85c4072bcbcc8"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp": {
+      "candidate_sha256": "3eae3e164514f193d9814578001b2d7927725624fe1c7f10ac412930c1d76e01"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_transpose_gen.h": {
+      "candidate_sha256": "01bdce3f82c5b614f26d71fab0ff0a0885fd69073a47845eb90468aa8bfa13e3"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_transpose.h": {
+      "candidate_sha256": "0511cd865d5b5a60fcc7b4d935b71c71c7f77fbfad03a5f5187ca08ba8674800"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen.h": {
+      "candidate_sha256": "eb4e44b9e83bf1cb93897468ce310582df837a7e04ee3190fa757a4aae74cd2f"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_boundary_rr.h": {
+      "candidate_sha256": "773030584fb638b613d0ce9bff503829619b1c5e52960771c35fad9022d2df88"
+    }
+  },
+  "computation_changes": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "before_sha256": "324372343c06312a8664bf3a1743e9c0c7c5f79ba43a38c37bfab9af5a821fec",
+      "after_sha256": "7d4e7d118e661a20a2a3fea2e69acf9f037f8b3bf1ffefe13dc91de97131c90f"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/fuse_shim.cpp": {
+      "before_sha256": "6116f66a9e884b5fb0b284b9ebea330de626b5bce4901a01fb0c7790ae84e0b7",
+      "after_sha256": "c4abb7c7ac1b7138f7ea4d33507d8907bd700ec17c1a78a1188da3a89fbc54e8"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp": {
+      "before_sha256": "e133306a9a73c86aa64593925609bcb6695c31ec6400127decd23adac032a28a",
+      "after_sha256": "36089729974dc650a6c0ca3c8345c6d3bf4f68b56f1b89f406fd54da3508cd0a"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp": {
+      "before_sha256": "3b8804cea3f07ff55ddaeb65f9691c68024175ff55c89ae2584dbfb4b9ec8f77",
+      "after_sha256": "71614d9d1588ee0db9792f2f1c99f3a28260f899913a7efed4b4d09879686893"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_gen.cpp": {
+      "before_sha256": "7f5761d0ae60e4baeb08d3b8e2bec51b84feeec277febbbcadaf6c818a153207",
+      "after_sha256": "2885dc465719d9e3b96b07fe942af2f868ac1aa4fe54967d1109074a111cf0ef"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_transpose_kernel.cpp": {
+      "before_sha256": "9bfe97a183c8068717fa09009a46feb988f6fd589beefee69d7fd28fc7e22d16",
+      "after_sha256": "4373b936dd2de91b7c89e099f8e99168e18879e6b9aa8f34e9c85c4072bcbcc8"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp": {
+      "before_sha256": "f9cbf0f405a19e0b0e3810cc39b70e84ddbfd0f04a6cff5f4955dcf350c604b9",
+      "after_sha256": "abba3f173ad403256b3ba62327b663d5860ccef24f4dc5e191e8352b7734be38"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp": {
+      "before_sha256": "cac8b671a577c592baedb9247efbe6cc0dce22bfd3ea58a84ed549c5e46a41d9",
+      "after_sha256": "3eae3e164514f193d9814578001b2d7927725624fe1c7f10ac412930c1d76e01"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "before_sha256": "3fe6c6ca632e4d31a1641db8b6096ee04009769f9c4fad54fcf5f7b8e2a2477e",
+      "after_sha256": "5c6a84b205d4c73db6b519fdf324538dc5a41edd82016fa9dda637808edae225"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_transpose_gen.h": {
+      "before_sha256": "8dd9f589b3ea8cdae2182033850009723a215749905aaeee279eee5b7aa01957",
+      "after_sha256": "01bdce3f82c5b614f26d71fab0ff0a0885fd69073a47845eb90468aa8bfa13e3"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h": {
+      "before_sha256": "cac26b9460395a5a529e049631dc69440b0f6829d9e7006af229dbac58bc5b96",
+      "after_sha256": "472587540eadb3ebb82b1339fd13645043ca432f80c7a37dbe2c0524b7b3312c"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": {
+      "before_sha256": "fcf97c9fc522e1d9e1ff2cdd24fa313cef79a2df989130d293ead0123664caa1",
+      "after_sha256": "655fc54902bda76f89d707e7c52d27b92b5006d938243c73309d0ca9b651b778"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_boundary_transpose.h": {
+      "before_sha256": null,
+      "after_sha256": "0511cd865d5b5a60fcc7b4d935b71c71c7f77fbfad03a5f5187ca08ba8674800"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen.h": {
+      "before_sha256": "a8cdf77dbc3db0bc28fe4a005b1afd4a1db6adebda41d47320c73bb40750f855",
+      "after_sha256": "eb4e44b9e83bf1cb93897468ce310582df837a7e04ee3190fa757a4aae74cd2f"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_boundary_rr.h": {
+      "before_sha256": null,
+      "after_sha256": "773030584fb638b613d0ce9bff503829619b1c5e52960771c35fad9022d2df88"
+    }
+  },
+  "validation_inputs": {
+    "experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp": "dc524e90149958b855191a49fee7f5ca8044ae0f37a03b2befade05f60859e56",
+    "experiments/EXP-127/scripts/trtrt_native_check.py": "ade3fbe5f8d020b5346fc53ad9aa4f27483100496b62afcb145321cc39f3070a",
+    "experiments/EXP-127/scripts/trtrt_native_export.cpp": "de7dc77440d3c61d83401df83693451b7e707af7bfe194afa4387128d8318f85",
+    "experiments/EXP-127/scripts/validate_trtrt_boundary.py": "d932ddc43261184f704113a506f2fb556affd922fb63f4563b1f31661035d796",
+    "experiments/EXP-127/records/tr-s2-20261014/coverage.json": "641d073510ec88a25472a4be57b0611c8e9d4b0cdb5cf61584c5cbbdf188c817",
+    "experiments/EXP-127/records/tr-s2-20261014/preregistration.md": "859d194a960609b405ba1c268e4a12f3d16d72d293cddefbf85c5f66f40af3b1",
+    "experiments/EXP-127/scripts/validate_bluestein_boundary.py": "bbef410c3b779e68e1be1479b0b335ce9f052a14a2b335e1774ade331f554d8d",
+    "experiments/EXP-127/scripts/real_boundary_guard.cpp": "ff16f33dc18e12f9b33c71576b6206158ca70f22a452ed9d570873afabd9040f",
+    "experiments/EXP-127/scripts/real_boundary_scope.h": "678efa94547c3364d369f468d870abb13f14cb2f237bcc23f1b67f96a9ec94e9",
+    "experiments/EXP-127/scripts/rc_bluestein_gen_check.cpp": "d32073f75382bf3b809815c634bcd43f9589c3285b35d930f3db21c0511156de"
+  },
+  "native_evidence": {
+    "coverage.json": "641d073510ec88a25472a4be57b0611c8e9d4b0cdb5cf61584c5cbbdf188c817",
+    "native-candidate/configure.log": "a7f58930928b892c11efcbae8e644796d755bb51566db0a8b584e49529234486",
+    "native-candidate/exporter-compile.log": "89df07ced84f63554d0b2b32252a11e31ab66f7959cf25b8f86476ba8746714f",
+    "native-candidate/exporter-execute.log": "c63f21a9e79952f10d8c5b5080f9340a884e0e9f5a64b7d253f13c91f4c077e0",
+    "native-candidate/exporter-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-candidate/generator-build.log": "bea9957c9c625749fbf13940dae3f733a5a04856e59b4d0e7e82eec9ba15e0b6",
+    "native-candidate/native-index-check.log": "f66b8ed97239750b8f625baf4ecad670356911602c60951714cbcc15e19dcfaf",
+    "native-candidate/progress.json": "80558949b1ac8215c7241b6e92b5ce730bc6f52e80ca01c9848170c6cda09634",
+    "native-candidate/rc-exporter-compile.log": "35f030433c2c7f5bfeacc803d6b47812f60f097da3b11d9feea7807164421560",
+    "native-candidate/rc-exporter-execute.log": "992f5e869573107c0bfbf28c58f922e799312b1e58f6cbed18e35b7d2d397be9",
+    "native-candidate/rc-exporter-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-candidate/support-build.log": "bd8fca2ca7fbb6e1f85e7e6e628ff65360abe1ed4d7d01a9027b001714d17ec4",
+    "native-candidate/syntax-fuse_shim.log": "d35da8bba74bf12ab0615fe3abc3f3beeb5004c5d758a05445b988950419371a",
+    "native-candidate/syntax-plan.log": "1d5d08f0b771e53f9a681d0b30cf0037a30b1889b58dec833c2de5469443de03",
+    "native-candidate/syntax-rtc_stockham_kernel.log": "bb5f6b9613588dc2ee4c9ac29cddbe7d2a64805c253d6122844cc22501fcb940",
+    "native-candidate/syntax-rtc_transpose_kernel.log": "48465f880d3a8200522913573253f577c33e08ef277e0697802a5bd5c714a36c",
+    "native-candidate/syntax-tree_node.log": "d933a3a1aa2cc9965fd0e56deec251671bca5b6c448d3a95e0bdd9eff61b40dc",
+    "native-candidate/syntax-tree_node_1D.log": "4df208de12a3cda08363be245237b2581b23258cbbb2715da978586541d87423",
+    "native-candidate/syntax-tree_node_real.log": "c8d7ab9ddb37d260a4658874943054f12af3b1496755694dc88c30a4f6114c39",
+    "native-candidate-v2/native-index-check.log": "b82c2562d5a142408e509e1d58b7b79815e05e082fd7ac822f544716f243d0ae",
+    "native-candidate-v2/progress.json": "68b2e94fc13d7234cb6aee1c6a0115c5a9583d4dd03bc4aeb1ac35dbd915a23f",
+    "native-candidate-v2/tool-path-correction.json": "d3d29af2440c942f562e5ccd6cb3585d21b9709db24717a554230dc527acc01b",
+    "native-candidate-v3/native-index-check.log": "104caa307a00f623c45bd959d127794d09f876bf93ba11edeef06db49ed98d01",
+    "native-candidate-v3/progress.json": "c11c951bdb56c73f0c2d024fe749eb6c8cb5b9ad2d29298b476fbe3fefd21e6d",
+    "native-candidate-v3/tool-path-correction.json": "4221ce4162d336b063f31d3096eed246df95a9965e3ea9cdece76a441a188fd2",
+    "native-candidate-v4/device-rr_real_000.log": "4860bc560bb38c04437d5b6bc668676ca4b15aaff13f872e64e9f8b97a4c3e9b",
+    "native-candidate-v4/native-index-check.log": "cb58f8f2a00cb4de59d08e7f1f96cfc52e12d96d5a878dba96b17696e8124f0b",
+    "native-candidate-v4/progress.json": "bffb7e17887dfabd1d31d9005ce4bdb8d3e153247a466eebb1ec6482ad12e562",
+    "native-candidate-v4/tool-path-correction.json": "b4b92c48c48bb22bf9b34be527bbd2fbf9194d8305a498e66acca0ed10f9e708",
+    "native-candidate-v5/device-rr_real_000.log": "c9b63888f86762d8a5329c31e9e8c35f5d3cf7f306b496a9512eb35cf8430098",
+    "native-candidate-v5/device-rr_real_002.log": "86a752130dae3c71cbe72b0f0ce0c860ec827abb41a90549800a9b81936fc110",
+    "native-candidate-v5/device-rr_real_004.log": "6383fd3e6cfd6c03bc2fe526332f2170beafdf8cde6ff535d3b7a752a0b46ff0",
+    "native-candidate-v5/device-rr_real_006.log": "5fd0e6dd6150995a6683f19608a4943f17cb74592601cbe852189aedb235ed4a",
+    "native-candidate-v5/device-rr_real_008.log": "f4255e20d48527ccd1f5e0c70e23929df25f69ebe2faef98aa7a6e0fa53f443b",
+    "native-candidate-v5/device-rr_real_010.log": "d617cd62fa9c5b116fb420e70269d44b527ea91ad731813cf48415a8b4ab9b7a",
+    "native-candidate-v5/device-rr_real_012.log": "517e0470743304069654cbd805aeb58b32307741b9e2a8e8dd238358faf8d575",
+    "native-candidate-v5/device-rr_real_014.log": "0978b155df66d1a7235050a79e6db68e81d77e9086da1d95f5335aee6d12ff07",
+    "native-candidate-v5/device-rr_real_016.log": "3160eb4260b31b96f4b8854211ae95fefa4363a4779e63cb9e2cdb710aadf4b6",
+    "native-candidate-v5/device-rr_real_018.log": "f64022217b0ec62ce1f406c34e5c446c67b61c3b4b81c272c5bcb3c240bfe8b5",
+    "native-candidate-v5/device-rr_real_020.log": "bc257ec18b263435f71fb462c2bcd2618ec64b7e9cc08ea5a9e52d59ae8fac8a",
+    "native-candidate-v5/device-rr_real_022.log": "613dcb92260bc9c08389cdd8d563a9331a351d32e7449604fb5f498a6caf602b",
+    "native-candidate-v5/device-rr_real_024.log": "188389542eb9a1fc6d001c9fdc0bc4be3dbc5023723d6db2fa195b9a271452cd",
+    "native-candidate-v5/device-rr_real_026.log": "49c9e06e397e40bd73e6939789135e83bb686d8285ca0e49601e562fc990604e",
+    "native-candidate-v5/device-rr_real_028.log": "78ab7a3e8a76b3e6e46de5c344c5b445073bd1628c0003aee12228419f32c439",
+    "native-candidate-v5/device-rr_real_030.log": "3b8d5865bafc20910df76d50d5f87756ce8126a450a13767aea67374524546bd",
+    "native-candidate-v5/device-rr_real_032.log": "65e52bc4cd4193adb55384948e36957aa67500ff3c0c16b28b9a93b972414568",
+    "native-candidate-v5/device-rr_real_034.log": "479e58d2faee18421abecee2e395b9bc296415ae41e1d1c9fdafa94da6c0c2aa",
+    "native-candidate-v5/device-rr_real_036.log": "d437a513c83e85cfbd1e1006e849689f4078b25ee0286f61d49aa98529dad565",
+    "native-candidate-v5/device-rr_real_038.log": "a608a6b8b0f721fb438001ab06a70501c89d2a473c7e2251d3377d1bcddb8b93",
+    "native-candidate-v5/device-rr_real_040.log": "2f9df82d019cdb5e01dd9ada9cf96fea5333f80fece05cb8b1206dc3a697b599",
+    "native-candidate-v5/device-rr_real_042.log": "95ef7ed1303502901d82b27c2cab36f998c037ea0efb9732a02631da9981a690",
+    "native-candidate-v5/device-rr_real_044.log": "83cf922962c4cc13b15b640adddcc896f7dae17c415115b8ec28c9ba0c9a4a1e",
+    "native-candidate-v5/device-rr_real_046.log": "91eecd6585a59a1366bb081d97260a598312f546cb9853a15c2032999ad89490",
+    "native-candidate-v5/device-rr_real_048.log": "b9ea731bcd2db91ae142e082116fa9a667f0345ef8a2581d53a349e56609c84b",
+    "native-candidate-v5/device-rr_real_050.log": "146c558557c61c71f3c633e8e4bd36474d65e4fb10b146da4e6045277f30a2fe",
+    "native-candidate-v5/device-rr_real_052.log": "38edb0284aa20c92c4ac30a533b7c6689f957e009847e5f3f96bcc887cf9c493",
+    "native-candidate-v5/device-rr_real_054.log": "10c37016099709331784adbde2ab186ce58acd22077488c5b9d1a28a958dfc57",
+    "native-candidate-v5/device-rr_real_056.log": "c1b6f396ac53b68c7417b5178a5ea8700eb1108452e7a48c14b0b12256422b84",
+    "native-candidate-v5/device-rr_real_058.log": "ecaf23c87274282f050aae1a38d731074c46b8204f2e90b292a936f3458d606a",
+    "native-candidate-v5/device-rr_real_060.log": "228c15c9b536fb7cf40f84c8f69b8332722ca86469d81eb63c03106358d454de",
+    "native-candidate-v5/device-rr_real_062.log": "d7463a0808366a8af1b709ef0dd285f89cedc2ecba812f421b9b870426e9dde4",
+    "native-candidate-v5/device-rr_real_064.log": "30182a104ef8129b7018e7275b0bd7cc2469c407516f8ca418b39ff131f185f2",
+    "native-candidate-v5/device-rr_real_066.log": "a107a6fe996eeed93e037f8e55dd47d368b8ea8fdf1cc898c9ba1bd921e3478a",
+    "native-candidate-v5/device-rr_real_068.log": "0f097a2154341bce81066ee3007c336667eb44ed738901d0591086f72185c9f0",
+    "native-candidate-v5/device-rr_real_070.log": "91bff3869b0752db2a9d1f3ff47e3b70fa48f96ecabecf9b2b1e775fdcfd270e",
+    "native-candidate-v5/device-rr_real_072.log": "1c85cec90fee2b03355656d98b239328437021fc9b7f65d097c0bb57fdccf108",
+    "native-candidate-v5/device-rr_real_074.log": "38257d241e517cf625cbb4ca84bd01e9320c9bb4bbdece5bb23cef845345c647",
+    "native-candidate-v5/device-rr_real_076.log": "81ebfa8fd3e96ac6a77c9802f63fce0fb484d23b31ae769114af84e8eae0ffc5",
+    "native-candidate-v5/device-rr_real_078.log": "cd535a3ba7bf9cf1ec26d96c49961c864fcde997346d23f54595f4a3336f568b",
+    "native-candidate-v5/device-rr_real_080.log": "2a8732ef5efd5bf5afd7d80b1578718515dc40ca3f2462ecebad6e4df47bb97d",
+    "native-candidate-v5/device-rr_real_082.log": "c3c512c022d19546500cd7233e72359737ab18a54113f0a169be2d285ab0be6e",
+    "native-candidate-v5/device-rr_real_084.log": "7761faf256685399ecc3c50d31eb5588b50c084940b6345c49f400752fa29985",
+    "native-candidate-v5/device-rr_real_086.log": "f4cfa27e3b1f604003ab5b26927863d41082340fa04c19fa304ac158063147ba",
+    "native-candidate-v5/device-rr_real_088.log": "4de38ba547d3e94d6fb0d2e3331775c976aeab95358167f1e19c9dec01748213",
+    "native-candidate-v5/device-rr_real_090.log": "ca413cea340198728163469235bc485e785d32c4a26ec5858d7cbb1a7d7f26a0",
+    "native-candidate-v5/device-rr_real_092.log": "f187dc5f5a3af01e34ba95799155d6458306a21a40995bc70c37e14214b914f7",
+    "native-candidate-v5/device-rr_real_094.log": "1d540ab4d3a78e78c53fb30b78d5f90503326a862b5b2d81169516a78f3af71a",
+    "native-candidate-v5/device-rr_real_096.log": "ee0d0c47d82ea7bbdf29f39f6bce34cb05859c38b4731a9e92bbdfc22ad37917",
+    "native-candidate-v5/device-rr_real_098.log": "1c2b4be76da2dfe57fb3b551c64fa6d7c1dd6506efb867148929f6921fa29de4",
+    "native-candidate-v5/device-rr_real_100.log": "cef00e92bca216bee90063b030b24b1c12f5fe73bc7da05cbad8b7f47ee003c1",
+    "native-candidate-v5/device-rr_real_102.log": "5744f2b916ae953c829aa8c28bec74883c211f0d60f7c45b6d5d3a1cd49f4aed",
+    "native-candidate-v5/device-rr_real_104.log": "3d20d35f4dfe4576655e7bd522b91268541600750c35d9270dbc93a6e266a6bf",
+    "native-candidate-v5/device-rr_real_106.log": "22637470304e0449b4734070cf10c504cbe318c66fe09016e2d52033d2676f89",
+    "native-candidate-v5/device-transpose_real_000.log": "3ea9f63e613fbc22f15e497c21c9e8c20b3c9cdea6e2a15fb9385c6872e43f20",
+    "native-candidate-v5/device-transpose_real_004.log": "38653b2801020190b0682554588a9f87f1123c09327a478efdb15db19fe2ec40",
+    "native-candidate-v5/device-transpose_real_008.log": "b7c02d94793a35ea8eccb6e9c744e81cee5dad8ba54ea006216bbcea970454dd",
+    "native-candidate-v5/device-transpose_real_012.log": "8e910abf7d075ad9fafc43fcfecebb9d4d3ea43d254b808686bbefa969b321fe",
+    "native-candidate-v5/device-transpose_real_016.log": "b2451a6d3ea76f12009824258757af589375ad4c6582f19db6b5e22775482227",
+    "native-candidate-v5/device-transpose_real_020.log": "3e2c7f69d992c21149ca5d6f59c791bd7f985872627ad617873c572221c8608b",
+    "native-candidate-v5/native-check.json": "38564f86a88d9af600bbe71c69e79f66817617899e41fa6bf5115ed33f1d7390",
+    "native-candidate-v5/progress.json": "038bb0cfccf5b634b0102d556df198efb353207574f17d60508db2400cdcd183",
+    "native-candidate-v5/source-whitespace.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-candidate-v5/standalone-compile-wrapper.json": "2e16cdd596af77cac89aa65800a8233e62ff715b23635ef07284f799b017568b",
+    "native-index-evidence/core-configs.txt": "b8d0d8bed93c471065e0eacac40e1c1fa213a4ebb487baafdc3276d9cfd48eed",
+    "native-index-evidence/exporter-compile.log": "0d87691140d05c5855b88597a733eac5302da9c448dc4d8d70fcfd2bfddc03f7",
+    "native-index-evidence/exporter-execute.log": "2246447e64382cf2e583b70551504be21ee7a13c337a45f8d05a478450a04ca7",
+    "native-index-evidence/exporter-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-index-evidence/host-model-compile.log": "a2392b5ae279d5f3099a4b31992d9b0ebdbb802610d3bdf47d9f68a3b5a92d55",
+    "native-index-evidence/host-model-execute.log": "4acfbdf5ce028d587f95badedc137099a393125bf3099b8b162f6f157f2f4144",
+    "native-index-evidence/matrices.txt": "c12027e1b980aef58c6a53f2b6e278e17639797124a806494296254eaa37c73d",
+    "native-index-evidence/native-check.json": "29e4d6fef78e92833d7c090ce1452863cc9e503fa9a751e1bbc447ad7625b95b",
+    "native-index-evidence/progress.json": "a7e60194a750b7ddc095e8b19e37659a3fd74a69a42a0d6883fb5a6d2d4cb7a9",
+    "native-parent/configure.log": "7f1090487772bc5113a8743d5ff0bc54c4d3d1769a7e1ded58eeb25dffe823d7",
+    "native-parent/exporter-compile.log": "ecea042ef67208074c7afaa33d24c57b2d845a267c651e1e7a4d93a69a1d3ba2",
+    "native-parent/exporter-execute.log": "d5596eddf9b32acdb725ffca6be5c340987668311a8a537583e5e710f6c98d42",
+    "native-parent/exporter-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-parent/generator-build.log": "e4c8294b48463402fc30fb545dbbea4729afc8822fa5229674bf179dd326e911",
+    "native-parent/native-check.json": "2445e6fe5f13fe337d0b03c4f871a69a16219dd8e127c43453108beb6ee00ba9",
+    "native-parent/progress.json": "3c123adf081e11f0b093d221f6a232b098e325cab745447c164f6fae5070df44",
+    "native-parent/support-build.log": "65cebf1535b7cad723c7ef1277ad630d89ae141c868ade90fc4fa6892a98dd0a",
+    "native-parent/trtrt_native_export.cpp": "de7dc77440d3c61d83401df83693451b7e707af7bfe194afa4387128d8318f85",
+    "parent-helper-artifact-mapping.json": "65f30b016435bad3367bf66193f6071c684877a90b758d1fc4a7bd1c47cd54fb",
+    "preregistration.md": "859d194a960609b405ba1c268e4a12f3d16d72d293cddefbf85c5f66f40af3b1",
+    "synced-source.json": "97b07c963fd7717e209c5c60efa01ff36d2fab1ff864fb2bdf200b853af43ee7",
+    "validation-tool-review.json": "37fc53dcf79a9a8bee357016c253ddf1e10a620653d0c3fc6d62a5b454792c79"
+  },
+  "native_check": "native-candidate-v5/native-check.json",
+  "independent_reference_checks": 2800,
+  "independent_reference_executions": 5600,
+  "scope_checks": 208,
+  "matched_previous": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-blue-scopefix-20261013",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "7942bf0ab470bbabcfd4119a102eb9c92ae88ebf",
+    "source_state": "{\"commit\": \"7942bf0ab470bbabcfd4119a102eb9c92ae88ebf\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+    "library_sha256": "3f895cf68e71261448f3274e2645550aaeb839e360aea7b59aa7331ab0db58ed",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-blue-scopefix-build-20261013/build-provenance.json"
+  },
+  "libraries": {
+    "blue": "3f895cf68e71261448f3274e2645550aaeb839e360aea7b59aa7331ab0db58ed",
+    "stable": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad"
+  },
+  "gpu_execution": false,
+  "ordinary_generated_sources_unchanged": 298,
+  "repaired_register_sources_unchanged": 80,
+  "compiled_device_sources": 60
+}

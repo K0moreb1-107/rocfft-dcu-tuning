@@ -1,0 +1,122 @@
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:89:5: error: unknown type name '__forceinline__'
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:89:21: warning: 'device' attribute only applies to functions and variables [-Wignored-attributes]
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+                    ^
+/public/software/compiler/dtk-26.04/dcc/lib/clang/17.0.0/include/__clang_hip_runtime_wrapper.h:22:35: note: expanded from macro '__device__'
+#define __device__ __attribute__((device))
+                                  ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:89:32: warning: 'host' attribute only applies to functions [-Wignored-attributes]
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+                               ^
+/public/software/compiler/dtk-26.04/dcc/lib/clang/17.0.0/include/__clang_hip_runtime_wrapper.h:21:33: note: expanded from macro '__host__'
+#define __host__ __attribute__((host))
+                                ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:89:55: error: expected ';' at end of declaration list
+    __forceinline__ __device__ __host__ rocfft_complex operator-() const
+                                                      ^
+                                                      ;
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:801:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:802:5: error: constructor cannot have a return type
+    BufferResource(void const* base_addr, uint32_t num_records = (0xFFFFFFFF - 1))
+    ^~~~~~~~~~~~~~
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:819:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:937:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:938:5: error: constructor cannot have a return type
+    buffer_load() {}
+    ^~~~~~~~~~~
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:940:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:941:5: error: constructor cannot have a return type
+    buffer_load(
+    ^~~~~~~~~~~
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:951:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:952:5: error: declaration of 'AccessType' shadows template parameter
+    AccessType load(void const* base_ptr, uint32_t voffset, uint32_t soffset, bool pred_guard)
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:934:20: note: template parameter is declared here
+template <typename AccessType, CacheOperation::Kind cache_op>
+                   ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:951:5: warning: 'device' attribute only applies to functions and variables [-Wignored-attributes]
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:39: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                                      ^
+/public/software/compiler/dtk-26.04/dcc/lib/clang/17.0.0/include/__clang_hip_runtime_wrapper.h:22:35: note: expanded from macro '__device__'
+#define __device__ __attribute__((device))
+                                  ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:952:15: error: expected ';' at end of declaration list
+    AccessType load(void const* base_ptr, uint32_t voffset, uint32_t soffset, bool pred_guard)
+              ^
+              ;
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:965:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:966:5: error: constructor cannot have a return type
+    buffer_load() {}
+    ^~~~~~~~~~~
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:968:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:969:5: error: constructor cannot have a return type
+    buffer_load(
+    ^~~~~~~~~~~
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:979:5: error: unknown type name '__forceinline__'
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:23: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                      ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:980:5: error: declaration of 'AccessType' shadows template parameter
+    AccessType load(void const* base_ptr, uint32_t voffset, uint32_t soffset, bool pred_guard)
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:962:20: note: template parameter is declared here
+template <typename AccessType, CacheOperation::Kind cache_op>
+                   ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:979:5: warning: 'device' attribute only applies to functions and variables [-Wignored-attributes]
+    ROCFFT_DEVICE
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:729:39: note: expanded from macro 'ROCFFT_DEVICE'
+#define ROCFFT_DEVICE __forceinline__ __device__
+                                      ^
+/public/software/compiler/dtk-26.04/dcc/lib/clang/17.0.0/include/__clang_hip_runtime_wrapper.h:22:35: note: expanded from macro '__device__'
+#define __device__ __attribute__((device))
+                                  ^
+/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/generated-candidate/rr_real_000.cpp:980:15: error: expected ';' at end of declaration list
+    AccessType load(void const* base_ptr, uint32_t voffset, uint32_t soffset, bool pred_guard)
+              ^
+              ;
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+4 warnings and 20 errors generated when compiling for gfx936.

@@ -1,0 +1,272 @@
+{
+  "checked_utc": "2026-10-14T02:23:09.867824+00:00",
+  "source_commit": "7942bf0ab470bbabcfd4119a102eb9c92ae88ebf",
+  "candidate_library_sha256": "3f895cf68e71261448f3274e2645550aaeb839e360aea7b59aa7331ab0db58ed",
+  "scheduler": {
+    "argv": [
+      "sacct",
+      "-j",
+      "914128,914129",
+      "--format=JobIDRaw,JobName,State,ExitCode,Elapsed,Start,End,NodeList",
+      "-P"
+    ],
+    "returncode": 0,
+    "stdout": "JobIDRaw|JobName|State|ExitCode|Elapsed|Start|End|NodeList\n914128|fft_managed|COMPLETED|0:0|00:28:23|2026-10-13T20:39:20|2026-10-13T21:07:43|f13r4n15\n914128.batch|batch|COMPLETED|0:0|00:28:23|2026-10-13T20:39:20|2026-10-13T21:07:43|f13r4n15\n914128.extern|extern|COMPLETED|0:0|00:28:23|2026-10-13T20:39:20|2026-10-13T21:07:43|f13r4n15\n914129|fft_managed|COMPLETED|0:0|00:12:33|2026-10-14T09:27:40|2026-10-14T09:40:13|f13r4n15\n914129.batch|batch|COMPLETED|0:0|00:12:33|2026-10-14T09:27:40|2026-10-14T09:40:13|f13r4n15\n914129.extern|extern|COMPLETED|0:0|00:12:33|2026-10-14T09:27:40|2026-10-14T09:40:13|f13r4n15\n914129.0|python|COMPLETED|0:0|00:12:32|2026-10-14T09:27:41|2026-10-14T09:40:13|f13r4n15\n",
+    "stderr": ""
+  },
+  "run_hashes": {
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-build-20261013/bluestein-boundary-validation.json": "1010994b4dc557fca01b8dcdea00bdd7ee94515f9ec4b41da2f5c470006c4d40",
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-build-20261013/post-build-validation.json": "232b0de65ba29b4d63c3ede0fcfaae96003b9519f0239f8b1fd474b0991528be",
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-build-20261013/build-provenance.json": "d53acdbfe5e179b41718dd3e2cb531ea141781f562d6968e9d8fe6dde3394e5f",
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-performance-20261013/preregistration.json": "6d6fdc68c54f5a46977cecc1d400e34298ab9a409aca8a2a502c919a68401d10",
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-performance-20261013/provenance.json": "80f3b601b5d89d768444e674cdfb3743422c58ddfa7701377299cdf27c1a5c59",
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-performance-20261013/processes.json": "44f160bd604e822545b2376cf3ae2a361248bc871376e7480a84c343618a76af",
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-performance-20261013/summary.json": "74a145879095207e7f369918f4123af760a763c1d5dd903533062a0180ba0b10",
+    "experiments/EXP-127/runs/EXP-127-blue-scopefix-performance-20261013/comparison.csv": "ccdbbe26b771c2b288c364825676f307b3bf5d644c747490e27cb7a17df08c7a"
+  },
+  "validation": {
+    "complete": true,
+    "stable_diagnostics": [
+      {
+        "N": 117652,
+        "check": "FAIL",
+        "err_a": "1",
+        "err_b": "59354.2",
+        "formal": false
+      },
+      {
+        "N": 131070,
+        "check": "FAIL",
+        "err_a": "1",
+        "err_b": "715559",
+        "formal": false
+      },
+      {
+        "N": 262138,
+        "check": "FAIL",
+        "err_a": "1",
+        "err_b": "4.52608",
+        "formal": false
+      },
+      {
+        "N": 262142,
+        "check": "FAIL",
+        "err_a": "1",
+        "err_b": "27.5163",
+        "formal": false
+      },
+      {
+        "N": 524286,
+        "check": "FAIL",
+        "err_a": "1",
+        "err_b": "2.19084e+06",
+        "formal": false
+      }
+    ],
+    "references": 1400,
+    "executions": 2800,
+    "max_error": 4.947359283446996e-15,
+    "scope_actual": 82,
+    "scope_plan_only": 10,
+    "families": {
+      "Bluestein-Meven-Lmixed": {
+        "sizes": [
+          65540,
+          201840,
+          371288,
+          560372,
+          681468
+        ],
+        "actual_fusion": "PASS"
+      },
+      "Bluestein-Meven-Lpow2": {
+        "sizes": [
+          117652,
+          507752,
+          776688,
+          888376,
+          999996
+        ],
+        "actual_fusion": "PASS"
+      },
+      "Bluestein-Modd-Lmixed": {
+        "sizes": [
+          65538,
+          201038,
+          370546,
+          559910,
+          681470
+        ],
+        "actual_fusion": "PASS"
+      },
+      "Bluestein-Modd-Lpow2": {
+        "sizes": [
+          117654,
+          507378,
+          776406,
+          888202,
+          999998
+        ],
+        "actual_fusion": "PASS"
+      }
+    },
+    "evidence_hash_mismatches": 0
+  },
+  "counts": {
+    "quick": 78,
+    "matched": 40,
+    "real_reference_groups": 80,
+    "complex_reference_groups": 20,
+    "scope": 92
+  },
+  "performance": {
+    "complete": true,
+    "cases": 73,
+    "processes": 219,
+    "event_samples": 10950,
+    "source_library_identity_verified": true,
+    "raw_samples_verified": true,
+    "summary_matches_raw": true,
+    "job_id": "914129",
+    "host": "f13r4n15",
+    "gpu": {
+      "count": 1,
+      "uuid": "30303135333861396635353633306331",
+      "arch": "gfx936:sramecc+:xnack-",
+      "runtime_version": 60326113,
+      "driver_version": 60326113
+    },
+    "process_errors_max": 5.329070518200751e-15
+  },
+  "analysis_statistic": "median_of_raw_event_samples",
+  "families": [
+    {
+      "family": "Bluestein-Meven-Lmixed",
+      "label": "N/2为偶数，卷积长度为混合基数",
+      "sizes": [
+        65540,
+        201840,
+        371288,
+        560372,
+        681468
+      ],
+      "d2z": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0067425892154838,
+        "max": 1.1307531574367664
+      },
+      "z2d": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0407923273186341,
+        "max": 1.0730158357848716
+      }
+    },
+    {
+      "family": "Bluestein-Meven-Lpow2",
+      "label": "N/2为偶数，卷积长度为二的幂",
+      "sizes": [
+        117652,
+        507752,
+        776688,
+        888376,
+        999996
+      ],
+      "d2z": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0241337423339787,
+        "max": 1.107355846590253
+      },
+      "z2d": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0557682539826578,
+        "max": 1.0984252123685871
+      }
+    },
+    {
+      "family": "Bluestein-Modd-Lmixed",
+      "label": "N/2为奇数，卷积长度为混合基数",
+      "sizes": [
+        65538,
+        201038,
+        370546,
+        559910,
+        681470
+      ],
+      "d2z": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0309148560815775,
+        "max": 1.0660377505845904
+      },
+      "z2d": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0476586849559946,
+        "max": 1.0952380835056361
+      }
+    },
+    {
+      "family": "Bluestein-Modd-Lpow2",
+      "label": "N/2为奇数，卷积长度为二的幂",
+      "sizes": [
+        117654,
+        507378,
+        776406,
+        888202,
+        999998
+      ],
+      "d2z": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0054509038638626,
+        "max": 1.0876494197600675
+      },
+      "z2d": {
+        "count": 5,
+        "faster": 5,
+        "min": 1.0431910798038129,
+        "max": 1.096497906236123
+      }
+    }
+  ],
+  "target_count": 40,
+  "target_medians_faster": 40,
+  "target_iqr_disjoint": 37,
+  "ambiguous_target_cases": [
+    {
+      "N": 65540,
+      "func": "z2d_1d",
+      "speedup_previous_median": 1.0730158357848716
+    },
+    {
+      "N": 507378,
+      "func": "d2z_1d",
+      "speedup_previous_median": 1.0175248084694144
+    },
+    {
+      "N": 776406,
+      "func": "d2z_1d",
+      "speedup_previous_median": 1.0054509038638626
+    }
+  ],
+  "control_count": 33,
+  "control_medians_faster": 12,
+  "control_medians_equal": 5,
+  "control_medians_slower": 16,
+  "control_disjoint_regression": {
+    "N": 1837462,
+    "func": "d2z_1d",
+    "previous_median_ms": 0.2937594950199127,
+    "candidate_median_ms": 0.29712000489234924,
+    "speedup_previous_median": 0.9886897219402844
+  },
+  "correctness_accepted": true,
+  "performance_no_universal_non_target_regression_claim": true,
+  "stable_promoted": false,
+  "new_jobs_submitted": false,
+  "source_changed": false
+}

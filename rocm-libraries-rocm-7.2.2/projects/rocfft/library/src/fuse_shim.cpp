@@ -23,6 +23,25 @@
 #include "function_pool.h"
 #include "node_factory.h"
 
+static std::vector<FMKey> real_boundary_row_keys(TreeNode& fused,
+                                                const TreeNode& stockham,
+                                                const TreeNode& transpose)
+{
+    if(!transpose.real_boundary.Active()
+       || transpose.real_boundary.container != RealBoundaryContainer::Transpose)
+        return {stockham.GetKernelKey()};
+    const auto* row = dynamic_cast<const LeafNode*>(&stockham);
+    FMKey key = FMKey::EmptyFMKey();
+    if(!row || !row->MakeRealBoundaryRowsKey(key))
+        throw std::runtime_error("prevalidated real boundary row geometry is unavailable");
+    fused.real_boundary = transpose.real_boundary;
+    fused.real_boundary.container = RealBoundaryContainer::Rows;
+    fused.specified_key = std::make_unique<FMKey>(key);
+    fused.intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+    fused.dir2regMode = DirectRegType::TRY_ENABLE_IF_SUPPORT;
+    return {key};
+}
+
 bool canOptimizeWithStride(TreeNode* stockham)
 {
     // for 3D pow2 sizes, manipulating strides looks like it loses to
@@ -147,9 +166,13 @@ std::unique_ptr<TreeNode> TRFuseShim::FuseKernels()
     auto fused = NodeFactory::CreateNodeFromScheme(stockham->scheme, stockham->parent);
     fused->CopyNodeData(*stockham);
     // actually no need to check kernel exists, we already have the kernel with the same length/scheme
-    std::vector<FMKey> kernelkey = {stockham->GetKernelKey()};
+    auto kernelkey = real_boundary_row_keys(*fused, *stockham, *transpose);
     if(!fused->KernelCheck(kernelkey))
+    {
+        if(fused->real_boundary.Active())
+            throw std::runtime_error("prevalidated TR real boundary kernel is invalid");
         return nullptr;
+    }
 
     fused->placement   = rocfft_placement_notinplace;
     fused->inArrayType = transpose->inArrayType;
@@ -179,6 +202,13 @@ std::unique_ptr<TreeNode> TRFuseShim::FuseKernels()
         fused->inStride[0] = transpose->inStride[2];
         fused->inStride[1] = transpose->inStride[0];
         fused->inStride[2] = transpose->inStride[1];
+    }
+
+    if(fused->real_boundary.Active())
+    {
+        fused->allowedOutBuf = stockham->allowedOutBuf;
+        fused->allowedOutArrayTypes = stockham->allowedOutArrayTypes;
+        fused->comments.push_back(static_cast<LeafNode&>(*fused).RealBoundaryPlanComment());
     }
 
     return fused;
@@ -230,9 +260,13 @@ std::unique_ptr<TreeNode> RTFuseShim::FuseKernels()
     auto fused = NodeFactory::CreateNodeFromScheme(stockham->scheme, stockham->parent);
     fused->CopyNodeData(*stockham);
     // actually no need to check kernel exists, we already have the kernel with the same length/scheme
-    std::vector<FMKey> kernelkey = {stockham->GetKernelKey()};
+    auto kernelkey = real_boundary_row_keys(*fused, *stockham, *transpose);
     if(!fused->KernelCheck(kernelkey))
+    {
+        if(fused->real_boundary.Active())
+            throw std::runtime_error("prevalidated RT real boundary kernel is invalid");
         return nullptr;
+    }
 
     fused->placement    = rocfft_placement_notinplace;
     fused->outArrayType = transpose->outArrayType;
@@ -253,6 +287,12 @@ std::unique_ptr<TreeNode> RTFuseShim::FuseKernels()
         fused->outStride[2] = transpose->outStride[0];
     }
     fused->outputLength = transpose->outputLength;
+    if(fused->real_boundary.Active())
+    {
+        fused->allowedOutBuf = transpose->allowedOutBuf;
+        fused->allowedOutArrayTypes = transpose->allowedOutArrayTypes;
+        fused->comments.push_back(static_cast<LeafNode&>(*fused).RealBoundaryPlanComment());
+    }
 
     return fused;
 }

@@ -1,0 +1,123 @@
+{
+  "complete": true,
+  "formal": false,
+  "gpu_execution": false,
+  "started_utc": "2026-10-14T09:33:00.718384+00:00",
+  "ended_utc": "2026-10-14T09:33:45.114878+00:00",
+  "steps": [
+    {
+      "name": "exporter-compile",
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-D__HIP_PLATFORM_AMD__",
+        "-D__HIP_PLATFORM_AMD__=1",
+        "-D__HIP_PLATFORM_HCC__=1",
+        "-D__HIP_ROCclr__=1",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=gnu++17",
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden",
+        "-Wall",
+        "-Wno-unused-function",
+        "-Wimplicit-fallthrough",
+        "-Wunreachable-code",
+        "-Wsign-compare",
+        "-Wno-deprecated-declarations",
+        "--offload-arch=gfx936",
+        "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+        "-c",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "0d87691140d05c5855b88597a733eac5302da9c448dc4d8d70fcfd2bfddc03f7"
+    },
+    {
+      "name": "exporter-link",
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-x",
+        "none",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+        "-pthread",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "exporter-execute",
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/core-configs.txt",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/matrices.txt",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model.cpp"
+      ],
+      "returncode": 0,
+      "log_sha256": "2246447e64382cf2e583b70551504be21ee7a13c337a45f8d05a478450a04ca7"
+    },
+    {
+      "name": "host-model-compile",
+      "command": [
+        "/public/software/compiler/dtk-26.04/llvm/bin/clang++",
+        "-O2",
+        "-std=c++17",
+        "-UNDEBUG",
+        "-x",
+        "c++",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model"
+      ],
+      "returncode": 0,
+      "log_sha256": "a2392b5ae279d5f3099a4b31992d9b0ebdbb802610d3bdf47d9f68a3b5a92d55"
+    },
+    {
+      "name": "host-model-execute",
+      "command": [
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model"
+      ],
+      "returncode": 0,
+      "log_sha256": "4acfbdf5ce028d587f95badedc137099a393125bf3099b8b162f6f157f2f4144"
+    }
+  ],
+  "source_inputs": {
+    "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp": "dc524e90149958b855191a49fee7f5ca8044ae0f37a03b2befade05f60859e56",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_native_check.py": "ade3fbe5f8d020b5346fc53ad9aa4f27483100496b62afcb145321cc39f3070a",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/coverage.json": "641d073510ec88a25472a4be57b0611c8e9d4b0cdb5cf61584c5cbbdf188c817",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h": "da6a7aacd97394d4b19028f71994b3cb45e3783905459200b545209da8b2776c",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rr.h": "2a90e47e1bacd658e44f740be749d4d143498103c6ad8cbc52127ebdda41d67d",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/real_pair_layout.h": "99031b48d45eb93ff57049b087117b262d1dc43542e8d7e39df4f2836c151eed",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/kernels/configs/config_sbrr.py": "41f4f03ff79b357aebd7435ba64045d697ed1c49a4c5eb3f336b6c3e41505784",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/kernels/configs/config_lds.py": "427b3a16b83e05656d900df217f6f0fa4252bf4ac26309c38a59a4b288bd9f1a",
+    "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/kernel-generator.py": "625ebbd2d6609437abfc2873e3e89bcb056b757a7b314f973a7a23d8fdd8f3e0"
+  },
+  "actual_core_configs": 457,
+  "registered_matrices": 25,
+  "tests": "Actual add_work first/last I/O predicates and maps; all 64KiB DP SBRR default configs; two known excess-thread shapes; paired helper row/peer and pre/post formulas; two 32x33 shared tiles, all 25 matrices in both orientations and padding 0/1/7; 169 toy rectangles with even slots and invalid slots; DC/Nyquist/self mirror arithmetic",
+  "evidence_sha256": {
+    "index-exporter.o": "f0e1e0b99f2fd66f15105509cf10fb7fd3abf71f7998dee69d9ffbb5818fbf7f",
+    "progress.json": "a7e60194a750b7ddc095e8b19e37659a3fd74a69a42a0d6883fb5a6d2d4cb7a9",
+    "exporter-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index-exporter": "28cb7ddae5ab44b5f76a046b34f829cebf0b9a31d6b8e6aa89fdcefc07cb01a3",
+    "host-model-compile.log": "a2392b5ae279d5f3099a4b31992d9b0ebdbb802610d3bdf47d9f68a3b5a92d55",
+    "core-configs.txt": "b8d0d8bed93c471065e0eacac40e1c1fa213a4ebb487baafdc3276d9cfd48eed",
+    "matrices.txt": "c12027e1b980aef58c6a53f2b6e278e17639797124a806494296254eaa37c73d",
+    "exporter-compile.log": "0d87691140d05c5855b88597a733eac5302da9c448dc4d8d70fcfd2bfddc03f7",
+    "exporter-execute.log": "2246447e64382cf2e583b70551504be21ee7a13c337a45f8d05a478450a04ca7",
+    "host-index-model.cpp": "1548e8f95195d1a3c87bd7f344e564e25cdf9a6ae73ace623cdf0518085490c6",
+    "host-index-model": "22a1fa5d80cc827534b285059424bd968487dee6cb34264455cad27f1c3269d5",
+    "host-model-execute.log": "4acfbdf5ce028d587f95badedc137099a393125bf3099b8b162f6f157f2f4144"
+  }
+}

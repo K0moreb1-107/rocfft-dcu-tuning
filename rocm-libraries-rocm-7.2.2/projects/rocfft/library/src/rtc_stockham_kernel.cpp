@@ -139,6 +139,34 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
               && specs->factors == std::vector<unsigned int>{8, 8, 8};
 
         specs->real_io = node.real_io;
+        specs->real_boundary = node.real_boundary;
+        if(node.real_boundary.Active()
+           && node.real_boundary.container == RealBoundaryContainer::Rows)
+        {
+            // Only the registered paired geometry may use the boundary adapter.
+            FMKey expected_rows_key = FMKey::EmptyFMKey();
+            if(node.scheme != CS_KERNEL_STOCKHAM || !node.real_boundary.Valid()
+               || node.length.size() != 2 || node.batch != 1
+               || node.length[0] == 0
+               || node.real_boundary.HalfLength() / node.length[0] != node.length[1]
+               || node.real_boundary.HalfLength() % node.length[0] != 0
+               || node.real_io.role != RealBlockRole::None
+               || node.ebtype != EmbeddedType::NONE || node.fuseBlue != BFT_NONE
+               || !node.specified_key || !node.MakeRealBoundaryRowsKey(expected_rows_key)
+               || *node.specified_key != expected_rows_key || !specs->direct_to_from_reg
+               || kernel->transforms_per_block < 4 || kernel->transforms_per_block % 2 != 0
+               || kernel->threads_per_transform[0] <= 0
+               || kernel->workgroup_size
+                      != kernel->transforms_per_block * kernel->threads_per_transform[0]
+               || node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT
+               || node.intrinsicMode != IntrinsicAccessType::DISABLE_BOTH)
+                throw std::runtime_error("real row boundary requires its exact paired configuration");
+            // A matching ordinary key may carry AOT metadata, but its code has no boundary role.
+            // This is a local copy; never alter the function pool's ordinary entry.
+            kernel->aot_rtc = false;
+            specs->static_initial_reg_load = true;
+            specs->static_initial_reg_load_linear = true;
+        }
         // The ordinary CC LDS entry uses an unswizzled complex staging layout.
         if(node.real_io.role == RealBlockRole::HermitianColumns
            && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
@@ -371,6 +399,10 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
     if(data.node->real_io.role == RealBlockRole::PairedPostRows
        || data.node->real_io.role == RealBlockRole::GenericPairedPostRows)
         kargs.append_ptr(data.node->real_post_twiddles);
+
+    if(data.node->real_boundary.Active()
+       && data.node->real_boundary.container == RealBoundaryContainer::Rows)
+        kargs.append_ptr(data.node->real_boundary_twiddles);
 
     append_load_store_args(kargs, *data.node);
 

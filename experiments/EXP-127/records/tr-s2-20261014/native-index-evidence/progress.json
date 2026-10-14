@@ -1,0 +1,88 @@
+[
+  {
+    "name": "exporter-compile",
+    "command": [
+      "/public/software/compiler/dtk-26.04/bin/hipcc",
+      "-D__HIP_PLATFORM_AMD__",
+      "-D__HIP_PLATFORM_AMD__=1",
+      "-D__HIP_PLATFORM_HCC__=1",
+      "-D__HIP_ROCclr__=1",
+      "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+      "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++17",
+      "-fPIC",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-Wall",
+      "-Wno-unused-function",
+      "-Wimplicit-fallthrough",
+      "-Wunreachable-code",
+      "-Wsign-compare",
+      "-Wno-deprecated-declarations",
+      "--offload-arch=gfx936",
+      "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+      "-c",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp",
+      "-o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter.o"
+    ],
+    "returncode": 0,
+    "log_sha256": "0d87691140d05c5855b88597a733eac5302da9c448dc4d8d70fcfd2bfddc03f7"
+  },
+  {
+    "name": "exporter-link",
+    "command": [
+      "/public/software/compiler/dtk-26.04/bin/hipcc",
+      "-x",
+      "none",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter.o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o",
+      "-pthread",
+      "-o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter"
+    ],
+    "returncode": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "exporter-execute",
+    "command": [
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/index-exporter",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/core-configs.txt",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/matrices.txt",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model.cpp"
+    ],
+    "returncode": 0,
+    "log_sha256": "2246447e64382cf2e583b70551504be21ee7a13c337a45f8d05a478450a04ca7"
+  },
+  {
+    "name": "host-model-compile",
+    "command": [
+      "/public/software/compiler/dtk-26.04/llvm/bin/clang++",
+      "-O2",
+      "-std=c++17",
+      "-UNDEBUG",
+      "-x",
+      "c++",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model.cpp",
+      "-o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model"
+    ],
+    "returncode": 0,
+    "log_sha256": "a2392b5ae279d5f3099a4b31992d9b0ebdbb802610d3bdf47d9f68a3b5a92d55"
+  },
+  {
+    "name": "host-model-execute",
+    "command": [
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-native-s2-20261014/native-index-v4/host-index-model"
+    ],
+    "returncode": 0,
+    "log_sha256": "4acfbdf5ce028d587f95badedc137099a393125bf3099b8b162f6f157f2f4144"
+  }
+]

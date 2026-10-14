@@ -904,6 +904,14 @@ void Stockham1DNode::SetupGridParam_internal(GridParam& gp)
 
     bwd      = kernel.transforms_per_block;
     wgs      = kernel.workgroup_size;
+    if(real_boundary.Active() && real_boundary.container == RealBoundaryContainer::Rows)
+    {
+        const size_t pairs = length[1] / 2 + length[1] % 2;
+        gp.b_x = (pairs - 1) / (bwd / 2) + 1;
+        gp.wgs_x = wgs;
+        lds = length[0] * bwd;
+        return;
+    }
     gp.b_x   = (batch_accum + bwd - 1) / bwd;
     gp.wgs_x = wgs;
 
@@ -929,6 +937,8 @@ bool Stockham1DNode::CreateDeviceResources()
 
 std::vector<size_t> Stockham1DNode::CollapsibleDims()
 {
+    if(real_boundary.Active() && real_boundary.container == RealBoundaryContainer::Rows)
+        return {};
     // do not collapse on multi-kernel fused Bluestein nodes
     if(typeBlue == BT_MULTI_KERNEL_FUSED)
         return {};

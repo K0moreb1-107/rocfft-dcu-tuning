@@ -1,0 +1,11 @@
+{
+  "reason": "Compile the AST exporter using the standard HIP header initialization and the pure CPU model using the registered LLVM host compiler",
+  "changed": {
+    "experiments/EXP-127/scripts/trtrt_native_check.py": {
+      "before_sha256": "4c4bb4ee8a4cb1dcb30c46829f187949626b6d02709c2f439dea9191209f19e7",
+      "after_sha256": "ade3fbe5f8d020b5346fc53ad9aa4f27483100496b62afcb145321cc39f3070a"
+    }
+  },
+  "computation_unchanged": true,
+  "original_failure": "/public/home/zhangkewei/zr/experiments/EXP-127/records/tr-s2-20261014/native-candidate-v3/progress.json"
+}

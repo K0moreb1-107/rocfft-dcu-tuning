@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_native_check.py", line 145, in <module>
+    main()
+  File "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_native_check.py", line 102, in main
+    raise ValueError('isolated generator/rocfft-rtc-common objects missing; build those targets first')
+ValueError: isolated generator/rocfft-rtc-common objects missing; build those targets first

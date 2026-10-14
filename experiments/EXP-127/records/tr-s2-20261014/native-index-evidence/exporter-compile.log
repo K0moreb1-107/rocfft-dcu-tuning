@@ -1,0 +1,112 @@
+In file included from /public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp:7:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rr.h:23:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:373:20: warning: unused variable 'is_dp' [-Wunused-variable]
+        const bool is_dp = precisions.size() == 1
+                   ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:375:20: warning: unused variable 'is_sbcc_256' [-Wunused-variable]
+        const bool is_sbcc_256 = length == 256
+                   ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:378:20: warning: unused variable 'is_sbcc_512' [-Wunused-variable]
+        const bool is_sbcc_512 = length == 512
+                   ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:954:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp:14:74: warning: void function is missing a return statement [-Wreturn-type]
+void write_standalone_test_harness(const Function&, const std::string&) {}
+                                                                         ^
+In file included from /public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp:6:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/generator.h:34:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:74:7: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+      ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:91:57: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+                                                        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:108:58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:119:48: note: in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+                                               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:129:49: note: in instantiation of function template specialization 'store_cb_default<float>' requested here
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:140:50: note: in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+11 warnings generated when compiling for gfx936.
+In file included from /public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp:7:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_rr.h:23:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:373:20: warning: unused variable 'is_dp' [-Wunused-variable]
+        const bool is_dp = precisions.size() == 1
+                   ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:375:20: warning: unused variable 'is_sbcc_256' [-Wunused-variable]
+        const bool is_sbcc_256 = length == 256
+                   ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:378:20: warning: unused variable 'is_sbcc_512' [-Wunused-variable]
+        const bool is_sbcc_512 = length == 512
+                   ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h:954:5: warning: void function is missing a return statement [-Wreturn-type]
+    }
+    ^
+/public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp:14:74: warning: void function is missing a return statement [-Wreturn-type]
+void write_standalone_test_harness(const Function&, const std::string&) {}
+                                                                         ^
+In file included from /public/home/zhangkewei/zr/experiments/EXP-127/scripts/trtrt_boundary_index_export.cpp:6:
+In file included from /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/generator.h:34:
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:74:7: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<_Float16>>' requested here
+    = store_cb_default<rocfft_complex<rocfft_fp16>>;
+      ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:91:57: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<float>>' requested here
+static __device__ auto store_cb_default_complex_float = store_cb_default<rocfft_complex<float>>;
+                                                        ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:108:58: note: in instantiation of function template specialization 'store_cb_default<rocfft_complex<double>>' requested here
+static __device__ auto store_cb_default_complex_double = store_cb_default<rocfft_complex<double>>;
+                                                         ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:119:48: note: in instantiation of function template specialization 'store_cb_default<_Float16>' requested here
+static __device__ auto store_cb_default_half = store_cb_default<rocfft_fp16>;
+                                               ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:129:49: note: in instantiation of function template specialization 'store_cb_default<float>' requested here
+static __device__ auto store_cb_default_float = store_cb_default<float>;
+                                                ^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:52:1: warning: void function is missing a return statement [-Wreturn-type]
+}
+^
+/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../kernels/callback.h:140:50: note: in instantiation of function template specialization 'store_cb_default<double>' requested here
+static __device__ auto store_cb_default_double = store_cb_default<double>;
+                                                 ^
+11 warnings generated when compiling for host.

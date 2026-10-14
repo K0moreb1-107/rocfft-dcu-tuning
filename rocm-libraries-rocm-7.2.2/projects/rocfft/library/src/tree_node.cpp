@@ -118,6 +118,75 @@ FMKey LeafNode::GetKernelKey() const
     return TreeNode::GetKernelKey();
 }
 
+bool LeafNode::MakeRealBoundaryRowsKey(FMKey& key) const
+{
+    if(scheme != CS_KERNEL_STOCKHAM || dimension != 1 || length.size() != 2
+       || length[0] == 0 || length[1] == 0 || batch != 1
+       || precision != rocfft_precision_double || ebtype != EmbeddedType::NONE
+       || large1D != 0 || fuseBlue != BFT_NONE || isPartialPassEnabled())
+        return false;
+    FMKey candidate(length[0], precision, scheme);
+    if(!pool.has_function(candidate))
+        return false;
+    const auto kernel = pool.get_kernel(candidate);
+    const auto p = kernel.threads_per_transform[0];
+    const size_t slots = kernel.transforms_per_block & ~size_t(1);
+    // Ordinary row kernels may leave tail threads idle.  Only the new paired
+    // workgroup needs an exact TPT*slots thread count.
+    if(p <= 0 || slots < 4 || kernel.factors.empty()
+       || product(kernel.factors.begin(), kernel.factors.end()) != length[0]
+       || kernel.workgroup_size <= 0
+       || static_cast<size_t>(kernel.workgroup_size) / p < kernel.transforms_per_block
+       || slots > static_cast<size_t>(deviceProp.maxThreadsPerBlock) / p
+       || static_cast<size_t>(p) * slots > static_cast<size_t>(deviceProp.maxThreadsDim[0]))
+        return false;
+    const size_t complex_bytes = complex_type_size(precision);
+    if(length[0] == std::numeric_limits<size_t>::max()
+       || length[0] + 1 > static_cast<size_t>(deviceProp.sharedMemPerBlock)
+                              / complex_bytes / slots)
+        return false;
+    // Count row pairs without overflowing axis+1 or adding the rounding term.
+    const size_t pairs = length[1] / 2 + length[1] % 2;
+    const size_t blocks = (pairs - 1) / (slots / 2) + 1;
+    if(blocks > static_cast<size_t>(deviceProp.maxGridSize[0])
+       || blocks > std::numeric_limits<unsigned int>::max())
+        return false;
+    auto config = kernel.get_kernel_config();
+    config.transforms_per_block = slots;
+    config.workgroup_size = static_cast<size_t>(p) * slots;
+    config.direct_to_from_reg = true;
+    config.intrinsic_buffer_inst = false;
+    candidate.kernel_config = config;
+    key = candidate;
+    return true;
+}
+
+std::string LeafNode::RealBoundaryPlanComment() const
+{
+    if(!real_boundary.Active() || length.size() != 2
+       || (real_boundary.container != RealBoundaryContainer::Rows
+           && real_boundary.container != RealBoundaryContainer::Transpose))
+        return {};
+    const bool rows = real_boundary.container == RealBoundaryContainer::Rows;
+    const size_t axis = rows || real_boundary.Post() ? length[1] : length[0];
+    const size_t span = rows || real_boundary.Post() ? length[0] : length[1];
+    size_t original_slots = 0, paired_slots = 0;
+    size_t scratch_bytes = 2 * 32 * 33 * complex_type_size(precision);
+    if(rows)
+    {
+        original_slots = pool.get_kernel(FMKey(length[0], precision, scheme)).transforms_per_block;
+        paired_slots = GetKernel().transforms_per_block;
+        scratch_bytes = paired_slots * (span + 1) * complex_type_size(precision);
+    }
+    return std::string("EXP127 TRTRT boundary role=")
+        + (real_boundary.Pre() ? "pre_" : "post_") + (rows ? "rows_v1" : "transpose_v1")
+        + " real_N=" + std::to_string(real_boundary.n)
+        + " axis=" + std::to_string(axis) + " span=" + std::to_string(span)
+        + " orig_tpb=" + std::to_string(original_slots)
+        + " paired_tpb=" + std::to_string(paired_slots)
+        + " scratch_bytes=" + std::to_string(scratch_bytes);
+}
+
 void LeafNode::GetKernelFactors()
 {
     auto kernel   = GetKernel();
@@ -197,13 +266,15 @@ bool LeafNode::KernelCheck(std::vector<FMKey>& kernel_keys)
         return true;
     }
 
-    // Generic real-pair boundaries register an exact full-LDS geometry before
-    // sanity checking. Preserve it through the same key-validation path used
+    // Paired boundaries register exact geometry before sanity checking.
+    // Preserve it through the same key-validation path used
     // for solution-map kernels; clearing it would restore the ordinary kernel.
     const bool generic_real_pair = real_io.role == RealBlockRole::PairedPreColumns
                                    || real_io.role == RealBlockRole::GenericPairedPostRows;
+    const bool boundary_rows = real_boundary.Active()
+                               && real_boundary.container == RealBoundaryContainer::Rows;
     std::optional<FMKey> assigned_key;
-    if(generic_real_pair)
+    if(generic_real_pair || boundary_rows)
     {
         if(!specified_key)
             return false;
@@ -262,6 +333,16 @@ bool LeafNode::KernelCheck(std::vector<FMKey>& kernel_keys)
         GetKernelPartialPassFactors();
 
     auto kernel = GetKernel();
+    if(boundary_rows)
+    {
+        FMKey expected = FMKey::EmptyFMKey();
+        if(!real_boundary.Valid() || !MakeRealBoundaryRowsKey(expected)
+           || *specified_key != expected
+           || length[0] > std::numeric_limits<size_t>::max() / length[1]
+           || length[0] * length[1] != real_boundary.HalfLength()
+           || direction != (real_boundary.Pre() ? 1 : -1))
+            return false;
+    }
     if(generic_real_pair
        && (kernel.half_lds != real_io.ScalarPairIO()
            || kernel.direct_to_from_reg != real_io.DirectPairIO()
@@ -422,6 +503,13 @@ void LeafNode::SetupGridParam(GridParam& gp)
             // append twiddle table to dynamic lds
             gp.lds_bytes += twiddles_large_size;
         }
+    }
+    if(real_boundary.Active() && real_boundary.container == RealBoundaryContainer::Rows)
+    {
+        // Core scratch may be scalar; the boundary exchange is full complex.
+        // They occupy the same allocation at different times.
+        const size_t exchange_bytes = bwd * (length[0] + 1) * complex_type_size(precision);
+        gp.lds_bytes = std::max<size_t>(gp.lds_bytes, exchange_bytes);
     }
     // NB:
     //   SBCR / SBRC are not able to use half-lds due to both of them can't satisfy dir-to/from-registers at them same time.
