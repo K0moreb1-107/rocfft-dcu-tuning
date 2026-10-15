@@ -1,0 +1,88 @@
+{
+  "protocol": "FFT-event-cufft261012-single-v3",
+  "changed_files": {
+    "AGENTS.md": {
+      "before_sha256": "dbde70bbc58c150226b33903344567532bf292d1262861f3be8dd5702b1ffe02",
+      "after_sha256": "e162a7ca009d55063a020a6211b980183cdefbe4053c5b5d369e824c2149a080"
+    },
+    "docs/technical/A100_REFERENCE_DATA.md": {
+      "before_sha256": "06c82947a1c6cdb1ffe49eb8a3ecf17e4059addb48cfa79eefebcfa075b63246",
+      "after_sha256": "6188b13347e11fe0f161dcc06d9a344c68b7f8dc6d6ed82dc77efe79c6581e94"
+    },
+    "docs/technical/FFT_MEASUREMENT_PROTOCOL.md": {
+      "before_sha256": "fcf99c14d7bbed0962a7076fb7e05df4abed9fd89cf84609028094fb16589bcc",
+      "after_sha256": "8f46e2848b058a44e6df4db42ac8f5948682c40e86a0d276e2e7da6ccde01316"
+    },
+    "docs/technical/WORKSPACE_MANAGEMENT.md": {
+      "before_sha256": "1cac39bd7b68ef20b0ede63149c4a4091b7b06c5eb0beefada0cba5fd026aada",
+      "after_sha256": "e3e953cec7868bfb614875fe3bd194811889a8e4c4e9a28f9238f78ec85e942a"
+    },
+    "tools/fft_measurement/cufft261012_contract.py": {
+      "before_sha256": null,
+      "after_sha256": "b5349000cecfd45503a2af06475c785ff7650cd27bd22c5f396cc40def6d9a42"
+    },
+    "tools/fft_measurement/fft_test_1d_cufft261012.cpp": {
+      "before_sha256": null,
+      "after_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771"
+    },
+    "tools/fft_measurement/manifest.example.json": {
+      "before_sha256": "b3f557aae924dabd87d51dc0b945dcb4d52f12de25a8ee0be9a9eaca0b8bf40b",
+      "after_sha256": "434a2f306489daba42edbfc9a86483df5100d1a9a2c693f32e3f5b97b106eb4b"
+    },
+    "tools/fft_measurement/manifest.v2.example.json": {
+      "before_sha256": null,
+      "after_sha256": "b3f557aae924dabd87d51dc0b945dcb4d52f12de25a8ee0be9a9eaca0b8bf40b"
+    },
+    "tools/fft_measurement/plot_cufft261012.py": {
+      "before_sha256": null,
+      "after_sha256": "0010273984a5033b0ce55b79d94aea235514053727ac2020fb24b62711505af7"
+    },
+    "tools/fft_measurement/rocfft_measurement_support_v3.h": {
+      "before_sha256": null,
+      "after_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6"
+    },
+    "tools/fft_measurement/run_cufft261012.py": {
+      "before_sha256": null,
+      "after_sha256": "6a04073c17d36e32046c8af6879442ebc953ff785360ec481c8b8bd28c360664"
+    },
+    "tools/fft_measurement/summarize_cufft261012.py": {
+      "before_sha256": null,
+      "after_sha256": "88d6b3107b95e8fa9120d1e6a3dda9f8020f20b18a1075af455180bbeefa2354"
+    },
+    "tools/fft_measurement/test_cufft261012.py": {
+      "before_sha256": null,
+      "after_sha256": "a81a969cdde819259d0c4d6fb25bff3c5d0fb19942792533bc0dc3204ec6eb29"
+    },
+    "tools/fft_measurement/test_samples.py": {
+      "before_sha256": "8375ad7fb7991e05df34a411141567c6d4dfbd1b16a32808d56e19374c7398db",
+      "after_sha256": "433986064cccb49cc6824e4ec0bf0b49ad0ee2f41e9c3af751549473d932a33e"
+    },
+    "tools/workspace_manager/deferred.py": {
+      "before_sha256": "ce79d97b05b80d1f96c27f0f388436a37687649a806cb6ed71d75b9fc01c5fb8",
+      "after_sha256": "56f77fd2e7b32f2a09e4efc6a63ac3271d6379df1d20692d7117644807d5f185"
+    },
+    "tools/workspace_manager/manager.py": {
+      "before_sha256": "681f1bfc46ca3bd87f6103020d902132f04f042615ed0c1a73bd8edc49de6e83",
+      "after_sha256": "bf0c8cf5077f3e13b0c80b393aa6c4ec9efeec28c2e280bc17bd54d1534a112e"
+    }
+  },
+  "config": "configs/experiments/EXP-127-cc-a100-cufft261012-performance-20261015.json",
+  "config_sha256": "3b82c6b60857ef2bbf5f39d51683dd20b2fad8f3f862014970cb5e8be0e0f609",
+  "source_head_before": "909be30942cbc2182f31c442cb5d8a0ea8e82d5c",
+  "rocfft_source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "stable_ref": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "installed_tests": {
+    "code": 0,
+    "log": "experiments/EXP-127/records/timing-v3-cufft261012-20261015/installed-contracts.log",
+    "sha256": "9977f136021e59b33013042aa43b0069f20049434321eb045e90cb165de207ec"
+  },
+  "preview": {
+    "path": "experiments/EXP-127/records/timing-v3-cufft261012-20261015/preview.stdout.json",
+    "sha256": "90ff6cdd20bb7831db49ad3f8ca94f84e12850724378768d39515c465577d5c0"
+  },
+  "recorded_samples": 1440,
+  "warmup_executions": 480,
+  "device_execution": false,
+  "stop_after_submission": true,
+  "generated_utc": "2026-10-15T04:17:58.452472+00:00"
+}

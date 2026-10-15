@@ -12,7 +12,7 @@ Temporary worktrees require explicit user agreement. Earlier dated sections
 record prior states and are superseded by the final main/branch section.
 
 
-当前测量及分析规则（2026-10-12）：采用单进程逐次样本协议，默认三次预热及50次计时。
+当前测量及分析规则（2026-10-15）：新性能默认FFT-event-cufft261012-single-v3，单进程十次事件预热及30次计时；显式旧协议保留原程序。
 以后正式耗时、加速判断和验收只用样本中位数；加速比＝对照中位数／当前中位数。
 均值仅作原始记录或兼容输出；历史原表不改写，缺少逐次样本不构造中位数。
 A100只有历史均值时单列参考，不混算中位数加速比或相对性能。

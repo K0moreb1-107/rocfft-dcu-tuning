@@ -30,8 +30,12 @@ def inputs(cfg):
     b = hashed_json(spec['build_config'], spec['build_config_sha256'])
     mgr.require(m['experiment'] == b['experiment'] == cfg['experiment'], 'queue experiment mismatch')
     mgr.require(m['run_id'] != cfg['run_id'], 'queue and measurement need independent run IDs')
-    import sample_contract as protocol
-    mgr.require(m.get('policy') == protocol.POLICY, 'early queue requires sample protocol v2')
+    protocol = mgr.measurement_protocol(m)
+    mgr.require(protocol is not mgr.common and m.get('policy') == protocol.POLICY, 'early queue requires an explicit sample protocol')
+    if hasattr(protocol, 'freeze_reference') and spec.get('a100_reference'):
+        mgr.require('a100_reference' not in m or m['a100_reference'] == spec['a100_reference'], 'conflicting frozen A100 reference')
+        m['a100_reference'] = copy.deepcopy(spec['a100_reference'])
+        protocol.reference(m)
     mgr.require(m.get('gpu_arch') == 'gfx936', 'unsupported queue GPU profile')
     mgr.require(m.get('timing_source_sha256') == protocol.SOURCE_SHA, 'timing source mismatch')
     mgr.require(isinstance(m.get('acceptance'), str) and len(m['acceptance'].strip()) >= 10,
@@ -105,7 +109,7 @@ def plan(cfg):
     m, b, bp, hook = inputs(cfg)
     mgr.source_identity(b)
     mgr.require(not mgr.locations(m, 'measure')['run'].exists(), 'measurement run already used')
-    import sample_contract as protocol
+    protocol = mgr.measurement_protocol(m)
     references = {}
     for name in protocol.arms(m):
         if name == 'candidate':
@@ -122,14 +126,18 @@ def plan(cfg):
         mgr.require(mgr.common.sha(mgr.inside(a['install']) / 'lib/librocfft.so.0.1') == a['library_sha256'],
                     'reference library changed')
         references[name] = a
-    return dict(task='measure', deferred=True, queue_run=str(mgr.locations(cfg, 'measure')['run']),
+    frozen = copy.deepcopy(cfg)
+    if hasattr(protocol, 'freeze_reference'):
+        pinned = protocol.freeze_reference(m)
+        frozen['deferred_measurement']['a100_reference'] = pinned['a100_reference']
+    return dict(resolved_preregistration=frozen, task='measure', deferred=True, queue_run=str(mgr.locations(cfg, 'measure')['run']),
                 measurement_run=str(mgr.locations(m, 'measure')['run']),
                 submission_command=mgr.submission_command('measure', cfg),
                 reference_arms=references, pending_candidate=dict(build_job_id=cfg['deferred_measurement']['build_job_id'],
                     source_commit=b['build']['source_commit'], install=str(bp['install']),
                     library_sha256=None, validation_command=hook),
                 cases=len(mgr.common.cases(m)), processes=len(protocol.schedule(m)),
-                event_iterations=protocol.iterations(m), timing_warmups=3, node_exclusive=True,
+                event_iterations=protocol.iterations(m), timing_warmups=getattr(protocol, 'WARMUPS', 3), node_exclusive=True,
                 notice='Only scheduling is early. Freeze the real candidate checksum after successful build and validation, before any timing.')
 
 
@@ -158,8 +166,12 @@ def execute(cfg):
             json.loads((queue / 'submission.json').read_text()), queue_run=str(queue)))
         mgr.dumps(queue / 'resolution.json', dict(measurement_run=str(p['run']),
             resolved_manifest_sha256=mgr.common.sha(p['run'] / 'submit-manifest.json'), **evidence))
-        import run_samples
-        run_samples.execute(m)
+        protocol = mgr.measurement_protocol(m)
+        if protocol.POLICY == 'FFT-event-cufft261012-single-v3':
+            import run_cufft261012 as worker
+        else:
+            import run_samples as worker
+        worker.execute(m)
         mgr.dumps(queue / 'completion.json', dict(complete=True, measurement_run=str(p['run'])))
     except Exception as error:
         mgr.dumps(queue / 'execution-failed.json', dict(error=str(error), complete=False))

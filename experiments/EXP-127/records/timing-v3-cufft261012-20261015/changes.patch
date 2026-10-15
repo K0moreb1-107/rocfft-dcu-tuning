@@ -1,0 +1,1651 @@
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -4,22 +4,23 @@
+ in /public/home/zhangkewei/zr. Do not change the measurement definition without
+ recording the reason and updating this file first.
+ 
+-## 性能测量（2026-10-12）
++## 性能测量（用户更新，2026-10-15）
+ 
+ 统一入口：`python3 manage.py measure --config CONFIG.json` 预览，加 `--execute` 提交。
+-新测量使用 `FFT-event-samples-single-v2`：双精度、批量一、非原位、默认计划；
+-每个尺寸／类型／版本一个独立进程，三次预热，默认50次逐次同步的完整变换事件计时。
+-次数可在登记中调整，同一比较各版本相同；保留原输入、初始化和严格 `<1e-9` 正确性。
+-对照与当前紧邻执行，各尺寸／类型交替先后；默认两版本，需要时显式增加稳定对照。
+-节点独占、单卡执行，登记具体源码、库、程序校验值、设备、顺序和验收要求；缺项或失败不汇总。
+-逐次耗时先存入预分配数组，计时结束再写文件；保留全部样本，不删慢点。
+-以后性能分析和验收只用原始逐次耗时的中位数；加速比＝对照中位数／当前中位数。
+-均值可保留在原始记录或兼容输出，不参与性能结论、类型判断或验收。
+-保留两列散点和测量序号—耗时图；图形重叠或顺序漂移时标注差异不明确，不自动重测或推广。
+-A100只有历史均值时单列参考，不与当前中位数混算加速比或相对性能。
+-历史登记、原表和任务900813保留原口径；以后重新分析已有逐次样本时另存中位数报告。
+-缺少逐次样本不构造中位数，不用进程均值的中位数替代；用户要求重测时才执行。
+-细则、样本格式和旧版协议见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。
++新测量默认 `FFT-event-cufft261012-single-v3`：双精度、一维、批量一、非原位、默认计划；
++每个尺寸／类型／版本一个独立进程，十次预热、三十次正式计时。
++沿用test_fft_261012原包事件循环：预热及正式变换共用计划、缓冲区与默认流，每次单独同步；
++只读出后30次耗时，预分配样本空间，结束后写文件。输入为元素序号，复数虚部为零。
++严格 `<1e-9` 正确性在窗口外完成，随后完整恢复测量输入；没有假N=1计划或未初始化首轮。
++节点独占、单卡；对照与当前紧邻、交替先后，冻结源码／头文件／库／程序／参考与设备身份。
++保留原包39列、未舍入逐次样本及独立正确性表；缺项、校验失败或身份不符即拒绝汇总。
++性能分析及验收只用全部逐次样本的中位数，加速比＝对照中位数／当前中位数，不剔除慢点。
++保留散点与测量序号图，仅标中位数及中间50%区间；重叠或漂移标注差异不明确，不自动重测或推广。
++新A100参考在提交前冻结具体版本，只按精确N、类型及10／30条件匹配中位数；无匹配留空。
++performance＝A100中位数／当前中位数×100%，仅作跨设备参考，原包构建凭据限制须注明。
++旧v1／v2配置显式沿用原协议与程序，原始结果及920949的三次／50次记录不改写、不混表。
++新程序固定10／30；需要调整次数时另行登记对应源码版本，不能只改配置冒用原身份。
++细则及版本差异见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。提交任务后停止，待用户要求检查。
+ 
+ ## Historical hipprof scope and matching conditions
+ 
+@@ -339,4 +340,4 @@
+ formal acceptance or automatic promotion. All task submission uses manage.py.
+ 
+ 最新A100资料见 `results/reference/a100/latest.json` 与 `docs/technical/A100_REFERENCE_DATA.md`。
+-当前参考为10次预热、30次逐次计时；按样本中位数引用并注明条件差异，历史冻结参考及服务器协议不改写。
++新A100参考与v3均为10次预热、30次逐次计时；只按精确尺寸及类型匹配中位数，历史参考和旧协议原件保留。
+--- a/docs/technical/A100_REFERENCE_DATA.md
++++ b/docs/technical/A100_REFERENCE_DATA.md
+@@ -9,12 +9,11 @@
+ 类型列使用 z2z_1d、d2z_1d、z2d_1d；表内批量为一，源码为双精度、一维、非原位。
+ 只用逐次样本中位数分析；需要微秒时将毫秒乘1000。输入源与统计定义必须随引用记录。
+ 
+-这份A100数据预热10次、计时30次，随包源码不做数值正确性校验；当前rocFFT协议为
+-三次预热、默认50次计时并严格检查正确性。两者的条件差异需明确说明；本次导入
+-不改变服务器测量协议，不将它直接替换正式同条件验收中的旧登记。
+-该包的源码和程序使用CUDA；未在AMD服务器编译或执行，源码与二进制对应关系未被构建记录证明。
+-后续若需要统一两平台采样条件或移植程序，应另行登记新协议、构建身份和验证结果。
++这份A100数据为十次预热、三十次计时，原包程序不做数值校验。2026-10-15起，服务器
++新性能默认v3程序已移植同一事件循环、递增输入及10／30计数，正确性在窗口外保留，
++随后恢复测量输入。新报告按精确N及类型使用A100样本中位数，performance仅作跨设备参考。
++原CUDA程序与二进制保持原件，源码／二进制对应关系仍缺少构建证明；新HIP移植不补造A100凭据。
+ 
+ 历史文件 A100_1d_32768_65536_131072_262144_524288_1048576.csv 及 provenance.json
+-保留原字节。旧统一工具仍按冻结校验值读取这份只有均值的参考，既有任务及报告不改写。
++保留原字节。显式旧协议仍按冻结校验值读取这份只有均值的参考，既有任务及报告不改写。
+ 新资料为独立版本；以后增加版本只更新 latest.json，保留全部历史目录。
+--- a/docs/technical/FFT_MEASUREMENT_PROTOCOL.md
++++ b/docs/technical/FFT_MEASUREMENT_PROTOCOL.md
+@@ -1,8 +1,51 @@
+ # FFT性能测量协议
+ 
+-## 当前规则（用户批准，2026-10-12；采样流程沿用2026-10-10）
+-
+-协议标识：`FFT-event-samples-single-v2`。新配置省略 `policy` 时采用此规则；
++## 现行v3规则（用户要求采用新压缩包，2026-10-15）
++
++协议为 `FFT-event-cufft261012-single-v3`，新配置省略policy时选择v3；默认模板已更新。
++显式v1、v2保留原程序、采样和解析。历史运行、参考、配置与报告不改写，920949仍为v2。
++
++计时源码为 `tools/fft_measurement/fft_test_1d_cufft261012.cpp`，直接移植原包
++`test_fft/src/fft_test_1d.cu` 的事件循环及统计方法：十次预热、三十次正式事件，
++预热与正式计时使用同一循环、同一计划／缓冲区／默认流，每次变换都记录起止事件并同步终止事件，
++只读出并保存后30次耗时。循环前reserve，循环内无输出、输入恢复或外加内核扣除。
++原包CUDA事件替换为HIP事件，cuFFT计划／执行替换为rocFFT；不经过hipFFT，不改库的默认计划选择。
++原包的目标计划只创建一次，移除旧测试程序的N=1初始化计划及未初始化首轮执行。
++
++双精度、一维、批量一、输入输出分离；输入按原包填充为double(i)，复数虚部为零，
++三种类型分别分配实际需要的输入输出字节。默认流为零，工作缓冲区与计划设置在计时外。
++保留旧版独立脉冲／往返／解析逆变换的严格 `<1e-9` 校验，在事件循环外运行；
++随后恢复全部递增输入，再开始十次预热。额外校验不计入30个样本，属于对原包的明确补充。
++非有限误差必须失败；小偶数的奈奎斯特项只计一次。没有关闭正确性的测量选项。
++
++每个尺寸／类型／版本一个进程，官方与当前紧邻且随案例交替顺序，按需显式增加稳定对照。
++节点独占、单卡，登记设备、执行顺序、真实库及构建身份；RTC缓存读写关闭，临时目录独立。
++程序固定10／30，配置与环境不符即拒绝；调整次数必须另行登记对应源码版本。
++
++每进程保留三份表：
++
++- `fft_test_1d.csv`：原包39列及六位小数毫秒格式，包括30个逐次值和原始统计字段。
++- `fft_test_1d.samples.csv`：未舍入的func,N,batch,sample_index,elapsed_ms，用于中位数及分位数分析。
++- `fft_test_1d.check.csv`：窗口外正确性结果、原严格误差与批量记录。
++
++严格核对原表舍入值与未舍入样本、统计字段、序号、校验和全部来源；缺项或失败不得汇总。
++均值仅保留原始／兼容字段；新报告和图只用中位数。全部样本保留，不筛慢点。
++分位数按排序后的(样本数−1)×比例线性插值；仍输出各版一列散点和测量序号图。
++区间重叠、漂移时标注不明确，一组样本不证明跨次稳定性，不自动重测或推广。
++
++最新A100资料在提交前由latest登记解析并冻结具体清单、程序和中位数表校验值；
++排队后不跟随latest变化，提前排队同样冻结引用。按N、类型、10次预热／30次样本精确匹配，
++performance＝A100中位数／当前中位数×100%，缺少匹配留空。这是跨设备参考，
++不是同卡验收；原包缺少源码与二进制对应的构建记录、数值校验及测量期频率证据，随引用注明。
++同卡加速比仍只取登记对照中位数／当前中位数，不将不同协议的结果拼为同一次测量。
++
++统一入口自动选择相应运行器、解析器和图。预览显示10／30及进程数，运行记录冻结主源码及
++正确性支持头文件校验值；旧程序与统计模块保留原字节。版本移植及原循环一致性、事件调用顺序、
++编译和兼容检查见EXP127的timing-v3-cufft261012-20261015登记，GPU正确性由新任务逐项检验。
++
++## 历史v2规则（用户批准，2026-10-12；采样流程沿用2026-10-10）
++
++协议标识：`FFT-event-samples-single-v2`。以下保留当时规则；现在须显式指定此协议。
+ 已经登记的 `EXP123-event-50-three-arm-8-v1` 保留原方式。
+ 本次只修改分析规则，不改采样程序、次数或计时窗口，不自动重测历史结果。
+ 已有登记、原始数据和原报告保持原样；以后分析已有逐次样本时另存中位数报告。
+--- a/docs/technical/WORKSPACE_MANAGEMENT.md
++++ b/docs/technical/WORKSPACE_MANAGEMENT.md
+@@ -12,7 +12,7 @@
+ record prior states and are superseded by the final main/branch section.
+ 
+ 
+-当前测量及分析规则（2026-10-12）：采用单进程逐次样本协议，默认三次预热及50次计时。
++当前测量及分析规则（2026-10-15）：新性能默认FFT-event-cufft261012-single-v3，单进程十次事件预热及30次计时；显式旧协议保留原程序。
+ 以后正式耗时、加速判断和验收只用样本中位数；加速比＝对照中位数／当前中位数。
+ 均值仅作原始记录或兼容输出；历史原表不改写，缺少逐次样本不构造中位数。
+ A100只有历史均值时单列参考，不混算中位数加速比或相对性能。
+--- a/tools/fft_measurement/cufft261012_contract.py
++++ b/tools/fft_measurement/cufft261012_contract.py
+@@ -0,0 +1,143 @@
++"""Supplied 2026-10-12 timing semantics, separately versioned from v1/v2."""
++import copy
++import csv
++import json
++import math
++import re
++import statistics
++from pathlib import Path
++from common import ROOT, OFFICIAL_COMMIT, OFFICIAL_SHA, cases, inside, require, sha
++from sample_contract import arms, schedule, read_samples, percentile, statistics_for
++
++POLICY = 'FFT-event-cufft261012-single-v3'
++SOURCE_NAME = 'fft_test_1d_cufft261012.cpp'
++SUPPORT_NAME = 'rocfft_measurement_support_v3.h'
++SOURCE_SHA = 'b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771'
++SUPPORT_SHA = '1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6'
++ORIGIN_SHA = 'f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35'
++SOURCE_FILES = {SOURCE_NAME: SOURCE_SHA, SUPPORT_NAME: SUPPORT_SHA}
++WARMUPS = 10
++EVENTS = 30
++CHECK_HEADER = ['func', 'N', 'batch', 'check', 'err_a', 'err_b']
++HEADER = ['func', 'N', 'is_warmup', 'warmup_times', 'test_times',
++          'tmax_ms', 'tmin_ms', 'tmean_ms', 'tmedium_ms'] + ['time_%d_ms' % i for i in range(1, EVENTS + 1)]
++
++def iterations(m):
++    require(type(m.get('event_iterations', EVENTS)) is int and m.get('event_iterations', EVENTS) == EVENTS,
++            'this frozen source requires exactly 30 measurements')
++    return EVENTS
++
++def validate_manifest(value):
++    m = copy.deepcopy(value)
++    require(m.get('policy', POLICY) == POLICY, 'wrong sample policy')
++    m['policy'] = POLICY
++    m['event_iterations'] = iterations(m)
++    require(m.get('timing_warmups', WARMUPS) == WARMUPS, 'warmup version mismatch')
++    m['timing_warmups'] = WARMUPS
++    require(m.get('timing_support_sha256', SUPPORT_SHA) == SUPPORT_SHA, 'support version mismatch')
++    m['timing_support_sha256'] = SUPPORT_SHA
++    require(m.get('timing_source_sha256', SOURCE_SHA) == SOURCE_SHA, 'timing source version mismatch')
++    m['timing_source_sha256'] = SOURCE_SHA
++    require(re.fullmatch(r'EXP-\d{3,}', m.get('experiment', '')) is not None, 'explicit EXP identifier required')
++    require(re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,79}', m.get('run_id', '')) is not None, 'invalid run_id')
++    require(isinstance(m.get('acceptance'), str) and len(m['acceptance'].strip()) >= 10
++            and 'REPLACE' not in m['acceptance'], 'preregister experiment-specific acceptance')
++    require(m.get('gpu_arch') == 'gfx936', 'register another profile for other hardware')
++    for arm in arms(m):
++        a = m['arms'][arm]
++        for field, length in (('source_commit', 40), ('library_sha256', 64)):
++            require(re.fullmatch('[0-9a-f]{%d}' % length, a.get(field, '')) is not None,
++                    arm + ': invalid ' + field)
++        for field in ('install', 'source_repo'):
++            inside(a[field])
++        for field in ('source_state', 'build_provenance'):
++            require(isinstance(a.get(field), str) and len(a[field].strip()) >= 10
++                    and 'REPLACE' not in a[field], arm + ': explicit ' + field + ' required')
++    if 'official' in m['arms']:
++        a = m['arms']['official']
++        require(a['source_commit'] == OFFICIAL_COMMIT and a['library_sha256'] == OFFICIAL_SHA,
++                'official source/library is fixed')
++    cases(m)
++    return m
++
++
++
++def manifest(path):
++    return validate_manifest(json.loads(Path(path).read_text(encoding='utf-8')))
++
++def read_rows(path, header=HEADER):
++    with Path(path).open(encoding='utf-8-sig', newline='') as stream:
++        reader = csv.DictReader(stream)
++        require(reader.fieldnames == header, 'invalid versioned CSV header: ' + str(path))
++        rows = list(reader)
++    require(all(set(row) == set(header) and all(v is not None for v in row.values()) for row in rows), 'malformed CSV')
++    return rows
++
++def read_check(path):
++    rows = read_rows(path, CHECK_HEADER)
++    require(len(rows) == 1, 'one correctness record required')
++    return rows[0]
++
++def validate_process(row, samples, check, n, func, count):
++    require(set(row) == set(HEADER) and count == EVENTS, 'wrong v3 process schema/count')
++    require(row['func'] == check['func'] == func and int(row['N']) == int(check['N']) == n, 'case mismatch')
++    require(row['is_warmup'] == '1' and row['warmup_times'] == str(WARMUPS)
++            and row['test_times'] == str(EVENTS) and check['batch'] == '1', 'conditions mismatch')
++    a, b = float(check['err_a']), float(check['err_b'])
++    require(check['check'] == 'PASS' and math.isfinite(a) and math.isfinite(b) and 0 <= a < 1e-9,
++            'strict numerical correctness failed')
++    require((0 <= b < 1e-9) if func == 'z2z_1d' else b == -1, 'strict secondary correctness failed')
++    require(len(samples) == EVENTS, 'missing/extra samples')
++    values = []
++    for index, sample in enumerate(samples, 1):
++        require(sample['func'] == func and int(sample['N']) == n and sample['batch'] == '1'
++                and int(sample['sample_index']) == index, 'sample identity/order mismatch')
++        value = float(sample['elapsed_ms'])
++        require(math.isfinite(value) and value > 0, 'nonpositive/nonfinite sample')
++        require(math.isclose(float(row['time_%d_ms' % index]), value, rel_tol=0, abs_tol=0.500001e-6),
++                'wide sample differs from lossless sample')
++        values.append(value)
++    expected = {'tmax_ms': max(values), 'tmin_ms': min(values),
++                'tmean_ms': statistics.mean(values), 'tmedium_ms': statistics.median(values)}
++    for key, value in expected.items():
++        actual = float(row[key])
++        require(math.isfinite(actual) and actual > 0
++                and math.isclose(actual, value, rel_tol=0, abs_tol=0.500001e-6), 'aggregate differs from samples')
++    return values
++
++def freeze_reference(m):
++    """Resolve the latest reference once, before queueing; never follow it in a worker."""
++    m = copy.deepcopy(m)
++    if 'a100_reference' not in m:
++        latest = json.loads((ROOT/'results/reference/a100/latest.json').read_text(encoding='utf-8'))
++        path = inside(latest['manifest'])
++        require(sha(path) == latest['manifest_sha256'], 'latest A100 manifest changed')
++        dataset = json.loads(path.read_text(encoding='utf-8'))
++        directory = inside(dataset['dataset_dir'])
++        m['a100_reference'] = dict(dataset=dataset['dataset_id'], manifest=str(path), manifest_sha256=sha(path),
++            median_table=str(directory/'medians.csv'),
++            median_table_sha256=dataset['supplemental_files']['medians.csv']['sha256'],
++            source=str(directory/dataset['program_source']), source_sha256=ORIGIN_SHA,
++            warmups=WARMUPS, event_iterations=EVENTS, input_pattern='linear_index_real_imaginary_zero',
++            comparison='cross_device_reference', source_binary_correspondence_verified=False)
++    reference(m)
++    return m
++
++def reference(m):
++    record = m.get('a100_reference')
++    require(isinstance(record, dict), 'freeze the explicit A100 reference before execution')
++    for path, digest in (('manifest', 'manifest_sha256'), ('median_table', 'median_table_sha256'), ('source', 'source_sha256')):
++        require(sha(inside(record[path])) == record[digest], 'A100 reference changed: ' + path)
++    require(record['source_sha256'] == ORIGIN_SHA and record['warmups'] == WARMUPS
++            and record['event_iterations'] == EVENTS and record['input_pattern'] == 'linear_index_real_imaginary_zero',
++            'A100 timing/input version differs')
++    result = {}
++    with inside(record['median_table']).open(encoding='utf-8', newline='') as stream:
++        for row in csv.DictReader(stream):
++            key = (int(row['N']), row['func'])
++            require(key not in result and row['batch'] == '1' and row['warmup_times'] == str(WARMUPS)
++                    and row['test_times'] == str(EVENTS), 'A100 row mismatch')
++            value = float(row['median_ms'])
++            require(math.isfinite(value) and value > 0, 'invalid A100 median')
++            result[key] = value
++    return result
+--- a/tools/fft_measurement/fft_test_1d_cufft261012.cpp
++++ b/tools/fft_measurement/fft_test_1d_cufft261012.cpp
+@@ -0,0 +1,329 @@
++// HIP/rocFFT port of supplied fft_test_1d.cu (f48f5212); the event loop is mechanically preserved.
++#include <algorithm>
++#include <complex>
++#include <cstdlib>
++#include <filesystem>
++#include <fstream>
++#include <iomanip>
++#include <iostream>
++#include <numeric>
++#include <sstream>
++#include <string>
++#include <vector>
++
++#include <cmath>
++#include <limits>
++#include <memory>
++#include <stdexcept>
++#include <hip/hip_complex.h>
++#include <hip/hip_runtime.h>
++#include <rocfft/rocfft.h>
++
++#define CHECK_HIP(x)                                                       \
++    do {                                                                    \
++        hipError_t err = (x);                                              \
++        if (err != hipSuccess) {                                           \
++            std::cerr << "HIP error: " << hipGetErrorString(err)          \
++                      << " (" << __FILE__ << ":" << __LINE__ << ")\n";      \
++            std::exit(EXIT_FAILURE);                                        \
++        }                                                                   \
++    } while (0)
++
++#define CHECK_FFT(x)                                                        \
++    do {                                                                    \
++        rocfft_status err = (x);                                              \
++        if (err != rocfft_status_success) {                                         \
++            std::cerr << "rocFFT error: " << static_cast<int>(err)            \
++                      << " (" << __FILE__ << ":" << __LINE__ << ")\n";      \
++            std::exit(EXIT_FAILURE);                                        \
++        }                                                                   \
++    } while (0)
++
++#include "rocfft_measurement_support_v3.h"
++
++// ====================== Configuration ======================
++constexpr bool ENABLE_TIMING = true;
++constexpr bool ENABLE_CSV = true;
++constexpr int test_times = 30;      // Number of measured FFT executions.
++constexpr int warmup_times = 10;   // Number of warmup executions when enabled.
++std::string OUTPUT_PATH; // Explicit managed output directory, set before any library call.
++// ===========================================================
++
++struct TimingStats {
++    double tmax = 0.0;
++    double tmin = 0.0;
++    double tmean = 0.0;
++    double tmedium = 0.0;  // Median, named tmedium to match the requested CSV field.
++};
++
++// Warmup and measured FFT calls share the same plan, buffers, stream, and loop.
++// The first warmup_count iterations are executed but discarded; the following
++// test_times iterations are recorded (time_1_ms through time_test_times_ms).
++template <typename TestFn>
++std::vector<float> runBenchmark(bool is_warmup, TestFn&& test_fn)
++{
++    const int warmup_count = is_warmup ? warmup_times : 0;
++    const int total_iterations = warmup_count + test_times;
++
++    hipEvent_t start = nullptr;
++    hipEvent_t stop = nullptr;
++    if (ENABLE_TIMING) {
++        CHECK_HIP(hipEventCreate(&start));
++        CHECK_HIP(hipEventCreate(&stop));
++    }
++
++    std::vector<float> measured_ms;
++    if (ENABLE_TIMING) {
++        measured_ms.reserve(test_times);
++    }
++
++    // Identical execution path for warmup and tests, including event timing.
++    for (int i = 0; i < total_iterations; ++i) {
++        if (ENABLE_TIMING) {
++            CHECK_HIP(hipEventRecord(start, 0));
++        }
++
++        test_fn();
++
++        if (ENABLE_TIMING) {
++            CHECK_HIP(hipEventRecord(stop, 0));
++            CHECK_HIP(hipEventSynchronize(stop));
++
++            if (i >= warmup_count) {
++                float current_ms = 0.0f;
++                CHECK_HIP(hipEventElapsedTime(&current_ms, start, stop));
++                measured_ms.push_back(current_ms);
++            }
++        }
++    }
++
++    // Catch asynchronous FFT errors when event synchronization is disabled.
++    if (!ENABLE_TIMING) {
++        CHECK_HIP(hipDeviceSynchronize());
++    }
++    if (ENABLE_TIMING) {
++        CHECK_HIP(hipEventDestroy(start));
++        CHECK_HIP(hipEventDestroy(stop));
++    }
++    return measured_ms;
++}
++
++TimingStats calculateStats(const std::vector<float>& measured_ms)
++{
++    TimingStats s;
++    if (measured_ms.empty()) {
++        return s;
++    }
++
++    const auto minmax = std::minmax_element(measured_ms.begin(), measured_ms.end());
++    s.tmin = *minmax.first;
++    s.tmax = *minmax.second;
++    s.tmean = std::accumulate(measured_ms.begin(), measured_ms.end(), 0.0)
++              / static_cast<double>(measured_ms.size());
++
++    std::vector<float> sorted = measured_ms;
++    std::sort(sorted.begin(), sorted.end());
++    const size_t n = sorted.size();
++    s.tmedium = (n % 2 != 0)
++                    ? static_cast<double>(sorted[n / 2])
++                    : (static_cast<double>(sorted[n / 2 - 1])
++                       + static_cast<double>(sorted[n / 2])) / 2.0;
++    return s;
++}
++
++bool writeCsv(const std::string& func,
++              int N,
++              bool is_warmup,
++              const std::vector<float>& measured_ms,
++              const TimingStats& s)
++{
++    std::error_code ec;
++    std::filesystem::create_directories(OUTPUT_PATH, ec);
++    if (ec) {
++        std::cerr << "Cannot create CSV directory " << OUTPUT_PATH
++                  << ": " << ec.message() << '\n';
++        return false;
++    }
++
++    const std::filesystem::path file_path =
++        std::filesystem::path(OUTPUT_PATH) / "fft_test_1d.csv";
++
++    std::ostringstream header_stream;
++    header_stream << "func,N,is_warmup,warmup_times,test_times,"
++                  << "tmax_ms,tmin_ms,tmean_ms,tmedium_ms";
++    for (int t = 0; t < test_times; ++t) {
++        header_stream << ",time_" << (t + 1) << "_ms";
++    }
++    const std::string expected_header = header_stream.str();
++
++    bool write_header = true;
++    {
++        std::ifstream fin(file_path);
++        if (fin) {
++            std::string existing_header;
++            if (std::getline(fin, existing_header)) {
++                // Reject old CSV schemas to avoid mixing incompatible columns.
++                if (existing_header != expected_header) {
++                    std::cerr << "CSV header mismatch: " << file_path << '\n'
++                              << "Move/rename the old CSV or select a new output path.\n";
++                    return false;
++                }
++                write_header = false;
++            }
++        }
++    }
++
++    std::ofstream fout(file_path, std::ios::app);
++    if (!fout) {
++        std::cerr << "Cannot open CSV for writing: " << file_path << '\n';
++        return false;
++    }
++
++    if (write_header) {
++        fout << expected_header << '\n';
++    }
++
++    fout << std::fixed << std::setprecision(6);
++    fout << func << ',' << N << ',' << (is_warmup ? 1 : 0) << ','
++         << (is_warmup ? warmup_times : 0) << ',' << test_times;
++
++    if (ENABLE_TIMING) {
++        fout << ',' << s.tmax << ',' << s.tmin << ',' << s.tmean
++             << ',' << s.tmedium;
++    } else {
++        fout << ",,,,";
++    }
++
++    for (int t = 0; t < test_times; ++t) {
++        fout << ',';
++        if (ENABLE_TIMING) {
++            fout << measured_ms[t];
++        }
++    }
++    fout << '\n';
++    if (!fout) {
++        std::cerr << "Error while writing CSV: " << file_path << '\n';
++        return false;
++    }
++    return true;
++}
++
++
++bool writeEvidence(const std::string& func, int n, const Check& check,
++                   const std::vector<float>& times)
++{
++    const auto directory = std::filesystem::path(OUTPUT_PATH);
++    std::ofstream checked(directory / "fft_test_1d.check.csv");
++    checked << std::setprecision(std::numeric_limits<double>::max_digits10)
++            << "func,N,batch,check,err_a,err_b\n"
++            << func << ',' << n << ",1," << (check.pass ? "PASS" : "FAIL")
++            << ',' << check.err_a << ',' << check.err_b << '\n';
++    checked.close();
++    if(!checked) return false;
++    if(times.empty()) return true;
++    std::ofstream samples(directory / "fft_test_1d.samples.csv");
++    samples << std::setprecision(std::numeric_limits<double>::max_digits10)
++            << "func,N,batch,sample_index,elapsed_ms\n";
++    for(size_t i = 0; i < times.size(); ++i)
++        samples << func << ',' << n << ",1," << i + 1 << ','
++                << static_cast<double>(times[i]) << '\n';
++    samples.close();
++    return bool(samples);
++}
++
++int benchmark(int argc, char** argv)
++{
++    if(argc != 4) throw std::runtime_error("usage: fft_test_1d N is_warmup func (batch=1)");
++    size_t consumed = 0;
++    const long parsed = std::stol(argv[1], &consumed);
++    if(consumed != std::string(argv[1]).size() || parsed < 1 || parsed > 2147483647L)
++        throw std::runtime_error("N must be a positive int");
++    const int n = static_cast<int>(parsed);
++    const std::string warmup_arg = argv[2];
++    if(warmup_arg != "0" && warmup_arg != "1") throw std::runtime_error("is_warmup must be 0 or 1");
++    const bool is_warmup = warmup_arg == "1";
++    const std::string func = argv[3];
++    const bool z2z = func == "z2z_1d", d2z = func == "d2z_1d";
++    if(!z2z && !d2z && func != "z2d_1d") throw std::runtime_error("unknown transform");
++    const char* output = std::getenv("FFT_TEST_OUT");
++    if(!output || !*output) throw std::runtime_error("explicit FFT_TEST_OUT required");
++    OUTPUT_PATH = output;
++    std::filesystem::create_directories(OUTPUT_PATH);
++    for(const char* name : {"fft_test_1d.csv", "fft_test_1d.samples.csv", "fft_test_1d.check.csv"})
++        if(std::filesystem::exists(std::filesystem::path(OUTPUT_PATH) / name))
++            throw std::runtime_error("process output already exists");
++    if(const char* iterations = std::getenv("FFT_TEST_ITERS"))
++        if(std::string(iterations) != "30") throw std::runtime_error("this source records exactly 30 samples");
++
++    std::vector<float> measured_ms;
++    Check check;
++    {
++        RocFFTSession session;
++        const auto kind = z2z ? TransformKind::z2z_forward : d2z ? TransformKind::d2z : TransformKind::z2d;
++        // One target plan, reused by correctness, all warmups and all samples.
++        std::unique_ptr<RocPlan> plan(create_plan(n, 1, kind));
++        const size_t nc = static_cast<size_t>(n) / 2 + 1;
++        const size_t in_count = (z2z || d2z) ? n : nc;
++        const size_t out_count = (z2z || !d2z) ? n : nc;
++        DeviceBuffer input(in_count * (d2z ? sizeof(double) : sizeof(hipDoubleComplex)));
++        DeviceBuffer result(out_count * (!z2z && !d2z ? sizeof(double) : sizeof(hipDoubleComplex)));
++        check.ran = true;
++        // The retained strict checks are outside the event loop. Restore the
++        // supplied source's complete ramp input once before its ten warmups.
++        if(z2z)
++        {
++            std::vector<hipDoubleComplex> host(n), expected(n);
++            check.err_a = check_tone_z2z(n, 1, *plan, static_cast<hipDoubleComplex*>(input.data),
++                                       static_cast<hipDoubleComplex*>(result.data), host, expected);
++            std::unique_ptr<RocPlan> inverse(create_plan(n, 1, TransformKind::z2z_inverse));
++            check.err_b = check_roundtrip_z2z(n, 1, *plan, *inverse, static_cast<hipDoubleComplex*>(input.data),
++                                            static_cast<hipDoubleComplex*>(result.data), host, expected);
++        }
++        else if(d2z)
++        {
++            std::vector<double> host(n);
++            std::vector<hipDoubleComplex> expected(nc);
++            check.err_a = check_tone_d2z(n, 1, *plan, static_cast<double*>(input.data),
++                                       static_cast<hipDoubleComplex*>(result.data), host, expected);
++        }
++        else
++        {
++            std::vector<hipDoubleComplex> host(nc);
++            std::vector<double> expected(n);
++            check.err_a = check_z2d(n, 1, *plan, static_cast<hipDoubleComplex*>(input.data),
++                                  static_cast<double*>(result.data), host, expected);
++        }
++        check.pass = std::isfinite(check.err_a) && check.err_a >= 0 && check.err_a < CHECK_TOL
++                     && (check.err_b == -1 || (std::isfinite(check.err_b) && check.err_b >= 0 && check.err_b < CHECK_TOL));
++        if(!check.pass)
++        {
++            writeEvidence(func, n, check, {});
++            return 2;
++        }
++        if(d2z)
++        {
++            std::vector<double> host(in_count);
++            for(size_t i = 0; i < in_count; ++i) host[i] = static_cast<double>(i);
++            CHECK_HIP(hipMemcpy(input.data, host.data(), sizeof(double) * in_count, hipMemcpyHostToDevice));
++        }
++        else
++        {
++            std::vector<hipDoubleComplex> host(in_count);
++            for(size_t i = 0; i < in_count; ++i) host[i] = cmplx(static_cast<double>(i));
++            CHECK_HIP(hipMemcpy(input.data, host.data(), sizeof(hipDoubleComplex) * in_count, hipMemcpyHostToDevice));
++        }
++        measured_ms = runBenchmark(is_warmup, [&] { execute(*plan, input.data, result.data); });
++    }
++    const auto stats = calculateStats(measured_ms);
++    if(!writeCsv(func, n, is_warmup, measured_ms, stats) || !writeEvidence(func, n, check, measured_ms))
++        throw std::runtime_error("cannot write process evidence");
++    std::cout << func << " N=" << n << " warmup_times=" << (is_warmup ? warmup_times : 0)
++              << " test_times=" << test_times << " check=PASS\n";
++    return 0;
++}
++
++int main(int argc, char** argv)
++{
++    try { return benchmark(argc, argv); }
++    catch(const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
++}
+--- a/tools/fft_measurement/manifest.example.json
++++ b/tools/fft_measurement/manifest.example.json
+@@ -1,5 +1,5 @@
+ {
+-  "policy": "FFT-event-samples-single-v2",
++  "policy": "FFT-event-cufft261012-single-v3",
+   "experiment": "EXP-999",
+   "run_id": "EXP-999-REPLACE-run-id",
+   "gpu_arch": "gfx936",
+@@ -23,5 +23,8 @@
+     }
+   },
+   "schema_version": 1,
+-  "event_iterations": 50
++  "event_iterations": 30,
++  "timing_warmups": 10,
++  "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
++  "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6"
+ }
+--- a/tools/fft_measurement/manifest.v2.example.json
++++ b/tools/fft_measurement/manifest.v2.example.json
+@@ -0,0 +1,27 @@
++{
++  "policy": "FFT-event-samples-single-v2",
++  "experiment": "EXP-999",
++  "run_id": "EXP-999-REPLACE-run-id",
++  "gpu_arch": "gfx936",
++  "acceptance": "REPLACE with experiment-specific preregistered improvement/cross-size criteria",
++  "arms": {
++    "official": {
++      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
++      "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
++      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
++      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
++      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
++      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
++    },
++    "candidate": {
++      "install": "/public/home/zhangkewei/zr/experiments/EXP-999/artifacts/install/REPLACE-build-id",
++      "source_repo": "/public/home/zhangkewei/zr",
++      "source_commit": "REPLACE-40-digit-source-commit",
++      "library_sha256": "REPLACE-64-digit-library-sha256",
++      "source_state": "REPLACE with exact build-source tracked state",
++      "build_provenance": "REPLACE with build record linking source/state and installed library"
++    }
++  },
++  "schema_version": 1,
++  "event_iterations": 50
++}
+--- a/tools/fft_measurement/plot_cufft261012.py
++++ b/tools/fft_measurement/plot_cufft261012.py
+@@ -0,0 +1,81 @@
++"""Standalone two-column distributions and chronological event traces."""
++import math
++import os
++from pathlib import Path
++import warnings
++
++from common import cases
++from cufft261012_contract import arms, iterations, statistics_for
++
++
++def render(run, manifest, samples):
++    run = Path(run)
++    output = run/'plots'
++    output.mkdir()
++    os.environ.setdefault('MPLCONFIGDIR', str(output/'matplotlib-cache'))
++    import matplotlib
++    matplotlib.use('Agg')
++    import matplotlib.pyplot as plt
++    from matplotlib.lines import Line2D
++    from matplotlib.patches import Rectangle
++
++    selected = arms(manifest)
++    labels = {'official': '官方基线', 'previous': '稳定对照', 'candidate': '当前版本'}
++    colors = {'official': '#2878b8', 'previous': '#677b97', 'candidate': '#e58b29'}
++    settings = {'svg.fonttype': 'none', 'font.family': 'sans-serif', 'axes.unicode_minus': False,
++                'font.size': 11, 'axes.spines.top': False, 'axes.spines.right': False}
++    if os.name == 'nt' and Path('C:/Windows/Fonts/msyh.ttc').is_file():
++        from matplotlib import font_manager
++        font_manager.fontManager.addfont('C:/Windows/Fonts/msyh.ttc')
++        settings['font.family'] = font_manager.FontProperties(fname='C:/Windows/Fonts/msyh.ttc').get_name()
++    paths = []
++    with plt.rc_context(settings):
++        for n, func in cases(manifest):
++            fig, (distribution, sequence) = plt.subplots(1, 2, figsize=(12, 4.6), sharey=True,
++                                                         gridspec_kw={'width_ratios': [1, 1.6]})
++            fig.subplots_adjust(left=.08, right=.98, top=.78, bottom=.24, wspace=.18)
++            fig.suptitle('%d / %s：批量为一，每版本%d次计时'
++                         %(n, func.removesuffix('_1d'), iterations(manifest)), fontsize=15)
++            for position, arm in enumerate(selected):
++                values = samples[(n, func, arm)]
++                microseconds = [value*1000 for value in values]
++                stats = statistics_for(values)
++                color = colors[arm]
++                offsets = [.08*math.sin(i*2.31) for i in range(1, len(values)+1)]
++                distribution.scatter([position+x for x in offsets], microseconds,
++                                     s=21, color=color, alpha=.65, linewidths=0)
++                distribution.add_patch(Rectangle((position-.16, stats['p25_ms']*1000), .32,
++                                                  (stats['p75_ms']-stats['p25_ms'])*1000,
++                                                  color=color, alpha=.12, linewidth=0))
++                for statistic, style in (('median', '-'),):
++                    distribution.hlines(stats[statistic+'_ms']*1000, position-.22, position+.22,
++                                        color=color, linestyle=style, linewidth=1.6)
++                sequence.plot(range(1, len(values)+1), microseconds, color=color, marker='o',
++                              markersize=3, linewidth=.85, alpha=.8, label=labels[arm])
++            distribution.set_xticks(range(len(selected)), [labels[arm] for arm in selected])
++            distribution.set_xlim(-.45, len(selected)-.55)
++            distribution.set_ylabel('完整变换耗时（微秒）')
++            distribution.set_title('全部样本的分布', fontsize=12)
++            distribution.legend(handles=[Line2D([0], [0], color='#3d4e60', label='中位数')],
++                                loc='best', frameon=False, fontsize=9)
++            sequence.set_title('各版本内的测量先后', fontsize=12)
++            sequence.set_xlabel('测量序号（各版本分别计时）')
++            sequence.legend(frameon=False, fontsize=9)
++            sequence.set_xlim(.5, len(values)+.5)
++            for axes in (distribution, sequence):
++                axes.grid(axis='y', color='#dbe3e9', linewidth=.7)
++                axes.set_axisbelow(True)
++            fig.text(.5, .09, '全部样本保留；浅色区域为中间50%的样本区间。横向展开仅用于避开重叠。',
++                     ha='center', fontsize=10)
++            fig.text(.5, .035, '同一组记录的两种画法；相同序号不代表两个版本同步或配对测量。',
++                     ha='center', fontsize=9, color='#66798b')
++            path = output/('%d_%s.svg'%(n, func))
++            try:
++                # SVG retains Unicode text: the viewing browser supplies CJK fallback fonts.
++                with warnings.catch_warnings():
++                    warnings.filterwarnings('ignore', message='Glyph .* missing from current font.*')
++                    fig.savefig(path, format='svg', facecolor='white')
++            finally:
++                plt.close(fig)
++            paths.append(path.relative_to(run).as_posix())
++    return paths
+--- a/tools/fft_measurement/rocfft_measurement_support_v3.h
++++ b/tools/fft_measurement/rocfft_measurement_support_v3.h
+@@ -0,0 +1,318 @@
++#pragma once
++// Layout and independent correctness checks retained from v2; no event timing here.
++// Nonfinite errors are rejected; the small even-N Nyquist term is counted once.
++static double checked_abs(double value)
++{
++    if(!std::isfinite(value)) throw std::runtime_error("nonfinite correctness output");
++    return std::fabs(value);
++}
++
++struct RocFFTSession
++{
++    RocFFTSession() { CHECK_FFT(rocfft_setup()); }
++    ~RocFFTSession() { rocfft_cleanup(); }
++};
++
++struct DeviceBuffer
++{
++    void* data = nullptr;
++    explicit DeviceBuffer(size_t bytes) { CHECK_HIP(hipMalloc(&data, bytes)); }
++    ~DeviceBuffer() { if(data) hipFree(data); }
++    DeviceBuffer(const DeviceBuffer&) = delete;
++    DeviceBuffer& operator=(const DeviceBuffer&) = delete;
++};
++
++constexpr double CHECK_TOL     = 1e-9;
++constexpr double TWO_PI        = 6.283185307179586476925286766559;
++
++static inline hipDoubleComplex cmplx(double re, double im = 0.0)
++{
++    hipDoubleComplex v;
++    v.x = re;
++    v.y = im;
++    return v;
++}
++
++static inline double rnd(unsigned long long& s)
++{
++    s ^= s << 13;
++    s ^= s >> 7;
++    s ^= s << 17;
++    return static_cast<double>((s >> 11) & ((1ull << 52) - 1))
++               / static_cast<double>(1ull << 52)
++           - 0.5;
++}
++
++static inline unsigned long long seed_of(int t)
++{
++    return 0x9E3779B97F4A7C15ull
++           ^ (static_cast<unsigned long long>(t + 1) * 0xBF58476D1CE4E5B9ull);
++}
++
++struct Check
++{
++    bool   ran   = false;
++    bool   pass  = true;
++    double err_a = -1.0;
++    double err_b = -1.0;
++};
++
++enum class TransformKind
++{
++    z2z_forward,
++    z2z_inverse,
++    d2z,
++    z2d,
++};
++
++struct RocPlan
++{
++    rocfft_plan             plan        = nullptr;
++    rocfft_plan_description description = nullptr;
++    rocfft_execution_info   info        = nullptr;
++    void*                   work_buffer = nullptr;
++    size_t                  work_bytes  = 0;
++
++    RocPlan() = default;
++    RocPlan(const RocPlan&)            = delete;
++    RocPlan& operator=(const RocPlan&) = delete;
++
++    ~RocPlan()
++    {
++        if(work_buffer)
++            (void)hipFree(work_buffer);
++        if(info)
++            rocfft_execution_info_destroy(info);
++        if(plan)
++            rocfft_plan_destroy(plan);
++        if(description)
++            rocfft_plan_description_destroy(description);
++    }
++};
++
++static RocPlan* create_plan(size_t N, size_t batch, TransformKind kind)
++{
++    auto p = new RocPlan;
++
++    const size_t Nc      = N / 2 + 1;
++    const size_t stride  = 1;
++    size_t       idist   = N;
++    size_t       odist   = N;
++    auto         itype   = rocfft_array_type_complex_interleaved;
++    auto         otype   = rocfft_array_type_complex_interleaved;
++    auto         ffttype = rocfft_transform_type_complex_forward;
++
++    if(kind == TransformKind::z2z_inverse)
++        ffttype = rocfft_transform_type_complex_inverse;
++    else if(kind == TransformKind::d2z)
++    {
++        ffttype = rocfft_transform_type_real_forward;
++        itype   = rocfft_array_type_real;
++        otype   = rocfft_array_type_hermitian_interleaved;
++        odist   = Nc;
++    }
++    else if(kind == TransformKind::z2d)
++    {
++        ffttype = rocfft_transform_type_real_inverse;
++        itype   = rocfft_array_type_hermitian_interleaved;
++        otype   = rocfft_array_type_real;
++        idist   = Nc;
++    }
++
++    CHECK_FFT(rocfft_plan_description_create(&p->description));
++    CHECK_FFT(rocfft_plan_description_set_data_layout(p->description,
++                                                       itype,
++                                                       otype,
++                                                       nullptr,
++                                                       nullptr,
++                                                       1,
++                                                       &stride,
++                                                       idist,
++                                                       1,
++                                                       &stride,
++                                                       odist));
++    CHECK_FFT(rocfft_plan_create(&p->plan,
++                                 rocfft_placement_notinplace,
++                                 ffttype,
++                                 rocfft_precision_double,
++                                 1,
++                                 &N,
++                                 batch,
++                                 p->description));
++    CHECK_FFT(rocfft_execution_info_create(&p->info));
++    CHECK_FFT(rocfft_execution_info_set_stream(p->info, nullptr));
++    CHECK_FFT(rocfft_plan_get_work_buffer_size(p->plan, &p->work_bytes));
++
++    if(p->work_bytes)
++    {
++        CHECK_HIP(hipMalloc(&p->work_buffer, p->work_bytes));
++        CHECK_FFT(rocfft_execution_info_set_work_buffer(p->info,
++                                                        p->work_buffer,
++                                                        p->work_bytes));
++    }
++    return p;
++}
++
++static void execute(RocPlan& p, void* input, void* output)
++{
++    void* inputs[]  = {input};
++    void* outputs[] = {output};
++    CHECK_FFT(rocfft_execute(p.plan, inputs, outputs, p.info));
++}
++
++static double check_tone_z2z(int N,
++                             int batch,
++                             RocPlan& plan,
++                             hipDoubleComplex* x,
++                             hipDoubleComplex* y,
++                             std::vector<hipDoubleComplex>& hx,
++                             std::vector<hipDoubleComplex>& hout)
++{
++    const int k0 = N > 1 ? 1 : 0;
++    std::fill(hx.begin(), hx.end(), cmplx(0.0));
++    for(int t = 0; t < batch; ++t)
++        hx[static_cast<size_t>(t) * N + k0] = cmplx(static_cast<double>(t + 1));
++
++    CHECK_HIP(hipMemcpy(x, hx.data(), sizeof(*x) * static_cast<size_t>(N) * batch,
++                        hipMemcpyHostToDevice));
++    execute(plan, x, y);
++    CHECK_HIP(hipDeviceSynchronize());
++
++    double worst = 0.0;
++    const int probes[2] = {0, batch - 1};
++    for(int p = 0; p < 2; ++p)
++    {
++        const int t = probes[p];
++        if(t < 0 || (p == 1 && batch == 1))
++            continue;
++        CHECK_HIP(hipMemcpy(hout.data(), y + static_cast<size_t>(t) * N,
++                            sizeof(*y) * static_cast<size_t>(N), hipMemcpyDeviceToHost));
++        const double want = static_cast<double>(t + 1);
++        for(int j = 0; j < N; ++j)
++            worst = std::max(worst,
++                             checked_abs(std::hypot(hout[j].x, hout[j].y) - want) / want);
++    }
++    return worst;
++}
++
++static double check_roundtrip_z2z(int N,
++                                  int batch,
++                                  RocPlan& forward,
++                                  RocPlan& inverse,
++                                  hipDoubleComplex* x,
++                                  hipDoubleComplex* y,
++                                  std::vector<hipDoubleComplex>& hx,
++                                  std::vector<hipDoubleComplex>& hout)
++{
++    double peak = 0.0;
++    for(int t = 0; t < batch; ++t)
++    {
++        auto s = seed_of(t);
++        for(int k = 0; k < N; ++k)
++        {
++            const double re = rnd(s);
++            const double im = rnd(s);
++            hx[static_cast<size_t>(t) * N + k] = cmplx(re, im);
++            peak = std::max(peak, std::hypot(re, im));
++        }
++    }
++    peak = peak > 0.0 ? peak : 1.0;
++    CHECK_HIP(hipMemcpy(x, hx.data(), sizeof(*x) * static_cast<size_t>(N) * batch,
++                        hipMemcpyHostToDevice));
++    execute(forward, x, y);
++    execute(inverse, y, x);
++    CHECK_HIP(hipDeviceSynchronize());
++
++    double worst = 0.0;
++    const int probes[2] = {0, batch - 1};
++    for(int p = 0; p < 2; ++p)
++    {
++        const int t = probes[p];
++        if(t < 0 || (p == 1 && batch == 1))
++            continue;
++        CHECK_HIP(hipMemcpy(hout.data(), x + static_cast<size_t>(t) * N,
++                            sizeof(*x) * static_cast<size_t>(N), hipMemcpyDeviceToHost));
++        for(int k = 0; k < N; ++k)
++        {
++            const double re = hout[k].x / N - hx[static_cast<size_t>(t) * N + k].x;
++            const double im = hout[k].y / N - hx[static_cast<size_t>(t) * N + k].y;
++            worst = std::max(worst, checked_abs(std::hypot(re, im)) / peak);
++        }
++    }
++    return worst;
++}
++
++static double check_tone_d2z(int N,
++                             int batch,
++                             RocPlan& plan,
++                             double* x,
++                             hipDoubleComplex* y,
++                             std::vector<double>& hx,
++                             std::vector<hipDoubleComplex>& hout)
++{
++    const int k0 = N > 1 ? 1 : 0;
++    std::fill(hx.begin(), hx.end(), 0.0);
++    for(int t = 0; t < batch; ++t)
++        hx[static_cast<size_t>(t) * N + k0] = static_cast<double>(t + 1);
++    CHECK_HIP(hipMemcpy(x, hx.data(), sizeof(double) * static_cast<size_t>(N) * batch,
++                        hipMemcpyHostToDevice));
++    execute(plan, x, y);
++    CHECK_HIP(hipDeviceSynchronize());
++
++    const size_t Nc = static_cast<size_t>(N) / 2 + 1;
++    double worst = 0.0;
++    const int probes[2] = {0, batch - 1};
++    for(int p = 0; p < 2; ++p)
++    {
++        const int t = probes[p];
++        if(t < 0 || (p == 1 && batch == 1))
++            continue;
++        CHECK_HIP(hipMemcpy(hout.data(), y + static_cast<size_t>(t) * Nc,
++                            sizeof(*y) * Nc, hipMemcpyDeviceToHost));
++        const double want = static_cast<double>(t + 1);
++        for(size_t j = 0; j < Nc; ++j)
++            worst = std::max(worst,
++                             checked_abs(std::hypot(hout[j].x, hout[j].y) - want) / want);
++    }
++    return worst;
++}
++
++static double check_z2d(int N,
++                        int batch,
++                        RocPlan& plan,
++                        hipDoubleComplex* x,
++                        double* y,
++                        std::vector<hipDoubleComplex>& hx,
++                        std::vector<double>& hout)
++{
++    const size_t Nc    = static_cast<size_t>(N) / 2 + 1;
++    const int nbins    = Nc >= 3 ? 3 : 1;
++    std::fill(hx.begin(), hx.end(), cmplx(0.0));
++    for(int t = 0; t < batch; ++t)
++        for(int j = 0; j < nbins; ++j)
++            hx[static_cast<size_t>(t) * Nc + j] = cmplx(static_cast<double>(t + 1));
++    CHECK_HIP(hipMemcpy(x, hx.data(), sizeof(*x) * Nc * batch, hipMemcpyHostToDevice));
++    execute(plan, x, y);
++    CHECK_HIP(hipDeviceSynchronize());
++
++    double worst = 0.0;
++    const int probes[2] = {0, batch - 1};
++    for(int p = 0; p < 2; ++p)
++    {
++        const int t = probes[p];
++        if(t < 0 || (p == 1 && batch == 1))
++            continue;
++        CHECK_HIP(hipMemcpy(hout.data(), y + static_cast<size_t>(t) * N,
++                            sizeof(double) * static_cast<size_t>(N), hipMemcpyDeviceToHost));
++        const double amp   = static_cast<double>(t + 1);
++        const double scale = amp * nbins;
++        for(int n = 0; n < N; ++n)
++        {
++            double want = amp;
++            for(int j = 1; j < nbins; ++j)
++                want += ((N % 2 == 0 && j == N / 2) ? 1.0 : 2.0) * amp * std::cos(TWO_PI * j * n / N);
++            worst = std::max(worst, checked_abs(hout[n] - want) / scale);
++        }
++    }
++    return worst;
++}
+--- a/tools/fft_measurement/run_cufft261012.py
++++ b/tools/fft_measurement/run_cufft261012.py
+@@ -0,0 +1,143 @@
++"""2026-10-12 timing port: 10 event-timed warmups, 30 event samples, strict checks outside."""
++import argparse
++import datetime
++import json
++import os
++import re
++import socket
++import subprocess
++from pathlib import Path
++from common import ROOT, inside, require, cases, sha, single_gpu_allocation, write_json
++from cufft261012_contract import (POLICY, SOURCE_SHA, SOURCE_NAME, SOURCE_FILES, WARMUPS, ORIGIN_SHA, arms, iterations, manifest, schedule, read_samples, read_rows, read_check, reference, validate_process)
++from summarize_cufft261012 import report
++
++HERE = Path(__file__).resolve().parent
++DTK = Path('/public/software/compiler/dtk-26.04')
++
++def command(args, env=None):
++    return subprocess.check_output([str(a) for a in args], env=env, stderr=subprocess.STDOUT, text=True)
++
++def plan(m):
++    return dict(policy=POLICY, run_id=m['run_id'], cases=len(cases(m)), rounds=1, processes=len(schedule(m)), processes_per_case_arm=1, events_per_case_arm=iterations(m), schedule=schedule(m))
++
++def execute(m):
++    selected = arms(m)
++    allocation = single_gpu_allocation(os.environ)
++    for name, digest in SOURCE_FILES.items():
++        require(sha(HERE/name) == digest, 'frozen v3 source changed: ' + name)
++    reference(m)
++    for arm in selected:
++        a = m['arms'][arm]
++        require(command(['git', '-C', a['source_repo'], 'rev-parse', a['source_commit'] + '^{commit}']).strip() == a['source_commit'], 'source commit unavailable')
++        lib = inside(Path(a['install']) / 'lib/librocfft.so.0.1')
++        require(sha(lib) == a['library_sha256'], arm + ': install hash mismatch')
++    from common import prepare_measurement_paths
++    run, build, logs, cache = prepare_measurement_paths(m)
++    write_json(run / 'preregistration.json', m)
++    write_json(run / 'plan.json', plan(m))
++    env = os.environ.copy()
++    env.update(HIP_PATH=str(DTK), ROCM_PATH=str(DTK), HIP_PLATFORM='amd', PATH=str(DTK / 'bin') + ':' + env.get('PATH', ''), FFT_TEST_ITERS=str(iterations(m)), ROCFFT_RTC_CACHE_READ_DISABLE='1', ROCFFT_RTC_CACHE_WRITE_DISABLE='1')
++    # Do not inherit another user's preload, profile/solution overrides, or loader debug.
++    for key in ('LD_PRELOAD', 'LD_LIBRARY_PATH', 'LD_DEBUG', 'LD_DEBUG_OUTPUT', 'FFT_TEST_OUT'):
++        env.pop(key, None)
++    require(not any(k.startswith('ROCFFT_') and k not in ('ROCFFT_RTC_CACHE_READ_DISABLE', 'ROCFFT_RTC_CACHE_WRITE_DISABLE') for k in env), 'unexpected ROCFFT environment override; resolve before running')
++    env['LD_LIBRARY_PATH'] = ':'.join(str(p) for p in (DTK/'hip/lib', DTK/'dcc/comgr/lib64', DTK/'lib'))
++    env['MPLCONFIGDIR'] = str(cache / 'matplotlib')
++    os.environ['MPLCONFIGDIR'] = env['MPLCONFIGDIR']
++    # Fail before GPU sampling if plotting is unavailable. No plot work while timing.
++    import matplotlib
++    identity = build / 'device_identity'
++    compile_identity = [DTK/'bin/hipcc', '-O3', '-std=c++17', HERE/'device_identity.cpp', '-o', identity]
++    (logs / 'compile_identity.txt').write_text(command(compile_identity, env), encoding='utf-8')
++    gpu = json.loads(command([identity], env))
++    require(gpu['count'] == 1 and gpu['arch'].split(':')[0] == m['gpu_arch'], 'GPU does not match preregistration')
++    require(re.fullmatch('[0-9a-f]{32}', gpu['uuid']) is not None and int(gpu['uuid'], 16) != 0, 'invalid GPU UUID')
++    provenance = dict(policy=POLICY, source_sha256=SOURCE_SHA, source_origin='Supplied 2026-10-12 CUDA loop ported mechanically to HIP; ramp input and exact-size buffers', event_iterations=iterations(m), timing_warmups=WARMUPS, source_files_sha256=SOURCE_FILES, timing_origin_sha256=ORIGIN_SHA, plotting_version=matplotlib.__version__, job_id=os.environ['SLURM_JOB_ID'], allocation_gpu=os.environ['SLURM_JOB_GPUS'], host=socket.gethostname(), gpu=gpu, start=datetime.datetime.now(datetime.timezone.utc).isoformat(), complete=False, compiler_version=command([DTK/'bin/hipcc', '--version'], env), environment={k:v for k,v in env.items() if k.startswith(('HIP', 'ROCM', 'ROCFFT', 'ROCR', 'CUDA', 'SLURM', 'FFT_TEST'))}, arms={})
++    provenance.update(allocation)
++    binaries = {}
++    arm_env = {}
++    # Compile once against a declared reference ABI, preload each exact arm library.
++    binary = build / 'fft_test_1d'
++    official = Path(m['arms'][selected[0]]['install'])
++    compile_fft = [DTK/'bin/hipcc', '-O3', '-std=c++17', HERE/SOURCE_NAME, '-I'+str(official/'include'), '-L'+str(official/'lib'), '-Wl,-rpath,'+str(official/'lib'), '-lrocfft', '-lstdc++fs', '-o', binary]
++    (logs / 'compile_fft.txt').write_text(command(compile_fft, env), encoding='utf-8')
++    provenance['compile_commands'] = [[str(v) for v in c] for c in (compile_identity, compile_fft)]
++    provenance['identity_binary_sha256'] = sha(identity)
++    for arm in selected:
++        a = m['arms'][arm]
++        install = Path(a['install'])
++        lib = inside(install/'lib/librocfft.so.0.1')
++        arm_env[arm] = dict(env, LD_PRELOAD=str(lib), LD_LIBRARY_PATH=str(install/'lib')+':'+env['LD_LIBRARY_PATH'])
++        ldd = command(['ldd', binary], arm_env[arm])
++        require('not found' not in ldd, 'unresolved runtime library')
++        loaded = []
++        for line in ldd.splitlines():
++            if 'librocfft.so' in line:
++                path = line.strip().split('=>')[-1].strip().split(' ')[0]
++                loaded.append(inside(path))
++        require(len(set(loaded)) == 1 and loaded[0] == lib, 'actual linked rocFFT is not declared library')
++        (logs / (arm+'_ldd.txt')).write_text(ldd, encoding='utf-8')
++        provenance['arms'][arm] = dict(a, actual_library=str(lib), binary_sha256=sha(binary), source_head=command(['git','-C',a['source_repo'],'rev-parse','HEAD']).strip(), source_status=command(['git','-C',a['source_repo'],'status','--porcelain=v1','--untracked-files=no']))
++        binaries[arm] = binary
++    tool_names = ('common.py', 'sample_contract.py', 'cufft261012_contract.py', 'run_cufft261012.py', 'summarize_cufft261012.py', 'plot_cufft261012.py', *SOURCE_FILES, 'device_identity.cpp')
++    provenance['tools_sha256'] = {name: sha(HERE/name) for name in tool_names}
++    entries = []
++    write_json(run / 'provenance.json', provenance)
++    try:
++        for item in schedule(m):
++            arm = item['arm']
++            a = m['arms'][arm]
++            lib = Path(provenance['arms'][arm]['actual_library'])
++            require(sha(lib) == a['library_sha256'], 'library changed during run')
++            require(sha(binary) == provenance['arms'][arm]['binary_sha256'], 'measurement executable changed during run')
++            require(sha(identity) == provenance['identity_binary_sha256'], 'identity executable changed')
++            process_gpu = json.loads(command([identity], env))
++            require(process_gpu == gpu, 'GPU/runtime identity changed during run')
++            label = '%04d_%d_%s_r%d_s%d_%s' % (item['index'], item['N'], item['func'], item['round'], item['slot'], arm)
++            case = run / 'processes' / label
++            case.mkdir(parents=True)
++            tmp = cache / 'tmp' / label
++            tmp.mkdir(parents=True)
++            process_env = dict(arm_env[arm], FFT_TEST_OUT=str(case), TMPDIR=str(tmp))
++            args = [str(binaries[arm]), str(item['N']), '1', item['func']]
++            started = datetime.datetime.now(datetime.timezone.utc).isoformat()
++            with (case/'stdout.txt').open('xb') as out, (case/'stderr.txt').open('xb') as err:
++                rc = subprocess.run(args, env=process_env, cwd=str(HERE), stdout=out, stderr=err).returncode
++            entry = dict(item, start=started, end=datetime.datetime.now(datetime.timezone.utc).isoformat(), argv=args, returncode=rc, gpu=process_gpu, job_id=provenance['job_id'], host=provenance['host'], library_sha256=sha(lib))
++            for key, filename in (('csv','fft_test_1d.csv'),('samples','fft_test_1d.samples.csv'),('correctness','fft_test_1d.check.csv'),('stdout','stdout.txt'),('stderr','stderr.txt')):
++                entry[key] = str((case/filename).relative_to(run))
++                if (case/filename).is_file():
++                    entry[key+'_sha256'] = sha(case/filename)
++            entries.append(entry)
++            require(rc == 0, 'correctness/process failure: ' + label)
++            # Reject a bad row immediately, retaining all partial evidence.
++            rows = read_rows(case/'fft_test_1d.csv')
++            require(len(rows) == 1, 'unexpected process row count')
++            validate_process(rows[0], read_samples(case/'fft_test_1d.samples.csv'), read_check(case/'fft_test_1d.check.csv'), item['N'], item['func'], iterations(m))
++        for arm in selected:
++            require(sha(provenance['arms'][arm]['actual_library']) == m['arms'][arm]['library_sha256'], 'library changed at completion')
++        require(json.loads(command([identity], env)) == gpu, 'GPU changed at completion')
++        require(all(sha(HERE/name) == digest for name, digest in provenance['tools_sha256'].items()), 'measurement tools changed during run')
++        provenance['complete'] = True
++    finally:
++        provenance['end'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
++        (run/'provenance.json').write_text(json.dumps(provenance, indent=2)+'\n', encoding='utf-8')
++        write_json(run/'processes.json', entries)
++    report(run)
++    print(run / 'comparison.md')
++
++if __name__ == '__main__':
++    ap = argparse.ArgumentParser(description=__doc__)
++    ap.add_argument('manifest', type=Path)
++    ap.add_argument('--execute', action='store_true', help='run only in a one-GPU Slurm allocation')
++    args = ap.parse_args()
++    try:
++        if args.execute:
++            inside(args.manifest)
++        m = manifest(args.manifest)
++        if args.execute:
++            execute(m)
++        else:
++            print(json.dumps(plan(m), indent=2))
++    except (ValueError, OSError, KeyError, TypeError, subprocess.CalledProcessError) as e:
++        ap.exit(1, 'measurement rejected: %s\n' % e)
+--- a/tools/fft_measurement/summarize_cufft261012.py
++++ b/tools/fft_measurement/summarize_cufft261012.py
+@@ -0,0 +1,118 @@
++"""Strict v3 evidence aggregation; all analysis and plots use sample medians."""
++import argparse
++import csv
++import json
++from pathlib import Path
++from common import cases, require, sha, write_json
++from cufft261012_contract import (POLICY, SOURCE_SHA, SOURCE_FILES, ORIGIN_SHA, WARMUPS, arms,
++    iterations, manifest, read_samples, read_rows, read_check, reference, schedule, statistics_for, validate_process)
++
++def aggregate(run, reference_path=None):
++    run = Path(run)
++    m = manifest(run/'preregistration.json')
++    p = json.loads((run/'provenance.json').read_text(encoding='utf-8'))
++    selected = arms(m)
++    count = iterations(m)
++    require(p.get('policy') == POLICY and p.get('source_sha256') == SOURCE_SHA,
++            'wrong timing source/policy')
++    require(p.get('source_files_sha256') == SOURCE_FILES and p.get('timing_origin_sha256') == ORIGIN_SHA, 'source/header/origin mismatch')
++    require(p.get('complete') is True, 'run not completed')
++    require(p.get('event_iterations') == count and p.get('timing_warmups') == WARMUPS,
++            'iteration/warmup provenance mismatch')
++    require(p.get('job_id') and p.get('host') and p.get('gpu', {}).get('uuid'),
++            'missing allocation/device provenance')
++    require(p['gpu'].get('count') == 1 and p['gpu'].get('arch', '').split(':')[0] == m['gpu_arch'],
++            'GPU visibility/architecture mismatch')
++    require(set(p.get('arms', {})) == set(selected), 'missing library provenance')
++    for arm in selected:
++        a = p['arms'][arm]
++        require(a.get('library_sha256') == m['arms'][arm]['library_sha256']
++                and a.get('source_commit') == m['arms'][arm]['source_commit'],
++                'library/source provenance mismatch')
++        require(a.get('actual_library') and a.get('binary_sha256'), 'missing library/binary evidence')
++    expected = schedule(m)
++    entries = json.loads((run/'processes.json').read_text(encoding='utf-8'))
++    require(len(entries) == len(expected), 'incomplete preregistered schedule')
++    samples = {}
++    evidence_paths = set()
++    for entry, planned in zip(entries, expected):
++        require(all(entry.get(key) == value for key, value in planned.items()), 'schedule/order mismatch')
++        require(entry.get('returncode') == 0, 'nonzero process exit')
++        require(entry.get('gpu') == p['gpu'] and entry.get('job_id') == p['job_id']
++                and entry.get('host') == p['host'], 'different GPU/allocation/environment')
++        require(entry.get('library_sha256') == m['arms'][planned['arm']]['library_sha256'],
++                'process library hash mismatch')
++        for key in ('csv', 'samples', 'correctness', 'stdout', 'stderr'):
++            path = (run/entry[key]).resolve()
++            require(run.resolve() in path.parents, 'evidence path escapes run')
++            require(path not in evidence_paths, 'reused process evidence')
++            evidence_paths.add(path)
++            require(sha(path) == entry[key+'_sha256'], 'changed process evidence: '+key)
++        rows = read_rows(run/entry['csv'])
++        require(len(rows) == 1, 'exactly one summary row per fresh process required')
++        key = (planned['N'], planned['func'], planned['arm'])
++        require(key not in samples, 'duplicate process for case/arm')
++        samples[key] = validate_process(rows[0], read_samples(run/entry['samples']), read_check(run/entry['correctness']),
++                                        planned['N'], planned['func'], count)
++    require(reference_path is None, 'use the frozen reference, not a report-time override')
++    a100 = reference(m)
++    rows = []
++    for n, func in cases(m):
++        row = dict(func=func, N=n, batch=1, processes_per_arm=1, events_per_arm=count, check='PASS')
++        for arm in selected:
++            row.update({arm+'_'+key: value for key, value in statistics_for(samples[(n, func, arm)]).items()})
++        for arm in selected:
++            if arm != 'candidate':
++                row['speedup_'+arm+'_median'] = row[arm+'_median_ms']/row['candidate_median_ms']
++        row['a100_median_ms'] = a100.get((n, func))
++        row['a100_performance_median_percent'] = (a100[(n, func)]/row['candidate_median_ms']*100
++                                                  if (n, func) in a100 else None)
++        rows.append(row)
++    return m, p, rows, samples
++
++
++def report(run):
++    m, p, rows, samples = aggregate(run)
++    run = Path(run)
++    with (run/'comparison.csv').open('x', encoding='utf-8', newline='') as stream:
++        writer = csv.DictWriter(stream, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
++    from plot_cufft261012 import render
++    plots = render(run, m, samples)
++    selected = arms(m)
++    baseline = 'official' if 'official' in selected else 'previous'
++    lines = ['# '+m['experiment']+' 性能测量', '', '协议：`'+POLICY+'`。', '',
++             '双精度、一维、批量一、非原位、默认计划；每个尺寸／类型／版本一个进程，十次预热、三十次计时。',
++             '预热与正式测量共用同一事件循环，每次完整变换后单独同步；输入为递增序列，复数虚部为零。',
++             '严格正确性检查在窗口外，随后恢复完整输入；全部逐次样本保留。时间和加速比只用样本中位数。', '',
++             '| size／类型 | baseline（微秒） | A100（微秒） | 当前（微秒） | 加速比 | performance |',
++             '| --- | ---: | ---: | ---: | ---: | ---: |']
++    for row in rows:
++        value = row['a100_median_ms']; percentage = row['a100_performance_median_percent']
++        fields = [str(row['N'])+' '+row['func'].removesuffix('_1d'),
++                  '%.6f'%(row[baseline+'_median_ms']*1000), '%.6f'%(value*1000) if value is not None else '—',
++                  '%.6f'%(row['candidate_median_ms']*1000), '%.6f'%row['speedup_'+baseline+'_median'],
++                  '%.2f%%'%percentage if percentage is not None else '—']
++        lines.append('| '+' | '.join(fields)+' |')
++    if 'previous' in selected and baseline != 'previous':
++        lines.extend(['', '| size／类型 | 稳定中位数（微秒） | 对稳定加速比 |', '| --- | ---: | ---: |'])
++        for row in rows:
++            lines.append('| %d %s | %.6f | %.6f |'%(row['N'], row['func'].removesuffix('_1d'),
++                row['previous_median_ms']*1000, row['speedup_previous_median']))
++    lines.extend(['', 'A100按随包记录的10／30条件及精确N和类型匹配；performance＝A100中位数／当前中位数×100%。',
++                  '它是跨设备参考，不替代同卡官方对照；随包源码与二进制对应关系缺少构建凭据，数值检查也不在A100记录中。',
++                  'CSV保留原包的六位小数格式；另存未舍入的逐次样本及窗口外正确性记录。统计使用未舍入样本，不删除慢点。',
++                  '图中每版一列散点及按内部测量序号排列的同一批样本；只标中位数及中间50%区间，相同序号不表示同步测量。',
++                  '分布重叠或时间漂移应标注差异不明确，一组样本不证明跨次稳定性；不自动推广或重新测量。', '', '散点及顺序图：'])
++    lines.extend('- [%d %s](%s)'%(r['N'], r['func'].removesuffix('_1d'), image) for r, image in zip(rows, plots))
++    with (run/'comparison.md').open('x', encoding='utf-8') as stream: stream.write('\n'.join(lines)+'\n')
++    write_json(run/'summary.json', dict(policy=POLICY, experiment=m['experiment'], job_id=p['job_id'],
++        gpu=p['gpu'], processes=len(schedule(m)), events_per_arm=iterations(m), timing_warmups=WARMUPS,
++        a100_reference=m['a100_reference'], rows=rows))
++    return rows
++
++if __name__ == '__main__':
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('run', type=Path)
++    args = parser.parse_args()
++    try: report(args.run)
++    except (ValueError, OSError, KeyError, TypeError) as error: parser.exit(1, 'measurement rejected: %s\n'%error)
+--- a/tools/fft_measurement/test_cufft261012.py
++++ b/tools/fft_measurement/test_cufft261012.py
+@@ -0,0 +1,171 @@
++"""Reject mixed timing versions and corrupt per-process evidence before reporting."""
++import copy
++import csv
++import json
++import math
++import os
++import shutil
++import statistics
++import sys
++import unittest
++import uuid
++from pathlib import Path
++from unittest.mock import patch
++
++import cufft261012_contract as v3
++import sample_contract as v2
++from common import ROOT
++from tools.workspace_manager import manager
++
++
++def fixture():
++    values = [0.021 + i * 0.0001234567 for i in range(30)]
++    row = dict(func='d2z_1d', N='131072', is_warmup='1', warmup_times='10', test_times='30')
++    row.update({key: '%.6f' % value for key, value in {
++        'tmax_ms': max(values), 'tmin_ms': min(values), 'tmean_ms': statistics.mean(values),
++        'tmedium_ms': statistics.median(values)}.items()})
++    row.update({'time_%d_ms' % i: '%.6f' % value for i, value in enumerate(values, 1)})
++    samples = [dict(func='d2z_1d', N='131072', batch='1', sample_index=str(i), elapsed_ms=repr(value))
++               for i, value in enumerate(values, 1)]
++    check = dict(func='d2z_1d', N='131072', batch='1', check='PASS', err_a='1e-15', err_b='-1')
++    return row, samples, check
++
++
++class VersionAndEvidence(unittest.TestCase):
++    def test_dispatch_and_legacy_defaults(self):
++        self.assertIs(manager.measurement_protocol({}), v3)
++        self.assertIs(manager.measurement_protocol({'policy': v2.POLICY}), v2)
++        self.assertIs(manager.measurement_protocol({'policy': manager.common.POLICY}), manager.common)
++        with self.assertRaises(ValueError): manager.measurement_protocol({'policy': 'unknown'})
++        self.assertEqual(v3.iterations({}), 30)
++        self.assertEqual(v2.iterations({}), 50)
++
++    def test_default_worker_uses_v3_without_submitting(self):
++        import run_cufft261012 as worker
++        cfg = dict(experiment='EXP-999', run_id='EXP-999-worker', arms={'official': {}, 'candidate': {}})
++        allocation = dict(SLURM_JOB_ID='synthetic', SLURM_JOB_GPUS='0,1', SLURM_STEP_GPUS='0')
++        with patch.object(manager, 'load', return_value=cfg), \
++             patch.object(v3, 'manifest', return_value=cfg), \
++             patch.dict(os.environ, allocation, clear=True), \
++             patch.object(sys, 'argv', ['manage.py', 'measure', '--config', 'fake', '--worker']), \
++             patch.object(worker, 'execute') as execute, patch.object(manager, 'submit') as submit:
++            manager.main()
++        execute.assert_called_once_with(cfg)
++        submit.assert_not_called()
++        self.assertEqual(worker.plan(cfg)['events_per_case_arm'], 30)
++
++    def test_mixed_count_rejected(self):
++        for count in (0, 29, 31, 50, True, '30'):
++            with self.assertRaises(ValueError): v3.iterations({'event_iterations': count})
++
++    def test_valid_lossless_and_rounded_evidence(self):
++        row, samples, check = fixture()
++        result = v3.validate_process(row, samples, check, 131072, 'd2z_1d', 30)
++        self.assertEqual(result, [float(r['elapsed_ms']) for r in samples])
++
++    def test_timing_condition_corruption(self):
++        for key, value in [('warmup_times', '3'), ('test_times', '50'), ('is_warmup', '0'),
++                           ('N', '131073'), ('func', 'z2d_1d'), ('tmedium_ms', '0.9'),
++                           ('time_1_ms', '-1')]:
++            row, samples, check = fixture(); row[key] = value
++            with self.assertRaises(ValueError): v3.validate_process(row, samples, check, 131072, 'd2z_1d', 30)
++
++    def test_sample_loss_reorder_and_nonfinite(self):
++        mutations = [lambda rows: rows.pop(), lambda rows: rows.append(copy.deepcopy(rows[-1])),
++                     lambda rows: rows.reverse(), lambda rows: rows[0].update(sample_index='2')]
++        mutations += [lambda rows, value=value: rows[0].update(elapsed_ms=value) for value in ('nan', 'inf', '0', '-1')]
++        for mutate in mutations:
++            row, samples, check = fixture(); mutate(samples)
++            with self.assertRaises(ValueError): v3.validate_process(row, samples, check, 131072, 'd2z_1d', 30)
++
++    def test_numerical_guard(self):
++        for key, value in [('check', 'FAIL'), ('err_a', 'nan'), ('err_a', '1e-9'),
++                           ('err_a', '-1'), ('err_b', '0'), ('batch', '2')]:
++            row, samples, check = fixture(); check[key] = value
++            with self.assertRaises(ValueError): v3.validate_process(row, samples, check, 131072, 'd2z_1d', 30)
++
++    def test_frozen_sources_and_origin_loop(self):
++        here = Path(__file__).resolve().parent
++        for name, digest in v3.SOURCE_FILES.items(): self.assertEqual(v3.sha(here/name), digest)
++        origin = ROOT/'results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu'
++        self.assertEqual(v3.sha(origin), v3.ORIGIN_SHA)
++        original = origin.read_text(encoding='utf-8')
++        ported = (here/v3.SOURCE_NAME).read_text(encoding='utf-8')
++        def loop(text):
++            return text[text.index('template <typename TestFn>'):text.index('TimingStats calculateStats')]
++        self.assertEqual(loop(original).replace('CHECK_CUDA', 'CHECK_HIP').replace('cuda', 'hip'), loop(ported))
++        self.assertNotIn('first_ms', ported)
++        self.assertNotIn('i % 1024', ported)
++
++    def test_explicit_default_reference_is_pinned(self):
++        m = v3.freeze_reference({})
++        reference = copy.deepcopy(m['a100_reference'])
++        self.assertEqual(len(v3.reference(m)), 981)
++        with patch.object(v3.json, 'loads', side_effect=AssertionError('mutable latest read')):
++            self.assertEqual(v3.freeze_reference(m)['a100_reference'], reference)
++        for key in ('median_table_sha256', 'source_sha256', 'manifest_sha256'):
++            changed = copy.deepcopy(m); changed['a100_reference'][key] = '0' * 64
++            with self.assertRaises(ValueError): v3.reference(changed)
++
++    def test_complete_report_uses_lossless_medians_and_keeps_all_samples(self):
++        from summarize_cufft261012 import report
++        parent = Path(__file__).resolve().parents[2]/'.worktree-archives/sample-tests'
++        parent.mkdir(parents=True, exist_ok=True)
++        run = parent/uuid.uuid4().hex; run.mkdir()
++        def cleanup():
++            assert run.resolve().parent == parent.resolve()
++            shutil.rmtree(run)
++        self.addCleanup(cleanup)
++        m = dict(policy=v3.POLICY, experiment='EXP-999', run_id='EXP-999-v3-synthetic',
++                 gpu_arch='gfx936', acceptance='Synthetic fixture, no measured performance.',
++                 case_scope='One exact A100 match and one case with no A100 reference.',
++                 cases=[dict(N=131072, func='d2z_1d'), dict(N=69938, func='z2d_1d')], arms={})
++        for arm in ('official', 'candidate'):
++            m['arms'][arm] = dict(install=str(ROOT/('synthetic-'+arm)), source_repo=str(ROOT),
++                source_commit=v3.OFFICIAL_COMMIT if arm == 'official' else 'a'*40,
++                library_sha256=v3.OFFICIAL_SHA if arm == 'official' else 'b'*64,
++                source_state='Synthetic committed source only.', build_provenance='Synthetic fixture only.')
++        m = v3.validate_manifest(v3.freeze_reference(m))
++        def dump(name, value): (run/name).write_text(json.dumps(value), encoding='utf-8')
++        def write_csv(path, header, rows):
++            with path.open('w', encoding='utf-8', newline='') as f:
++                writer = csv.DictWriter(f, fieldnames=header); writer.writeheader(); writer.writerows(rows)
++        gpu = dict(count=1, uuid='1'*32, arch='gfx936')
++        p = dict(policy=v3.POLICY, source_sha256=v3.SOURCE_SHA, source_files_sha256=v3.SOURCE_FILES,
++                 timing_origin_sha256=v3.ORIGIN_SHA, complete=True, event_iterations=30, timing_warmups=10,
++                 job_id='synthetic', host='synthetic', gpu=gpu,
++                 arms={a: dict(v, actual_library=v['install']+'/lib/librocfft.so.0.1', binary_sha256='f'*64)
++                       for a, v in m['arms'].items()})
++        entries = []
++        for item in v3.schedule(m):
++            directory = run/('p%04d'%item['index']); directory.mkdir()
++            values = [.03]*29+[.09] if item['arm'] == 'official' else [.02]*29+[.12]
++            row, samples, check = fixture()
++            for record in [row, check, *samples]: record.update(N=str(item['N']), func=item['func'])
++            row.update({k:'%.6f'%v for k,v in dict(tmax_ms=max(values), tmin_ms=min(values),
++                       tmean_ms=statistics.mean(values), tmedium_ms=statistics.median(values)).items()})
++            row.update({'time_%d_ms'%i:'%.6f'%v for i,v in enumerate(values,1)})
++            for sample,value in zip(samples,values): sample['elapsed_ms']=repr(value)
++            write_csv(directory/'summary.csv',v3.HEADER,[row])
++            write_csv(directory/'samples.csv',v2.SAMPLE_HEADER,samples)
++            write_csv(directory/'check.csv',v3.CHECK_HEADER,[check])
++            entry=dict(item,returncode=0,gpu=gpu,job_id='synthetic',host='synthetic',
++                       library_sha256=m['arms'][item['arm']]['library_sha256'])
++            for key,name in [('csv','summary.csv'),('samples','samples.csv'),('correctness','check.csv'),
++                             ('stdout','stdout.txt'),('stderr','stderr.txt')]:
++                path=directory/name
++                if name.endswith('.txt'): path.write_text('Synthetic fixture.\n')
++                entry[key]=path.relative_to(run).as_posix();entry[key+'_sha256']=v3.sha(path)
++            entries.append(entry)
++        dump('preregistration.json',m);dump('provenance.json',p);dump('processes.json',entries)
++        before=[v3.sha(run/e['samples']) for e in entries]
++        rows=report(run)
++        self.assertTrue(all(r['speedup_official_median']==1.5 for r in rows))
++        self.assertTrue(all(not k.startswith('speedup_') or k.endswith('_median') for r in rows for k in r))
++        self.assertIsNotNone(rows[0]['a100_median_ms']);self.assertIsNone(rows[1]['a100_median_ms'])
++        self.assertEqual(before,[v3.sha(run/e['samples']) for e in entries])
++        self.assertEqual(len(list((run/'plots').glob('*.svg'))),2)
++        self.assertIn('十次预热', (run/'comparison.md').read_text(encoding='utf-8'))
++
++
++if __name__ == '__main__': unittest.main()
+--- a/tools/fft_measurement/test_samples.py
++++ b/tools/fft_measurement/test_samples.py
+@@ -194,8 +194,8 @@
+         cls.manager = importlib.util.module_from_spec(spec)
+         spec.loader.exec_module(cls.manager)
+ 
+-    def test_default_new_policy_and_explicit_legacy_dispatch(self):
+-        self.assertIs(self.manager.measurement_protocol({}), contract)
++    def test_explicit_sample_v2_and_legacy_dispatch(self):
++        self.assertIs(self.manager.measurement_protocol({'policy': contract.POLICY}), contract)
+         self.assertIs(self.manager.measurement_protocol({'policy':common.POLICY}), common)
+ 
+     def test_legacy_frozen_files_and_sample_source_hash(self):
+@@ -203,9 +203,9 @@
+         self.assertEqual(common.sha(here/'fft_test_1d.cpp'), common.SOURCE_SHA)
+         self.assertEqual(common.sha(here/contract.SOURCE_NAME), contract.SOURCE_SHA)
+ 
+-    def test_default_worker_uses_new_schedule_without_submitting(self):
++    def test_explicit_v2_worker_uses_registered_schedule_without_submitting(self):
+         import run_samples
+-        cfg = {'experiment':'EXP-999', 'run_id':'EXP-999-worker',
++        cfg = {'experiment':'EXP-999', 'run_id':'EXP-999-worker', 'policy':contract.POLICY,
+                'arms':{'official':{}, 'candidate':{}}}
+         allocation = {'SLURM_JOB_ID':'synthetic', 'SLURM_JOB_GPUS':'0,1', 'SLURM_STEP_GPUS':'0'}
+         with patch.object(self.manager, 'load', return_value=cfg), \
+--- a/tools/workspace_manager/deferred.py
++++ b/tools/workspace_manager/deferred.py
+@@ -30,8 +30,12 @@
+     b = hashed_json(spec['build_config'], spec['build_config_sha256'])
+     mgr.require(m['experiment'] == b['experiment'] == cfg['experiment'], 'queue experiment mismatch')
+     mgr.require(m['run_id'] != cfg['run_id'], 'queue and measurement need independent run IDs')
+-    import sample_contract as protocol
+-    mgr.require(m.get('policy') == protocol.POLICY, 'early queue requires sample protocol v2')
++    protocol = mgr.measurement_protocol(m)
++    mgr.require(protocol is not mgr.common and m.get('policy') == protocol.POLICY, 'early queue requires an explicit sample protocol')
++    if hasattr(protocol, 'freeze_reference') and spec.get('a100_reference'):
++        mgr.require('a100_reference' not in m or m['a100_reference'] == spec['a100_reference'], 'conflicting frozen A100 reference')
++        m['a100_reference'] = copy.deepcopy(spec['a100_reference'])
++        protocol.reference(m)
+     mgr.require(m.get('gpu_arch') == 'gfx936', 'unsupported queue GPU profile')
+     mgr.require(m.get('timing_source_sha256') == protocol.SOURCE_SHA, 'timing source mismatch')
+     mgr.require(isinstance(m.get('acceptance'), str) and len(m['acceptance'].strip()) >= 10,
+@@ -105,7 +109,7 @@
+     m, b, bp, hook = inputs(cfg)
+     mgr.source_identity(b)
+     mgr.require(not mgr.locations(m, 'measure')['run'].exists(), 'measurement run already used')
+-    import sample_contract as protocol
++    protocol = mgr.measurement_protocol(m)
+     references = {}
+     for name in protocol.arms(m):
+         if name == 'candidate':
+@@ -122,14 +126,18 @@
+         mgr.require(mgr.common.sha(mgr.inside(a['install']) / 'lib/librocfft.so.0.1') == a['library_sha256'],
+                     'reference library changed')
+         references[name] = a
+-    return dict(task='measure', deferred=True, queue_run=str(mgr.locations(cfg, 'measure')['run']),
++    frozen = copy.deepcopy(cfg)
++    if hasattr(protocol, 'freeze_reference'):
++        pinned = protocol.freeze_reference(m)
++        frozen['deferred_measurement']['a100_reference'] = pinned['a100_reference']
++    return dict(resolved_preregistration=frozen, task='measure', deferred=True, queue_run=str(mgr.locations(cfg, 'measure')['run']),
+                 measurement_run=str(mgr.locations(m, 'measure')['run']),
+                 submission_command=mgr.submission_command('measure', cfg),
+                 reference_arms=references, pending_candidate=dict(build_job_id=cfg['deferred_measurement']['build_job_id'],
+                     source_commit=b['build']['source_commit'], install=str(bp['install']),
+                     library_sha256=None, validation_command=hook),
+                 cases=len(mgr.common.cases(m)), processes=len(protocol.schedule(m)),
+-                event_iterations=protocol.iterations(m), timing_warmups=3, node_exclusive=True,
++                event_iterations=protocol.iterations(m), timing_warmups=getattr(protocol, 'WARMUPS', 3), node_exclusive=True,
+                 notice='Only scheduling is early. Freeze the real candidate checksum after successful build and validation, before any timing.')
+ 
+ 
+@@ -158,8 +166,12 @@
+             json.loads((queue / 'submission.json').read_text()), queue_run=str(queue)))
+         mgr.dumps(queue / 'resolution.json', dict(measurement_run=str(p['run']),
+             resolved_manifest_sha256=mgr.common.sha(p['run'] / 'submit-manifest.json'), **evidence))
+-        import run_samples
+-        run_samples.execute(m)
++        protocol = mgr.measurement_protocol(m)
++        if protocol.POLICY == 'FFT-event-cufft261012-single-v3':
++            import run_cufft261012 as worker
++        else:
++            import run_samples as worker
++        worker.execute(m)
+         mgr.dumps(queue / 'completion.json', dict(complete=True, measurement_run=str(p['run'])))
+     except Exception as error:
+         mgr.dumps(queue / 'execution-failed.json', dict(error=str(error), complete=False))
+--- a/tools/workspace_manager/manager.py
++++ b/tools/workspace_manager/manager.py
+@@ -65,8 +65,11 @@
+ def measurement_protocol(cfg):
+     if cfg.get('policy') == common.POLICY:
+         return common
+-    import sample_contract
+-    return sample_contract
++    import sample_contract, cufft261012_contract
++    if cfg.get('policy') == sample_contract.POLICY:
++        return sample_contract
++    require(cfg.get('policy', cufft261012_contract.POLICY) == cufft261012_contract.POLICY, 'unknown measurement policy')
++    return cufft261012_contract
+ 
+ def measurement(cfg):
+     m=copy.deepcopy(cfg)
+@@ -103,6 +106,8 @@
+         # Queue workers consume frozen concrete identities, never mutable aliases.
+         a.pop('registry_id',None)
+         a.pop('build_record',None)
++    if hasattr(protocol, 'freeze_reference'):
++        m = protocol.freeze_reference(m)
+     return protocol.validate_manifest(m)
+ 
+ def source_identity(cfg):
+@@ -196,18 +201,19 @@
+         if registered.is_file():
+             stored=json.loads(registered.read_text(encoding='utf-8'))
+             protocol=measurement_protocol(stored)
+-        script='summarize.py' if protocol is common else 'summarize_samples.py'
++        script=('summarize.py' if protocol is common else
++                'summarize_cufft261012.py' if protocol.POLICY == 'FFT-event-cufft261012-single-v3' else 'summarize_samples.py')
+         return {'task':task,'run':str(p['run']),'command':[PYTHON,str(ROOT/'tools/fft_measurement'/script),str(p['run'])]}
+     for arm in selected:
+         require(common.sha(inside(m['arms'][arm]['install'])/'lib/librocfft.so.0.1')==m['arms'][arm]['library_sha256'],arm+': library hash mismatch')
+     return {'task':task,'paths':{k:str(v) for k,v in p.items()},'resolved_preregistration':m,
+             'submission_command':submission_command(task,m),
+-            'processes':len(protocol.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':3,
++            'processes':len(protocol.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':getattr(protocol,'WARMUPS',3) if task=='measure' else 3,
+             'event_iterations':protocol.iterations(m) if task=='measure' and protocol is not common else 50,
+             'formal':task=='measure','node_exclusive':task=='measure',
+             'notice':('Quick correctness is not formal promotion evidence.' if task=='validate' else
+                       'Frozen 8-round three-arm protocol in an exclusive node allocation.' if protocol is common else
+-                      'One process per case/version; all event samples retained, mean and median ratios, distribution and order plots.')}
++                      'One process per case/version; all event samples retained, median ratios, distribution and order plots.')}
+ 
+ def allocate(cfg,task):
+     p=locations(cfg,task)
+@@ -373,6 +379,8 @@
+                 protocol=measurement_protocol(cfg)
+                 if protocol is common:
+                     import run as worker
++                elif protocol.POLICY == 'FFT-event-cufft261012-single-v3':
++                    import run_cufft261012 as worker
+                 else:
+                     import run_samples as worker
+                 worker.execute(protocol.manifest(args.config))

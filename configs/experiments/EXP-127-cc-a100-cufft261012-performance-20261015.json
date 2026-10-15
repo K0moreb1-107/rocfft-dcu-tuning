@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "policy": "FFT-event-cufft261012-single-v3",
+  "experiment": "EXP-127",
+  "run_id": "EXP-127-cc-a100-cufft261012-performance-20261015",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "04:00:00",
+    "nodelist": "f13r4n15",
+    "node_exclusive": true
+  },
+  "event_iterations": 30,
+  "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+  "cases": [
+    {
+      "N": 101088,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 101088,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 120224,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 123904,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 123904,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 129024,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 129024,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 596288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 596288,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 702464,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 702464,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d"
+    }
+  ],
+  "case_scope": "12个N>65536偶数尺寸，两个实数方向共24项，因子集合为2、3、7、11、13、17（4归入2的幂）；其中6个N精确匹配新A100数据，补充6个既有CC成员覆盖行列四种奇偶组合及1024列／1331行。当前生产计划主机预检查全部为两段CC并带前／后处理；不强制加载或修改方案表。",
+  "arms": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+    },
+    "candidate": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-tr-s2-linkfix-20261014",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+      "source_state": "{\"commit\": \"2ef393567f2637f356bfc75db78bce53ad0f42fd\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+      "library_sha256": "9eaa2f80d76c11f3008c97ee015ab482fb8947d98d28dcd5a14374f45ff9de38",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-tr-s2-linkfix-build-20261014/build-provenance.json"
+    }
+  },
+  "acceptance": "沿用920231验收的当前库9eaa2f80和官方rocFFT原库，十二个尺寸、两个实数方向、两个版本，共48个独立进程；批量一、双精度、一维、非原位、默认计划。严格正确性在计时外完成并恢复递增输入，十次事件预热、三十次逐次同步的完整变换事件；对照与当前紧邻并交替先后。全部原始样本保留，仅用中位数及散点、序号图分析；重叠或漂移标注不明确，不自动推广。A100精确匹配N及类型的10／30样本中位数，仅作跨设备参考，缺项留空。当前CC与官方默认分解可能不同，测量为整体版本对比，不单独归因融合。旧920949保持原协议及原表。",
+  "measurement_conditions": {
+    "precision": "double",
+    "batch": 1,
+    "placement": "out-of-place",
+    "load_path": "default",
+    "forced_load_selector": false,
+    "processes_per_case_arm": 1,
+    "warmups_per_process": 10,
+    "event_iterations_per_process": 30,
+    "warmup_mode": "same_event_loop_per_iteration_stop_event_synchronize",
+    "input_pattern": "linear_index_real_imaginary_zero",
+    "correctness": "strict_lt_1e-9_outside_timing_then_restore_complete_input"
+  },
+  "analysis_statistic": "median_of_raw_event_samples",
+  "checkpoint_commit": "8254e85a682495328b67c5cfa05d2a0accf78888",
+  "rocfft_source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "candidate_build_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+  "required_validation_job": "920231",
+  "candidate_variant": "current-EXP127-CC-complex-default-no-forced-selectors",
+  "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-a100-20261015/coverage.json",
+  "coverage_sha256": "332ad27bf329e8fcee1649a8f02329f7ea7381bd3e1c13d88aa41a191cc39ad5",
+  "host_plan_preflight": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-a100-20261015/host-plan-proof.json",
+  "host_plan_preflight_sha256": "cc8af5e0eec8c2359681e36a62e20f8dc6443e0c3d279d4dc72c400e2b906c86",
+  "starting_stable_tag": "完成CC路径前后处理融合",
+  "automatic_promotion": false,
+  "stop_after_submission": true,
+  "user_authorization": "将压缩包中的新计时程序更新到服务器，此后使用新程序测量，并重测同一组官方基线与当前版本；提交后停止。",
+  "timing_warmups": 10,
+  "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+  "prior_measurement_run": "EXP-127-cc-a100-performance-20261015",
+  "prior_measurement_job": "920949",
+  "a100_reference": {
+    "dataset": "test_fft_261012",
+    "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+    "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+    "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+    "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+    "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+    "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+    "warmups": 10,
+    "event_iterations": 30,
+    "input_pattern": "linear_index_real_imaginary_zero",
+    "comparison": "cross_device_reference",
+    "source_binary_correspondence_verified": false
+  },
+  "measurement_tools_sha256": {
+    "common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+    "sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+    "cufft261012_contract.py": "b5349000cecfd45503a2af06475c785ff7650cd27bd22c5f396cc40def6d9a42",
+    "run_cufft261012.py": "6a04073c17d36e32046c8af6879442ebc953ff785360ec481c8b8bd28c360664",
+    "summarize_cufft261012.py": "88d6b3107b95e8fa9120d1e6a3dda9f8020f20b18a1075af455180bbeefa2354",
+    "plot_cufft261012.py": "0010273984a5033b0ce55b79d94aea235514053727ac2020fb24b62711505af7",
+    "fft_test_1d_cufft261012.cpp": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+    "rocfft_measurement_support_v3.h": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+    "device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7"
+  }
+}

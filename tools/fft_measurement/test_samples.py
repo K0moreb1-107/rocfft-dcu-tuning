@@ -194,8 +194,8 @@ class Entry(unittest.TestCase):
         cls.manager = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cls.manager)
 
-    def test_default_new_policy_and_explicit_legacy_dispatch(self):
-        self.assertIs(self.manager.measurement_protocol({}), contract)
+    def test_explicit_sample_v2_and_legacy_dispatch(self):
+        self.assertIs(self.manager.measurement_protocol({'policy': contract.POLICY}), contract)
         self.assertIs(self.manager.measurement_protocol({'policy':common.POLICY}), common)
 
     def test_legacy_frozen_files_and_sample_source_hash(self):
@@ -203,9 +203,9 @@ class Entry(unittest.TestCase):
         self.assertEqual(common.sha(here/'fft_test_1d.cpp'), common.SOURCE_SHA)
         self.assertEqual(common.sha(here/contract.SOURCE_NAME), contract.SOURCE_SHA)
 
-    def test_default_worker_uses_new_schedule_without_submitting(self):
+    def test_explicit_v2_worker_uses_registered_schedule_without_submitting(self):
         import run_samples
-        cfg = {'experiment':'EXP-999', 'run_id':'EXP-999-worker',
+        cfg = {'experiment':'EXP-999', 'run_id':'EXP-999-worker', 'policy':contract.POLICY,
                'arms':{'official':{}, 'candidate':{}}}
         allocation = {'SLURM_JOB_ID':'synthetic', 'SLURM_JOB_GPUS':'0,1', 'SLURM_STEP_GPUS':'0'}
         with patch.object(self.manager, 'load', return_value=cfg), \

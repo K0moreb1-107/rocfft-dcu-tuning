@@ -1,0 +1,222 @@
+{
+  "task": "measure",
+  "paths": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-a100-cufft261012-performance-20261015",
+    "logs": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-a100-cufft261012-performance-20261015/logs",
+    "build": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/measurement/EXP-127-cc-a100-cufft261012-performance-20261015",
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-cc-a100-cufft261012-performance-20261015",
+    "cache": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/cache/EXP-127-cc-a100-cufft261012-performance-20261015"
+  },
+  "resolved_preregistration": {
+    "schema_version": 1,
+    "policy": "FFT-event-cufft261012-single-v3",
+    "experiment": "EXP-127",
+    "run_id": "EXP-127-cc-a100-cufft261012-performance-20261015",
+    "gpu_arch": "gfx936",
+    "resources": {
+      "partition": "hx1hdnormal01",
+      "cpus": 8,
+      "time_limit": "04:00:00",
+      "nodelist": "f13r4n15",
+      "node_exclusive": true
+    },
+    "event_iterations": 30,
+    "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+    "cases": [
+      {
+        "N": 101088,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 101088,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 120224,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 120224,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 123904,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 123904,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 129024,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 129024,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 131072,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 131072,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 142688,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 142688,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 166698,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 166698,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 262144,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 262144,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 524288,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 524288,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 596288,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 596288,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 702464,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 702464,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 1048576,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 1048576,
+        "func": "z2d_1d"
+      }
+    ],
+    "case_scope": "12\u4e2aN>65536\u5076\u6570\u5c3a\u5bf8\uff0c\u4e24\u4e2a\u5b9e\u6570\u65b9\u5411\u517124\u9879\uff0c\u56e0\u5b50\u96c6\u5408\u4e3a2\u30013\u30017\u300111\u300113\u300117\uff084\u5f52\u51652\u7684\u5e42\uff09\uff1b\u5176\u4e2d6\u4e2aN\u7cbe\u786e\u5339\u914d\u65b0A100\u6570\u636e\uff0c\u8865\u51456\u4e2a\u65e2\u6709CC\u6210\u5458\u8986\u76d6\u884c\u5217\u56db\u79cd\u5947\u5076\u7ec4\u5408\u53ca1024\u5217\uff0f1331\u884c\u3002\u5f53\u524d\u751f\u4ea7\u8ba1\u5212\u4e3b\u673a\u9884\u68c0\u67e5\u5168\u90e8\u4e3a\u4e24\u6bb5CC\u5e76\u5e26\u524d\uff0f\u540e\u5904\u7406\uff1b\u4e0d\u5f3a\u5236\u52a0\u8f7d\u6216\u4fee\u6539\u65b9\u6848\u8868\u3002",
+    "arms": {
+      "official": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+        "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+        "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+        "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+        "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+      },
+      "candidate": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-tr-s2-linkfix-20261014",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+        "source_state": "{\"commit\": \"2ef393567f2637f356bfc75db78bce53ad0f42fd\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+        "library_sha256": "9eaa2f80d76c11f3008c97ee015ab482fb8947d98d28dcd5a14374f45ff9de38",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-tr-s2-linkfix-build-20261014/build-provenance.json"
+      }
+    },
+    "acceptance": "\u6cbf\u7528920231\u9a8c\u6536\u7684\u5f53\u524d\u5e939eaa2f80\u548c\u5b98\u65b9rocFFT\u539f\u5e93\uff0c\u5341\u4e8c\u4e2a\u5c3a\u5bf8\u3001\u4e24\u4e2a\u5b9e\u6570\u65b9\u5411\u3001\u4e24\u4e2a\u7248\u672c\uff0c\u517148\u4e2a\u72ec\u7acb\u8fdb\u7a0b\uff1b\u6279\u91cf\u4e00\u3001\u53cc\u7cbe\u5ea6\u3001\u4e00\u7ef4\u3001\u975e\u539f\u4f4d\u3001\u9ed8\u8ba4\u8ba1\u5212\u3002\u4e25\u683c\u6b63\u786e\u6027\u5728\u8ba1\u65f6\u5916\u5b8c\u6210\u5e76\u6062\u590d\u9012\u589e\u8f93\u5165\uff0c\u5341\u6b21\u4e8b\u4ef6\u9884\u70ed\u3001\u4e09\u5341\u6b21\u9010\u6b21\u540c\u6b65\u7684\u5b8c\u6574\u53d8\u6362\u4e8b\u4ef6\uff1b\u5bf9\u7167\u4e0e\u5f53\u524d\u7d27\u90bb\u5e76\u4ea4\u66ff\u5148\u540e\u3002\u5168\u90e8\u539f\u59cb\u6837\u672c\u4fdd\u7559\uff0c\u4ec5\u7528\u4e2d\u4f4d\u6570\u53ca\u6563\u70b9\u3001\u5e8f\u53f7\u56fe\u5206\u6790\uff1b\u91cd\u53e0\u6216\u6f02\u79fb\u6807\u6ce8\u4e0d\u660e\u786e\uff0c\u4e0d\u81ea\u52a8\u63a8\u5e7f\u3002A100\u7cbe\u786e\u5339\u914dN\u53ca\u7c7b\u578b\u768410\uff0f30\u6837\u672c\u4e2d\u4f4d\u6570\uff0c\u4ec5\u4f5c\u8de8\u8bbe\u5907\u53c2\u8003\uff0c\u7f3a\u9879\u7559\u7a7a\u3002\u5f53\u524dCC\u4e0e\u5b98\u65b9\u9ed8\u8ba4\u5206\u89e3\u53ef\u80fd\u4e0d\u540c\uff0c\u6d4b\u91cf\u4e3a\u6574\u4f53\u7248\u672c\u5bf9\u6bd4\uff0c\u4e0d\u5355\u72ec\u5f52\u56e0\u878d\u5408\u3002\u65e7920949\u4fdd\u6301\u539f\u534f\u8bae\u53ca\u539f\u8868\u3002",
+    "measurement_conditions": {
+      "precision": "double",
+      "batch": 1,
+      "placement": "out-of-place",
+      "load_path": "default",
+      "forced_load_selector": false,
+      "processes_per_case_arm": 1,
+      "warmups_per_process": 10,
+      "event_iterations_per_process": 30,
+      "warmup_mode": "same_event_loop_per_iteration_stop_event_synchronize",
+      "input_pattern": "linear_index_real_imaginary_zero",
+      "correctness": "strict_lt_1e-9_outside_timing_then_restore_complete_input"
+    },
+    "analysis_statistic": "median_of_raw_event_samples",
+    "checkpoint_commit": "8254e85a682495328b67c5cfa05d2a0accf78888",
+    "rocfft_source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+    "candidate_build_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+    "required_validation_job": "920231",
+    "candidate_variant": "current-EXP127-CC-complex-default-no-forced-selectors",
+    "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-a100-20261015/coverage.json",
+    "coverage_sha256": "332ad27bf329e8fcee1649a8f02329f7ea7381bd3e1c13d88aa41a191cc39ad5",
+    "host_plan_preflight": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-a100-20261015/host-plan-proof.json",
+    "host_plan_preflight_sha256": "cc8af5e0eec8c2359681e36a62e20f8dc6443e0c3d279d4dc72c400e2b906c86",
+    "starting_stable_tag": "\u5b8c\u6210CC\u8def\u5f84\u524d\u540e\u5904\u7406\u878d\u5408",
+    "automatic_promotion": false,
+    "stop_after_submission": true,
+    "user_authorization": "\u5c06\u538b\u7f29\u5305\u4e2d\u7684\u65b0\u8ba1\u65f6\u7a0b\u5e8f\u66f4\u65b0\u5230\u670d\u52a1\u5668\uff0c\u6b64\u540e\u4f7f\u7528\u65b0\u7a0b\u5e8f\u6d4b\u91cf\uff0c\u5e76\u91cd\u6d4b\u540c\u4e00\u7ec4\u5b98\u65b9\u57fa\u7ebf\u4e0e\u5f53\u524d\u7248\u672c\uff1b\u63d0\u4ea4\u540e\u505c\u6b62\u3002",
+    "timing_warmups": 10,
+    "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+    "prior_measurement_run": "EXP-127-cc-a100-performance-20261015",
+    "prior_measurement_job": "920949",
+    "a100_reference": {
+      "dataset": "test_fft_261012",
+      "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+      "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+      "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+      "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+      "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+      "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+      "warmups": 10,
+      "event_iterations": 30,
+      "input_pattern": "linear_index_real_imaginary_zero",
+      "comparison": "cross_device_reference",
+      "source_binary_correspondence_verified": false
+    },
+    "measurement_tools_sha256": {
+      "common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+      "sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+      "cufft261012_contract.py": "b5349000cecfd45503a2af06475c785ff7650cd27bd22c5f396cc40def6d9a42",
+      "run_cufft261012.py": "6a04073c17d36e32046c8af6879442ebc953ff785360ec481c8b8bd28c360664",
+      "summarize_cufft261012.py": "88d6b3107b95e8fa9120d1e6a3dda9f8020f20b18a1075af455180bbeefa2354",
+      "plot_cufft261012.py": "0010273984a5033b0ce55b79d94aea235514053727ac2020fb24b62711505af7",
+      "fft_test_1d_cufft261012.cpp": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+      "rocfft_measurement_support_v3.h": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+      "device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7"
+    }
+  },
+  "submission_command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-a100-cufft261012-performance-20261015/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-a100-cufft261012-performance-20261015/logs/slurm_%j.err",
+    "--cpus-per-task=8",
+    "--partition=hx1hdnormal01",
+    "--time=04:00:00",
+    "--exclusive",
+    "--nodelist=f13r4n15",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "measure",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-a100-cufft261012-performance-20261015/submit-manifest.json"
+  ],
+  "processes": 48,
+  "cases": 24,
+  "timing_warmups": 10,
+  "event_iterations": 30,
+  "formal": true,
+  "node_exclusive": true,
+  "notice": "One process per case/version; all event samples retained, median ratios, distribution and order plots."
+}

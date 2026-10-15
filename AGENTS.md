@@ -4,22 +4,23 @@ This file is authoritative for all subsequent rocFFT optimization experiments
 in /public/home/zhangkewei/zr. Do not change the measurement definition without
 recording the reason and updating this file first.
 
-## 性能测量（2026-10-12）
+## 性能测量（用户更新，2026-10-15）
 
 统一入口：`python3 manage.py measure --config CONFIG.json` 预览，加 `--execute` 提交。
-新测量使用 `FFT-event-samples-single-v2`：双精度、批量一、非原位、默认计划；
-每个尺寸／类型／版本一个独立进程，三次预热，默认50次逐次同步的完整变换事件计时。
-次数可在登记中调整，同一比较各版本相同；保留原输入、初始化和严格 `<1e-9` 正确性。
-对照与当前紧邻执行，各尺寸／类型交替先后；默认两版本，需要时显式增加稳定对照。
-节点独占、单卡执行，登记具体源码、库、程序校验值、设备、顺序和验收要求；缺项或失败不汇总。
-逐次耗时先存入预分配数组，计时结束再写文件；保留全部样本，不删慢点。
-以后性能分析和验收只用原始逐次耗时的中位数；加速比＝对照中位数／当前中位数。
-均值可保留在原始记录或兼容输出，不参与性能结论、类型判断或验收。
-保留两列散点和测量序号—耗时图；图形重叠或顺序漂移时标注差异不明确，不自动重测或推广。
-A100只有历史均值时单列参考，不与当前中位数混算加速比或相对性能。
-历史登记、原表和任务900813保留原口径；以后重新分析已有逐次样本时另存中位数报告。
-缺少逐次样本不构造中位数，不用进程均值的中位数替代；用户要求重测时才执行。
-细则、样本格式和旧版协议见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。
+新测量默认 `FFT-event-cufft261012-single-v3`：双精度、一维、批量一、非原位、默认计划；
+每个尺寸／类型／版本一个独立进程，十次预热、三十次正式计时。
+沿用test_fft_261012原包事件循环：预热及正式变换共用计划、缓冲区与默认流，每次单独同步；
+只读出后30次耗时，预分配样本空间，结束后写文件。输入为元素序号，复数虚部为零。
+严格 `<1e-9` 正确性在窗口外完成，随后完整恢复测量输入；没有假N=1计划或未初始化首轮。
+节点独占、单卡；对照与当前紧邻、交替先后，冻结源码／头文件／库／程序／参考与设备身份。
+保留原包39列、未舍入逐次样本及独立正确性表；缺项、校验失败或身份不符即拒绝汇总。
+性能分析及验收只用全部逐次样本的中位数，加速比＝对照中位数／当前中位数，不剔除慢点。
+保留散点与测量序号图，仅标中位数及中间50%区间；重叠或漂移标注差异不明确，不自动重测或推广。
+新A100参考在提交前冻结具体版本，只按精确N、类型及10／30条件匹配中位数；无匹配留空。
+performance＝A100中位数／当前中位数×100%，仅作跨设备参考，原包构建凭据限制须注明。
+旧v1／v2配置显式沿用原协议与程序，原始结果及920949的三次／50次记录不改写、不混表。
+新程序固定10／30；需要调整次数时另行登记对应源码版本，不能只改配置冒用原身份。
+细则及版本差异见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。提交任务后停止，待用户要求检查。
 
 ## Historical hipprof scope and matching conditions
 
@@ -339,4 +340,4 @@ measurement from that build record. Validation failure never becomes a
 formal acceptance or automatic promotion. All task submission uses manage.py.
 
 最新A100资料见 `results/reference/a100/latest.json` 与 `docs/technical/A100_REFERENCE_DATA.md`。
-当前参考为10次预热、30次逐次计时；按样本中位数引用并注明条件差异，历史冻结参考及服务器协议不改写。
+新A100参考与v3均为10次预热、30次逐次计时；只按精确尺寸及类型匹配中位数，历史参考和旧协议原件保留。

@@ -1,5 +1,5 @@
 {
-  "policy": "FFT-event-samples-single-v2",
+  "policy": "FFT-event-cufft261012-single-v3",
   "experiment": "EXP-999",
   "run_id": "EXP-999-REPLACE-run-id",
   "gpu_arch": "gfx936",
@@ -23,5 +23,8 @@
     }
   },
   "schema_version": 1,
-  "event_iterations": 50
+  "event_iterations": 30,
+  "timing_warmups": 10,
+  "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+  "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6"
 }

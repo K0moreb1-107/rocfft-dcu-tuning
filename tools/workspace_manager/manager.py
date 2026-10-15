@@ -65,8 +65,11 @@ def registry():
 def measurement_protocol(cfg):
     if cfg.get('policy') == common.POLICY:
         return common
-    import sample_contract
-    return sample_contract
+    import sample_contract, cufft261012_contract
+    if cfg.get('policy') == sample_contract.POLICY:
+        return sample_contract
+    require(cfg.get('policy', cufft261012_contract.POLICY) == cufft261012_contract.POLICY, 'unknown measurement policy')
+    return cufft261012_contract
 
 def measurement(cfg):
     m=copy.deepcopy(cfg)
@@ -103,6 +106,8 @@ def measurement(cfg):
         # Queue workers consume frozen concrete identities, never mutable aliases.
         a.pop('registry_id',None)
         a.pop('build_record',None)
+    if hasattr(protocol, 'freeze_reference'):
+        m = protocol.freeze_reference(m)
     return protocol.validate_manifest(m)
 
 def source_identity(cfg):
@@ -196,18 +201,19 @@ def task_plan(task,cfg):
         if registered.is_file():
             stored=json.loads(registered.read_text(encoding='utf-8'))
             protocol=measurement_protocol(stored)
-        script='summarize.py' if protocol is common else 'summarize_samples.py'
+        script=('summarize.py' if protocol is common else
+                'summarize_cufft261012.py' if protocol.POLICY == 'FFT-event-cufft261012-single-v3' else 'summarize_samples.py')
         return {'task':task,'run':str(p['run']),'command':[PYTHON,str(ROOT/'tools/fft_measurement'/script),str(p['run'])]}
     for arm in selected:
         require(common.sha(inside(m['arms'][arm]['install'])/'lib/librocfft.so.0.1')==m['arms'][arm]['library_sha256'],arm+': library hash mismatch')
     return {'task':task,'paths':{k:str(v) for k,v in p.items()},'resolved_preregistration':m,
             'submission_command':submission_command(task,m),
-            'processes':len(protocol.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':3,
+            'processes':len(protocol.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':getattr(protocol,'WARMUPS',3) if task=='measure' else 3,
             'event_iterations':protocol.iterations(m) if task=='measure' and protocol is not common else 50,
             'formal':task=='measure','node_exclusive':task=='measure',
             'notice':('Quick correctness is not formal promotion evidence.' if task=='validate' else
                       'Frozen 8-round three-arm protocol in an exclusive node allocation.' if protocol is common else
-                      'One process per case/version; all event samples retained, mean and median ratios, distribution and order plots.')}
+                      'One process per case/version; all event samples retained, median ratios, distribution and order plots.')}
 
 def allocate(cfg,task):
     p=locations(cfg,task)
@@ -373,6 +379,8 @@ def main():
                 protocol=measurement_protocol(cfg)
                 if protocol is common:
                     import run as worker
+                elif protocol.POLICY == 'FFT-event-cufft261012-single-v3':
+                    import run_cufft261012 as worker
                 else:
                     import run_samples as worker
                 worker.execute(protocol.manifest(args.config))
