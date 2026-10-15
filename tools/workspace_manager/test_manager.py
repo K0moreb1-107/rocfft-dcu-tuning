@@ -115,9 +115,14 @@ class ManagedTasks(unittest.TestCase):
                 self.assertEqual(json.loads((p['run']/'submit-manifest.json').read_text())
                                  ['resources']['dependency'],dependency)
 
+    def test_multiple_success_or_completion_dependencies_remain_valid(self):
+        for value in ('afterany:1:2', 'afterok:1:2'):
+            cfg=dict(self.cfg, resources={'dependency':value})
+            self.assertIn('--dependency='+value, manager.submission_command('build',cfg))
+
     def test_invalid_dependency_rejected_before_allocation(self):
         for value in (None,True,False,0,'','afterany:0','afterany:01','afterany:abc',
-                      'afterok:-1','afterany:1:2','afterok:1,afterany:2','afterany:1\n--exclusive'):
+                      'afterok:-1','afterany:1:','afterok:1,afterany:2','afterany:1\n--exclusive'):
             with self.subTest(value=value):
                 cfg=dict(self.cfg,resources={'dependency':value})
                 with patch.object(manager,'build_plan',return_value={}),\

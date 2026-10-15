@@ -1,0 +1,88 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "candidate": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-final/candidate",
+  "steps": [
+    {
+      "command": [
+        "/public/software/apps/anaconda3/2023.09/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-v2/candidate/tools/workspace_manager",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "code": 0,
+      "log": "experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-v2/manager-tests.log",
+      "sha256": "43df929a8ace5902f908996aae849712c0902df7cd4a1ddcecdf1a8341a4e467"
+    },
+    {
+      "command": [
+        "/public/software/apps/anaconda3/2023.09/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-v2/candidate/tools/fft_measurement",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "code": 0,
+      "log": "experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-v2/measurement-tests.log",
+      "sha256": "da8d176b0c6ecbd72ecf6e787599f2b4e83b967151e67ad00e3f187c64902130"
+    },
+    {
+      "command": [
+        "bash",
+        "-n",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-v2/candidate/jobs/workspace_task.slurm"
+      ],
+      "code": 0,
+      "log": "experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-v2/job-shell-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipprof",
+        "-h"
+      ],
+      "code": 0,
+      "log": "experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-v2/profiler-help.log",
+      "sha256": "8f6acf70019c438c5ddca7282c24530dd082c5783d08dd231ee6df6c4f60f2fa"
+    },
+    {
+      "command": [
+        "/public/software/apps/anaconda3/2023.09/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-final/candidate/tools/workspace_manager",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "code": 0,
+      "log": "experiments/EXP-127/artifacts/preflight/cc-low-speed-922865-20261015-final/manager-tests-final.log",
+      "sha256": "19f7362986b304f9d3af3b45f18cd3f8aba1d70e93722d8ee1656bdf44209c8c"
+    }
+  ],
+  "candidate_files": {
+    "AGENTS.md": "0be86bb5003a8db5cbb6433e2c499175801b26e21b22b82e681f8d830d5f41a7",
+    "jobs/workspace_task.slurm": "e0b589f1211316115dbeaf3bcf2301c316c02d1b882725b933f347faf10590e8",
+    "docs/technical/WORKSPACE_MANAGEMENT.md": "1e5c1d423e729121fb089e8f7bcb568e31272a89dfe03fdd7a1528073be2e6ec",
+    "experiments/EXP-127/scripts/diagnose_cc_low_speed.py": "06c18330a3a768d533cae8ebd908ddbab0188658edc7ea061a48f389fce9fda0",
+    "tools/workspace_manager/diagnostics.py": "dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a",
+    "tools/workspace_manager/manager.py": "a0caa31b63702c1093b060c875155b998665375f0a4d6dcfa51e4c3f260a73fb",
+    "tools/workspace_manager/test_cc_diagnostic_runner.py": "5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3",
+    "tools/workspace_manager/test_diagnostics.py": "8085715074d4edc8865460b868d4a7e8be360dfc067fc28343eca333a78eaa34",
+    "tools/workspace_manager/test_manager.py": "1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c"
+  }
+}

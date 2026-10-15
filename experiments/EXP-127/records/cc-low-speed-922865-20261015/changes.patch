@@ -1,0 +1,525 @@
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -20,6 +20,7 @@
+ performance＝A100中位数／当前中位数×100%，仅作跨设备参考，原包构建凭据限制须注明。
+ 旧v1／v2配置显式沿用原协议与程序，原始结果及920949的三次／50次记录不改写、不混表。
+ 新程序固定10／30；需要调整次数时另行登记对应源码版本，不能只改配置冒用原身份。
++诊断用 `manage.py diagnose`：冻结脚本、输入及库，独占单卡；分析器耗时单列，不替代正式事件结果。
+ 细则及版本差异见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。提交任务后停止，待用户要求检查。
+ 
+ ## Historical hipprof scope and matching conditions
+--- a/jobs/workspace_task.slurm
++++ b/jobs/workspace_task.slurm
+@@ -7,10 +7,10 @@
+ ROOT=/public/home/zhangkewei/zr
+ export PYTHONDONTWRITEBYTECODE=1
+ cd "$ROOT"
+-if [[ "${1:-}" == measure ]]; then
++if [[ "${1:-}" == measure || "${1:-}" == diagnose ]]; then
+     exec srun --exclusive --nodes=1 --ntasks=1 \
+         --cpus-per-task="${SLURM_CPUS_PER_TASK:?CPU request missing}" --gres=dcu:1 \
+         /public/software/apps/anaconda3/2023.09/bin/python "$ROOT/manage.py" \
+-        measure --config "${2:?frozen config required}" --worker
++        "${1}" --config "${2:?frozen config required}" --worker
+ fi
+ exec /public/software/apps/anaconda3/2023.09/bin/python "$ROOT/manage.py" "${1:?task required}" --config "${2:?frozen config required}" --worker
+--- a/docs/technical/WORKSPACE_MANAGEMENT.md
++++ b/docs/technical/WORKSPACE_MANAGEMENT.md
+@@ -283,3 +283,12 @@
+ 实际计算源码为 `06baff81d85a7f24fd240cd32c849244b05ae3b9`；稳定提交只同步历史、说明、结果与登记。构建／正确性／实际融合依据908730，性能依据909379，标量候选908731／909381原样保留。完整批准依据、范围、已知退化及恢复入口见 `experiments/EXP-126/records/stable-promotion-20261013`。本次按用户要求保留已完成的CC融合功能，细节优化另行实施。
+ 
+ 官方基线、旧EXP125标签与库、两种候选、历史原始样本及冻结配置均保留。此前EXP125段落描述当时状态，以本节和当前安装登记为准。转置与卷积融合尚未实现。
++
++
++## 独立诊断入口（2026-10-15）
++
++`python3 manage.py diagnose --config CONFIG.json` 预览，加 `--execute` 提交。
++诊断脚本置于相应实验，登记已提交的脚本及全部输入校验值、具体库与原程序身份；
++通过同一工作入口独占节点、单卡执行，保留原始轨迹、计划和硬件计数。
++这类任务明确为非正式测量，分析器耗时不得替换完整变换事件结果，不改原采样或历史报告。
++提交后停止，等用户要求再检查；当前用于EXP127低收益CC类型归因。
+--- a/experiments/EXP-127/scripts/diagnose_cc_low_speed.py
++++ b/experiments/EXP-127/scripts/diagnose_cc_low_speed.py
+@@ -0,0 +1,170 @@
++"""Default-plan CC fusion traces and per-kernel profiles; never formal timing."""
++import argparse
++import csv
++import datetime
++import json
++import os
++from pathlib import Path
++import re
++import socket
++import subprocess
++import sys
++
++sys.dont_write_bytecode = True
++ROOT = Path('/public/home/zhangkewei/zr')
++sys.path.insert(0, str(ROOT))
++from tools.workspace_manager import manager as mgr
++sys.path.insert(0, str(ROOT/'tools/fft_measurement'))
++import cufft261012_contract as contract
++
++
++def launch(argv, env, folder, label, timeout=180):
++    with (folder/(label+'.out')).open('xb') as out, (folder/(label+'.err')).open('xb') as err:
++        try:
++            code = subprocess.run(list(map(str, argv)), cwd=folder, env=env, stdout=out,
++                                  stderr=err, timeout=timeout).returncode
++            result = dict(argv=list(map(str, argv)), returncode=code)
++        except subprocess.TimeoutExpired:
++            result = dict(argv=list(map(str, argv)), returncode=None, timeout_seconds=timeout)
++        except OSError as error:
++            result = dict(argv=list(map(str, argv)), returncode=None, error=str(error))
++    mgr.dumps(folder/(label+'-command.json'), result)
++    return result
++
++
++def profile_case(args, cfg, target, gpu, base_env, binary, identity, item, pmc=False):
++    n, func, arm = item['N'], item['func'], item['arm']
++    folder = args.run/('pmc' if pmc else 'profiles')/('%04d_%d_%s_%s'%(item['index'], n, func, arm))
++    folder.mkdir(parents=True)
++    data = folder/'data'; data.mkdir()
++    output = folder/'harness'; output.mkdir()
++    temporary = args.cache/(folder.parent.name+'-'+folder.name); temporary.mkdir()
++    a = cfg['arms'][arm]
++    lib = mgr.inside(a['install'])/'lib/librocfft.so.0.1'
++    mgr.require(mgr.common.sha(lib) == a['library_sha256'], 'profile library changed')
++    mgr.require(mgr.common.sha(binary) == cfg['diagnostic_program']['binary_sha256'], 'timer binary changed')
++    mgr.require(mgr.common.sha(identity) == cfg['diagnostic_program']['identity_sha256'], 'identity binary changed')
++    actual = json.loads(subprocess.check_output([str(identity)], env=base_env, text=True))
++    mgr.require(actual == gpu, 'diagnostic GPU identity changed')
++    env = dict(base_env, LD_PRELOAD=str(lib), LD_LIBRARY_PATH=str(lib.parent)+':'+base_env['LD_LIBRARY_PATH'],
++               FFT_TEST_OUT=str(output), TMPDIR=str(temporary))
++    linked = subprocess.check_output(['ldd', str(binary)], env=env, text=True)
++    loaded = [mgr.inside(line.strip().split('=>')[-1].strip().split()[0])
++              for line in linked.splitlines() if 'librocfft.so' in line]
++    mgr.require('not found' not in linked and len(set(loaded)) == 1 and loaded[0] == lib,
++                'actual rocFFT library differs from registration')
++    (folder/'ldd.txt').write_text(linked)
++    entry = dict(item, pmc=pmc, formal=False, valid=False, library_sha256=a['library_sha256'])
++    if not pmc:
++        # Plan logging also queries occupancy on every launch. Keep that
++        # instrumentation in a separate process, out of the timing trace.
++        metadata = folder/'metadata'; metadata.mkdir()
++        meta_output = metadata/'harness'; meta_output.mkdir()
++        meta_env = dict(env, FFT_TEST_OUT=str(meta_output), ROCFFT_LAYER='40',
++                        ROCFFT_LOG_PLAN_PATH=str(metadata/'plan.txt'),
++                        ROCFFT_LOG_RTC_PATH=str(metadata/'rtc.txt'))
++        entry['metadata_process'] = launch([binary,str(n),'1',func],meta_env,metadata,'plan')
++    profiler = Path(mgr.DTK)/'bin/hipprof'
++    # Keep the timeline and API launch arguments. --stats alone suppresses it.
++    argv = [profiler, '--hip-trace', '--trace-args', '--output-type', '0']
++    if pmc:
++        role = 'paired_pre_columns_v2' if func == 'z2d_1d' else 'generic_paired_post_v2'
++        argv += ['--pmc', '--kernel-name', role]
++    argv += ['-o', folder/('pmc' if pmc else 'profile'), '-d', data, binary, str(n), '1', func]
++    entry['process'] = launch(argv, env, folder, 'profile', timeout=300 if pmc else 180)
++    try:
++        mgr.require(entry['process']['returncode'] == 0, 'profiler/process failed')
++        if not pmc:
++            mgr.require(entry['metadata_process']['returncode'] == 0, 'plan metadata process failed')
++            meta_rows = contract.read_rows(meta_output/'fft_test_1d.csv')
++            mgr.require(len(meta_rows) == 1, 'unexpected metadata harness row count')
++            contract.validate_process(meta_rows[0],contract.read_samples(meta_output/'fft_test_1d.samples.csv'),
++                                      contract.read_check(meta_output/'fft_test_1d.check.csv'),n,func,30)
++        rows = contract.read_rows(output/'fft_test_1d.csv')
++        mgr.require(len(rows) == 1, 'unexpected harness row count')
++        check = contract.read_check(output/'fft_test_1d.check.csv')
++        samples = contract.read_samples(output/'fft_test_1d.samples.csv')
++        contract.validate_process(rows[0], samples, check, n, func, 30)
++        entry['correctness'] = check
++        if not pmc:
++            summaries = list(folder.glob('*.hipkernel.csv'))
++            if not summaries:
++                # Export existing trace data on the CPU; never rerun the workload.
++                entry['statistics_export'] = launch([profiler, '--hip-trace', '--stats',
++                    '--db-path', data, '-d', data, '-o', folder/'statistics'],
++                    base_env, folder, 'statistics-export')
++                summaries = list(folder.glob('*.hipkernel.csv'))
++            mgr.require(len(summaries) == 1, 'missing or ambiguous kernel summary')
++            with summaries[0].open(newline='') as stream:
++                kernels = list(csv.DictReader(stream))
++            mgr.require(kernels and {'Name','Calls','TotalDurationNs'} <= set(kernels[0]),
++                        'unexpected kernel summary schema')
++            entry['all_kernel_rows'] = kernels
++            if arm == 'candidate':
++                expected = cfg['expected_boundaries'][str(n)][func]
++                matched = [row for row in kernels if expected in row['Name']]
++                mgr.require(len(matched) == 1 and int(matched[0]['Calls']) == 41,
++                            'fused boundary absent or wrong execute count')
++                mgr.require(len([row for row in kernels if row['Calls'].isdigit()
++                                 and int(row['Calls']) == 41]) == 2,
++                            'candidate does not execute exactly two transform kernels')
++                mgr.require(not any(re.search(r'(c2r_even_pre|r2c_even_post)', row['Name'])
++                                    for row in kernels), 'standalone real boundary still executes')
++                entry['fused_boundary'] = matched[0]
++                entry['expected_boundary'] = expected
++            entry['timing_interpretation'] = ('41 transforms = 1 correctness + 10 warmups + 30 samples. '
++                'Keep all records; use chronological trace to isolate measured launches. '
++                'Profiler durations are diagnostics, never replacement formal event times. '
++                'Plan/occupancy logging is confined to the independent metadata process.')
++        entry['valid'] = True
++    except (ValueError, OSError, KeyError, TypeError) as error:
++        entry['error'] = str(error)
++    entry['files'] = {p.relative_to(folder).as_posix():mgr.common.sha(p)
++                      for p in folder.rglob('*') if p.is_file()}
++    mgr.dumps(folder/'review.json', entry)
++    print(json.dumps(dict(N=n,func=func,arm=arm,pmc=pmc,valid=entry['valid'],error=entry.get('error'))),flush=True)
++    target.append(entry)
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    for name in ('config','run','build','cache'): parser.add_argument('--'+name, type=Path, required=True)
++    args = parser.parse_args()
++    cfg = mgr.load(args.config)
++    for name in ('run','build','cache'): setattr(args, name, mgr.inside(getattr(args,name)))
++    mgr.require(json.loads((args.run/'preregistration.json').read_text()) == cfg, 'unfrozen diagnostic config')
++    mgr.common.single_gpu_allocation(os.environ)
++    program = cfg['diagnostic_program']
++    provenance = mgr.inside(program['provenance'])
++    mgr.require(mgr.common.sha(provenance) == program['provenance_sha256'], 'original measurement provenance changed')
++    original = json.loads(provenance.read_text())
++    mgr.require(original['job_id'] == '922865' and original['complete']
++                and original['arms']['official']['binary_sha256'] == program['binary_sha256']
++                and original['identity_binary_sha256'] == program['identity_sha256'],
++                'diagnostic binary is not the measured executable')
++    binary = mgr.inside(program['binary']); identity = mgr.inside(program['identity'])
++    mgr.require(mgr.common.sha(binary) == program['binary_sha256'], 'use the actual 922865 timing binary')
++    mgr.require(mgr.common.sha(identity) == program['identity_sha256'], 'device helper differs')
++    for name,digest in contract.SOURCE_FILES.items():
++        mgr.require(mgr.common.sha(ROOT/'tools/fft_measurement'/name) == digest, 'v3 source changed')
++    env = mgr.environment(args.cache); env['FFT_TEST_ITERS'] = '30'
++    gpu = json.loads(subprocess.check_output([str(identity)],env=env,text=True))
++    mgr.require(gpu == program['gpu'], 'diagnostic must use the same GPU/runtime as 922865')
++    record = dict(complete=False, formal=False, job_id=os.environ['SLURM_JOB_ID'],host=socket.gethostname(),
++                  gpu=gpu, program=program, start=datetime.datetime.now(datetime.timezone.utc).isoformat(),
++                  profiles=[], pmc=[])
++    try:
++        for item in contract.schedule(cfg):
++            profile_case(args,cfg,record['profiles'],gpu,env,binary,identity,item)
++        for item in cfg['pmc_cases']:
++            profile_case(args,cfg,record['pmc'],gpu,env,binary,identity,item,pmc=True)
++        record['complete'] = len(record['profiles']) == len(contract.schedule(cfg)) and all(
++            item['valid'] for item in record['profiles'])
++        record['pmc_complete'] = all(item['valid'] for item in record['pmc'])
++    finally:
++        record['end'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
++        mgr.dumps(args.run/'diagnostic-result.json',record)
++    mgr.require(record['complete'], 'one or more diagnostic traces failed; partial evidence retained')
++
++
++if __name__ == '__main__': main()
+--- a/tools/workspace_manager/diagnostics.py
++++ b/tools/workspace_manager/diagnostics.py
+@@ -0,0 +1,79 @@
++"""Frozen diagnostic scripts on one GPU; their timings are never formal results."""
++import datetime
++import hashlib
++import json
++import re
++import subprocess
++
++from tools.workspace_manager import manager as mgr
++
++
++def command(cfg):
++    spec = cfg['diagnostic']
++    mgr.require(set(spec) == {'script', 'sha256', 'inputs', 'tool_source_commit', 'reason'},
++                'invalid diagnostic registration')
++    mgr.require(isinstance(spec['reason'], str) and len(spec['reason'].strip()) >= 10,
++                'explain diagnostic purpose')
++    commit = spec['tool_source_commit']
++    mgr.require(re.fullmatch('[0-9a-f]{40}', commit or ''), 'freeze diagnostic tool commit')
++    mgr.require(isinstance(spec['inputs'], list), 'diagnostic inputs must be a list')
++    base = mgr.inside(mgr.ROOT/'experiments'/cfg['experiment'])
++    script = mgr.inside(spec['script'], base)
++    mgr.require(script.suffix == '.py', 'diagnostic must be a Python script')
++    files = [dict(path=str(script), sha256=spec['sha256'])] + spec['inputs']
++    names = set()
++    for entry in files:
++        mgr.require(set(entry) == {'path', 'sha256'}, 'invalid diagnostic input')
++        path = mgr.inside(entry['path'])
++        mgr.require(path not in names, 'duplicate diagnostic input')
++        names.add(path)
++        digest = entry['sha256']
++        mgr.require(re.fullmatch('[0-9a-f]{64}', digest or ''), 'freeze diagnostic input checksum')
++        mgr.require(mgr.common.sha(path) == digest, 'diagnostic input changed: '+str(path))
++        blob = subprocess.check_output(['git', '-C', str(mgr.ROOT), 'show',
++                                        commit+':'+str(path.relative_to(mgr.ROOT))])
++        mgr.require(hashlib.sha256(blob).hexdigest() == digest, 'uncommitted diagnostic input')
++    required = {mgr.ROOT/n for n in ('manage.py', 'jobs/workspace_task.slurm',
++                 'tools/workspace_manager/manager.py', 'tools/workspace_manager/diagnostics.py')}
++    mgr.require(required <= names, 'freeze diagnostic entry tools')
++    paths = mgr.locations(cfg, 'diagnose')
++    return [mgr.PYTHON, str(script), '--config', str(paths['run']/'submit-manifest.json'),
++            '--run', str(paths['run']), '--build', str(paths['build']), '--cache', str(paths['cache'])]
++
++
++def plan(cfg):
++    mgr.require('deferred_measurement' not in cfg, 'diagnostics require resolved libraries')
++    m = mgr.measurement(cfg)
++    mgr.require(m.get('resources', {}).get('node_exclusive') is True,
++                'diagnostics require exclusive node allocation')
++    for name, arm in m['arms'].items():
++        lib = mgr.inside(arm['install'])/'lib/librocfft.so.0.1'
++        mgr.require(mgr.common.sha(lib) == arm['library_sha256'], name+': library changed')
++    return dict(task='diagnose', formal=False, resolved_preregistration=m,
++                paths={k:str(v) for k,v in mgr.locations(m, 'diagnose').items()},
++                command=command(m), submission_command=mgr.submission_command('diagnose', m),
++                cases=len(mgr.common.cases(m)), node_exclusive=True,
++                notice='Diagnostic instrumentation only; retain original formal measurements unchanged.')
++
++
++def execute(cfg):
++    planned = plan(cfg)
++    m = planned['resolved_preregistration']
++    paths = mgr.claim(m, 'diagnose')
++    env = mgr.environment(paths['cache'])
++    mgr.dumps(paths['run']/'preregistration.json', m)
++    mgr.dumps(paths['run']/'plan.json', planned)
++    log = paths['logs']/'diagnostic.txt'
++    result = dict(complete=False, formal=False, job_id=env['SLURM_JOB_ID'],
++                  command=planned['command'], started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat())
++    try:
++        with log.open('xb') as stream:
++            subprocess.run(planned['command'], cwd=mgr.ROOT, env=env,
++                           stdout=stream, stderr=subprocess.STDOUT, check=True)
++        mgr.require(command(m) == planned['command'], 'diagnostic inputs changed during execution')
++        result['complete'] = True
++    finally:
++        result['ended_utc'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
++        if log.exists(): result['log_sha256'] = mgr.common.sha(log)
++        mgr.dumps(paths['run']/'diagnostic-validation.json', result)
++    print(paths['run']/'diagnostic-validation.json')
+--- a/tools/workspace_manager/manager.py
++++ b/tools/workspace_manager/manager.py
+@@ -51,7 +51,7 @@
+     run = inside(base/'runs'/ident(cfg['run_id'],'run_id'))
+     build_id = ident(cfg.get('build',{}).get('build_id',cfg['run_id']), 'build_id') if task=='build' else cfg['run_id']
+     return {'run':run,'logs':inside(run/'logs'),
+-            'build':inside(base/'artifacts/build'/build_id) if task=='build' else inside(base/'artifacts/build/measurement'/cfg['run_id']),
++            'build':inside(base/'artifacts/build'/build_id) if task=='build' else inside(base/('artifacts/build/diagnostics' if task=='diagnose' else 'artifacts/build/measurement')/cfg['run_id']),
+             'install':inside(base/'artifacts/install'/build_id),
+             'cache':inside(base/'artifacts/cache'/cfg['run_id'])}
+ 
+@@ -183,6 +183,9 @@
+             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
+ 
+ def task_plan(task,cfg):
++    if task=='diagnose':
++        from tools.workspace_manager import diagnostics
++        return diagnostics.plan(cfg)
+     if 'deferred_measurement' in cfg:
+         require(task=='measure', 'deferred submission is only for measurement')
+         from tools.workspace_manager import deferred
+@@ -226,7 +229,7 @@
+     return p
+ 
+ def submission_command(task,cfg):
+-    require(task in ('build','validate','measure'),'task does not support submission')
++    require(task in ('build','validate','measure','diagnose'),'task does not support submission')
+     p=locations(cfg,task)
+     r=cfg.get('resources',{})
+     require(isinstance(r,dict),'resources must be an object')
+@@ -239,7 +242,7 @@
+           '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
+           '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
+           '--time='+r.get('time_limit','02:00:00')]
+-    if task=='measure':argv.append('--exclusive')
++    if task in ('measure','diagnose'):argv.append('--exclusive')
+     if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
+     if dependency:argv.append('--dependency='+dependency)
+     argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
+@@ -360,7 +363,7 @@
+ 
+ def main():
+     parser=argparse.ArgumentParser(description=__doc__)
+-    parser.add_argument('task',choices=('build','validate','measure','report'))
++    parser.add_argument('task',choices=('build','validate','measure','report','diagnose'))
+     parser.add_argument('--config',type=Path,required=True)
+     parser.add_argument('--execute',action='store_true',help='submit task, or generate report; default is preview')
+     parser.add_argument('--worker',action='store_true',help=argparse.SUPPRESS)
+@@ -370,7 +373,10 @@
+         if args.worker:
+             require(not args.execute and args.task!='report','invalid worker mode')
+             common.single_gpu_allocation(os.environ)
+-            if args.task=='build':execute_build(cfg)
++            if args.task=='diagnose':
++                from tools.workspace_manager import diagnostics
++                diagnostics.execute(cfg)
++            elif args.task=='build':execute_build(cfg)
+             elif args.task=='validate':execute_validate(cfg)
+             elif 'deferred_measurement' in cfg:
+                 from tools.workspace_manager import deferred
+--- a/tools/workspace_manager/test_cc_diagnostic_runner.py
++++ b/tools/workspace_manager/test_cc_diagnostic_runner.py
+@@ -0,0 +1,65 @@
++"""Verify metadata logging never contaminates the profiled process."""
++import contextlib
++import importlib.util
++import io
++import json
++from pathlib import Path
++import shutil
++import sys
++from types import SimpleNamespace
++import unittest
++import uuid
++from unittest.mock import patch
++
++
++class DiagnosticRunner(unittest.TestCase):
++    def test_profile_is_separate_from_plan_logging_and_keeps_trace(self):
++        workspace=Path(__file__).resolve().parents[2]
++        path=workspace/'experiments/EXP-127/scripts/diagnose_cc_low_speed.py'
++        saved=list(sys.path)
++        try:
++            spec=importlib.util.spec_from_file_location('cc_diagnostic_test',path)
++            module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
++        finally:sys.path[:]=saved
++        parent=workspace/'.worktree-archives/diagnostic-runner-tests';parent.mkdir(parents=True,exist_ok=True)
++        root=parent/uuid.uuid4().hex;root.mkdir()
++        def cleanup():
++            assert root.resolve().parent==parent.resolve();shutil.rmtree(root)
++        self.addCleanup(cleanup)
++        args=SimpleNamespace(run=root/'run',cache=root/'cache')
++        args.run.mkdir();args.cache.mkdir()
++        lib=root/'install/lib/librocfft.so.0.1';lib.parent.mkdir(parents=True);lib.write_bytes(b'synthetic library')
++        binary=root/'timer';binary.write_bytes(b'synthetic binary')
++        identity=root/'identity';identity.write_bytes(b'synthetic identity')
++        gpu=dict(count=1,uuid='a'*32,arch='gfx936')
++        cfg=dict(arms=dict(candidate=dict(install=str(lib.parent.parent),library_sha256=module.mgr.common.sha(lib))),
++                 diagnostic_program=dict(binary_sha256=module.mgr.common.sha(binary),identity_sha256=module.mgr.common.sha(identity)),
++                 expected_boundaries={'120224':{'z2d_1d':'fft_rtc_paired_pre_columns_v2'}})
++        calls=[]
++        def launch(argv,env,folder,label,timeout=180):
++            argv=list(map(str,argv));calls.append((argv,dict(env)))
++            if label=='profile':
++                (folder/'profile.hipkernel.csv').write_text('Name,Calls,TotalDurationNs\nfft_rtc_paired_pre_columns_v2,41,1234\nfft_rtc_ordinary,41,2345\nTotal,-,3579\n')
++            return dict(argv=argv,returncode=0)
++        def command(argv,**kwargs):
++            return json.dumps(gpu) if argv[0]==str(identity) else 'librocfft.so.0.1 => '+str(lib)+' (0x0)\n'
++        entries=[]
++        with patch.object(module.mgr,'ROOT',root),patch.object(module,'launch',side_effect=launch),\
++             patch.object(module.subprocess,'check_output',side_effect=command),\
++             patch.object(module.contract,'read_rows',return_value=[{}]),\
++             patch.object(module.contract,'read_check',return_value={'check':'PASS'}),\
++             patch.object(module.contract,'read_samples',return_value=[]),\
++             patch.object(module.contract,'validate_process'),contextlib.redirect_stdout(io.StringIO()):
++            module.profile_case(args,cfg,entries,gpu,{'LD_LIBRARY_PATH':'synthetic'},binary,identity,
++                                dict(N=120224,func='z2d_1d',arm='candidate',index=0))
++        self.assertTrue(entries[0]['valid'])
++        self.assertEqual(len(calls),2)
++        self.assertEqual(calls[0][1]['ROCFFT_LAYER'],'40')
++        self.assertNotIn('ROCFFT_LAYER',calls[1][1])
++        self.assertNotIn('--stats',calls[1][0])
++        self.assertIn('--trace-args',calls[1][0])
++        self.assertIn('--output-type',calls[1][0])
++        self.assertNotEqual(calls[0][1]['FFT_TEST_OUT'],calls[1][1]['FFT_TEST_OUT'])
++
++
++if __name__=='__main__':unittest.main()
+--- a/tools/workspace_manager/test_diagnostics.py
++++ b/tools/workspace_manager/test_diagnostics.py
+@@ -0,0 +1,81 @@
++"""Diagnostic registration and unified dispatch gates; no jobs or GPU work."""
++import contextlib
++import copy
++import hashlib
++import io
++import os
++from pathlib import Path
++import shutil
++import sys
++import unittest
++import uuid
++from unittest.mock import patch
++
++from tools.workspace_manager import diagnostics
++from tools.workspace_manager import manager as mgr
++
++
++class Diagnostics(unittest.TestCase):
++    def setUp(self):
++        parent=Path(__file__).resolve().parents[2]/'.worktree-archives/diagnostic-tests'
++        parent.mkdir(parents=True,exist_ok=True)
++        self.root=parent/uuid.uuid4().hex;self.root.mkdir()
++        def cleanup():
++            assert self.root.resolve().parent==parent.resolve();shutil.rmtree(self.root)
++        self.addCleanup(cleanup)
++        self.addCleanup(patch.stopall)
++        patch.object(mgr,'ROOT',self.root).start()
++        self.paths=['manage.py','jobs/workspace_task.slurm','tools/workspace_manager/manager.py',
++                    'tools/workspace_manager/diagnostics.py','experiments/EXP-999/scripts/diagnose.py']
++        for name in self.paths:
++            p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('Synthetic '+name+'\n')
++        script=self.root/self.paths[-1]
++        self.cfg=dict(schema_version=1,experiment='EXP-999',run_id='EXP-999-diagnostic',
++            resources=dict(node_exclusive=True),diagnostic=dict(script=str(script),
++                sha256=mgr.common.sha(script),tool_source_commit='a'*40,reason='Synthetic diagnostic gate, never a real measurement.',
++                inputs=[dict(path=str(self.root/n),sha256=mgr.common.sha(self.root/n)) for n in self.paths[:-1]]))
++        def git_blob(argv,**kwargs):
++            name=argv[-1].split(':',1)[1];return (self.root/name).read_bytes()
++        patch.object(diagnostics.subprocess,'check_output',side_effect=git_blob).start()
++
++    def test_frozen_command_and_output_paths(self):
++        argv=diagnostics.command(self.cfg)
++        self.assertEqual(argv[:2],[mgr.PYTHON,str(self.root/self.paths[-1])])
++        self.assertIn('/artifacts/build/diagnostics/',argv[argv.index('--build')+1])
++        self.assertFalse((self.root/'experiments/EXP-999/runs').exists())
++
++    def test_changed_script_and_changed_committed_blob_rejected(self):
++        (self.root/self.paths[-1]).write_text('changed')
++        with self.assertRaises(ValueError):diagnostics.command(self.cfg)
++        self.cfg['diagnostic']['sha256']=mgr.common.sha(self.root/self.paths[-1])
++        with patch.object(diagnostics.subprocess,'check_output',return_value=b'foreign source'):
++            with self.assertRaises(ValueError):diagnostics.command(self.cfg)
++
++    def test_missing_entry_duplicate_extra_and_escape_rejected(self):
++        for mutate in (lambda d:d['inputs'].pop(),lambda d:d['inputs'].append(copy.deepcopy(d['inputs'][0])),
++                       lambda d:d.update(extra=True),lambda d:d.update(script=str(self.root/'outside.py'))):
++            cfg=copy.deepcopy(self.cfg);mutate(cfg['diagnostic'])
++            with self.assertRaises((ValueError,OSError)):diagnostics.command(cfg)
++
++    def test_diagnostic_submission_is_exclusive_and_keeps_worker(self):
++        argv=mgr.submission_command('diagnose',self.cfg)
++        self.assertIn('--exclusive',argv)
++        self.assertEqual(argv[-2],'diagnose')
++        self.assertNotIn('--exclusive',mgr.submission_command('validate',self.cfg))
++
++    def test_diagnostic_preview_does_not_submit(self):
++        with patch.object(mgr,'load',return_value=self.cfg),patch.object(diagnostics,'plan',return_value={'formal':False}) as plan,\
++             patch.object(mgr,'submit') as submit,patch.object(sys,'argv',['manage.py','diagnose','--config','fake']),\
++             contextlib.redirect_stdout(io.StringIO()):
++            mgr.main()
++        plan.assert_called_once_with(self.cfg);submit.assert_not_called()
++
++    def test_worker_dispatch_keeps_formal_runner_separate(self):
++        allocation=dict(SLURM_JOB_ID='synthetic',SLURM_JOB_GPUS='0,1',SLURM_STEP_GPUS='0')
++        with patch.object(mgr,'load',return_value=self.cfg),patch.object(diagnostics,'execute') as execute,\
++             patch.dict(os.environ,allocation,clear=True),patch.object(sys,'argv',['manage.py','diagnose','--config','fake','--worker']):
++            mgr.main()
++        execute.assert_called_once_with(self.cfg)
++
++
++if __name__=='__main__':unittest.main()
+--- a/tools/workspace_manager/test_manager.py
++++ b/tools/workspace_manager/test_manager.py
+@@ -115,9 +115,14 @@
+                 self.assertEqual(json.loads((p['run']/'submit-manifest.json').read_text())
+                                  ['resources']['dependency'],dependency)
+ 
++    def test_multiple_success_or_completion_dependencies_remain_valid(self):
++        for value in ('afterany:1:2', 'afterok:1:2'):
++            cfg=dict(self.cfg, resources={'dependency':value})
++            self.assertIn('--dependency='+value, manager.submission_command('build',cfg))
++
+     def test_invalid_dependency_rejected_before_allocation(self):
+         for value in (None,True,False,0,'','afterany:0','afterany:01','afterany:abc',
+-                      'afterok:-1','afterany:1:2','afterok:1,afterany:2','afterany:1\n--exclusive'):
++                      'afterok:-1','afterany:1:','afterok:1,afterany:2','afterany:1\n--exclusive'):
+             with self.subTest(value=value):
+                 cfg=dict(self.cfg,resources={'dependency':value})
+                 with patch.object(manager,'build_plan',return_value={}),\

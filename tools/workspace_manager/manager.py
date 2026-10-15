@@ -51,7 +51,7 @@ def locations(cfg, task):
     run = inside(base/'runs'/ident(cfg['run_id'],'run_id'))
     build_id = ident(cfg.get('build',{}).get('build_id',cfg['run_id']), 'build_id') if task=='build' else cfg['run_id']
     return {'run':run,'logs':inside(run/'logs'),
-            'build':inside(base/'artifacts/build'/build_id) if task=='build' else inside(base/'artifacts/build/measurement'/cfg['run_id']),
+            'build':inside(base/'artifacts/build'/build_id) if task=='build' else inside(base/('artifacts/build/diagnostics' if task=='diagnose' else 'artifacts/build/measurement')/cfg['run_id']),
             'install':inside(base/'artifacts/install'/build_id),
             'cache':inside(base/'artifacts/cache'/cfg['run_id'])}
 
@@ -183,6 +183,9 @@ def build_plan(cfg):
             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
 
 def task_plan(task,cfg):
+    if task=='diagnose':
+        from tools.workspace_manager import diagnostics
+        return diagnostics.plan(cfg)
     if 'deferred_measurement' in cfg:
         require(task=='measure', 'deferred submission is only for measurement')
         from tools.workspace_manager import deferred
@@ -226,7 +229,7 @@ def allocate(cfg,task):
     return p
 
 def submission_command(task,cfg):
-    require(task in ('build','validate','measure'),'task does not support submission')
+    require(task in ('build','validate','measure','diagnose'),'task does not support submission')
     p=locations(cfg,task)
     r=cfg.get('resources',{})
     require(isinstance(r,dict),'resources must be an object')
@@ -239,7 +242,7 @@ def submission_command(task,cfg):
           '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
           '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
           '--time='+r.get('time_limit','02:00:00')]
-    if task=='measure':argv.append('--exclusive')
+    if task in ('measure','diagnose'):argv.append('--exclusive')
     if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
     if dependency:argv.append('--dependency='+dependency)
     argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
@@ -360,7 +363,7 @@ def execute_validate(cfg):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('task',choices=('build','validate','measure','report'))
+    parser.add_argument('task',choices=('build','validate','measure','report','diagnose'))
     parser.add_argument('--config',type=Path,required=True)
     parser.add_argument('--execute',action='store_true',help='submit task, or generate report; default is preview')
     parser.add_argument('--worker',action='store_true',help=argparse.SUPPRESS)
@@ -370,7 +373,10 @@ def main():
         if args.worker:
             require(not args.execute and args.task!='report','invalid worker mode')
             common.single_gpu_allocation(os.environ)
-            if args.task=='build':execute_build(cfg)
+            if args.task=='diagnose':
+                from tools.workspace_manager import diagnostics
+                diagnostics.execute(cfg)
+            elif args.task=='build':execute_build(cfg)
             elif args.task=='validate':execute_validate(cfg)
             elif 'deferred_measurement' in cfg:
                 from tools.workspace_manager import deferred

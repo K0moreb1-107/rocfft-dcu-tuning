@@ -1,0 +1,47 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "before_sha256": "e162a7ca009d55063a020a6211b980183cdefbe4053c5b5d369e824c2149a080",
+      "after_sha256": "0be86bb5003a8db5cbb6433e2c499175801b26e21b22b82e681f8d830d5f41a7"
+    },
+    "jobs/workspace_task.slurm": {
+      "before_sha256": "e3dbb63419659b1bd9f13179f6b9f0060a6fb9740fc913744c02d50c85cf30c3",
+      "after_sha256": "e0b589f1211316115dbeaf3bcf2301c316c02d1b882725b933f347faf10590e8"
+    },
+    "docs/technical/WORKSPACE_MANAGEMENT.md": {
+      "before_sha256": "e3e953cec7868bfb614875fe3bd194811889a8e4c4e9a28f9238f78ec85e942a",
+      "after_sha256": "1e5c1d423e729121fb089e8f7bcb568e31272a89dfe03fdd7a1528073be2e6ec"
+    },
+    "experiments/EXP-127/scripts/diagnose_cc_low_speed.py": {
+      "before_sha256": null,
+      "after_sha256": "06c18330a3a768d533cae8ebd908ddbab0188658edc7ea061a48f389fce9fda0"
+    },
+    "tools/workspace_manager/diagnostics.py": {
+      "before_sha256": null,
+      "after_sha256": "dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a"
+    },
+    "tools/workspace_manager/manager.py": {
+      "before_sha256": "bf0c8cf5077f3e13b0c80b393aa6c4ec9efeec28c2e280bc17bd54d1534a112e",
+      "after_sha256": "a0caa31b63702c1093b060c875155b998665375f0a4d6dcfa51e4c3f260a73fb"
+    },
+    "tools/workspace_manager/test_cc_diagnostic_runner.py": {
+      "before_sha256": null,
+      "after_sha256": "5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3"
+    },
+    "tools/workspace_manager/test_diagnostics.py": {
+      "before_sha256": null,
+      "after_sha256": "8085715074d4edc8865460b868d4a7e8be360dfc067fc28343eca333a78eaa34"
+    },
+    "tools/workspace_manager/test_manager.py": {
+      "before_sha256": "09f3df5c7d779cf267f135528037c6c358bd39f2898b76ab8386f2a407086949",
+      "after_sha256": "1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c"
+    }
+  },
+  "installed_tests": {
+    "code": 0,
+    "log": "experiments/EXP-127/records/cc-low-speed-922865-20261015/installed-manager-tests.log",
+    "sha256": "9de0e4295ca2f4c1f7afa8da0e815a888ffff5e7572a806d5a4c522f072b891c"
+  },
+  "source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "device_execution": false
+}

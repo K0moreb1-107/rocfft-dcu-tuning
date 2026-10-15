@@ -20,6 +20,7 @@ recording the reason and updating this file first.
 performance＝A100中位数／当前中位数×100%，仅作跨设备参考，原包构建凭据限制须注明。
 旧v1／v2配置显式沿用原协议与程序，原始结果及920949的三次／50次记录不改写、不混表。
 新程序固定10／30；需要调整次数时另行登记对应源码版本，不能只改配置冒用原身份。
+诊断用 `manage.py diagnose`：冻结脚本、输入及库，独占单卡；分析器耗时单列，不替代正式事件结果。
 细则及版本差异见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。提交任务后停止，待用户要求检查。
 
 ## Historical hipprof scope and matching conditions
