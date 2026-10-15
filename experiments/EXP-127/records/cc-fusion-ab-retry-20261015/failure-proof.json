@@ -1,0 +1,26 @@
+{
+  "complete": true,
+  "job_id": "923520",
+  "build_complete": true,
+  "manager_validation_complete": false,
+  "device_case_checks": 12,
+  "strict_harness_processes": 36,
+  "reference_groups": 24,
+  "independent_references": 336,
+  "reference_executions": 672,
+  "controls": 12,
+  "registered_files": 412,
+  "all_registered_files_verified": true,
+  "python_files_scanned": 28,
+  "misplaced_flush": [
+    {
+      "path": "experiments/EXP-127/scripts/validate_cc_fusion_ab.py",
+      "line": 215
+    }
+  ],
+  "parse_failures": [],
+  "root_cause": "flush was passed to json.dumps instead of print after validation completed",
+  "no_formal_performance": true,
+  "archive_sha256": "16a8845a421366d417eafc7381c50296fbffff8120b86bff3bfc9cd1f3605bfa",
+  "archive_files": 425
+}

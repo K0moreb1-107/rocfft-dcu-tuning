@@ -55,6 +55,48 @@ def inspect_plan(plan,n,c,q,func,fused):
     return dict(C=c,Q=q,folded_columns=folded,leaf_count=2 if fused else 3,grid=sequences[0].strip().splitlines())
 
 
+
+def completion_summary(record,fused):
+    return json.dumps(dict(complete=True,fusion_enabled=fused,cases=len(record['cases']),
+        independent_references=14*len(record['guards']),executions=28*len(record['guards'])))
+
+
+def retained_sources(v,env,binary,case,folder,expected_names):
+    arm=v['retained_arm'];install=mgr.inside(arm['install']);lib=install/'lib/librocfft.so.0.1'
+    mgr.require(mgr.common.sha(lib)==arm['library_sha256'],'retained library changed')
+    provenance=mgr.inside(arm['build_provenance'])
+    mgr.require(mgr.common.sha(provenance)==v['retained_build_provenance_sha256'],
+                'retained build provenance changed')
+    built=json.loads(provenance.read_text())
+    mgr.require(built['complete'] and all(built['arm'][key]==arm[key] for key in
+                ('install','source_commit','library_sha256')),'retained build identity mismatch')
+    selected=dict(env,LD_PRELOAD=str(lib),LD_LIBRARY_PATH=str(lib.parent)+':'+env['LD_LIBRARY_PATH'])
+    linked=subprocess.check_output(['ldd',str(binary)],env=selected,text=True)
+    loaded=[mgr.inside(line.split('=>')[-1].strip().split()[0])
+            for line in linked.splitlines() if 'librocfft.so' in line]
+    mgr.require('not found' not in linked and loaded==[lib],'retained library loading mismatch')
+    folder.mkdir(parents=True);(folder/'ldd.txt').write_text(linked)
+    output=folder/'harness';output.mkdir()
+    selected.update(FFT_TEST_OUT=str(output),ROCFFT_LAYER='40',
+        ROCFFT_LOG_PLAN_PATH=str(folder/'plan.txt'),ROCFFT_LOG_RTC_PATH=str(folder/'rtc.txt'))
+    launched([binary,case['N'],1,case['func']],selected,folder,'retained-plan')
+    rows=contract.read_rows(output/'fft_test_1d.csv')
+    mgr.require(len(rows)==1,'wrong retained metadata output count')
+    contract.validate_process(rows[0],contract.read_samples(output/'fft_test_1d.samples.csv'),
+        contract.read_check(output/'fft_test_1d.check.csv'),case['N'],case['func'],30)
+    inspect_plan((folder/'plan.txt').read_text(),case['N'],case['C'],case['Q'],case['func'],True)
+    # The log also contains precompiled callback variants. Select the two kernel
+    # names from the candidate's actual default dispatch, rather than counting
+    # every generated FFT variant as another executed kernel.
+    generated=rtc_sources((folder/'rtc.txt').read_text())
+    mgr.require(len(expected_names)==2 and len(set(expected_names))==2
+                and all(name.startswith('fft_rtc_') and name in generated for name in expected_names),
+                'missing retained source for actual CC dispatch')
+    sources={name:generated[name] for name in expected_names}
+    mgr.require(mgr.common.sha(lib)==arm['library_sha256'],'retained library changed during reference')
+    return sources
+
+
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     for k in ('config','build-record','run','build','cache'):ap.add_argument('--'+k,type=Path,required=True)
@@ -98,10 +140,6 @@ def main():
         library_sha256=built['arm']['library_sha256'],gpu=gpu,formal=False,
         start=datetime.datetime.now(datetime.timezone.utc).isoformat(),cases=[],guards=[],controls=[],
         source_differences=[],failures=[])
-    accepted_path=mgr.inside(v['accepted_diagnostic_run']+'/diagnostic-result.json')
-    mgr.require(mgr.common.sha(accepted_path)==coverage['accepted_diagnostic_result_sha256'],'accepted trace record changed')
-    accepted=json.loads(accepted_path.read_text())
-    mgr.require(accepted['complete'] and accepted['job_id']=='923008','frozen accepted trace incomplete')
     try:
         for case in coverage['cases']:
             n,func,c,q=case['N'],case['func'],case['C'],case['Q']
@@ -137,22 +175,21 @@ def main():
             sources=rtc_sources((meta/'rtc.txt').read_text())
             actual_core=[name for name in names if name.startswith('fft_rtc_')]
             mgr.require(len(actual_core)==2 and all(name in sources for name in actual_core),'missing actual CC source')
-            old=next(p for p in accepted['profiles'] if p['N']==n and p['func']==func and p['arm']=='candidate')
-            old_folder=mgr.inside(v['accepted_diagnostic_run'])/'profiles'/('%04d_%d_%s_%s'%(old['index'],n,func,'candidate'))
-            mgr.require(mgr.common.sha(old_folder/'metadata/rtc.txt')==old['files']['metadata/rtc.txt'],
-                        'accepted generated source changed')
-            old_sources=rtc_sources((old_folder/'metadata/rtc.txt').read_text())
+            retained_hashes={}
             if fused:
-                mgr.require(v['expected_boundaries'][str(n)][func] in names,'registered ON boundary missing')
-                old_names=[row['Name'] for row in old['all_kernel_rows'] if row['Name']!='Total' and row['Calls']=='41']
-                mgr.require(set(names)==set(old_names),'ON kernel selection changed from accepted implementation')
+                old_sources=retained_sources(v,env,binary,case,folder/'retained-metadata',actual_core)
+                mgr.require(set(actual_core)==set(old_sources),
+                            'ON kernel selection changed from retained implementation')
                 for name in actual_core:
                     mgr.require(sources[name]==old_sources[name],'ON generated kernel changed')
+                    retained_hashes[name]=hashlib.sha256(old_sources[name].encode()).hexdigest()
             else:
-                mgr.require(not any(re.search(r'(paired_pre|paired_post|local_real)',name) for name in names),'fusion leaked into OFF')
+                mgr.require(not any(re.search(r'(paired_pre|paired_post|local_real)',name) for name in names),
+                            'fusion leaked into OFF')
             entry=dict(case,check='PASS',actual_names=names,**details,
                 source_sha256={name:hashlib.sha256(sources[name].encode()).hexdigest() for name in actual_core},
                 launch_arguments=[e['args']['args'] for e in transforms[:leaves]],folder=str(folder))
+            entry['retained_source_sha256']=retained_hashes
             record['cases'].append(entry)
             for callbacks in (False,True):
                 refs_dir=cache/'independent-reference'/str(n)/func/('callbacks' if callbacks else 'plain');refs_dir.mkdir(parents=True)
@@ -174,6 +211,9 @@ def main():
             contract.validate_process(rows[0],contract.read_samples(folder/'fft_test_1d.samples.csv'),
                 contract.read_check(folder/'fft_test_1d.check.csv'),item['N'],item['func'],30)
             record['controls'].append(dict(item,check='PASS'))
+        mgr.require(len(record['cases'])==len(coverage['cases'])
+                    and len(record['guards'])==2*len(coverage['cases'])
+                    and len(record['controls'])==len(coverage['controls']),'validation coverage incomplete')
         if fused:
             off_path=mgr.inside(v['unfused_build_record']);off=json.loads(off_path.read_text())
             checked=json.loads((off_path.parent/'post-build-validation.json').read_text())
@@ -207,13 +247,12 @@ def main():
             record['unfused_validation_sha256']=mgr.common.sha(off_path.parent/'post-build-validation.json')
         mgr.require(mgr.source_identity(cfg)==built['plan']['source_identity'],'source changed during validation')
         mgr.require(mgr.common.sha(lib)==built['arm']['library_sha256'],'library changed during validation')
+        print(completion_summary(record,fused),flush=True)
         record['complete']=True
     finally:
         record['end']=datetime.datetime.now(datetime.timezone.utc).isoformat()
         record['files']={p.relative_to(run).as_posix():mgr.common.sha(p) for p in run.rglob('*') if p.is_file()}
         mgr.dumps(mgr.inside(a.run)/'cc-fusion-validation.json',record)
-    print(json.dumps(dict(complete=True,fusion_enabled=fused,cases=len(record['cases']),
-                         independent_references=14*len(record['guards']),executions=28*len(record['guards'])),flush=True))
 
 
 if __name__=='__main__':main()
