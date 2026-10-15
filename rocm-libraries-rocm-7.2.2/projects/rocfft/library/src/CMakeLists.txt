@@ -416,6 +416,11 @@ option(ROCFFT_REAL_PAIR_SCALAR_CAPACITY "Use scalar exchange for verified real p
 target_compile_definitions(rocfft PRIVATE
   ROCFFT_REAL_PAIR_SCALAR_CAPACITY=$<BOOL:${ROCFFT_REAL_PAIR_SCALAR_CAPACITY}>)
 
+# Independent on/off builds retain the same CC decomposition and FFT kernels.
+option(ROCFFT_CC_REAL_FUSION "Fuse large real boundaries into CC plans" ON)
+target_compile_definitions(rocfft PRIVATE
+  ROCFFT_CC_REAL_FUSION=$<BOOL:${ROCFFT_CC_REAL_FUSION}>)
+
 rocfft_add_coverage_flags( rocfft )
 
 # rocFFT contains default implementations of callback functions that

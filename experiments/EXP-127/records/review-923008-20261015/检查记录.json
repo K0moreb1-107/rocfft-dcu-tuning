@@ -1,0 +1,296 @@
+{
+  "job": "923008",
+  "complete": true,
+  "formal": false,
+  "correctness_passes": 52,
+  "max_error": 4.292862361883938e-15,
+  "profiles": 24,
+  "pmc": 4,
+  "verified_evidence_files": 504,
+  "source_commit": "2ef393567f2637f356bfc75db78bce53ad0f42fd",
+  "source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "checked_head": "1f0f3c5c6b667b295b34e09b3f211a7ff3df6d62",
+  "stable": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "tag": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "archive_sha256": "60171451fed84fb75034d2c197b0fc1ecabfe5a0d25adc8901de6a773b1a0ca0",
+  "all_current_fused": true,
+  "formal_results_unchanged": true,
+  "new_jobs_submitted": false,
+  "rows": [
+    {
+      "N": 101088,
+      "type": "d2z",
+      "formal_official_us": 37.59999945759773,
+      "formal_current_us": 34.47999991476536,
+      "formal_speedup": 1.0904872259438811,
+      "official_leaves": 5,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 32.32,
+      "diagnostic_current_kernel_sum_us": 26.08,
+      "diagnostic_current_first_kernel_us": 11.84,
+      "diagnostic_current_second_kernel_us": 14.08
+    },
+    {
+      "N": 101088,
+      "type": "z2d",
+      "formal_official_us": 39.59999978542328,
+      "formal_current_us": 35.840000957250595,
+      "formal_speedup": 1.1049106787875802,
+      "official_leaves": 5,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 30.9595,
+      "diagnostic_current_kernel_sum_us": 25.04,
+      "diagnostic_current_first_kernel_us": 14.24,
+      "diagnostic_current_second_kernel_us": 10.8
+    },
+    {
+      "N": 120224,
+      "type": "d2z",
+      "formal_official_us": 40.64000025391579,
+      "formal_current_us": 38.55999931693077,
+      "formal_speedup": 1.0539419339686487,
+      "official_leaves": 4,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 38.24,
+      "diagnostic_current_kernel_sum_us": 31.04,
+      "diagnostic_current_first_kernel_us": 11.9195,
+      "diagnostic_current_second_kernel_us": 19.2
+    },
+    {
+      "N": 120224,
+      "type": "z2d",
+      "formal_official_us": 41.680000722408295,
+      "formal_current_us": 41.439998894929886,
+      "formal_speedup": 1.00579155004533,
+      "official_leaves": 4,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 34.16,
+      "diagnostic_current_kernel_sum_us": 32.48,
+      "diagnostic_current_first_kernel_us": 15.68,
+      "diagnostic_current_second_kernel_us": 16.8
+    },
+    {
+      "N": 142688,
+      "type": "d2z",
+      "formal_official_us": 35.999998450279236,
+      "formal_current_us": 32.88000077009201,
+      "formal_speedup": 1.0948904381725322,
+      "official_leaves": 3,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 28.16,
+      "diagnostic_current_kernel_sum_us": 23.28,
+      "diagnostic_current_first_kernel_us": 12.48,
+      "diagnostic_current_second_kernel_us": 10.88
+    },
+    {
+      "N": 142688,
+      "type": "z2d",
+      "formal_official_us": 35.840000957250595,
+      "formal_current_us": 34.71999987959862,
+      "formal_speedup": 1.0322580956663565,
+      "official_leaves": 3,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 24.880000000000003,
+      "diagnostic_current_kernel_sum_us": 26.24,
+      "diagnostic_current_first_kernel_us": 16.32,
+      "diagnostic_current_second_kernel_us": 9.84
+    },
+    {
+      "N": 262144,
+      "type": "d2z",
+      "formal_official_us": 36.958999931812286,
+      "formal_current_us": 33.28000009059906,
+      "formal_speedup": 1.110546869927818,
+      "official_leaves": 3,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 26.56,
+      "diagnostic_current_kernel_sum_us": 23.52,
+      "diagnostic_current_first_kernel_us": 11.36,
+      "diagnostic_current_second_kernel_us": 11.76
+    },
+    {
+      "N": 262144,
+      "type": "z2d",
+      "formal_official_us": 37.20000013709068,
+      "formal_current_us": 33.28000009059906,
+      "formal_speedup": 1.1177884626147867,
+      "official_leaves": 3,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 26.159999999999997,
+      "diagnostic_current_kernel_sum_us": 24.16,
+      "diagnostic_current_first_kernel_us": 11.52,
+      "diagnostic_current_second_kernel_us": 12.64
+    },
+    {
+      "N": 524288,
+      "type": "d2z",
+      "formal_official_us": 51.35999992489815,
+      "formal_current_us": 42.160000652074814,
+      "formal_speedup": 1.2182162981624758,
+      "official_leaves": 3,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 39.52,
+      "diagnostic_current_kernel_sum_us": 32.64,
+      "diagnostic_current_first_kernel_us": 15.6,
+      "diagnostic_current_second_kernel_us": 16.8
+    },
+    {
+      "N": 524288,
+      "type": "z2d",
+      "formal_official_us": 46.08000069856644,
+      "formal_current_us": 42.399998754262924,
+      "formal_speedup": 1.0867925012364186,
+      "official_leaves": 3,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 39.2,
+      "diagnostic_current_kernel_sum_us": 30.24,
+      "diagnostic_current_first_kernel_us": 14.56,
+      "diagnostic_current_second_kernel_us": 15.84
+    },
+    {
+      "N": 1048576,
+      "type": "d2z",
+      "formal_official_us": 111.51950061321259,
+      "formal_current_us": 71.76000252366066,
+      "formal_speedup": 1.5540621055084614,
+      "official_leaves": 6,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 103.04,
+      "diagnostic_current_kernel_sum_us": 61.92,
+      "diagnostic_current_first_kernel_us": 29.28,
+      "diagnostic_current_second_kernel_us": 33.04
+    },
+    {
+      "N": 1048576,
+      "type": "z2d",
+      "formal_official_us": 113.19949850440025,
+      "formal_current_us": 74.5600014925003,
+      "formal_speedup": 1.518233586888897,
+      "official_leaves": 6,
+      "current_leaves": 2,
+      "diagnostic_official_kernel_sum_us": 104.4,
+      "diagnostic_current_kernel_sum_us": 65.44,
+      "diagnostic_current_first_kernel_us": 29.92,
+      "diagnostic_current_second_kernel_us": 35.68
+    }
+  ],
+  "checks": [
+    "All preregistered inputs match recorded checksums",
+    "24 profile traces valid",
+    "12 current cases execute exactly 2 registered fused leaves per transform",
+    "Trace and CSV names/calls/durations agree",
+    "41 identical transform sequences each",
+    "80 event-record calls and 30 retained samples per process",
+    "Metadata geometry repeats 41 times",
+    "4 PMC targets each match the registered kernel and have 41 dispatch records"
+  ],
+  "identity_checks": [
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/measurement/EXP-127-cc-a100-cufft261012-performance-20261015/fft_test_1d",
+      "expected": "7cbba89304c6bd256023aca9fcdc370db9fd0d078e69b5b7c018a8389882f202",
+      "actual": "7cbba89304c6bd256023aca9fcdc370db9fd0d078e69b5b7c018a8389882f202"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/measurement/EXP-127-cc-a100-cufft261012-performance-20261015/device_identity",
+      "expected": "c210e3db10d95706ffd328bdbfbbfc5e74d7beb8dad92716d86df6c6991e9a08",
+      "actual": "c210e3db10d95706ffd328bdbfbbfc5e74d7beb8dad92716d86df6c6991e9a08"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-a100-cufft261012-performance-20261015/provenance.json",
+      "expected": "cfa6e0ac9e884dbb8ec6b394d98a92a4d71f8f375905b55cf32e3cf2e2f58f8c",
+      "actual": "cfa6e0ac9e884dbb8ec6b394d98a92a4d71f8f375905b55cf32e3cf2e2f58f8c"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official/lib/librocfft.so.0.1",
+      "expected": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+      "actual": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-tr-s2-linkfix-20261014/lib/librocfft.so.0.1",
+      "expected": "9eaa2f80d76c11f3008c97ee015ab482fb8947d98d28dcd5a14374f45ff9de38",
+      "actual": "9eaa2f80d76c11f3008c97ee015ab482fb8947d98d28dcd5a14374f45ff9de38"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/diagnose_cc_low_speed.py",
+      "expected": "06c18330a3a768d533cae8ebd908ddbab0188658edc7ea061a48f389fce9fda0",
+      "actual": "06c18330a3a768d533cae8ebd908ddbab0188658edc7ea061a48f389fce9fda0"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/manage.py",
+      "expected": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223",
+      "actual": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+      "expected": "e0b589f1211316115dbeaf3bcf2301c316c02d1b882725b933f347faf10590e8",
+      "actual": "e0b589f1211316115dbeaf3bcf2301c316c02d1b882725b933f347faf10590e8"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/workspace_manager/manager.py",
+      "expected": "a0caa31b63702c1093b060c875155b998665375f0a4d6dcfa51e4c3f260a73fb",
+      "actual": "a0caa31b63702c1093b060c875155b998665375f0a4d6dcfa51e4c3f260a73fb"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py",
+      "expected": "dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a",
+      "actual": "dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/fft_measurement/common.py",
+      "expected": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+      "actual": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/fft_measurement/sample_contract.py",
+      "expected": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+      "actual": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/fft_measurement/cufft261012_contract.py",
+      "expected": "b5349000cecfd45503a2af06475c785ff7650cd27bd22c5f396cc40def6d9a42",
+      "actual": "b5349000cecfd45503a2af06475c785ff7650cd27bd22c5f396cc40def6d9a42"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/fft_measurement/fft_test_1d_cufft261012.cpp",
+      "expected": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+      "actual": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/fft_measurement/rocfft_measurement_support_v3.h",
+      "expected": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+      "actual": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/tools/fft_measurement/device_identity.cpp",
+      "expected": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7",
+      "actual": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-a100-20261015/host-plan-proof.json",
+      "expected": "cc8af5e0eec8c2359681e36a62e20f8dc6443e0c3d279d4dc72c400e2b906c86",
+      "actual": "cc8af5e0eec8c2359681e36a62e20f8dc6443e0c3d279d4dc72c400e2b906c86"
+    }
+  ],
+  "source_equalities": [
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "name": "fft_rtc_fwd_len_208_factors_13_16_wgs_144_tpt_16_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg",
+      "digests": {
+        "official": "22ee1afc4ce1f6fe88b34868f8b3e63afbbbc9335f03b69c4e550e96fa2e2bc8",
+        "candidate": "22ee1afc4ce1f6fe88b34868f8b3e63afbbbc9335f03b69c4e550e96fa2e2bc8"
+      },
+      "equal": true
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned",
+      "digests": {
+        "candidate": "5e9b7770f19ff81b10fecf69d6b1c1e93c49f002e44f8e64a0850ca3f9e19fca",
+        "official": "5e9b7770f19ff81b10fecf69d6b1c1e93c49f002e44f8e64a0850ca3f9e19fca"
+      },
+      "equal": true
+    }
+  ]
+}

@@ -596,6 +596,11 @@ void RealTransEvenNode::AssignLocalRealParams()
     last->AssignParams();
 }
 
+// Non-CMake host checks retain the production default.
+#ifndef ROCFFT_CC_REAL_FUSION
+#define ROCFFT_CC_REAL_FUSION 1
+#endif
+
 void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
 {
     bool noSolution = child_scheme_trees.empty();
@@ -608,7 +613,7 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     if(realLength->at(0) % 2 != 0)
         throw std::runtime_error("fastest dimension is not even in RealTransEvenNode");
 
-    if(noSolution && TryBuildLocalRealTree(realLength->at(0)))
+    if(noSolution && ROCFFT_CC_REAL_FUSION && TryBuildLocalRealTree(realLength->at(0)))
         return;
 
     // check schemes from solution map
@@ -651,8 +656,18 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     // NB: the buffer is real, but we treat it as complex
     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
 
-    if(noSolution && (TryFusePairedPost(*cfftPlan, realLength->at(0))
-                      || TryFuseGenericRealPair(*cfftPlan, realLength->at(0))
+    // The unfused control has the same read-only input contract as the fused path.
+    const bool preserve_cc_input = !ROCFFT_CC_REAL_FUSION && noSolution
+        && cfftPlan->scheme == CS_L1D_CC && realLength->at(0) >= 65536
+        && dimension == 1 && length.size() == 1 && batch == 1
+        && precision == rocfft_precision_double && placement == rocfft_placement_notinplace
+        && inStride == std::vector<size_t>{1} && outStride == std::vector<size_t>{1}
+        && !rootHasUserOffsets && iOffset == 0 && oOffset == 0
+        && is_device_gcn_arch(deviceProp, "gfx936");
+
+    if(noSolution && ((ROCFFT_CC_REAL_FUSION
+                       && (TryFusePairedPost(*cfftPlan, realLength->at(0))
+                           || TryFuseGenericRealPair(*cfftPlan, realLength->at(0))))
                       || TryFuseBluesteinBoundary(*cfftPlan, realLength->at(0))
                       || TryFuseTRTRTBoundary(*cfftPlan, realLength->at(0))))
     {
@@ -740,6 +755,16 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     {
         std::cerr << "invalid direction: plan creation failed!\n";
     }
+    }
+    if(preserve_cc_input)
+    {
+        std::function<void(TreeNode&)> preserve_input = [&](TreeNode& node) {
+            node.allowedOutBuf &= ~size_t(OB_USER_IN);
+            for(auto& child : node.childNodes)
+                preserve_input(*child);
+        };
+        for(auto& child : childNodes)
+            preserve_input(*child);
     }
 }
 

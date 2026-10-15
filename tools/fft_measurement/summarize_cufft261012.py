@@ -86,7 +86,19 @@ def report(run):
              '严格正确性检查在窗口外，随后恢复完整输入；全部逐次样本保留。时间和加速比只用样本中位数。', '',
              '| size／类型 | baseline（微秒） | A100（微秒） | 当前（微秒） | 加速比 | performance |',
              '| --- | ---: | ---: | ---: | ---: | ---: |']
+    fusion_comparison = m.get('comparison_kind') == 'real_boundary_fusion'
+    if fusion_comparison:
+        require(selected == ('previous', 'candidate'), 'fusion comparison requires just unfused/fused arms')
+        lines[-2:] = ['| size／类型 | 未融合（微秒） | 已融合（微秒） | 融合加速比 | 节省时间（微秒） |',
+                      '| --- | ---: | ---: | ---: | ---: |']
+        lines.insert(4, '同一源码和CC分解，只有新增实数前后处理融合开关不同；未融合对照不是稳定版或官方版。')
     for row in rows:
+        if fusion_comparison:
+            lines.append('| %d %s | %.6f | %.6f | %.6f | %.6f |' % (
+                row['N'], row['func'].removesuffix('_1d'), row['previous_median_ms']*1000,
+                row['candidate_median_ms']*1000, row['speedup_previous_median'],
+                (row['previous_median_ms']-row['candidate_median_ms'])*1000))
+            continue
         value = row['a100_median_ms']; percentage = row['a100_performance_median_percent']
         fields = [str(row['N'])+' '+row['func'].removesuffix('_1d'),
                   '%.6f'%(row[baseline+'_median_ms']*1000), '%.6f'%(value*1000) if value is not None else '—',
@@ -98,9 +110,14 @@ def report(run):
         for row in rows:
             lines.append('| %d %s | %.6f | %.6f |'%(row['N'], row['func'].removesuffix('_1d'),
                 row['previous_median_ms']*1000, row['speedup_previous_median']))
-    lines.extend(['', 'A100按随包记录的10／30条件及精确N和类型匹配；performance＝A100中位数／当前中位数×100%。',
+    if fusion_comparison:
+        lines.extend(['', '比值为未融合／已融合的完整事件中位数，计入融合新增的交换、同步与资源成本。',
+                      '原五尺寸z2d包含折叠列和布局变化，单列为融合实现整体净收益；不等同于单独显存读写节省。'])
+    else:
+        lines.extend(['', 'A100按随包记录的10／30条件及精确N和类型匹配；performance＝A100中位数／当前中位数×100%。',
                   '它是跨设备参考，不替代同卡官方对照；随包源码与二进制对应关系缺少构建凭据，数值检查也不在A100记录中。',
-                  'CSV保留原包的六位小数格式；另存未舍入的逐次样本及窗口外正确性记录。统计使用未舍入样本，不删除慢点。',
+        ])
+    lines.extend(['CSV保留原包的六位小数格式；另存未舍入的逐次样本及窗口外正确性记录。统计使用未舍入样本，不删除慢点。',
                   '图中每版一列散点及按内部测量序号排列的同一批样本；只标中位数及中间50%区间，相同序号不表示同步测量。',
                   '分布重叠或时间漂移应标注差异不明确，一组样本不证明跨次稳定性；不自动推广或重新测量。', '', '散点及顺序图：'])
     lines.extend('- [%d %s](%s)'%(r['N'], r['func'].removesuffix('_1d'), image) for r, image in zip(rows, plots))

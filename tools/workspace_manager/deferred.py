@@ -15,6 +15,37 @@ def hashed_json(path, digest):
     return mgr.load(path)
 
 
+def reference_inputs(cfg, measurement):
+    """Optional pending experimental reference; official identity stays fixed."""
+    spec = cfg['deferred_measurement']
+    references = spec.get('reference_builds', {})
+    mgr.require(isinstance(references, dict) and set(references) <= {'previous'},
+                'only the experimental previous arm may have a pending reference build')
+    result = {}
+    for arm, entry in references.items():
+        mgr.require(isinstance(entry, dict) and set(entry) ==
+                    {'build_config', 'build_config_sha256', 'build_job_id'}, 'invalid reference build')
+        b = hashed_json(entry['build_config'], entry['build_config_sha256'])
+        bp = mgr.locations(b, 'build')
+        mgr.require(b['experiment'] == cfg['experiment'] == measurement['experiment'],
+                    'reference build experiment mismatch')
+        mgr.require(mgr.inside(entry['build_config']) == bp['run']/'submit-manifest.json',
+                    'use the submitted reference build manifest')
+        mgr.require(measurement['arms'].get(arm) ==
+                    {'build_record': str(bp['run']/'build-provenance.json')},
+                    'reference arm must select exactly its pending build')
+        mgr.require(b['build'].get('component', 'rocfft') == 'rocfft'
+                    and b.get('post_build_validation'), 'reference build validation required')
+        hook = mgr.validation_hook(b)
+        receipt = json.loads((bp['run']/'submission.json').read_text())
+        job = entry['build_job_id']
+        mgr.require(re.fullmatch(r'[1-9][0-9]*', job or '')
+                    and receipt['job'].split(';')[0] == job, 'reference build job mismatch')
+        mgr.require(job in spec['required_success_jobs'], 'successful reference dependency missing')
+        result[arm] = (entry, b, bp, hook)
+    return result
+
+
 def inputs(cfg):
     spec = cfg['deferred_measurement']
     mgr.require(isinstance(spec, dict), 'invalid deferred measurement')
@@ -72,6 +103,7 @@ def inputs(cfg):
     expected_resources = dict(m.get('resources', {}), dependency=dependency)
     mgr.require(cfg['resources'] == expected_resources and expected_resources.get('node_exclusive') is True,
                 'queue must preserve exclusive measurement resources')
+    reference_inputs(cfg, m)
     return m, b, bp, hook
 
 
@@ -111,8 +143,11 @@ def plan(cfg):
     mgr.require(not mgr.locations(m, 'measure')['run'].exists(), 'measurement run already used')
     protocol = mgr.measurement_protocol(m)
     references = {}
+    pending_references = reference_inputs(cfg, m)
+    for _, rb, _, _ in pending_references.values():
+        mgr.source_identity(rb)
     for name in protocol.arms(m):
-        if name == 'candidate':
+        if name == 'candidate' or name in pending_references:
             continue
         a = copy.deepcopy(m['arms'][name])
         if a.get('registry_id'):
@@ -133,12 +168,17 @@ def plan(cfg):
     return dict(resolved_preregistration=frozen, task='measure', deferred=True, queue_run=str(mgr.locations(cfg, 'measure')['run']),
                 measurement_run=str(mgr.locations(m, 'measure')['run']),
                 submission_command=mgr.submission_command('measure', cfg),
-                reference_arms=references, pending_candidate=dict(build_job_id=cfg['deferred_measurement']['build_job_id'],
+                reference_arms=references,
+                pending_reference_arms={arm: dict(build_job_id=e['build_job_id'],
+                    source_commit=rb['build']['source_commit'], install=str(rp['install']),
+                    library_sha256=None, validation_command=rh)
+                    for arm, (e, rb, rp, rh) in pending_references.items()},
+                pending_candidate=dict(build_job_id=cfg['deferred_measurement']['build_job_id'],
                     source_commit=b['build']['source_commit'], install=str(bp['install']),
                     library_sha256=None, validation_command=hook),
                 cases=len(mgr.common.cases(m)), processes=len(protocol.schedule(m)),
                 event_iterations=protocol.iterations(m), timing_warmups=getattr(protocol, 'WARMUPS', 3), node_exclusive=True,
-                notice='Only scheduling is early. Freeze the real candidate checksum after successful build and validation, before any timing.')
+                notice='Only scheduling is early. Freeze all pending library checksums after successful build and validation, before any timing.')
 
 
 def execute(cfg):
@@ -151,6 +191,10 @@ def execute(cfg):
     try:
         m, b, bp, hook = inputs(cfg)
         evidence = validate_build(cfg['deferred_measurement'], b, bp, hook)
+        reference_evidence = {arm: validate_build(entry, rb, rp, rh)
+            for arm, (entry, rb, rp, rh) in reference_inputs(cfg, m).items()}
+        if reference_evidence:
+            evidence['reference_builds'] = reference_evidence
         m = mgr.measurement(m)
         m['readiness'] = 'build_and_validation_completed_before_resolving_formal_identity'
         m['queued_submission'] = dict(queue_run=str(queue),

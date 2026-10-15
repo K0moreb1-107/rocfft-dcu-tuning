@@ -21,6 +21,8 @@ def render(run, manifest, samples):
 
     selected = arms(manifest)
     labels = {'official': '官方基线', 'previous': '稳定对照', 'candidate': '当前版本'}
+    labels.update({a: manifest['arm_labels'][a] for a in selected
+                   if a in manifest.get('arm_labels', {})})
     colors = {'official': '#2878b8', 'previous': '#677b97', 'candidate': '#e58b29'}
     settings = {'svg.fonttype': 'none', 'font.family': 'sans-serif', 'axes.unicode_minus': False,
                 'font.size': 11, 'axes.spines.top': False, 'axes.spines.right': False}

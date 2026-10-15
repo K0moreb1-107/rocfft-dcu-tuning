@@ -292,3 +292,10 @@ The unified entry completed real exclusive-node measurement job 894456 with a on
 通过同一工作入口独占节点、单卡执行，保留原始轨迹、计划和硬件计数。
 这类任务明确为非正式测量，分析器耗时不得替换完整变换事件结果，不改原采样或历史报告。
 提交后停止，等用户要求再检查；当前用于EXP127低收益CC类型归因。
+
+
+## 同实验双构建对照（2026-10-15）
+
+`previous`可显式选择同实验已验证的`build_record`，例如同源未融合对照；它不自动成为稳定版本。`official`仍只能使用固定官方身份。延迟测量保留原待构建candidate登记，另可用`deferred_measurement.reference_builds.previous`登记未融合构建的实际提交清单路径、校验值和任务号；两者均须有构建后验证、列入`required_success_jobs`及显式`afterok`依赖，执行前校验构建、库和验证日志，再冻结两个具体身份。
+
+同源融合研究使用`comparison_kind=real_boundary_fusion`及`arm_labels`标注未融合／已融合；报告给出两版完整事件中位数、融合加速比和节省时间，原有测量协议与历史报告保留。编译开关、分解、输入保留约束及融合必需布局差异须在实验登记中写明。

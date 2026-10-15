@@ -1,0 +1,43 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "steps": [
+    {
+      "label": "manager-tests",
+      "code": 0,
+      "seconds": 8.883869647979736,
+      "log": "experiments/EXP-127/artifacts/preflight/cc-fusion-ab-tools-20261015/manager-tests.log",
+      "sha256": "396203f47888e2c0e39a7dcbba230bba8f8e8f6961e56d4a9744984686367954"
+    },
+    {
+      "label": "measurement-tests",
+      "code": 0,
+      "log": "experiments/EXP-127/artifacts/preflight/cc-fusion-ab-tools-20261015-v2/measurement-tests.log",
+      "sha256": "b4faa6ca675dc054d644740edf07b2ebdb508fff1e29a88561895518c03f7b7a"
+    }
+  ],
+  "files": {
+    "AGENTS.md": "da5bfef9b0703943d2ff15768c008f0972e351ccec9824337f678d3dbbf2b011",
+    "docs/technical/WORKSPACE_MANAGEMENT.md": "025a09ca53eaf9690b1ff51ce5d9f67dc2cea2ee1e9ffa8fd06b6c0107c73fe3",
+    "experiments/EXP-127/scripts/validate_cc_fusion_ab.py": "7ef869425f4a58adb37784e8ef9ce3d0ef0a942690bb6b1a719c279be6c2c8f6",
+    "experiments/EXP-127/records/cc-fusion-ab-20261015/coverage.json": "c468520376ad5cd3bb433deadcae28efe38056bc8f20cce16eec54767217662c",
+    "experiments/EXP-127/records/cc-fusion-ab-20261015/preregistration.md": "e2c75cc8c8bc0ed2d572e79630c96b59aedb4a148874ff5702138cab60720aac",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": "064325e7b25abd0c17c2a6aebf0fc9bc9f79724abff3cce5f7a936f9f587f424",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "a3d7e8c0e6d977563b45e321e3d0c4600184fc845e3a89409ea4443968772a64",
+    "tools/fft_measurement/plot_cufft261012.py": "508525df8dcf6404946e7fa296b261dd10d47fca1e6c9ec9b2126441871b49d6",
+    "tools/fft_measurement/summarize_cufft261012.py": "abc41260ff0997fc00b034f24107372d1b0e85cfe3b021753041191432fff0e2",
+    "tools/fft_measurement/test_fusion_report.py": "454341f3458c39b3e19dbd7ddd4a2eddb379e80f48d66f6b9b122d60aea47bec",
+    "tools/workspace_manager/deferred.py": "eae95ce9cc16a315181ff938c1dba7fe523fd7e16d80ac34d4ac6d62045f1d95",
+    "tools/workspace_manager/manager.py": "2dbfe33df4adf42d51231ded35edf34ff2a866e535744c20b6ec0aa885c05b4b",
+    "tools/workspace_manager/test_pending_reference.py": "e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274"
+  },
+  "native_proof": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-fusion-ab-20261015-v2/proof.json",
+  "native_proof_sha256": "ab66dc655e5c37b4214415a966f2b85ca94a1362415cef0d541563cbc6ec1482",
+  "on_matches_accepted_24": true,
+  "validator_parser_passes": 12,
+  "validator_rejected_wrong_mode": 12,
+  "tests": {
+    "manager": 52,
+    "measurement": 24
+  }
+}

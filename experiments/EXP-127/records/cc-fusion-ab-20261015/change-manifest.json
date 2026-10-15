@@ -1,0 +1,63 @@
+{
+  "parent_commit": "1f0f3c5c6b667b295b34e09b3f211a7ff3df6d62",
+  "parent_source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "files": {
+    "AGENTS.md": {
+      "before_sha256": "0be86bb5003a8db5cbb6433e2c499175801b26e21b22b82e681f8d830d5f41a7",
+      "after_sha256": "da5bfef9b0703943d2ff15768c008f0972e351ccec9824337f678d3dbbf2b011"
+    },
+    "docs/technical/WORKSPACE_MANAGEMENT.md": {
+      "before_sha256": "1e5c1d423e729121fb089e8f7bcb568e31272a89dfe03fdd7a1528073be2e6ec",
+      "after_sha256": "025a09ca53eaf9690b1ff51ce5d9f67dc2cea2ee1e9ffa8fd06b6c0107c73fe3"
+    },
+    "experiments/EXP-127/scripts/validate_cc_fusion_ab.py": {
+      "before_sha256": null,
+      "after_sha256": "7ef869425f4a58adb37784e8ef9ce3d0ef0a942690bb6b1a719c279be6c2c8f6"
+    },
+    "experiments/EXP-127/records/cc-fusion-ab-20261015/coverage.json": {
+      "before_sha256": null,
+      "after_sha256": "c468520376ad5cd3bb433deadcae28efe38056bc8f20cce16eec54767217662c"
+    },
+    "experiments/EXP-127/records/cc-fusion-ab-20261015/preregistration.md": {
+      "before_sha256": null,
+      "after_sha256": "e2c75cc8c8bc0ed2d572e79630c96b59aedb4a148874ff5702138cab60720aac"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": {
+      "before_sha256": "5cf3d5030f19322699a783a4d48f74d1305d96dc05850c5234268ef4eb41b40c",
+      "after_sha256": "064325e7b25abd0c17c2a6aebf0fc9bc9f79724abff3cce5f7a936f9f587f424"
+    },
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": {
+      "before_sha256": "5c6a84b205d4c73db6b519fdf324538dc5a41edd82016fa9dda637808edae225",
+      "after_sha256": "a3d7e8c0e6d977563b45e321e3d0c4600184fc845e3a89409ea4443968772a64"
+    },
+    "tools/fft_measurement/plot_cufft261012.py": {
+      "before_sha256": "0010273984a5033b0ce55b79d94aea235514053727ac2020fb24b62711505af7",
+      "after_sha256": "508525df8dcf6404946e7fa296b261dd10d47fca1e6c9ec9b2126441871b49d6"
+    },
+    "tools/fft_measurement/summarize_cufft261012.py": {
+      "before_sha256": "88d6b3107b95e8fa9120d1e6a3dda9f8020f20b18a1075af455180bbeefa2354",
+      "after_sha256": "abc41260ff0997fc00b034f24107372d1b0e85cfe3b021753041191432fff0e2"
+    },
+    "tools/fft_measurement/test_fusion_report.py": {
+      "before_sha256": null,
+      "after_sha256": "454341f3458c39b3e19dbd7ddd4a2eddb379e80f48d66f6b9b122d60aea47bec"
+    },
+    "tools/workspace_manager/deferred.py": {
+      "before_sha256": "56f77fd2e7b32f2a09e4efc6a63ac3271d6379df1d20692d7117644807d5f185",
+      "after_sha256": "eae95ce9cc16a315181ff938c1dba7fe523fd7e16d80ac34d4ac6d62045f1d95"
+    },
+    "tools/workspace_manager/manager.py": {
+      "before_sha256": "a0caa31b63702c1093b060c875155b998665375f0a4d6dcfa51e4c3f260a73fb",
+      "after_sha256": "2dbfe33df4adf42d51231ded35edf34ff2a866e535744c20b6ec0aa885c05b4b"
+    },
+    "tools/workspace_manager/test_pending_reference.py": {
+      "before_sha256": null,
+      "after_sha256": "e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274"
+    }
+  },
+  "stable": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "preserved_failures": [
+    "experiments/EXP-127/artifacts/preflight/cc-fusion-ab-20261015",
+    "experiments/EXP-127/artifacts/preflight/cc-fusion-ab-tools-20261015"
+  ]
+}
