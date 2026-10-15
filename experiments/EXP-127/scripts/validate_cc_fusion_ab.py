@@ -62,6 +62,13 @@ def main():
     built=json.loads(mgr.inside(a.build_record).read_text());mgr.require(built['complete'],'build incomplete')
     mgr.require(mgr.source_identity(cfg)==built['plan']['source_identity'],'source identity changed')
     mgr.validation_hook(cfg)
+    runtime_inputs=json.loads(mgr.inside(v['runtime_inputs']).read_text())
+    for name,digest in runtime_inputs['files'].items():
+        path=mgr.inside(name)
+        mgr.require(mgr.common.sha(path)==digest,'validation dependency changed: '+name)
+        blob=subprocess.check_output(['git','-C',str(ROOT),'show',
+            cfg['build']['source_commit']+':'+str(path.relative_to(ROOT))])
+        mgr.require(hashlib.sha256(blob).hexdigest()==digest,'validation dependency is not committed')
     cache=mgr.inside(a.cache);env=mgr.environment(cache);env['FFT_TEST_ITERS']='30'
     install=mgr.inside(built['arm']['install']);lib=install/'lib/librocfft.so.0.1'
     mgr.require(mgr.common.sha(lib)==built['arm']['library_sha256'],'library changed')
@@ -84,7 +91,8 @@ def main():
     blue=importlib.util.module_from_spec(spec);spec.loader.exec_module(blue)
     guard=mgr.inside(a.build)/'cc-fusion-ab-guard'
     launched([mgr.DTK+'/bin/hipcc','-O2','-std=c++17','--offload-arch=gfx936',v['guard_source'],
-        '-I'+str(install/'include'),'-L'+str(install/'lib'),'-Wl,-rpath,'+str(install/'lib'),
+        '-I'+str(install/'include'),'-I'+str(mgr.inside(cfg['build']['source_dir'])/'shared'),
+        '-L'+str(install/'lib'),'-Wl,-rpath,'+str(install/'lib'),
         '-lrocfft','-lstdc++fs','-o',guard],env,run,'compile-guard')
     record=dict(complete=False,fusion_enabled=fused,source_commit=built['arm']['source_commit'],
         library_sha256=built['arm']['library_sha256'],gpu=gpu,formal=False,

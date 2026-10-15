@@ -1,0 +1,24 @@
+{
+  "commit": "18276b45c40c2aee915d9540715d5fffa87886a3",
+  "source_tree": "8b69b02b2d786c04bc5320e7bd27280ac894be6f",
+  "parent": "1f0f3c5c6b667b295b34e09b3f211a7ff3df6d62",
+  "parent_source_tree": "8e5f3466dd623363267146c76e7ee7ba56b894a8",
+  "retained_tag": "exp127-before-cc-fusion-ab-20261015",
+  "stable": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "files": {
+    "AGENTS.md": "da5bfef9b0703943d2ff15768c008f0972e351ccec9824337f678d3dbbf2b011",
+    "docs/technical/WORKSPACE_MANAGEMENT.md": "025a09ca53eaf9690b1ff51ce5d9f67dc2cea2ee1e9ffa8fd06b6c0107c73fe3",
+    "experiments/EXP-127/scripts/validate_cc_fusion_ab.py": "7ef869425f4a58adb37784e8ef9ce3d0ef0a942690bb6b1a719c279be6c2c8f6",
+    "experiments/EXP-127/records/cc-fusion-ab-20261015/coverage.json": "c468520376ad5cd3bb433deadcae28efe38056bc8f20cce16eec54767217662c",
+    "experiments/EXP-127/records/cc-fusion-ab-20261015/preregistration.md": "e2c75cc8c8bc0ed2d572e79630c96b59aedb4a148874ff5702138cab60720aac",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt": "064325e7b25abd0c17c2a6aebf0fc9bc9f79724abff3cce5f7a936f9f587f424",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "a3d7e8c0e6d977563b45e321e3d0c4600184fc845e3a89409ea4443968772a64",
+    "tools/fft_measurement/plot_cufft261012.py": "508525df8dcf6404946e7fa296b261dd10d47fca1e6c9ec9b2126441871b49d6",
+    "tools/fft_measurement/summarize_cufft261012.py": "abc41260ff0997fc00b034f24107372d1b0e85cfe3b021753041191432fff0e2",
+    "tools/fft_measurement/test_fusion_report.py": "454341f3458c39b3e19dbd7ddd4a2eddb379e80f48d66f6b9b122d60aea47bec",
+    "tools/workspace_manager/deferred.py": "eae95ce9cc16a315181ff938c1dba7fe523fd7e16d80ac34d4ac6d62045f1d95",
+    "tools/workspace_manager/manager.py": "2dbfe33df4adf42d51231ded35edf34ff2a866e535744c20b6ec0aa885c05b4b",
+    "tools/workspace_manager/test_pending_reference.py": "e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274"
+  },
+  "preflight_sha256": "0cf51723615f2bb7edaad18781b801f2d6c3b435d63c8413370b7c4fff0e5aac"
+}

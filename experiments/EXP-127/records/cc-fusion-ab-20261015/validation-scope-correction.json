@@ -1,0 +1,31 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "prior_source_commit": "18276b45c40c2aee915d9540715d5fffa87886a3",
+  "source_tree": "8b69b02b2d786c04bc5320e7bd27280ac894be6f",
+  "files": {
+    "experiments/EXP-127/scripts/validate_cc_fusion_ab.py": "211af6df8ec070ed1ed25b7ea402bd22c55a73a0bb61af1d7f823ff3f641c554",
+    "experiments/EXP-127/scripts/cc_fusion_ab_guard.cpp": "1ee78f68a71d1a2337bc00c2857207054e66ece1683acf9586c9893c3eefc07e",
+    "experiments/EXP-127/records/cc-fusion-ab-20261015/runtime-inputs.json": "9e026dfa5d49bca628266973e2ed98d4345d2c20fed155ef6ec73a039504dcae"
+  },
+  "independent_guard_copied_from": "experiments/EXP-126/scripts/even_cc_guard.cpp",
+  "identical_guard_source": true,
+  "command": [
+    "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "-O2",
+    "-std=c++17",
+    "--offload-arch=gfx936",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/cc_fusion_ab_guard.cpp",
+    "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-tr-s2-linkfix-20261014/include",
+    "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/shared",
+    "-L/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-tr-s2-linkfix-20261014/lib",
+    "-Wl,-rpath,/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-tr-s2-linkfix-20261014/lib",
+    "-lrocfft",
+    "-lstdc++fs",
+    "-o",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-fusion-ab-validation-scope-20261015/guard"
+  ],
+  "compile_log_sha256": "357afb77f71b23d75ace13bdf903f86a011591cc444fd16bc4e2043ef55f6e05",
+  "parser_cases": 12,
+  "purpose": "Keep hook inputs inside EXP127; freeze root runtime helpers through a committed local hash manifest."
+}
