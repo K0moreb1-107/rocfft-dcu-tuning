@@ -1,0 +1,268 @@
+{
+  "cases": [
+    {
+      "N": 101088,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 243,
+      "family": "generic"
+    },
+    {
+      "N": 101088,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 243,
+      "family": "generic"
+    },
+    {
+      "N": 120224,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 289,
+      "family": "generic"
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 289,
+      "family": "generic"
+    },
+    {
+      "N": 123904,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 121,
+      "family": "generic"
+    },
+    {
+      "N": 123904,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 121,
+      "family": "generic"
+    },
+    {
+      "N": 129024,
+      "func": "d2z_1d",
+      "C": 336,
+      "Q": 192,
+      "family": "generic"
+    },
+    {
+      "N": 129024,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 192,
+      "family": "generic"
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 256,
+      "family": "legacy"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 256,
+      "family": "legacy"
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 343,
+      "family": "generic"
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 343,
+      "family": "generic"
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 243,
+      "family": "generic"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 243,
+      "family": "generic"
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 512,
+      "family": "legacy"
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 512,
+      "family": "legacy"
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 512,
+      "family": "legacy"
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 512,
+      "family": "legacy"
+    },
+    {
+      "N": 596288,
+      "func": "d2z_1d",
+      "C": 224,
+      "Q": 1331,
+      "family": "generic"
+    },
+    {
+      "N": 596288,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 1331,
+      "family": "generic"
+    },
+    {
+      "N": 702464,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 1024,
+      "family": "generic"
+    },
+    {
+      "N": 702464,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 1024,
+      "family": "generic"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 512,
+      "family": "legacy"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 512,
+      "family": "legacy"
+    }
+  ],
+  "controls": [
+    {
+      "N": 101088,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 120224,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 123904,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 129024,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 131072,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 142688,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 166698,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 262144,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 524288,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 596288,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 702464,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 32768,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 32768,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 65540,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 65540,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 65610,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 65610,
+      "func": "z2d_1d"
+    }
+  ],
+  "refs_per_group": 14,
+  "reference_groups_per_build": 48,
+  "independent_references_per_build": 672,
+  "reference_executions_per_build": 1344,
+  "formal_processes": 48,
+  "formal_event_samples": 1440,
+  "input_preservation": "Both variants must preserve the user input.",
+  "reason": "Same twelve-length fusion comparison after folded-callback compatibility repair; default unscaled kernel sources unchanged. Additional forced-load checks are diagnostic validation only.",
+  "reference_count_scope": "The per-build counts above describe the 24-case main matrix; optional folded-load regressions are added below.",
+  "total_validation_by_variant": {
+    "off": {
+      "reference_groups": 48,
+      "independent_references": 672,
+      "executions": 1344
+    },
+    "on": {
+      "reference_groups": 68,
+      "independent_references": 952,
+      "executions": 1904
+    }
+  },
+  "negative_control_counted_as_successful_reference": false
+}
