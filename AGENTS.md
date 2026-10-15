@@ -333,6 +333,7 @@ per parity and paired-tail family, larger N allowed when existing CC kernels and
 resources permit. Validate actual fusion before formal timing. Do not force load
 paths in measurement. Expanded matrices use the measurement protocol and repetition count registered
 for that run. Default-path coverage and all correctness/evidence checks remain required.
+实数融合验收须覆盖旧式折叠列与新增路径；回调逐元素恰好一次，复数回调覆盖共轭顺序。
 
 A managed build may carry a frozen, committed post_build_validation script and
 its explicit hashed inputs under that experiment. Preview verifies the identities

@@ -18,12 +18,12 @@ sys.path.insert(0,str(ROOT/'tools/fft_measurement'))
 import cufft261012_contract as contract
 
 
-def launched(argv,env,folder,label):
+def launched(argv,env,folder,label,expected_returncode=0):
     folder.mkdir(parents=True,exist_ok=True)
     with (folder/(label+'.out')).open('xb') as out,(folder/(label+'.err')).open('xb') as err:
         result=subprocess.run(list(map(str,argv)),cwd=folder,env=env,stdout=out,stderr=err,timeout=300)
     mgr.dumps(folder/(label+'-command.json'),dict(argv=list(map(str,argv)),returncode=result.returncode))
-    mgr.require(result.returncode==0,label+' failed: '+str(folder))
+    mgr.require(result.returncode==expected_returncode,label+' returned '+str(result.returncode)+': '+str(folder))
 
 
 def nodes(plan):
@@ -57,8 +57,9 @@ def inspect_plan(plan,n,c,q,func,fused):
 
 
 def completion_summary(record,fused):
+    groups=len(record['guards'])+sum(len(case['guards']) for case in record.get('folded_load_regressions',[]))
     return json.dumps(dict(complete=True,fusion_enabled=fused,cases=len(record['cases']),
-        independent_references=14*len(record['guards']),executions=28*len(record['guards'])))
+        independent_references=14*groups,executions=28*groups))
 
 
 def retained_sources(v,env,binary,case,folder,expected_names):
@@ -139,7 +140,26 @@ def main():
     record=dict(complete=False,fusion_enabled=fused,source_commit=built['arm']['source_commit'],
         library_sha256=built['arm']['library_sha256'],gpu=gpu,formal=False,
         start=datetime.datetime.now(datetime.timezone.utc).isoformat(),cases=[],guards=[],controls=[],
-        source_differences=[],failures=[])
+        source_differences=[],failures=[],folded_load_regressions=[])
+    def check_guard(n,func,callbacks,folder,selected_env,expected_returncode=0):
+        # A distinct scratch directory keeps repeated load-path regressions
+        # independent from the formal matrix and historical reference files.
+        refs_dir=cache/'independent-reference'/folder.relative_to(run)
+        refs_dir.mkdir(parents=True)
+        refs,metadata=blue.references(n,func.removesuffix('_1d'),callbacks,refs_dir)
+        mgr.require(len(metadata)==14,'independent input matrix changed')
+        genv=dict(selected_env,ROCFFT_LAYER='40',ROCFFT_LOG_PLAN_PATH=str(folder/'plan.txt'),
+                  ROCFFT_LOG_RTC_PATH=str(folder/'rtc.txt'))
+        launched([guard,n,func.removesuffix('_1d'),refs,'callbacks' if callbacks else 'plain'],
+                 genv,folder,'guard',expected_returncode)
+        if expected_returncode==0:
+            text=(folder/'guard.out').read_text()
+            mgr.require(text.count('EVEN_CC_GUARD_PASS')==14 and 'EVEN_CC_ALL_PASS cases=14' in text,
+                        'incomplete independent reference checks')
+        return dict(N=n,func=func,callbacks=callbacks,references=metadata,
+                    executions=28 if expected_returncode==0 else None,
+                    check='PASS' if expected_returncode==0 else 'EXPECTED_FAILURE')
+
     try:
         for case in coverage['cases']:
             n,func,c,q=case['N'],case['func'],case['C'],case['Q']
@@ -192,17 +212,75 @@ def main():
             entry['retained_source_sha256']=retained_hashes
             record['cases'].append(entry)
             for callbacks in (False,True):
-                refs_dir=cache/'independent-reference'/str(n)/func/('callbacks' if callbacks else 'plain');refs_dir.mkdir(parents=True)
-                refs,metadata=blue.references(n,func.removesuffix('_1d'),callbacks,refs_dir)
-                mgr.require(len(metadata)==14,'independent input matrix changed')
                 gfolder=folder/('guard-callbacks' if callbacks else 'guard-plain')
-                genv=dict(env,ROCFFT_LAYER='40',ROCFFT_LOG_PLAN_PATH=str(gfolder/'plan.txt'),
-                          ROCFFT_LOG_RTC_PATH=str(gfolder/'rtc.txt'))
-                launched([guard,n,func.removesuffix('_1d'),refs,'callbacks' if callbacks else 'plain'],genv,gfolder,'guard')
-                text=(gfolder/'guard.out').read_text()
-                mgr.require(text.count('EVEN_CC_GUARD_PASS')==14 and 'EVEN_CC_ALL_PASS cases=14' in text,
-                            'incomplete full independent reference checks')
-                record['guards'].append(dict(N=n,func=func,callbacks=callbacks,references=metadata,executions=28,check='PASS'))
+                record['guards'].append(check_guard(n,func,callbacks,gfolder,env))
+
+        # The old power-of-two pipeline is a different algorithm from the
+        # generic paired CC path. Exercise its complete family explicitly.
+        if fused and v.get('folded_callback_fix'):
+            legacy=v['folded_callback_fix']['geometries']
+            mgr.require([item['N'] for item in legacy]==[65536,131072,262144,524288,1048576],
+                        'folded family regression coverage changed')
+            for item in legacy:
+                n,c,q=item['N'],item['C'],item['Q']
+                case=dict(N=n,func='z2d_1d',C=c,Q=q)
+                for load in ('registers','lds'):
+                    selected=dict(env,ROCFFT_EXP125_LOCAL_REAL_LOAD=load)
+                    folder=run/'folded-loads'/str(n)/load
+                    meta=folder/'metadata';meta.mkdir(parents=True)
+                    output=meta/'harness';output.mkdir()
+                    logging_env=dict(selected,FFT_TEST_OUT=str(output),ROCFFT_LAYER='40',
+                        ROCFFT_LOG_PLAN_PATH=str(meta/'plan.txt'),ROCFFT_LOG_RTC_PATH=str(meta/'rtc.txt'))
+                    launched([binary,n,1,'z2d_1d'],logging_env,meta,'plan')
+                    rows=contract.read_rows(output/'fft_test_1d.csv')
+                    mgr.require(len(rows)==1,'wrong folded load metadata output count')
+                    contract.validate_process(rows[0],contract.read_samples(output/'fft_test_1d.samples.csv'),
+                        contract.read_check(output/'fft_test_1d.check.csv'),n,'z2d_1d',30)
+                    plan=(meta/'plan.txt').read_text()
+                    details=inspect_plan(plan,n,c,q,'z2d_1d',True)
+                    cc_block=plan.split('scheme: CS_KERNEL_STOCKHAM_BLOCK_CC',1)[1].split('scheme:',1)[0]
+                    dr='FORCE_OFF_OR_NOT_SUPPORT' if load=='lds' else 'TRY_ENABLE_IF_SUPPORT'
+                    mgr.require('Direct_to_from_Reg: '+dr in cc_block,'wrong actual folded column load path')
+                    sources=rtc_sources((meta/'rtc.txt').read_text())
+                    default_names=[name for name in sources if name.startswith('fft_rtc_') and '_CB' not in name]
+                    mgr.require(len(default_names)==2,'wrong folded default source count')
+                    old=retained_sources(v,selected,binary,case,folder/'retained-metadata',default_names)
+                    mgr.require(all(sources[name]==old[name] for name in default_names),
+                                'unscaled folded load source changed')
+                    old_details=inspect_plan((folder/'retained-metadata/plan.txt').read_text(),n,c,q,'z2d_1d',True)
+                    mgr.require(details['grid']==old_details['grid'],'folded allocation/launch geometry changed')
+                    entry=dict(case,load=load,**details,guards=[],check='PASS',
+                        source_sha256={name:hashlib.sha256(sources[name].encode()).hexdigest() for name in default_names})
+                    for callbacks in (False,True):
+                        gfolder=folder/('guard-callbacks' if callbacks else 'guard-plain')
+                        entry['guards'].append(check_guard(n,'z2d_1d',callbacks,gfolder,selected))
+                        if callbacks:
+                            generated=rtc_sources((gfolder/'rtc.txt').read_text())
+                            mgr.require(sum('_cb_unique1' in name for name in generated)==1,
+                                        'missing unique-callback folded source')
+                    record['folded_load_regressions'].append(entry)
+            mgr.require(len(record['folded_load_regressions'])==10,'incomplete folded load regressions')
+
+            # Run the same strict guard against the retained library. This must
+            # still detect the original defect, so the fix cannot pass by
+            # accidentally omitting callbacks or weakening their counters.
+            retained=v['retained_arm'];old_lib=mgr.inside(retained['install'])/'lib/librocfft.so.0.1'
+            mgr.require(mgr.common.sha(old_lib)==retained['library_sha256'],'retained library changed')
+            negative_env=dict(env,LD_PRELOAD=str(old_lib),
+                              LD_LIBRARY_PATH=str(old_lib.parent)+':'+env['LD_LIBRARY_PATH'])
+            linked=subprocess.check_output(['ldd',str(guard)],env=negative_env,text=True)
+            loaded=[mgr.inside(line.split('=>')[-1].strip().split()[0])
+                    for line in linked.splitlines() if 'librocfft.so' in line]
+            mgr.require('not found' not in linked and loaded==[old_lib],'negative control library mismatch')
+            folder=run/'negative-control-131072'
+            record['negative_control']=check_guard(131072,'z2d_1d',True,folder,negative_env,1)
+            error=(folder/'guard.err').read_text()
+            mgr.require('load callback count mismatch' in error and 'observed=2 expected=1' in error,
+                        'negative control did not reproduce duplicate load callback')
+            mgr.require(mgr.common.sha(old_lib)==retained['library_sha256'],'negative control library changed')
+            (folder/'ldd.txt').write_text(linked)
+            record['negative_control'].update(library_sha256=retained['library_sha256'],error=error)
+
         for item in coverage['controls']:
             folder=run/'controls'/('%d_%s'%(item['N'],item['func']));folder.mkdir(parents=True)
             launched([binary,item['N'],1,item['func']],dict(env,FFT_TEST_OUT=str(folder)),folder,'control')
@@ -249,6 +327,9 @@ def main():
         mgr.require(mgr.common.sha(lib)==built['arm']['library_sha256'],'library changed during validation')
         print(completion_summary(record,fused),flush=True)
         record['complete']=True
+    except Exception as error:
+        record['failures'].append(dict(type=type(error).__name__,message=str(error)))
+        raise
     finally:
         record['end']=datetime.datetime.now(datetime.timezone.utc).isoformat()
         record['files']={p.relative_to(run).as_posix():mgr.common.sha(p) for p in run.rglob('*') if p.is_file()}

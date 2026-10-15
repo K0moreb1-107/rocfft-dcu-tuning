@@ -275,6 +275,8 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
                                ? "_local_real_columns" : "_local_real_rows";
         kernel_name += "_N" + std::to_string(specs.real_io.n);
         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
+        if(specs.real_io.role == RealBlockRole::HermitianColumns && cbtype != CallbackType::NONE)
+            kernel_name += "_cb_unique1";
         if(specs.real_io.IsGenericPair())
         {
             kernel_name += "_" + std::string(specs.real_io.ExchangeName()) + "_packed1";
@@ -370,7 +372,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC)
         {
             if(specs.real_io.role == RealBlockRole::HermitianColumns)
-                kernel = std::make_unique<StockhamKernelHermitianColumns>(specs, largeTwdBatchIsTransformCount);
+                kernel = std::make_unique<StockhamKernelHermitianColumns>(
+                    specs, largeTwdBatchIsTransformCount, cbtype != CallbackType::NONE);
             else if(specs.real_io.role == RealBlockRole::PairedPreColumns)
                 kernel = std::make_unique<StockhamKernelPairedPreColumns>(specs);
             else

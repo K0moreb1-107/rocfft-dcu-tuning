@@ -1,0 +1,253 @@
+{
+  "complete": true,
+  "records": {
+    "off": {
+      "build_complete": true,
+      "validation_complete": true,
+      "actual_cases": 24,
+      "guard_groups": 48,
+      "independent_references": 672,
+      "reference_executions": 1344,
+      "controls": 18,
+      "strict_harness_processes": 66,
+      "registered_files_verified": 784,
+      "source_commit": "5baa357d42a04814a1d2cb6ecb825b03e11e2589",
+      "library_sha256": "9ec1334e26e2861f8db83567cb8b77b07f53b9ab98fc9146299b65907ac3dbea",
+      "case_keys": [
+        [
+          101088,
+          "d2z_1d"
+        ],
+        [
+          101088,
+          "z2d_1d"
+        ],
+        [
+          120224,
+          "d2z_1d"
+        ],
+        [
+          120224,
+          "z2d_1d"
+        ],
+        [
+          123904,
+          "d2z_1d"
+        ],
+        [
+          123904,
+          "z2d_1d"
+        ],
+        [
+          129024,
+          "d2z_1d"
+        ],
+        [
+          129024,
+          "z2d_1d"
+        ],
+        [
+          131072,
+          "d2z_1d"
+        ],
+        [
+          131072,
+          "z2d_1d"
+        ],
+        [
+          142688,
+          "d2z_1d"
+        ],
+        [
+          142688,
+          "z2d_1d"
+        ],
+        [
+          166698,
+          "d2z_1d"
+        ],
+        [
+          166698,
+          "z2d_1d"
+        ],
+        [
+          262144,
+          "d2z_1d"
+        ],
+        [
+          262144,
+          "z2d_1d"
+        ],
+        [
+          524288,
+          "d2z_1d"
+        ],
+        [
+          524288,
+          "z2d_1d"
+        ],
+        [
+          596288,
+          "d2z_1d"
+        ],
+        [
+          596288,
+          "z2d_1d"
+        ],
+        [
+          702464,
+          "d2z_1d"
+        ],
+        [
+          702464,
+          "z2d_1d"
+        ],
+        [
+          1048576,
+          "d2z_1d"
+        ],
+        [
+          1048576,
+          "z2d_1d"
+        ]
+      ]
+    },
+    "on": {
+      "build_complete": true,
+      "validation_complete": false,
+      "actual_cases": 10,
+      "guard_groups": 19,
+      "independent_references": 266,
+      "reference_executions": 532,
+      "controls": 0,
+      "strict_harness_processes": 20,
+      "registered_files_verified": 374,
+      "source_commit": "5baa357d42a04814a1d2cb6ecb825b03e11e2589",
+      "library_sha256": "3d185e00ab2edf2dbfb73c13f5f8fe09a825363d2d78da5faa1da6a80a4404c8",
+      "case_keys": [
+        [
+          101088,
+          "d2z_1d"
+        ],
+        [
+          101088,
+          "z2d_1d"
+        ],
+        [
+          120224,
+          "d2z_1d"
+        ],
+        [
+          120224,
+          "z2d_1d"
+        ],
+        [
+          123904,
+          "d2z_1d"
+        ],
+        [
+          123904,
+          "z2d_1d"
+        ],
+        [
+          129024,
+          "d2z_1d"
+        ],
+        [
+          129024,
+          "z2d_1d"
+        ],
+        [
+          131072,
+          "d2z_1d"
+        ],
+        [
+          131072,
+          "z2d_1d"
+        ]
+      ]
+    }
+  },
+  "formal_performance": false,
+  "folded_column_source_models": [
+    {
+      "N": 65536,
+      "C": 128,
+      "Q": 256,
+      "unique_input_elements": 32769,
+      "modeled_loads": 32896,
+      "elements_loaded_twice": 127,
+      "elements_missing": 0,
+      "modeled_out_of_range": 0,
+      "dc_loads": 1,
+      "nyquist_loads": 1
+    },
+    {
+      "N": 131072,
+      "C": 256,
+      "Q": 256,
+      "unique_input_elements": 65537,
+      "modeled_loads": 65792,
+      "elements_loaded_twice": 255,
+      "elements_missing": 0,
+      "modeled_out_of_range": 0,
+      "dc_loads": 1,
+      "nyquist_loads": 1
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "unique_input_elements": 131073,
+      "modeled_loads": 131328,
+      "elements_loaded_twice": 255,
+      "elements_missing": 0,
+      "modeled_out_of_range": 0,
+      "dc_loads": 1,
+      "nyquist_loads": 1
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "unique_input_elements": 262145,
+      "modeled_loads": 262656,
+      "elements_loaded_twice": 511,
+      "elements_missing": 0,
+      "modeled_out_of_range": 0,
+      "dc_loads": 1,
+      "nyquist_loads": 1
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "unique_input_elements": 524289,
+      "modeled_loads": 525312,
+      "elements_loaded_twice": 1023,
+      "elements_missing": 0,
+      "modeled_out_of_range": 0,
+      "dc_loads": 1,
+      "nyquist_loads": 1
+    }
+  ],
+  "unchanged_retained_z2d_sources_including_callbacks": {
+    "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N131072_reg": "5c0f292770e35fabca9c6cf6da974a054629a270b8b81ee4df4d0e17521640bd",
+    "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_CBc2r_local_real_rows_N131072_reg": "6bd1b63badca9631cc241ff5b37c0ecb3d4866a55e2ec4bb6813c78ae500fd6a",
+    "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N131072_reg": "7e0f1876bc19995556e2d70a4b41ae1b4ba6cc89145708daace5940d89603c71",
+    "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_CB_local_real_columns_N131072_reg": "3575202a67394d02d8a52fe362fe74bbde0715b6f22576a597709820580059b1"
+  },
+  "unchanged_retained_twiddle_sources": {
+    "twiddle_gen_radices_dp": "075bcc6e0a8ea44c0aa3b6baa86a9d0084f6dfb172e38e56506a4981ba7f7bcd",
+    "twiddle_gen_large_dp": "9590d8a0ade65aa958e61efe2936f6af2a613494ace0c449e0e7b88b06869c5d",
+    "twiddle_gen_N_dp": "671ed3e6bf8cf868686be77522f81f0be2a398be619724669d3fcdb8e88fb6a1"
+  },
+  "official_local_contract": {
+    "path": "C:\\Users\\ZR\\Documents\\Codex\\2026-10-03\\tong\\work\\CC-fusion-ab-20261015\\review-924177\\contract-raw\\rocm-libraries-rocm-7.2.2\\projects\\rocfft\\docs\\how-to\\load-store-callbacks.rst",
+    "line": 105,
+    "text": "Callback functions are called exactly once for each element being\nloaded or stored in a transform. Multiple kernels can be\nlaunched to decompose a transform, which means that separate kernels\nmight call the load and store callbacks for a transform if both are\nspecified.\n",
+    "sha256": "ae9a46e452dbcd6622f991105b7e431a863cbba0845cdd3b97d4b644080c9f32"
+  },
+  "root_cause": "Retained folded-column z2d repeats load callbacks for boundary-column input elements; API requires exactly once.",
+  "modeled_counts_are_device_unmeasured": true
+}

@@ -45,6 +45,12 @@ class Reporting(unittest.TestCase):
                 self.assertEqual(result,dict(complete=True,fusion_enabled=fused,cases=24,
                     independent_references=672,executions=1344))
 
+    def test_folded_regressions_are_in_reference_totals(self):
+        self.record['folded_load_regressions']=[dict(guards=[{},{}]) for _ in range(10)]
+        result=reporting(SCRIPT.read_text(),self.record,True)
+        self.assertEqual(result['independent_references'],952)
+        self.assertEqual(result['executions'],1904)
+
     def test_result_output_precedes_complete_flag(self):
         tree=ast.parse(SCRIPT.read_text())
         main=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='main')

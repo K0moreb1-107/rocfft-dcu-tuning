@@ -64,7 +64,10 @@ __device__ Complex load_complex(Complex* data, size_t offset, void* userdata, vo
 {
     if(!counted(static_cast<CallbackData*>(userdata), offset)) return {0, 0};
     const auto value = data[offset];
-    return {value.x * 0.75 + double(offset % 7) * 0.03125, value.y * 0.75};
+    const auto* cb = static_cast<CallbackData*>(userdata);
+    const double imaginary = offset > 0 && offset + 1 < cb->length
+                                 ? double(offset % 11) * 0.015625 : 0.0;
+    return {value.x * 0.75 + double(offset % 7) * 0.03125, value.y * 0.75 + imaginary};
 }
 __device__ void store_real(double* data, size_t offset, double value, void* userdata, void*)
 {
@@ -197,9 +200,16 @@ static void validate_case(size_t n, const std::string& direction, const std::str
             {
                 std::vector<unsigned int> counts(buffer->bytes / sizeof(unsigned int));
                 hip_check(hipMemcpy(counts.data(), buffer->data(), buffer->bytes, hipMemcpyDeviceToHost));
-                if(counts.back() != 0 || !std::all_of(counts.begin(), counts.end() - 1,
-                                                   [](unsigned int v) { return v == 1; }))
-                    throw std::runtime_error("callback ownership mismatch");
+                const std::string kind = buffer == &load_counts ? "load" : "store";
+                if(counts.back() != 0)
+                    throw std::runtime_error(kind + " callback out-of-range count "
+                                             + std::to_string(counts.back()));
+                const auto wrong = std::find_if(counts.begin(), counts.end() - 1,
+                                                [](unsigned int v) { return v != 1; });
+                if(wrong != counts.end() - 1)
+                    throw std::runtime_error(kind + " callback count mismatch offset="
+                        + std::to_string(wrong - counts.begin()) + " observed="
+                        + std::to_string(*wrong) + " expected=1");
             }
         for(const auto* buffer : {&input, &output, &work, &load_counts, &store_counts, &load_data, &store_data})
             if(!buffer->check()) throw std::runtime_error("guard modified");
@@ -217,7 +227,7 @@ int main(int argc, char** argv)
         if(argc != 5) return 2;
         const size_t n = std::stoull(argv[1]);
         const std::string direction(argv[2]);
-        if(n <= 65536 || n % 2 || (direction != "d2z" && direction != "z2d")) return 2;
+        if(n < 65536 || n % 2 || (direction != "d2z" && direction != "z2d")) return 2;
         const bool callbacks = std::string(argv[4]) == "callbacks";
         std::ifstream list(argv[3]);
         if(!list) throw std::runtime_error("missing reference list");

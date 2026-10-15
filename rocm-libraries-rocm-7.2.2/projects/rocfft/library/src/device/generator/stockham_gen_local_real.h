@@ -64,9 +64,12 @@ inline const char* local_real_twiddle_suffix(LocalRealTwiddleLoad load)
 struct LocalRealFoldVisitor : BaseVisitor
 {
     const RealBlockIO io;
+    const bool        cache_boundary;
     Variable          raw{"local_real_raw", "scalar_type"};
+    Variable          cached_column{"local_real_cached_column", "const bool"};
 
-    explicit LocalRealFoldVisitor(const RealBlockIO& io) : io(io) {}
+    explicit LocalRealFoldVisitor(const RealBlockIO& io, bool cache_boundary = false)
+        : io(io), cache_boundary(cache_boundary) {}
 
     Expression folded(const Expression& k) const
     {
@@ -93,10 +96,24 @@ struct LocalRealFoldVisitor : BaseVisitor
 
         // LoadGlobal sets the input context in the out-of-place visitor before
         // it visits the mirror predicate. Do not hide the load in a raw string.
-        return {Assign{raw, load},
-                Assign{x.lhs,
-                       CallExpr{"local_real_hermitian_value", {scalar_type},
-                                {raw, k > Literal{static_cast<unsigned int>(io.n / 2)}}}, x.oper}};
+        StatementList result;
+        if(cache_boundary)
+        {
+            Variable row{"local_real_fold_row", "const unsigned int"};
+            Variable cache{"lds_complex", "scalar_type", true, true};
+            // Keep the input expression in an assignment: array subscripts
+            // are not rewritten by the out-of-place visitor.
+            result += If{cached_column,
+                         {Declaration{row, k / Literal{static_cast<unsigned int>(2 * io.rows)}},
+                          Assign{raw, cache[row]}}};
+            result += Else{{Assign{raw, load}}};
+        }
+        else
+            result += Assign{raw, load};
+        result += Assign{x.lhs,
+                         CallExpr{"local_real_hermitian_value", {scalar_type},
+                                  {raw, k > Literal{static_cast<unsigned int>(io.n / 2)}}}, x.oper};
+        return result;
     }
 
     Variable scalar_type{"scalar_type", "typename"};
@@ -105,18 +122,66 @@ struct LocalRealFoldVisitor : BaseVisitor
 struct StockhamKernelHermitianColumns : StockhamKernelCC
 {
     const RealBlockIO io;
+    const bool        callbacks;
+    Variable          boundary_tile{"local_real_boundary_tile", "const bool"};
 
     explicit StockhamKernelHermitianColumns(const StockhamGeneratorSpecs& specs,
-                                            bool large_batch_count)
-        : StockhamKernelCC(specs, large_batch_count, false), io(specs.real_io)
+                                            bool large_batch_count, bool callbacks)
+        : StockhamKernelCC(specs, large_batch_count, false)
+        , io(specs.real_io), callbacks(callbacks)
     {
+        // The two boundary columns each start a tile. The cache reuses the
+        // first transform's existing LDS, including half-LDS register loads.
+        if(callbacks && (length != io.columns || length % 2 != 0
+                         || io.n != 2 * io.columns * io.rows
+                         || transforms_per_block == 0
+                         || io.rows < transforms_per_block
+                         || io.rows % transforms_per_block != 0
+                         || transforms_per_block < (half_lds ? 2u : 1u)))
+            throw std::runtime_error("unsupported Hermitian callback cache geometry");
+    }
+
+    StatementList load_boundary_cache()
+    {
+        const auto c = static_cast<unsigned int>(io.columns);
+        const auto q = static_cast<unsigned int>(io.rows);
+        Variable column{"local_real_cache_column", "const unsigned int"};
+        Variable row{"local_real_cache_row", "unsigned int"};
+        Variable mirror{"local_real_cache_mirror", "const unsigned int"};
+        Variable value{"local_real_cache_value", "const scalar_type"};
+        const Expression first = tile_index == Literal{0};
+        const Expression limit = Literal{c / 2}
+            + Ternary{Expression{first}, Expression{Literal{1}}, Expression{Literal{0}}};
+        StatementList fill{
+            Declaration{column, Ternary{Expression{first}, Expression{Literal{0}}, Expression{Literal{q}}}},
+            For{row, thread_id, row < limit, workgroup_size,
+                {Declaration{value, LoadGlobal{buf, row * Literal{2 * q} + column}},
+                 Assign{lds_complex[row], value},
+                 Declaration{mirror,
+                     Ternary{Expression{first}, Expression{Parens{Literal{c} - row} % Literal{c}},
+                             Expression{Literal{c - 1} - row}}},
+                 If{mirror != row, {Assign{lds_complex[mirror], value}}}}},
+            SyncThreads{}};
+        return {If{boundary_tile, fill}};
     }
 
     StatementList load_from_global(bool registers) override
     {
-        LocalRealFoldVisitor visitor(io);
+        LocalRealFoldVisitor visitor(io, callbacks);
         StatementList body{Declaration{visitor.raw}};
+        if(callbacks)
+        {
+            body += Declaration{boundary_tile,
+                (tile_index == Literal{0})
+                || (tile_index == Literal{static_cast<unsigned int>(io.rows / transforms_per_block)})};
+            body += Declaration{visitor.cached_column, boundary_tile && (tid_hor == Literal{0})};
+            body += load_boundary_cache();
+        }
         body += visitor.visit_StatementList(StockhamKernelCC::load_from_global(registers));
+        // All cache readers finish before the FFT can reuse LDS. This is
+        // block-uniform even in the final tile, where only one column is valid.
+        if(callbacks)
+            body += If{boundary_tile, {SyncThreads{}}};
         return body;
     }
 };

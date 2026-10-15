@@ -1,0 +1,117 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "reporting_tests": 5,
+  "reporting_log_sha256": "504522d70884c49c0d8d9c7dac8efe68d473dacf490a7647e848deaae291d6f1",
+  "reference_comparisons": [
+    {
+      "N": 65536,
+      "direction": "z2d",
+      "callbacks": false,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 65536,
+      "direction": "d2z",
+      "callbacks": false,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 65536,
+      "direction": "d2z",
+      "callbacks": true,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 65536,
+      "direction": "z2d",
+      "callbacks": true,
+      "references": 14,
+      "expected_changed": true
+    },
+    {
+      "N": 131072,
+      "direction": "z2d",
+      "callbacks": false,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 131072,
+      "direction": "d2z",
+      "callbacks": false,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 131072,
+      "direction": "d2z",
+      "callbacks": true,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 131072,
+      "direction": "z2d",
+      "callbacks": true,
+      "references": 14,
+      "expected_changed": true
+    },
+    {
+      "N": 1048576,
+      "direction": "z2d",
+      "callbacks": false,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 1048576,
+      "direction": "d2z",
+      "callbacks": false,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 1048576,
+      "direction": "d2z",
+      "callbacks": true,
+      "references": 14,
+      "expected_changed": false
+    },
+    {
+      "N": 1048576,
+      "direction": "z2d",
+      "callbacks": true,
+      "references": 14,
+      "expected_changed": true
+    }
+  ],
+  "expected_reference_pairs": 168,
+  "generated_input_addressing_checked": {
+    "1048576_hermitian_columns_lds_callbacks_scaled.cpp": 80,
+    "1048576_hermitian_columns_lds_callbacks_unscaled.cpp": 80,
+    "1048576_hermitian_columns_reg_callbacks_scaled.cpp": 80,
+    "1048576_hermitian_columns_reg_callbacks_unscaled.cpp": 80,
+    "131072_hermitian_columns_lds_callbacks_scaled.cpp": 40,
+    "131072_hermitian_columns_lds_callbacks_unscaled.cpp": 40,
+    "131072_hermitian_columns_reg_callbacks_scaled.cpp": 40,
+    "131072_hermitian_columns_reg_callbacks_unscaled.cpp": 40,
+    "262144_hermitian_columns_lds_callbacks_scaled.cpp": 40,
+    "262144_hermitian_columns_lds_callbacks_unscaled.cpp": 40,
+    "262144_hermitian_columns_reg_callbacks_scaled.cpp": 40,
+    "262144_hermitian_columns_reg_callbacks_unscaled.cpp": 40,
+    "524288_hermitian_columns_lds_callbacks_scaled.cpp": 40,
+    "524288_hermitian_columns_lds_callbacks_unscaled.cpp": 40,
+    "524288_hermitian_columns_reg_callbacks_scaled.cpp": 40,
+    "524288_hermitian_columns_reg_callbacks_unscaled.cpp": 40,
+    "65536_hermitian_columns_lds_callbacks_scaled.cpp": 64,
+    "65536_hermitian_columns_lds_callbacks_unscaled.cpp": 64,
+    "65536_hermitian_columns_reg_callbacks_scaled.cpp": 64,
+    "65536_hermitian_columns_reg_callbacks_unscaled.cpp": 64
+  },
+  "validator_sha256": "3a5ca733e5616f38ca8305a2b90151b37c018a2c6d9f565ae7a171dff51067c1",
+  "test_sha256": "1b6c992928edfbb4df847f76ef04d825eeb2688858abd318f275dae7bbb00b27"
+}
