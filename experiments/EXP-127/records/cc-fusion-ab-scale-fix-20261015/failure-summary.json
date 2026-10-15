@@ -1,0 +1,151 @@
+{
+  "jobs": {
+    "command": [
+      "sacct",
+      "-j",
+      "923801,923802,923804",
+      "--format=JobIDRaw,State,ExitCode,Elapsed,Start,End,NodeList",
+      "-P",
+      "-n"
+    ],
+    "code": 0,
+    "stdout": "923801|COMPLETED|0:0|00:13:35|2026-10-15T15:08:41|2026-10-15T15:22:16|f13r4n15\n923801.batch|COMPLETED|0:0|00:13:35|2026-10-15T15:08:41|2026-10-15T15:22:16|f13r4n15\n923801.extern|COMPLETED|0:0|00:13:35|2026-10-15T15:08:41|2026-10-15T15:22:16|f13r4n15\n923802|FAILED|1:0|00:07:55|2026-10-15T15:22:16|2026-10-15T15:30:11|f13r4n15\n923802.batch|FAILED|1:0|00:07:55|2026-10-15T15:22:16|2026-10-15T15:30:11|f13r4n15\n923802.extern|COMPLETED|0:0|00:07:55|2026-10-15T15:22:16|2026-10-15T15:30:11|f13r4n15\n923804|CANCELLED|0:0|00:00:00|None|2026-10-15T15:30:11|None assigned\n",
+    "stderr": ""
+  },
+  "unfused": {
+    "build-provenance.json": {
+      "complete": true,
+      "component": "rocfft",
+      "job_id": "923801",
+      "start": "2026-10-15T07:08:42.587147+00:00",
+      "end": "2026-10-15T07:13:33.607155+00:00",
+      "sha256": "5d79496ff86e44d3a31185d321b2f76df4699c88a8bfe65f6a7c9927d91998ae",
+      "arm": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-cc-fusion-ab-off-retry-20261015",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "2fa955c4ed9f763380eead4d488df6f34974e82a",
+        "source_state": "{\"commit\": \"2fa955c4ed9f763380eead4d488df6f34974e82a\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+        "library_sha256": "5eb047bd8873b1fae8da554c44c55d1684d32730a6a196b500ec60788097210d",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-off-build-retry-20261015/build-provenance.json"
+      }
+    },
+    "post-build-validation.json": {
+      "complete": true,
+      "command": [
+        "/public/software/apps/anaconda3/2023.09/bin/python",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/validate_cc_fusion_ab.py",
+        "--config",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-off-build-retry-20261015/submit-manifest.json",
+        "--build-record",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-off-build-retry-20261015/build-provenance.json",
+        "--run",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-off-build-retry-20261015",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-off-retry-20261015",
+        "--cache",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/cache/EXP-127-cc-fusion-ab-off-build-retry-20261015"
+      ],
+      "source_commit": "2fa955c4ed9f763380eead4d488df6f34974e82a",
+      "library_sha256": "5eb047bd8873b1fae8da554c44c55d1684d32730a6a196b500ec60788097210d",
+      "sha256": "6c823905c4e7632ab9e83e5e97d9e20a21d7530fe503698c22ee52d9f87500f2"
+    },
+    "cc-fusion-validation.json": {
+      "complete": true,
+      "source_commit": "2fa955c4ed9f763380eead4d488df6f34974e82a",
+      "library_sha256": "5eb047bd8873b1fae8da554c44c55d1684d32730a6a196b500ec60788097210d",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135333861396635353633306331",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "formal": false,
+      "start": "2026-10-15T07:13:38.230976+00:00",
+      "end": "2026-10-15T07:22:15.986377+00:00",
+      "sha256": "d84086fb4cb177ceb60ce787c516dd602b62f7e386d6fa8c9c6eade97e8dac87",
+      "cases_count": 24,
+      "guards_count": 48,
+      "controls_count": 18,
+      "source_differences_count": 0
+    },
+    "preregistration.json": {
+      "sha256": "839dd5722914363cbbc394d81c24568b1d5431f811c5e02d751f74c576247e56",
+      "cases": null,
+      "arms": null
+    }
+  },
+  "fused": {
+    "build-provenance.json": {
+      "complete": true,
+      "component": "rocfft",
+      "job_id": "923802",
+      "start": "2026-10-15T07:22:17.536448+00:00",
+      "end": "2026-10-15T07:27:05.894847+00:00",
+      "sha256": "0bd7fc88c0199a624c64c4a227834de9e025bd4382b2811e12fb73651fd8e28a",
+      "arm": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-cc-fusion-ab-on-retry-20261015",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "2fa955c4ed9f763380eead4d488df6f34974e82a",
+        "source_state": "{\"commit\": \"2fa955c4ed9f763380eead4d488df6f34974e82a\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+        "library_sha256": "35a9197d1d5440d9993100f9e3ba484d2101c3122f8cf9c88ae8515fa1ce6908",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-on-build-retry-20261015/build-provenance.json"
+      }
+    },
+    "post-build-validation.json": {
+      "complete": false,
+      "command": [
+        "/public/software/apps/anaconda3/2023.09/bin/python",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/validate_cc_fusion_ab.py",
+        "--config",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-on-build-retry-20261015/submit-manifest.json",
+        "--build-record",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-on-build-retry-20261015/build-provenance.json",
+        "--run",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-fusion-ab-on-build-retry-20261015",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-retry-20261015",
+        "--cache",
+        "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/cache/EXP-127-cc-fusion-ab-on-build-retry-20261015"
+      ],
+      "source_commit": "2fa955c4ed9f763380eead4d488df6f34974e82a",
+      "library_sha256": "35a9197d1d5440d9993100f9e3ba484d2101c3122f8cf9c88ae8515fa1ce6908",
+      "sha256": "20956c7a6970ab16196a8178c204eade229e6d07f82a916ab57dfcc2bb5543f7"
+    },
+    "cc-fusion-validation.json": {
+      "complete": false,
+      "source_commit": "2fa955c4ed9f763380eead4d488df6f34974e82a",
+      "library_sha256": "35a9197d1d5440d9993100f9e3ba484d2101c3122f8cf9c88ae8515fa1ce6908",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135333861396635353633306331",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "formal": false,
+      "start": "2026-10-15T07:27:10.353331+00:00",
+      "end": "2026-10-15T07:30:10.681719+00:00",
+      "sha256": "f13c2a0d675d72d26b007fd0f656beea3f63f10aa4dcb286c5f028089d9870a5",
+      "cases_count": 9,
+      "guards_count": 16,
+      "controls_count": 0,
+      "source_differences_count": 0
+    },
+    "preregistration.json": {
+      "sha256": "2a08d824051c90397a341aabe7c727bd67af30f815483a8dae55e2d0c2030e2e",
+      "cases": null,
+      "arms": null
+    }
+  },
+  "on_registered_files_verified": 332,
+  "failed_case": {
+    "N": 131072,
+    "func": "d2z_1d",
+    "callbacks": false,
+    "scale": 0.375
+  },
+  "first_unscaled_pattern_passed": true,
+  "formal_samples": 0,
+  "cause": "Unscoped complex initializer list was multiplied by scale_factor; RTC compilation failed before executing scaled transform."
+}
