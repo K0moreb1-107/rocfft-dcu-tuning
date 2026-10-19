@@ -1,0 +1,425 @@
+[
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_0.cpp",
+    "sha256": "28c5ba1d263975036c7b95f0e45258b60e95fd2d7bf2dd9976accd74ce855702",
+    "entries": [
+      {
+        "line": 364,
+        "definition": "kernel = FFTKernel(false, {8,8}, 32, 256, {8,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(64, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 370,
+        "definition": "kernel = FFTKernel(false, {6,6,3}, 16, 576, {36,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(108, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 376,
+        "definition": "kernel = FFTKernel(true, {8,6,4}, 10, 480, {48,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(192, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 382,
+        "definition": "kernel = FFTKernel(false, {8,5,7}, 7, 392, {56,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(280, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 412,
+        "definition": "kernel = FFTKernel(false, {4,4,4}, 8, 128, {16,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(64, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 442,
+        "definition": "kernel = FFTKernel(false, {11,11}, 11, 121, {11,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(121, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 472,
+        "definition": "kernel = FFTKernel(false, {6,4,4,2}, 8, 256, {32,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(192, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 502,
+        "definition": "kernel = FFTKernel(false, {17,17}, 7, 119, {17,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(289, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 532,
+        "definition": "kernel = FFTKernel(false, {5,5,5,5}, 1, 125, {125,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(625, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  },
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_1.cpp",
+    "sha256": "8f2c8a95d9fd2ae025f0b2ee132da7824c3da0f9ef2104e537e2b471c911e6a5",
+    "entries": [
+      {
+        "line": 366,
+        "definition": "kernel = FFTKernel(true, {3,3,3,3}, 16, 432, {27,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(81, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 372,
+        "definition": "kernel = FFTKernel(false, {5,5,5}, 16, 400, {25,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(125, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 378,
+        "definition": "kernel = FFTKernel(false, {6,6,6}, 9, 324, {36,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(216, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 384,
+        "definition": "kernel = FFTKernel(true, {7,7,7}, 5, 245, {49,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(343, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 412,
+        "definition": "kernel = FFTKernel(false, {4,4,4}, 8, 128, {16,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(64, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 442,
+        "definition": "kernel = FFTKernel(false, {11,11}, 11, 121, {11,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(121, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 472,
+        "definition": "kernel = FFTKernel(false, {6,4,4,2}, 8, 256, {32,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(192, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 502,
+        "definition": "kernel = FFTKernel(false, {17,17}, 7, 119, {17,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(289, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 532,
+        "definition": "kernel = FFTKernel(false, {5,5,5,5}, 1, 125, {125,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(625, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  },
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_2.cpp",
+    "sha256": "3421049e4576e7750c3e77005b7e16205de7075ec375795a4b33192abc0bd785",
+    "entries": [
+      {
+        "line": 362,
+        "definition": "kernel = FFTKernel(true, {13,4}, 16, 208, {13,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(52, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 368,
+        "definition": "kernel = FFTKernel(false, {5,5,4}, 8, 200, {25,0}, true, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(100, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 374,
+        "definition": "kernel = FFTKernel(false, {7,6,4}, 6, 252, {42,0}, true, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(168, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 380,
+        "definition": "kernel = FFTKernel(false, {3,3,3,3,3}, 3, 243, {81,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(243, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 404,
+        "definition": "kernel = FFTKernel(false, {10,5}, 10, 50, {5,0}, false, false, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(50, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 434,
+        "definition": "kernel = FFTKernel(false, {4,7,4}, 16, 448, {28,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(112, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 464,
+        "definition": "kernel = FFTKernel(false, {13,13}, 12, 156, {13,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(169, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 494,
+        "definition": "kernel = FFTKernel(false, {4,4,4,4}, 8, 256, {32,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(256, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 524,
+        "definition": "kernel = FFTKernel(false, {8,8,4,4}, 2, 256, {128,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(1024, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  },
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_3.cpp",
+    "sha256": "e7f37ac84dfd043eff7805eea890570d04b4ecf941ca3a19f3ce054f3d3af6a5",
+    "entries": [
+      {
+        "line": 364,
+        "definition": "kernel = FFTKernel(false, {8,3,3}, 16, 384, {24,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(72, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 370,
+        "definition": "kernel = FFTKernel(false, {4,7,4}, 16, 448, {28,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(112, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 376,
+        "definition": "kernel = FFTKernel(false, {5,8,5}, 10, 400, {40,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(200, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 382,
+        "definition": "kernel = FFTKernel(true, {17,17}, 7, 119, {17,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(289, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 404,
+        "definition": "kernel = FFTKernel(false, {10,5}, 10, 50, {5,0}, false, false, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(50, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 434,
+        "definition": "kernel = FFTKernel(false, {4,7,4}, 16, 448, {28,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(112, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 464,
+        "definition": "kernel = FFTKernel(false, {13,13}, 12, 156, {13,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(169, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 494,
+        "definition": "kernel = FFTKernel(false, {4,4,4,4}, 8, 256, {32,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(256, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 524,
+        "definition": "kernel = FFTKernel(false, {8,8,4,4}, 2, 256, {128,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(1024, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  },
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_4.cpp",
+    "sha256": "0fa874aa09f92a9b10a1f2e951e02f3a903f1d4254a00577d331fc4eda105849",
+    "entries": [
+      {
+        "line": 366,
+        "definition": "kernel = FFTKernel(true, {7,2,6}, 24, 336, {14,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(84, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 372,
+        "definition": "kernel = FFTKernel(true, {16,8}, 16, 256, {16,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(128, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 378,
+        "definition": "kernel = FFTKernel(false, {8,7,4}, 9, 504, {56,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(224, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 384,
+        "definition": "kernel = FFTKernel(false, {8,8,8}, 4, 256, {64,0}, true, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(512, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 396,
+        "definition": "kernel = FFTKernel(false, {7,7}, 28, 196, {7,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(49, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 426,
+        "definition": "kernel = FFTKernel(false, {5,5,4}, 4, 100, {25,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(100, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 456,
+        "definition": "kernel = FFTKernel(false, {8,4,4}, 8, 128, {16,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(128, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 486,
+        "definition": "kernel = FFTKernel(false, {3,3,3,3,3}, 8, 216, {27,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(243, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 516,
+        "definition": "kernel = FFTKernel(false, {8,8,8}, 4, 512, {128,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(512, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  },
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_5.cpp",
+    "sha256": "9ee4d9a479caff65acc637395fe33e168b2d8117fee61c44ca67684e6aa13cd9",
+    "entries": [
+      {
+        "line": 362,
+        "definition": "kernel = FFTKernel(false, {6,10}, 16, 160, {10,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(60, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 368,
+        "definition": "kernel = FFTKernel(false, {13,8}, 16, 208, {13,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(104, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 374,
+        "definition": "kernel = FFTKernel(false, {13,13}, 12, 156, {13,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(169, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 380,
+        "definition": "kernel = FFTKernel(false, {8,4,8}, 8, 256, {32,0}, true, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(256, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 396,
+        "definition": "kernel = FFTKernel(false, {7,7}, 28, 196, {7,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(49, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 426,
+        "definition": "kernel = FFTKernel(false, {5,5,4}, 4, 100, {25,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(100, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 456,
+        "definition": "kernel = FFTKernel(false, {8,4,4}, 8, 128, {16,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(128, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 486,
+        "definition": "kernel = FFTKernel(false, {3,3,3,3,3}, 8, 216, {27,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(243, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 516,
+        "definition": "kernel = FFTKernel(false, {8,8,8}, 4, 512, {128,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(512, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  },
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_6.cpp",
+    "sha256": "1d4fa692d3d8b64b3cf665fe40304f4f51fc3510fa023ffb4bab2e8d50a45deb",
+    "entries": [
+      {
+        "line": 364,
+        "definition": "kernel = FFTKernel(false, {10,8}, 16, 160, {10,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(80, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 370,
+        "definition": "kernel = FFTKernel(true, {11,11}, 11, 121, {11,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(121, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 376,
+        "definition": "kernel = FFTKernel(false, {13,16}, 9, 144, {16,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(208, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 382,
+        "definition": "kernel = FFTKernel(false, {6,7,8}, 6, 336, {56,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(336, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 388,
+        "definition": "kernel = FFTKernel(false, {17}, 120, 120, {1,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(17, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 418,
+        "definition": "kernel = FFTKernel(false, {3,3,3,3}, 9, 243, {27,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(81, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 448,
+        "definition": "kernel = FFTKernel(false, {5,5,5}, 10, 250, {25,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(125, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 478,
+        "definition": "kernel = FFTKernel(false, {8,5,5}, 10, 400, {40,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(200, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 508,
+        "definition": "kernel = FFTKernel(false, {7,7,7}, 5, 245, {49,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(343, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 538,
+        "definition": "kernel = FFTKernel(false, {11,11,11}, 1, 121, {121,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(1331, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  },
+  {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-fusion-ab-on-callback-fix-20261015/library/src/device/function_pool_init_7.cpp",
+    "sha256": "6b6cadcfddb497d9378e6875cde9679f9ab7218781a5913ebc8e8e4dfa4c8ee7",
+    "entries": [
+      {
+        "line": 360,
+        "definition": "kernel = FFTKernel(true, {10,5}, 25, 250, {10,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(50, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 366,
+        "definition": "kernel = FFTKernel(false, {8,3,4}, 8, 256, {32,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(96, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 372,
+        "definition": "kernel = FFTKernel(false, {4,10,4}, 12, 192, {16,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(160, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 378,
+        "definition": "kernel = FFTKernel(false, {8,5,6}, 8, 384, {48,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(240, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 384,
+        "definition": "kernel = FFTKernel(false, {8,8,4,4}, 4, 256, {64,0}, true, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(1024, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_CC, NONE, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 388,
+        "definition": "kernel = FFTKernel(false, {17}, 120, 120, {1,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(17, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 418,
+        "definition": "kernel = FFTKernel(false, {3,3,3,3}, 9, 243, {27,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(81, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 448,
+        "definition": "kernel = FFTKernel(false, {5,5,5}, 10, 250, {25,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(125, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 478,
+        "definition": "kernel = FFTKernel(false, {8,5,5}, 10, 400, {40,0}, false, true, true, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(200, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 508,
+        "definition": "kernel = FFTKernel(false, {7,7,7}, 5, 245, {49,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(343, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      },
+      {
+        "line": 538,
+        "definition": "kernel = FFTKernel(false, {11,11,11}, 1, 121, {121,0}, false, true, false, CS_NONE, 0, 0, {}, {});/* kernel-generator.py:215 */",
+        "entry": "insert_default_entry(FMKey(1331, 0, rocfft_precision_double, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_UNALIGNED, kernel.get_kernel_config()), kernel, std::get<0>(def_keys), std::get<0>(function_maps), 65536);/* generator.py:815 */"
+      }
+    ]
+  }
+]

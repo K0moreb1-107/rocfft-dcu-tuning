@@ -416,6 +416,17 @@ option(ROCFFT_REAL_PAIR_SCALAR_CAPACITY "Use scalar exchange for verified real p
 target_compile_definitions(rocfft PRIVATE
   ROCFFT_REAL_PAIR_SCALAR_CAPACITY=$<BOOL:${ROCFFT_REAL_PAIR_SCALAR_CAPACITY}>)
 
+# Each registered candidate covers all generic real CC configurations. The
+# accepted policy remains the default until complete validation and timing.
+set(ROCFFT_REAL_PAIR_IO_POLICY "retained" CACHE STRING "Generic real CC boundary IO policy")
+set_property(CACHE ROCFFT_REAL_PAIR_IO_POLICY PROPERTY STRINGS retained direct-complex direct-scalar)
+set(_real_pair_io_policies retained direct-complex direct-scalar)
+list(FIND _real_pair_io_policies "${ROCFFT_REAL_PAIR_IO_POLICY}" _real_pair_io_policy)
+if(_real_pair_io_policy EQUAL -1)
+  message(FATAL_ERROR "ROCFFT_REAL_PAIR_IO_POLICY must be retained, direct-complex or direct-scalar")
+endif()
+target_compile_definitions(rocfft PRIVATE ROCFFT_REAL_PAIR_IO_POLICY=${_real_pair_io_policy})
+
 # Independent on/off builds retain the same CC decomposition and FFT kernels.
 option(ROCFFT_CC_REAL_FUSION "Fuse large real boundaries into CC plans" ON)
 target_compile_definitions(rocfft PRIVATE

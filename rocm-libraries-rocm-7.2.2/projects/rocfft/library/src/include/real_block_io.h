@@ -29,6 +29,15 @@ enum class RealBlockLoad
 enum class RealPairExchange { StagedComplex, DirectComplex, DirectScalar };
 enum class RealPairFinalPhase { InTransform, AtStore };
 
+// A build selects a complete generic backend, independently of FFT lengths.
+// Retained preserves the accepted policy for controlled comparisons.
+enum class RealPairPolicy { Retained, DirectComplex, DirectScalar };
+
+struct RealPairResources
+{
+    size_t max_threads, shared_bytes, extra_shared_bytes, complex_bytes;
+};
+
 // One geometry shared by planning, physical buffer views and code generation.
 // N = 2 * columns * rows; pitch counts complex elements.
 struct RealBlockIO
@@ -57,11 +66,15 @@ struct RealBlockIO
         }
         throw std::runtime_error("unknown real pair exchange");
     }
-    // Select complete verified kernel families, never individual FFT sizes.
+    // Keep the accepted selection only as the reference policy. Both direct
+    // policies cover every legal generic CC geometry, with the same maps.
     template<class Factors>
     void SelectPairExchange(bool pre, const Factors& factors, size_t p, size_t slots,
-                            size_t base, size_t steps, bool scalar_capacity)
+                            size_t base, size_t steps, bool scalar_capacity,
+                            RealPairPolicy policy = RealPairPolicy::Retained)
     {
+        exchange = RealPairExchange::StagedComplex;
+        final_phase = RealPairFinalPhase::InTransform;
         const auto matches = [&](std::initializer_list<size_t> f, size_t threads, size_t t) {
             return p == threads && slots == t && factors.size() == f.size()
                    && std::equal(f.begin(), f.end(), factors.begin());
@@ -88,7 +101,60 @@ struct RealBlockIO
                 exchange = RealPairExchange::DirectScalar;
         }
         if(selected && !ScalarPairIO()) exchange = RealPairExchange::DirectComplex;
+        if(policy != RealPairPolicy::Retained)
+            exchange = policy == RealPairPolicy::DirectScalar
+                           ? RealPairExchange::DirectScalar : RealPairExchange::DirectComplex;
         load = DirectPairIO() ? RealBlockLoad::Registers : RealBlockLoad::LDS;
+    }
+
+    // Preserve the full-storage slot count when it fits. Scalar exchange must
+    // not silently enlarge the workgroup and confound the backend comparison.
+    // It may admit a two-slot pair that full complex storage cannot contain.
+    template<class Factors>
+    std::optional<size_t> ConfigurePair(bool pre, const Factors& factors, size_t p,
+                                       size_t requested_slots, size_t base, size_t steps,
+                                       const RealPairResources& limits, RealPairPolicy policy,
+                                       bool retained_scalar_capacity)
+    {
+        const size_t length = pre ? columns : rows;
+        if(p == 0 || requested_slots == 0 || length == 0 || factors.empty()
+           || limits.complex_bytes < 2 || limits.complex_bytes % 2 != 0
+           || limits.extra_shared_bytes >= limits.shared_bytes)
+            return std::nullopt;
+        size_t factor_product = 1;
+        for(auto factor : factors)
+        {
+            if(factor < 2 || factor_product > length / factor)
+                return std::nullopt;
+            factor_product *= factor;
+        }
+        if(factor_product != length)
+            return std::nullopt;
+        if(pre && (base == 0 || base >= std::numeric_limits<size_t>::digits
+                   || steps < 2 || steps > 3
+                   || (base * steps < std::numeric_limits<size_t>::digits
+                       && n / 2 > (size_t(1) << (base * steps)))))
+            return std::nullopt;
+
+        const size_t available = limits.shared_bytes - limits.extra_shared_bytes;
+        const auto slots_for = [&](size_t element_bytes) {
+            return std::min<size_t>(std::max<size_t>(2, requested_slots),
+                       std::min(limits.max_threads / p, available / element_bytes / length))
+                   & ~size_t(1);
+        };
+        size_t slots = slots_for(limits.complex_bytes);
+        auto effective_policy = policy;
+        if(slots < 2 && policy != RealPairPolicy::Retained)
+        {
+            slots = slots_for(limits.complex_bytes / 2);
+            effective_policy = RealPairPolicy::DirectScalar;
+        }
+        if(slots < 2 || PairBlocks(pre ? rows : columns, slots)
+                           > std::numeric_limits<unsigned int>::max())
+            return std::nullopt;
+        SelectPairExchange(pre, factors, p, slots, base, steps,
+                           retained_scalar_capacity, effective_policy);
+        return slots;
     }
 
     static std::optional<RealBlockIO> ForDecomposition(size_t n, size_t columns, size_t rows)

@@ -1,0 +1,55 @@
+{
+  "last_native_step": {
+    "label": "compile-boundary-guard",
+    "returncode": 1,
+    "seconds": 1.7523150444030762,
+    "log": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-all-io-host-20261019-v2/compile-boundary-guard.log",
+    "sha256": "12d7ac23c221ad7926a0aa2816852354f60e3938a12b4ad36f24b69de2678a3f",
+    "command": [
+      "/public/software/compiler/dtk-26.04/bin/hipcc",
+      "-iquote/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src",
+      "--offload-arch=gfx936",
+      "-DROCFFT_REAL_PAIR_SCALAR_CAPACITY=0",
+      "-D__HIP_PLATFORM_AMD__",
+      "-D__HIP_PLATFORM_AMD__=1",
+      "-D__HIP_PLATFORM_HCC__=1",
+      "-D__HIP_ROCclr__=1",
+      "-Drocfft_EXPORTS",
+      "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include",
+      "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-s2-linkfix-20261014/library/src/device",
+      "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-s2-linkfix-20261014/_deps/sqlite_local-src",
+      "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/include",
+      "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-s2-linkfix-20261014/include/rocfft",
+      "-I/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-tr-s2-linkfix-20261014/include",
+      "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator",
+      "-I/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/../../include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++17",
+      "-fPIC",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-fgpu-rdc",
+      "-Wall",
+      "-Wno-unused-function",
+      "-Wimplicit-fallthrough",
+      "-Wunreachable-code",
+      "-Wsign-compare",
+      "-Wno-deprecated-declarations",
+      "-xhip",
+      "--offload-arch=gfx936",
+      "-o",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-all-io-host-20261019-v2/boundary-guard.o",
+      "-c",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/preflight/cc-all-io-host-20261019-v2/cc_all_boundary_guard.cpp"
+    ]
+  },
+  "metadata_count": 1130,
+  "spills": {
+    "pre108_N65664_120_scalar_callback_scaled-metadata.log": {
+      "private_segment_fixed_size": 16,
+      "sgpr_spill_count": 0,
+      "vgpr_spill_count": 6
+    }
+  }
+}

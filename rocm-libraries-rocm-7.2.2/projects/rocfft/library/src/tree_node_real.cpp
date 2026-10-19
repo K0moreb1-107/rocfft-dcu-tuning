@@ -381,23 +381,23 @@ bool RealTransEvenNode::TryFuseGenericRealPair(TreeNode& cfft, size_t n)
         if(base > 0 && base < 8 && steps > 0)
             extra_lds = 3 * (size_t(1) << base) * complex_type_size(precision);
     }
-    if(extra_lds >= deviceProp.sharedMemPerBlock)
-        return false;
-    const size_t max_slots = std::min<size_t>(deviceProp.maxThreadsPerBlock / p,
-        (deviceProp.sharedMemPerBlock - extra_lds)
-            / complex_type_size(precision) / boundary.length[0]);
-    // Preserve P and factors. A single full-LDS, even-slot configuration is
-    // sufficient; a one-slot ordinary kernel may use the legal paired minimum.
-    const size_t slots = std::min<size_t>(std::max<unsigned int>(2, kernel.transforms_per_block),
-                                         max_slots) & ~size_t(1);
-    if(slots < 2 || RealBlockIO::PairBlocks(pre ? io.rows : io.columns, slots)
-                       > std::numeric_limits<unsigned int>::max())
-        return false;
 #ifndef ROCFFT_REAL_PAIR_SCALAR_CAPACITY
 #define ROCFFT_REAL_PAIR_SCALAR_CAPACITY 0
 #endif
-    io.SelectPairExchange(pre, kernel.factors, p, slots, base, steps,
-                          ROCFFT_REAL_PAIR_SCALAR_CAPACITY != 0);
+#ifndef ROCFFT_REAL_PAIR_IO_POLICY
+#define ROCFFT_REAL_PAIR_IO_POLICY 0
+#endif
+    static_assert(ROCFFT_REAL_PAIR_IO_POLICY >= 0 && ROCFFT_REAL_PAIR_IO_POLICY <= 2,
+                  "invalid real pair IO policy");
+    const auto policy = static_cast<RealPairPolicy>(ROCFFT_REAL_PAIR_IO_POLICY);
+    const auto selected_slots = io.ConfigurePair(pre, kernel.factors, p,
+        kernel.transforms_per_block, base, steps,
+        {static_cast<size_t>(deviceProp.maxThreadsPerBlock), deviceProp.sharedMemPerBlock,
+         extra_lds, complex_type_size(precision)}, policy,
+        ROCFFT_REAL_PAIR_SCALAR_CAPACITY != 0);
+    if(!selected_slots)
+        return false;
+    const size_t slots = *selected_slots;
     const size_t table_length = RealBlockIO::PairTableSize(n, pre ? io.columns : io.rows, slots);
     if(table_length > std::numeric_limits<size_t>::max() / complex_type_size(precision))
         return false;
