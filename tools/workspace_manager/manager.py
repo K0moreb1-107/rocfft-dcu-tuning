@@ -110,6 +110,24 @@ def measurement(cfg):
         m = protocol.freeze_reference(m)
     return protocol.validate_manifest(m)
 
+def build_input_identity(cfg):
+    # Freeze executable task inputs separately from unrelated repository status.
+    files = [ROOT/'manage.py', ROOT/'jobs/workspace_task.slurm',
+             ROOT/'tools/fft_measurement/common.py']
+    files.extend(sorted((ROOT/'tools/workspace_manager').glob('*.py')))
+    hook = cfg.get('post_build_validation')
+    if hook:
+        files.extend(inside(entry['path']) for entry in
+                     [dict(path=hook['script'], sha256=hook['sha256'])] + hook['inputs'])
+    return {str(inside(path)): common.sha(inside(path)) for path in sorted(set(files))}
+
+
+def repository_tracked_state(repo):
+    return subprocess.check_output(['git', '-C', str(repo), 'status',
+                                   '--porcelain=v1', '--untracked-files=no'],
+                                  env=dict(os.environ, GIT_OPTIONAL_LOCKS='0'), text=True).strip()
+
+
 def source_identity(cfg):
     b=cfg['build'];repo=inside(b['source_repo'],allow_root=True);source=inside(b['source_dir'])
     require(repo==source or repo in source.parents,'source_dir must belong to source_repo')
@@ -123,8 +141,11 @@ def source_identity(cfg):
     state=git('status','--porcelain=v1','--untracked-files=all','--',subtree)
     require(not state,'candidate source subtree is not clean and committed')
     require(git('rev-parse','--show-toplevel')==str(repo),'source_repo must be actual Git root')
+    inputs=build_input_identity(cfg)
+    if b.get('task_input_sha256') is not None:
+        require(inputs==b['task_input_sha256'], 'frozen build/validation task inputs changed')
     return {'repo':str(repo),'source':str(source),'commit':commit,'source_status':state,
-            'tracked_state':git('status','--porcelain=v1','--untracked-files=no')}
+            'tracked_state':state, 'task_input_sha256':inputs}
 
 def validation_hook(cfg):
     hook = cfg.get('post_build_validation')
@@ -288,7 +309,8 @@ def environment(cache):
 def execute_build(cfg):
     planned=build_plan(cfg);p=claim(cfg,'build');env=environment(p['cache'])
     record={'complete':False,'experiment':cfg['experiment'],'component':planned['component'],
-            'plan':planned,'job_id':os.environ['SLURM_JOB_ID'],'start':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+            'plan':planned,'job_id':os.environ['SLURM_JOB_ID'],'start':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'repository_tracked_state_before':repository_tracked_state(planned['source_identity']['repo'])}
     dumps(p['run']/'preregistration.json',cfg);dumps(p['run']/'plan.json',planned)
     try:
         for i,argv in enumerate(planned['commands']):
@@ -307,6 +329,7 @@ def execute_build(cfg):
                        'library_sha256':common.sha(lib),'build_provenance':str(p['run']/'build-provenance.json')}
         record['complete']=True
     finally:
+        record['repository_tracked_state_after']=repository_tracked_state(planned['source_identity']['repo'])
         record['end']=datetime.datetime.now(datetime.timezone.utc).isoformat();dumps(p['run']/'build-provenance.json',record)
     dumps(p['run']/'candidate-arm.json',{'build_record':str(p['run']/'build-provenance.json')})
     hook = validation_hook(cfg)
@@ -320,6 +343,7 @@ def execute_build(cfg):
             require(common.sha(lib)==record['arm']['library_sha256'], 'library changed during validation')
             validation['complete'] = True
         finally:
+            validation['repository_tracked_state_after'] = repository_tracked_state(planned['source_identity']['repo'])
             validation['log_sha256'] = common.sha(p['logs']/'post-build-validation.txt')
             dumps(p['run']/'post-build-validation.json', validation)
     print(p['run']/'build-provenance.json')

@@ -1,0 +1,25 @@
+{
+  "complete": true,
+  "tests": [
+    {
+      "test": "test_source_identity.py",
+      "returncode": 0,
+      "summary": "......\n----------------------------------------------------------------------\nRan 6 tests in 20.400s\n\nOK\n"
+    },
+    {
+      "test": "test_manager.py",
+      "returncode": 0,
+      "summary": "..............................\n----------------------------------------------------------------------\nRan 30 tests in 3.316s\n\nOK\n"
+    }
+  ],
+  "candidate_files": {
+    "tools/workspace_manager/manager.py": "0a7b3aacbb865222ed8c900f70b183f561b8e9663c148f1d5e1ea4fa75fc6bf5",
+    "tools/workspace_manager/test_source_identity.py": "d470ef4f6f5e510991e284591dadf6710a1b34c356d2dae53e96a83b787831a8"
+  },
+  "record": "/public/home/zhangkewei/zr/experiments/EXP-127/records/cc-scalar-source-identity-fix-20261020",
+  "gpu_executed": false,
+  "newline_normalized_without_code_change": [
+    "tools/workspace_manager/manager.py",
+    "tools/workspace_manager/test_source_identity.py"
+  ]
+}
