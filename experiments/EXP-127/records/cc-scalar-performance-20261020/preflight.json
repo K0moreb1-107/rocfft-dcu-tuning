@@ -1,0 +1,55 @@
+{
+  "complete": true,
+  "queue_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-127-cc-io-scalar-performance-queue-20261020.json",
+  "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-127-cc-io-scalar-performance-20261020.json",
+  "queue_config_sha256": "6d81aa99a75df06d5ed9972e900f36e2f0aef1bc73bdb4e78bb64c4e54abe6f7",
+  "policy": "FFT-event-cufft261012-single-v3",
+  "dependency": "afterok:949028",
+  "sizes": 86,
+  "cases": 172,
+  "versions": 3,
+  "processes": 516,
+  "formal_event_samples": 15480,
+  "warmups_per_process": 10,
+  "events_per_process": 30,
+  "groups_per_case_version": 1,
+  "node_exclusive": true,
+  "default_paths_only": true,
+  "a100_cases_with_exact_match": 16,
+  "source_state_freeze_added": false,
+  "references": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+    },
+    "previous": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-cc-io-retained-dispatchfix-20261020",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "3352ac44793e00acd09931becfc6f0b68abfd084",
+      "source_state": "{\"commit\": \"3352ac44793e00acd09931becfc6f0b68abfd084\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+      "library_sha256": "db3fd37212b70a0d5d17d6157cd9164c012f2545e130599bb66902e1d54488a3",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-retained-dispatchfix-build-20261020/build-provenance.json"
+    }
+  },
+  "submission_command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020/logs/slurm_%j.err",
+    "--cpus-per-task=8",
+    "--partition=hx1hdnormal01",
+    "--time=02:00:00",
+    "--exclusive",
+    "--nodelist=a03r1n02",
+    "--dependency=afterok:949028",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "measure",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020/submit-manifest.json"
+  ],
+  "checked_at_utc": "2026-10-20T13:29:43.920327+00:00"
+}

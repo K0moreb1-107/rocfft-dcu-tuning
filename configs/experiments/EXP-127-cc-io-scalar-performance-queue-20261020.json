@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-127",
+  "run_id": "EXP-127-cc-io-scalar-performance-queue-20261020",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "nodelist": "a03r1n02",
+    "node_exclusive": true,
+    "dependency": "afterok:949028"
+  },
+  "deferred_measurement": {
+    "reason": "User explicitly requested early submission of scalar performance while its complete device acceptance is running. Resolve the candidate library from successful job 949028 before timing.",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-127-cc-io-scalar-performance-20261020.json",
+    "measurement_config_sha256": "0cb97b3d18d4641260e198383aa3ba54b008fa8f900d80c64ed1610ceafeec5c",
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/submit-manifest.json",
+    "build_config_sha256": "7a414e41b02a554ce65a9585cc1649b978e37bf363e9ceab80723e9bc1e343de",
+    "build_job_id": "949028",
+    "required_success_jobs": [
+      "949028"
+    ],
+    "a100_reference": {
+      "dataset": "test_fft_261012",
+      "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+      "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+      "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+      "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+      "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+      "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+      "warmups": 10,
+      "event_iterations": 30,
+      "input_pattern": "linear_index_real_imaginary_zero",
+      "comparison": "cross_device_reference",
+      "source_binary_correspondence_verified": false
+    },
+    "tools_sha256": {
+      "manage.py": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223",
+      "jobs/workspace_task.slurm": "e0b589f1211316115dbeaf3bcf2301c316c02d1b882725b933f347faf10590e8",
+      "tools/workspace_manager/manager.py": "0a7b3aacbb865222ed8c900f70b183f561b8e9663c148f1d5e1ea4fa75fc6bf5",
+      "tools/workspace_manager/deferred.py": "eae95ce9cc16a315181ff938c1dba7fe523fd7e16d80ac34d4ac6d62045f1d95"
+    }
+  }
+}

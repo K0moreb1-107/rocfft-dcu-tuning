@@ -1,0 +1,21 @@
+{
+  "complete": false,
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/validate_cc_all_io.py",
+    "--config",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/submit-manifest.json",
+    "--build-record",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/build-provenance.json",
+    "--run",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020",
+    "--build",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-io-direct-scalar-identityfix-20261020",
+    "--cache",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/cache/EXP-127-cc-io-direct-scalar-identityfix-build-20261020"
+  ],
+  "source_commit": "764dedde0c0524135b0ff32db71ef2423ea549a0",
+  "library_sha256": "3d4091f2f2708414ec252c138c0398b560be4bd92e77522a6b996cea63776e74",
+  "repository_tracked_state_after": "M AGENTS.md\n M VkFFT\n M docs/technical/STORAGE_CLEANUP_20261020.md",
+  "log_sha256": "6871e0a80b27338d1382f67722a35efaf56192764c66db5b5d59b4fb2cbb3fa9"
+}

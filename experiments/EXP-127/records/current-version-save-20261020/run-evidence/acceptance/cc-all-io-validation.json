@@ -1,0 +1,21 @@
+{
+  "complete": true,
+  "resumed_from": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020",
+  "reused_validation_sha256": "ec168df21cd21ff978cddf7a70ccf4beb64f709e6c2a22b9d94b23e181def983",
+  "library_sha256": "3d4091f2f2708414ec252c138c0398b560be4bd92e77522a6b996cea63776e74",
+  "source_commit": "764dedde0c0524135b0ff32db71ef2423ea549a0",
+  "counts": {
+    "default_cases": 172,
+    "boundary_cases": 565,
+    "controls": 18,
+    "folded_regressions": 10
+  },
+  "gpu": {
+    "count": 1,
+    "uuid": "30303134623438653564343832306131",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "final_verifier_passed": true
+}

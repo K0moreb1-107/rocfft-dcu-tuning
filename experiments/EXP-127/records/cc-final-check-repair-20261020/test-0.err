@@ -1,0 +1,13 @@
+...F...................................................................
+======================================================================
+FAIL: test_diagnostic_submission_is_exclusive_and_keeps_worker (test_diagnostics.Diagnostics.test_diagnostic_submission_is_exclusive_and_keeps_worker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py", line 64, in test_diagnostic_submission_is_exclusive_and_keeps_worker
+    self.assertNotIn('--exclusive',mgr.submission_command('validate',self.cfg))
+AssertionError: '--exclusive' unexpectedly found in ['sbatch', '--parsable', '--chdir=/public/home/zhangkewei/zr/.worktree-archives/diagnostic-tests/fb42a15c37184291a81b8847ebe4d01b', '--output=/public/home/zhangkewei/zr/.worktree-archives/diagnostic-tests/fb42a15c37184291a81b8847ebe4d01b/experiments/EXP-999/runs/EXP-999-diagnostic/logs/slurm_%j.out', '--error=/public/home/zhangkewei/zr/.worktree-archives/diagnostic-tests/fb42a15c37184291a81b8847ebe4d01b/experiments/EXP-999/runs/EXP-999-diagnostic/logs/slurm_%j.err', '--cpus-per-task=8', '--partition=hx1hdnormal01', '--time=02:00:00', '--exclusive', '/public/home/zhangkewei/zr/.worktree-archives/diagnostic-tests/fb42a15c37184291a81b8847ebe4d01b/jobs/workspace_task.slurm', 'validate', '/public/home/zhangkewei/zr/.worktree-archives/diagnostic-tests/fb42a15c37184291a81b8847ebe4d01b/experiments/EXP-999/runs/EXP-999-diagnostic/submit-manifest.json']
+
+----------------------------------------------------------------------
+Ran 71 tests in 19.709s
+
+FAILED (failures=1)

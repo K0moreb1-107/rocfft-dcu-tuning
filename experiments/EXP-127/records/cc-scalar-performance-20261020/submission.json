@@ -1,0 +1,16 @@
+{
+  "job": "949058",
+  "dependency": "afterok:949028",
+  "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020",
+  "node_exclusive": true,
+  "sizes": 86,
+  "cases": 172,
+  "versions": 3,
+  "warmups": 10,
+  "measurements": 30,
+  "groups_per_case_version": 1,
+  "default_paths_only": true,
+  "analysis": "median",
+  "results_not_inspected": true,
+  "verified_at_utc": "2026-10-20T13:33:03.688520+00:00"
+}

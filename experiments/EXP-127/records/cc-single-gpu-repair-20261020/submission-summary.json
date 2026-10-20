@@ -1,0 +1,24 @@
+{
+  "validation": {
+    "job": "949363",
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-resume-20261020"
+  },
+  "performance": {
+    "job": "949364",
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-queue-20261020"
+  },
+  "dependency": "afterok:949363",
+  "repair_commit": "186950c42d62c1a41333d3e334b6ceffcd6719f8",
+  "script_sha256": "a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d",
+  "regression_tests_passed": 78,
+  "new_script_tests_passed": 7,
+  "rebuilt": false,
+  "sizes": 86,
+  "cases": 172,
+  "versions": 3,
+  "processes": 516,
+  "warmups": 10,
+  "samples_per_process": 30,
+  "results_not_inspected": true,
+  "server_free_bytes": 363712217088
+}

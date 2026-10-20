@@ -4,6 +4,11 @@ This file is authoritative for all subsequent rocFFT optimization experiments
 in /public/home/zhangkewei/zr. Do not change the measurement definition without
 recording the reason and updating this file first.
 
+## 任务提交（用户更新，2026-10-20）
+
+后续提交任务不再冻结源码、工作区及构建／验证依赖，不检查构建期间或结束时的源码状态变化，也不据此阻断任务。
+记录实际提交号、配置、所用库和结果用于追溯；既定正确性与性能验收要求保留。本条优先于下文冲突的冻结及源码状态一致性要求，历史任务与证据不改写。
+
 ## 性能测量（用户更新，2026-10-15）
 
 统一入口：`python3 manage.py measure --config CONFIG.json` 预览，加 `--execute` 提交。
@@ -349,3 +354,4 @@ formal acceptance or automatic promotion. All task submission uses manage.py.
 
 正确性参考数组为临时缓存，检查结果后按清单清理；保留生成代码、参数、校验值及原始测量／诊断证据。
 提交前估算空间峰值并留足余量。归档源码和证据只读共享，恢复修改须复制为独立文件；见 `docs/technical/STORAGE_CLEANUP_20261020.md`。
+可重建参考数组不另留整包备份，大体积备份不默认存本机。

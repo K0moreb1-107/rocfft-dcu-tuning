@@ -1,0 +1,28 @@
+{
+  "validation": {
+    "job": "949346",
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-finalcheck-resume-20261020"
+  },
+  "performance": {
+    "job": "949347",
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-finalcheck-performance-queue-20261020"
+  },
+  "dependency": "afterok:949346",
+  "source_commit": "b6d6ca82f1fc75888aac8574513827df8a0c4652",
+  "library_sha256": "3d4091f2f2708414ec252c138c0398b560be4bd92e77522a6b996cea63776e74",
+  "rebuilt": false,
+  "full_cases_rerun": false,
+  "default_cases_reused": 172,
+  "boundary_cases_reused": 565,
+  "sizes": 86,
+  "cases": 172,
+  "processes": 516,
+  "warmups": 10,
+  "samples_per_process": 30,
+  "arms": [
+    "official",
+    "retained original fusion",
+    "direct-scalar"
+  ],
+  "results_not_inspected": true
+}

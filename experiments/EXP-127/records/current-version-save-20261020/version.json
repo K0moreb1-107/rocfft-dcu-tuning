@@ -1,0 +1,147 @@
+{
+  "kind": "experimental_candidate",
+  "stable_promoted": false,
+  "branch": "exp-127-real-bluestein-boundary",
+  "parent_commit": "186950c42d62c1a41333d3e334b6ceffcd6719f8",
+  "candidate": {
+    "source_commit": "764dedde0c0524135b0ff32db71ef2423ea549a0",
+    "library_sha256": "3d4091f2f2708414ec252c138c0398b560be4bd92e77522a6b996cea63776e74",
+    "policy": "direct-scalar"
+  },
+  "validation": {
+    "job": "949363",
+    "complete": true,
+    "original_run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020",
+    "reused_evidence_files": 4349
+  },
+  "performance": {
+    "job": "949364",
+    "complete": true,
+    "policy": "FFT-event-cufft261012-single-v3",
+    "processes": 516,
+    "samples": 15480,
+    "arms": [
+      "official",
+      "retained original fusion",
+      "direct-scalar"
+    ],
+    "report": "experiments/EXP-127/records/performance-review-949364/结果说明.md",
+    "decision": "Retain as experiment; cross-size gains not uniform, no stable promotion."
+  },
+  "stable": {
+    "experiment": "EXP-126",
+    "approved": "2026-10-13",
+    "branch": "main",
+    "commit": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+    "tag": "完成CC路径前后处理融合",
+    "binary_registry_id": "EXP-126-heldout-complex-20261012",
+    "build_source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "library_sha256": "8c848dbbaf359202f58388852e9b31adda21e26a609deb233ed7caf87b36e5ad",
+    "default_variant": "complex"
+  },
+  "evidence": [
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/summary.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/summary.json",
+      "bytes": 205206,
+      "sha256": "cab16f9360596324840fed42edeb551f27ec7d19452dd43fe58cb2940c07221f"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/comparison.csv",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/comparison.csv",
+      "bytes": 74545,
+      "sha256": "d04c8485aa189ae632fa36b72b08b9d7b7cb4a89c6686bff5098cfd353e38d90"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/comparison.md",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/comparison.md",
+      "bytes": 25600,
+      "sha256": "d46bd76fe2d3ce7b6109462c120cd9ac9902233359f353dd975d38284eeb7896"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/provenance.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/provenance.json",
+      "bytes": 20821,
+      "sha256": "85fe0db3441ddced317526cd758a148f1dd78757a0716943808c4a7609fa6dd4"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/processes.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/processes.json",
+      "bytes": 835825,
+      "sha256": "23339bee14563a4a3bab9202086696363d7e0e498d7f7c22925a46910b5fe7b5"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/preregistration.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/preregistration.json",
+      "bytes": 27018,
+      "sha256": "adf6fcff181a522e866d708fd8973ee73a0e955029602d4634d710ca3fa1224d"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/submit-manifest.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/submit-manifest.json",
+      "bytes": 27066,
+      "sha256": "bda2246e3a738f5bc8f44c5ef8bc377a9f53ede045db3a3b234f4737f34a5b7e"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/submission.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/submission.json",
+      "bytes": 768,
+      "sha256": "c6008e68a555e9dc2e8e0a5e74778c04935a825665bc9c2d79b2e1f385ce1ac2"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-performance-20261020/plan.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/measurement/plan.json",
+      "bytes": 69896,
+      "sha256": "170ad52873d172df225645903ca933f1d49aee4b35df5090f5b0b31d885a1927"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-resume-20261020/post-build-validation.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/acceptance/post-build-validation.json",
+      "bytes": 1137,
+      "sha256": "fd7822f83964b10280b12e436af62ead10f13c318d2d924c0010e9b1335db6df"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-resume-20261020/cc-all-io-validation.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/acceptance/cc-all-io-validation.json",
+      "bytes": 736,
+      "sha256": "d94810f7018c359153bf172a4dc2de448dd422188d1b2f275f4bf0bc627efd6e"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-resume-20261020/submission.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/acceptance/submission.json",
+      "bytes": 701,
+      "sha256": "a0628751c141c67cd49c08abf0e4498f24be194a0e91151b8679347d4d03fe05"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-gpustep-resume-20261020/submit-manifest.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/acceptance/submit-manifest.json",
+      "bytes": 719,
+      "sha256": "edb841ce9a5cbf9dc9265028c3b884f2ab369f46315934f54a8427e0c7b9f6a1"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/build-provenance.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/build/build-provenance.json",
+      "bytes": 29445,
+      "sha256": "66787022b033e9aac41384514cfbb994893881a92db8a12f1b119ec36e6ee5e7"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/cc-all-io-validation.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/build/cc-all-io-validation.json",
+      "bytes": 3369244,
+      "sha256": "ec168df21cd21ff978cddf7a70ccf4beb64f709e6c2a22b9d94b23e181def983"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/post-build-validation.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/build/post-build-validation.json",
+      "bytes": 1238,
+      "sha256": "08c5e1b68923429877d7e6ef137186b94496fbedd3655f134427f19a28e68fb1"
+    },
+    {
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/submit-manifest.json",
+      "saved_as": "experiments/EXP-127/records/current-version-save-20261020/run-evidence/build/submit-manifest.json",
+      "bytes": 29151,
+      "sha256": "7a414e41b02a554ce65a9585cc1649b978e37bf363e9ceab80723e9bc1e343de"
+    }
+  ],
+  "recorded_at_utc": "2026-10-20T15:34:13.962511+00:00"
+}

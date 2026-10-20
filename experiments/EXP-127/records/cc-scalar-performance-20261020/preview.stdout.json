@@ -1,0 +1,111 @@
+{
+  "resolved_preregistration": {
+    "schema_version": 1,
+    "experiment": "EXP-127",
+    "run_id": "EXP-127-cc-io-scalar-performance-queue-20261020",
+    "resources": {
+      "partition": "hx1hdnormal01",
+      "cpus": 8,
+      "time_limit": "02:00:00",
+      "nodelist": "a03r1n02",
+      "node_exclusive": true,
+      "dependency": "afterok:949028"
+    },
+    "deferred_measurement": {
+      "reason": "User explicitly requested early submission of scalar performance while its complete device acceptance is running. Resolve the candidate library from successful job 949028 before timing.",
+      "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-127-cc-io-scalar-performance-20261020.json",
+      "measurement_config_sha256": "0cb97b3d18d4641260e198383aa3ba54b008fa8f900d80c64ed1610ceafeec5c",
+      "build_config": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/submit-manifest.json",
+      "build_config_sha256": "7a414e41b02a554ce65a9585cc1649b978e37bf363e9ceab80723e9bc1e343de",
+      "build_job_id": "949028",
+      "required_success_jobs": [
+        "949028"
+      ],
+      "a100_reference": {
+        "dataset": "test_fft_261012",
+        "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+        "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+        "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+        "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+        "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+        "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+        "warmups": 10,
+        "event_iterations": 30,
+        "input_pattern": "linear_index_real_imaginary_zero",
+        "comparison": "cross_device_reference",
+        "source_binary_correspondence_verified": false
+      },
+      "tools_sha256": {
+        "manage.py": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223",
+        "jobs/workspace_task.slurm": "e0b589f1211316115dbeaf3bcf2301c316c02d1b882725b933f347faf10590e8",
+        "tools/workspace_manager/manager.py": "0a7b3aacbb865222ed8c900f70b183f561b8e9663c148f1d5e1ea4fa75fc6bf5",
+        "tools/workspace_manager/deferred.py": "eae95ce9cc16a315181ff938c1dba7fe523fd7e16d80ac34d4ac6d62045f1d95"
+      }
+    }
+  },
+  "task": "measure",
+  "deferred": true,
+  "queue_run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020",
+  "measurement_run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-20261020",
+  "submission_command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020/logs/slurm_%j.err",
+    "--cpus-per-task=8",
+    "--partition=hx1hdnormal01",
+    "--time=02:00:00",
+    "--exclusive",
+    "--nodelist=a03r1n02",
+    "--dependency=afterok:949028",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "measure",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-scalar-performance-queue-20261020/submit-manifest.json"
+  ],
+  "reference_arms": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+    },
+    "previous": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-cc-io-retained-dispatchfix-20261020",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "3352ac44793e00acd09931becfc6f0b68abfd084",
+      "source_state": "{\"commit\": \"3352ac44793e00acd09931becfc6f0b68abfd084\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+      "library_sha256": "db3fd37212b70a0d5d17d6157cd9164c012f2545e130599bb66902e1d54488a3",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-retained-dispatchfix-build-20261020/build-provenance.json"
+    }
+  },
+  "pending_reference_arms": {},
+  "pending_candidate": {
+    "build_job_id": "949028",
+    "source_commit": "764dedde0c0524135b0ff32db71ef2423ea549a0",
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-cc-io-direct-scalar-identityfix-20261020",
+    "library_sha256": null,
+    "validation_command": [
+      "/public/software/apps/anaconda3/2023.09/bin/python",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/validate_cc_all_io.py",
+      "--config",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/submit-manifest.json",
+      "--build-record",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020/build-provenance.json",
+      "--run",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020",
+      "--build",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/build/EXP-127-cc-io-direct-scalar-identityfix-20261020",
+      "--cache",
+      "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/cache/EXP-127-cc-io-direct-scalar-identityfix-build-20261020"
+    ]
+  },
+  "cases": 172,
+  "processes": 516,
+  "event_iterations": 30,
+  "timing_warmups": 10,
+  "node_exclusive": true,
+  "notice": "Only scheduling is early. Freeze all pending library checksums after successful build and validation, before any timing."
+}
