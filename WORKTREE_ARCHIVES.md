@@ -198,3 +198,9 @@ top-level aliases automatically or treat historical times as new event results.
 Current official/previous registry IDs remain unchanged and resolve directly
 to physical installation directories. Measurement definitions and source are
 unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003/.
+
+## 2026-10-20 存储整理
+
+不再使用的源码快照及已完成任务的重复证据按完整校验值共享存储，原路径和内容保留；归档保持只读，恢复修改前须复制为独立文件。
+验证输入和参考答案经本机压缩备份、逐文件校验后清理，原始测量、日志、库和提交历史保留。
+清单、校验记录与恢复程序：`.worktree-archives/storage-cleanup-20261020/`；说明见 `docs/technical/STORAGE_CLEANUP_20261020.md`。

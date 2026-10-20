@@ -344,3 +344,8 @@ formal acceptance or automatic promotion. All task submission uses manage.py.
 
 最新A100资料见 `results/reference/a100/latest.json` 与 `docs/technical/A100_REFERENCE_DATA.md`。
 新A100参考与v3均为10次预热、30次逐次计时；只按精确尺寸及类型匹配中位数，历史参考和旧协议原件保留。
+
+## 存储与缓存
+
+正确性参考数组为临时缓存，检查结果后按清单清理；保留生成代码、参数、校验值及原始测量／诊断证据。
+提交前估算空间峰值并留足余量。归档源码和证据只读共享，恢复修改须复制为独立文件；见 `docs/technical/STORAGE_CLEANUP_20261020.md`。
