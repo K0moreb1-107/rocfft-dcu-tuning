@@ -61,6 +61,8 @@ class Diagnostics(unittest.TestCase):
         argv=mgr.submission_command('diagnose',self.cfg)
         self.assertIn('--exclusive',argv)
         self.assertEqual(argv[-2],'diagnose')
+        self.assertIn('--exclusive',mgr.submission_command('validate',self.cfg))
+        self.cfg['resources'].pop('node_exclusive')
         self.assertNotIn('--exclusive',mgr.submission_command('validate',self.cfg))
 
     def test_diagnostic_preview_does_not_submit(self):

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-127",
+  "run_id": "EXP-127-cc-io-scalar-finalcheck-resume-20261020",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:20:00",
+    "nodelist": "a03r1n02",
+    "node_exclusive": true
+  },
+  "validation_resume": {
+    "failed_run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-identityfix-build-20261020",
+    "validator": "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/validate_cc_all_io.py",
+    "reason": "Reuse all completed numerical and path checks; fix final device program variable collision without rebuilding."
+  }
+}

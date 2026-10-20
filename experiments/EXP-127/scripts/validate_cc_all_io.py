@@ -116,6 +116,55 @@ def compile_internal_fixture(build,source,fixture,output,env,folder):
                 objects={str(p):h for p,h in objects.items()})
 
 
+def finish_validation(record, v, built, expected, coverage, model, gpu, env, lib, identity_binary):
+    mode=v['policy_index']
+    if mode>0:
+        prior=mgr.inside(v['retained_build_record'])
+        other_build=json.loads(prior.read_text());other=json.loads((prior.parent/'cc-all-io-validation.json').read_text())
+        checked=json.loads((prior.parent/'post-build-validation.json').read_text())
+        retained_identity=json.loads(mgr.inside(v['retained_identity']).read_text())
+        for path,digest in retained_identity['files'].items():
+            mgr.require(mgr.common.sha(mgr.inside(path))==digest,'retained evidence changed: '+path)
+        mgr.require(other_build['complete'] and checked['complete'] and other['complete']
+            and other['policy']=='retained'
+            and other['source_commit']==checked['source_commit']==other_build['arm']['source_commit']
+            and other['library_sha256']==checked['library_sha256']==other_build['arm']['library_sha256']
+            and mgr.common.sha(mgr.inside(other_build['arm']['install'])/'lib/librocfft.so.0.1')
+                ==other_build['arm']['library_sha256'], 'same-source retained control not validated')
+        def read_tree(commit,subtree):
+            return subprocess.check_output(['git','-C',str(ROOT),'rev-parse',commit+':'+subtree],text=True).strip()
+        record['retained_source_identity']=matching_source_tree(
+            other_build['plan']['source_identity'],built['plan']['source_identity'],read_tree)
+        mgr.require(record['retained_source_identity']['tree_sha1']==retained_identity['fft_subtree'],
+                    'registered retained FFT source tree changed')
+        left=dict(other_build['plan']['profile']);right=dict(built['plan']['profile'])
+        mgr.require(left.pop('ROCFFT_REAL_PAIR_IO_POLICY')=='retained'
+            and right.pop('ROCFFT_REAL_PAIR_IO_POLICY')==v['policy'] and left==right
+            and other_build['compiler_version']==built['compiler_version'],'build profiles differ beyond backend policy')
+        for current,previous in zip(record['default_cases'],other['default_cases']):
+            mgr.require((current['N'],current['func'],current['C'],current['Q'])==
+                (previous['N'],previous['func'],previous['C'],previous['Q']),'default decomposition changed')
+            for index,(name,old_name) in enumerate(zip(current['actual_names'],previous['actual_names'])):
+                boundary=(index==(0 if current['func']=='z2d_1d' else 1))
+                if not boundary or not expected[str(current['N'])+'_'+str(int(current['func']=='z2d_1d'))]['leaves'][index]['generic']:
+                    mgr.require(name==old_name and current['source_sha256'][name]==previous['source_sha256'][old_name]
+                        and current['launch_arguments'][index]==previous['launch_arguments'][index],'unrelated FFT stage changed')
+        mgr.require(len(record['controls'])==len(other['controls']),'control coverage changed')
+        for current,previous in zip(record['controls'],other['controls']):
+            mgr.require(all(current[key]==previous[key] for key in
+                ('N','func','actual_names','source_sha256','launch_arguments')),
+                'out-of-scope control kernel/source/launch changed')
+        record['retained_validation_sha256']=mgr.common.sha(prior.parent/'cc-all-io-validation.json')
+    mgr.require(len(record['default_cases'])==len(coverage['cases']) and
+        len(record['boundary_cases'])==model['cases']+model['configurations'],'coverage incomplete')
+    mgr.require(mgr.common.sha(lib)==built['arm']['library_sha256'],'validation library differs from recorded build')
+    mgr.require(json.loads(subprocess.check_output([str(identity_binary)],env=env,text=True))==gpu,
+                'allocated validation device changed')
+    record['complete']=True
+    print(json.dumps(dict(complete=True,policy=v['policy'],default_cases=len(record['default_cases']),
+        configurations=model['configurations'],boundary_cases=len(record['boundary_cases']))),flush=True)
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('config','build-record','run','build','cache'):
@@ -138,10 +187,10 @@ def main():
     mgr.require('ROCFFT_CC_REAL_FUSION:BOOL=ON' in cache_text
         and 'ROCFFT_REAL_PAIR_SCALAR_CAPACITY:BOOL=OFF' in cache_text
         and 'ROCFFT_REAL_PAIR_IO_POLICY:STRING='+v['policy'] in cache_text,'build policy mismatch')
-    identity=mgr.inside(v['identity_binary']);binary=mgr.inside(v['timing_binary'])
-    mgr.require(mgr.common.sha(identity)==v['identity_binary_sha256']
+    identity_binary=mgr.inside(v['identity_binary']);binary=mgr.inside(v['timing_binary'])
+    mgr.require(mgr.common.sha(identity_binary)==v['identity_binary_sha256']
                 and mgr.common.sha(binary)==v['timing_binary_sha256'],'helper changed')
-    gpu=json.loads(subprocess.check_output([str(identity)],env=env,text=True))
+    gpu=json.loads(subprocess.check_output([str(identity_binary)],env=env,text=True))
     mgr.require(gpu['count']==1 and re.fullmatch('[0-9a-f]{32}',gpu['uuid']) and int(gpu['uuid'],16)>0
                 and all(gpu[k]==v['gpu'][k] for k in ('arch','runtime_version','driver_version')),
                 'GPU/runtime differs')
@@ -244,52 +293,7 @@ def main():
         neg_folder=folder/'negative-control'
         record['negative_control']=guard_case(131072,'z2d_1d',neg_folder,negative_env,expected['131072_1'],1)
         mgr.require('observed=2 expected=1' in (neg_folder/'guard.err').read_text(),'callback counter negative control ineffective')
-        if mode>0:
-            prior=mgr.inside(v['retained_build_record'])
-            other_build=json.loads(prior.read_text());other=json.loads((prior.parent/'cc-all-io-validation.json').read_text())
-            checked=json.loads((prior.parent/'post-build-validation.json').read_text())
-            identity=json.loads(mgr.inside(v['retained_identity']).read_text())
-            for path,digest in identity['files'].items():
-                mgr.require(mgr.common.sha(mgr.inside(path))==digest,'retained evidence changed: '+path)
-            mgr.require(other_build['complete'] and checked['complete'] and other['complete']
-                and other['policy']=='retained'
-                and other['source_commit']==checked['source_commit']==other_build['arm']['source_commit']
-                and other['library_sha256']==checked['library_sha256']==other_build['arm']['library_sha256']
-                and mgr.common.sha(mgr.inside(other_build['arm']['install'])/'lib/librocfft.so.0.1')
-                    ==other_build['arm']['library_sha256'], 'same-source retained control not validated')
-            def read_tree(commit,subtree):
-                return subprocess.check_output(['git','-C',str(ROOT),'rev-parse',commit+':'+subtree],text=True).strip()
-            record['retained_source_identity']=matching_source_tree(
-                other_build['plan']['source_identity'],built['plan']['source_identity'],read_tree)
-            mgr.require(record['retained_source_identity']['tree_sha1']==identity['fft_subtree'],
-                        'registered retained FFT source tree changed')
-            left=dict(other_build['plan']['profile']);right=dict(built['plan']['profile'])
-            mgr.require(left.pop('ROCFFT_REAL_PAIR_IO_POLICY')=='retained'
-                and right.pop('ROCFFT_REAL_PAIR_IO_POLICY')==v['policy'] and left==right
-                and other_build['compiler_version']==built['compiler_version'],'build profiles differ beyond backend policy')
-            for current,previous in zip(record['default_cases'],other['default_cases']):
-                mgr.require((current['N'],current['func'],current['C'],current['Q'])==
-                    (previous['N'],previous['func'],previous['C'],previous['Q']),'default decomposition changed')
-                for index,(name,old_name) in enumerate(zip(current['actual_names'],previous['actual_names'])):
-                    boundary=(index==(0 if current['func']=='z2d_1d' else 1))
-                    if not boundary or not expected[str(current['N'])+'_'+str(int(current['func']=='z2d_1d'))]['leaves'][index]['generic']:
-                        mgr.require(name==old_name and current['source_sha256'][name]==previous['source_sha256'][old_name]
-                            and current['launch_arguments'][index]==previous['launch_arguments'][index],'unrelated FFT stage changed')
-            mgr.require(len(record['controls'])==len(other['controls']),'control coverage changed')
-            for current,previous in zip(record['controls'],other['controls']):
-                mgr.require(all(current[key]==previous[key] for key in
-                    ('N','func','actual_names','source_sha256','launch_arguments')),
-                    'out-of-scope control kernel/source/launch changed')
-            record['retained_validation_sha256']=mgr.common.sha(prior.parent/'cc-all-io-validation.json')
-        mgr.require(len(record['default_cases'])==len(coverage['cases']) and
-            len(record['boundary_cases'])==model['cases']+model['configurations'],'coverage incomplete')
-        mgr.require(mgr.source_identity(cfg)==built['plan']['source_identity']
-            and mgr.common.sha(lib)==built['arm']['library_sha256'],'source/library changed during validation')
-        mgr.require(json.loads(subprocess.check_output([str(identity)],env=env,text=True))==gpu,
-                    'allocated validation device changed')
-        record['complete']=True
-        print(json.dumps(dict(complete=True,policy=v['policy'],default_cases=len(record['default_cases']),
-            configurations=model['configurations'],boundary_cases=len(record['boundary_cases']))),flush=True)
+        finish_validation(record,v,built,expected,coverage,model,gpu,env,lib,identity_binary)
     except Exception as error:
         record['failures'].append(dict(type=type(error).__name__,message=str(error)))
         raise

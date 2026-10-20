@@ -204,6 +204,9 @@ def build_plan(cfg):
             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
 
 def task_plan(task,cfg):
+    if 'validation_resume' in cfg or 'validated_measurement' in cfg:
+        from tools.workspace_manager import validation_resume
+        return validation_resume.plan(task,cfg)
     if task=='diagnose':
         from tools.workspace_manager import diagnostics
         return diagnostics.plan(cfg)
@@ -263,7 +266,7 @@ def submission_command(task,cfg):
           '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
           '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
           '--time='+r.get('time_limit','02:00:00')]
-    if task in ('measure','diagnose'):argv.append('--exclusive')
+    if task in ('measure','diagnose') or r.get('node_exclusive'):argv.append('--exclusive')
     if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
     if dependency:argv.append('--dependency='+dependency)
     argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
@@ -397,7 +400,10 @@ def main():
         if args.worker:
             require(not args.execute and args.task!='report','invalid worker mode')
             common.single_gpu_allocation(os.environ)
-            if args.task=='diagnose':
+            if 'validation_resume' in cfg or 'validated_measurement' in cfg:
+                from tools.workspace_manager import validation_resume
+                validation_resume.execute(args.task,cfg)
+            elif args.task=='diagnose':
                 from tools.workspace_manager import diagnostics
                 diagnostics.execute(cfg)
             elif args.task=='build':execute_build(cfg)

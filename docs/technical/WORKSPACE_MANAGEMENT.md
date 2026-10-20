@@ -299,3 +299,10 @@ The unified entry completed real exclusive-node measurement job 894456 with a on
 `previous`可显式选择同实验已验证的`build_record`，例如同源未融合对照；它不自动成为稳定版本。`official`仍只能使用固定官方身份。延迟测量保留原待构建candidate登记，另可用`deferred_measurement.reference_builds.previous`登记未融合构建的实际提交清单路径、校验值和任务号；两者均须有构建后验证、列入`required_success_jobs`及显式`afterok`依赖，执行前校验构建、库和验证日志，再冻结两个具体身份。
 
 同源融合研究使用`comparison_kind=real_boundary_fusion`及`arm_labels`标注未融合／已融合；报告给出两版完整事件中位数、融合加速比和节省时间，原有测量协议与历史报告保留。编译开关、分解、输入保留约束及融合必需布局差异须在实验登记中写明。
+
+
+## 完成末尾检查的补验（2026-10-20）
+
+manage.py validate的validation_resume可接续EXP127已知的设备检查变量覆盖失败：复用原安装，核验全部已通过用例及原始证据，再调用与完整验证共用的收尾检查。只接受完整覆盖且失败点符合登记条件的记录；设备须与原运行相同。原失败记录不修改，新验收单独保存，不重新编译、不重复已通过计算，不冻结源码或检查工作区状态。
+
+manage.py measure的validated_measurement可提前排队，显式依赖补验任务成功。运行时确认新验收及实际库身份，再由标准正式计时程序执行独立测量记录；补验日志不计作性能数据。配置与实际提交号、所用库和结果保留追溯。
