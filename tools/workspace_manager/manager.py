@@ -51,7 +51,7 @@ def locations(cfg, task):
     run = inside(base/'runs'/ident(cfg['run_id'],'run_id'))
     build_id = ident(cfg.get('build',{}).get('build_id',cfg['run_id']), 'build_id') if task=='build' else cfg['run_id']
     return {'run':run,'logs':inside(run/'logs'),
-            'build':inside(base/'artifacts/build'/build_id) if task=='build' else inside(base/'artifacts/build/measurement'/cfg['run_id']),
+            'build':inside(base/'artifacts/build'/build_id) if task=='build' else inside(base/('artifacts/build/diagnostics' if task=='diagnose' else 'artifacts/build/measurement')/cfg['run_id']),
             'install':inside(base/'artifacts/install'/build_id),
             'cache':inside(base/'artifacts/cache'/cfg['run_id'])}
 
@@ -62,21 +62,39 @@ def dumps(path, value):
 def registry():
     return json.loads((ROOT/'configs/installations.json').read_text(encoding='utf-8'))
 
+def measurement_protocol(cfg):
+    if cfg.get('policy') == common.POLICY:
+        return common
+    import sample_contract, cufft261012_contract
+    if cfg.get('policy') == sample_contract.POLICY:
+        return sample_contract
+    require(cfg.get('policy', cufft261012_contract.POLICY) == cufft261012_contract.POLICY, 'unknown measurement policy')
+    return cufft261012_contract
+
 def measurement(cfg):
     m=copy.deepcopy(cfg)
+    protocol=measurement_protocol(m)
     fields=('install','source_repo','source_commit','source_state','library_sha256','build_provenance')
-    for arm in common.ARMS:
+    selected=common.ARMS if protocol is common else protocol.arms(m)
+    for arm in selected:
         a=m['arms'][arm]
         if a.get('registry_id'):
             record=registry()['installations'][a['registry_id']]
             require(record.get('role')==arm and record.get('eligible_formal_arm'), 'registry entry is not eligible for '+arm)
             record=record['arm']
         elif a.get('build_record'):
-            require(arm=='candidate','build_record is only for candidate')
+            require(arm in ('candidate','previous'),'build_record cannot replace the fixed official arm')
             record_path=inside(a['build_record'])
             built=json.loads(record_path.read_text())
             require(built.get('complete') is True and built.get('component')=='rocfft','incomplete or wrong build record')
             require(built['experiment']==cfg['experiment'], 'candidate build belongs to another experiment')
+            if built['plan'].get('post_build_validation_command'):
+                validated = json.loads((record_path.parent/'post-build-validation.json').read_text())
+                require(validated.get('complete') is True, 'declared build validation incomplete or failed')
+                require(validated.get('source_commit') == built['arm']['source_commit']
+                        and validated.get('library_sha256') == built['arm']['library_sha256']
+                        and validated.get('command') == built['plan']['post_build_validation_command'],
+                        'declared build validation identity mismatch')
             record=built['arm']
             require(common.sha(inside(record['install'])/'lib/librocfft.so.0.1')==record['library_sha256'], 'candidate build/library mismatch')
         else: continue
@@ -88,7 +106,27 @@ def measurement(cfg):
         # Queue workers consume frozen concrete identities, never mutable aliases.
         a.pop('registry_id',None)
         a.pop('build_record',None)
-    return common.validate_manifest(m)
+    if hasattr(protocol, 'freeze_reference'):
+        m = protocol.freeze_reference(m)
+    return protocol.validate_manifest(m)
+
+def build_input_identity(cfg):
+    # Freeze executable task inputs separately from unrelated repository status.
+    files = [ROOT/'manage.py', ROOT/'jobs/workspace_task.slurm',
+             ROOT/'tools/fft_measurement/common.py']
+    files.extend(sorted((ROOT/'tools/workspace_manager').glob('*.py')))
+    hook = cfg.get('post_build_validation')
+    if hook:
+        files.extend(inside(entry['path']) for entry in
+                     [dict(path=hook['script'], sha256=hook['sha256'])] + hook['inputs'])
+    return {str(inside(path)): common.sha(inside(path)) for path in sorted(set(files))}
+
+
+def repository_tracked_state(repo):
+    return subprocess.check_output(['git', '-C', str(repo), 'status',
+                                   '--porcelain=v1', '--untracked-files=no'],
+                                  env=dict(os.environ, GIT_OPTIONAL_LOCKS='0'), text=True).strip()
+
 
 def source_identity(cfg):
     b=cfg['build'];repo=inside(b['source_repo'],allow_root=True);source=inside(b['source_dir'])
@@ -103,13 +141,38 @@ def source_identity(cfg):
     state=git('status','--porcelain=v1','--untracked-files=all','--',subtree)
     require(not state,'candidate source subtree is not clean and committed')
     require(git('rev-parse','--show-toplevel')==str(repo),'source_repo must be actual Git root')
+    inputs=build_input_identity(cfg)
+    if b.get('task_input_sha256') is not None:
+        require(inputs==b['task_input_sha256'], 'frozen build/validation task inputs changed')
     return {'repo':str(repo),'source':str(source),'commit':commit,'source_status':state,
-            'tracked_state':git('status','--porcelain=v1','--untracked-files=no')}
+            'tracked_state':state, 'task_input_sha256':inputs}
+
+def validation_hook(cfg):
+    hook = cfg.get('post_build_validation')
+    if hook is None:
+        return None
+    require(cfg['build'].get('component', 'rocfft') == 'rocfft', 'validator requires rocFFT build')
+    require(isinstance(hook, dict) and set(hook) == {'script', 'sha256', 'inputs'}, 'invalid validation hook')
+    base = inside(ROOT/'experiments'/cfg['experiment'])
+    require(isinstance(hook['inputs'], list), 'validation inputs must be a list')
+    files = [dict(path=hook['script'], sha256=hook['sha256'])] + hook['inputs']
+    for entry in files:
+        require(set(entry) == {'path', 'sha256'}, 'invalid validation input')
+        path = inside(entry['path'], base)
+        require(common.sha(path) == entry['sha256'], 'frozen validation source changed')
+        blob = subprocess.check_output(['git', '-C', str(ROOT), 'show',
+            cfg['build']['source_commit'] + ':' + str(path.relative_to(ROOT))])
+        require(hashlib.sha256(blob).hexdigest() == entry['sha256'], 'validation source is not committed')
+    p = locations(cfg, 'build')
+    return [PYTHON, str(inside(hook['script'], base)), '--config', str(p['run']/'submit-manifest.json'),
+            '--build-record', str(p['run']/'build-provenance.json'), '--run', str(p['run']),
+            '--build', str(p['build']), '--cache', str(p['cache'])]
 
 def build_plan(cfg):
     b=cfg['build'];component=b.get('component','rocfft')
     require(component in ('rocfft','hipfft'),'unsupported component')
     state=source_identity(cfg);p=locations(cfg,'build')
+    validation_hook(cfg)
     compiler=b.get('compiler',DTK+'/bin/hipcc')
     require(compiler==DTK+'/bin/hipcc','unregistered compiler profile')
     flags=dict(PROFILE)
@@ -137,18 +200,47 @@ def build_plan(cfg):
     if component=='rocfft':commands.append(['cmake','--build',str(p['build']),'--target','rocfft-rtc-gen','--parallel',str(cpus)])
     commands.extend([['cmake','--build',str(p['build']),'--parallel',str(cpus)],['cmake','--install',str(p['build'])]])
     return {'task':'build','component':component,'source_identity':state,'paths':{k:str(v) for k,v in p.items()},
-            'commands':commands,
+            'commands':commands,'post_build_validation_command':validation_hook(cfg),
             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
 
 def task_plan(task,cfg):
-    if task=='build':return build_plan(cfg)
-    m=measurement(cfg);p=locations(m,task)
-    if task=='report':return {'task':task,'run':str(p['run']),'command':[PYTHON,str(ROOT/'tools/fft_measurement/summarize.py'),str(p['run'])]}
-    for arm in common.ARMS:
+    if 'validation_resume' in cfg or 'validated_measurement' in cfg:
+        from tools.workspace_manager import validation_resume
+        return validation_resume.plan(task,cfg)
+    if task=='diagnose':
+        from tools.workspace_manager import diagnostics
+        return diagnostics.plan(cfg)
+    if 'deferred_measurement' in cfg:
+        require(task=='measure', 'deferred submission is only for measurement')
+        from tools.workspace_manager import deferred
+        return deferred.plan(cfg)
+    if task=='build':
+        planned=build_plan(cfg)
+        planned['submission_command']=submission_command(task,cfg)
+        return planned
+    m=measurement(cfg)
+    if task=='measure':m.setdefault('resources',{})['node_exclusive']=True
+    p=locations(m,task)
+    protocol=measurement_protocol(m)
+    selected=common.ARMS if protocol is common else protocol.arms(m)
+    if task=='report':
+        registered=p['run']/'preregistration.json'
+        if registered.is_file():
+            stored=json.loads(registered.read_text(encoding='utf-8'))
+            protocol=measurement_protocol(stored)
+        script=('summarize.py' if protocol is common else
+                'summarize_cufft261012.py' if protocol.POLICY == 'FFT-event-cufft261012-single-v3' else 'summarize_samples.py')
+        return {'task':task,'run':str(p['run']),'command':[PYTHON,str(ROOT/'tools/fft_measurement'/script),str(p['run'])]}
+    for arm in selected:
         require(common.sha(inside(m['arms'][arm]['install'])/'lib/librocfft.so.0.1')==m['arms'][arm]['library_sha256'],arm+': library hash mismatch')
     return {'task':task,'paths':{k:str(v) for k,v in p.items()},'resolved_preregistration':m,
-            'processes':720 if task=='measure' else 15,'cases':15,'timing_warmups':3,'event_iterations':50,
-            'formal':task=='measure','notice':'Quick correctness is not formal promotion evidence.' if task=='validate' else 'Frozen 8-round three-arm protocol.'}
+            'submission_command':submission_command(task,m),
+            'processes':len(protocol.schedule(m)) if task=='measure' else len(common.cases(m)),'cases':len(common.cases(m)),'timing_warmups':getattr(protocol,'WARMUPS',3) if task=='measure' else 3,
+            'event_iterations':protocol.iterations(m) if task=='measure' and protocol is not common else 50,
+            'formal':task=='measure','node_exclusive':task=='measure',
+            'notice':('Quick correctness is not formal promotion evidence.' if task=='validate' else
+                      'Frozen 8-round three-arm protocol in an exclusive node allocation.' if protocol is common else
+                      'One process per case/version; all event samples retained, median ratios, distribution and order plots.')}
 
 def allocate(cfg,task):
     p=locations(cfg,task)
@@ -160,19 +252,33 @@ def allocate(cfg,task):
     dumps(p['run']/'submit-manifest.json',cfg)
     return p
 
+def submission_command(task,cfg):
+    require(task in ('build','validate','measure','diagnose'),'task does not support submission')
+    p=locations(cfg,task)
+    r=cfg.get('resources',{})
+    require(isinstance(r,dict),'resources must be an object')
+    dependency=r.get('dependency')
+    if 'dependency' in r:
+        require(isinstance(dependency,str)
+                and re.fullmatch(r'(afterany|afterok):[1-9][0-9]*(?::[1-9][0-9]*)*',dependency),
+                'dependency must be afterany:<job-id>[:job-id...] or afterok:<job-id>[:job-id...]')
+    argv=['sbatch','--parsable','--chdir='+str(ROOT),
+          '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
+          '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
+          '--time='+r.get('time_limit','02:00:00')]
+    if task in ('measure','diagnose') or r.get('node_exclusive'):argv.append('--exclusive')
+    if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
+    if dependency:argv.append('--dependency='+dependency)
+    argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
+    return argv
+
 def submit(task,cfg):
     planned=task_plan(task,cfg)
     if task=='report':
         return subprocess.run(planned['command'],check=True)
     frozen=planned.get('resolved_preregistration',cfg)
+    argv=planned['submission_command']
     p=allocate(frozen,task)
-    r=cfg.get('resources',{})
-    argv=['sbatch','--parsable','--chdir='+str(ROOT),
-          '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
-          '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
-          '--time='+r.get('time_limit','02:00:00')]
-    if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
-    argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
     dumps(p['run']/'submission-command.json',argv)
     try:
         job=subprocess.check_output(argv,text=True).strip()
@@ -206,7 +312,8 @@ def environment(cache):
 def execute_build(cfg):
     planned=build_plan(cfg);p=claim(cfg,'build');env=environment(p['cache'])
     record={'complete':False,'experiment':cfg['experiment'],'component':planned['component'],
-            'plan':planned,'job_id':os.environ['SLURM_JOB_ID'],'start':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+            'plan':planned,'job_id':os.environ['SLURM_JOB_ID'],'start':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'repository_tracked_state_before':repository_tracked_state(planned['source_identity']['repo'])}
     dumps(p['run']/'preregistration.json',cfg);dumps(p['run']/'plan.json',planned)
     try:
         for i,argv in enumerate(planned['commands']):
@@ -225,8 +332,23 @@ def execute_build(cfg):
                        'library_sha256':common.sha(lib),'build_provenance':str(p['run']/'build-provenance.json')}
         record['complete']=True
     finally:
+        record['repository_tracked_state_after']=repository_tracked_state(planned['source_identity']['repo'])
         record['end']=datetime.datetime.now(datetime.timezone.utc).isoformat();dumps(p['run']/'build-provenance.json',record)
     dumps(p['run']/'candidate-arm.json',{'build_record':str(p['run']/'build-provenance.json')})
+    hook = validation_hook(cfg)
+    if hook:
+        validation = dict(complete=False, command=hook, source_commit=record['arm']['source_commit'],
+                          library_sha256=record['arm']['library_sha256'])
+        try:
+            with (p['logs']/'post-build-validation.txt').open('xb') as stream:
+                subprocess.run(hook, env=env, stdout=stream, stderr=subprocess.STDOUT, check=True)
+            require(source_identity(cfg)==planned['source_identity'], 'source changed during validation')
+            require(common.sha(lib)==record['arm']['library_sha256'], 'library changed during validation')
+            validation['complete'] = True
+        finally:
+            validation['repository_tracked_state_after'] = repository_tracked_state(planned['source_identity']['repo'])
+            validation['log_sha256'] = common.sha(p['logs']/'post-build-validation.txt')
+            dumps(p['run']/'post-build-validation.json', validation)
     print(p['run']/'build-provenance.json')
 
 def execute_validate(cfg):
@@ -234,7 +356,8 @@ def execute_validate(cfg):
     m=measurement(cfg);task_plan('validate',m);p=claim(m,'validate');env=environment(p['cache'])
     here=ROOT/'tools/fft_measurement';require(common.sha(here/'fft_test_1d.cpp')==common.SOURCE_SHA,'frozen source changed')
     identity=p['build']/'device_identity';binary=p['build']/'fft_test_1d'
-    official=inside(m['arms']['official']['install']);candidate=inside(m['arms']['candidate']['install'])
+    reference_arm=next(arm for arm in common.ARMS if arm in m['arms'] and arm!='candidate')
+    official=inside(m['arms'][reference_arm]['install']);candidate=inside(m['arms']['candidate']['install'])
     commands=[[DTK+'/bin/hipcc','-O3','-std=c++17',str(here/'device_identity.cpp'),'-o',str(identity)],
               [DTK+'/bin/hipcc','-O3','-std=c++17',str(here/'fft_test_1d.cpp'),'-I'+str(official/'include'),'-L'+str(official/'lib'),'-Wl,-rpath,'+str(official/'lib'),'-lrocfft','-o',str(binary)]]
     for i,argv in enumerate(commands):
@@ -252,23 +375,22 @@ def execute_validate(cfg):
             'source_sha256':common.SOURCE_SHA,'binary_sha256':common.sha(binary),'identity_binary_sha256':common.sha(identity),
             'compiler_version':subprocess.check_output([DTK+'/bin/hipcc','--version'],env=env,text=True),'compile_commands':commands,'checks':[]}
     try:
-        for n in common.SIZES:
-            for func in common.FUNCS:
-                require(common.sha(lib)==expected,'library changed')
-                require(common.sha(binary)==record['binary_sha256'] and common.sha(identity)==record['identity_binary_sha256'],'quick-check executable changed')
-                require(json.loads(subprocess.check_output([str(identity)],env=environment(p['cache']),text=True))==gpu,'GPU changed')
-                case=p['run']/'processes'/('%d_%s'%(n,func));case.mkdir(parents=True)
-                with (case/'stdout.txt').open('xb') as out,(case/'stderr.txt').open('xb') as err:
-                    subprocess.run([str(binary),str(n),'1',func,'1'],env=dict(env,FFT_TEST_OUT=str(case)),stdout=out,stderr=err,check=True)
-                rows=common.read_rows(case/'fft_test_1d.csv');require(len(rows)==1,'unexpected quick-check row count');common.validate_row(rows[0],n,func)
-                record['checks'].append({'N':n,'func':func,'check':'PASS','csv_sha256':common.sha(case/'fft_test_1d.csv')})
+        for n,func in common.cases(m):
+            require(common.sha(lib)==expected,'library changed')
+            require(common.sha(binary)==record['binary_sha256'] and common.sha(identity)==record['identity_binary_sha256'],'quick-check executable changed')
+            require(json.loads(subprocess.check_output([str(identity)],env=environment(p['cache']),text=True))==gpu,'GPU changed')
+            case=p['run']/'processes'/('%d_%s'%(n,func));case.mkdir(parents=True)
+            with (case/'stdout.txt').open('xb') as out,(case/'stderr.txt').open('xb') as err:
+                subprocess.run([str(binary),str(n),'1',func,'1'],env=dict(env,FFT_TEST_OUT=str(case)),stdout=out,stderr=err,check=True)
+            rows=common.read_rows(case/'fft_test_1d.csv');require(len(rows)==1,'unexpected quick-check row count');common.validate_row(rows[0],n,func)
+            record['checks'].append({'N':n,'func':func,'check':'PASS','csv_sha256':common.sha(case/'fft_test_1d.csv')})
         require(common.sha(lib)==expected,'library changed at completion');record['complete']=True
     finally:dumps(p['run']/'quick-correctness.json',record)
     print(p['run']/'quick-correctness.json')
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('task',choices=('build','validate','measure','report'))
+    parser.add_argument('task',choices=('build','validate','measure','report','diagnose'))
     parser.add_argument('--config',type=Path,required=True)
     parser.add_argument('--execute',action='store_true',help='submit task, or generate report; default is preview')
     parser.add_argument('--worker',action='store_true',help=argparse.SUPPRESS)
@@ -277,13 +399,27 @@ def main():
         cfg=load(args.config)
         if args.worker:
             require(not args.execute and args.task!='report','invalid worker mode')
-            require(os.environ.get('SLURM_JOB_ID') and len(os.environ.get('SLURM_JOB_GPUS','').split(','))==1 and os.environ.get('SLURM_JOB_GPUS'),'one-GPU Slurm allocation required')
-            require(os.environ.get('SLURM_JOB_NUM_NODES','1')=='1','one node required')
-            if args.task=='build':execute_build(cfg)
+            common.single_gpu_allocation(os.environ)
+            if 'validation_resume' in cfg or 'validated_measurement' in cfg:
+                from tools.workspace_manager import validation_resume
+                validation_resume.execute(args.task,cfg)
+            elif args.task=='diagnose':
+                from tools.workspace_manager import diagnostics
+                diagnostics.execute(cfg)
+            elif args.task=='build':execute_build(cfg)
             elif args.task=='validate':execute_validate(cfg)
+            elif 'deferred_measurement' in cfg:
+                from tools.workspace_manager import deferred
+                deferred.execute(cfg)
             else:
-                import run
-                run.execute(common.manifest(args.config))
+                protocol=measurement_protocol(cfg)
+                if protocol is common:
+                    import run as worker
+                elif protocol.POLICY == 'FFT-event-cufft261012-single-v3':
+                    import run_cufft261012 as worker
+                else:
+                    import run_samples as worker
+                worker.execute(protocol.manifest(args.config))
         elif args.execute:submit(args.task,cfg)
         else:print(json.dumps(task_plan(args.task,cfg),indent=2))
     except (ValueError,OSError,KeyError,TypeError,subprocess.CalledProcessError) as error:

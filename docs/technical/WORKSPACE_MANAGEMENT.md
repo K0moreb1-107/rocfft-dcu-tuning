@@ -4,13 +4,19 @@ Current path status (2026-10-03): the five former top-level aliases are retired;
 their real directories remain. Top-level entries: 36. Adaptation guide:
 [LEGACY_PATH_ADAPTATION.md](LEGACY_PATH_ADAPTATION.md); old program adaptation is deferred.
 
-Current status after user-approved promotion (2026-10-07): the sole primary
+Current status after user-approved promotion (2026-10-13): the sole primary
 checkout is `/public/home/zhangkewei/zr`, on `main`; stable tag
-`stable-main-exp125-20261007`. The default previous-arm registry ID is
-`EXP-125-pre-memory-i`, retaining its actual EXP-125 i build identity. Use serial EXP-NNN branches in this checkout.
+`完成CC路径前后处理融合`. The default previous-arm registry ID is
+`EXP-126-heldout-complex-20261012`, retaining source `06baff81` and its actual build identity. Use serial EXP-NNN branches in this checkout.
 Temporary worktrees require explicit user agreement. Earlier dated sections
 record prior states and are superseded by the final main/branch section.
 
+
+当前测量及分析规则（2026-10-15）：新性能默认FFT-event-cufft261012-single-v3，单进程十次事件预热及30次计时；显式旧协议保留原程序。
+以后正式耗时、加速判断和验收只用样本中位数；加速比＝对照中位数／当前中位数。
+均值仅作原始记录或兼容输出；历史原表不改写，缺少逐次样本不构造中位数。
+A100只有历史均值时单列参考，不混算中位数加速比或相对性能。
+具体规则见 [FFT_MEASUREMENT_PROTOCOL.md](FFT_MEASUREMENT_PROTOCOL.md)，以下旧流程按登记协议保留。
 
 Implemented 2026-10-03. This entry manages paths and task provenance; it does not
 change or promote optimization source. Source branches remain an explicit choice.
@@ -52,6 +58,14 @@ python3 manage.py build --config configs/experiments/EXP-124.json --execute
 The first command previews. `--execute` submits a one-node Slurm task with logs
 prepared beforehand, freezes the submitted configuration, and uses independent
 build/install/cache paths. It does not overwrite an existing build or run.
+To serialize independent candidates, set `resources.dependency` to
+`afterany:<job-id>`; use `afterok:<job-id>` when the predecessor must succeed.
+Preview shows the exact submission command, including `--dependency`.
+Omit the field when no dependency is required. `SBATCH_DEPENDENCY` does not set it.
+多个任务须成功时使用 `afterok:任务号:任务号`。用户明确要求验证前先排队时，
+`deferred_measurement` 登记固定原测量配置、实际已提交构建配置、任务号和工具校验值；
+统一入口分别保留排队记录和最终测量记录。候选库在构建与验证成功后才核对、冻结，
+缺少验证或身份不符即拒绝计时；原测量配置、计时程序及统计定义不改写。
 rocFFT builds check the RTC generator target before the full build. Compiler,
 resolved CMake cache including GPU_TARGETS/AMDGPU_TARGETS, Git state, compile
 commands and final library hash are retained. Dependencies and compiler paths
@@ -74,9 +88,10 @@ python3 manage.py report --config configs/experiments/EXP-124-formal.json --exec
 
 Validation is a 15-case candidate quick correctness check using the original
 frozen program, strict original error checks and 50 events; it is not formal
-promotion evidence. Formal measure calls the existing 720-process three-arm
-8-round program. Report calls the existing strict aggregator, requires complete
-evidence, and includes previous/official speedups and fixed A100 Performance.
+promotion evidence. Already registered EXP123-event-50-three-arm-8-v1 runs retain
+the 720-process three-arm 8-round program and its original aggregate outputs.
+New measurements use FFT-event-samples-single-v2; future performance analysis
+uses sample medians as specified above. Reports still require complete evidence.
 Reporting can also be repeated directly with `tools/fft_measurement/summarize.py`
 against the completed run directory. No task automatically promotes source.
 
@@ -95,9 +110,10 @@ evidence remain available under that run; investigate and choose a fresh identif
 for a subsequent attempt. A submitted configuration is frozen before queueing.
 
 Only the first matching worker may claim a run. Existing execution evidence or
-a mismatched reservation causes rejection. Formal aggregation still requires all
-15 cases, correct order, all 16 process means per arm/case, valid hashes and one
-GPU/allocation identity. Do not delete failed evidence or substitute quick checks.
+a mismatched reservation causes rejection. Legacy eight-round aggregation requires
+its registered 15 cases and 16 process means per arm/case. Single-process sample runs require
+all registered cases and raw samples. Both require correct order, valid hashes and
+one GPU/allocation identity. Do not delete failed evidence or substitute quick checks.
 
 Actual compiler/runtime/GPU integration was **not run** during this organization
 task. The first authorized new experiment must verify real compilation, linked
@@ -235,10 +251,58 @@ unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003
 历史原始数据、配置和汇总保持原样，不将旧执行顺序改写成新顺序。修复后的严格汇总会拒绝仍在偶数轮重复奇数轮顺序的历史记录；核对这些历史结果时，应使用其原始工具及已登记的实际执行计划。已经使用正确顺序的独立测量记录与修复后的共享顺序一致。
 
 
-## 当前EXP125稳定版本（用户批准于2026-10-07）
+## 历史EXP125稳定版本（用户批准于2026-10-07）
 
 稳定标签为 `stable-main-exp125-20261007`，分支为 `main`。计算源码保留任务890730、891149实际验证的提交 `1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d`；统一测量入口修复为 `27d5c5e164c25975505d613e0109016e076bc346`。稳定登记不改动计算源码或现有安装库。
 
 后续配置的稳定对照可使用 `arms.previous.registry_id` 值 `EXP-125-pre-memory-i`。统一入口会冻结该库的真实构建提交、路径、校验值及凭据。官方版本身份不变；EXP122原登记继续支持历史明确指定的稳定对照，已提交任务的冻结配置和历史表格不重新解析或改写。
 
 构建及数值、实际融合验证见任务890730；当前完整性能依据为任务891149。范围为一维、双精度、批量一、输入输出分离、64K至1M五个尺寸和默认加载路径。当前任意偶数扩展仅为评估方案。完整保留说明与性能限制见 `experiments/EXP-125/records/stable-promotion-20261007`。旧EXP123标签、EXP122库和h恢复材料原样保留。
+
+## Formal performance node exclusivity (2026-10-08)
+
+The user requested explicit node-exclusive performance submissions. manage.py
+measure now adds sbatch --exclusive and freezes resources.node_exclusive=true.
+The generic job worker launches a one-DCU srun step with the requested CPU
+count, preserving scheduler device visibility and the original single-GPU
+runtime identity checks. Job and step GPU assignments are retained separately.
+Preview reports this policy; build and quick-validation allocation behavior is
+unchanged. Existing queued/completed historical commands and tables are not
+rewritten. No FFT source, installed library or frozen measurement CPP changed.
+
+
+## Verified exclusive-node measurement execution (2026-10-09)
+
+The unified entry completed real exclusive-node measurement job 894456 with a one-DCU, eight-CPU step. All 720 original correctness checks and 2160 raw-file checks passed; server and local reaggregation matched. The exclusive submission and single-GPU worker path now have actual runtime validation. See experiments/EXP-125/records/exclusive-retest-20261008/result-review-894456-20261009.md.
+
+
+## 当前CC融合稳定版本（用户批准于2026-10-13）
+
+稳定分支为 `main`，标签为 `完成CC路径前后处理融合`。沿用源码默认复数交换，构建选项 `ROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF`，稳定对照登记为 `EXP-126-heldout-complex-20261012`。统一入口冻结真实构建提交、安装路径、库校验值及凭据；新登记不会改写既有任务的具体身份。
+
+实际计算源码为 `06baff81d85a7f24fd240cd32c849244b05ae3b9`；稳定提交只同步历史、说明、结果与登记。构建／正确性／实际融合依据908730，性能依据909379，标量候选908731／909381原样保留。完整批准依据、范围、已知退化及恢复入口见 `experiments/EXP-126/records/stable-promotion-20261013`。本次按用户要求保留已完成的CC融合功能，细节优化另行实施。
+
+官方基线、旧EXP125标签与库、两种候选、历史原始样本及冻结配置均保留。此前EXP125段落描述当时状态，以本节和当前安装登记为准。转置与卷积融合尚未实现。
+
+
+## 独立诊断入口（2026-10-15）
+
+`python3 manage.py diagnose --config CONFIG.json` 预览，加 `--execute` 提交。
+诊断脚本置于相应实验，登记已提交的脚本及全部输入校验值、具体库与原程序身份；
+通过同一工作入口独占节点、单卡执行，保留原始轨迹、计划和硬件计数。
+这类任务明确为非正式测量，分析器耗时不得替换完整变换事件结果，不改原采样或历史报告。
+提交后停止，等用户要求再检查；当前用于EXP127低收益CC类型归因。
+
+
+## 同实验双构建对照（2026-10-15）
+
+`previous`可显式选择同实验已验证的`build_record`，例如同源未融合对照；它不自动成为稳定版本。`official`仍只能使用固定官方身份。延迟测量保留原待构建candidate登记，另可用`deferred_measurement.reference_builds.previous`登记未融合构建的实际提交清单路径、校验值和任务号；两者均须有构建后验证、列入`required_success_jobs`及显式`afterok`依赖，执行前校验构建、库和验证日志，再冻结两个具体身份。
+
+同源融合研究使用`comparison_kind=real_boundary_fusion`及`arm_labels`标注未融合／已融合；报告给出两版完整事件中位数、融合加速比和节省时间，原有测量协议与历史报告保留。编译开关、分解、输入保留约束及融合必需布局差异须在实验登记中写明。
+
+
+## 完成末尾检查的补验（2026-10-20）
+
+manage.py validate的validation_resume可接续EXP127已知的设备检查变量覆盖失败：复用原安装，核验全部已通过用例及原始证据，再调用与完整验证共用的收尾检查。只接受完整覆盖且失败点符合登记条件的记录；设备须与原运行相同。原失败记录不修改，新验收单独保存，不重新编译、不重复已通过计算，不冻结源码或检查工作区状态。
+
+manage.py measure的validated_measurement可提前排队，显式依赖补验任务成功。运行时确认新验收及实际库身份，再由标准正式计时程序执行独立测量记录；补验日志不计作性能数据。配置与实际提交号、所用库和结果保留追溯。

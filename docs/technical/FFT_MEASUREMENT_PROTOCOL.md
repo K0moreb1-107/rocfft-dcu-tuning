@@ -1,4 +1,130 @@
-# FFT measurement protocol (approved 2026-09-30)
+# FFT性能测量协议
+
+## 现行v3规则（用户要求采用新压缩包，2026-10-15）
+
+协议为 `FFT-event-cufft261012-single-v3`，新配置省略policy时选择v3；默认模板已更新。
+显式v1、v2保留原程序、采样和解析。历史运行、参考、配置与报告不改写，920949仍为v2。
+
+计时源码为 `tools/fft_measurement/fft_test_1d_cufft261012.cpp`，直接移植原包
+`test_fft/src/fft_test_1d.cu` 的事件循环及统计方法：十次预热、三十次正式事件，
+预热与正式计时使用同一循环、同一计划／缓冲区／默认流，每次变换都记录起止事件并同步终止事件，
+只读出并保存后30次耗时。循环前reserve，循环内无输出、输入恢复或外加内核扣除。
+原包CUDA事件替换为HIP事件，cuFFT计划／执行替换为rocFFT；不经过hipFFT，不改库的默认计划选择。
+原包的目标计划只创建一次，移除旧测试程序的N=1初始化计划及未初始化首轮执行。
+
+双精度、一维、批量一、输入输出分离；输入按原包填充为double(i)，复数虚部为零，
+三种类型分别分配实际需要的输入输出字节。默认流为零，工作缓冲区与计划设置在计时外。
+保留旧版独立脉冲／往返／解析逆变换的严格 `<1e-9` 校验，在事件循环外运行；
+随后恢复全部递增输入，再开始十次预热。额外校验不计入30个样本，属于对原包的明确补充。
+非有限误差必须失败；小偶数的奈奎斯特项只计一次。没有关闭正确性的测量选项。
+
+每个尺寸／类型／版本一个进程，官方与当前紧邻且随案例交替顺序，按需显式增加稳定对照。
+节点独占、单卡，登记设备、执行顺序、真实库及构建身份；RTC缓存读写关闭，临时目录独立。
+程序固定10／30，配置与环境不符即拒绝；调整次数必须另行登记对应源码版本。
+
+每进程保留三份表：
+
+- `fft_test_1d.csv`：原包39列及六位小数毫秒格式，包括30个逐次值和原始统计字段。
+- `fft_test_1d.samples.csv`：未舍入的func,N,batch,sample_index,elapsed_ms，用于中位数及分位数分析。
+- `fft_test_1d.check.csv`：窗口外正确性结果、原严格误差与批量记录。
+
+严格核对原表舍入值与未舍入样本、统计字段、序号、校验和全部来源；缺项或失败不得汇总。
+均值仅保留原始／兼容字段；新报告和图只用中位数。全部样本保留，不筛慢点。
+分位数按排序后的(样本数−1)×比例线性插值；仍输出各版一列散点和测量序号图。
+区间重叠、漂移时标注不明确，一组样本不证明跨次稳定性，不自动重测或推广。
+
+最新A100资料在提交前由latest登记解析并冻结具体清单、程序和中位数表校验值；
+排队后不跟随latest变化，提前排队同样冻结引用。按N、类型、10次预热／30次样本精确匹配，
+performance＝A100中位数／当前中位数×100%，缺少匹配留空。这是跨设备参考，
+不是同卡验收；原包缺少源码与二进制对应的构建记录、数值校验及测量期频率证据，随引用注明。
+同卡加速比仍只取登记对照中位数／当前中位数，不将不同协议的结果拼为同一次测量。
+
+统一入口自动选择相应运行器、解析器和图。预览显示10／30及进程数，运行记录冻结主源码及
+正确性支持头文件校验值；旧程序与统计模块保留原字节。版本移植及原循环一致性、事件调用顺序、
+编译和兼容检查见EXP127的timing-v3-cufft261012-20261015登记，GPU正确性由新任务逐项检验。
+
+## 历史v2规则（用户批准，2026-10-12；采样流程沿用2026-10-10）
+
+协议标识：`FFT-event-samples-single-v2`。以下保留当时规则；现在须显式指定此协议。
+已经登记的 `EXP123-event-50-three-arm-8-v1` 保留原方式。
+本次只修改分析规则，不改采样程序、次数或计时窗口，不自动重测历史结果。
+已有登记、原始数据和原报告保持原样；以后分析已有逐次样本时另存中位数报告。
+
+### 工作负载、计时与样本
+
+- 双精度、一维、批量为一、输入输出分离，使用库默认选择的计划。
+- 一个“尺寸＋类型＋版本”只启动一个独立进程。默认计时50次，配置字段
+  `event_iterations` 可指定正整数；同一运行各版本相同，预览和提交清单冻结次数。
+- 保留EXP-123的初始化、输入、正确性检查及三次预热，误差严格小于 `1e-9`。
+  每次事件窗口包围一次完整 `rocfft_execute`，每次单独同步；计划创建、输入复制、
+  校验和预热位于窗口外。不将50次合为一个计时窗口，不扣内核时间、不做次数加一除法。
+- 新程序为 `tools/fft_measurement/fft_test_1d_samples.cpp`，在旧程序上增加样本记录。
+  样本数组在预热前分配，循环内只保存读出的事件耗时；结束后统一写文件。
+  旧程序 `fft_test_1d.cpp` 及旧统计模块保留原字节，旧源程序校验值不变。
+- 每进程保存原14列汇总和新增 `fft_test_1d.samples.csv`，列为
+  `func,N,batch,sample_index,elapsed_ms`。序号从1连续到登记次数，耗时以毫秒保存，
+  输出双精度往返所需精度；全部样本参与统计，不剔除慢点。
+
+### 版本选择与执行顺序
+
+`arms` 包含当前版本 `candidate` 和至少一种对照：官方原版 `official` 或已批准
+稳定版 `previous`。默认示例为官方＋当前两版本；需要时显式增加稳定对照，
+每版本仍只测一个进程。固定具体源码提交、库路径／校验值及构建来源，不能混用对照身份。
+
+同一尺寸／类型的各版本紧邻、串行运行；按登记的案例顺序交替正序和逆序。
+这可分散先后顺序影响，但一组连续样本不能证明跨进程、跨时刻的稳定性。
+保留节点独占，一个执行步骤只使用一张卡；记录任务与步骤分配、设备唯一标识、
+架构／运行时、程序／库校验值、编译器、源状态、完整顺序和进程起止时间。
+运行时编译缓存仍关闭，各进程临时目录独立，不并行做性能诊断。
+
+### 统计与展示
+
+以后性能结论、类型判断、验收及默认方案选择只用原始单次耗时的中位数。
+偶数个样本取排序后中间两个值的算术平均；这是中位数定义，不是全体样本均值。
+同时保留最小／最大值及25%、75%分位数；分位数对排序样本的
+`(样本数−1)×比例` 位置做线性插值。全部慢点保留，不剔除样本。
+
+```
+加速比 = 对照样本中位数 / 当前样本中位数
+```
+
+大于一表示更快，小于一表示退化；不计算逐点比值再取中位数，
+不取进程均值的中位数代替逐次耗时中位数。均值及旧均值加速比字段可保留在
+原始记录或工具兼容输出中，不用于以后性能分析、验收或选择默认实现。
+
+每个案例输出一个独立矢量图：左侧各版本一列散点，分析标记中位数及中间50%区间；
+右侧按各版本内部测量序号排列同一批耗时。横向展开只避免点重叠，不修改纵轴数据；
+右图相同序号不代表两版本同步测量。图形重叠或耗时随序号漂移时标注差异不明确，
+是否加次数或独立重测由用户决定，不能为得到加速结论反复筛选结果。
+
+统一入口继续保存 `comparison.csv`、`comparison.md`、`summary.json` 和 `plots/*.svg`
+等兼容输出；以后正式比较表和正文只使用各版本中位数及对应加速比。
+自动输出中的均值字段或标记仅作留档，不用于报告的性能判断。
+逐次记录和未舍入统计量为依据；缺进程、缺样本、序号错误、校验失败、
+汇总与样本不符、来源或设备不一致时拒绝汇总。图形在所有计时结束后生成。
+
+A100固定历史参考继续校验原校验值，只有均值时可单列为历史参考，
+不与当前中位数混算加速比或相对性能，也不再用均值比值作性能分析。
+没有同条件A100逐次样本及中位数时，A100中位数加速比／相对性能留空；
+不能把历史均值当作中位数。它是跨设备参考，不是同卡对照。
+
+### 统一入口与旧任务兼容
+
+```
+python3 manage.py measure --config CONFIG.json
+python3 manage.py measure --config CONFIG.json --execute
+python3 manage.py report --config CONFIG.json
+```
+
+首次命令仅预览，第二条提交。新模板为 `tools/fft_measurement/manifest.example.json`；
+旧模板留存为 `manifest.v1.example.json`。次数、协议、来源在提交前登记，输出目录不复用。
+统一入口按运行目录中的登记协议保存兼容输出；历史原表和任务900813不改写。
+以后重新分析已有逐次样本时，另存按上述规则计算的中位数报告，不覆盖旧报告。
+旧版只有进程均值／最小／最大时，不能还原单次散点或单次耗时中位数；
+按原定义归档并注明缺少新口径所需样本，不把进程均值的中位数冒充单次中位数。
+用户提出重测后才使用现行规则。提交新任务后停止，待用户要求检查。
+
+## 旧版登记与实施记录（2026-09-30起）
 
 Current path status (2026-10-03): the five former top-level aliases are retired;
 their real directories remain. Top-level entries: 36. Adaptation guide:
@@ -11,7 +137,7 @@ Temporary worktrees require explicit user agreement. Earlier dated sections
 record prior states and are superseded by the final main/branch section.
 
 
-This is the primary contract for future rocFFT optimization measurements in
+This is the historical v1 contract for already registered measurements in
 `/public/home/zhangkewei/zr`. Source: the user's specified conversation
 `codex://threads/01a0e6cd-9ded-7570-93df-5a5a0ca88255`, EXP-123's final event table.
 The user confirmed the NVIDIA reference is **A100**. This policy does not relabel
@@ -273,3 +399,36 @@ top-level aliases automatically or treat historical times as new event results.
 Current official/previous registry IDs remain unchanged and resolve directly
 to physical installation directories. Measurement definitions and source are
 unchanged. Audit: .worktree-archives/top-level-compatibility-retirement-20261003/.
+
+## Explicit node exclusivity (user requested 2026-10-08)
+
+New formal performance submissions use sbatch --exclusive. This is a resource
+isolation change: the frozen timing source, 15 cases, 3 warmups, 50 events,
+eight-round ordering and arithmetic aggregation stay unchanged. Historical
+submission records and performance tables retain their original resource mode.
+
+An exclusive job can own all node GRES. The unified worker therefore starts
+one srun --exclusive step with --nodes=1 --ntasks=1 --gres=dcu:1 and the
+configured --cpus-per-task. Validate the single assigned step GPU (falling back
+to the job assignment for legacy single-GPU workers), and still require one
+HIP-visible GPU UUID. Preserve scheduler-provided device visibility; do not
+hardcode a physical device index. Record allocation_gpu, step_gpu and
+measurement_gpu in provenance. Build and quick-validation submissions keep
+their existing allocation mode.
+
+Preview output and frozen formal manifests set resources.node_exclusive=true;
+the actual submission command explicitly includes --exclusive. For this
+registered partition the checked OverSubscribe setting is NO; it does not
+override the explicit request with forced sharing. Real exclusive-node/single-
+GPU step execution remains a check in the next authorized performance run.
+
+
+## Exclusive-node single-GPU runtime verification (2026-10-09)
+
+Job 894456 completed all 720 processes and original correctness checks. Accounting confirms 128 CPUs/8 DCUs for the exclusive job and 8 CPUs/1 DCU for step 894456.0. The HIP-visible device count was one throughout the run; job/step assignments, UUID and hashes were independently verified. Runtime evidence: experiments/EXP-125/records/exclusive-retest-20261008/result-review-894456-20261009.md. The frozen timing definition and retained FFT implementation are unchanged.
+
+## 最新A100资料导入（2026-10-14）
+
+最新登记为 `results/reference/a100/latest.json`，版本 `test_fft_261012`：327个尺寸、981个组合，
+10次预热及30个逐次样本。全部原件保留，另存样本中位数；条件差异和引用方式见
+[A100_REFERENCE_DATA.md](A100_REFERENCE_DATA.md)。本次不改变服务器采样协议、冻结参考或已有报告。

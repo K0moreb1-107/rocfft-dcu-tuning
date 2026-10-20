@@ -1,10 +1,10 @@
-"""Reject incomplete formal runs, then write 15-case three-arm/A100 report."""
+"""Reject incomplete formal runs, then write the preregistered three-arm/A100 report."""
 import argparse
 import csv
 import json
 import statistics
 from pathlib import Path
-from common import ARMS, FUNCS, POLICY, SIZES, SOURCE_SHA, manifest, read_rows, reference, require, schedule, sha, validate_row, write_json
+from common import ARMS, FUNCS, POLICY, SIZES, SOURCE_SHA, manifest, read_rows, reference, require, cases, schedule, sha, validate_row, write_json
 
 def aggregate(run, reference_path=None):
     run = Path(run)
@@ -20,10 +20,10 @@ def aggregate(run, reference_path=None):
         require(a.get('library_sha256') == m['arms'][arm]['library_sha256'], 'loaded library hash mismatch')
         require(a.get('source_commit') == m['arms'][arm]['source_commit'], 'source provenance mismatch')
         require(a.get('actual_library') and a.get('binary_sha256'), 'missing actual library/binary evidence')
-    expected = schedule()
+    expected = schedule(m)
     entries = json.loads((run / 'processes.json').read_text(encoding='utf-8'))
-    require(len(entries) == 720, 'formal run requires exactly 720 processes')
-    groups = {(n, f, a): [] for n in SIZES for f in FUNCS for a in ARMS}
+    require(len(entries) == len(expected), 'formal run requires its complete preregistered schedule')
+    groups = {(n, f, a): [] for n, f in cases(m) for a in ARMS}
     csv_paths = set()
     for e, planned in zip(entries, expected):
         require(all(e.get(k) == v for k, v in planned.items()), 'schedule/order mismatch')
@@ -44,21 +44,20 @@ def aggregate(run, reference_path=None):
         groups[(planned['N'], planned['func'], arm)].append(values)
     a100 = reference(reference_path) if reference_path else reference()
     out = []
-    for n in SIZES:
-        for f in FUNCS:
-            row = {'func': f, 'N': n, 'batch': 1, 'iters_per_process': 50, 'processes_per_arm': 16, 'events_per_arm': 800, 'check': 'PASS'}
-            for arm in ARMS:
-                values = groups[(n, f, arm)]
-                require(len(values) == 16, 'each arm needs 16 process means')
-                means = [v['mean_ms'] for v in values]
-                row[arm + '_mean_ms'] = statistics.mean(means)
-                row[arm + '_process_median_ms'] = statistics.median(means)
-                row[arm + '_event_min_ms'] = min(v['min_ms'] for v in values)
-                row[arm + '_event_max_ms'] = max(v['max_ms'] for v in values)
-                row[arm + '_process_stdev_ms'] = statistics.stdev(means)
-            candidate = row['candidate_mean_ms']
-            row.update(speedup_previous=row['previous_mean_ms']/candidate, speedup_official=row['official_mean_ms']/candidate, a100_mean_ms=a100[(n, f)], a100_performance_percent=a100[(n, f)]/candidate*100)
-            out.append(row)
+    for n, f in cases(m):
+        row = {'func': f, 'N': n, 'batch': 1, 'iters_per_process': 50, 'processes_per_arm': 16, 'events_per_arm': 800, 'check': 'PASS'}
+        for arm in ARMS:
+            values = groups[(n, f, arm)]
+            require(len(values) == 16, 'each arm needs 16 process means')
+            means = [v['mean_ms'] for v in values]
+            row[arm + '_mean_ms'] = statistics.mean(means)
+            row[arm + '_process_median_ms'] = statistics.median(means)
+            row[arm + '_event_min_ms'] = min(v['min_ms'] for v in values)
+            row[arm + '_event_max_ms'] = max(v['max_ms'] for v in values)
+            row[arm + '_process_stdev_ms'] = statistics.stdev(means)
+        candidate = row['candidate_mean_ms']
+        row.update(speedup_previous=row['previous_mean_ms']/candidate, speedup_official=row['official_mean_ms']/candidate, a100_mean_ms=a100.get((n, f)), a100_performance_percent=(a100[(n, f)]/candidate*100 if (n, f) in a100 else None))
+        out.append(row)
     return m, p, out
 
 def report(run, reference_path=None):
@@ -67,12 +66,13 @@ def report(run, reference_path=None):
     with (run / 'comparison.csv').open('x', encoding='utf-8', newline='') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader(); w.writerows(rows)
-    lines = ['# ' + m['experiment'] + ' formal event measurement', '', 'Policy: ' + POLICY, '', 'Preregistered acceptance: ' + m['acceptance'], '', 'Correctness: all 720 fresh processes PASS. No outlier removal. All values in ms; each arm uses the arithmetic mean of 16 process means (800 events).', '', '| Function | N | Official ms | Previous ms | Candidate ms | Previous speedup | Official speedup | A100 Performance |', '|---|---:|---:|---:|---:|---:|---:|---:|']
+    lines = ['# ' + m['experiment'] + ' formal event measurement', '', 'Policy: ' + POLICY, '', 'Preregistered acceptance: ' + m['acceptance'], '', 'Correctness: all %d fresh processes PASS.' % len(schedule(m)) + ' No outlier removal. All values in ms; each arm uses the arithmetic mean of 16 process means (800 events).', '', '| Function | N | Official ms | Previous ms | Candidate ms | Previous speedup | Official speedup | A100 Performance |', '|---|---:|---:|---:|---:|---:|---:|---:|']
     for r in rows:
-        lines.append('| %s | %d | %.12g | %.12g | %.12g | %.9gx | %.9gx | %.9g%% |' % (r['func'], r['N'], r['official_mean_ms'], r['previous_mean_ms'], r['candidate_mean_ms'], r['speedup_previous'], r['speedup_official'], r['a100_performance_percent']))
-    lines += ['', 'A100 is a fixed historical cross-hardware reference, not a same-allocation control. Raw CSV/provenance and unrounded comparison.csv remain authoritative. Performance >100% means the candidate is faster than the matched A100 reference.', '', 'plan_ms/first_ms and per_tf_ms remain diagnostic; no hipprof N+1 divisor or kernel subtraction applies. Acceptance decision must be recorded against preregistered experiment-specific criteria; this report does not automatically promote a version.', '']
+        a100_text = ('%.9g%%' % r['a100_performance_percent']) if r['a100_performance_percent'] is not None else '—'
+        lines.append('| %s | %d | %.12g | %.12g | %.12g | %.9gx | %.9gx | %s |' % (r['func'], r['N'], r['official_mean_ms'], r['previous_mean_ms'], r['candidate_mean_ms'], r['speedup_previous'], r['speedup_official'], a100_text))
+    lines += ['', 'A100 is a fixed historical cross-hardware reference, not a same-allocation control. Raw CSV/provenance and unrounded comparison.csv remain authoritative. Unmatched sizes retain null A100 values (— in the table). Performance >100% means the candidate is faster than the matched A100 reference.', '', 'plan_ms/first_ms and per_tf_ms remain diagnostic; no hipprof N+1 divisor or kernel subtraction applies. Acceptance decision must be recorded against preregistered experiment-specific criteria; this report does not automatically promote a version.', '']
     (run / 'comparison.md').write_text('\n'.join(lines), encoding='utf-8')
-    write_json(run / 'summary.json', dict(policy=POLICY, experiment=m['experiment'], job_id=p['job_id'], gpu=p['gpu'], processes=720, rows=rows))
+    write_json(run / 'summary.json', dict(policy=POLICY, experiment=m['experiment'], job_id=p['job_id'], gpu=p['gpu'], processes=len(schedule(m)), rows=rows))
     return rows
 
 if __name__ == '__main__':

@@ -22,6 +22,17 @@ def require(condition, message):
     if not condition:
         raise ValueError(message)
 
+def single_gpu_allocation(env):
+    require(env.get('SLURM_JOB_ID') and env.get('SLURM_JOB_GPUS', '').strip(),
+            'Slurm GPU allocation required')
+    require(env.get('SLURM_JOB_NUM_NODES', '1') == '1', 'one-node allocation required')
+    job_gpu = env['SLURM_JOB_GPUS']
+    step_gpu = env.get('SLURM_STEP_GPUS') or None
+    selected = (step_gpu if step_gpu is not None else job_gpu).strip()
+    require(re.fullmatch(r'[0-9]+', selected) is not None,
+            'exactly one GPU must be assigned to the measurement allocation or step')
+    return dict(allocation_gpu=job_gpu, step_gpu=step_gpu, measurement_gpu=selected)
+
 def sha(path):
     h = hashlib.sha256()
     with Path(path).open('rb') as f:
@@ -34,17 +45,33 @@ def inside(path, root=ROOT):
     require(p == root.resolve() or root.resolve() in p.parents, 'path outside approved workspace: ' + str(p))
     return p
 
-def schedule():
+def cases(m=None):
+    if m is None or 'cases' not in m:
+        return [(n, f) for n in SIZES for f in FUNCS]
+    require(isinstance(m.get('case_scope'), str) and len(m['case_scope'].strip()) >= 10,
+            'explicit cases require a preregistered case_scope')
+    items = m['cases']
+    require(isinstance(items, list) and bool(items), 'cases must be a nonempty list')
+    result = []
+    for item in items:
+        require(isinstance(item, dict) and set(item) == {'N', 'func'}, 'invalid case fields')
+        n, f = item['N'], item['func']
+        require(type(n) is int and 0 < n <= 2147483647, 'N exceeds frozen program int range')
+        require(f in FUNCS, 'unknown transform type')
+        require((n, f) not in result, 'duplicate measurement case')
+        result.append((n, f))
+    return result
+
+def schedule(m=None):
     out = []
-    for n in SIZES:
-        for func in FUNCS:
-            for round_no in range(1, 9):
-                # Alternate which version runs at the outside of each round.
-                arms = (('official', 'previous', 'candidate', 'candidate', 'previous', 'official')
-                        if round_no % 2 else
-                        ('candidate', 'previous', 'official', 'official', 'previous', 'candidate'))
-                for slot, arm in enumerate(arms, 1):
-                    out.append(dict(index=len(out), N=n, func=func, round=round_no, slot=slot, arm=arm))
+    for n, func in cases(m):
+        for round_no in range(1, 9):
+            # Alternate which version runs at the outside of each round.
+            arms = (('official', 'previous', 'candidate', 'candidate', 'previous', 'official')
+                    if round_no % 2 else
+                    ('candidate', 'previous', 'official', 'official', 'previous', 'candidate'))
+            for slot, arm in enumerate(arms, 1):
+                out.append(dict(index=len(out), N=n, func=func, round=round_no, slot=slot, arm=arm))
     return out
 
 def manifest(path):
@@ -67,6 +94,7 @@ def validate_manifest(m):
         require(isinstance(a.get('build_provenance'), str) and len(a['build_provenance'].strip()) >= 10 and 'REPLACE' not in a['build_provenance'], arm + ': build/source provenance required')
     require(m['arms']['official']['source_commit'] == OFFICIAL_COMMIT, 'official source is fixed')
     require(m['arms']['official']['library_sha256'] == OFFICIAL_SHA, 'official library is fixed')
+    cases(m)
     return m
 
 def read_rows(path):

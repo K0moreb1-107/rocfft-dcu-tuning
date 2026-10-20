@@ -4,50 +4,30 @@ This file is authoritative for all subsequent rocFFT optimization experiments
 in /public/home/zhangkewei/zr. Do not change the measurement definition without
 recording the reason and updating this file first.
 
-## Primary event measurement (approved 2026-09-30)
+## 任务提交（用户更新，2026-10-20）
 
-Use the exact original EXP-123 fft_test_1d.cpp measurement program, frozen at
-SHA256 849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da.
-Full protocol: docs/technical/FFT_MEASUREMENT_PROTOCOL.md. Shared entry points:
-/public/home/zhangkewei/zr/tools/fft_measurement/run.py and summarize.py;
-formal submission: python3 manage.py measure --config CONFIG.json --execute.
-Compatibility submission helper: bash jobs/measure_fft.slurm CONFIG.json.
+后续提交任务不再冻结源码、工作区及构建／验证依赖，不检查构建期间或结束时的源码状态变化，也不据此阻断任务。
+记录实际提交号、配置、所用库和结果用于追溯；既定正确性与性能验收要求保留。本条优先于下文冲突的冻结及源码状态一致性要求，历史任务与证据不改写。
 
-Default matrix: double precision, batch=1, out-of-place, sizes 65536, 131072,
-262144, 524288, 1048576, each z2z_1d/d2z_1d/z2d_1d (15 cases; no 32K).
-Correctness remains enabled with the original strict <1e-9 checks. Preserve
-initialization, inputs, 3 timing warmups, and 50 separately synchronized HIP
-event measurements of rocfft_execute per process. Explicitly force 50 iterations.
-Use original mean_ms; plan_ms, first_ms and per_tf_ms are diagnostics only.
-No hipprof N+1 division or kernel subtraction applies to these event times.
+## 性能测量（用户更新，2026-10-15）
 
-Formal comparison: 8 rounds per case, one GPU UUID and one allocation;
-odd official/previous/candidate/candidate/previous/official;
-even candidate/previous/official/official/previous/candidate.
-Each arm has 16 process means (800 events/case); full matrix 720 processes.
-Arithmetic mean of all 16 mean_ms values is primary; no outlier removal.
-Retain every process CSV/log, exact order, allocation/GPU/runtime identity,
-source state, library path/hash, executable/compiler and build provenance.
-Any missing/failed/mismatched case invalidates formal aggregation. Single
-50-event processes are quick checks only, not formal promotion evidence.
-
-Always report previous/candidate and official/candidate speedups plus
-A100 Performance = fixed matching A100 mean_ms / candidate mean_ms *100%.
-Official source/install are original ROCm 7.2.2; previous is the preregistered
-immediately preceding valid stable version, not permanently EXP-119.
-Candidate identity and experiment-specific acceptance criteria must be
-preregistered before measurement. Do not impose new global percentage gates
-or reuse old hipprof gates without preregistration. All correctness checks PASS
-is required. No automatic source promotion from a report.
-
-A100 raw reference is results/reference/a100/ beneath the workspace root,
-SHA256 3b376eb69a77318ace8fbe537acfc7b3e82cdff1ea847f6177ed7ea82b27603b.
-The user confirmed A100 provenance; retain all 18 original rows and select
-the 15 matched cases. The historical mixed table is not a formal new baseline.
-
-The following hipprof sections preserve historical/diagnostic definitions and
-evidence. They do not govern new primary event measurements. Never mix event
-and hipprof metrics in one ratio or rewrite old results with the new protocol.
+统一入口：`python3 manage.py measure --config CONFIG.json` 预览，加 `--execute` 提交。
+新测量默认 `FFT-event-cufft261012-single-v3`：双精度、一维、批量一、非原位、默认计划；
+每个尺寸／类型／版本一个独立进程，十次预热、三十次正式计时。
+沿用test_fft_261012原包事件循环：预热及正式变换共用计划、缓冲区与默认流，每次单独同步；
+只读出后30次耗时，预分配样本空间，结束后写文件。输入为元素序号，复数虚部为零。
+严格 `<1e-9` 正确性在窗口外完成，随后完整恢复测量输入；没有假N=1计划或未初始化首轮。
+节点独占、单卡；对照与当前紧邻、交替先后，冻结源码／头文件／库／程序／参考与设备身份。
+保留原包39列、未舍入逐次样本及独立正确性表；缺项、校验失败或身份不符即拒绝汇总。
+性能分析及验收只用全部逐次样本的中位数，加速比＝对照中位数／当前中位数，不剔除慢点。
+保留散点与测量序号图，仅标中位数及中间50%区间；重叠或漂移标注差异不明确，不自动重测或推广。
+新A100参考在提交前冻结具体版本，只按精确N、类型及10／30条件匹配中位数；无匹配留空。
+performance＝A100中位数／当前中位数×100%，仅作跨设备参考，原包构建凭据限制须注明。
+旧v1／v2配置显式沿用原协议与程序，原始结果及920949的三次／50次记录不改写、不混表。
+新程序固定10／30；需要调整次数时另行登记对应源码版本，不能只改配置冒用原身份。
+诊断用 `manage.py diagnose`：冻结脚本、输入及库，独占单卡；分析器耗时单列，不替代正式事件结果。
+同源融合对照可登记本实验已验证的未融合构建为previous；早排队须显式依赖两版验证成功，冻结各库后计时，图表注明对照含义。
+细则及版本差异见 `docs/technical/FFT_MEASUREMENT_PROTOCOL.md`。提交任务后停止，待用户要求检查。
 
 ## Historical hipprof scope and matching conditions
 
@@ -176,12 +156,9 @@ and the canonical metric in one comparison table.
 
 ## Required record for every future experiment
 
-Record the exact commit and source/build state, changed files, preregistered
-acceptance criteria, job/allocation/GPU UUID, correctness, raw evidence,
-official/previous/candidate arithmetic event mean_ms, previous and official
-speedups, matched A100 Performance and final decision. Preserve all raw process
-CSV/logs and hashes. Label any additional hipprof/PMC measurement as diagnostic
-with its own original definition. Do not recompute old comparisons silently.
+记录源码／构建身份、修改文件、协议和验收、任务／设备、正确性及原始样本／日志／校验值。
+各版本耗时及各对照加速比只用逐次样本中位数；A100缺少匹配中位数时只留历史参考。
+诊断指标单列，历史原件保留登记时的统计定义；记录最终决定。
 
 ## Required experiment result record
 
@@ -226,11 +203,12 @@ source changes as a validated retained version.
 
 Stable branch: main
 Stable workspace: /public/home/zhangkewei/zr
-Retained source reference: EXP-125 1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d
-Management tools reference: 27d5c5e164c25975505d613e0109016e076bc346
-Valid tag: stable-main-exp125-20261007
-Approved stable installation: experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i
-Promotion record: experiments/EXP-125/records/stable-promotion-20261007/promotion.json
+Retained source reference: EXP-126 06baff81d85a7f24fd240cd32c849244b05ae3b9
+Management tools: sample-v2, median analysis, explicit dependencies and deferred queue; retained with stable tag.
+Valid tag: 完成CC路径前后处理融合
+Approved stable installation: experiments/EXP-126/artifacts/install/EXP-126-heldout-complex-20261012 (ROCFFT_REAL_PAIR_SCALAR_CAPACITY=OFF)
+Promotion record: experiments/EXP-126/records/stable-promotion-20261013/promotion.json
+用户于2026-10-13保留CC融合功能版本；已记录的性能退化留待后续优化，转置／卷积融合尚未实现。
 
 ## Agent Delegation and Token-Efficiency Policy
 
@@ -307,13 +285,15 @@ branch. The stable source now lives in the top-level main checkout.
 New build/install/cache belong to experiments/EXP-NNN/artifacts/ with unique IDs.
 Run CSVs, stdout/stderr, configuration, provenance and reports belong together
 under experiments/EXP-NNN/runs/<run-id>/; helper binaries remain artifacts.
-Formal measurement retains the exact frozen CPP, 15 cases, 3 warmups/50 events,
-8-round three-arm ordering, 720 processes and fixed A100 reference/formulas.
-Queued configurations freeze concrete library/source identities, not mutable
-aliases. No automatic source promotion. Quick validation is not formal evidence.
+New formal measurements use the current versioned sample protocol above.
+Previously submitted manifests select their registered legacy protocol unchanged.
+Unified preview must show concrete library identities, process count and event count.
+用户明确要求提前排队时，可用统一入口的延迟解析登记：固定已提交构建、输入校验值及成功依赖；
+预览注明候选库校验值待生成，验证成功后核对并冻结实际库身份，再开始计时。
 
 Current installation registry: configs/installations.json. Current previous
-is the approved EXP-125-pre-memory-i library (user promoted 2026-10-07).
+is the approved EXP-126-heldout-complex-20261012 library (user promoted 2026-10-13).
+The EXP-125 library remains available by its original registry ID and frozen historical manifests.
 The EXP-122 library remains the frozen previous arm of historical EXP-125 runs. Directory names do
 not prove source identity or acceptance. Historical/unknown installations cannot
 silently become official/previous/candidate. Candidate builds retain exact source
@@ -347,3 +327,31 @@ first new experiment must verify real compiler/runtime/GPU/library integration.
 Ask about new conflicts, dependencies or unexplained states; preserve prior
 user modifications and historical refs. Operational documents and the complete latest record are maintained
 only at the top level; retired worktree snapshots remain immutable.
+
+
+## Explicit experiment case matrices (user authorized 2026-10-09/10)
+
+The default frozen 15-case matrix remains unchanged. An experiment may preregister
+an explicit nonempty list of unique {N, func} cases and a case_scope explanation.
+Use this for EXP-126 large-even CC coverage: real N >65536, multiple actual sizes
+per parity and paired-tail family, larger N allowed when existing CC kernels and
+resources permit. Validate actual fusion before formal timing. Do not force load
+paths in measurement. Expanded matrices use the measurement protocol and repetition count registered
+for that run. Default-path coverage and all correctness/evidence checks remain required.
+实数融合验收须覆盖旧式折叠列与新增路径；回调逐元素恰好一次，复数回调覆盖共轭顺序。
+
+A managed build may carry a frozen, committed post_build_validation script and
+its explicit hashed inputs under that experiment. Preview verifies the identities
+and shows its command. Run it only after saving the build's immutable identity;
+record validation completion separately and require its success before formal
+measurement from that build record. Validation failure never becomes a
+formal acceptance or automatic promotion. All task submission uses manage.py.
+
+最新A100资料见 `results/reference/a100/latest.json` 与 `docs/technical/A100_REFERENCE_DATA.md`。
+新A100参考与v3均为10次预热、30次逐次计时；只按精确尺寸及类型匹配中位数，历史参考和旧协议原件保留。
+
+## 存储与缓存
+
+正确性参考数组为临时缓存，检查结果后按清单清理；保留生成代码、参数、校验值及原始测量／诊断证据。
+提交前估算空间峰值并留足余量。归档源码和证据只读共享，恢复修改须复制为独立文件；见 `docs/technical/STORAGE_CLEANUP_20261020.md`。
+可重建参考数组不另留整包备份，大体积备份不默认存本机。
