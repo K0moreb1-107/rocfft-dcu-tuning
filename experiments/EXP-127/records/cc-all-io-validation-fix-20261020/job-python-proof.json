@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "kind": "CPU-only regression replay under the exact managed-job Python",
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "-B",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/scripts/test_cc_all_dispatch.py"
+  ],
+  "python_version": "Python 3.11.5",
+  "tests": 15,
+  "replayed_cases": 173,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "9937dfd26b6b98936146d3d2d9c52705769c89ead5492e753ecd8da11b6c7431",
+  "source_sha256": "7d976feee375d241004acde9a35c1b28fa1469cb73bec3b31c47e36f377c0ff3",
+  "time_utc": "2026-10-20T02:55:06.218803+00:00"
+}

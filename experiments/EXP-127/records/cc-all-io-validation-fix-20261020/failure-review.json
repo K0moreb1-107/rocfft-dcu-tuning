@@ -1,0 +1,21 @@
+{
+  "job": "944545",
+  "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-retained-node-build-20261019",
+  "build_complete": true,
+  "validation_complete": false,
+  "failures": [
+    {
+      "type": "ValueError",
+      "message": "control plan geometry changed"
+    }
+  ],
+  "passed_default_cases": 172,
+  "passed_boundary_cases": 565,
+  "boundary_max_error": 2.0825070910363827e-15,
+  "validation_sha256": "90d11e72fc7eb4ebf0ff7b2612dc884e7937203b1ca9fcc4fc88b7ed0aed6571",
+  "following_jobs": {
+    "compiler_complex": "944546 cancelled before execution",
+    "compiler_scalar": "944548 cancelled before execution"
+  },
+  "no_formal_performance": true
+}

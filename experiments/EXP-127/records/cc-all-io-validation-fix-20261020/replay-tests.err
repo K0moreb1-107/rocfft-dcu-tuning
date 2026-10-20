@@ -1,0 +1,20 @@
+test_changed_launch_geometry_rejected (__main__.DispatchReplay.test_changed_launch_geometry_rejected) ... ok
+test_changed_plan_geometry_rejected (__main__.DispatchReplay.test_changed_plan_geometry_rejected) ... ok
+test_dispatch_outside_event_windows_rejected (__main__.DispatchReplay.test_dispatch_outside_event_windows_rejected) ... ok
+test_duplicate_device_correlation_rejected (__main__.DispatchReplay.test_duplicate_device_correlation_rejected) ... ok
+test_kernel_name_frequency_does_not_select_dispatch (__main__.DispatchReplay.test_kernel_name_frequency_does_not_select_dispatch) ... ok
+test_missing_device_dispatch_rejected (__main__.DispatchReplay.test_missing_device_dispatch_rejected) ... ok
+test_missing_elapsed_read_rejected (__main__.DispatchReplay.test_missing_elapsed_read_rejected) ... ok
+test_missing_host_dispatch_rejected (__main__.DispatchReplay.test_missing_host_dispatch_rejected) ... ok
+test_nondefault_stream_rejected (__main__.DispatchReplay.test_nondefault_stream_rejected) ... ok
+test_opposite_correctness_geometry_may_differ (__main__.DispatchReplay.test_opposite_correctness_geometry_may_differ) ... ok
+test_reordered_kernel_sequence_rejected (__main__.DispatchReplay.test_reordered_kernel_sequence_rejected) ... ok
+test_replay_all_available_cases (__main__.DispatchReplay.test_replay_all_available_cases) ... ok
+test_shared_transpose_and_inverse_are_separate (__main__.DispatchReplay.test_shared_transpose_and_inverse_are_separate) ... ok
+test_wrong_plan_execution_count_rejected (__main__.DispatchReplay.test_wrong_plan_execution_count_rejected) ... ok
+test_wrong_synchronization_event_rejected (__main__.DispatchReplay.test_wrong_synchronization_event_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 20.398s
+
+OK

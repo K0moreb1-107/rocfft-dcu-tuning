@@ -1,6 +1,5 @@
 """Validate generic CC I/O policies across the complete registered catalogue."""
 import argparse
-from collections import Counter
 import datetime
 import hashlib
 import importlib.util
@@ -16,6 +15,7 @@ sys.dont_write_bytecode=True
 ROOT=Path('/public/home/zhangkewei/zr')
 sys.path.insert(0,str(ROOT))
 from tools.workspace_manager import manager as mgr
+from cc_all_dispatch import inspect_dispatch
 
 
 def module(name,path):
@@ -61,23 +61,11 @@ def trace_plan(binary,n,func,env,folder,old,contract,expected=None):
     contract.validate_process(prows[0],contract.read_samples(profile/'harness/fft_test_1d.samples.csv'),
         contract.read_check(profile/'harness/fft_test_1d.check.csv'),n,func,30)
     events=json.loads((profile/'trace.json').read_text())['traceEvents']
-    device_events=[e for e in events if e.get('cat')=='HIPOPS']
-    counts=Counter(e.get('name','') for e in device_events)
+    transforms,dispatch_check=inspect_dispatch(plan,events,func,
+        int(prows[0]['warmup_times']),int(prows[0]['test_times']))
+    names=[e['name'] for e in transforms]
     if expected:
-        transforms=[e for e in device_events if re.match(r'(fft_|c2r_even_pre|r2c_even_post|transpose_)',e.get('name',''))]
-        leaves=details['leaf_count']
-    else:
-        # Controls may use convolution and transpose boundaries. Include their
-        # repeated dispatches as well as the FFTs; setup tables are generated once.
-        transforms=[e for e in device_events if counts[e.get('name','')]%41==0]
-        grids=re.findall(r'GridParams\n(.*?)End GridParams',plan,re.S)
-        mgr.require(len(grids)==41 and len(set(grids))==1,'control plan geometry changed')
-        leaves=len(grids[0].strip().splitlines())
-    transforms.sort(key=lambda e:int(e['args']['index']))
-    mgr.require(leaves>0 and len(transforms)==41*leaves,'incomplete actual dispatch')
-    names=[e['name'] for e in transforms[:leaves]]
-    mgr.require(all([e['name'] for e in transforms[i*leaves:(i+1)*leaves]]==names for i in range(41)),
-                'execution sequence changed')
+        mgr.require(len(names)==details['leaf_count'],'actual leaf count differs')
     sources={name:hashlib.sha256(normalized_source(generated[name]).encode()).hexdigest()
              for name in names if name in generated}
     if expected:
@@ -88,8 +76,8 @@ def trace_plan(binary,n,func,env,folder,old,contract,expected=None):
         mgr.require(details['grid']==expected['grid'],'actual launch allocation differs from host proof')
     normalize_args=lambda text:re.sub(r'f=0x[0-9a-f]+','f=KERNEL',text)
     result=dict(N=n,func=func,actual_names=names,source_sha256=sources,
-        launch_arguments=[normalize_args(e['args']['args']) for e in transforms[:leaves]],
-        plan_sha256=hashlib.sha256(plan.encode()).hexdigest())
+        launch_arguments=[normalize_args(e['args']['args']) for e in transforms],
+        plan_sha256=hashlib.sha256(plan.encode()).hexdigest(),dispatch_check=dispatch_check)
     if details:result.update(details)
     return result
 
