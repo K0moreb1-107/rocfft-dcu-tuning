@@ -1,0 +1,17 @@
+{
+  "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+  "target": "gfx936",
+  "optimization": "O3 mcumode",
+  "input_sha256": "9047bf62fa85c9b005b8fb9a084fb51590c1a425fb970d60b597f2ddad90505b",
+  "assembly_sha256": "a1f9cb1a01f8c0cd3e6e23a70303c73d7d3c1c1570686ec64b903b2862105c52",
+  "kernels": [
+    "Q125",
+    "Q128"
+  ],
+  "global_load_dwordx2_total": 4,
+  "global_store_dwordx4_total": 2,
+  "integer_divide_instructions": [],
+  "indirect_call_instructions": [],
+  "device_execution": false,
+  "scope": "Minimal carrier input gather only; no generated FFT resource/performance acceptance."
+}

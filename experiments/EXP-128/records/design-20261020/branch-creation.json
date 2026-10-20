@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "branch": "exp-128-cc-local-real",
+  "base_tag": "stable-main-exp125-20261007",
+  "base_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "new_commit": "87e763c4c46d025f73dff622effd3a6771d8001a",
+  "fft_tree": "5266f0f008c5c5b74bf2d1415bec37b842582e85",
+  "fft_source_matches_EXP125": true,
+  "old_branch_preserved": "exp-127-real-bluestein-boundary",
+  "old_commit": "95a72667029f31e273409579ee9219a6f0b241b1",
+  "operational_files": 54,
+  "main_unchanged": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "new_device_jobs": false,
+  "commit_output": "[exp-128-cc-local-real 87e763c4] EXP128: start from EXP125 stable with current measurement tools\n 41 files changed, 5348 insertions(+), 180 deletions(-)\n create mode 100644 docs/technical/A100_REFERENCE_DATA.md\n create mode 100644 docs/technical/STORAGE_CLEANUP_20261020.md\n create mode 100644 experiments/EXP-128/EXPERIMENT.md\n create mode 100644 experiments/EXP-128/records/design-20261020/branch-base.json\n create mode 100644 tools/fft_measurement/cufft261012_contract.py\n create mode 100644 tools/fft_measurement/fft_test_1d_cufft261012.cpp\n create mode 100644 tools/fft_measurement/fft_test_1d_samples.cpp\n create mode 100644 tools/fft_measurement/manifest.v1.example.json\n create mode 100644 tools/fft_measurement/manifest.v2.example.json\n create mode 100644 tools/fft_measurement/plot_cufft261012.py\n create mode 100644 tools/fft_measurement/plot_samples.py\n create mode 100644 tools/fft_measurement/rocfft_measurement_support_v3.h\n create mode 100644 tools/fft_measurement/run_cufft261012.py\n create mode 100644 tools/fft_measurement/run_samples.py\n create mode 100644 tools/fft_measurement/sample_contract.py\n create mode 100644 tools/fft_measurement/summarize_cufft261012.py\n create mode 100644 tools/fft_measurement/summarize_samples.py\n create mode 100644 tools/fft_measurement/test_cufft261012.py\n create mode 100644 tools/fft_measurement/test_fusion_report.py\n create mode 100644 tools/fft_measurement/test_samples.py\n create mode 100644 tools/workspace_manager/deferred.py\n create mode 100644 tools/workspace_manager/diagnostics.py\n create mode 100644 tools/workspace_manager/test_cc_diagnostic_runner.py\n create mode 100644 tools/workspace_manager/test_diagnostics.py\n create mode 100644 tools/workspace_manager/test_job_gpu_step.py\n create mode 100644 tools/workspace_manager/test_pending_reference.py\n create mode 100644 tools/workspace_manager/test_source_identity.py\n create mode 100644 tools/workspace_manager/test_validation_resume.py\n create mode 100644 tools/workspace_manager/validation_resume.py\n",
+  "switch_output": "M\tVkFFT\n"
+}

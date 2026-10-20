@@ -1,0 +1,84 @@
+{
+  "record_date": "2026-10-21",
+  "started_date": "2026-10-20",
+  "branch": "exp-128-cc-local-real",
+  "base_tag": "stable-main-exp125-20261007",
+  "base_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "base_fft_tree": "5266f0f008c5c5b74bf2d1415bec37b842582e85",
+  "assessment": "d2z postprocessing design, plus z2d pre-design compatibility with EXP125",
+  "source_catalog_origin": "EXP127 cc-all-io-20261019/all-cc-configurations.json; ordinary SBCC/SBRC configuration hashes match the EXP125 files",
+  "model_command": "python -B post_model.py --source-root /public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft --catalog model-inputs.json --out-dir <record-output-directory>",
+  "production_source_changes": false,
+  "device_jobs_submitted": false,
+  "device_execution": false,
+  "prior_job_results_inspected": false,
+  "performance_claim": false,
+  "model_input_bytes": 30135,
+  "artifacts": {
+    "experiments/EXP-128/records/design-20261020/279种后处理组合静态代价.csv": {
+      "sha256": "307ba22b65fedf81368c5cf59a82129f498bae2da66227fce36160b11ba48358",
+      "bytes": 40052
+    },
+    "experiments/EXP-128/records/design-20261020/EXP125已有27项分解静态代价.csv": {
+      "sha256": "ad120445e61dd4aa7b29e0eba301b12c5e68cbdb7a3f26e6c35d27140fffbafc",
+      "bytes": 4242
+    },
+    "experiments/EXP-128/records/design-20261020/前处理原方案-EXP127起点参考.md": {
+      "sha256": "392791425fee56fa15301a18b59bb2bd1a516fb74d0be73ea32d276b58efae5a",
+      "bytes": 21247
+    },
+    "experiments/EXP-128/records/design-20261020/前处理方案继承与起点差异.md": {
+      "sha256": "50c2d64652df203121c8df3dc37c982e1de7612563520a81a28a0a7a92751759",
+      "bytes": 4408
+    },
+    "experiments/EXP-128/records/design-20261020/后处理模型摘要.json": {
+      "sha256": "2480704c6564af6b47c718a08595481ce87579180a5351aa53de1fb2a7cddcc9",
+      "bytes": 1741
+    },
+    "experiments/EXP-128/records/design-20261020/后处理融合方案与修改位置.md": {
+      "sha256": "644b241a22531a4ec0ebd527db6f76cecd350ab55e4071b2c64f0afe8073a96b",
+      "bytes": 23948
+    },
+    "experiments/EXP-128/records/design-20261020/post_model.py": {
+      "sha256": "9f8e1e9cf1f1bf1ae18c553916f6db6a05bbb5d3460e5ae977a4e0de32d00843",
+      "bytes": 11183
+    },
+    "experiments/EXP-128/records/design-20261020/model-inputs.json": {
+      "sha256": "3163bcf2cab7bbc5763a053d8dea13aa1260fba7dd53bb4db147f733527e1feb",
+      "bytes": 30135
+    },
+    "experiments/EXP-128/records/design-20261020/post-model-results.json": {
+      "sha256": "973620bce3b56e86793b1d0b6c9353d9ab7d4b026c2f5bb735a5667ed182d171",
+      "bytes": 432194
+    },
+    "experiments/EXP-128/records/design-20261020/carrier-load-probe.summary.json": {
+      "sha256": "145c0d24bdd9f4c15a10acced3739d2d2087aacac95c96f3e306f627a056fb63",
+      "bytes": 625
+    },
+    "experiments/EXP-128/records/design-20261020/carrier-load-probe.result.json": {
+      "sha256": "ccf414944022af7c0dca99bbbbb7f2414dded902dc8259e09b5bba6aab66be65",
+      "bytes": 13321
+    },
+    "experiments/EXP-128/records/design-20261020/carrier-load-probe.hip": {
+      "sha256": "9047bf62fa85c9b005b8fb9a084fb51590c1a425fb970d60b597f2ddad90505b",
+      "bytes": 740
+    },
+    "experiments/EXP-128/records/design-20261020/carrier-load-probe.s": {
+      "sha256": "a1f9cb1a01f8c0cd3e6e23a70303c73d7d3c1c1570686ec64b903b2862105c52",
+      "bytes": 11448
+    },
+    "experiments/EXP-128/records/design-20261020/exp125-source-manifest.json": {
+      "sha256": "de6cae4b5dca19e5151170930ea606243c716e5ba53b49ee11dda10aaafae21e",
+      "bytes": 3189
+    },
+    "experiments/EXP-128/artifacts/preflight/design-20261020/carrier-load-probe.hip": {
+      "sha256": "9047bf62fa85c9b005b8fb9a084fb51590c1a425fb970d60b597f2ddad90505b",
+      "bytes": 740
+    },
+    "experiments/EXP-128/artifacts/preflight/design-20261020/carrier-load-probe.s": {
+      "sha256": "a1f9cb1a01f8c0cd3e6e23a70303c73d7d3c1c1570686ec64b903b2862105c52",
+      "bytes": 11448
+    }
+  },
+  "source_catalog_original_sha256": "15f5308f27f9fe031a5b87bf633d058fc622b2e09dfb83c4edb80dd7e66fb767"
+}
