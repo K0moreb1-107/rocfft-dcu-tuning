@@ -1,0 +1,32 @@
+test_changed_launch_geometry_rejected (test_cc_all_dispatch.DispatchReplay.test_changed_launch_geometry_rejected) ... ok
+test_changed_plan_geometry_rejected (test_cc_all_dispatch.DispatchReplay.test_changed_plan_geometry_rejected) ... ok
+test_dispatch_outside_event_windows_rejected (test_cc_all_dispatch.DispatchReplay.test_dispatch_outside_event_windows_rejected) ... ok
+test_duplicate_device_correlation_rejected (test_cc_all_dispatch.DispatchReplay.test_duplicate_device_correlation_rejected) ... ok
+test_kernel_name_frequency_does_not_select_dispatch (test_cc_all_dispatch.DispatchReplay.test_kernel_name_frequency_does_not_select_dispatch) ... ok
+test_missing_device_dispatch_rejected (test_cc_all_dispatch.DispatchReplay.test_missing_device_dispatch_rejected) ... ok
+test_missing_elapsed_read_rejected (test_cc_all_dispatch.DispatchReplay.test_missing_elapsed_read_rejected) ... ok
+test_missing_host_dispatch_rejected (test_cc_all_dispatch.DispatchReplay.test_missing_host_dispatch_rejected) ... ok
+test_nondefault_stream_rejected (test_cc_all_dispatch.DispatchReplay.test_nondefault_stream_rejected) ... ok
+test_opposite_correctness_geometry_may_differ (test_cc_all_dispatch.DispatchReplay.test_opposite_correctness_geometry_may_differ) ... ok
+test_reordered_kernel_sequence_rejected (test_cc_all_dispatch.DispatchReplay.test_reordered_kernel_sequence_rejected) ... ok
+test_replay_all_available_cases (test_cc_all_dispatch.DispatchReplay.test_replay_all_available_cases) ... ok
+test_shared_transpose_and_inverse_are_separate (test_cc_all_dispatch.DispatchReplay.test_shared_transpose_and_inverse_are_separate) ... ok
+test_wrong_plan_execution_count_rejected (test_cc_all_dispatch.DispatchReplay.test_wrong_plan_execution_count_rejected) ... ok
+test_wrong_synchronization_event_rejected (test_cc_all_dispatch.DispatchReplay.test_wrong_synchronization_event_rejected) ... ok
+test_complex_v2 (test_cc_all_validation.CallbackSources.test_complex_v2) ... ok
+test_missing_callback_is_rejected (test_cc_all_validation.CallbackSources.test_missing_callback_is_rejected) ... ok
+test_missing_expected_role_is_rejected (test_cc_all_validation.CallbackSources.test_missing_expected_role_is_rejected) ... ok
+test_opposite_role_does_not_satisfy_callback (test_cc_all_validation.CallbackSources.test_opposite_role_does_not_satisfy_callback) ... ok
+test_preprocessing_version_from_expected (test_cc_all_validation.CallbackSources.test_preprocessing_version_from_expected) ... ok
+test_scalar_v3_callbacks_and_scaling (test_cc_all_validation.CallbackSources.test_scalar_v3_callbacks_and_scaling) ... ok
+test_wrong_or_mixed_boundary_identity_is_rejected (test_cc_all_validation.CallbackSources.test_wrong_or_mixed_boundary_identity_is_rejected) ... ok
+test_changed_location_is_rejected (test_cc_all_validation.RetainedSource.test_changed_location_is_rejected) ... ok
+test_dirty_source_is_rejected (test_cc_all_validation.RetainedSource.test_dirty_source_is_rejected) ... ok
+test_fft_change_is_rejected (test_cc_all_validation.RetainedSource.test_fft_change_is_rejected) ... ok
+test_harness_commit_may_differ_when_fft_tree_is_identical (test_cc_all_validation.RetainedSource.test_harness_commit_may_differ_when_fft_tree_is_identical) ... ok
+test_invalid_source_or_commit_is_rejected (test_cc_all_validation.RetainedSource.test_invalid_source_or_commit_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 8.891s
+
+OK

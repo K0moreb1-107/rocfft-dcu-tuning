@@ -1,0 +1,17 @@
+{
+  "build_record": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-retained-dispatchfix-build-20261020/build-provenance.json",
+  "fft_subtree": "85d437660a27f24cba6003f93a82c1306f9dc6a8",
+  "source_commit": "3352ac44793e00acd09931becfc6f0b68abfd084",
+  "files": {
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-retained-dispatchfix-build-20261020/build-provenance.json": "c7b04354ee1444fa994234130de11ddf7ec7902f9247d1727aba858767203f53",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-retained-dispatchfix-build-20261020/post-build-validation.json": "e42c92214b6e96e10193a866f61124dea8b958af444c5b51940f7a4b775575d6",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-retained-dispatchfix-build-20261020/cc-all-io-validation.json": "891005e165d75e3bd1ba2bd5017380197b3498289ab652ed0a5d33ee3b7566bd",
+    "/public/home/zhangkewei/zr/experiments/EXP-127/artifacts/install/EXP-127-cc-io-retained-dispatchfix-20261020/lib/librocfft.so.0.1": "db3fd37212b70a0d5d17d6157cd9164c012f2545e130599bb66902e1d54488a3"
+  },
+  "complete": true,
+  "passed_default": 172,
+  "passed_boundary": 565,
+  "passed_controls": 18,
+  "passed_folded": 10,
+  "reason": "User requested resubmission of scalar candidate only; retain validated unchanged FFT source tree and build profile."
+}

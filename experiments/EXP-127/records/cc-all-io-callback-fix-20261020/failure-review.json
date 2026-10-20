@@ -1,0 +1,21 @@
+{
+  "job": "946012",
+  "run": "/public/home/zhangkewei/zr/experiments/EXP-127/runs/EXP-127-cc-io-direct-scalar-dispatchfix-build-20261020",
+  "build_complete": true,
+  "validation_complete": false,
+  "error": [
+    {
+      "type": "ValueError",
+      "message": "missing callback boundary source"
+    }
+  ],
+  "passed_default_cases": 2,
+  "failed_check_case": "67200 d2z",
+  "guard_numeric_callback_checks_passed": 14,
+  "reason": "Validator required post v2; scalar post generated registered v3.",
+  "validation_sha256": "2ef80254dd280024dcaa2223efed306b95f4ca2b099259d6aceb1c6da8f2f25a",
+  "plan_sha256": "ce1f144f34e475d9b1d64ff64197985f57c689877134ffb456b9489f31d9b336",
+  "rtc_sha256": "c342dc2b81ec9fdfcd233d92c1b509ed376873f70b5424da8abf384a4a213153",
+  "retained_job": "946004 completed and fully validated; reused",
+  "complex_job": "946005 completed and fully validated; not resubmitted"
+}

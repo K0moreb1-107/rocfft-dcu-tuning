@@ -16,6 +16,7 @@ ROOT=Path('/public/home/zhangkewei/zr')
 sys.path.insert(0,str(ROOT))
 from tools.workspace_manager import manager as mgr
 from cc_all_dispatch import inspect_dispatch
+from cc_all_validation import inspect_callback_sources, matching_source_tree
 
 
 def module(name,path):
@@ -185,13 +186,7 @@ def main():
                 actual=set(tuple(map(int,m)) for m in re.findall(pattern,plan))
                 mgr.require(actual=={(geometry['C'],geometry['Q'],chosen['T'],chosen['W'],chosen['LDS'])},'guard allocation changed')
                 generated=old.rtc_sources((gfolder/'rtc.txt').read_text())
-                marker='paired_pre_columns_v2_' if func=='z2d_1d' else 'generic_paired_post_v2_'
-                names=[name for name in generated if marker in name]
-                mgr.require(names and any('_CB' in name for name in names),'missing callback boundary source')
-                for name in names:
-                    mgr.require('_'+chosen['exchange']+'_packed1_phase_' in name
-                        and '_wgs_'+str(chosen['W'])+'_tpt_'+str(chosen['P'])+'_' in name,
-                        'guard compiled a different boundary backend')
+                inspect_callback_sources(generated,chosen,func)
         return dict(references=metadata,expected_returncode=expected_return)
 
     try:
@@ -253,9 +248,21 @@ def main():
             prior=mgr.inside(v['retained_build_record'])
             other_build=json.loads(prior.read_text());other=json.loads((prior.parent/'cc-all-io-validation.json').read_text())
             checked=json.loads((prior.parent/'post-build-validation.json').read_text())
+            identity=json.loads(mgr.inside(v['retained_identity']).read_text())
+            for path,digest in identity['files'].items():
+                mgr.require(mgr.common.sha(mgr.inside(path))==digest,'retained evidence changed: '+path)
             mgr.require(other_build['complete'] and checked['complete'] and other['complete']
-                and other['policy']=='retained' and other_build['arm']['source_commit']==built['arm']['source_commit'],
-                'same-source retained control not validated')
+                and other['policy']=='retained'
+                and other['source_commit']==checked['source_commit']==other_build['arm']['source_commit']
+                and other['library_sha256']==checked['library_sha256']==other_build['arm']['library_sha256']
+                and mgr.common.sha(mgr.inside(other_build['arm']['install'])/'lib/librocfft.so.0.1')
+                    ==other_build['arm']['library_sha256'], 'same-source retained control not validated')
+            def read_tree(commit,subtree):
+                return subprocess.check_output(['git','-C',str(ROOT),'rev-parse',commit+':'+subtree],text=True).strip()
+            record['retained_source_identity']=matching_source_tree(
+                other_build['plan']['source_identity'],built['plan']['source_identity'],read_tree)
+            mgr.require(record['retained_source_identity']['tree_sha1']==identity['fft_subtree'],
+                        'registered retained FFT source tree changed')
             left=dict(other_build['plan']['profile']);right=dict(built['plan']['profile'])
             mgr.require(left.pop('ROCFFT_REAL_PAIR_IO_POLICY')=='retained'
                 and right.pop('ROCFFT_REAL_PAIR_IO_POLICY')==v['policy'] and left==right
