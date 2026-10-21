@@ -162,22 +162,6 @@ def main():
         mgr.require(len(record['public'])==2*(len(coverage['public'])+3*len(representatives)),
                     'public matrix incomplete')
         mgr.require(len(record['internal'])==(len(coverage['geometries']) if fused else 0),'native matrix incomplete')
-        if fused:
-            previous_path=mgr.inside(cfg['validation']['previous_build_record'])
-            previous=json.loads(previous_path.read_text())
-            validated=json.loads((previous_path.parent/'post-build-validation.json').read_text())
-            control=json.loads((previous_path.parent/'cc-local-validation.json').read_text())
-            mgr.require(previous['complete'] and validated['complete'] and control['complete']
-                and not control['fused'],'unfused control not validated')
-            left=dict(previous['plan']['profile']);right=dict(built['plan']['profile'])
-            mgr.require(left.pop('ROCFFT_CC_REAL_FUSION')=='OFF'
-                and right.pop('ROCFFT_CC_REAL_FUSION')=='ON' and left==right
-                and previous['compiler_version']==built['compiler_version'],
-                'builds differ beyond the declared fusion switch')
-            mgr.require([(x['N'],x['func'],x['C'],x['Q']) for x in control['public']]
-                ==[(x['N'],x['func'],x['C'],x['Q']) for x in record['public']],
-                'same-source control coverage/decomposition differs')
-            record['control_validation_sha256']=mgr.common.sha(previous_path.parent/'cc-local-validation.json')
         finish(record,built,gpu,env,lib,identity)
     except Exception as error:
         record['failure']=dict(type=type(error).__name__,message=str(error));raise

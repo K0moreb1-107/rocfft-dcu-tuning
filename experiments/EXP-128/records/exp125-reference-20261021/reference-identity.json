@@ -1,0 +1,35 @@
+{
+  "registry": {
+    "path": "experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+    "role": "previous",
+    "eligible_formal_arm": true,
+    "source_identity": "User-approved stable EXP-125 calculation source 1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "compatibility": false,
+    "arm": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+    },
+    "stable_tag": "stable-main-exp125-20261007",
+    "approved": "2026-10-07",
+    "approval_record": "experiments/EXP-125/records/stable-promotion-20261007/promotion.json",
+    "validation_job": "890730",
+    "formal_performance_job": "891149",
+    "superseded_as_default_previous_on": "2026-10-13"
+  },
+  "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i/lib/librocfft.so.0.1",
+  "actual_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+  "build_arm": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+    "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+  },
+  "current_commit": "223df0259826586d9bccc179e0cb78907139e837",
+  "policy_paths": []
+}

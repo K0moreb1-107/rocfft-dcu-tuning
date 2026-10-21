@@ -86,6 +86,8 @@ def report(run):
              '严格正确性检查在窗口外，随后恢复完整输入；全部逐次样本保留。时间和加速比只用样本中位数。', '',
              '| size／类型 | baseline（微秒） | A100（微秒） | 当前（微秒） | 加速比 | performance |',
              '| --- | ---: | ---: | ---: | ---: | ---: |']
+    if m.get('comparison_description'):
+        lines[4:4] = [m['comparison_description'], '']
     fusion_comparison = m.get('comparison_kind') == 'real_boundary_fusion'
     if fusion_comparison:
         require(selected == ('previous', 'candidate'), 'fusion comparison requires just unfused/fused arms')

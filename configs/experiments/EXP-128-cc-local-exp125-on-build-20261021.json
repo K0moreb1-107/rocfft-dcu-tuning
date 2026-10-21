@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-exp125-on-build-20261021",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "12:00:00",
+    "nodelist": "a03r1n02"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-exp125-on-20261021",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "223df0259826586d9bccc179e0cb78907139e837",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local.py",
+    "sha256": "1743599db72c5b908eee7fdad71db0f61c1875bf8dd62c40799c59df083ff21e",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_guard.cpp",
+        "sha256": "cf2c6c326271a08b875078e460e1e11c61bb32a1438446216d2e6daa72a94d53"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_references.py",
+        "sha256": "502536438a5a542c1e0761d50c9e269e10465e0e5429ba539b92d6bb75387bc4"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_local_pipeline_guard.cpp",
+        "sha256": "bd9ffd06ee6b4ea180a2ac9e6f26b71d634ac42462d7cf8902dd8ec690842f52"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/implementation-20261021/coverage.json",
+        "sha256": "eed65611743bbb78df16c8e3f34c27acea556979f939d71ffb2d735ed9275561"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-128/records/implementation-20261021/coverage.json",
+    "fused": true
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "Strict numerical error <1e-9; independent references; unique boundary callbacks; input/middle/output guards; all 279 native C/Q pipelines; native-type representative default dispatch checks.",
+  "reference_policy": "Reuse validated EXP-125-pre-memory-i. This candidate build and complete validation have no reference-build prerequisite."
+}

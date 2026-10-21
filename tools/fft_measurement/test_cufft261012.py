@@ -118,6 +118,7 @@ class VersionAndEvidence(unittest.TestCase):
         self.addCleanup(cleanup)
         m = dict(policy=v3.POLICY, experiment='EXP-999', run_id='EXP-999-v3-synthetic',
                  gpu_arch='gfx936', acceptance='Synthetic fixture, no measured performance.',
+                 comparison_description='Explicit stable-version comparison, not a fusion-only ablation.',
                  case_scope='One exact A100 match and one case with no A100 reference.',
                  cases=[dict(N=131072, func='d2z_1d'), dict(N=69938, func='z2d_1d')], arms={})
         for arm in ('official', 'candidate'):
@@ -166,6 +167,7 @@ class VersionAndEvidence(unittest.TestCase):
         self.assertEqual(before,[v3.sha(run/e['samples']) for e in entries])
         self.assertEqual(len(list((run/'plots').glob('*.svg'))),2)
         self.assertIn('十次预热', (run/'comparison.md').read_text(encoding='utf-8'))
+        self.assertIn(m['comparison_description'], (run/'comparison.md').read_text(encoding='utf-8'))
 
 
 if __name__ == '__main__': unittest.main()
