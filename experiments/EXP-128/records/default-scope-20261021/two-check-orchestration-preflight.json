@@ -1,0 +1,80 @@
+{
+  "host_only": true,
+  "device_execution": false,
+  "checks": [
+    {
+      "injected_failure_indices": [],
+      "attempted": 12,
+      "failures": 0,
+      "complete": true
+    },
+    {
+      "injected_failure_indices": [
+        0
+      ],
+      "attempted": 12,
+      "failures": 1,
+      "complete": false
+    },
+    {
+      "injected_failure_indices": [
+        0,
+        5,
+        11
+      ],
+      "attempted": 12,
+      "failures": 3,
+      "complete": false
+    }
+  ],
+  "library_sha256": "b31937b7e81b562b9a705b726337dd7f92503e65e7da87894cd97acdcee46c98",
+  "validation_command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_measurement.py",
+    "--config",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-default-validate-20261021/submit-manifest.json",
+    "--build-record",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-build-20261021/build-provenance.json",
+    "--run",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-default-validate-20261021",
+    "--build",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-callbackfix-20261021",
+    "--cache",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-local-default-validate-20261021"
+  ],
+  "measurement_cases": 386,
+  "measurement_processes": 772,
+  "sample_geometry": [
+    {
+      "N": 65856,
+      "C": 96,
+      "Q": 343
+    },
+    {
+      "N": 67600,
+      "C": 169,
+      "Q": 200
+    },
+    {
+      "N": 69938,
+      "C": 289,
+      "Q": 121
+    },
+    {
+      "N": 131072,
+      "C": 256,
+      "Q": 256
+    },
+    {
+      "N": 100352,
+      "C": 1024,
+      "Q": 49
+    },
+    {
+      "N": 133100,
+      "C": 50,
+      "Q": 1331
+    }
+  ],
+  "created_utc": "2026-10-21T11:01:40.213573+00:00"
+}

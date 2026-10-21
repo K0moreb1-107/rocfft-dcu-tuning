@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-default-validate-20261021",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "nodelist": "a03r1n02",
+    "node_exclusive": true
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-callbackfix-20261021",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "590ab6a8fc017fdd78688e6e57d5da27db689fd0",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_measurement.py",
+    "sha256": "005c779418ec78c80f47535cfc3e21be99bf887f34141b0b57aeb410e78fc6e4",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local.py",
+        "sha256": "d487f27e59c90a27f24b260ab8223afb92c75229f7cd402381153a0a6117c27c"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_references.py",
+        "sha256": "502536438a5a542c1e0761d50c9e269e10465e0e5429ba539b92d6bb75387bc4"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/audit_cc_coverage.py",
+        "sha256": "ec40f1e1c06744113a0f437bed45db2addffc19b002dfab5d2021427c8c9cc0e"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/coverage-mapfix-20261021/coverage.json",
+        "sha256": "0f171f5dffa84edeab940d2a9a49b4a26e46c73fe0aff1f38e90c2f35df53195"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-128/records/coverage-mapfix-20261021/coverage.json",
+    "fused": true,
+    "scope": "Numerical correctness and actual profiled execution of both fused adapters only; six representative N, both directions, default plan, double, batch1, out-of-place, unit scale, no user callbacks. Continue all independent cases and aggregate failures; no custom validation time limit.",
+    "sample_N": [
+      65856,
+      67600,
+      69938,
+      131072,
+      100352,
+      133100
+    ],
+    "profile": "measurement-default-two-checks",
+    "known_limitations": [
+      {
+        "scope": "N=65536 legacy PairedPostRows, non-unit scale",
+        "status": "known RTC compile error; not repaired or accepted",
+        "evidence": "experiments/EXP-128/records/review-953685-953686/review.json",
+        "exclusion_reason": "No measured case has N<=65536; the unchanged timing program sets neither callbacks nor a scale factor."
+      }
+    ]
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "Per latest user instruction: numerical correctness and actual executed fusion only. Reuse completed candidate build 953518; no FFT rebuild, no callback/scaling/guard/internal geometry regressions, no custom time budget. Check six geometry representatives in both directions using the unchanged v3 program and the existing actual-dispatch inspector. Attempt every independent representative and aggregate failures. On success immediately release the queued full 386-case formal measurement; its unchanged v3 program validates each case outside timing. Known N=65536 non-unit scaling failure remains recorded and is not claimed fixed. This is experiment measurement acceptance, not stable promotion.",
+  "reference_policy": "Reuse validated EXP-125-pre-memory-i. This candidate build and complete validation have no reference-build prerequisite.",
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-build-20261021/build-provenance.json",
+    "evidence_record": "cc-local-validation.json",
+    "isolated_helpers": false
+  }
+}
