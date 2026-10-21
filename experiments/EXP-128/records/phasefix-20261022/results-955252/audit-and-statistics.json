@@ -1,0 +1,165 @@
+{
+  "complete": true,
+  "formal": true,
+  "job_id": "955252",
+  "validation_job": "955251",
+  "validation_cases": 24,
+  "validation_seconds": 115.25853990204632,
+  "correctness_processes": 1164,
+  "numerical_checks": "all PASS; strict <1e-9 outside timing",
+  "max_numerical_error": 5.0330110449673766e-15,
+  "Ns": 194,
+  "cases": 388,
+  "processes": 1164,
+  "samples": 34920,
+  "GPU": {
+    "count": 1,
+    "uuid": "30303135373331373838346532313031",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "host": "a01r4n01",
+  "first": "2026-10-21T18:02:05.465586+00:00",
+  "last": "2026-10-21T18:53:19.861243+00:00",
+  "policy": "FFT-event-cufft261012-single-v3",
+  "coverage": {
+    "columns": 33,
+    "rows": 17,
+    "parity_counts": {
+      "偶×偶": 51,
+      "偶×奇": 99,
+      "奇×偶": 17,
+      "奇×奇": 27
+    }
+  },
+  "arms": {
+    "baseline": {
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i"
+    },
+    "previous": {
+      "source_commit": "590ab6a8fc017fdd78688e6e57d5da27db689fd0",
+      "library_sha256": "b31937b7e81b562b9a705b726337dd7f92503e65e7da87894cd97acdcee46c98",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-callbackfix-20261021"
+    },
+    "candidate": {
+      "source_commit": "21ad4f809a3bb291ab4b32216f028a3b49a63f41",
+      "library_sha256": "ae4a6437b26647b69739946cf55409f8e48d2d1083715734bd77b10c1bbeff34",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-phasefix-20261022"
+    }
+  },
+  "validation_acceptance": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-validate-20261022",
+    "job_id": "955251",
+    "record_sha256": "1046748d7ff5590e63d71bf2807b9445ad6959583f1f5e02b1e8af2d073a824a",
+    "evidence_record": "cc-local-validation.json",
+    "evidence_sha256": "f57663f576c37f37a6a00634769b712e96ddaae7a1c795e84949ee0590e9ecc7",
+    "source_commit": "21ad4f809a3bb291ab4b32216f028a3b49a63f41",
+    "library_sha256": "ae4a6437b26647b69739946cf55409f8e48d2d1083715734bd77b10c1bbeff34"
+  },
+  "all": {
+    "z2d": {
+      "baseline": {
+        "cases": 194,
+        "faster": 167,
+        "equal": 0,
+        "slower": 27,
+        "median_case_speedup": 1.1969477263295216,
+        "min_speedup": 0.6402438758918075,
+        "max_speedup": 3.874582701312524,
+        "clear_faster": 52,
+        "clear_slower": 6,
+        "unclear": 136,
+        "iqr_overlap": 17,
+        "order_effect": 133
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 149,
+        "equal": 5,
+        "slower": 40,
+        "median_case_speedup": 1.039778059459751,
+        "min_speedup": 0.9029535696408232,
+        "max_speedup": 2.117904015820283,
+        "clear_faster": 42,
+        "clear_slower": 5,
+        "unclear": 147,
+        "iqr_overlap": 105,
+        "order_effect": 126
+      }
+    },
+    "d2z": {
+      "baseline": {
+        "cases": 194,
+        "faster": 168,
+        "equal": 3,
+        "slower": 23,
+        "median_case_speedup": 1.2026855852315066,
+        "min_speedup": 0.8333333466684215,
+        "max_speedup": 4.034965302534125,
+        "clear_faster": 71,
+        "clear_slower": 6,
+        "unclear": 117,
+        "iqr_overlap": 24,
+        "order_effect": 108
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 97,
+        "equal": 15,
+        "slower": 82,
+        "median_case_speedup": 1.000008056190141,
+        "min_speedup": 0.8858695212040381,
+        "max_speedup": 1.2475728158997559,
+        "clear_faster": 16,
+        "clear_slower": 9,
+        "unclear": 169,
+        "iqr_overlap": 155,
+        "order_effect": 113
+      }
+    }
+  },
+  "formerly_slower": {
+    "baseline": {
+      "cases": 60,
+      "faster": 23,
+      "equal": 0,
+      "slower": 37,
+      "median_case_speedup": 0.9695915775638486,
+      "min_speedup": 0.6402438758918075,
+      "max_speedup": 1.39791664109976,
+      "clear_faster": 3,
+      "clear_slower": 9,
+      "unclear": 48,
+      "iqr_overlap": 19,
+      "order_effect": 42
+    },
+    "previous": {
+      "cases": 60,
+      "faster": 41,
+      "equal": 3,
+      "slower": 16,
+      "median_case_speedup": 1.0470538556803002,
+      "min_speedup": 0.9358974703398387,
+      "max_speedup": 2.117904015820283,
+      "clear_faster": 6,
+      "clear_slower": 0,
+      "unclear": 54,
+      "iqr_overlap": 31,
+      "order_effect": 46
+    }
+  },
+  "all_reference_sha256": {
+    "experiments/EXP-128/runs/EXP-128-cc-local-phasefix-performance-20261022/preregistration.json": "e239e9c02da161efc7b32bc8e00a74f2304b58ad9d81f17b8b96b1a0e3416e5d",
+    "experiments/EXP-128/runs/EXP-128-cc-local-phasefix-performance-20261022/provenance.json": "a8b5d304b027f502ea58cfd0572c8c8fb9cc07adcede06d142e257f1454a2204",
+    "experiments/EXP-128/runs/EXP-128-cc-local-phasefix-performance-20261022/processes.json": "1319eaa50f3869818988d7c78941510248deb3c5eecac573100f4a7427e13bd1",
+    "experiments/EXP-128/runs/EXP-128-cc-local-phasefix-performance-20261022/summary.json": "fb44a7721f7230d1d84122e86ff638e138ea68f5468f53f4435cf512cabd0b03",
+    "experiments/EXP-128/runs/EXP-128-cc-local-phasefix-validate-20261022/post-build-validation.json": "1046748d7ff5590e63d71bf2807b9445ad6959583f1f5e02b1e8af2d073a824a",
+    "experiments/EXP-128/runs/EXP-128-cc-local-phasefix-validate-20261022/cc-local-validation.json": "f57663f576c37f37a6a00634769b712e96ddaae7a1c795e84949ee0590e9ecc7",
+    "experiments/EXP-128/records/unified-20261021/coverage.json": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18"
+  },
+  "assessments": "IQR overlap or a first-half/last-half disjoint IQR is marked inconclusive; descriptive, not a significance test.",
+  "modifications": "Two generic changes together plus inclusive 65536 boundary; no legacy priority, no isolated mechanism timing."
+}

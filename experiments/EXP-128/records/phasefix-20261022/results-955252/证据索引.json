@@ -1,0 +1,102 @@
+{
+  "complete": true,
+  "audit": "audit-and-statistics.json",
+  "original_run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-performance-20261022",
+  "portable_checks": {
+    "case_count": 388,
+    "process_count": 1164,
+    "samples": 34920,
+    "median_matches_original_ms": true,
+    "viewer_javascript_syntax": true
+  },
+  "files": {
+    "all-samples-and-statistics.json": {
+      "bytes": 1603158,
+      "sha256": "3d4ee7f33155c3abd4d03c2feed70400eaf45808dccb4e47a94a20d4d87693dd"
+    },
+    "audit-and-statistics.json": {
+      "bytes": 6116,
+      "sha256": "cfcea0c23932067f08466de0023373d54bd0603b5cc930890205081d3839ee41"
+    },
+    "全部尺寸.csv": {
+      "bytes": 133107,
+      "sha256": "73a2598373189fecd256d96b7d0a82a36116ad8056ed0c1b61f7a6c75d35f460"
+    },
+    "全部尺寸散点与顺序图.html": {
+      "bytes": 1146626,
+      "sha256": "d4facf9e3698cee77c84bd6bef5fd96a0ec92b16a9ad41e642403a45034bc2c8"
+    },
+    "六列性能总表.csv": {
+      "bytes": 27353,
+      "sha256": "ff947d1f9537d432df94e4bb6e1485312599c68bd080ed0d2034fdc9b845dd60"
+    },
+    "原始逐次样本.csv": {
+      "bytes": 1535232,
+      "sha256": "7bb8a32c8a881a503ce408ce5ca60dc7bbdf97aca44968d436ea6ddd6d1eda11"
+    },
+    "性能总表.md": {
+      "bytes": 25095,
+      "sha256": "d890e19dc92cdcbf5ac8b405e07a699aac872b79830c20430f562f04cbb45163"
+    },
+    "此前退化项复测.csv": {
+      "bytes": 21287,
+      "sha256": "d32cc19730a29681fbbafc6b09c00e05711d01fa5d76e124b99dd4466067da9a"
+    },
+    "独立正确性表.csv": {
+      "bytes": 66504,
+      "sha256": "f44c068789f54443c42d9188b47fd6b11f1b6fdbe9469e3204571a395f2a4629"
+    },
+    "相对EXP125退化.csv": {
+      "bytes": 17943,
+      "sha256": "4b3ba3465879511b5cacbfaac51e9c1a127cb754eab3692b30f3565f1f1310f5"
+    },
+    "相对上一版退化.csv": {
+      "bytes": 42478,
+      "sha256": "fe869e3ccc8e1cae42126bc2855ac88f1d61f026a2ad0bcd6544b648ed3cd8b5"
+    },
+    "类型汇总.csv": {
+      "bytes": 22973,
+      "sha256": "d6d4fbb914a205d281658953dca9a651a5e6e476f47ed09ff21891e58dd900dc"
+    },
+    "重点类型.csv": {
+      "bytes": 20674,
+      "sha256": "28369a08c8044fc37af3017df84822210f94101d0a8d6b1283bc45ad4bc3c1e7"
+    },
+    "验收与性能分析.md": {
+      "bytes": 9944,
+      "sha256": "bc56355a7c1528b21d890e37d8e10c6aab5ec9e686a5b0f62646cdac20c3daea"
+    },
+    "plots/167042_d2z_1d.svg": {
+      "bytes": 47879,
+      "sha256": "b71dc5e6f61c4960700675820565a75d03a48567e65dba92c2ab4e3b9444b6f0"
+    },
+    "plots/65536_d2z_1d.svg": {
+      "bytes": 51224,
+      "sha256": "dd5319b22719bf28bdcb9c752196a2546b525a594d31112b8e489fcab8761bc6"
+    },
+    "plots/69938_z2d_1d.svg": {
+      "bytes": 50153,
+      "sha256": "76765a7b86a129b081130d7662b70021036de978f2ccffd3a4c61089cf629671"
+    },
+    "证据/build-provenance.json": {
+      "bytes": 11795,
+      "sha256": "09ba4c4a3bf1ef096828f64223439cfa9e1c32882951447767599ca68fbe7f61"
+    },
+    "证据/cc-local-validation.json": {
+      "bytes": 33557,
+      "sha256": "f57663f576c37f37a6a00634769b712e96ddaae7a1c795e84949ee0590e9ecc7"
+    },
+    "证据/performance-preregistration.json": {
+      "bytes": 34139,
+      "sha256": "e239e9c02da161efc7b32bc8e00a74f2304b58ad9d81f17b8b96b1a0e3416e5d"
+    },
+    "证据/performance-provenance.json": {
+      "bytes": 15684,
+      "sha256": "a8b5d304b027f502ea58cfd0572c8c8fb9cc07adcede06d142e257f1454a2204"
+    },
+    "证据/post-build-validation.json": {
+      "bytes": 1744,
+      "sha256": "1046748d7ff5590e63d71bf2807b9445ad6959583f1f5e02b1e8af2d073a824a"
+    }
+  }
+}
