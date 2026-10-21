@@ -83,8 +83,11 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
                     value = Ternary { Expression { Or {
                                           col == 0, col == static_cast<unsigned int>(io.rows) } },
                         Expression { cache[a] }, Expression { value } };
-                Expression folded = CallExpr { "cc_folded_value", { scalar_type },
-                    { value, k, Literal { static_cast<unsigned int>(io.n) } } };
+                Expression folded = io.role == RealBlockRole::HermitianColumns
+                    ? Expression { CallExpr { "local_real_hermitian_value", { scalar_type },
+                          { value, k > static_cast<unsigned int>(io.n / 2) } } }
+                    : Expression { CallExpr { "cc_folded_value", { scalar_type },
+                          { value, k, Literal { static_cast<unsigned int>(io.n) } } } };
                 StatementList load { Assign { R[reg], folded } };
                 return StatementList { If { col <= static_cast<unsigned int>(io.rows), load } };
             });

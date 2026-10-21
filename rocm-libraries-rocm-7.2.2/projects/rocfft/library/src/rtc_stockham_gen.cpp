@@ -273,6 +273,8 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
                                ? "_local_real_columns" : "_local_real_rows";
         kernel_name += "_N" + std::to_string(specs.real_io.n);
         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
+        if(specs.real_io.role == RealBlockRole::HermitianColumns && cbtype != CallbackType::NONE)
+            kernel_name += "_unique_load_v1";
         if(specs.real_io.role == RealBlockRole::LocalRealRows)
             kernel_name += local_real_twiddle_suffix(
                 local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
@@ -359,7 +361,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
             else if(specs.real_io.role == RealBlockRole::LocalPostColumns)
                 kernel=std::make_unique<StockhamKernelLocalPostColumns>(specs);
             else if(specs.real_io.role == RealBlockRole::HermitianColumns)
-                kernel = std::make_unique<StockhamKernelHermitianColumns>(specs, largeTwdBatchIsTransformCount);
+                kernel = std::make_unique<StockhamKernelHermitianColumns>(
+                    specs, largeTwdBatchIsTransformCount, cbtype != CallbackType::NONE);
             else
                 kernel = std::make_unique<StockhamKernelCC>(specs, largeTwdBatchIsTransformCount, fuseBluestein);
         }

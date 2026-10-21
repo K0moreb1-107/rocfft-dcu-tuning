@@ -1,0 +1,1605 @@
+{
+  "schema_version": 1,
+  "policy": "FFT-event-cufft261012-single-v3",
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-callbackfix-performance-20261021",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "04:00:00",
+    "nodelist": "a03r1n02",
+    "node_exclusive": true
+  },
+  "event_iterations": 30,
+  "timing_warmups": 10,
+  "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+  "cases": [
+    {
+      "N": 65856,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 65856,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 67200,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 67200,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 67600,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 67600,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 67760,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 67760,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 68600,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 68600,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 69938,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 70000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 70000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 70304,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 71344,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 71344,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 71680,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 71680,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 72250,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 72250,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 73008,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 73008,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 73728,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 73728,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 73984,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 73984,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 74088,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 74088,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 75000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 75000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 75264,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 75264,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 75712,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 75712,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 76800,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 76800,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 76832,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 76832,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 77760,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 77760,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 79872,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 79872,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 80000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 80000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 81120,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 81120,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 81312,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 81312,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 81648,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 81648,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 81920,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 81920,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 82134,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 82944,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 82944,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 83006,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 83006,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 83200,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 83200,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 84000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 84000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 85750,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 85750,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 86016,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 86016,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 86400,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 86400,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 86528,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 86528,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 87808,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 87808,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 89600,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 89600,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 90000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 90000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 92160,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 92160,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 92480,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 92480,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 93312,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 93312,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 94640,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 94640,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 96000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 96000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 97104,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 97104,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 97200,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 97200,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 97682,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 98304,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 98304,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 100000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 100000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 100352,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 100352,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 101088,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 101088,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 101250,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 101250,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 102400,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 102400,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 104976,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 104976,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 105000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 105000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 106496,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 106496,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 107520,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 107520,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 108864,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 108864,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 109760,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 109760,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 110592,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 110592,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 110976,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 110976,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 112000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 112000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 113568,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 113568,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 114688,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 114688,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 115248,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 115248,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 115600,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 115600,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 115934,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 115934,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 116640,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 116640,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 118098,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 118098,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 120000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 120000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 120224,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 122880,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 122880,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 123904,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 123904,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 124416,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 124416,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 124848,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 124848,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 125000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 125000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 128000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 128000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 129024,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 129024,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 129472,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 129472,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 130000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 130000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 131712,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 131712,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 133100,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 133100,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 134400,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 134400,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 135000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 135000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 136080,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 136080,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 137200,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 137200,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 138424,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 138424,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 138720,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 138720,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 140000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 140000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 140454,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 140454,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 143360,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 143360,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 147456,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 147456,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 147968,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 147968,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 148176,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 148176,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 151250,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 151250,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 153664,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 153664,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 156250,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 156250,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 159720,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 159720,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 160000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 160000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 161840,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 161840,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 163296,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 163296,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 163840,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 163840,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 164640,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 164640,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 165888,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 165888,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 167042,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 170368,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 170368,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 172032,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 172032,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 173056,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 173056,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 175616,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 175616,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 191664,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 191664,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 192080,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 192080,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 194208,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 194208,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 196608,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 196608,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 198254,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 198254,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 200000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 200000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 204800,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 210000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 210000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 211250,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 211250,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 212960,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 212960,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 212992,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 212992,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 215622,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 215622,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 221184,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 221184,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 223608,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 223608,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 229376,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 229376,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 230496,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 230496,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 235298,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 235298,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 240000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 240000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 245760,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 245760,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 247808,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 247808,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 248832,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 248832,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 250000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 250000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 255552,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 255552,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 256000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 256000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 260000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 260000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 266200,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 266200,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 270000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 270000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 276848,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 276848,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 280000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 280000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 286720,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 286720,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 287496,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 287496,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 295936,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 295936,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 298144,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 298144,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 300000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 300000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 303750,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 303750,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 320000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 320000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 322102,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 322102,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 327680,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 327680,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 332750,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 332750,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 340736,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 340736,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 344064,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 344064,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 346112,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 346112,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 350000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 350000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 351232,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 351232,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 361250,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 361250,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 393216,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 393216,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 409600,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 409600,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 420000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 420000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 425920,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 425920,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 425984,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 425984,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 428750,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 428750,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 442368,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 442368,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 447216,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 447216,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 449878,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 449878,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 458752,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 458752,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 491520,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 491520,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 497664,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 497664,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 511104,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 511104,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 532400,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 532400,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 553696,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 553696,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 573440,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 573440,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 574992,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 591872,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 591872,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 596288,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 596288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 638880,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 638880,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 640000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 640000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 646866,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 646866,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 681472,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 681472,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 688128,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 688128,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 702464,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 702464,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 745360,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 745360,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 769318,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 769318,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 894432,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 894432,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 913066,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 913066,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1280000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1280000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1362944,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1362944,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 2097152,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 2097152,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 2725888,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 2725888,
+      "func": "d2z_1d"
+    }
+  ],
+  "case_scope": "All 193 public-default CC decompositions, both real directions: 386 N/type cases; 33 column and 17 public-default row lengths. No forced load path or alternate decomposition during timing. Candidate uses its registered CC decompositions; EXP125 retains its own default plans, which need not be CC. User 2026-10-21 replaced the full internal/public/profiler prevalidation with a 300-second targeted regression. Every measured N/type still passes the v3 numerical check outside its timing window. No claim of exhaustive internal geometry acceptance.",
+  "arms": {
+    "previous": {
+      "registry_id": "EXP-125-pre-memory-i"
+    },
+    "candidate": {
+      "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-build-20261021/build-provenance.json"
+    }
+  },
+  "comparison_kind": "stable_version",
+  "arm_labels": {
+    "previous": "EXP125稳定版",
+    "candidate": "行内前处理及局部后处理融合"
+  },
+  "acceptance": "The new candidate must pass its build and the user-requested 300-second targeted regression before timing. No repeated full public/native/profiler gate. EXP125 is the retained validated reference. Every formal v3 process checks its exact N/type before its timing window; failed processes cannot enter the summary. Same exclusive single GPU, adjacent alternating versions, 10 warmups/30 samples per version and case, all samples retained, median ratios only; no automatic promotion.",
+  "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/coverage-mapfix-20261021/coverage.json",
+  "coverage_sha256": "0f171f5dffa84edeab940d2a9a49b4a26e46c73fe0aff1f38e90c2f35df53195",
+  "measurement_conditions": {
+    "precision": "double",
+    "batch": 1,
+    "placement": "out-of-place",
+    "load_path": "default",
+    "readonly_input": "candidate validation requires unchanged input; timing retains the supplied v3 exact-size input/output semantics for each version",
+    "reference": "retained EXP125 stable installation EXP-125-pre-memory-i; its existing power-of-two fusions and default decomposition choices are retained",
+    "endpoint_packed_z2d": "extra C-point transform is included in net event time"
+  },
+  "source_state_policy": "Record actual starting commit and actual library identity. Do not freeze or compare workspace/build/validation source state.",
+  "comparison_description": "对照使用已验证的EXP125稳定安装，保留其原有二次幂融合及默认计划。新版补充了CC分解并实现新融合，结果代表两版整体差异，不作为只有融合开关不同的对照。",
+  "a100_reference": {
+    "dataset": "test_fft_261012",
+    "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+    "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+    "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+    "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+    "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+    "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+    "warmups": 10,
+    "event_iterations": 30,
+    "input_pattern": "linear_index_real_imaginary_zero",
+    "comparison": "cross_device_reference",
+    "source_binary_correspondence_verified": false
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-callbackfix-build-20261021",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "12:00:00",
+    "nodelist": "a03r1n02"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-callbackfix-20261021",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "9be5da757707b188d8d3244497aaa8e2cb0713d5",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_fast.py",
+    "sha256": "4c20c2571407a305ccea6e840f1b624d34da226c043eee0fd2b41fe0ca38bde1",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_guard.cpp",
+        "sha256": "cf2c6c326271a08b875078e460e1e11c61bb32a1438446216d2e6daa72a94d53"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_references.py",
+        "sha256": "502536438a5a542c1e0761d50c9e269e10465e0e5429ba539b92d6bb75387bc4"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/audit_cc_coverage.py",
+        "sha256": "ec40f1e1c06744113a0f437bed45db2addffc19b002dfab5d2021427c8c9cc0e"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/coverage-mapfix-20261021/coverage.json",
+        "sha256": "0f171f5dffa84edeab940d2a9a49b4a26e46c73fe0aff1f38e90c2f35df53195"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-128/records/coverage-mapfix-20261021/coverage.json",
+    "fused": true,
+    "scope": "300-second targeted regression; not full native acceptance",
+    "budget_seconds": 300,
+    "sample_N": [
+      65856,
+      67600,
+      69938,
+      131072,
+      100352,
+      133100
+    ]
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "User 2026-10-21: validation under five minutes. Run failed 64K callback control first, then six representative default CC geometries, both directions; independent impulse/random references, scales 1/.375, two executions, unique callbacks and input/output guards. Omit repeated 193-size full matrix, 279 internal pipelines and 78 profiler runs. Every formal v3 process still checks its exact N/type outside timing. No claim of complete native-type acceptance.",
+  "reference_policy": "Reuse validated EXP-125-pre-memory-i. This candidate build and complete validation have no reference-build prerequisite."
+}

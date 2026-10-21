@@ -1,7 +1,7 @@
 // EXP-125: keep real I/O rules outside the ordinary Stockham kernels.
 #pragma once
 
-#include "stockham_gen_cc.h"
+#include "stockham_gen_cc_real_columns.h"
 #include "stockham_gen_rc.h"
 
 // This is device source, appended only for the two specialized roles.
@@ -102,22 +102,41 @@ struct LocalRealFoldVisitor : BaseVisitor
     Variable scalar_type{"scalar_type", "typename"};
 };
 
-struct StockhamKernelHermitianColumns : StockhamKernelCC
+struct StockhamKernelHermitianColumns : StockhamKernelFoldedPackedColumns
 {
-    const RealBlockIO io;
-
-    explicit StockhamKernelHermitianColumns(const StockhamGeneratorSpecs& specs,
-                                            bool large_batch_count)
-        : StockhamKernelCC(specs, large_batch_count, false), io(specs.real_io)
+    StockhamKernelHermitianColumns(const StockhamGeneratorSpecs& specs,
+                                  bool large_batch_count, bool callbacks)
+        : StockhamKernelFoldedPackedColumns(specs, callbacks)
     {
+        largeTwdBatchIsTransformCount = large_batch_count;
+        if(callbacks && !direct_to_from_reg)
+            throw std::runtime_error("Hermitian callback cache requires register loading");
+    }
+
+    bool use_static_initial_reg_load() const override { return callbacks; }
+
+    StatementList set_direct_to_from_registers() override
+    {
+        return callbacks ? StockhamKernelFoldedPackedColumns::set_direct_to_from_registers()
+                         : StockhamKernelCC::set_direct_to_from_registers();
     }
 
     StatementList load_from_global(bool registers) override
     {
+        // The two boundary columns share physical half-spectrum elements.
+        // Reuse the unique-load cache, applying conjugation after the callback.
+        if(callbacks)
+            return StockhamKernelFoldedPackedColumns::load_from_global(registers);
         LocalRealFoldVisitor visitor(io);
         StatementList body{Declaration{visitor.raw}};
         body += visitor.visit_StatementList(StockhamKernelCC::load_from_global(registers));
         return body;
+    }
+
+    StatementList store_to_global(bool registers) override
+    {
+        // EXP125 retains its full Q+1-column matrix, including both endpoints.
+        return StockhamKernelCC::store_to_global(registers);
     }
 };
 
