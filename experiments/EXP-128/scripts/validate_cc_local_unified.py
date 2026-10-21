@@ -41,6 +41,25 @@ def run(command, env, folder, label):
         raise CaseError(label, 'nonzero process exit; see '+str(folder/(label+'.err')), proc.returncode)
 
 
+def read_numerical_outputs(harness, n, func, child_returncode=None):
+    try:
+        numerical = contract.read_check(harness/'fft_test_1d.check.csv')
+        if numerical['check'] != 'PASS':
+            raise CaseError('numerical', 'correctness check failed: '+json.dumps(numerical),
+                            child_returncode)
+        if child_returncode:
+            raise CaseError('trace', 'profiled measurement exited with status '+str(child_returncode),
+                            child_returncode)
+        row = contract.read_rows(harness/'fft_test_1d.csv')[0]
+        contract.validate_process(row, contract.read_samples(harness/'fft_test_1d.samples.csv'),
+                                  numerical, n, func, 30)
+        return numerical
+    except CaseError:
+        raise
+    except Exception as error:
+        raise CaseError('numerical', str(error), child_returncode) from error
+
+
 def trace_case(binary, case, func, env, folder):
     n,c,q = (case[key] for key in ('N','C','Q'))
     profile = folder/'profile'
@@ -52,13 +71,10 @@ def trace_case(binary, case, func, env, folder):
         ROCFFT_LOG_PLAN_PATH=str(data/'plan.txt'), ROCFFT_LOG_RTC_PATH=str(data/'rtc.txt'))
     run([mgr.DTK+'/bin/hipprof','--hip-trace','--trace-args','--output-type','0',
          '-o',profile/'trace','-d',profile/'data',binary,n,1,func], selected,profile,'trace')
-    try:
-        numerical = contract.read_check(harness/'fft_test_1d.check.csv')
-        row = contract.read_rows(harness/'fft_test_1d.csv')[0]
-        contract.validate_process(row,contract.read_samples(harness/'fft_test_1d.samples.csv'),
-                                  numerical,n,func,30)
-    except Exception as error:
-        raise CaseError('numerical', str(error)) from error
+    # hipprof can return zero after its child fails before producing timings.
+    child_status = re.search(r'exited with status:\s*(\d+)', (profile/'trace.err').read_text())
+    child_returncode = int(child_status.group(1)) if child_status else None
+    numerical = read_numerical_outputs(harness, n, func, child_returncode)
     try:
         plan = (data/'plan.txt').read_text()
         sources = dict(re.findall(r'^// ROCFFT_RTC_BEGIN ([^\n]+)\n(.*?)^// ROCFFT_RTC_END \1$',

@@ -1,12 +1,36 @@
 """Host-only validation control-flow tests; no device acceptance implied."""
 import contextlib
 import io
+import tempfile
 import unittest
+from pathlib import Path
 
 import validate_cc_local_unified as validation
 
 
 class ValidationFlow(unittest.TestCase):
+    def test_failed_check_is_reported_before_missing_timings(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            folder = Path(temporary)
+            (folder/'fft_test_1d.check.csv').write_text(
+                'func,N,batch,check,err_a,err_b\nd2z_1d,65536,1,FAIL,1,-1\n')
+            with self.assertRaises(validation.CaseError) as caught:
+                validation.read_numerical_outputs(folder, 65536, 'd2z_1d', 2)
+            self.assertEqual(caught.exception.stage, 'numerical')
+            self.assertEqual(caught.exception.returncode, 2)
+            self.assertIn('correctness check failed', str(caught.exception))
+            self.assertNotIn('No such file', str(caught.exception))
+
+    def test_profiler_child_failure_is_not_accepted(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            folder = Path(temporary)
+            (folder/'fft_test_1d.check.csv').write_text(
+                'func,N,batch,check,err_a,err_b\nd2z_1d,65536,1,PASS,0,-1\n')
+            with self.assertRaises(validation.CaseError) as caught:
+                validation.read_numerical_outputs(folder, 65536, 'd2z_1d', 3)
+            self.assertEqual(caught.exception.stage, 'trace')
+            self.assertEqual(caught.exception.returncode, 3)
+
     def exercise(self, failures=()):
         record = dict(numerical=[],dispatch=[],failures=[])
         attempted,saved = [],[]

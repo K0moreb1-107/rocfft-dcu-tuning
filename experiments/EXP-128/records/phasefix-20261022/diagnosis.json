@@ -1,0 +1,24 @@
+{
+  "failed_jobs": {
+    "build": "955131",
+    "validation": "955132",
+    "performance": "955133"
+  },
+  "numerical": {
+    "func": "d2z_1d",
+    "N": "65536",
+    "batch": "1",
+    "check": "FAIL",
+    "err_a": "1",
+    "err_b": "-1"
+  },
+  "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unified-validate-20261021/measurement-validation/65536-d2z_1d/profile/harness/fft_test_1d.check.csv",
+  "profiler_child_returncode": 2,
+  "root_cause": "Forward boundary lookup read three base-8 segments from a two-segment N=65536 table.",
+  "masked_error": "hipprof returned zero after child exit 2; missing timing CSV hid the failed numerical row.",
+  "fix": "Use the same ceil(ceil(log2(N))/8) rule as TwiddleTableLarge; report correctness before timings.",
+  "host_coverage": 283,
+  "device_acceptance": "pending",
+  "reference_installs_rebuilt": false,
+  "source_state_freeze": false
+}

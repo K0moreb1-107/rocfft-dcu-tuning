@@ -20,6 +20,7 @@
 
 #include <functional>
 
+#include "../../shared/arithmetic.h"
 #include "../../shared/array_predicate.h"
 #include "rtc_stockham_gen.h"
 #include "rtc_test_harness.h"
@@ -643,7 +644,13 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
         *global=typed(*global);
     }
     if(specs.real_io.HasBoundaryLargePhase())
-        src+="static constexpr size_t cc_boundary_phase_base=8, cc_boundary_phase_steps=3;\n";
+    {
+        // Match TwiddleTableLarge's allocation for the full real length.
+        // In particular, 2^16 has two base-8 segments, rather than three.
+        const auto steps = DivRoundingUp<size_t>(CeilPo2(specs.real_io.n), 8);
+        src += "static constexpr size_t cc_boundary_phase_base=8, cc_boundary_phase_steps="
+               + std::to_string(steps) + ";\n";
+    }
 
     *global = make_rtc(*global, kernel_name);
     src += global->render();
