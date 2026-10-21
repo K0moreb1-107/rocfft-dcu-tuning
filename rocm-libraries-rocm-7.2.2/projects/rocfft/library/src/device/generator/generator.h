@@ -604,53 +604,38 @@ class Printf;
 
 struct LineBreak
 {
-    static std::string render()
-    {
-        return "\n\n";
-    }
+    static std::string render() { return "\n\n"; }
 };
 
 struct SyncThreads
 {
-    static std::string render()
-    {
-        return "__syncthreads();";
-    }
+    static std::string render() { return "__syncthreads();"; }
 };
 
 struct SyncWaveThreads
 {
-    static std::string render()
-    {
-        return "__syncwarp();";
-    }
+    static std::string render() { return "__syncwarp();"; }
 };
 
 struct Return
 {
-    static std::string render()
-    {
-        return "return;\n";
-    }
+    static std::string render() { return "return;\n"; }
 };
 
 struct Break
 {
-    static std::string render()
-    {
-        return "break;\n";
-    }
+    static std::string render() { return "break;\n"; }
 };
 
 struct CommentLines
 {
     std::vector<std::string> comments;
-    std::string              render() const
+    std::string render() const
     {
         std::string s;
 
-        static const char* NEWLINE   = "\n";
-        const char*        separator = "";
+        static const char* NEWLINE = "\n";
+        const char* separator = "";
         for(auto c : comments)
         {
             s += separator;
@@ -660,50 +645,27 @@ struct CommentLines
         return s;
     }
     explicit CommentLines(std::initializer_list<std::string> il)
-        : comments(il){};
+        : comments(il) { };
 };
 
-using Statement = std::variant<Assign,
-                               ReturnExpr,
-                               Call,
-                               CallbackLoadDeclaration,
-                               CallbackStoreDeclaration,
-                               CommentLines,
-                               Declaration,
-                               LDSDeclaration,
-                               For,
-                               While,
-                               If,
-                               ElseIf,
-                               Else,
-                               StoreGlobal,
-                               StoreGlobalPlanar,
-                               LineBreak,
-                               Return,
-                               Break,
-                               SyncThreads,
-                               Butterfly,
-                               SyncWaveThreads,
-                               IntrinsicStore,
-                               IntrinsicStorePlanar,
-                               Printf>;
+using Statement = std::variant<Assign, ReturnExpr, Call, CallbackLoadDeclaration,
+    CallbackStoreDeclaration, CommentLines, Declaration, LDSDeclaration, For, While, If, ElseIf,
+    Else, StoreGlobal, StoreGlobalPlanar, LineBreak, Return, Break, SyncThreads, Butterfly,
+    SyncWaveThreads, IntrinsicStore, IntrinsicStorePlanar, Printf>;
 
 class Assign
 {
 public:
-    Variable    lhs;
-    Expression  rhs;
+    Variable lhs;
+    Expression rhs;
     std::string oper;
 
     Assign(const Variable& lhs, const Expression& rhs, const std::string& oper = "=")
         : lhs(lhs)
         , rhs(rhs)
-        , oper(oper){};
+        , oper(oper) { };
 
-    std::string render() const
-    {
-        return lhs.render() + " " + oper + " " + vrender(rhs) + ";";
-    }
+    std::string render() const { return lhs.render() + " " + oper + " " + vrender(rhs) + ";"; }
 };
 
 // +=, *= operators are just Assign with another operator
@@ -731,16 +693,16 @@ static Assign ModulusAssign(const Variable& lhs, const Expression& rhs)
 class Declaration
 {
 public:
-    Variable                  var;
+    Variable var;
     std::optional<Expression> value;
     explicit Declaration(const Variable& v)
-        : var(v){};
+        : var(v) { };
     Declaration(const Variable& v, Expression&& val)
         : var(v)
-        , value(std::move(val)){};
+        , value(std::move(val)) { };
     Declaration(const Variable& v, const Expression& val)
         : var(v)
-        , value(val){};
+        , value(val) { };
     std::string render() const;
 };
 
@@ -748,7 +710,7 @@ class LDSDeclaration
 {
 public:
     explicit LDSDeclaration(const std::string& scalar_type)
-        : scalar_type(scalar_type){};
+        : scalar_type(scalar_type) { };
     std::string scalar_type;
     std::string render() const
     {
@@ -767,10 +729,10 @@ public:
         // __shared__".  Another alternative would be the __align__
         // HIP macro, but that is not currently present in hipRTC.
         return "extern __shared__ unsigned char __attribute__((aligned(sizeof(" + scalar_type
-               + ")))) lds_uchar[];\nreal_type_t<" + scalar_type
-               + ">* __restrict__ lds_real = reinterpret_cast<real_type_t<" + scalar_type
-               + ">*>(lds_uchar);\n" + scalar_type
-               + "* __restrict__ lds_complex = reinterpret_cast<" + scalar_type + "*>(lds_uchar);";
+            + ")))) lds_uchar[];\nreal_type_t<" + scalar_type
+            + ">* __restrict__ lds_real = reinterpret_cast<real_type_t<" + scalar_type
+            + ">*>(lds_uchar);\n" + scalar_type + "* __restrict__ lds_complex = reinterpret_cast<"
+            + scalar_type + "*>(lds_uchar);";
     }
 };
 
@@ -779,13 +741,18 @@ class CallbackLoadDeclaration
 public:
     CallbackLoadDeclaration(const std::string& scalar_type, const std::string& cbtype)
         : scalar_type(scalar_type)
-        , cbtype(cbtype){};
+        , cbtype(cbtype) { };
     std::string scalar_type;
     std::string cbtype;
     // true if loading complex data through a real-valued callback
-    bool        r2c_callback = false;
+    bool r2c_callback = false;
+    bool typed_real_io = false, user_boundary = false, real_boundary = false;
     std::string render() const
     {
+        if(typed_real_io)
+            return "cc_boundary_load<" + scalar_type + ", " + cbtype + ", "
+                + (user_boundary ? "true" : "false") + ", " + (real_boundary ? "true" : "false")
+                + "> load_cb{load_cb_fn};";
         if(r2c_callback)
             // declare a lambda that calls the real-valued callback
             // twice to load one complex value
@@ -810,13 +777,18 @@ class CallbackStoreDeclaration
 public:
     CallbackStoreDeclaration(const std::string& scalar_type, const std::string& cbtype)
         : scalar_type(scalar_type)
-        , cbtype(cbtype){};
+        , cbtype(cbtype) { };
     std::string scalar_type;
     std::string cbtype;
     // true if storing complex data through a real-valued callback
-    bool        c2r_callback = false;
+    bool c2r_callback = false;
+    bool typed_real_io = false, user_boundary = false, real_boundary = false;
     std::string render() const
     {
+        if(typed_real_io)
+            return "cc_boundary_store<" + scalar_type + ", " + cbtype + ", "
+                + (user_boundary ? "true" : "false") + ", " + (real_boundary ? "true" : "false")
+                + "> store_cb{store_cb_fn};";
         if(c2r_callback)
             // declare a lambda that calls the real-valued callback
             // twice to store one complex value
@@ -830,7 +802,7 @@ public:
             )lambda";
         else
             return "auto store_cb = get_store_cb<" + scalar_type + ", " + cbtype
-                   + ">(store_cb_fn);";
+                + ">(store_cb_fn);";
     }
 };
 

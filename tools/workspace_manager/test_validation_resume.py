@@ -67,59 +67,32 @@ class ResumeTests(unittest.TestCase):
 
 class FinalVerifierTests(unittest.TestCase):
     def setUp(self):
-        self.tmp=tempfile.TemporaryDirectory(dir=os.environ.get("TMPDIR"));self.addCleanup(self.tmp.cleanup)
+        self.tmp=tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR'));self.addCleanup(self.tmp.cleanup)
         self.path=Path(self.tmp.name);self.lib=self.path/'lib.so';self.lib.write_bytes(b'library')
         sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
         self.gpu={'count':1,'uuid':'0123456789abcdef0123456789abcdef','arch':'gfx936'}
-        self.device=self.path/'device_identity'
-        self.calls=[]
+        self.device=self.path/'device_identity';self.calls=[]
         def process(argv,**kwargs):
-            self.calls.append(argv)
-            if argv[0]=='git':return 'tree'
-            require(argv==[str(self.device)],'device executable was shadowed')
+            self.calls.append(argv);require(argv==[str(self.device)],'device executable shadowed')
             return json.dumps(self.gpu)
-        self.subprocess=types.SimpleNamespace(check_output=process)
-        self.namespace={'mgr':types.SimpleNamespace(require=require,inside=Path,common=types.SimpleNamespace(sha=sha)),
-                        'json':json,'subprocess':self.subprocess,'ROOT':self.path,
-                        'matching_source_tree':lambda *args:{'tree_sha1':'tree'}}
-        self.finish=function(ROOT/'experiments/EXP-127/scripts/validate_cc_all_io.py',
-                             'finish_validation',self.namespace)
-        self.v={'policy_index':0,'policy':'retained'}
-        self.record={'default_cases':[],'boundary_cases':[],'controls':[]}
-        self.built={'arm':{'library_sha256':sha(self.lib)}}
-        self.model={'cases':0,'configurations':0};self.coverage={'cases':[]}
+        self.namespace={'mgr':types.SimpleNamespace(require=require,common=types.SimpleNamespace(sha=sha)),
+                        'json':json,'subprocess':types.SimpleNamespace(check_output=process)}
+        self.finish=function(ROOT/'tools/workspace_manager/validation_finish.py','finish',self.namespace)
+        self.record={};self.built={'arm':{'library_sha256':sha(self.lib)}}
 
-    def run_finish(self):
-        self.finish(self.record,self.v,self.built,{},self.coverage,self.model,self.gpu,{},self.lib,self.device)
-
-    def test_retained_uses_device_executable(self):
-        self.run_finish();self.assertTrue(self.record['complete'])
-        self.assertEqual(self.calls[-1],[str(self.device)])
-
-    def test_nonretained_identity_data_never_overwrites_device(self):
-        sha=self.namespace['mgr'].common.sha
-        self.built.update(plan={'source_identity':{},'profile':{'ROCFFT_REAL_PAIR_IO_POLICY':'direct-scalar'}},compiler_version='same')
-        prior={'complete':True,'arm':{'install':str(self.path),'source_commit':'commit','library_sha256':sha(self.lib)},
-               'plan':{'source_identity':{},'profile':{'ROCFFT_REAL_PAIR_IO_POLICY':'retained'}},'compiler_version':'same'}
-        libpath=self.path/'lib/librocfft.so.0.1';libpath.parent.mkdir();libpath.write_bytes(b'library')
-        other={'complete':True,'policy':'retained','source_commit':'commit','library_sha256':sha(self.lib),'default_cases':[],'controls':[]}
-        checked={'complete':True,'source_commit':'commit','library_sha256':sha(self.lib)}
-        for name,value in [('build-provenance.json',prior),('cc-all-io-validation.json',other),('post-build-validation.json',checked),
-                           ('identity.json',{'files':{},'fft_subtree':'tree'})]:
-            (self.path/name).write_text(json.dumps(value))
-        self.v.update(policy_index=2,policy='direct-scalar',retained_build_record=str(self.path/'build-provenance.json'),
-                      retained_identity=str(self.path/'identity.json'))
-        self.run_finish();self.assertTrue(self.record['complete'])
-        self.assertEqual(self.calls[-1],[str(self.device)])
+    def test_actual_device_executable(self):
+        self.finish(self.record,self.built,self.gpu,{},self.lib,self.device)
+        self.assertTrue(self.record['complete']);self.assertEqual(self.calls,[[str(self.device)]])
 
     def test_device_change_rejected(self):
-        self.namespace['subprocess'].check_output=lambda *args,**kwargs:json.dumps({'count':2})
-        with self.assertRaises(ValueError):self.run_finish()
+        self.namespace['subprocess'].check_output=lambda *a,**kw:json.dumps({'count':2})
+        with self.assertRaises(ValueError):self.finish(self.record,self.built,self.gpu,{},self.lib,self.device)
         self.assertNotIn('complete',self.record)
 
     def test_library_change_rejected(self):
         self.lib.write_bytes(b'changed')
-        with self.assertRaises(ValueError):self.run_finish()
+        with self.assertRaises(ValueError):self.finish(self.record,self.built,self.gpu,{},self.lib,self.device)
+        self.assertNotIn('complete',self.record)
 
 
 class QueueGateTests(unittest.TestCase):

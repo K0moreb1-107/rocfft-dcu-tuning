@@ -36,6 +36,8 @@ using namespace std::placeholders;
 #include "device/generator/stockham_gen_rc.h"
 #include "device/generator/stockham_gen_local_real.h"
 #include "device/generator/stockham_gen_real_post.h"
+#include "device/generator/stockham_gen_cc_real_columns.h"
+#include "device/generator/stockham_gen_cc_real_rows.h"
 #include "device/generator/stockham_gen_rr.h"
 #include "device/generator/stockham_pp_gen_cc.h"
 #include "device/generator/stockham_pp_gen_rr.h"
@@ -257,7 +259,14 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
         kernel_name += "_ordtwrec128k";
     if(specs.real_io.role != RealBlockRole::None)
     {
-        if(specs.real_io.role == RealBlockRole::PairedPostRows)
+        if(specs.real_io.IsCCLocal())
+        {
+            kernel_name+="_cc_local_v1_role"+std::to_string(static_cast<int>(specs.real_io.role));
+            kernel_name+="_C"+std::to_string(specs.real_io.columns)+"_Q"+std::to_string(specs.real_io.rows);
+            if(specs.real_io.role==RealBlockRole::LocalPostColumns)
+                kernel_name+=specs.half_lds?"_scalar_exchange":"_complex_exchange";
+        }
+        else if(specs.real_io.role == RealBlockRole::PairedPostRows)
             kernel_name += "_paired_post_rows";
         else
             kernel_name += specs.real_io.role == RealBlockRole::HermitianColumns
@@ -345,7 +354,11 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
             kernel = std::make_unique<StockhamPartialPassKernelRR>(specs, params_pp);
         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC)
         {
-            if(specs.real_io.role == RealBlockRole::HermitianColumns)
+            if(specs.real_io.role == RealBlockRole::FoldedPackedColumns)
+                kernel=std::make_unique<StockhamKernelFoldedPackedColumns>(specs,cbtype!=CallbackType::NONE);
+            else if(specs.real_io.role == RealBlockRole::LocalPostColumns)
+                kernel=std::make_unique<StockhamKernelLocalPostColumns>(specs);
+            else if(specs.real_io.role == RealBlockRole::HermitianColumns)
                 kernel = std::make_unique<StockhamKernelHermitianColumns>(specs, largeTwdBatchIsTransformCount);
             else
                 kernel = std::make_unique<StockhamKernelCC>(specs, largeTwdBatchIsTransformCount, fuseBluestein);
@@ -357,7 +370,11 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
             kernel = std::make_unique<StockhamKernelCR>(specs);
         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_RC)
         {
-            if(specs.real_io.role == RealBlockRole::LocalRealRows)
+            if(specs.real_io.role == RealBlockRole::PackedInverseRows)
+                kernel=std::make_unique<StockhamKernelPackedInverseRows>(specs);
+            else if(specs.real_io.role == RealBlockRole::FoldedSpectrumRows)
+                kernel=std::make_unique<StockhamKernelFoldedSpectrumRows>(specs);
+            else if(specs.real_io.role == RealBlockRole::LocalRealRows)
                 kernel = std::make_unique<StockhamKernelLocalRealRows>(
                     specs, local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
             else if(specs.real_io.role == RealBlockRole::PairedPostRows)
@@ -489,7 +506,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
     src += butterfly_constant_h;
 
     // only SBCCs need this
-    if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC || scheme == CS_KERNEL_STOCKHAM_PP_BLOCK_CC)
+    if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC || scheme == CS_KERNEL_STOCKHAM_PP_BLOCK_CC
+       || specs.real_io.HasBoundaryLargePhase())
         src += large_twiddles_h;
     // append the neccessary functions only
     append_radix_h(src, all_factors);
@@ -503,6 +521,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
     if(specs.real_io.role == RealBlockRole::PairedPostRows)
         src += real_post_device_helpers(specs.real_io,
                                        specs.workgroup_size / specs.threads_per_transform);
+    if(specs.real_io.IsCCLocal())
+        src+=cc_real_device_helpers();
 
     src += lds2reg->render();
     src += reg2lds->render();
@@ -613,6 +633,13 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
     src += "static const size_t large_twiddle_steps = " + std::to_string(largeTwdSteps) + ";\n";
 
     *global = make_callback_realcomplex(*global, cbtype);
+    if(specs.real_io.IsCCLocal())
+    {
+        CCRealTypedIOVisitor typed(specs.real_io);
+        *global=typed(*global);
+    }
+    if(specs.real_io.HasBoundaryLargePhase())
+        src+="static constexpr size_t cc_boundary_phase_base=8, cc_boundary_phase_steps=3;\n";
 
     *global = make_rtc(*global, kernel_name);
     src += global->render();

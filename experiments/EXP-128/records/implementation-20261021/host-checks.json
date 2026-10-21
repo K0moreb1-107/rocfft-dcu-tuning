@@ -1,0 +1,45 @@
+{
+  "generator_target": "rocfft-rtc-gen -j16, isolated EXP128 preflight",
+  "source_generation": {
+    "geometries": 279,
+    "sources": 2232,
+    "result": "PASS"
+  },
+  "representative_generated_syntax": {
+    "geometries": 12,
+    "sources": 96,
+    "result": "PASS",
+    "command": "hipcc --offload-arch=gfx936 -mcumode -std=c++17 -include hip/hip_runtime.h -fsyntax-only -DROCFFT_CALLBACKS_ENABLED <generated source>"
+  },
+  "host_syntax": {
+    "files": [
+      "tree_node_real.cpp",
+      "tree_node.cpp",
+      "tree_node_1D.cpp",
+      "plan.cpp",
+      "assignment_policy.cpp",
+      "rtc_stockham_kernel.cpp",
+      "node_factory.cpp",
+      "cc_local_pipeline_guard.cpp"
+    ],
+    "result": "PASS"
+  },
+  "management_regressions": {
+    "tests": 33,
+    "result": "PASS"
+  },
+  "preflight_root": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/host-20261021",
+  "local_run_records": {
+    "final-preflight.json": {
+      "returncode": 0,
+      "stdout": "generator-common 0\ncompile-driver 0\nlink-driver 0\ngeneration-matrix 0\nassignment_policy.cpp-syntax 0\nnode_factory.cpp-syntax 0\ncc_local_pipeline_guard.cpp-syntax 0\n{\"generated_matrix\": 2232, \"syntax_cases\": 96, \"failure_count\": 0, \"first_failures\": []}\n",
+      "stderr": ""
+    },
+    "manager-regression.json": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ".................................\n----------------------------------------------------------------------\nRan 33 tests in 8.261s\n\nOK\n"
+    }
+  },
+  "evidence_level": "Host generation/compilation, indexing and management tests only. Device correctness and performance are pending."
+}

@@ -1063,6 +1063,27 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
     virtual StatementList calculate_offsets() = 0;
 
+    // Boundary adapters enumerate exactly the ordinary first/last pass map.
+    // The lane expression is supplied by the tiling (linear RC or interleaved CC).
+    template <typename Emit>
+    StatementList pass_io(bool first, const Expression& lane, Emit emit) const
+    {
+        const unsigned int width = first ? factors.front() : factors.back();
+        const unsigned int count = length / width;
+        StatementList result;
+        for(unsigned int h = 0; h * threads_per_transform < count; ++h)
+        {
+            StatementList items;
+            for(unsigned int w = 0; w < width; ++w)
+                items += emit(lane + h * threads_per_transform + w * count, h * width + w);
+            if((h + 1) * threads_per_transform <= count)
+                result += items;
+            else
+                result += If{lane + h * threads_per_transform < count, items};
+        }
+        return result;
+    }
+
     virtual StatementList load_from_global(bool load_registers) = 0;
 
     virtual StatementList store_to_global(bool store_registers) = 0;

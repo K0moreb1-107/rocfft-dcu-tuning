@@ -62,6 +62,11 @@ TreeNode::~TreeNode()
         Repo::ReleaseTwiddle1D(real_post_twiddles);
         real_post_twiddles = nullptr;
     }
+    if(cc_boundary_twiddles)
+    {
+        Repo::ReleaseTwiddle1D(cc_boundary_twiddles);
+        cc_boundary_twiddles=nullptr;
+    }
     if(twiddles_large)
     {
         Repo::ReleaseTwiddle1D(twiddles_large);
@@ -298,6 +303,15 @@ bool LeafNode::CreateDeviceResources()
             = Repo::GetTwiddles1D(2 * real_io.rows, real_io.rows / 2,
                                   precision, deviceProp, 0, false, {});
     }
+    if(real_io.IsCCLocal() && real_io.SmallPhaseLength())
+    {
+        const auto l=real_io.SmallPhaseLength();
+        std::tie(local_real_twiddles,local_real_twiddles_size)
+            = Repo::GetTwiddles1D(2*l,(l+1)/2,precision,deviceProp,0,false,{});
+    }
+    if(real_io.HasBoundaryLargePhase())
+        std::tie(cc_boundary_twiddles,cc_boundary_twiddles_size)
+            = Repo::GetTwiddles1D(real_io.n,0,precision,deviceProp,8,false,{});
     if(real_io.role == RealBlockRole::PairedPostRows)
     {
         const auto kernel         = GetKernel();

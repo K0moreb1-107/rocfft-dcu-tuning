@@ -139,6 +139,20 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
               && specs->factors == std::vector<unsigned int>{8, 8, 8};
 
         specs->real_io = node.real_io;
+        if(node.real_io.IsCCLocal())
+        {
+            specs->direct_to_from_reg=true;
+            specs->static_initial_reg_load=true;
+            specs->static_initial_reg_load_linear=pool_scheme==CS_KERNEL_STOCKHAM_BLOCK_RC;
+            if(node.real_io.IsInputBoundary())
+                specs->real_io.load=RealBlockLoad::Registers;
+            else if(node.real_io.role==RealBlockRole::PackedInverseRows)
+                specs->real_io.load=RealBlockIO::CanRegisterPre(specs->length,specs->factors.front(),specs->threads_per_transform)
+                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
+            else
+                specs->real_io.load=static_pow2_sbrc_map && node.sbrcTranstype==TILE_ALIGNED
+                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
+        }
         // The ordinary CC LDS entry uses an unswizzled complex staging layout.
         if(node.real_io.role == RealBlockRole::HermitianColumns
            && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
@@ -352,6 +366,10 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
 
     if(data.node->real_io.role == RealBlockRole::PairedPostRows)
         kargs.append_ptr(data.node->real_post_twiddles);
+    if(data.node->real_io.IsCCLocal() && data.node->real_io.SmallPhaseLength())
+        kargs.append_ptr(data.node->local_real_twiddles);
+    if(data.node->real_io.HasBoundaryLargePhase())
+        kargs.append_ptr(data.node->cc_boundary_twiddles);
 
     append_load_store_args(kargs, *data.node);
 

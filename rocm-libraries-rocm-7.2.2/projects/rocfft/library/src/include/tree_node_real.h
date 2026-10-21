@@ -68,6 +68,9 @@ public:
     bool TryBuildLocalRealTree(size_t n);
     void AssignLocalRealParams();
     bool TryFusePairedPost(TreeNode& cfft, size_t n);
+    bool cc_local_pipeline = false;
+    bool TryBuildCCLocalTree(const TreeNode& cfft, size_t n);
+    void AssignCCLocalParams();
 
     // 3D Even can possibly set this
     bool try_fuse_pre_post_processing = false;

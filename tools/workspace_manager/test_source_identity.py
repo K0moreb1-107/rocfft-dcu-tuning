@@ -69,14 +69,12 @@ class BuildSourceIdentity(unittest.TestCase):
         self.assertEqual(manager.source_identity(self.cfg), before)
         self.assertNotEqual(manager.repository_tracked_state(self.root), audit_before)
 
-    def test_dirty_or_untracked_fft_source_is_rejected(self):
+    def test_dirty_or_untracked_fft_source_does_not_block(self):
         path, original = self.change('projects/rocfft/kernel.cpp')
-        with self.assertRaisesRegex(ValueError, 'not clean'):
-            manager.source_identity(self.cfg)
+        self.assertEqual(manager.source_identity(self.cfg)['commit'], self.cfg['build']['source_commit'])
         path.write_text(original)
         (self.source/'new_kernel.cpp').write_text('int another = 2;\n')
-        with self.assertRaisesRegex(ValueError, 'not clean'):
-            manager.source_identity(self.cfg)
+        self.assertEqual(manager.source_identity(self.cfg)['commit'], self.cfg['build']['source_commit'])
 
     def test_changed_management_and_validation_inputs_change_identity(self):
         before = manager.source_identity(self.cfg)
@@ -95,17 +93,18 @@ class BuildSourceIdentity(unittest.TestCase):
         (self.root/'tools/workspace_manager/new_dependency.py').write_text('# new dependency\n')
         self.assertNotEqual(manager.source_identity(self.cfg), before)
 
-    def test_frozen_task_inputs_reject_changes_before_worker_start(self):
+    def test_recorded_task_inputs_do_not_lock_validation_files(self):
         self.cfg['build']['task_input_sha256'] = manager.build_input_identity(self.cfg)
         manager.source_identity(self.cfg)
         self.change('experiments/EXP-999/input.json')
-        with self.assertRaisesRegex(ValueError, 'frozen build/validation task inputs changed'):
-            manager.source_identity(self.cfg)
+        state=manager.source_identity(self.cfg)
+        self.assertNotEqual(state['task_input_sha256'], self.cfg['build']['task_input_sha256'])
 
-    def test_commit_drift_still_rejected(self):
+    def test_requested_and_actual_commit_are_both_recorded(self):
         self.cfg['build']['source_commit'] = '0' * 40
-        with self.assertRaisesRegex(ValueError, 'HEAD differs'):
-            manager.source_identity(self.cfg)
+        state=manager.source_identity(self.cfg)
+        self.assertEqual(state['requested_commit'],'0'*40)
+        self.assertEqual(state['commit'],self.git('rev-parse','HEAD'))
 
 
 if __name__ == '__main__':

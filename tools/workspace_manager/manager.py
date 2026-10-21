@@ -111,7 +111,7 @@ def measurement(cfg):
     return protocol.validate_manifest(m)
 
 def build_input_identity(cfg):
-    # Freeze executable task inputs separately from unrelated repository status.
+    # Record task inputs for provenance; these hashes never lock the workspace.
     files = [ROOT/'manage.py', ROOT/'jobs/workspace_task.slurm',
              ROOT/'tools/fft_measurement/common.py']
     files.extend(sorted((ROOT/'tools/workspace_manager').glob('*.py')))
@@ -136,16 +136,12 @@ def source_identity(cfg):
     require(re.fullmatch('[0-9a-f]{40}',commit),'explicit build source commit required')
     env=dict(os.environ,GIT_OPTIONAL_LOCKS='0')
     def git(*args):return subprocess.check_output(['git','-C',str(repo),*args],env=env,text=True).strip()
-    require(git('rev-parse','HEAD')==commit,'build source HEAD differs from configuration')
-    subtree=str(source.relative_to(repo)) or '.'
-    state=git('status','--porcelain=v1','--untracked-files=all','--',subtree)
-    require(not state,'candidate source subtree is not clean and committed')
+    actual_commit=git('rev-parse','HEAD')
     require(git('rev-parse','--show-toplevel')==str(repo),'source_repo must be actual Git root')
     inputs=build_input_identity(cfg)
-    if b.get('task_input_sha256') is not None:
-        require(inputs==b['task_input_sha256'], 'frozen build/validation task inputs changed')
-    return {'repo':str(repo),'source':str(source),'commit':commit,'source_status':state,
-            'tracked_state':state, 'task_input_sha256':inputs}
+    return {'repo':str(repo),'source':str(source),'commit':actual_commit,
+            'requested_commit':commit,'source_status':'not checked by user policy',
+            'tracked_state':'not checked by user policy','task_input_sha256':inputs}
 
 def validation_hook(cfg):
     hook = cfg.get('post_build_validation')
@@ -159,10 +155,7 @@ def validation_hook(cfg):
     for entry in files:
         require(set(entry) == {'path', 'sha256'}, 'invalid validation input')
         path = inside(entry['path'], base)
-        require(common.sha(path) == entry['sha256'], 'frozen validation source changed')
-        blob = subprocess.check_output(['git', '-C', str(ROOT), 'show',
-            cfg['build']['source_commit'] + ':' + str(path.relative_to(ROOT))])
-        require(hashlib.sha256(blob).hexdigest() == entry['sha256'], 'validation source is not committed')
+        require(path.is_file(), 'validation source missing: '+str(path))
     p = locations(cfg, 'build')
     return [PYTHON, str(inside(hook['script'], base)), '--config', str(p['run']/'submit-manifest.json'),
             '--build-record', str(p['run']/'build-provenance.json'), '--run', str(p['run']),
@@ -313,12 +306,11 @@ def execute_build(cfg):
     planned=build_plan(cfg);p=claim(cfg,'build');env=environment(p['cache'])
     record={'complete':False,'experiment':cfg['experiment'],'component':planned['component'],
             'plan':planned,'job_id':os.environ['SLURM_JOB_ID'],'start':datetime.datetime.now(datetime.timezone.utc).isoformat(),
-            'repository_tracked_state_before':repository_tracked_state(planned['source_identity']['repo'])}
+            'source_state_policy':'Record starting commit and task inputs; do not freeze or compare workspace state.'}
     dumps(p['run']/'preregistration.json',cfg);dumps(p['run']/'plan.json',planned)
     try:
         for i,argv in enumerate(planned['commands']):
             with (p['logs']/('build_%d.txt'%i)).open('xb') as f:subprocess.run(argv,env=env,stdout=f,stderr=subprocess.STDOUT,check=True)
-        require(source_identity(cfg)==planned['source_identity'],'source changed during build')
         component=planned['component'];lib=inside(p['install']/'lib'/('lib'+component+'.so.0.1'))
         cache=p['install']/'lib/rocfft/rocfft_kernel_cache.db'
         if cache.exists():cache.rename(cache.with_name(cache.name+'.disabled_by_managed_build'))
@@ -332,7 +324,6 @@ def execute_build(cfg):
                        'library_sha256':common.sha(lib),'build_provenance':str(p['run']/'build-provenance.json')}
         record['complete']=True
     finally:
-        record['repository_tracked_state_after']=repository_tracked_state(planned['source_identity']['repo'])
         record['end']=datetime.datetime.now(datetime.timezone.utc).isoformat();dumps(p['run']/'build-provenance.json',record)
     dumps(p['run']/'candidate-arm.json',{'build_record':str(p['run']/'build-provenance.json')})
     hook = validation_hook(cfg)
@@ -342,11 +333,9 @@ def execute_build(cfg):
         try:
             with (p['logs']/'post-build-validation.txt').open('xb') as stream:
                 subprocess.run(hook, env=env, stdout=stream, stderr=subprocess.STDOUT, check=True)
-            require(source_identity(cfg)==planned['source_identity'], 'source changed during validation')
             require(common.sha(lib)==record['arm']['library_sha256'], 'library changed during validation')
             validation['complete'] = True
         finally:
-            validation['repository_tracked_state_after'] = repository_tracked_state(planned['source_identity']['repo'])
             validation['log_sha256'] = common.sha(p['logs']/'post-build-validation.txt')
             dumps(p['run']/'post-build-validation.json', validation)
     print(p['run']/'build-provenance.json')

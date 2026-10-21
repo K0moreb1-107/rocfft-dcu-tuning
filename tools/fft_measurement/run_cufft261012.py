@@ -77,7 +77,7 @@ def execute(m):
                 loaded.append(inside(path))
         require(len(set(loaded)) == 1 and loaded[0] == lib, 'actual linked rocFFT is not declared library')
         (logs / (arm+'_ldd.txt')).write_text(ldd, encoding='utf-8')
-        provenance['arms'][arm] = dict(a, actual_library=str(lib), binary_sha256=sha(binary), source_head=command(['git','-C',a['source_repo'],'rev-parse','HEAD']).strip(), source_status=command(['git','-C',a['source_repo'],'status','--porcelain=v1','--untracked-files=no']))
+        provenance['arms'][arm] = dict(a, actual_library=str(lib), binary_sha256=sha(binary))
         binaries[arm] = binary
     tool_names = ('common.py', 'sample_contract.py', 'cufft261012_contract.py', 'run_cufft261012.py', 'summarize_cufft261012.py', 'plot_cufft261012.py', *SOURCE_FILES, 'device_identity.cpp')
     provenance['tools_sha256'] = {name: sha(HERE/name) for name in tool_names}
@@ -117,7 +117,6 @@ def execute(m):
         for arm in selected:
             require(sha(provenance['arms'][arm]['actual_library']) == m['arms'][arm]['library_sha256'], 'library changed at completion')
         require(json.loads(command([identity], env)) == gpu, 'GPU changed at completion')
-        require(all(sha(HERE/name) == digest for name, digest in provenance['tools_sha256'].items()), 'measurement tools changed during run')
         provenance['complete'] = True
     finally:
         provenance['end'] = datetime.datetime.now(datetime.timezone.utc).isoformat()

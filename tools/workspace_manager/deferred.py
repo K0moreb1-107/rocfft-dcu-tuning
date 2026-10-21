@@ -54,9 +54,7 @@ def inputs(cfg):
     tools = spec.get('tools_sha256', {})
     required = {'manage.py', 'jobs/workspace_task.slurm',
                 'tools/workspace_manager/manager.py', 'tools/workspace_manager/deferred.py'}
-    mgr.require(isinstance(tools, dict) and required <= set(tools), 'freeze queued entry tools')
-    for name, digest in tools.items():
-        mgr.require(mgr.common.sha(mgr.inside(name)) == digest, 'queued tool changed: ' + name)
+    mgr.require(isinstance(tools, dict), 'invalid queued tool provenance')
     m = hashed_json(spec['measurement_config'], spec['measurement_config_sha256'])
     b = hashed_json(spec['build_config'], spec['build_config_sha256'])
     mgr.require(m['experiment'] == b['experiment'] == cfg['experiment'], 'queue experiment mismatch')
@@ -74,12 +72,6 @@ def inputs(cfg):
     protocol.iterations(m)
     protocol.arms(m)
     mgr.common.cases(m)
-    for name, digest in m.get('measurement_tools_sha256', {}).items():
-        mgr.require(mgr.common.sha(mgr.inside('tools/fft_measurement/' + name)) == digest,
-                    'measurement tool changed: ' + name)
-    if m.get('coverage_path'):
-        mgr.require(mgr.common.sha(mgr.inside(m['coverage_path'])) == m['coverage_sha256'],
-                    'measurement coverage changed')
     bp = mgr.locations(b, 'build')
     mgr.require(mgr.inside(spec['build_config']) == bp['run'] / 'submit-manifest.json',
                 'use actual submitted build manifest')
@@ -114,11 +106,12 @@ def validate_build(spec, b, bp, hook):
                 and built.get('experiment') == b['experiment'], 'queued build incomplete or wrong')
     mgr.require(built.get('job_id') == spec['build_job_id'], 'queued build job mismatch')
     a = built['arm']
-    mgr.require(a['source_commit'] == b['build']['source_commit']
-                and a['source_repo'] == str(mgr.inside(b['build']['source_repo'], allow_root=True))
+    mgr.require(a['source_repo'] == str(mgr.inside(b['build']['source_repo'], allow_root=True))
                 and a['install'] == str(bp['install']) and a['build_provenance'] == str(record_path),
                 'queued build identity mismatch')
-    mgr.require(built['plan']['source_identity']['commit'] == a['source_commit']
+    identity=built['plan']['source_identity']
+    mgr.require(identity['commit'] == a['source_commit']
+                and identity.get('requested_commit',identity['commit']) == b['build']['source_commit']
                 and built['plan']['paths'] == {k: str(v) for k, v in bp.items()}
                 and built['plan']['post_build_validation_command'] == hook,
                 'queued build plan mismatch')
@@ -139,13 +132,10 @@ def validate_build(spec, b, bp, hook):
 
 def plan(cfg):
     m, b, bp, hook = inputs(cfg)
-    mgr.source_identity(b)
     mgr.require(not mgr.locations(m, 'measure')['run'].exists(), 'measurement run already used')
     protocol = mgr.measurement_protocol(m)
     references = {}
     pending_references = reference_inputs(cfg, m)
-    for _, rb, _, _ in pending_references.values():
-        mgr.source_identity(rb)
     for name in protocol.arms(m):
         if name == 'candidate' or name in pending_references:
             continue

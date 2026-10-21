@@ -990,6 +990,8 @@ bool SBCCNode::KernelCheck(std::vector<FMKey>& kernel_keys)
     {
         auto kernel    = GetKernel();
         largeTwd3Steps = kernel.use_3steps_large_twd;
+        if(real_io.role==RealBlockRole::FoldedPackedColumns && large1D>(size_t(1)<<18))
+            largeTwd3Steps=false;
         get_large_twd_base_steps(large1D, largeTwd3Steps, largeTwdBase, ltwdSteps);
     }
 
@@ -1013,6 +1015,12 @@ bool SBCCNode::KernelCheck(std::vector<FMKey>& kernel_keys)
     {
         dir2regMode = DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
         intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+    }
+    if(real_io.IsCCLocal())
+    {
+        // New column adapters provide the complete native register map.
+        dir2regMode=DirectRegType::TRY_ENABLE_IF_SUPPORT;
+        intrinsicMode=IntrinsicAccessType::DISABLE_BOTH;
     }
 
     return true;

@@ -1194,7 +1194,10 @@ void CollectTempBufOps(TreeNode&               node,
             CollectTempBufOps(**child, buf, users);
 
         // Store this write
-        insertOp({node.UseOutputLengthForPadding() ? node.GetOutputLength() : node.length,
+        if(const auto view=node.GetPhysicalOutputBufferView())
+            insertOp({view->length,node.outStride,node.oDist,TempBufOp::BufWrite,node});
+        else
+            insertOp({node.UseOutputLengthForPadding() ? node.GetOutputLength() : node.length,
                   node.outStride,
                   node.oDist,
                   TempBufOp::BufWrite,
@@ -1243,7 +1246,7 @@ void AssignmentPolicy::PadPlan(ExecPlan& execPlan)
 
     RecursiveTraverse(execPlan.rootPlan.get(), [&execPlan](TreeNode* n) {
         // Skip nodes that have partial passes
-        if(n->isPartialPassEnabled())
+        if(n->isPartialPassEnabled() || n->real_io.IsCCLocal())
             return;
 
         // Look for nodes that begin writing to a new temp buffer

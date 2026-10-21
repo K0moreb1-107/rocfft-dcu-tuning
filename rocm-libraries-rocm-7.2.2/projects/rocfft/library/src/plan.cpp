@@ -4224,6 +4224,8 @@ void TreeNode::DetermineBufferMemory(size_t& tmpBufSize,
                               (typeBlue == BT_MULTI_KERNEL_FUSED) ? outStrideBlue : outStride,
                               batch,
                               (typeBlue == BT_MULTI_KERNEL_FUSED) ? oDistBlue : oDist);
+        if(const auto view=GetPhysicalOutputBufferView())
+            outputPtrDiff=compute_ptrdiff(view->length,view->stride,batch,view->dist);
 
         if(scheme == CS_KERNEL_CHIRP)
             chirpSize = std::max(lengthBlue, chirpSize);

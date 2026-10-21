@@ -397,6 +397,8 @@ public:
     size_t           local_real_twiddles_size = 0;
     void*            real_post_twiddles = nullptr;
     size_t           real_post_twiddles_size = 0;
+    void*            cc_boundary_twiddles = nullptr;
+    size_t           cc_boundary_twiddles_size = 0;
     void*            twiddles_large      = nullptr;
     size_t           twiddles_large_size = 0;
     void*            twiddles_pp         = nullptr;
@@ -566,23 +568,35 @@ public:
     // node.
     void SetTransposeOutputLength();
 
-    // Physical reads may differ from the virtual transform geometry.
-    RealBufferView GetInputBufferView() const
-    {
-        if(real_io.role == RealBlockRole::HermitianColumns)
-            return {{real_io.n / 2 + 1}, {1}, iDist};
-        if(real_io.role == RealBlockRole::LocalRealRows)
-            return {{real_io.rows + 1, real_io.columns}, inStride, iDist};
-        return {length, inStride, iDist};
-    }
+// Physical reads may differ from the virtual transform geometry.
+RealBufferView GetInputBufferView() const
+{
+    // These views use the leaf's complex-alias units, including the real
+    // input/output boundaries (N doubles occupy M complex slots).
+    if(real_io.role == RealBlockRole::FoldedPackedColumns)
+        return { { real_io.n / 2 + 1 }, { 1 }, iDist };
+    if(real_io.role == RealBlockRole::LocalPostColumns)
+        return { { real_io.n / 2 }, { 1 }, iDist };
+    if(real_io.role == RealBlockRole::HermitianColumns)
+        return { { real_io.n / 2 + 1 }, { 1 }, iDist };
+    if(real_io.role == RealBlockRole::LocalRealRows)
+        return { { real_io.rows + 1, real_io.columns }, inStride, iDist };
+    return { length, inStride, iDist };
+}
 
-    // The fused post-processing expands a virtual AxQ FFT to M+1 values.
-    std::optional<RealBufferView> GetPhysicalOutputBufferView() const
-    {
-        if(real_io.role == RealBlockRole::PairedPostRows)
-            return RealBufferView{{real_io.n / 2 + 1}, {1}, oDist};
-        return std::nullopt;
-    }
+// The fused post-processing expands a virtual AxQ FFT to M+1 values.
+std::optional<RealBufferView> GetPhysicalOutputBufferView() const
+{
+    if(real_io.role == RealBlockRole::FoldedPackedColumns)
+        return RealBufferView { { real_io.columns, real_io.rows }, { real_io.rows, 1 }, oDist };
+    if(real_io.role == RealBlockRole::PackedInverseRows)
+        return RealBufferView { { real_io.n / 2 }, { 1 }, oDist };
+    if(real_io.role == RealBlockRole::FoldedSpectrumRows)
+        return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
+    if(real_io.role == RealBlockRole::PairedPostRows)
+        return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
+    return std::nullopt;
+}
 
     // Get row-major output length of this node.
     std::vector<size_t> GetOutputLength() const

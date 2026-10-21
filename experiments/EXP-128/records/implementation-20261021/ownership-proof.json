@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "geometries": 279,
+  "register_pre_geometries": 67,
+  "largest_N": 2725888,
+  "checks": [
+    "unique physical load callbacks",
+    "disjoint endpoint scalar stores",
+    "aligned bounded mixed output",
+    "complete folded spectrum",
+    "ordinary first-pass register ownership"
+  ],
+  "script_sha256": "1ddc2876b66af7d7dc092368413cfee66fe85608fc5b32b3be0f2246fbc1e6c6"
+}
