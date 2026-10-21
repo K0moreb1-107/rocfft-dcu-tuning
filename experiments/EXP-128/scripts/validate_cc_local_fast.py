@@ -28,6 +28,13 @@ SAMPLE_N = (65856, 67600, 69938, 131072, 100352, 133100)
 BUDGET_SECONDS = 300
 
 
+def write_progress(path, record):
+    # Progress is updated repeatedly within this run; submission records stay exclusive.
+    temporary = path.with_name(path.name+'.tmp')
+    temporary.write_text(json.dumps(record, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    temporary.replace(path)
+
+
 def worker():
     started = time.monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
@@ -68,7 +75,7 @@ def worker():
 
     def save():
         record['elapsed_seconds'] = time.monotonic()-started
-        mgr.dumps(a.run/'cc-local-validation.json', record)
+        write_progress(a.run/'cc-local-validation.json', record)
 
     def run(command, directory, label, selected_env=env):
         directory.mkdir(parents=True, exist_ok=True)
@@ -99,7 +106,7 @@ def worker():
             output = (log/'guard.out').read_text()
             mgr.require(output.count('EVEN_CC_GUARD_PASS ') == len(meta), 'incomplete regression guard')
             generated = (log/'rtc.txt').read_text()
-            if control and direction == 'z2d' and callback:
+            if control and direction == 'z2d' and mode in ('callbacks', 'load'):
                 mgr.require('_unique_load_v1' in generated, 'legacy unique-load repair not selected')
             if not control:
                 roles = (4, 5) if direction == 'z2d' else (6, 7)
@@ -180,7 +187,7 @@ def main():
         record = json.loads(path.read_text()) if path.exists() else {}
         record.update(complete=False, failure=dict(type='ValidationTimeout',
             message='300-second regression budget exhausted'), budget_seconds=BUDGET_SECONDS)
-        mgr.dumps(path, record)
+        write_progress(path, record)
         print('Validation stopped within the 300-second budget', file=sys.stderr)
         return 1
 

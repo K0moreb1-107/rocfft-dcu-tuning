@@ -1,0 +1,23 @@
+{
+  "source_commit": "590ab6a8fc017fdd78688e6e57d5da27db689fd0",
+  "branch": "exp-128-cc-local-real",
+  "reference": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+    "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+  },
+  "receipts": {
+    "candidate": {
+      "job": "953518",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-build-20261021"
+    },
+    "performance": {
+      "job": "953519",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-queue-20261021"
+    }
+  },
+  "result_inspection": "not performed; stop after submission"
+}

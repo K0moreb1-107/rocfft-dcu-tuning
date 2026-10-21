@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "host_only": true,
+  "device_calls_mocked": true,
+  "tests": [
+    "original second-save failure reproduced",
+    "all 32 records and final completion saved",
+    "injected guard failure preserved",
+    "timeout replaced existing progress safely",
+    "store-only callback needs no load specialization"
+  ],
+  "elapsed_seconds": 2.9531352911144495,
+  "actual_device_acceptance": false
+}

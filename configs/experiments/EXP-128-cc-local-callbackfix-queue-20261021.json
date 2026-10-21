@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-callbackfix-queue-20261021",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "04:00:00",
+    "nodelist": "a03r1n02",
+    "node_exclusive": true,
+    "dependency": "afterok:953518"
+  },
+  "deferred_measurement": {
+    "reason": "User selected the validated EXP125 installation as reference; queue timing after this candidate alone passes its build and 300-second targeted regression.",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-local-callbackfix-performance-20261021.json",
+    "measurement_config_sha256": "ecb5f0b5f5c9668878afe5e72d745ba2d1e58ad08e33d0c6575b523b0e32cda1",
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-build-20261021/submit-manifest.json",
+    "build_config_sha256": "729802d96943b4368e0166f9811f1928be29050059564047c507d7cb57297be8",
+    "build_job_id": "953518",
+    "required_success_jobs": [
+      "953518"
+    ]
+  }
+}

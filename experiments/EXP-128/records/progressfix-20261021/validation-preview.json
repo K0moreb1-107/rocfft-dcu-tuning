@@ -1,0 +1,39 @@
+{
+  "task": "validate",
+  "existing_build": true,
+  "rebuild_required": false,
+  "source_commit": "590ab6a8fc017fdd78688e6e57d5da27db689fd0",
+  "library_sha256": "b31937b7e81b562b9a705b726337dd7f92503e65e7da87894cd97acdcee46c98",
+  "validation_command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_fast.py",
+    "--config",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-progressfix-validate-20261021/submit-manifest.json",
+    "--build-record",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-build-20261021/build-provenance.json",
+    "--run",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-progressfix-validate-20261021",
+    "--build",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-callbackfix-20261021",
+    "--cache",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-local-progressfix-validate-20261021"
+  ],
+  "evidence_record": "cc-local-validation.json",
+  "submission_command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-progressfix-validate-20261021/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-progressfix-validate-20261021/logs/slurm_%j.err",
+    "--cpus-per-task=16",
+    "--partition=hx1hdnormal01",
+    "--time=00:05:00",
+    "--exclusive",
+    "--nodelist=a03r1n02",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "validate",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-progressfix-validate-20261021/submit-manifest.json"
+  ],
+  "source_state_freeze": false,
+  "validation_scope": "complete fresh validation; no reuse of partial passes"
+}
