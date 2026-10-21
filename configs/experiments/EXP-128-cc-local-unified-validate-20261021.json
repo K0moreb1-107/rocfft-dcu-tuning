@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-unified-validate-20261021",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:30:00",
+    "nodelist": "a01r4n01",
+    "node_exclusive": true
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-unified-20261021",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "cd4e3ddabb35132ff5408852c31671a2f407e665",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_unified.py",
+    "sha256": "cf5bd121a8178cce590a81d5422822a520bd25129f15876e35111792e7fb092d",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+        "sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+    "fused": true,
+    "profile": "cc-local-unified-two-checks-v2",
+    "smoke_N": [
+      65536,
+      69938
+    ],
+    "sample_N": [
+      65536,
+      69938,
+      67600,
+      92480,
+      167042,
+      142688,
+      191664,
+      100352,
+      524288,
+      131072,
+      82134,
+      361250
+    ],
+    "scope": "Default numeric correctness and actual cc_local_v2 fused dispatch; smoke fails fast, then all independent representative cases are attempted and errors aggregated. No callback, scaling or full memory release regression.",
+    "expected_cc_local_version": 2,
+    "known_limitations": []
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "Separate verification job after pure candidate build; result correctness and actual generic fusion only. Includes 64K, odd/even native maps, wide-column recurrence and forward register input. Formal measurement checks every exact case again outside timing.",
+  "reference_policy": "Reuse validated EXP-125-pre-memory-i. This candidate build and complete validation have no reference-build prerequisite.",
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unified-build-20261021/build-provenance.json",
+    "evidence_record": "cc-local-validation.json",
+    "isolated_helpers": false
+  }
+}
