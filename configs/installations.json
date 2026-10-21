@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-13",
+  "updated": "2026-10-21",
   "aliases": {
     "official": "install-exp096-official",
     "previous": "EXP-126-heldout-complex-20261012"
@@ -245,6 +245,46 @@
         "ROCFFT_REAL_PAIR_SCALAR_CAPACITY": "OFF"
       },
       "known_limitations": "部分类型和尺寸仍有性能退化，按用户要求作为CC融合功能阶段稳定版；细节优化后续进行"
+    },
+    "EXP-128-exp125-baseline-20261021": {
+      "path": "experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "role": "baseline",
+      "eligible_formal_arm": true,
+      "source_identity": "User-approved stable EXP-125 calculation source 1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "compatibility": false,
+      "arm": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+        "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+      },
+      "stable_tag": "stable-main-exp125-20261007",
+      "approved": "2026-10-07",
+      "approval_record": "experiments/EXP-125/records/stable-promotion-20261007/promotion.json",
+      "validation_job": "890730",
+      "formal_performance_job": "891149",
+      "superseded_as_default_previous_on": "2026-10-13",
+      "registered_for": "EXP128 unified three-version comparison; no global alias change"
+    },
+    "EXP-128-measured-953997": {
+      "path": "experiments/EXP-128/artifacts/install/EXP-128-cc-local-callbackfix-20261021",
+      "role": "previous",
+      "eligible_formal_arm": true,
+      "compatibility": false,
+      "arm": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-callbackfix-20261021",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "590ab6a8fc017fdd78688e6e57d5da27db689fd0",
+        "source_state": "{\"commit\": \"590ab6a8fc017fdd78688e6e57d5da27db689fd0\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"590ab6a8fc017fdd78688e6e57d5da27db689fd0\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/experiments/EXP-128/records/coverage-mapfix-20261021/coverage.json\": \"0f171f5dffa84edeab940d2a9a49b4a26e46c73fe0aff1f38e90c2f35df53195\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/audit_cc_coverage.py\": \"ec40f1e1c06744113a0f437bed45db2addffc19b002dfab5d2021427c8c9cc0e\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_guard.cpp\": \"cf2c6c326271a08b875078e460e1e11c61bb32a1438446216d2e6daa72a94d53\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_references.py\": \"502536438a5a542c1e0761d50c9e269e10465e0e5429ba539b92d6bb75387bc4\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_fast.py\": \"4c20c2571407a305ccea6e840f1b624d34da226c043eee0fd2b41fe0ca38bde1\", \"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"8dc777b75fbe366700a216f89c9a7f57f3d4b120e99fab50c5cad1027ce7e857\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"2a834645f98ab8b5482cf8d89065d8a7d69f845cfe8c1de4b556cc505069257f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+        "library_sha256": "b31937b7e81b562b9a705b726337dd7f92503e65e7da87894cd97acdcee46c98",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-callbackfix-build-20261021/build-provenance.json"
+      },
+      "source_identity": "Measured EXP128 source 590ab6a8; actual library checked against job953997",
+      "validation_job": "953996",
+      "formal_performance_job": "953997",
+      "approved": "2026-10-21"
     }
   },
   "stable_source": {

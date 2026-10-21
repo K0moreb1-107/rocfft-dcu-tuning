@@ -79,7 +79,9 @@ def report(run):
     from plot_cufft261012 import render
     plots = render(run, m, samples)
     selected = arms(m)
-    baseline = 'official' if 'official' in selected else 'previous'
+    baseline = next(arm for arm in ('official', 'baseline', 'previous') if arm in selected)
+    labels = dict(official='官方基线', baseline='固定对照', previous='上一有效版本', candidate='当前版本')
+    labels.update(m.get('arm_labels', {}))
     lines = ['# '+m['experiment']+' 性能测量', '', '协议：`'+POLICY+'`。', '',
              '双精度、一维、批量一、非原位、默认计划；每个尺寸／类型／版本一个进程，十次预热、三十次计时。',
              '预热与正式测量共用同一事件循环，每次完整变换后单独同步；输入为递增序列，复数虚部为零。',
@@ -88,6 +90,7 @@ def report(run):
              '| --- | ---: | ---: | ---: | ---: | ---: |']
     if m.get('comparison_description'):
         lines[4:4] = [m['comparison_description'], '']
+    lines[4:4] = ['版本身份：'+'；'.join(arm+'＝'+labels[arm] for arm in selected)+'。', '']
     fusion_comparison = m.get('comparison_kind') == 'real_boundary_fusion'
     if fusion_comparison:
         require(selected == ('previous', 'candidate'), 'fusion comparison requires just unfused/fused arms')
@@ -107,17 +110,21 @@ def report(run):
                   '%.6f'%(row['candidate_median_ms']*1000), '%.6f'%row['speedup_'+baseline+'_median'],
                   '%.2f%%'%percentage if percentage is not None else '—']
         lines.append('| '+' | '.join(fields)+' |')
-    if 'previous' in selected and baseline != 'previous':
-        lines.extend(['', '| size／类型 | 稳定中位数（微秒） | 对稳定加速比 |', '| --- | ---: | ---: |'])
+    for reference_arm in selected:
+        if reference_arm in (baseline, 'candidate'):
+            continue
+        label = labels[reference_arm]
+        lines.extend(['', '| size／类型 | '+label+'中位数（微秒） | 对'+label+'加速比 |',
+                      '| --- | ---: | ---: |'])
         for row in rows:
             lines.append('| %d %s | %.6f | %.6f |'%(row['N'], row['func'].removesuffix('_1d'),
-                row['previous_median_ms']*1000, row['speedup_previous_median']))
+                row[reference_arm+'_median_ms']*1000, row['speedup_'+reference_arm+'_median']))
     if fusion_comparison:
         lines.extend(['', '比值为未融合／已融合的完整事件中位数，计入融合新增的交换、同步与资源成本。',
                       '原五尺寸z2d包含折叠列和布局变化，单列为融合实现整体净收益；不等同于单独显存读写节省。'])
     else:
         lines.extend(['', 'A100按随包记录的10／30条件及精确N和类型匹配；performance＝A100中位数／当前中位数×100%。',
-                  '它是跨设备参考，不替代同卡官方对照；随包源码与二进制对应关系缺少构建凭据，数值检查也不在A100记录中。',
+                  '它是跨设备参考，不替代同卡版本对照；随包源码与二进制对应关系缺少构建凭据，数值检查也不在A100记录中。',
         ])
     lines.extend(['CSV保留原包的六位小数格式；另存未舍入的逐次样本及窗口外正确性记录。统计使用未舍入样本，不删除慢点。',
                   '图中每版一列散点及按内部测量序号排列的同一批样本；只标中位数及中间50%区间，相同序号不表示同步测量。',

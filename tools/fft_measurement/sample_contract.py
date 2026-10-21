@@ -20,12 +20,12 @@ def iterations(m):
     return value
 
 
-def arms(m):
+def arms(m, *, arm_order=ARMS):
     selected = m.get('arms', {})
     require(isinstance(selected, dict) and 'candidate' in selected
-            and len(selected) >= 2 and set(selected) <= set(ARMS),
+            and len(selected) >= 2 and set(selected) <= set(arm_order),
             'candidate and at least one declared reference arm required')
-    return tuple(arm for arm in ARMS if arm in selected)
+    return tuple(arm for arm in arm_order if arm in selected)
 
 
 def validate_manifest(value):
@@ -63,8 +63,8 @@ def manifest(path):
         return validate_manifest(json.load(stream))
 
 
-def schedule(m):
-    selected = arms(m)
+def schedule(m, *, arm_order=ARMS):
+    selected = arms(m, arm_order=arm_order)
     result = []
     for case_index, (n, func) in enumerate(cases(m)):
         order = selected if case_index % 2 == 0 else tuple(reversed(selected))

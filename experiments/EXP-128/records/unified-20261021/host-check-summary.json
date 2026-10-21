@@ -1,0 +1,85 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "generated_sources": 2264,
+  "compiled": 122,
+  "native_input_maps": 21,
+  "new_spill_increases": [],
+  "wide_columns": [
+    {
+      "N": 69938,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      }
+    },
+    {
+      "N": 97682,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      }
+    },
+    {
+      "N": 115600,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      }
+    },
+    {
+      "N": 167042,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      }
+    },
+    {
+      "N": 198254,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      }
+    },
+    {
+      "N": 295936,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 60
+      }
+    },
+    {
+      "N": 361250,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 60
+      }
+    },
+    {
+      "N": 769318,
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 60
+      }
+    }
+  ],
+  "control_flow_tests": "3 host tests passed: complete success, fail-fast smoke, aggregate two independent main failures",
+  "tools_regressions": "v3 and v2 contracts 26 passed; pending independent validation and existing revalidate 13 passed",
+  "limitations": "Host generation/offline compiler/model evidence only. Device numeric correctness and performance pending queued jobs."
+}

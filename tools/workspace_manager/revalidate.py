@@ -14,18 +14,24 @@ def read(path):
     return json.loads(mgr.inside(path).read_text(encoding='utf-8'))
 
 
-def existing(cfg):
+def existing(cfg, allow_pending=False):
     spec = cfg['existing_build_validation']
     record = mgr.inside(spec['build_record'])
-    built = read(record)
-    mgr.require(built.get('complete') is True and built.get('component') == 'rocfft'
-                and built.get('experiment') == cfg['experiment'], 'existing build incomplete or wrong experiment')
+    if 'pending_build_validation' in cfg:
+        from tools.workspace_manager import pending_build_validation as pending
+        built = pending.resolve(cfg, allow_pending=allow_pending)
+    else:
+        built = read(record)
+    is_pending = built.get('pending') is True
+    mgr.require(is_pending or (built.get('complete') is True and built.get('component') == 'rocfft'
+                and built.get('experiment') == cfg['experiment']), 'existing build incomplete or wrong experiment')
     library = mgr.inside(built['arm']['install'])/'lib/librocfft.so.0.1'
-    mgr.require(mgr.common.sha(library) == built['arm']['library_sha256'], 'existing library differs')
+    if not is_pending:
+        mgr.require(mgr.common.sha(library) == built['arm']['library_sha256'], 'existing library differs')
     filename = spec['evidence_record']
     mgr.require(re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.json', filename), 'invalid validation evidence filename')
     artifact = mgr.inside(built['plan']['paths']['build'])
-    mgr.require((artifact/'CMakeCache.txt').is_file(), 'existing build artifacts missing')
+    mgr.require(is_pending or (artifact/'CMakeCache.txt').is_file(), 'existing build artifacts missing')
     command = mgr.validation_hook(cfg)
     mgr.require(command is not None, 'full validation script required')
     command = list(command)
@@ -36,7 +42,7 @@ def existing(cfg):
     return built, library, command, filename
 
 
-def gate(cfg):
+def gate(cfg, allow_pending=False):
     spec = cfg['revalidated_measurement']
     validation_path = mgr.inside(spec['validation_config'])
     validation = mgr.load(validation_path)
@@ -58,9 +64,18 @@ def gate(cfg):
                 'measurement experiment or run differs')
     mgr.require(measurement.get('policy') == 'FFT-event-cufft261012-single-v3',
                 'revalidated timing requires the registered v3 protocol')
-    built, library, command, filename = existing(validation)
-    mgr.require(measurement['arms']['candidate'] == built['arm'], 'measurement selects another existing library')
-    planned = mgr.task_plan('measure', measurement)
+    built, library, command, filename = existing(validation, allow_pending=allow_pending)
+    if 'pending_build_validation' in validation:
+        expected = {'build_record': validation['existing_build_validation']['build_record']}
+        mgr.require(measurement['arms']['candidate'] == expected, 'measurement selects another pending library')
+        if built.get('pending') is True:
+            from tools.workspace_manager import pending_build_validation as pending
+            planned = pending.measurement_preview(measurement, built, validation)
+        else:
+            planned = mgr.task_plan('measure', mgr.measurement(measurement))
+    else:
+        mgr.require(measurement['arms']['candidate'] == built['arm'], 'measurement selects another existing library')
+        planned = mgr.task_plan('measure', measurement)
     mgr.require(planned['node_exclusive'] and cfg['resources'].get('node_exclusive') is True,
                 'exclusive formal measurement required')
     mgr.require({k: v for k, v in cfg['resources'].items() if k != 'dependency'} == measurement['resources'],
@@ -71,19 +86,22 @@ def gate(cfg):
 def plan(task, cfg):
     if 'existing_build_validation' in cfg:
         mgr.require(task == 'validate', 'existing build validation must use validate')
-        built, library, command, filename = existing(cfg)
+        built, library, command, filename = existing(cfg, allow_pending=True)
         return dict(task=task, existing_build=True, rebuild_required=False,
+                    pending_build=built.get('pending') is True,
+                    build_job_id=built.get('job_id'), library=str(library),
                     source_commit=built['arm']['source_commit'], library_sha256=built['arm']['library_sha256'],
                     validation_command=command, evidence_record=filename,
                     submission_command=mgr.submission_command(task, cfg),
                     source_state_freeze=False, validation_scope='complete fresh validation; no reuse of partial passes')
     mgr.require(task == 'measure', 'validation-gated measurement must use measure')
-    validation, vp, built, command, filename, planned = gate(cfg)
+    validation, vp, built, command, filename, planned = gate(cfg, allow_pending=True)
     mgr.require(not Path(planned['paths']['run']).exists(), 'measurement run identifier already used')
     return dict(task=task, pending_acceptance=True, formal=True, rebuild_required=False,
                 measurement_run=planned['paths']['run'], processes=planned['processes'], cases=planned['cases'],
                 timing_warmups=planned['timing_warmups'], event_iterations=planned['event_iterations'],
-                reference_arms=planned['resolved_preregistration']['arms'],
+                reference_arms=planned.get('reference_arms', planned['resolved_preregistration']['arms']),
+                pending_candidate=planned.get('pending_candidate'),
                 submission_command=mgr.submission_command(task, cfg), source_state_freeze=False)
 
 

@@ -20,10 +20,12 @@ def render(run, manifest, samples):
     from matplotlib.patches import Rectangle
 
     selected = arms(manifest)
-    labels = {'official': '官方基线', 'previous': '稳定对照', 'candidate': '当前版本'}
+    labels = {'official': '官方基线', 'baseline': '固定对照',
+              'previous': '上一有效版本', 'candidate': '当前版本'}
     labels.update({a: manifest['arm_labels'][a] for a in selected
                    if a in manifest.get('arm_labels', {})})
-    colors = {'official': '#2878b8', 'previous': '#677b97', 'candidate': '#e58b29'}
+    colors = {'official': '#2878b8', 'baseline': '#48864c',
+              'previous': '#677b97', 'candidate': '#e58b29'}
     settings = {'svg.fonttype': 'none', 'font.family': 'sans-serif', 'axes.unicode_minus': False,
                 'font.size': 11, 'axes.spines.top': False, 'axes.spines.right': False}
     if os.name == 'nt' and Path('C:/Windows/Fonts/msyh.ttc').is_file():

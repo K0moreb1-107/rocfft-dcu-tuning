@@ -7,15 +7,27 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
 {
     RealBlockIO io;
     bool callbacks;
-    StockhamKernelFoldedPackedColumns(const StockhamGeneratorSpecs& specs, bool callbacks)
+    const size_t phase_steps;
+    StockhamKernelFoldedPackedColumns(
+        const StockhamGeneratorSpecs& specs, bool callbacks, size_t phase_steps = 0)
         : StockhamKernelCC(specs, false, false)
         , io(specs.real_io)
         , callbacks(callbacks)
+        , phase_steps(phase_steps)
     {
         if (length * transforms_per_block / (half_lds ? 2 : 1) < length)
             throw std::runtime_error("CC callback cache exceeds reusable core workspace");
     }
     bool use_static_initial_reg_load() const override { return true; }
+    bool use_large_twiddle_recurrence() const override
+    {
+        if (io.role != RealBlockRole::FoldedPackedColumns)
+            return StockhamKernelCC::use_large_twiddle_recurrence();
+        // A multi-step lookup is amortized across the final butterfly.
+        // Keep the policy independent of the column and full transform lengths.
+        return phase_steps >= 2 && factors.back() >= 4 && precisions.size() == 1
+            && precisions.front() == rocfft_precision_double;
+    }
     StatementList set_direct_to_from_registers() override
     {
         return { Declaration { direct_load_to_reg, Literal { "true" } },
@@ -70,7 +82,7 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
         }
         for (unsigned int i = 0; i < nregisters; ++i)
             s += Assign { R[i], ComplexLiteral { 0, 0 } };
-        s += pass_io(true, lane,
+        auto loads = pass_io(true, lane,
             [&](Expression a, unsigned int reg)
             {
                 Expression k = a * static_cast<unsigned int>(2 * io.rows) + col;
@@ -88,9 +100,9 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
                           { value, k > static_cast<unsigned int>(io.n / 2) } } }
                     : Expression { CallExpr { "cc_folded_value", { scalar_type },
                           { value, k, Literal { static_cast<unsigned int>(io.n) } } } };
-                StatementList load { Assign { R[reg], folded } };
-                return StatementList { If { col <= static_cast<unsigned int>(io.rows), load } };
+                return StatementList { Assign { R[reg], folded } };
             });
+        s += If { col <= static_cast<unsigned int>(io.rows), loads };
         // The boundary cache occupies core workspace only until all input R
         // values are ready. No FFT wave may reuse it before its peers finish.
         if (callbacks)
@@ -104,18 +116,26 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
         StatementList s { Declaration { lane, thread_id / transforms_per_block },
             Declaration {
                 col, tile_index * transforms_per_block + thread_id % transforms_per_block } };
-        s += pass_io(false, lane,
+        auto component_stores = [&](unsigned int component)
+        {
+            return pass_io(false, lane,
+                [&](Expression a, unsigned int reg)
+                {
+                    return StatementList { StoreGlobal { cc_real_pointer(buf),
+                        2 * a * static_cast<unsigned int>(io.rows) + component, R[reg].x() } };
+                });
+        };
+        auto complex_stores = pass_io(false, lane,
             [&](Expression a, unsigned int reg)
             {
-                Expression base = a * static_cast<unsigned int>(io.rows);
-                return StatementList {
-                    If { col == 0, { StoreGlobal { cc_real_pointer(buf), 2 * base, R[reg].x() } } },
-                    ElseIf { col == static_cast<unsigned int>(io.rows),
-                        { StoreGlobal { cc_real_pointer(buf), 2 * base + 1, R[reg].x() } } },
-                    Else { { If { col < static_cast<unsigned int>(io.rows),
-                        { StoreGlobal { buf, base + col, R[reg] } } } } }
-                };
+                return StatementList { StoreGlobal {
+                    buf, a * static_cast<unsigned int>(io.rows) + col, R[reg] } };
             });
+        // Classify the column once, rather than keeping a three-way branch
+        // around every register store. Native pass_io tail guards stay inside.
+        s += If { col == 0, component_stores(0) };
+        s += ElseIf { col == static_cast<unsigned int>(io.rows), component_stores(1) };
+        s += ElseIf { col < static_cast<unsigned int>(io.rows), complex_stores };
         return s;
     }
 };

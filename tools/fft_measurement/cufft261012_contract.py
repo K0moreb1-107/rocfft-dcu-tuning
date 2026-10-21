@@ -7,7 +7,8 @@ import re
 import statistics
 from pathlib import Path
 from common import ROOT, OFFICIAL_COMMIT, OFFICIAL_SHA, cases, inside, require, sha
-from sample_contract import arms, schedule, read_samples, percentile, statistics_for
+from sample_contract import (arms as select_arms, schedule as sample_schedule,
+                             read_samples, percentile, statistics_for)
 
 POLICY = 'FFT-event-cufft261012-single-v3'
 SOURCE_NAME = 'fft_test_1d_cufft261012.cpp'
@@ -19,8 +20,17 @@ SOURCE_FILES = {SOURCE_NAME: SOURCE_SHA, SUPPORT_NAME: SUPPORT_SHA}
 WARMUPS = 10
 EVENTS = 30
 CHECK_HEADER = ['func', 'N', 'batch', 'check', 'err_a', 'err_b']
+ARM_ORDER = ('official', 'baseline', 'previous', 'candidate')
 HEADER = ['func', 'N', 'is_warmup', 'warmup_times', 'test_times',
           'tmax_ms', 'tmin_ms', 'tmean_ms', 'tmedium_ms'] + ['time_%d_ms' % i for i in range(1, EVENTS + 1)]
+
+def arms(m):
+    return select_arms(m, arm_order=ARM_ORDER)
+
+
+def schedule(m):
+    return sample_schedule(m, arm_order=ARM_ORDER)
+
 
 def iterations(m):
     require(type(m.get('event_iterations', EVENTS)) is int and m.get('event_iterations', EVENTS) == EVENTS,

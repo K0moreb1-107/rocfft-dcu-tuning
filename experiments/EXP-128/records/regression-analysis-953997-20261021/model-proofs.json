@@ -1,0 +1,168 @@
+{
+  "device_execution": false,
+  "models": [
+    "native initial register ownership",
+    "sampled direct versus recurrent unit phases"
+  ],
+  "row_maps": [
+    {
+      "Q": 17,
+      "P": 1,
+      "first_factor": 17,
+      "coverage": 17,
+      "unique": true
+    },
+    {
+      "Q": 49,
+      "P": 7,
+      "first_factor": 7,
+      "coverage": 49,
+      "unique": true
+    },
+    {
+      "Q": 50,
+      "P": 5,
+      "first_factor": 10,
+      "coverage": 50,
+      "unique": true
+    },
+    {
+      "Q": 64,
+      "P": 16,
+      "first_factor": 4,
+      "coverage": 64,
+      "unique": true
+    },
+    {
+      "Q": 81,
+      "P": 27,
+      "first_factor": 3,
+      "coverage": 81,
+      "unique": true
+    },
+    {
+      "Q": 100,
+      "P": 25,
+      "first_factor": 5,
+      "coverage": 100,
+      "unique": true
+    },
+    {
+      "Q": 112,
+      "P": 28,
+      "first_factor": 4,
+      "coverage": 112,
+      "unique": true
+    },
+    {
+      "Q": 121,
+      "P": 11,
+      "first_factor": 11,
+      "coverage": 121,
+      "unique": true
+    },
+    {
+      "Q": 125,
+      "P": 25,
+      "first_factor": 5,
+      "coverage": 125,
+      "unique": true
+    },
+    {
+      "Q": 128,
+      "P": 16,
+      "first_factor": 8,
+      "coverage": 128,
+      "unique": true
+    },
+    {
+      "Q": 169,
+      "P": 13,
+      "first_factor": 13,
+      "coverage": 169,
+      "unique": true
+    },
+    {
+      "Q": 192,
+      "P": 32,
+      "first_factor": 6,
+      "coverage": 192,
+      "unique": true
+    },
+    {
+      "Q": 200,
+      "P": 40,
+      "first_factor": 8,
+      "coverage": 200,
+      "unique": true
+    },
+    {
+      "Q": 243,
+      "P": 27,
+      "first_factor": 3,
+      "coverage": 243,
+      "unique": true
+    },
+    {
+      "Q": 256,
+      "P": 32,
+      "first_factor": 4,
+      "coverage": 256,
+      "unique": true
+    },
+    {
+      "Q": 289,
+      "P": 17,
+      "first_factor": 17,
+      "coverage": 289,
+      "unique": true
+    },
+    {
+      "Q": 343,
+      "P": 49,
+      "first_factor": 7,
+      "coverage": 343,
+      "unique": true
+    },
+    {
+      "Q": 512,
+      "P": 128,
+      "first_factor": 8,
+      "coverage": 512,
+      "unique": true
+    },
+    {
+      "Q": 625,
+      "P": 125,
+      "first_factor": 5,
+      "coverage": 625,
+      "unique": true
+    },
+    {
+      "Q": 1024,
+      "P": 128,
+      "first_factor": 8,
+      "coverage": 1024,
+      "unique": true
+    },
+    {
+      "Q": 1331,
+      "P": 121,
+      "first_factor": 11,
+      "coverage": 1331,
+      "unique": true
+    }
+  ],
+  "phase_points": 27240,
+  "max_unit_phase_absolute_difference": 1.4130832128153975e-15,
+  "worst_phase": {
+    "N": 97682,
+    "C": 289,
+    "Q": 169,
+    "width": 17,
+    "lane": 0,
+    "column": 168,
+    "w": 15
+  },
+  "limitation": "Does not execute an FFT or replace device correctness/performance verification."
+}

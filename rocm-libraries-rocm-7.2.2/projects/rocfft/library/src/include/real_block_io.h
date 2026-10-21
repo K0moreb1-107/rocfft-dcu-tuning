@@ -57,6 +57,22 @@ struct RealBlockIO
             return rows;
         return 0;
     }
+    // The native first-pass map covers lane+h*threads+w*(length/first_factor).
+    // pass_io guards its final partial group; no power-of-two condition is needed.
+    static bool CanRegisterInput(size_t length, const std::vector<unsigned int>& factors,
+        size_t threads, size_t workgroup)
+    {
+        if (!length || factors.empty() || !threads || !workgroup || workgroup % threads)
+            return false;
+        size_t product = 1;
+        for (const auto factor : factors)
+        {
+            if (!factor || product > length / factor)
+                return false;
+            product *= factor;
+        }
+        return product == length;
+    }
     static bool CanRegisterPre(size_t length, size_t first_factor, size_t threads)
     {
         if (!first_factor || !threads)

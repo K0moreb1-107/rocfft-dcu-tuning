@@ -261,7 +261,7 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
     {
         if(specs.real_io.IsCCLocal())
         {
-            kernel_name+="_cc_local_v1_role"+std::to_string(static_cast<int>(specs.real_io.role));
+            kernel_name+="_cc_local_v2_role"+std::to_string(static_cast<int>(specs.real_io.role));
             kernel_name+="_C"+std::to_string(specs.real_io.columns)+"_Q"+std::to_string(specs.real_io.rows);
             if(specs.real_io.role==RealBlockRole::LocalPostColumns)
                 kernel_name+=specs.half_lds?"_scalar_exchange":"_complex_exchange";
@@ -357,7 +357,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC)
         {
             if(specs.real_io.role == RealBlockRole::FoldedPackedColumns)
-                kernel=std::make_unique<StockhamKernelFoldedPackedColumns>(specs,cbtype!=CallbackType::NONE);
+                kernel=std::make_unique<StockhamKernelFoldedPackedColumns>(
+                    specs,cbtype!=CallbackType::NONE,largeTwdSteps);
             else if(specs.real_io.role == RealBlockRole::LocalPostColumns)
                 kernel=std::make_unique<StockhamKernelLocalPostColumns>(specs);
             else if(specs.real_io.role == RealBlockRole::HermitianColumns)

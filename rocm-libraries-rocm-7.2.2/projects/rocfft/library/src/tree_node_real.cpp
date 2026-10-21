@@ -220,7 +220,7 @@ void RealTransCmplxNode::AssignParams_internal()
 
 bool RealTransEvenNode::TryBuildCCLocalTree(const TreeNode& cfft, size_t n)
 {
-    if(!ROCFFT_CC_REAL_FUSION || !ROCFFT_CC_LOCAL_REAL_FUSION || n <= 65536 || n % 2
+    if(!ROCFFT_CC_REAL_FUSION || !ROCFFT_CC_LOCAL_REAL_FUSION || n < 65536 || n % 2
         || dimension != 1 || length.size() != 1 || batch != 1
         || precision != rocfft_precision_double || placement != rocfft_placement_notinplace
         || inStride != std::vector<size_t> { 1 } || outStride != std::vector<size_t> { 1 }

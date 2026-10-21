@@ -150,7 +150,8 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
                 specs->real_io.load=RealBlockIO::CanRegisterPre(specs->length,specs->factors.front(),specs->threads_per_transform)
                     ?RealBlockLoad::Registers:RealBlockLoad::LDS;
             else
-                specs->real_io.load=static_pow2_sbrc_map && node.sbrcTranstype==TILE_ALIGNED
+                specs->real_io.load=RealBlockIO::CanRegisterInput(specs->length,specs->factors,
+                    specs->threads_per_transform,specs->workgroup_size)
                     ?RealBlockLoad::Registers:RealBlockLoad::LDS;
         }
         // The ordinary CC LDS entry uses an unswizzled complex staging layout.

@@ -1,0 +1,3206 @@
+{
+  "complete": true,
+  "host_only": true,
+  "device_execution": false,
+  "coverage": {
+    "complete": true,
+    "public_N": 194,
+    "measurement_cases": 388,
+    "native_geometries": 283,
+    "native_columns": 33,
+    "native_rows": 21,
+    "active_map_entries": 222,
+    "minimum_N": 65536,
+    "maximum_N": 2725888,
+    "expected_cc_local_version": 2
+  },
+  "native_input_maps": [
+    {
+      "Q": 17,
+      "P": 1,
+      "coverage": 17,
+      "unique": true
+    },
+    {
+      "Q": 49,
+      "P": 7,
+      "coverage": 49,
+      "unique": true
+    },
+    {
+      "Q": 50,
+      "P": 5,
+      "coverage": 50,
+      "unique": true
+    },
+    {
+      "Q": 64,
+      "P": 16,
+      "coverage": 64,
+      "unique": true
+    },
+    {
+      "Q": 81,
+      "P": 27,
+      "coverage": 81,
+      "unique": true
+    },
+    {
+      "Q": 100,
+      "P": 25,
+      "coverage": 100,
+      "unique": true
+    },
+    {
+      "Q": 112,
+      "P": 28,
+      "coverage": 112,
+      "unique": true
+    },
+    {
+      "Q": 121,
+      "P": 11,
+      "coverage": 121,
+      "unique": true
+    },
+    {
+      "Q": 125,
+      "P": 25,
+      "coverage": 125,
+      "unique": true
+    },
+    {
+      "Q": 128,
+      "P": 16,
+      "coverage": 128,
+      "unique": true
+    },
+    {
+      "Q": 169,
+      "P": 13,
+      "coverage": 169,
+      "unique": true
+    },
+    {
+      "Q": 192,
+      "P": 32,
+      "coverage": 192,
+      "unique": true
+    },
+    {
+      "Q": 200,
+      "P": 40,
+      "coverage": 200,
+      "unique": true
+    },
+    {
+      "Q": 243,
+      "P": 27,
+      "coverage": 243,
+      "unique": true
+    },
+    {
+      "Q": 256,
+      "P": 32,
+      "coverage": 256,
+      "unique": true
+    },
+    {
+      "Q": 289,
+      "P": 17,
+      "coverage": 289,
+      "unique": true
+    },
+    {
+      "Q": 343,
+      "P": 49,
+      "coverage": 343,
+      "unique": true
+    },
+    {
+      "Q": 512,
+      "P": 128,
+      "coverage": 512,
+      "unique": true
+    },
+    {
+      "Q": 625,
+      "P": 125,
+      "coverage": 625,
+      "unique": true
+    },
+    {
+      "Q": 1024,
+      "P": 128,
+      "coverage": 1024,
+      "unique": true
+    },
+    {
+      "Q": 1331,
+      "P": 121,
+      "coverage": 1331,
+      "unique": true
+    }
+  ],
+  "generated_sources_per_variant": 1132,
+  "selected_geometries": 51,
+  "resources": [
+    {
+      "variant": "previous-generated",
+      "C": 50,
+      "Q": 1024,
+      "N": 102400,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/50-1024-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/50-1024-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 67,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 50,
+      "Q": 1024,
+      "N": 102400,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/50-1024-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/50-1024-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 67,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 50,
+      "Q": 1331,
+      "N": 133100,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/50-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/50-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 96,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 50,
+      "Q": 1331,
+      "N": 133100,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/50-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/50-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 80,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 50,
+      "Q": 1331,
+      "N": 133100,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/50-1331-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/50-1331-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 107,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 57
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 50,
+      "Q": 1331,
+      "N": 133100,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/50-1331-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/50-1331-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 109,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 41
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 52,
+      "Q": 1331,
+      "N": 138424,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/52-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/52-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 125,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 48
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 52,
+      "Q": 1331,
+      "N": 138424,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/52-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/52-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 125,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 48
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 60,
+      "Q": 625,
+      "N": 75000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/60-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/60-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 206,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 60,
+      "Q": 625,
+      "N": 75000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/60-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/60-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 114,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 60,
+      "Q": 625,
+      "N": 75000,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/60-625-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/60-625-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 63,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 31
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 60,
+      "Q": 625,
+      "N": 75000,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/60-625-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/60-625-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 63,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 64,
+      "Q": 512,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/64-512-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/64-512-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 64,
+      "Q": 512,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/64-512-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/64-512-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 64,
+      "Q": 1331,
+      "N": 170368,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/64-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/64-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 126,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 64,
+      "Q": 1331,
+      "N": 170368,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/64-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/64-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 86,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 72,
+      "Q": 625,
+      "N": 90000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/72-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/72-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 49,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 72,
+      "Q": 625,
+      "N": 90000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/72-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/72-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 47,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 25
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 80,
+      "Q": 625,
+      "N": 100000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/80-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/80-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 129,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 33
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 80,
+      "Q": 625,
+      "N": 100000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/80-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/80-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 100,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 33
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 81,
+      "Q": 512,
+      "N": 82944,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/81-512-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/81-512-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 49,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 19
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 81,
+      "Q": 512,
+      "N": 82944,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/81-512-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/81-512-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 48,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 19
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 84,
+      "Q": 625,
+      "N": 105000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/84-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/84-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 104,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 22
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 84,
+      "Q": 625,
+      "N": 105000,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/84-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/84-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 76,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 96,
+      "Q": 343,
+      "N": 65856,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/96-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/96-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 61,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 96,
+      "Q": 343,
+      "N": 65856,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/96-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/96-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 50,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 96,
+      "Q": 343,
+      "N": 65856,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/96-343-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/96-343-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 64,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 40
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 96,
+      "Q": 343,
+      "N": 65856,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/96-343-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/96-343-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 53,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 33
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 100,
+      "Q": 343,
+      "N": 68600,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/100-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/100-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 20
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 100,
+      "Q": 343,
+      "N": 68600,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/100-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/100-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 58,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 19
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 104,
+      "Q": 343,
+      "N": 71344,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/104-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/104-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 129,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 48
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 104,
+      "Q": 343,
+      "N": 71344,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/104-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/104-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 124,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 48
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 108,
+      "Q": 343,
+      "N": 74088,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/108-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/108-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 61,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 25
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 108,
+      "Q": 343,
+      "N": 74088,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/108-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/108-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 62,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 25
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 112,
+      "Q": 343,
+      "N": 76832,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/112-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/112-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 112,
+      "Q": 343,
+      "N": 76832,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/112-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/112-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 121,
+      "Q": 289,
+      "N": 69938,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/121-289-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/121-289-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 175,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 78
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 121,
+      "Q": 289,
+      "N": 69938,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/121-289-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/121-289-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 167,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 62
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 121,
+      "Q": 343,
+      "N": 83006,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/121-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/121-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 218,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 66
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 121,
+      "Q": 343,
+      "N": 83006,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/121-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/121-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 128,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 40
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 125,
+      "Q": 289,
+      "N": 72250,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/125-289-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/125-289-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 96,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 125,
+      "Q": 289,
+      "N": 72250,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/125-289-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/125-289-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 62,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 19
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 128,
+      "Q": 256,
+      "N": 65536,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/128-256-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/128-256-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 136,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 46
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 128,
+      "Q": 256,
+      "N": 65536,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/128-256-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/128-256-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 96,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 50
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 128,
+      "Q": 256,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/128-256-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/128-256-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 66,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 128,
+      "Q": 256,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/128-256-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/128-256-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 66,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 128,
+      "Q": 289,
+      "N": 73984,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/128-289-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/128-289-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 136,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 46
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 128,
+      "Q": 289,
+      "N": 73984,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/128-289-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/128-289-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 96,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 50
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 160,
+      "Q": 243,
+      "N": 77760,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/160-243-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/160-243-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 215,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 160,
+      "Q": 243,
+      "N": 77760,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/160-243-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/160-243-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 127,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 160,
+      "Q": 243,
+      "N": 77760,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/160-243-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/160-243-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 76,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 160,
+      "Q": 243,
+      "N": 77760,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/160-243-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/160-243-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 66,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 168,
+      "Q": 200,
+      "N": 67200,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/168-200-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/168-200-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 61,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 19
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 168,
+      "Q": 200,
+      "N": 67200,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/168-200-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/168-200-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 52,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 20
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 168,
+      "Q": 200,
+      "N": 67200,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/168-200-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/168-200-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 65,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 25
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 168,
+      "Q": 200,
+      "N": 67200,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/168-200-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/168-200-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 63,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 169,
+      "Q": 200,
+      "N": 67600,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/169-200-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/169-200-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 20,
+        "private_segment_fixed_size": 84,
+        "sgpr_count": 92
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 169,
+      "Q": 200,
+      "N": 67600,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/169-200-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/169-200-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 138,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 46
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 192,
+      "Q": 192,
+      "N": 73728,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/192-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/192-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 22
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 192,
+      "Q": 192,
+      "N": 73728,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/192-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/192-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 48,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 192,
+      "Q": 192,
+      "N": 73728,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/192-192-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/192-192-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 62,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 22
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 192,
+      "Q": 192,
+      "N": 73728,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/192-192-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/192-192-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 18
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 200,
+      "Q": 169,
+      "N": 67600,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/200-169-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/200-169-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 127,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 60
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 200,
+      "Q": 169,
+      "N": 67600,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/200-169-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/200-169-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 123,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 50
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 200,
+      "Q": 192,
+      "N": 76800,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/200-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/200-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 96,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 200,
+      "Q": 192,
+      "N": 76800,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/200-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/200-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 64,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 20
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 208,
+      "Q": 169,
+      "N": 70304,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/208-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/208-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 8,
+        "private_segment_fixed_size": 36,
+        "sgpr_count": 52
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 208,
+      "Q": 169,
+      "N": 70304,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/208-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/208-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 181,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 46
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 216,
+      "Q": 169,
+      "N": 73008,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/216-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/216-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 104,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 20
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 216,
+      "Q": 169,
+      "N": 73008,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/216-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/216-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 76,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 20
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 224,
+      "Q": 169,
+      "N": 75712,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/224-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/224-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 224,
+      "Q": 169,
+      "N": 75712,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/224-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/224-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 27
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 240,
+      "Q": 169,
+      "N": 81120,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/240-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/240-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 112,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 240,
+      "Q": 169,
+      "N": 81120,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/240-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/240-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 79,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 243,
+      "Q": 169,
+      "N": 82134,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/243-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/243-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 49,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 19
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 243,
+      "Q": 169,
+      "N": 82134,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/243-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/243-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 48,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 19
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 256,
+      "Q": 128,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/256-128-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/256-128-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 66,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 256,
+      "Q": 128,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/256-128-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/256-128-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 66,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 256,
+      "Q": 192,
+      "N": 98304,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/256-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/256-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 67,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 256,
+      "Q": 192,
+      "N": 98304,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/256-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/256-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 87,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 280,
+      "Q": 121,
+      "N": 67760,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/280-121-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/280-121-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 128,
+        "vgpr_spill_count": 16,
+        "private_segment_fixed_size": 68,
+        "sgpr_count": 28
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 280,
+      "Q": 121,
+      "N": 67760,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/280-121-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/280-121-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 81,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 280,
+      "Q": 121,
+      "N": 67760,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/280-121-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/280-121-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 110,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 56
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 280,
+      "Q": 121,
+      "N": 67760,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/280-121-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/280-121-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 114,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 42
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 280,
+      "Q": 125,
+      "N": 70000,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/280-125-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/280-125-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 65,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 31
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 280,
+      "Q": 125,
+      "N": 70000,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/280-125-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/280-125-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 48,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 121,
+      "N": 69938,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-121-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-121-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 121,
+      "N": 69938,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-121-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-121-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 169,
+      "N": 97682,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 169,
+      "N": 97682,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-169-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-169-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 200,
+      "N": 115600,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-200-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-200-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 200,
+      "N": 115600,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-200-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-200-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 289,
+      "N": 167042,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-289-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-289-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 289,
+      "N": 167042,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-289-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-289-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 343,
+      "N": 198254,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 343,
+      "N": 198254,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-343-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-343-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 58
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 512,
+      "N": 295936,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-512-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-512-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 512,
+      "N": 295936,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-512-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-512-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 60
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 625,
+      "N": 361250,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 625,
+      "N": 361250,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-625-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-625-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 60
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 289,
+      "Q": 1331,
+      "N": 769318,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/289-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 256,
+        "vgpr_spill_count": 172,
+        "private_segment_fixed_size": 692,
+        "sgpr_count": 104
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 289,
+      "Q": 1331,
+      "N": 769318,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-1331-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/289-1331-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 176,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 60
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 336,
+      "Q": 100,
+      "N": 67200,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/336-100-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/336-100-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 62,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 30
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 336,
+      "Q": 100,
+      "N": 67200,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/336-100-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/336-100-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 336,
+      "Q": 112,
+      "N": 75264,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/336-112-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/336-112-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 128,
+        "vgpr_spill_count": 8,
+        "private_segment_fixed_size": 36,
+        "sgpr_count": 28
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 336,
+      "Q": 112,
+      "N": 75264,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/336-112-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/336-112-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 103,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 336,
+      "Q": 112,
+      "N": 75264,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/336-112-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/336-112-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 60,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 32
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 336,
+      "Q": 112,
+      "N": 75264,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/336-112-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/336-112-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 59,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 30
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 343,
+      "Q": 192,
+      "N": 131712,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/343-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/343-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 125,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 28
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 343,
+      "Q": 192,
+      "N": 131712,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/343-192-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/343-192-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 84,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 28
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 512,
+      "Q": 64,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/512-64-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/512-64-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 37,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 512,
+      "Q": 64,
+      "N": 65536,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/512-64-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/512-64-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 37,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 512,
+      "Q": 81,
+      "N": 82944,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/512-81-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/512-81-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 29,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 512,
+      "Q": 81,
+      "N": 82944,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/512-81-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/512-81-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 34,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 21
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 512,
+      "Q": 100,
+      "N": 102400,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/512-100-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/512-100-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 66,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 512,
+      "Q": 100,
+      "N": 102400,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/512-100-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/512-100-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 86,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 26
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 1024,
+      "Q": 49,
+      "N": 100352,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/1024-49-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/1024-49-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 136,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 1024,
+      "Q": 49,
+      "N": 100352,
+      "role": 4,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/1024-49-4-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/1024-49-4-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 166,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 23
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 1024,
+      "Q": 49,
+      "N": 100352,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/1024-49-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/1024-49-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 69,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 40
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 1024,
+      "Q": 49,
+      "N": 100352,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/1024-49-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/1024-49-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 55,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 32
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "previous-generated",
+      "C": 1024,
+      "Q": 50,
+      "N": 102400,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/1024-50-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/previous-generated/1024-50-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 71,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 43
+      },
+      "returncode": 0
+    },
+    {
+      "variant": "unified",
+      "C": 1024,
+      "Q": 50,
+      "N": 102400,
+      "role": 7,
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/1024-50-7-0.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/unified-20261021/unified/1024-50-7-0.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 73,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "sgpr_count": 24
+      },
+      "returncode": 0
+    }
+  ],
+  "failures": [],
+  "translation_units": [
+    "tree_node_real.cpp",
+    "rtc_stockham_kernel.cpp"
+  ],
+  "elapsed_seconds": 213.13734811544418,
+  "limitation": "Offline compiler comparison of matched native source fixtures, not public-plan timing or loaded-runtime resource records."
+}

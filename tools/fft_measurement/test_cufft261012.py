@@ -31,7 +31,54 @@ def fixture():
     return row, samples, check
 
 
+def synthetic_manifest(selected):
+    m = dict(policy=v3.POLICY, experiment='EXP-999', run_id='EXP-999-v3-synthetic',
+             gpu_arch='gfx936', acceptance='Synthetic fixture, no measured performance.',
+             comparison_description='Explicit stable-version comparison, not a fusion-only ablation.',
+             case_scope='One exact A100 match and one case with no A100 reference.',
+             cases=[dict(N=131072, func='d2z_1d'), dict(N=69938, func='z2d_1d')],
+             arm_labels=dict(baseline='EXP125固定对照', previous='上一轮EXP128', candidate='新候选'),
+             arms={})
+    commits = dict(baseline='1'*40, previous='2'*40, candidate='a'*40)
+    libraries = dict(baseline='3'*64, previous='4'*64, candidate='b'*64)
+    for arm in selected:
+        m['arms'][arm] = dict(install=str(ROOT/('synthetic-'+arm)), source_repo=str(ROOT),
+            source_commit=v3.OFFICIAL_COMMIT if arm == 'official' else commits[arm],
+            library_sha256=v3.OFFICIAL_SHA if arm == 'official' else libraries[arm],
+            source_state='Synthetic committed source only.', build_provenance='Synthetic fixture only.')
+    return m
+
+
 class VersionAndEvidence(unittest.TestCase):
+    def test_three_experimental_arms_are_v3_only(self):
+        m = synthetic_manifest(('baseline', 'previous', 'candidate'))
+        checked = v3.validate_manifest(m)
+        self.assertEqual(v3.arms(checked), ('baseline', 'previous', 'candidate'))
+        self.assertNotIn('official', checked['arms'])
+        self.assertEqual(manager.common.ARMS, ('official', 'previous', 'candidate'))
+        legacy = copy.deepcopy(m); legacy['policy'] = v2.POLICY
+        with self.assertRaises(ValueError): v2.validate_manifest(legacy)
+        with self.assertRaises(ValueError): v2.arms(legacy)
+        with self.assertRaises(ValueError): manager.common.validate_manifest(m)
+
+    def test_three_arms_remain_adjacent_and_reverse_per_case(self):
+        m = synthetic_manifest(('candidate', 'previous', 'baseline'))
+        entries = v3.schedule(m)
+        self.assertEqual([r['arm'] for r in entries],
+                         ['baseline', 'previous', 'candidate', 'candidate', 'previous', 'baseline'])
+        self.assertEqual([r['index'] for r in entries], list(range(6)))
+        for index, case in enumerate(m['cases']):
+            group = entries[index*3:index*3+3]
+            self.assertTrue(all(r['N'] == case['N'] and r['func'] == case['func'] for r in group))
+            self.assertEqual({r['slot'] for r in group}, {1, 2, 3})
+
+    def test_official_identity_stays_fixed_with_extra_reference(self):
+        m = synthetic_manifest(('official', 'baseline', 'previous', 'candidate'))
+        v3.validate_manifest(m)
+        for field, value in [('source_commit', 'a'*40), ('library_sha256', 'b'*64)]:
+            changed = copy.deepcopy(m); changed['arms']['official'][field] = value
+            with self.assertRaises(ValueError): v3.validate_manifest(changed)
+
     def test_dispatch_and_legacy_defaults(self):
         self.assertIs(manager.measurement_protocol({}), v3)
         self.assertIs(manager.measurement_protocol({'policy': v2.POLICY}), v2)
@@ -108,6 +155,12 @@ class VersionAndEvidence(unittest.TestCase):
             with self.assertRaises(ValueError): v3.reference(changed)
 
     def test_complete_report_uses_lossless_medians_and_keeps_all_samples(self):
+        self.exercise_complete_report(('official', 'candidate'))
+
+    def test_complete_three_arm_report_has_both_median_ratios_and_plots(self):
+        self.exercise_complete_report(('baseline', 'previous', 'candidate'))
+
+    def exercise_complete_report(self, selected):
         from summarize_cufft261012 import report
         parent = Path(__file__).resolve().parents[2]/'.worktree-archives/sample-tests'
         parent.mkdir(parents=True, exist_ok=True)
@@ -116,16 +169,7 @@ class VersionAndEvidence(unittest.TestCase):
             assert run.resolve().parent == parent.resolve()
             shutil.rmtree(run)
         self.addCleanup(cleanup)
-        m = dict(policy=v3.POLICY, experiment='EXP-999', run_id='EXP-999-v3-synthetic',
-                 gpu_arch='gfx936', acceptance='Synthetic fixture, no measured performance.',
-                 comparison_description='Explicit stable-version comparison, not a fusion-only ablation.',
-                 case_scope='One exact A100 match and one case with no A100 reference.',
-                 cases=[dict(N=131072, func='d2z_1d'), dict(N=69938, func='z2d_1d')], arms={})
-        for arm in ('official', 'candidate'):
-            m['arms'][arm] = dict(install=str(ROOT/('synthetic-'+arm)), source_repo=str(ROOT),
-                source_commit=v3.OFFICIAL_COMMIT if arm == 'official' else 'a'*40,
-                library_sha256=v3.OFFICIAL_SHA if arm == 'official' else 'b'*64,
-                source_state='Synthetic committed source only.', build_provenance='Synthetic fixture only.')
+        m = synthetic_manifest(selected)
         m = v3.validate_manifest(v3.freeze_reference(m))
         def dump(name, value): (run/name).write_text(json.dumps(value), encoding='utf-8')
         def write_csv(path, header, rows):
@@ -140,7 +184,9 @@ class VersionAndEvidence(unittest.TestCase):
         entries = []
         for item in v3.schedule(m):
             directory = run/('p%04d'%item['index']); directory.mkdir()
-            values = [.03]*29+[.09] if item['arm'] == 'official' else [.02]*29+[.12]
+            medians = dict(official=.03, baseline=.04, previous=.03, candidate=.02)
+            outliers = dict(official=.09, baseline=.11, previous=.09, candidate=.12)
+            values = [medians[item['arm']]]*29+[outliers[item['arm']]]
             row, samples, check = fixture()
             for record in [row, check, *samples]: record.update(N=str(item['N']), func=item['func'])
             row.update({k:'%.6f'%v for k,v in dict(tmax_ms=max(values), tmin_ms=min(values),
@@ -160,14 +206,38 @@ class VersionAndEvidence(unittest.TestCase):
             entries.append(entry)
         dump('preregistration.json',m);dump('provenance.json',p);dump('processes.json',entries)
         before=[v3.sha(run/e['samples']) for e in entries]
-        rows=report(run)
-        self.assertTrue(all(r['speedup_official_median']==1.5 for r in rows))
+        with patch.dict(os.environ, {'MPLCONFIGDIR': str(run/'plots/matplotlib-cache')}):
+            rows=report(run)
+        for arm in selected:
+            if arm != 'candidate':
+                self.assertTrue(all(r['speedup_'+arm+'_median']==medians[arm]/medians['candidate'] for r in rows))
         self.assertTrue(all(not k.startswith('speedup_') or k.endswith('_median') for r in rows for k in r))
         self.assertIsNotNone(rows[0]['a100_median_ms']);self.assertIsNone(rows[1]['a100_median_ms'])
         self.assertEqual(before,[v3.sha(run/e['samples']) for e in entries])
         self.assertEqual(len(list((run/'plots').glob('*.svg'))),2)
         self.assertIn('十次预热', (run/'comparison.md').read_text(encoding='utf-8'))
         self.assertIn(m['comparison_description'], (run/'comparison.md').read_text(encoding='utf-8'))
+        if 'baseline' in selected:
+            summary = json.loads((run/'summary.json').read_text(encoding='utf-8'))
+            self.assertEqual(summary['processes'], 6)
+            self.assertEqual(summary['events_per_arm'], 30)
+            self.assertEqual(summary['timing_warmups'], 10)
+            self.assertTrue(all(r['speedup_baseline_median'] == 2.0
+                                and r['speedup_previous_median'] == 1.5 for r in summary['rows']))
+            markdown = (run/'comparison.md').read_text(encoding='utf-8')
+            self.assertIn('baseline＝EXP125固定对照', markdown)
+            self.assertIn('对上一轮EXP128加速比', markdown)
+            svg = next((run/'plots').glob('*.svg')).read_text(encoding='utf-8')
+            for label in ('EXP125固定对照', '上一轮EXP128', '新候选'):
+                self.assertIn(label, svg)
+            entries[0]['returncode'] = 1
+            dump('processes.json', entries)
+            from summarize_cufft261012 import aggregate
+            with self.assertRaises(ValueError): aggregate(run)
+            entries[0]['returncode'] = 0
+            entries[0]['library_sha256'] = m['arms']['previous']['library_sha256']
+            dump('processes.json', entries)
+            with self.assertRaises(ValueError): aggregate(run)
 
 
 if __name__ == '__main__': unittest.main()

@@ -619,7 +619,7 @@ struct StockhamKernelCC : public StockhamKernel
         return stmts;
     }
 
-    bool use_large_twiddle_recurrence() const
+    virtual bool use_large_twiddle_recurrence() const
     {
         const bool candidate_length = length == 256 || length == 512 || length == 1024;
         const bool supported_radix  = factors.back() == 4 || factors.back() == 8;
