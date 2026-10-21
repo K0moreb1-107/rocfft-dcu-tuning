@@ -306,3 +306,9 @@ The unified entry completed real exclusive-node measurement job 894456 with a on
 manage.py validate的validation_resume可接续EXP127已知的设备检查变量覆盖失败：复用原安装，核验全部已通过用例及原始证据，再调用与完整验证共用的收尾检查。只接受完整覆盖且失败点符合登记条件的记录；设备须与原运行相同。原失败记录不修改，新验收单独保存，不重新编译、不重复已通过计算，不冻结源码或检查工作区状态。
 
 manage.py measure的validated_measurement可提前排队，显式依赖补验任务成功。运行时确认新验收及实际库身份，再由标准正式计时程序执行独立测量记录；补验日志不计作性能数据。配置与实际提交号、所用库和结果保留追溯。
+
+## 已有构建的完整重新验证（2026-10-21）
+
+复用已完成的构建时，配置`existing_build_validation`指向原`build_record`、完整验证的`evidence_record`，通过`manage.py validate`提交；不调用构建流程，不改写原失败记录。设置`isolated_helpers=true`时，验证器接收`--helpers`并把辅助程序写入新任务目录；`--build`仍用于读取原对象及链接参数。
+
+性能提前排队用`revalidated_measurement`指定实际已提交的验证配置及任务号；仅`afterok`该验证任务。开始计时前核对新验收完成、对应库／提交号、原始验证日志及证据，原失败验收不作成功依据。两版正式计时仍在同一独占单卡分配内进行。此流程不冻结源码或验证依赖，不检查工作区状态；示例见EXP128的coverage-mapfix-20261021记录。

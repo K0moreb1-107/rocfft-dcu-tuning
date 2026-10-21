@@ -197,6 +197,9 @@ def build_plan(cfg):
             'compiler':compiler,'profile':flags,'runtime_validation':'not yet performed'}
 
 def task_plan(task,cfg):
+    if 'existing_build_validation' in cfg or 'revalidated_measurement' in cfg:
+        from tools.workspace_manager import revalidate
+        return revalidate.plan(task,cfg)
     if 'validation_resume' in cfg or 'validated_measurement' in cfg:
         from tools.workspace_manager import validation_resume
         return validation_resume.plan(task,cfg)
@@ -389,7 +392,10 @@ def main():
         if args.worker:
             require(not args.execute and args.task!='report','invalid worker mode')
             common.single_gpu_allocation(os.environ)
-            if 'validation_resume' in cfg or 'validated_measurement' in cfg:
+            if 'existing_build_validation' in cfg or 'revalidated_measurement' in cfg:
+                from tools.workspace_manager import revalidate
+                revalidate.execute(args.task,cfg)
+            elif 'validation_resume' in cfg or 'validated_measurement' in cfg:
                 from tools.workspace_manager import validation_resume
                 validation_resume.execute(args.task,cfg)
             elif args.task=='diagnose':

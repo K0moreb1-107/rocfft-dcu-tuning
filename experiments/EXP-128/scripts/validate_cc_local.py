@@ -16,6 +16,7 @@ from tools.workspace_manager import manager as mgr
 from tools.workspace_manager.validation_finish import finish
 from cc_fusion_ab_references import references, PATTERNS
 from cc_dispatch import inspect_dispatch
+from audit_cc_coverage import parse_mapping, validate_coverage, representative_sizes
 import cufft261012_contract as contract
 
 
@@ -26,15 +27,6 @@ def run(command,env,folder,label,timeout=900,cwd=None):
         result=subprocess.run(command,env=env,cwd=cwd or folder,stdout=out,stderr=err,timeout=timeout)
     mgr.dumps(folder/(label+'-command.json'),dict(command=command,returncode=result.returncode))
     mgr.require(result.returncode==0,label+' failed: '+str(folder))
-
-
-def representative_sizes(public):
-    remaining={('C',x['C']) for x in public}|{('Q',x['Q']) for x in public}
-    selected=[]
-    while remaining:
-        x=max(public,key=lambda x:(len({('C',x['C']),('Q',x['Q'])}&remaining),x['N']))
-        remaining-={('C',x['C']),('Q',x['Q'])};selected.append(x['N'])
-    return set(selected)
 
 
 def trace_case(binary,case,func,env,folder,fused):
@@ -72,16 +64,21 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('config','build-record','run','build','cache'):
         parser.add_argument('--'+name,type=Path,required=True)
+    parser.add_argument('--helpers',type=Path)
     a=parser.parse_args();cfg=mgr.load(a.config);built=json.loads(a.build_record.read_text())
     mgr.require(built['complete'],'build incomplete')
     coverage=json.loads(mgr.inside(cfg['validation']['coverage']).read_text())
+    map_source=subprocess.check_output(['git','-C',built['arm']['source_repo'],'show',
+        built['arm']['source_commit']+':rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp'],text=True)
+    coverage_audit=validate_coverage(coverage,parse_mapping(map_source))
     fused=cfg['validation']['fused'];source=mgr.inside(cfg['build']['source_dir'])
     install=mgr.inside(built['arm']['install']);lib=install/'lib/librocfft.so.0.1'
     folder=mgr.inside(a.run)/'cc-local-validation';folder.mkdir()
     cache=mgr.inside(a.cache);env=mgr.environment(cache);env['FFT_TEST_ITERS']='30'
     selected=dict(env,LD_PRELOAD=str(lib),LD_LIBRARY_PATH=str(install/'lib')+':'+env['LD_LIBRARY_PATH'])
     here=Path(__file__).resolve().parent;build=mgr.inside(a.build)
-    identity=build/'exp128-device';guard=build/'exp128-public';binary=build/'exp128-timing'
+    helper_dir=mgr.inside(a.helpers) if a.helpers else build
+    identity=helper_dir/'exp128-device';guard=helper_dir/'exp128-public';binary=helper_dir/'exp128-timing'
     helpers=[(identity,ROOT/'tools/fft_measurement/device_identity.cpp',[]),
         (guard,here/'cc_fusion_ab_guard.cpp',['-I'+str(source/'shared'),'-I'+str(install/'include'),
             '-L'+str(install/'lib'),'-Wl,-rpath,'+str(install/'lib'),'-lrocfft','-lstdc++fs']),
@@ -102,7 +99,8 @@ def main():
         and 'ROCFFT_CC_LOCAL_REAL_FUSION:BOOL=ON' in text,'wrong fusion switches')
     record=dict(complete=False,formal=False,source_commit=built['arm']['source_commit'],
         library_sha256=built['arm']['library_sha256'],gpu=gpu,fused=fused,
-        public=[],internal=[],dispatch=[],controls=[],
+        public=[],internal=[],dispatch=[],controls=[],coverage_audit=coverage_audit,
+        coverage_sha256=mgr.common.sha(mgr.inside(cfg['validation']['coverage'])),
         start=datetime.datetime.now(datetime.timezone.utc).isoformat())
     def save():(a.run/'cc-local-validation.json').write_text(json.dumps(record,indent=2)+'\n')
     def public_case(case,func,comprehensive=False,control=False):
@@ -139,7 +137,7 @@ def main():
             save();print('PUBLIC_PASS',case['N'],flush=True)
         for case in coverage['controls']:public_case(case,case['func'],True,True)
         if fused:
-            internal=build/'exp128-pipeline'
+            internal=helper_dir/'exp128-pipeline'
             record['internal_fixture']=compile_internal_fixture(build,source,here/'cc_local_pipeline_guard.cpp',
                 internal,env,folder/'internal-build')
             for case in coverage['geometries']:

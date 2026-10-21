@@ -1,0 +1,1838 @@
+{
+  "complete": true,
+  "tests_run": 68,
+  "failures": 0,
+  "errors": 0,
+  "compiled_table_matches": true,
+  "compiler_command": [
+    "/usr/bin/g++",
+    "-std=c++17",
+    "-O0",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/mapfix-20261021/table.cpp",
+    "-o",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/mapfix-20261021/table"
+  ],
+  "compiler_entries": 222,
+  "internal_fixture_link": {
+    "binary_sha256": "ef184c4ffd5723488cd415e259e42faa9ea76cebbc3fced6a8841a68fe075085",
+    "link_recipe_sha256": "1aeafd2fe38d62ccd957a409e88bb439d48b7ee1b10bafd1e4e977c6074bd3e5",
+    "objects": {
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/auxiliary.cpp.o": "92fa3d1796c886f20ab2b3f9212bbcaa10ee9933ce3d09e80aabe40f5901a013",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/plan.cpp.o": "05c10dde5a0e9a3c55cbcf276e7fa8031c16ba8283f489abd744ef06467f05ae",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/transform.cpp.o": "650edbf2d8ee1699160210d1e1004d2418967bcfa6f9013d2755a40d4c216c49",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/repo.cpp.o": "7e9768c7e59b83d8725a35d1d812b5cb6db80ec0339537ec9f00dd55c92fd8ae",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/powX.cpp.o": "c4d77a479222e1023788267f5560754071990a3169751c8d747ee9babf60db17",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/chirp.cpp.o": "d8296eaf2d380d37a585a258c9707fea1515b6e9894dea14b1fa82e4abe4471c",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/twiddles.cpp.o": "f4759018643b8ded6e22eaf7ae02835a4bd9639ee8adf86d221ba39746f1da7d",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/kargs.cpp.o": "1648917a9f64197ad79be3cc02e5210e46f28c9d165b05a9a23ffa72a89a1d66",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tree_node.cpp.o": "400a18dea2b35105b81541578c9c3c5c7f225cca343a5b84155ed1700321353e",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tree_node_1D.cpp.o": "0f8cf2dfe3fad049f65cb2a929d43d5f328cb9ea64f11cecbb8f83f2f78ca7ac",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tree_node_2D.cpp.o": "6b3370b76e918f4d7d0d7e168ece8a709be66ead056f609f03ea7987a90b3b43",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tree_node_3D.cpp.o": "d1fa8733ed95374bb23ef49d87de2e0471b475fce993685ddac2fb2d2a244d43",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tree_node_bluestein.cpp.o": "80709b8a3b3dd61ab43c34151ad2a0be263200ce53854a60471ba8dfeaebcacc",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tree_node_real.cpp.o": "965eaa9722bb2d782df5e9b3c8ac8a8e0a7b6887c544c89cb8855e6952e50168",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/fuse_shim.cpp.o": "fabc61dc0340d4c7b3cafad90ae46076467302e83b8e5783bce7f167adcf48d6",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/assignment_policy.cpp.o": "d5232a12c7b094e5157cbcf5eaac4eb962fbf7d438fb6773a447872f8f9cf16d",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/callback_map.cpp.o": "82c4733e88acfff42ae6f8fee6394cd97c2d0491830c8ab6bc007cd83edbe121",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/node_factory.cpp.o": "a1420cee781b9b48e608d0f684652f88147d899cc9d445f9f4dcfcf7a105b705",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/enum_printer.cpp.o": "bbefa81f60e07a7436708d232c84154b9d457e565d94f9ecfcc0f33a355cee7a",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/rtc_exports.cpp.o": "ab8e7e602d163a7cebe91f48c46d2f3a768cbc765bc7bef44b132846cc4cc2e8",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tuning_kernel_tuner.cpp.o": "f26c17fd1b57d4d08e27fb3273a21ee524a63f70f2bc5765d948bb2b5e607aba",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft.dir/tuning_plan_tuner.cpp.o": "e0d7d68644c2d8f6b9cec92f7a02264662644be2a814debd73c0473621dc26be",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-cache.dir/rtc_cache.cpp.o": "963570a845049695c642190232ad47945e1faea437eadfafc67463dd5031899c",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/sqlite3.dir/__/__/_deps/sqlite_local-src/sqlite3.c.o": "a46930ca9557d2daf051d4a69ff95d2ecfd0d9fcd1b97f6caa78d97681552eb1",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_bluestein_gen.cpp.o": "48f4bfde4a6767ccf4f3b05e9e2473c8bdf5f03fcaade5ac9e50b1062636a83f",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_realcomplex_gen.cpp.o": "23a6cb30369f4992834fdfcb8cad517a92ac024297ab427aa2cbc350ffcdc8d7",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_stockham_gen.cpp.o": "29d5ded21e945b4e0cf2c537a1e8bae2aa817419c7c932b9815057b6400ed271",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_transpose_gen.cpp.o": "5e78d636f15cac570bfe61f9ec5a65bc62e0f7a9fc12bfe9f8365594b245ce7b",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_twiddle_gen.cpp.o": "d34349ef652252c7043898b870d16df1b067982f44287e976f14197551adf322",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_chirp_gen.cpp.o": "ae405f702a11ebbc4854890a2d5b58b1ee125fef2e031ff908c73d608c17b029",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/rtc_test_harness.cpp.o": "6da980337b1b1af58ec522f67f910885eb61b05d344b262f86ef5db53785e9c3",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-gen.dir/load_store_ops_gen.cpp.o": "e7213ad331d850c72e772096471a235f510754a02ec808d901f4b9ba1df30be5",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-compile.dir/rtc_compile.cpp.o": "14df5f502aae81b1cc8fe8ce420271c9b5a602212e74ca74844e9b2d93ec87fd",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-subprocess.dir/rtc_subprocess.cpp.o": "06e6236085d7c6239e42fc973623820b5f9700480f3dc4a0e8c6f3e945b2330e",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-common.dir/device/kernel-generator-embed.cpp.o": "76b2409a8d0e5e3bcb832d974e758eae929ef7e7a7f00429d97d77592c0f4dc4",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-common.dir/compute_scheme.cpp.o": "803c6f944c86a8aaf9d1f1d887efe92830944f71ffb250f6c8faa0b5a3092cf4",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-common.dir/rocfft_ostream.cpp.o": "312aee535a9879a2bd2c9cd1beb7590637e2d86efdfd64f5799f222c199fe170",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/generator/CMakeFiles/generator.dir/generator.cpp.o": "321d8dca232fc6ea4bf02f7f7d73f03ce9f97b97c162e533e5333c4b9a4a1c78",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/generator/CMakeFiles/generator.dir/fftgenerator.cpp.o": "bd45327f30f0df1b0314b9b34bd19caf6e9bc75a70302a5fbf4ae94da5f23215",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_0.cpp.o": "b729710eb745a02a0b0b753a590e13fdaa59848128b3872d7622033e3606f17e",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_1.cpp.o": "16f884a3f3d22861a007771787c54faec53a4caec5e561801c123606ed61c544",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_2.cpp.o": "14bca3f008a155b062160dbf590083091860c6e1fd8012ad47d999ba8218ef9d",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_3.cpp.o": "041ecafa6e567db1bbd2a1e8e9b2083a73bea1bc0801d43cb53e80626036dab2",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_4.cpp.o": "692ef795fd095f0962472bf2029cb74e9648c1046e2c21b517aabf317db00571",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_5.cpp.o": "4e803618472b5a9712e7a77f3cbfd457e64788a979c61b82a97a4d2cd0b48670",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_6.cpp.o": "e5ba15261d47b58431cb2d8c70ccce6b0c95a64243655a755a9916388f3d88b1",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool_init_7.cpp.o": "20a1811b26dee644e7469e7e519496235ff876d2c8e44386a120dcfdb732b856",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/device/CMakeFiles/rocfft-function-pool.dir/function_pool.cpp.o": "b60a82f1934a8e212d9a289c234515c2beba16e747ed15f820e79c08712ec728",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/rtc_kernel.cpp.o": "143f220c3969481fa45bd6106968f32317977ff2739ecaf5d4201c67e820e9dc",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/rtc_bluestein_kernel.cpp.o": "b976bd667cb2c6f33b92c9c7f3f2dcf3775174eae884cbff229ea8f2c4d955df",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/rtc_realcomplex_kernel.cpp.o": "ec379bb6ffd2b06695c5bf19ad6abdb4872a026d9f8a4456d13885971a4ba742",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/rtc_stockham_kernel.cpp.o": "fb971bc58a48aa833a8eca8a65d40c8283ca78b7b4d7fe8dd490c27f85584104",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/rtc_transpose_kernel.cpp.o": "9796bcd774028b845d45d2fd4f7f79cc89a3535558c4ec4060e405cc3db322ee",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/rtc_twiddle_kernel.cpp.o": "2ea1d258c9eead545308d4ced70b521cce8660c43c0535a5c6adc1bcef223cbe",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/rtc_chirp_kernel.cpp.o": "1ade6f07d06069fae813950bdf66b570baebca764e69440b99eb70a9f9dd393b",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/load_store_ops_kernel.cpp.o": "11de3e0fa4ee00f49b65c3ce0f4c1fb21c188000ac89dde4ae8951a39c08c941",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-rtc-launch.dir/tree_node_callback.cpp.o": "2aa64a2d113dc915f7f71d63f2af1dfc72baf81bd8c3a57570588df92fde4401",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-solution-map.dir/solution_map.cpp.o": "a621fb12b4c0804bcb74ce245df07b4f749a637c92b060a4976eae9281d0702e",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-solution-map.dir/solutions.cpp.o": "0e0114fd1c098e273ac6b0ab7d232772720cfba0b19b081837afa3fea7e28596",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021/library/src/CMakeFiles/rocfft-tuning-helper.dir/tuning_helper.cpp.o": "ff216d81e86bd8c3c5a9c28891689f3eaab42f6caad6cfed487b7b5b61dd0918"
+    }
+  },
+  "audit": {
+    "complete": true,
+    "active_map_entries": 222,
+    "preserved_entries": 60,
+    "added_decompositions": 162,
+    "public_N": 193,
+    "measurement_cases": 386,
+    "native_geometries": 279,
+    "native_columns": 33,
+    "native_rows": 21,
+    "active_native_rows": 20,
+    "public_columns": 33,
+    "public_rows": 17,
+    "representative_N": [
+      71680,
+      75712,
+      79872,
+      81312,
+      96000,
+      100352,
+      102400,
+      114688,
+      118098,
+      131072,
+      133100,
+      138424,
+      159720,
+      161840,
+      170368,
+      191664,
+      212960,
+      215622,
+      223608,
+      230496,
+      255552,
+      256000,
+      266200,
+      276848,
+      287496,
+      295936,
+      298144,
+      322102,
+      332750,
+      340736,
+      425920,
+      447216,
+      449878,
+      511104,
+      532400,
+      574992,
+      640000,
+      702464,
+      2725888
+    ],
+    "public_validation_records": 620
+  },
+  "reused_build_job": "951534",
+  "candidate": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-exp125-on-20261021",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "f1392722b97cfb7b45b02e575ecc01b4ff415e76",
+    "source_state": "{\"commit\": \"f1392722b97cfb7b45b02e575ecc01b4ff415e76\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"f1392722b97cfb7b45b02e575ecc01b4ff415e76\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/experiments/EXP-128/records/implementation-20261021/coverage.json\": \"eed65611743bbb78df16c8e3f34c27acea556979f939d71ffb2d735ed9275561\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py\": \"45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_guard.cpp\": \"cf2c6c326271a08b875078e460e1e11c61bb32a1438446216d2e6daa72a94d53\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_references.py\": \"502536438a5a542c1e0761d50c9e269e10465e0e5429ba539b92d6bb75387bc4\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_local_pipeline_guard.cpp\": \"bd9ffd06ee6b4ea180a2ac9e6f26b71d634ac42462d7cf8902dd8ec690842f52\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local.py\": \"1743599db72c5b908eee7fdad71db0f61c1875bf8dd62c40799c59df083ff21e\", \"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"9ef38c9b80cff3d1d9d27f958794e2dc5b6b523f8ea52155047ebffa41e67267\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+    "library_sha256": "ec0171cfc5aa6e4e935d302fd21395062c416bb0c9a8c06b9463500d9562fcc2",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-exp125-on-build-20261021/build-provenance.json"
+  },
+  "validation_preview": {
+    "task": "validate",
+    "existing_build": true,
+    "rebuild_required": false,
+    "source_commit": "f1392722b97cfb7b45b02e575ecc01b4ff415e76",
+    "library_sha256": "ec0171cfc5aa6e4e935d302fd21395062c416bb0c9a8c06b9463500d9562fcc2",
+    "validation_command": [
+      "/public/software/apps/anaconda3/2023.09/bin/python",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local.py",
+      "--config",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-validate-20261021/submit-manifest.json",
+      "--build-record",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-exp125-on-build-20261021/build-provenance.json",
+      "--run",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-validate-20261021",
+      "--build",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-exp125-on-20261021",
+      "--cache",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-local-mapfix-validate-20261021",
+      "--helpers",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/measurement/EXP-128-cc-local-mapfix-validate-20261021"
+    ],
+    "evidence_record": "cc-local-validation.json",
+    "submission_command": [
+      "sbatch",
+      "--parsable",
+      "--chdir=/public/home/zhangkewei/zr",
+      "--output=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-validate-20261021/logs/slurm_%j.out",
+      "--error=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-validate-20261021/logs/slurm_%j.err",
+      "--cpus-per-task=16",
+      "--partition=hx1hdnormal01",
+      "--time=12:00:00",
+      "--exclusive",
+      "--nodelist=a03r1n02",
+      "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+      "validate",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-validate-20261021/submit-manifest.json"
+    ],
+    "source_state_freeze": false,
+    "validation_scope": "complete fresh validation; no reuse of partial passes"
+  },
+  "measurement_preview": {
+    "task": "measure",
+    "paths": {
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-performance-20261021",
+      "logs": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-performance-20261021/logs",
+      "build": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/measurement/EXP-128-cc-local-mapfix-performance-20261021",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-mapfix-performance-20261021",
+      "cache": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-local-mapfix-performance-20261021"
+    },
+    "resolved_preregistration": {
+      "schema_version": 1,
+      "policy": "FFT-event-cufft261012-single-v3",
+      "experiment": "EXP-128",
+      "run_id": "EXP-128-cc-local-mapfix-performance-20261021",
+      "gpu_arch": "gfx936",
+      "resources": {
+        "partition": "hx1hdnormal01",
+        "cpus": 8,
+        "time_limit": "04:00:00",
+        "nodelist": "a03r1n02",
+        "node_exclusive": true
+      },
+      "event_iterations": 30,
+      "timing_warmups": 10,
+      "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+      "cases": [
+        {
+          "N": 65856,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 65856,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 67200,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 67200,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 67600,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 67600,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 67760,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 67760,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 68600,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 68600,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 69938,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 69938,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 70000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 70000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 70304,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 70304,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 71344,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 71344,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 71680,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 71680,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 72250,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 72250,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 73008,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 73008,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 73728,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 73728,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 73984,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 73984,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 74088,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 74088,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 75000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 75000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 75264,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 75264,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 75712,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 75712,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 76800,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 76800,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 76832,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 76832,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 77760,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 77760,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 79872,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 79872,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 80000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 80000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 81120,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 81120,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 81312,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 81312,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 81648,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 81648,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 81920,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 81920,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 82134,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 82134,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 82944,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 82944,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 83006,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 83006,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 83200,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 83200,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 84000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 84000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 85750,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 85750,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 86016,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 86016,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 86400,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 86400,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 86528,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 86528,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 87808,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 87808,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 89600,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 89600,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 90000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 90000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 92160,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 92160,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 92480,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 92480,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 93312,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 93312,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 94640,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 94640,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 96000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 96000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 97104,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 97104,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 97200,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 97200,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 97682,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 97682,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 98304,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 98304,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 100000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 100000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 100352,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 100352,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 101088,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 101088,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 101250,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 101250,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 102400,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 102400,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 104976,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 104976,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 105000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 105000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 106496,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 106496,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 107520,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 107520,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 108864,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 108864,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 109760,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 109760,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 110592,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 110592,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 110976,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 110976,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 112000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 112000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 113568,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 113568,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 114688,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 114688,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 115248,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 115248,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 115600,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 115600,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 115934,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 115934,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 116640,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 116640,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 118098,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 118098,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 120000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 120000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 120224,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 120224,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 122880,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 122880,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 123904,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 123904,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 124416,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 124416,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 124848,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 124848,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 125000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 125000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 128000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 128000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 129024,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 129024,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 129472,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 129472,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 130000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 130000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 131072,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 131072,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 131712,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 131712,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 133100,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 133100,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 134400,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 134400,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 135000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 135000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 136080,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 136080,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 137200,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 137200,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 138424,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 138424,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 138720,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 138720,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 140000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 140000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 140454,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 140454,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 142688,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 142688,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 143360,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 143360,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 147456,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 147456,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 147968,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 147968,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 148176,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 148176,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 151250,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 151250,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 153664,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 153664,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 156250,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 156250,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 159720,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 159720,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 160000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 160000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 161840,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 161840,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 163296,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 163296,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 163840,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 163840,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 164640,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 164640,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 165888,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 165888,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 166698,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 166698,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 167042,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 167042,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 170368,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 170368,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 172032,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 172032,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 173056,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 173056,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 175616,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 175616,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 191664,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 191664,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 192080,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 192080,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 194208,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 194208,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 196608,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 196608,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 198254,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 198254,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 200000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 200000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 204800,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 204800,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 210000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 210000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 211250,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 211250,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 212960,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 212960,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 212992,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 212992,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 215622,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 215622,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 221184,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 221184,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 223608,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 223608,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 229376,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 229376,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 230496,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 230496,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 235298,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 235298,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 240000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 240000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 245760,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 245760,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 247808,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 247808,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 248832,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 248832,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 250000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 250000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 255552,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 255552,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 256000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 256000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 260000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 260000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 262144,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 262144,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 266200,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 266200,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 270000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 270000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 276848,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 276848,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 280000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 280000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 286720,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 286720,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 287496,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 287496,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 295936,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 295936,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 298144,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 298144,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 300000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 300000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 303750,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 303750,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 320000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 320000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 322102,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 322102,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 327680,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 327680,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 332750,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 332750,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 340736,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 340736,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 344064,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 344064,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 346112,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 346112,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 350000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 350000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 351232,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 351232,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 361250,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 361250,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 393216,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 393216,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 409600,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 409600,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 420000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 420000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 425920,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 425920,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 425984,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 425984,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 428750,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 428750,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 442368,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 442368,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 447216,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 447216,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 449878,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 449878,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 458752,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 458752,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 491520,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 491520,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 497664,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 497664,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 511104,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 511104,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 524288,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 524288,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 532400,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 532400,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 553696,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 553696,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 573440,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 573440,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 574992,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 574992,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 591872,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 591872,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 596288,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 596288,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 638880,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 638880,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 640000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 640000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 646866,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 646866,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 681472,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 681472,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 688128,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 688128,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 702464,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 702464,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 745360,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 745360,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 769318,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 769318,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 894432,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 894432,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 913066,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 913066,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 1048576,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 1048576,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 1280000,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 1280000,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 1362944,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 1362944,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 2097152,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 2097152,
+          "func": "d2z_1d"
+        },
+        {
+          "N": 2725888,
+          "func": "z2d_1d"
+        },
+        {
+          "N": 2725888,
+          "func": "d2z_1d"
+        }
+      ],
+      "case_scope": "All 193 public-default CC decompositions; both real directions; 33 column and 17 public-default row lengths. Internal correctness additionally covers all 279 native pairs and 20 active row lengths. No forced load path or alternative decomposition during measurement. The candidate uses its registered CC decompositions; the EXP125 reference retains its own default plans, which need not be CC.",
+      "arms": {
+        "previous": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-exp125-on-20261021",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "f1392722b97cfb7b45b02e575ecc01b4ff415e76",
+          "source_state": "{\"commit\": \"f1392722b97cfb7b45b02e575ecc01b4ff415e76\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"f1392722b97cfb7b45b02e575ecc01b4ff415e76\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/experiments/EXP-128/records/implementation-20261021/coverage.json\": \"eed65611743bbb78df16c8e3f34c27acea556979f939d71ffb2d735ed9275561\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py\": \"45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_guard.cpp\": \"cf2c6c326271a08b875078e460e1e11c61bb32a1438446216d2e6daa72a94d53\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_fusion_ab_references.py\": \"502536438a5a542c1e0761d50c9e269e10465e0e5429ba539b92d6bb75387bc4\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_local_pipeline_guard.cpp\": \"bd9ffd06ee6b4ea180a2ac9e6f26b71d634ac42462d7cf8902dd8ec690842f52\", \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local.py\": \"1743599db72c5b908eee7fdad71db0f61c1875bf8dd62c40799c59df083ff21e\", \"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"9ef38c9b80cff3d1d9d27f958794e2dc5b6b523f8ea52155047ebffa41e67267\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+          "library_sha256": "ec0171cfc5aa6e4e935d302fd21395062c416bb0c9a8c06b9463500d9562fcc2",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-exp125-on-build-20261021/build-provenance.json"
+        }
+      },
+      "comparison_kind": "stable_version",
+      "arm_labels": {
+        "previous": "EXP125稳定版",
+        "candidate": "行内前处理及局部后处理融合"
+      },
+      "acceptance": "The existing candidate library from job 951534 must pass the new complete validation under corrected coverage before timing. EXP125 is the retained validated reference; no new build tasks. Pair both defaults on an exclusive single GPU, 10 warmups/30 samples per case/version; retain all samples and plots, median ratios only; no automatic promotion.",
+      "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/coverage-mapfix-20261021/coverage.json",
+      "coverage_sha256": "0f171f5dffa84edeab940d2a9a49b4a26e46c73fe0aff1f38e90c2f35df53195",
+      "measurement_conditions": {
+        "precision": "double",
+        "batch": 1,
+        "placement": "out-of-place",
+        "load_path": "default",
+        "readonly_input": "candidate validation requires unchanged input; timing retains the supplied v3 exact-size input/output semantics for each version",
+        "reference": "retained EXP125 stable installation EXP-125-pre-memory-i; its existing power-of-two fusions and default decomposition choices are retained",
+        "endpoint_packed_z2d": "extra C-point transform is included in net event time"
+      },
+      "source_state_policy": "Record actual starting commit and actual library identity. Do not freeze or compare workspace/build/validation source state.",
+      "comparison_description": "对照使用已验证的EXP125稳定安装，保留其原有二次幂融合及默认计划。新版补充了CC分解并实现新融合，结果代表两版整体差异，不作为只有融合开关不同的对照。",
+      "a100_reference": {
+        "dataset": "test_fft_261012",
+        "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+        "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+        "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+        "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+        "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+        "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+        "warmups": 10,
+        "event_iterations": 30,
+        "input_pattern": "linear_index_real_imaginary_zero",
+        "comparison": "cross_device_reference",
+        "source_binary_correspondence_verified": false
+      },
+      "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6"
+    },
+    "submission_command": [
+      "sbatch",
+      "--parsable",
+      "--chdir=/public/home/zhangkewei/zr",
+      "--output=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-performance-20261021/logs/slurm_%j.out",
+      "--error=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-performance-20261021/logs/slurm_%j.err",
+      "--cpus-per-task=8",
+      "--partition=hx1hdnormal01",
+      "--time=04:00:00",
+      "--exclusive",
+      "--nodelist=a03r1n02",
+      "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+      "measure",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-mapfix-performance-20261021/submit-manifest.json"
+    ],
+    "processes": 772,
+    "cases": 386,
+    "timing_warmups": 10,
+    "event_iterations": 30,
+    "formal": true,
+    "node_exclusive": true,
+    "notice": "One process per case/version; all event samples retained, median ratios, distribution and order plots."
+  },
+  "free_disk_GiB": 329.71875,
+  "source_state_policy": "No source freeze, workspace-state comparison or FFT build."
+}
