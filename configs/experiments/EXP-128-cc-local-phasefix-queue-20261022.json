@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-phasefix-queue-20261022",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "04:00:00",
+    "nodelist": "a01r4n01",
+    "node_exclusive": true,
+    "dependency": "afterok:955251"
+  },
+  "revalidated_measurement": {
+    "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-validate-20261022/submit-manifest.json",
+    "validation_job_id": "955251",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-local-phasefix-performance-20261022.json",
+    "measurement_config_sha256": "f13afc7373c6c91147236cf9f99b016ba663f3164262377ff670b78cd2873fad"
+  }
+}

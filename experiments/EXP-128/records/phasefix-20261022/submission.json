@@ -1,0 +1,19 @@
+{
+  "receipts": {
+    "build": {
+      "job": "955250",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-build-20261022"
+    },
+    "validation": {
+      "job": "955251",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-validate-20261022"
+    },
+    "performance": {
+      "job": "955252",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-queue-20261022"
+    }
+  },
+  "inspection": "not performed; stop after submission",
+  "prior_installs_rebuilt": false,
+  "source_state_freeze": false
+}

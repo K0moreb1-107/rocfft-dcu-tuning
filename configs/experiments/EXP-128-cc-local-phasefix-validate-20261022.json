@@ -8,7 +8,8 @@
     "cpus": 8,
     "time_limit": "00:30:00",
     "nodelist": "a01r4n01",
-    "node_exclusive": true
+    "node_exclusive": true,
+    "dependency": "afterok:955250"
   },
   "build": {
     "component": "rocfft",
@@ -72,5 +73,10 @@
     "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-build-20261022/build-provenance.json",
     "evidence_record": "cc-local-validation.json",
     "isolated_helpers": false
+  },
+  "pending_build_validation": {
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-phasefix-build-20261022/submit-manifest.json",
+    "build_config_sha256": "cbb9bb846f927b3a8b119438db09e5c5751ccf99f3177fc38b597001da4f96df",
+    "build_job_id": "955250"
   }
 }
