@@ -156,52 +156,51 @@ struct StockhamKernelPackedInverseRows : StockhamKernelCCRealRows
     }
     StatementList store_to_global(bool) override
     {
-        const unsigned int tasks = length * transforms_per_block;
         Variable first { "cc_output_first", "const unsigned int" },
-            valid { "cc_output_valid", "const unsigned int" };
+            valid { "cc_output_valid", "const unsigned int" },
+            slot { "cc_output_slot", "const unsigned int" },
+            p0 { "cc_output_p0", "const unsigned int" };
         StatementList s { Declaration { first, tile_index_in_plane * transforms_per_block },
             Declaration { valid,
                 CallExpr { "min",
                     { Literal { transforms_per_block },
-                        Literal { static_cast<unsigned int>(io.columns) } - first } } } };
+                        Literal { static_cast<unsigned int>(io.columns) } - first } } },
+            Declaration { slot, thread_id % transforms_per_block },
+            Declaration { p0, thread_id / transforms_per_block } };
+        // WGS = threads_per_transform * transforms_per_block, so row ownership
+        // and real-output alignment are invariant across the frequency unroll.
+        StatementList active;
         for (unsigned int component = 0; component < 2; ++component)
         {
-            Variable head { "cc_output_head_" + std::to_string(component), "const unsigned int" };
-            s += Declaration { head,
+            const auto suffix = std::to_string(component);
+            Variable head { "cc_output_head_" + suffix, "const unsigned int" },
+                base { "cc_output_base_" + suffix, "const unsigned int" };
+            active += Declaration { head,
                 (first + static_cast<unsigned int>(io.columns * component)) % 2 };
-            for (unsigned int i = 0; i < (tasks + workgroup_size - 1) / workgroup_size; ++i)
+            active += Declaration { base,
+                first + slot + static_cast<unsigned int>(io.columns * component) };
+            StatementList vector_stores, scalar_stores;
+            for (unsigned int i = 0; i * threads_per_transform < length; ++i)
             {
-                Variable task { "cc_output_task", "const unsigned int" },
-                    slot { "cc_output_slot", "const unsigned int" };
-                Variable p { "cc_output_p", "const unsigned int" },
-                    index { "cc_output_index", "const unsigned int" };
-                Variable value { "cc_output_value", "scalar_type" };
-                StatementList a { Declaration { task, thread_id + i * workgroup_size },
-                    Declaration { slot, task % transforms_per_block },
-                    Declaration { p, task / transforms_per_block },
-                    Declaration { index,
-                        first + slot
-                            + static_cast<unsigned int>(io.columns) * (2 * p + component) },
-                    Declaration { value } };
+                Expression p = p0 + i * threads_per_transform,
+                           index = base + static_cast<unsigned int>(2 * io.columns) * p;
                 auto left = lds_complex[slot * length + p],
                      right = lds_complex[(slot + 1) * length + p];
                 Expression x = component ? left.y() : left.x(),
                            y = component ? right.y() : right.x();
-                a += If { And { slot >= head, And { (slot - head) % 2 == 0, slot + 1 < valid } },
-                    { Assign { value, ComplexLiteral { x, y } },
-                        StoreGlobal { buf, index / 2, value } } };
-                a += ElseIf { Or { And { slot == 0, head == 1 },
-                                  And { slot + 1 == valid, (index % 2) == 0 } },
+                vector_stores += If { p < length,
+                    { StoreGlobal { buf, index / 2, ComplexLiteral { x, y } } } };
+                scalar_stores += If { p < length,
                     { StoreGlobal { cc_real_pointer(buf), index, x } } };
-                s += If { thread_id + i * workgroup_size < tasks,
-                    { If { slot_guard(i, valid), a } } };
             }
+            active += If { And { slot >= head, And { (slot - head) % 2 == 0, slot + 1 < valid } },
+                vector_stores };
+            active += ElseIf { Or { And { slot == 0, head == 1 },
+                                   And { slot + 1 == valid, (base % 2) == 0 } },
+                scalar_stores };
         }
+        s += If { slot < valid, active };
         return s;
-    }
-    Expression slot_guard(unsigned int i, const Expression& valid) const
-    {
-        return (thread_id + i * workgroup_size) % transforms_per_block < valid;
     }
 };
 
@@ -216,35 +215,46 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
         Expression high = t >= length, b = t - high * length;
         return LoadGlobal { cc_real_pointer(buf), 2 * b + high };
     }
-    StatementList input_value(
-        const Expression& j, const Expression& row, const Variable& value) const
+    StatementList input_value(const Expression& j,
+                              const Expression& row,
+                              const Variable& value,
+                              bool carrier_row,
+                              unsigned int reg = 0) const
     {
-        Variable phase { "cc_row_phase", "const scalar_type" };
+        if (carrier_row)
+            return { Assign { value, ComplexLiteral { carrier(2 * j), carrier(2 * j + 1) } } };
+        // Native pass_io may emit adjacent registers without additional scopes.
+        Variable phase { "cc_row_phase_" + std::to_string(reg), "const scalar_type" };
         Expression lookup = CallExpr { "TW_NSteps",
             { scalar_type, Variable { "cc_boundary_phase_base", "size_t" },
                 Variable { "cc_boundary_phase_steps", "size_t" } },
             { boundary_phases, row * j } };
-        StatementList ordinary { Declaration { phase, lookup },
+        return { Declaration { phase, lookup },
             Assign { value, LoadGlobal { buf, row * length + j } },
             Assign { value, TwiddleMultiply { value, phase } } };
-        return { If { row == 0,
-                     { Assign { value, ComplexLiteral { carrier(2 * j), carrier(2 * j + 1) } } } },
-            Else { ordinary } };
+    }
+    StatementList input_value(
+        const Expression& j, const Expression& row, const Variable& value) const
+    {
+        return { If { row == 0, input_value(j, row, value, true) },
+                 Else { input_value(j, row, value, false) } };
     }
     StatementList load_from_global(bool) override
     {
         Expression slot = thread_id / threads_per_transform,
                    lane = thread_id % threads_per_transform;
-        Expression row = tile_index_in_plane * transforms_per_block + slot;
         StatementList s = initialize_registers();
         if (io.load == RealBlockLoad::Registers)
         {
-            s += pass_io(true, lane,
-                [&](Expression j, unsigned int reg)
-                {
-                    return StatementList { If { row < static_cast<unsigned int>(io.columns),
-                        input_value(j, row, R[reg]) } };
-                });
+            Variable row { "cc_input_row", "const unsigned int" };
+            s += Declaration { row, tile_index_in_plane * transforms_per_block + slot };
+            auto loads = [&](bool carrier_row)
+            {
+                return pass_io(true, lane, [&](Expression j, unsigned int reg)
+                    { return input_value(j, row, R[reg], carrier_row, reg); });
+            };
+            s += If { row < static_cast<unsigned int>(io.columns),
+                { If { row == 0, loads(true) }, Else { loads(false) } } };
             return s;
         }
         const unsigned int tasks = length * transforms_per_block;
@@ -264,31 +274,28 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
     }
     StatementList store_to_global(bool) override
     {
-        const unsigned int tasks = length * transforms_per_block;
-        StatementList s;
-        for (unsigned int i = 0; i < (tasks + workgroup_size - 1) / workgroup_size; ++i)
+        Variable slot { "cc_spectrum_slot", "const unsigned int" },
+            row { "cc_spectrum_row", "const unsigned int" },
+            p0 { "cc_spectrum_p0", "const unsigned int" };
+        StatementList s { Declaration { slot, thread_id % transforms_per_block },
+            Declaration { row, tile_index_in_plane * transforms_per_block + slot },
+            Declaration { p0, thread_id / transforms_per_block } };
+        StatementList ordinary;
+        for (unsigned int i = 0; i * threads_per_transform < length; ++i)
         {
-            Variable task { "cc_spectrum_task", "const unsigned int" },
-                slot { "cc_spectrum_slot", "const unsigned int" };
-            Variable row { "cc_spectrum_row", "const unsigned int" },
-                k { "cc_spectrum_k", "const unsigned int" };
+            Expression j = p0 + i * threads_per_transform;
+            Variable k { "cc_spectrum_k", "unsigned int" };
             Variable value { "cc_spectrum_value", "scalar_type" };
-            StatementList a { Declaration { task, thread_id + i * workgroup_size },
-                Declaration { slot, task % transforms_per_block },
-                Declaration { row, tile_index_in_plane * transforms_per_block + slot },
-                Declaration { k,
-                    static_cast<unsigned int>(2 * io.columns) * (task / transforms_per_block)
-                        + row },
-                Declaration { value } };
-            Expression physical = Ternary { Expression { k > static_cast<unsigned int>(io.n / 2) },
-                Expression { Literal { static_cast<unsigned int>(io.n) } - k }, Expression { k } };
-            a += If { And { row != 0, row < static_cast<unsigned int>(io.columns) },
-                { Assign { value, lds_complex[slot * length + task / transforms_per_block] },
-                    If { k > static_cast<unsigned int>(io.n / 2),
-                        { Assign { value, CallExpr { "cc_conjugate", { value } } } } },
-                    StoreGlobal { buf, physical, value } } };
-            s += If { thread_id + i * workgroup_size < tasks, a };
+            // For 0 < row < C, 2*C*j+row > C*Q iff j >= ceil(Q/2).
+            ordinary += If { j < length,
+                { Declaration { k, static_cast<unsigned int>(2 * io.columns) * j + row },
+                    Declaration { value, lds_complex[slot * length + j] },
+                    If { j >= (length + 1) / 2,
+                        { Assign { value, CallExpr { "cc_conjugate", { value } } },
+                            Assign { k, static_cast<unsigned int>(io.n) - k } } },
+                    StoreGlobal { buf, k, value } } };
         }
+        s += If { And { row != 0, row < static_cast<unsigned int>(io.columns) }, ordinary };
         StatementList terminal;
         for (unsigned int i = 0; i < (length / 2 + 1 + workgroup_size - 1) / workgroup_size; ++i)
         {
