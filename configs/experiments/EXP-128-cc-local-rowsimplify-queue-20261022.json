@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-rowsimplify-queue-20261022",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "node_exclusive": true,
+    "dependency": "afterok:960029"
+  },
+  "revalidated_measurement": {
+    "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-validate-20261022/submit-manifest.json",
+    "validation_job_id": "960029",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-local-rowsimplify-performance-20261022.json",
+    "measurement_config_sha256": "84eda0d22a8607fc93475f57fa35eae049e782a16e929944a4d27d0a88b010ed"
+  }
+}

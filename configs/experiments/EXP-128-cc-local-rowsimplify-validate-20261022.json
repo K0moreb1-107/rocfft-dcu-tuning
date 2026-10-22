@@ -7,7 +7,8 @@
     "partition": "hx1hdnormal01",
     "cpus": 8,
     "time_limit": "00:20:00",
-    "node_exclusive": true
+    "node_exclusive": true,
+    "dependency": "afterok:960028"
   },
   "build": {
     "component": "rocfft",
@@ -85,5 +86,10 @@
     "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-build-20261022/build-provenance.json",
     "evidence_record": "cc-local-validation.json",
     "isolated_helpers": false
+  },
+  "pending_build_validation": {
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-build-20261022/submit-manifest.json",
+    "build_config_sha256": "58e95ce90a20201173f2cd4d3a17a6fd89da57f4960a916abd713370ac2daac8",
+    "build_job_id": "960028"
   }
 }
