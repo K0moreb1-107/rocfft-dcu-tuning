@@ -1,0 +1,433 @@
+{
+  "source_run": "955252",
+  "threshold": 0.95,
+  "primary_reference": "EXP125 retained, not official",
+  "secondary_reference": "previous EXP128",
+  "counts": {
+    "baseline": {
+      "severe": 31,
+      "near_parity": 46,
+      "severe_types": {
+        "d2z": 13,
+        "z2d": 18
+      },
+      "severe_Q": {
+        "256": 4,
+        "121": 3,
+        "289": 20,
+        "343": 2,
+        "512": 2
+      },
+      "severe_C": {
+        "128": 2,
+        "280": 2,
+        "289": 4,
+        "125": 1,
+        "160": 3,
+        "168": 2,
+        "192": 2,
+        "208": 4,
+        "216": 2,
+        "224": 1,
+        "256": 4,
+        "240": 1,
+        "243": 1,
+        "336": 1,
+        "512": 1
+      }
+    },
+    "previous": {
+      "severe": 17,
+      "near_parity": 278,
+      "severe_types": {
+        "d2z": 11,
+        "z2d": 6
+      },
+      "severe_Q": {
+        "256": 1,
+        "289": 2,
+        "169": 2,
+        "200": 1,
+        "243": 2,
+        "192": 1,
+        "343": 1,
+        "1331": 3,
+        "512": 1,
+        "625": 2,
+        "1024": 1
+      },
+      "severe_C": {
+        "128": 1,
+        "125": 1,
+        "243": 2,
+        "224": 1,
+        "240": 1,
+        "343": 1,
+        "208": 1,
+        "104": 1,
+        "280": 1,
+        "256": 1,
+        "1024": 2,
+        "192": 1,
+        "336": 1,
+        "168": 2
+      }
+    }
+  },
+  "severe_union": 44,
+  "cases": [
+    {
+      "N": 65536,
+      "func": "d2z_1d",
+      "C": 128,
+      "Q": 256,
+      "primary_severe": true,
+      "incremental_severe": true
+    },
+    {
+      "N": 67760,
+      "func": "z2d_1d",
+      "C": 280,
+      "Q": 121,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 69938,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 121,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 121,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 72250,
+      "func": "z2d_1d",
+      "C": 125,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": true
+    },
+    {
+      "N": 73984,
+      "func": "z2d_1d",
+      "C": 128,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 81920,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 256,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 82134,
+      "func": "d2z_1d",
+      "C": 243,
+      "Q": 169,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 89600,
+      "func": "d2z_1d",
+      "C": 224,
+      "Q": 200,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 92480,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 92480,
+      "func": "z2d_1d",
+      "C": 160,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 97104,
+      "func": "d2z_1d",
+      "C": 168,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 97104,
+      "func": "z2d_1d",
+      "C": 168,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 110976,
+      "func": "d2z_1d",
+      "C": 192,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 110976,
+      "func": "z2d_1d",
+      "C": 192,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 116640,
+      "func": "d2z_1d",
+      "C": 240,
+      "Q": 243,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 120224,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 124848,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 124848,
+      "func": "z2d_1d",
+      "C": 216,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 129472,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 131072,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 256,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 256,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 131712,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 192,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 138720,
+      "func": "z2d_1d",
+      "C": 240,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 140454,
+      "func": "z2d_1d",
+      "C": 243,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": true
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 343,
+      "primary_severe": true,
+      "incremental_severe": true
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 343,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 147968,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 161840,
+      "func": "z2d_1d",
+      "C": 280,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 167042,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 194208,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 289,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 512,
+      "primary_severe": true,
+      "incremental_severe": false
+    },
+    {
+      "N": 276848,
+      "func": "d2z_1d",
+      "C": 104,
+      "Q": 1331,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 286720,
+      "func": "d2z_1d",
+      "C": 280,
+      "Q": 512,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 320000,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 625,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 346112,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 169,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 393216,
+      "func": "z2d_1d",
+      "C": 192,
+      "Q": 1024,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 420000,
+      "func": "d2z_1d",
+      "C": 336,
+      "Q": 625,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 447216,
+      "func": "d2z_1d",
+      "C": 168,
+      "Q": 1331,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 447216,
+      "func": "z2d_1d",
+      "C": 168,
+      "Q": 1331,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 497664,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 243,
+      "primary_severe": false,
+      "incremental_severe": true
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 512,
+      "primary_severe": true,
+      "incremental_severe": false
+    }
+  ],
+  "caution": "Keep overlap/drift rows: flags indicate evidence strength, not permission to drop regressions."
+}

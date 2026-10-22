@@ -1,0 +1,331 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "validation_trace_samples": [
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_back_len_128_factors_16_8_wgs_256_tpt_16_dp_op_CI_CI_sbcc_twdbase6_3step_dirReg_cc_local_v2_role4_C128_Q256_N65536_reg",
+          "median": 7.2,
+          "p25": 7.04,
+          "p75": 7.2,
+          "min": 7.04,
+          "max": 7.36
+        },
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v2_role5_C128_Q256_N65536_reg",
+          "median": 12.16,
+          "p25": 12.16,
+          "p75": 12.32,
+          "min": 12.0,
+          "max": 12.48
+        }
+      ]
+    },
+    {
+      "N": 65536,
+      "func": "d2z_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_fwd_len_128_factors_16_8_wgs_256_tpt_16_dp_op_CI_CI_sbcc_dirReg_cc_local_v2_role6_C128_Q256_complex_exchange_N65536_reg",
+          "median": 8.96,
+          "p25": 8.96,
+          "p75": 9.12,
+          "min": 8.8,
+          "max": 9.28
+        },
+        {
+          "name": "fft_rtc_fwd_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v2_role7_C128_Q256_N65536_reg",
+          "median": 11.68,
+          "p25": 11.68,
+          "p75": 11.84,
+          "min": 11.52,
+          "max": 12.0
+        }
+      ]
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbcc_twdbase6_3step_dirReg_cc_local_v2_role4_C289_Q121_N69938_reg",
+          "median": 14.72,
+          "p25": 14.56,
+          "p75": 14.88,
+          "min": 13.92,
+          "max": 16.16
+        },
+        {
+          "name": "fft_rtc_back_len_121_factors_11_11_wgs_121_tpt_11_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role5_C289_Q121_N69938_lds",
+          "median": 19.04,
+          "p25": 19.04,
+          "p75": 19.2,
+          "min": 18.88,
+          "max": 19.52
+        }
+      ]
+    },
+    {
+      "N": 69938,
+      "func": "d2z_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_fwd_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbcc_dirReg_cc_local_v2_role6_C289_Q121_complex_exchange_N69938_reg",
+          "median": 16.64,
+          "p25": 16.48,
+          "p75": 16.8,
+          "min": 16.32,
+          "max": 17.28
+        },
+        {
+          "name": "fft_rtc_fwd_len_121_factors_11_11_wgs_121_tpt_11_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role7_C289_Q121_N69938_reg",
+          "median": 14.24,
+          "p25": 14.08,
+          "p75": 14.36,
+          "min": 13.919,
+          "max": 14.56
+        }
+      ]
+    },
+    {
+      "N": 167042,
+      "func": "z2d_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbcc_twdbase6_3step_dirReg_cc_local_v2_role4_C289_Q289_N167042_reg",
+          "median": 26.4,
+          "p25": 26.279999999999998,
+          "p75": 26.72,
+          "min": 25.76,
+          "max": 27.2
+        },
+        {
+          "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role5_C289_Q289_N167042_lds",
+          "median": 47.84,
+          "p25": 47.52,
+          "p75": 48.16,
+          "min": 47.04,
+          "max": 48.64
+        }
+      ]
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_fwd_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbcc_dirReg_cc_local_v2_role6_C289_Q289_complex_exchange_N167042_reg",
+          "median": 22.08,
+          "p25": 21.92,
+          "p75": 22.08,
+          "min": 21.6,
+          "max": 22.4
+        },
+        {
+          "name": "fft_rtc_fwd_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role7_C289_Q289_N167042_reg",
+          "median": 27.68,
+          "p25": 27.52,
+          "p75": 28.28,
+          "min": 27.04,
+          "max": 28.8
+        }
+      ]
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_back_len_208_factors_13_16_wgs_144_tpt_16_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v2_role4_C208_Q343_N142688_reg",
+          "median": 11.68,
+          "p25": 10.4,
+          "p75": 19.68,
+          "min": 10.08,
+          "max": 20.16
+        },
+        {
+          "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role5_C208_Q343_N142688_lds",
+          "median": 15.2,
+          "p25": 14.88,
+          "p75": 21.44,
+          "min": 14.56,
+          "max": 21.76
+        }
+      ]
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "metadata_logging_enabled": true,
+      "source": "accepted validation trace, not an independent performance diagnosis",
+      "kernels": [
+        {
+          "name": "fft_rtc_fwd_len_208_factors_13_16_wgs_144_tpt_16_dp_op_CI_CI_sbcc_dirReg_cc_local_v2_role6_C208_Q343_complex_exchange_N142688_reg",
+          "median": 14.96,
+          "p25": 13.96,
+          "p75": 20.92,
+          "min": 13.6,
+          "max": 21.76
+        },
+        {
+          "name": "fft_rtc_fwd_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role7_C208_Q343_N142688_reg",
+          "median": 13.2,
+          "p25": 12.32,
+          "p75": 14.52,
+          "min": 12.16,
+          "max": 14.88
+        }
+      ]
+    }
+  ],
+  "offline_compilation": [
+    {
+      "N": 92480,
+      "func": "z2d_1d",
+      "role": 5,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role5_C160_Q289_N92480_lds",
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/92480-z2d_1d-role5.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/92480-z2d_1d-role5.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 169,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "group_segment_fixed_size": 0,
+        "sgpr_count": 58
+      },
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/92480-z2d_1d-role5.hip.cpp",
+      "code_object": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/92480-z2d_1d-role5.hsaco"
+    },
+    {
+      "N": 167042,
+      "func": "z2d_1d",
+      "role": 5,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role5_C289_Q289_N167042_lds",
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-z2d_1d-role5.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-z2d_1d-role5.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 169,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "group_segment_fixed_size": 0,
+        "sgpr_count": 58
+      },
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-z2d_1d-role5.hip.cpp",
+      "code_object": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-z2d_1d-role5.hsaco"
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "role": 7,
+      "name": "fft_rtc_fwd_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role7_C289_Q289_N167042_reg",
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-d2z_1d-role7.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-d2z_1d-role7.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 167,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "group_segment_fixed_size": 0,
+        "sgpr_count": 62
+      },
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-d2z_1d-role7.hip.cpp",
+      "code_object": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/167042-d2z_1d-role7.hsaco"
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "role": 5,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role5_C208_Q343_N142688_lds",
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-z2d_1d-role5.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-z2d_1d-role5.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 65,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "group_segment_fixed_size": 0,
+        "sgpr_count": 36
+      },
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-z2d_1d-role5.hip.cpp",
+      "code_object": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-z2d_1d-role5.hsaco"
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "role": 7,
+      "name": "fft_rtc_fwd_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_unitstride_sbrc_unaligned_cc_local_v2_role7_C208_Q343_N142688_reg",
+      "command": [
+        "/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-O3",
+        "-std=c++14",
+        "--genco",
+        "--offload-arch=gfx936",
+        "-mcumode",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-d2z_1d-role7.hip.cpp",
+        "-o",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-d2z_1d-role7.bundle"
+      ],
+      "resources": {
+        "vgpr_count": 53,
+        "vgpr_spill_count": 0,
+        "private_segment_fixed_size": 0,
+        "group_segment_fixed_size": 0,
+        "sgpr_count": 33
+      },
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-d2z_1d-role7.hip.cpp",
+      "code_object": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/regression-955252-20261022/142688-d2z_1d-role7.hsaco"
+    }
+  ],
+  "limitation": "Offline compilation of actual accepted RTC text; loaded device resources still require new counters. Validation traces included metadata/occupancy logging and cannot replace new clean diagnostic traces."
+}
