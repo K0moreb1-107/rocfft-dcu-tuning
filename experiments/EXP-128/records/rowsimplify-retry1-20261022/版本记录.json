@@ -1,0 +1,47 @@
+{
+  "version": "exp128-cc-row-simplify-v3-20261023",
+  "branch": "exp-128-cc-local-real",
+  "parent_commit": "cbc8a3d3ab3bf887a53f23f6cd1590bf4965e55e",
+  "description": "EXP128 通用CC行端简化v3，保留当前代码及全部已知性能退化。",
+  "build_job": "960028",
+  "validation_job": "960098",
+  "performance_job": "960099",
+  "arms": {
+    "baseline": {
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i"
+    },
+    "previous": {
+      "source_commit": "21ad4f809a3bb291ab4b32216f028a3b49a63f41",
+      "library_sha256": "ae4a6437b26647b69739946cf55409f8e48d2d1083715734bd77b10c1bbeff34",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-phasefix-20261022"
+    },
+    "candidate": {
+      "source_commit": "8da0abb02ae6f5591e448d3e10adef8919aae40f",
+      "library_sha256": "f97365bba962f3be72a1336b67b5d4d6a93dd8d63f2500172730f639bb5cf3ea",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-rowsimplify-20261022"
+    }
+  },
+  "implementation_commit": "16a469e4d2a1c3bf98a702a286a27673bdc03dd8",
+  "validation": "26 sizes; 52 numerical and 52 actual-dispatch checks passed",
+  "performance": {
+    "N": 194,
+    "cases": 388,
+    "processes": 1164,
+    "samples": 34920,
+    "median_only": true
+  },
+  "regression_filter": "previous median / candidate median < 0.95",
+  "regression_count": 24,
+  "regression_counts": {
+    "z2d": 3,
+    "d2z": 21
+  },
+  "regression_list": "/public/home/zhangkewei/zr/experiments/EXP-128/records/rowsimplify-retry1-20261022/相对上一版低于095清单.md",
+  "regression_list_sha256": "0598a5097d7d8c22f892939839cad8298ca31bc8ea1bc5be0a5097f90c677954",
+  "analysis": "/public/home/zhangkewei/zr/experiments/EXP-128/records/rowsimplify-retry1-20261022/results-960099",
+  "source_rebuilt": false,
+  "stable_promoted": false,
+  "pushed": false
+}
