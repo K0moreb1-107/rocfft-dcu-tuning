@@ -1,0 +1,103 @@
+{
+  "complete": true,
+  "job_id": "960099",
+  "validation_job": "960098",
+  "original_run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-performance-20261022",
+  "portable_checks": {
+    "case_count": 388,
+    "process_count": 1164,
+    "samples": 34920,
+    "median_matches_original_ms": true,
+    "viewer_javascript_syntax": true
+  },
+  "files": {
+    "all-samples-and-statistics.json": {
+      "bytes": 1604054,
+      "sha256": "83f309a87041bdd2317a9bb2ca64af11d4d516f00b627a3a594b809f86ff1983"
+    },
+    "audit-and-statistics.json": {
+      "bytes": 8048,
+      "sha256": "cfbfa8e29cc76d318706fc74863d5aece7e8467e1240d3d006a52e529af1c216"
+    },
+    "全部尺寸.csv": {
+      "bytes": 133057,
+      "sha256": "6e11063e3ccf830b01647dc62e9200720c67ad5f8336a667ac82f2c5de04494e"
+    },
+    "全部尺寸散点与顺序图.html": {
+      "bytes": 1147752,
+      "sha256": "67e2b60da093a60924f06c58d2b35252a9948435756b5b916bf9e6d253902731"
+    },
+    "六列性能总表.csv": {
+      "bytes": 27433,
+      "sha256": "3093bf142a2eb26595ebbef3e5bd8b9097634df08ec25f9d16f47fe652eb9da5"
+    },
+    "原始逐次样本.csv": {
+      "bytes": 1536195,
+      "sha256": "b13dbdbdf4c30f789ecbd4e1be71a56738935fa51ff38a0e6ec65ac28d4667fb"
+    },
+    "性能总表.md": {
+      "bytes": 56051,
+      "sha256": "6d7cec1d5f3eb94a0ee59e5b1d841c19a2299a0c61c53e101185c42cd45a3be2"
+    },
+    "本轮新增严重退化.csv": {
+      "bytes": 1841,
+      "sha256": "368fe0d675feb4375f9f22a61e18b6e36ac66b51dad076bb7db27aeb4ad86ae9"
+    },
+    "此前严重退化复测.csv": {
+      "bytes": 11294,
+      "sha256": "af418468a93124a0677b9293b6165f6e2c39771e8a606a1009c85e572606574d"
+    },
+    "此前退化项复测.csv": {
+      "bytes": 21186,
+      "sha256": "6190926a3d3f13d1ea53c24d90c223392654971278677bab6083cb3fdf257db6"
+    },
+    "独立正确性表.csv": {
+      "bytes": 66502,
+      "sha256": "92f0b3c50b70f6e7bfd358f5e3131ff94e8fb0930e9722df63624832d3c47eb9"
+    },
+    "相对EXP125低于095.csv": {
+      "bytes": 4749,
+      "sha256": "419519b612c45ddb64ab3c39b71caed4e0553e5cd4a412da0250868f4becea6a"
+    },
+    "相对EXP125退化.csv": {
+      "bytes": 7491,
+      "sha256": "0f533b6c90f0c0d14146c8c71a4d06496ac811195c15817e448c07061a26d593"
+    },
+    "相对上一版低于095.csv": {
+      "bytes": 8747,
+      "sha256": "4e6e94cf4ae616bc94064f8783700b094e11858886b5f082ef1999ce3fdb3a70"
+    },
+    "相对上一版退化.csv": {
+      "bytes": 34972,
+      "sha256": "b5501c6c4f8cda4f3bdfde77ab92b66a5aa210628ac723980bde14540ce3023b"
+    },
+    "类型汇总.csv": {
+      "bytes": 24592,
+      "sha256": "3b47db53eb111a4e8fbf2fe0e43291301901663588051f6f01e834231059bb68"
+    },
+    "结果与分析.md": {
+      "bytes": 8713,
+      "sha256": "b7a940a43214cd75b222f90c286103a70f587962670306017ae602f16e61fc31"
+    },
+    "重点类型.csv": {
+      "bytes": 20616,
+      "sha256": "da0a4d2178f2f916ffe23f0ff752d104345e843758f60e42fa396152d161f89d"
+    },
+    "证据/性能来源.json": {
+      "bytes": 15231,
+      "sha256": "5fa449f298874b9db03eefe8be5925936ce9acad10821e6a3b7abe5570cfdcf6"
+    },
+    "证据/性能登记.json": {
+      "bytes": 33514,
+      "sha256": "42020aaac8bdb0cc1dccae0d6d323e768b21232980bfcd314637edbe21137dc2"
+    },
+    "证据/数值与路径验证.json": {
+      "bytes": 71596,
+      "sha256": "6ecd7b1eb934fcc84a18c4903015a22728c93264281a899122a3825b00c83dd0"
+    },
+    "证据/验证验收.json": {
+      "bytes": 1780,
+      "sha256": "fa961e46e59ef63e27c81a96fd3cb180e7334edef8b33feec59641814746c1d2"
+    }
+  }
+}

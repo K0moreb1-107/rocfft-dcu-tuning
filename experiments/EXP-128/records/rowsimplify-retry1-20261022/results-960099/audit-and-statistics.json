@@ -1,0 +1,237 @@
+{
+  "complete": true,
+  "formal": true,
+  "job_id": "960099",
+  "validation_job": "960098",
+  "validation_cases": 52,
+  "validation_seconds": 224.52020900510252,
+  "correctness_processes": 1164,
+  "numerical_checks": "all PASS; strict <1e-9 outside timing",
+  "max_numerical_error": 5.0330110449673766e-15,
+  "Ns": 194,
+  "cases": 388,
+  "processes": 1164,
+  "samples": 34920,
+  "GPU": {
+    "count": 1,
+    "uuid": "30303134626135376132356333383831",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "host": "a01r4n07",
+  "first": "2026-10-22T15:41:16.750431+00:00",
+  "last": "2026-10-22T16:30:46.557441+00:00",
+  "policy": "FFT-event-cufft261012-single-v3",
+  "coverage": {
+    "columns": 33,
+    "rows": 17,
+    "parity_counts": {
+      "偶×偶": 51,
+      "偶×奇": 99,
+      "奇×偶": 17,
+      "奇×奇": 27
+    }
+  },
+  "arms": {
+    "baseline": {
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i"
+    },
+    "previous": {
+      "source_commit": "21ad4f809a3bb291ab4b32216f028a3b49a63f41",
+      "library_sha256": "ae4a6437b26647b69739946cf55409f8e48d2d1083715734bd77b10c1bbeff34",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-phasefix-20261022"
+    },
+    "candidate": {
+      "source_commit": "8da0abb02ae6f5591e448d3e10adef8919aae40f",
+      "library_sha256": "f97365bba962f3be72a1336b67b5d4d6a93dd8d63f2500172730f639bb5cf3ea",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-rowsimplify-20261022"
+    }
+  },
+  "validation_acceptance": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022",
+    "job_id": "960098",
+    "record_sha256": "fa961e46e59ef63e27c81a96fd3cb180e7334edef8b33feec59641814746c1d2",
+    "evidence_record": "cc-local-validation.json",
+    "evidence_sha256": "6ecd7b1eb934fcc84a18c4903015a22728c93264281a899122a3825b00c83dd0",
+    "source_commit": "8da0abb02ae6f5591e448d3e10adef8919aae40f",
+    "library_sha256": "f97365bba962f3be72a1336b67b5d4d6a93dd8d63f2500172730f639bb5cf3ea"
+  },
+  "all": {
+    "z2d": {
+      "baseline": {
+        "cases": 194,
+        "faster": 186,
+        "equal": 0,
+        "slower": 8,
+        "median_case_speedup": 1.2366094853227994,
+        "min_speedup": 0.9078947110436965,
+        "max_speedup": 3.489425901543449,
+        "clear_faster": 81,
+        "clear_slower": 3,
+        "unclear": 110,
+        "iqr_overlap": 16,
+        "order_effect": 108,
+        "below_095": 4,
+        "within_095_105": 16,
+        "above_105": 174
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 138,
+        "equal": 8,
+        "slower": 48,
+        "median_case_speedup": 1.028154030926574,
+        "min_speedup": 0.8735849113796064,
+        "max_speedup": 1.5282608310535333,
+        "clear_faster": 48,
+        "clear_slower": 1,
+        "unclear": 145,
+        "iqr_overlap": 114,
+        "order_effect": 103,
+        "below_095": 3,
+        "within_095_105": 124,
+        "above_105": 67
+      }
+    },
+    "d2z": {
+      "baseline": {
+        "cases": 194,
+        "faster": 182,
+        "equal": 0,
+        "slower": 12,
+        "median_case_speedup": 1.2487116108096914,
+        "min_speedup": 0.879194574764925,
+        "max_speedup": 3.676365255971673,
+        "clear_faster": 73,
+        "clear_slower": 6,
+        "unclear": 115,
+        "iqr_overlap": 11,
+        "order_effect": 113,
+        "below_095": 8,
+        "within_095_105": 14,
+        "above_105": 172
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 141,
+        "equal": 1,
+        "slower": 52,
+        "median_case_speedup": 1.0302422676626444,
+        "min_speedup": 0.9036334932287663,
+        "max_speedup": 1.4327122330859383,
+        "clear_faster": 49,
+        "clear_slower": 14,
+        "unclear": 131,
+        "iqr_overlap": 90,
+        "order_effect": 111,
+        "below_095": 21,
+        "within_095_105": 110,
+        "above_105": 63
+      }
+    }
+  },
+  "formerly_slower": {
+    "baseline": {
+      "cases": 60,
+      "faster": 46,
+      "equal": 0,
+      "slower": 14,
+      "median_case_speedup": 1.0780761319045364,
+      "min_speedup": 0.879194574764925,
+      "max_speedup": 1.3836734402960464,
+      "clear_faster": 18,
+      "clear_slower": 6,
+      "unclear": 36,
+      "iqr_overlap": 14,
+      "order_effect": 34,
+      "below_095": 10,
+      "within_095_105": 14,
+      "above_105": 36
+    },
+    "previous": {
+      "cases": 60,
+      "faster": 53,
+      "equal": 1,
+      "slower": 6,
+      "median_case_speedup": 1.12744554057566,
+      "min_speedup": 0.8735849113796064,
+      "max_speedup": 1.5282608310535333,
+      "clear_faster": 9,
+      "clear_slower": 3,
+      "unclear": 48,
+      "iqr_overlap": 15,
+      "order_effect": 44,
+      "below_095": 6,
+      "within_095_105": 13,
+      "above_105": 41
+    }
+  },
+  "prior_formal_severe": {
+    "selection_run": "955252",
+    "threshold": 0.95,
+    "cases": 31,
+    "current": {
+      "baseline": {
+        "cases": 31,
+        "faster": 22,
+        "equal": 0,
+        "slower": 9,
+        "median_case_speedup": 1.0633483700485826,
+        "min_speedup": 0.879194574764925,
+        "max_speedup": 1.3393664562481735,
+        "clear_faster": 7,
+        "clear_slower": 3,
+        "unclear": 21,
+        "iqr_overlap": 11,
+        "order_effect": 20,
+        "below_095": 8,
+        "within_095_105": 7,
+        "above_105": 16
+      },
+      "previous": {
+        "cases": 31,
+        "faster": 29,
+        "equal": 0,
+        "slower": 2,
+        "median_case_speedup": 1.217672418118881,
+        "min_speedup": 0.9404255728104531,
+        "max_speedup": 1.5282608310535333,
+        "clear_faster": 6,
+        "clear_slower": 2,
+        "unclear": 23,
+        "iqr_overlap": 3,
+        "order_effect": 22,
+        "below_095": 2,
+        "within_095_105": 2,
+        "above_105": 27
+      }
+    }
+  },
+  "same_run_severe_transition": {
+    "previous_vs_EXP125": 29,
+    "candidate_vs_EXP125": 12,
+    "repaired_beyond_095": 21,
+    "newly_below_095": 4
+  },
+  "validation_GPU": {
+    "count": 1,
+    "uuid": "30303134626138393233303430393031",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "all_reference_sha256": {
+    "experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-performance-20261022/preregistration.json": "42020aaac8bdb0cc1dccae0d6d323e768b21232980bfcd314637edbe21137dc2",
+    "experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-performance-20261022/provenance.json": "5fa449f298874b9db03eefe8be5925936ce9acad10821e6a3b7abe5570cfdcf6",
+    "experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-performance-20261022/processes.json": "2a868f1ce7204c02892bae7ff20c6820456167cec2cf4afe45f78fcda9d00184",
+    "experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-performance-20261022/summary.json": "0eda24eafa4d17c9defc416833b30dfb6a53bc9096a30b62df7dd054071fcb60",
+    "experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022/post-build-validation.json": "fa961e46e59ef63e27c81a96fd3cb180e7334edef8b33feec59641814746c1d2",
+    "experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022/cc-local-validation.json": "6ecd7b1eb934fcc84a18c4903015a22728c93264281a899122a3825b00c83dd0",
+    "experiments/EXP-128/records/unified-20261021/coverage.json": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18"
+  },
+  "assessments": "IQR overlap or a first-half/last-half disjoint IQR is marked inconclusive; descriptive, not a significance test.",
+  "modifications": "Generic row-only classification and folded-index simplification; same CC plan rules as accepted v2, even N>=65536."
+}

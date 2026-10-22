@@ -1,0 +1,34 @@
+{
+  "complete": true,
+  "job_id": "960098",
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_rows.py",
+    "--config",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022/submit-manifest.json",
+    "--build-record",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-build-20261022/build-provenance.json",
+    "--run",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022",
+    "--build",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/EXP-128-cc-local-rowsimplify-20261022",
+    "--cache",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-local-rowsimplify-retry1-validate-20261022"
+  ],
+  "source_commit": "8da0abb02ae6f5591e448d3e10adef8919aae40f",
+  "library_sha256": "f97365bba962f3be72a1336b67b5d4d6a93dd8d63f2500172730f639bb5cf3ea",
+  "original_build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-build-20261022/build-provenance.json",
+  "rebuild_required": false,
+  "validation_script_sha256": "d33897efa92eef93eeac188ec25d0c508c978d0d1c923ead74e249c8f145c48c",
+  "started_utc": "2026-10-22T15:37:09.626187+00:00",
+  "gpu": {
+    "count": 1,
+    "uuid": "30303134626138393233303430393031",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "evidence_sha256": "6ecd7b1eb934fcc84a18c4903015a22728c93264281a899122a3825b00c83dd0",
+  "log_sha256": "ad1b440b797b9efd1e47c6f7340ace3dc673859ba6ffe60fc6efb14efe6f8684",
+  "ended_utc": "2026-10-22T15:40:54.335670+00:00"
+}

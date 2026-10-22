@@ -1,0 +1,95 @@
+{
+  "complete": true,
+  "validation_job": "960098",
+  "performance_job": "960099",
+  "candidate_build_job": "960028",
+  "analysis_record": "/public/home/zhangkewei/zr/experiments/EXP-128/records/rowsimplify-retry1-20261022/results-960099",
+  "numerical_and_dispatch_accepted": true,
+  "performance_data_accepted": true,
+  "decision": "Retain candidate. Generic row improvements coexist with a d2z Q=512 class regression; no stable promotion.",
+  "source_scope": "Generic row classification and folded-index simplification only.",
+  "aggregate": {
+    "z2d": {
+      "baseline": {
+        "cases": 194,
+        "faster": 186,
+        "equal": 0,
+        "slower": 8,
+        "median_case_speedup": 1.2366094853227994,
+        "min_speedup": 0.9078947110436965,
+        "max_speedup": 3.489425901543449,
+        "clear_faster": 81,
+        "clear_slower": 3,
+        "unclear": 110,
+        "iqr_overlap": 16,
+        "order_effect": 108,
+        "below_095": 4,
+        "within_095_105": 16,
+        "above_105": 174
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 138,
+        "equal": 8,
+        "slower": 48,
+        "median_case_speedup": 1.028154030926574,
+        "min_speedup": 0.8735849113796064,
+        "max_speedup": 1.5282608310535333,
+        "clear_faster": 48,
+        "clear_slower": 1,
+        "unclear": 145,
+        "iqr_overlap": 114,
+        "order_effect": 103,
+        "below_095": 3,
+        "within_095_105": 124,
+        "above_105": 67
+      }
+    },
+    "d2z": {
+      "baseline": {
+        "cases": 194,
+        "faster": 182,
+        "equal": 0,
+        "slower": 12,
+        "median_case_speedup": 1.2487116108096914,
+        "min_speedup": 0.879194574764925,
+        "max_speedup": 3.676365255971673,
+        "clear_faster": 73,
+        "clear_slower": 6,
+        "unclear": 115,
+        "iqr_overlap": 11,
+        "order_effect": 113,
+        "below_095": 8,
+        "within_095_105": 14,
+        "above_105": 172
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 141,
+        "equal": 1,
+        "slower": 52,
+        "median_case_speedup": 1.0302422676626444,
+        "min_speedup": 0.9036334932287663,
+        "max_speedup": 1.4327122330859383,
+        "clear_faster": 49,
+        "clear_slower": 14,
+        "unclear": 131,
+        "iqr_overlap": 90,
+        "order_effect": 111,
+        "below_095": 21,
+        "within_095_105": 110,
+        "above_105": 63
+      }
+    }
+  },
+  "same_run_severe_transition": {
+    "previous_vs_EXP125": 29,
+    "candidate_vs_EXP125": 12,
+    "repaired_beyond_095": 21,
+    "newly_below_095": 4
+  },
+  "stable_promoted": false,
+  "pushed": false,
+  "AGENTS_modified": false,
+  "new_jobs_submitted": false
+}
