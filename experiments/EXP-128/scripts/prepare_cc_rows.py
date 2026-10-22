@@ -113,6 +113,7 @@ def main():
     measure['resources'].pop('nodelist',None)
     measure['resources']['time_limit']='02:00:00'
     measure['measurement_conditions']['reference']='baseline为EXP125保留版，previous为已验收通用CC v2，candidate为本轮仅行端简化v3；三版在本轮同一独占单卡重测。'
+    measure['comparison_description']='baseline为EXP125保留安装，previous为任务955252已验收的通用CC v2，candidate为本轮仅行端简化v3。新旧EXP128间判断行端简化的增量收益；相对EXP125是版本整体差异。两版EXP128的65536均走通用CC，不改变计划选择。'
     measure['acceptance']='All exact cases must pass the original v3 numerical check outside timing. Measure default plans only after new candidate numeric and actual-dispatch validation succeeds. Preserve every sample and median ratios.'
     for kind,cfg in (('build',build),('validate',validation),('performance',measure)):
         path=CONFIGS/(PREFIX+'-'+kind+'-'+DATE+'.json')

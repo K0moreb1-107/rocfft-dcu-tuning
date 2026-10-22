@@ -1610,7 +1610,7 @@
     "scale_factor": 1.0
   },
   "source_state_policy": "Record actual starting commit and actual library identity. Do not freeze or compare workspace/build/validation source state.",
-  "comparison_description": "baseline为EXP125保留安装，previous为任务953997已测EXP128，candidate为本轮统一改进。新旧EXP128间判断本轮增量收益；相对EXP125是版本整体差异。65536在旧版仍走原默认路径，新版进入通用CC。",
+  "comparison_description": "baseline为EXP125保留安装，previous为任务955252已验收的通用CC v2，candidate为本轮仅行端简化v3。新旧EXP128间判断行端简化的增量收益；相对EXP125是版本整体差异。两版EXP128的65536均走通用CC，不改变计划选择。",
   "a100_reference": {
     "dataset": "test_fft_261012",
     "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
