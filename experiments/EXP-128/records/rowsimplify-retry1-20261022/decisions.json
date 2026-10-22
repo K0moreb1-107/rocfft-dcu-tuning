@@ -1,0 +1,29 @@
+{
+  "original_jobs": {
+    "build": "960028",
+    "validation": "960029",
+    "performance": "960030"
+  },
+  "reason": "Validation stopped at device identification on a01r4n05 before any numerical or dispatch case.",
+  "exclude": "a01r4n05",
+  "fixed_node": false,
+  "rebuild": false,
+  "source_state_freeze": false,
+  "candidate_sha256": "f97365bba962f3be72a1336b67b5d4d6a93dd8d63f2500172730f639bb5cf3ea",
+  "reused_build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-build-20261022/build-provenance.json",
+  "validation_N": 26,
+  "performance_N": 194,
+  "cases": 388,
+  "processes": 1164,
+  "samples": 34920,
+  "protocol": "FFT-event-cufft261012-single-v3",
+  "warmups": 10,
+  "measured_samples": 30,
+  "references": [
+    "EXP125 retained",
+    "accepted generic CC v2",
+    "generic row simplification v3"
+  ],
+  "production_source_modified": false,
+  "stop_after_submission": true
+}

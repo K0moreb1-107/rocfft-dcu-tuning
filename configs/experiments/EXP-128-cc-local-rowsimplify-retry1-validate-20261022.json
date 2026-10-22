@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-rowsimplify-retry1-validate-20261022",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:20:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-rowsimplify-20261022",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "16a469e4d2a1c3bf98a702a286a27673bdc03dd8",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_rows.py",
+    "sha256": "d33897efa92eef93eeac188ec25d0c508c978d0d1c923ead74e249c8f145c48c",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+        "sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+    "fused": true,
+    "profile": "cc-local-row-simplify-two-checks-v3",
+    "smoke_N": [
+      65536,
+      167042
+    ],
+    "sample_N": [
+      65536,
+      67600,
+      69938,
+      70000,
+      71680,
+      72250,
+      73008,
+      73728,
+      75264,
+      81120,
+      82134,
+      92480,
+      100352,
+      102400,
+      120224,
+      122880,
+      131072,
+      142688,
+      167042,
+      191664,
+      346112,
+      361250,
+      497664,
+      524288,
+      591872,
+      1048576
+    ],
+    "scope": "Numerical result and actual two-kernel v3 dispatch with simplified row source markers; all default row lengths, parities and retained risk cases. No release memory/callback suite.",
+    "expected_cc_local_version": 3,
+    "known_limitations": []
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "Separate candidate validation; smoke fails fast, then aggregate all independent cases. Actual executed row source must contain the v3 simplification.",
+  "reference_policy": "Reuse validated EXP-125-pre-memory-i. This candidate build and complete validation have no reference-build prerequisite.",
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-build-20261022/build-provenance.json",
+    "evidence_record": "cc-local-validation.json",
+    "isolated_helpers": false
+  }
+}

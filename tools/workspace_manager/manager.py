@@ -258,12 +258,16 @@ def submission_command(task,cfg):
         require(isinstance(dependency,str)
                 and re.fullmatch(r'(afterany|afterok):[1-9][0-9]*(?::[1-9][0-9]*)*',dependency),
                 'dependency must be afterany:<job-id>[:job-id...] or afterok:<job-id>[:job-id...]')
+    if 'exclude' in r:
+        require(isinstance(r['exclude'],str) and re.fullmatch(r'[A-Za-z0-9_.\[\],:-]+',r['exclude']),
+                'exclude must be a nonempty Slurm node list')
     argv=['sbatch','--parsable','--chdir='+str(ROOT),
           '--output='+str(p['logs']/'slurm_%j.out'),'--error='+str(p['logs']/'slurm_%j.err'),
           '--cpus-per-task='+str(int(r.get('cpus',8))), '--partition='+r.get('partition','hx1hdnormal01'),
           '--time='+r.get('time_limit','02:00:00')]
     if task in ('measure','diagnose') or r.get('node_exclusive'):argv.append('--exclusive')
     if r.get('nodelist'):argv.append('--nodelist='+r['nodelist'])
+    if r.get('exclude'):argv.append('--exclude='+r['exclude'])
     if dependency:argv.append('--dependency='+dependency)
     argv.extend([str(ROOT/'jobs/workspace_task.slurm'),task,str(p['run']/'submit-manifest.json')])
     return argv
