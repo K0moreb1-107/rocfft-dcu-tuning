@@ -1,0 +1,122 @@
+{
+  "complete": true,
+  "formal": false,
+  "job": "957932",
+  "runtime_seconds": 274,
+  "cases": 20,
+  "timing_processes": 79,
+  "timing_samples": 2370,
+  "metadata_processes": 16,
+  "metadata_samples": 480,
+  "max_err_a": 2.960594732333751e-15,
+  "audited_source_calls": 284,
+  "protocol": "FFT-event-cufft261012-single-v3",
+  "gpu": {
+    "count": 1,
+    "uuid": "30303135373331373838346532313031",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "library_sha256": "ae4a6437b26647b69739946cf55409f8e48d2d1083715734bd77b10c1bbeff34",
+  "tool_source_commit": "47b542ff0f8dff2836dd38f5741e44f341dbcd17",
+  "groups": [
+    {
+      "type": "d2z",
+      "variant": "input_restore",
+      "cases": 4,
+      "point_estimates_faster": 1,
+      "clear_faster": 0,
+      "clear_slower": 0,
+      "uncertain": 4,
+      "minimum_speedup": 0.9361702211980316,
+      "maximum_speedup": 1.06217619851487
+    },
+    {
+      "type": "d2z",
+      "variant": "row_hoist",
+      "cases": 9,
+      "point_estimates_faster": 9,
+      "clear_faster": 5,
+      "clear_slower": 0,
+      "uncertain": 4,
+      "minimum_speedup": 1.0487105718987693,
+      "maximum_speedup": 1.3895781882863885
+    },
+    {
+      "type": "z2d",
+      "variant": "column_merge",
+      "cases": 11,
+      "point_estimates_faster": 8,
+      "clear_faster": 2,
+      "clear_slower": 0,
+      "uncertain": 9,
+      "minimum_speedup": 0.9651162853658907,
+      "maximum_speedup": 1.1221122180684109
+    },
+    {
+      "type": "z2d",
+      "variant": "column_restore",
+      "cases": 3,
+      "point_estimates_faster": 2,
+      "clear_faster": 1,
+      "clear_slower": 1,
+      "uncertain": 1,
+      "minimum_speedup": 0.9393305700200644,
+      "maximum_speedup": 1.0391374760866128
+    },
+    {
+      "type": "z2d",
+      "variant": "combined",
+      "cases": 11,
+      "point_estimates_faster": 10,
+      "clear_faster": 9,
+      "clear_slower": 0,
+      "uncertain": 2,
+      "minimum_speedup": 0.9886246219632154,
+      "maximum_speedup": 1.7048611318835207
+    },
+    {
+      "type": "z2d",
+      "variant": "pre_mirror",
+      "cases": 8,
+      "point_estimates_faster": 7,
+      "clear_faster": 6,
+      "clear_slower": 0,
+      "uncertain": 2,
+      "minimum_speedup": 0.9613900259484816,
+      "maximum_speedup": 1.3026819680700883
+    },
+    {
+      "type": "z2d",
+      "variant": "row_hoist",
+      "cases": 11,
+      "point_estimates_faster": 10,
+      "clear_faster": 9,
+      "clear_slower": 0,
+      "uncertain": 2,
+      "minimum_speedup": 0.9666329905818237,
+      "maximum_speedup": 1.558730199324466
+    }
+  ],
+  "files": {
+    "ablation-result.json": {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-ablation-20261022/ablation-result.json",
+      "sha256": "8edac219cbb5a35b3deaf98ec95c51731a1e6d4662180000993070c85d36c597"
+    },
+    "submit-manifest.json": {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-ablation-20261022/submit-manifest.json",
+      "sha256": "fd9e3f8d6f62475b77a2907c0e73f83702a575081e9efd93b3b43339ba9b45b8"
+    },
+    "diagnostic-validation.json": {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-ablation-20261022/diagnostic-validation.json",
+      "sha256": "973b2ab370dd446ed33e54a5adf3beac3d7dd88e0e3553e4f06fd7f0056d7fc0"
+    }
+  },
+  "caveats": [
+    "与本轮同一库原代码比较；不能替换955252正式总表或与历史耗时拼接加速比。",
+    "中间50%区间分离是分布描述，不是独立重复实验的统计显著性检验。",
+    "首十次与末十次只描述进程内变化，不据此猜测频率、温度、缓存原因。",
+    "驻留工作组数是资源允许的上限，不是实测活跃占用率。"
+  ]
+}
