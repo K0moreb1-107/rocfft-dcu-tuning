@@ -1,0 +1,95 @@
+{
+  "job": "961591",
+  "analysis_complete": true,
+  "diagnostic_run_complete": false,
+  "rejected_trace": [
+    {
+      "stage": "traces",
+      "N": 1280000,
+      "func": "z2d_1d",
+      "arm": "previous",
+      "variant": null,
+      "error": {
+        "kind": "AssertionError",
+        "message": "overlapping default-stream kernel spans",
+        "returncode": null,
+        "stage": null
+      }
+    }
+  ],
+  "production_source_modified": false,
+  "files": {
+    "actual-source-isa.json": {
+      "bytes": 557424,
+      "sha256": "a05c7003b5108a1dec674c796df1d51c43ea360f0e0e7198374bacc9d4ec00a0"
+    },
+    "data-first-preflight.json": {
+      "bytes": 47157,
+      "sha256": "2ed7c3ba5ae7101ba677a3922ebefdb3746c6e854b8abbfaadbe6b43fb0d971e"
+    },
+    "diagnostic-evidence-summary.json": {
+      "bytes": 3249985,
+      "sha256": "041c9bfbe4cce6de52d401e1442c1eb1b873d30049524d0a1291cc6e19311406"
+    },
+    "grouped-input-preflight.json": {
+      "bytes": 47337,
+      "sha256": "4769db613e2fbb4fd61c24224792df1958f46e383fee80a8639880767b1f6b44"
+    },
+    "全部57组合诊断.csv": {
+      "bytes": 11800,
+      "sha256": "078f756b4ec00e514f870ca709d8b2deb4ecf089eb0a68f0e5f31f6d388b2e68"
+    },
+    "原24退化组合诊断.csv": {
+      "bytes": 6094,
+      "sha256": "fbf24ed4c66e4e122e52f35066851afd3eeb94f1ed996d58a78c08adcae49cb1"
+    },
+    "性能计数.csv": {
+      "bytes": 944625,
+      "sha256": "0b8509a11291c30959727c11ca33adaef67c7a1eb66d2b512db1eda0a8024ca0"
+    },
+    "无分析器逐次样本.csv": {
+      "bytes": 1323795,
+      "sha256": "bef2f0061898e4f123c51dd53328a239216b73e8d49044a4ac7c287897d4089b"
+    },
+    "结果与改进方案.md": {
+      "bytes": 17785,
+      "sha256": "81e874611fc41ebb52beb18e31cbb8f2d7f4ac4d431e201e3fb7c61aa0e3e48a"
+    },
+    "诊断散点与顺序图.html": {
+      "bytes": 298394,
+      "sha256": "cb54adcef9529c73cf7cc8a88ba655313b7802bbc70323ee5c6d3cf24f129d89"
+    },
+    "诊断汇总.json": {
+      "bytes": 570763,
+      "sha256": "6ef0027b8aacfc99964626e119146889caf3e9b2d2e78b19bc4f0321cce08c1c"
+    },
+    "证据/204800-d2z_1d-candidate-group1.s": {
+      "bytes": 41376,
+      "sha256": "dbb5ce5b64a97a2002b30e5aa09dea821d9cd8536650aab6c1aac8c3ac563d8e"
+    },
+    "证据/204800-d2z_1d-candidate-original.s": {
+      "bytes": 36804,
+      "sha256": "becd902ccdd28b12c3381b3283dd46f3685ad7008e0fbf4efb03c533d0458d42"
+    },
+    "证据/204800-d2z_1d-previous-original.s": {
+      "bytes": 44631,
+      "sha256": "ee7bc552e74d2058027de62507b98155b2679febb677bdcf414286a709d6fed5"
+    },
+    "证据/262144-d2z_1d-candidate-group1.s": {
+      "bytes": 46448,
+      "sha256": "cfd11c0b4a7b23e7cb369816da164f4f7b4d694b92c49a2cf4e0e61300240f19"
+    },
+    "证据/262144-d2z_1d-candidate-original.s": {
+      "bytes": 40831,
+      "sha256": "4e9a00fcff403cc004ed5ed8cf58487e18e23f9ca202adb9d48039d8ef0d0ebf"
+    },
+    "证据/262144-d2z_1d-candidate-restore_input.s": {
+      "bytes": 44275,
+      "sha256": "4156f82179b075039ced71316f04f67b5da1c229caa1530b3e158c98ed76324b"
+    },
+    "证据/262144-d2z_1d-previous-original.s": {
+      "bytes": 45113,
+      "sha256": "b87e5999365632c37bdff00a20442fd9f3f479d52d197c7e07e15791ac5ed6b6"
+    }
+  }
+}

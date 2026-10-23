@@ -1,0 +1,20 @@
+{
+  "complete": false,
+  "formal": false,
+  "job_id": "961591",
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/diagnose_rows_v3_regression.py",
+    "--config",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/submit-manifest.json",
+    "--run",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023",
+    "--build",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/diagnostics/EXP-128-cc-rows-v3-regression-diagnostic-20261023",
+    "--cache",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-rows-v3-regression-diagnostic-20261023"
+  ],
+  "started_utc": "2026-10-23T03:31:26.071704+00:00",
+  "ended_utc": "2026-10-23T04:06:07.519749+00:00",
+  "log_sha256": "150d91f40e464a5735064da8d015ed503804f6383f950ec211108105863e75b5"
+}

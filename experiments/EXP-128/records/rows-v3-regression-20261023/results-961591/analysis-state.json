@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-23",
+  "job": "961591",
+  "analysis_complete": true,
+  "diagnostic_complete": false,
+  "formal": false,
+  "source_run": "960099",
+  "severe_cases": 24,
+  "valid_traces": 113,
+  "all_traces": 114,
+  "counter_processes": 114,
+  "transform_processes": 569,
+  "production_source_modified": false,
+  "disposition": "15 target cases in two native layouts reproduce row-stage regression; four input restorations improve. Two target cases remain inconclusive; seven do not reproduce stable regression. Extra control trace1280000-z2d rejected, all original 24 accepted. Two-register grouping is offline feasible, not device-validated.",
+  "saved_production_tag": "exp128-cc-row-simplify-v3-20261023",
+  "source_version_previous": "21ad4f809a3bb291ab4b32216f028a3b49a63f41",
+  "source_version_candidate": "8da0abb02ae6f5591e448d3e10adef8919aae40f",
+  "raw_run": "experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023",
+  "next_action": "Await user instruction before editing production implementation or submitting new device work."
+}
