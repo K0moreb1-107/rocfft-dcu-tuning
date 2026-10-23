@@ -1,0 +1,1300 @@
+{
+  "source_run": "960099",
+  "threshold": 0.95,
+  "severe_count": 24,
+  "type_count": 9,
+  "cases": [
+    {
+      "N": 67200,
+      "func": "d2z_1d",
+      "C": 168,
+      "Q": 200,
+      "speedup_previous": 1.0309278907289778,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 169,
+      "speedup_previous": 1.110047789323256,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 75000,
+      "func": "d2z_1d",
+      "C": 60,
+      "Q": 625,
+      "speedup_previous": 1.0029411645873636,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 75000,
+      "func": "z2d_1d",
+      "C": 60,
+      "Q": 625,
+      "speedup_previous": 1.005882329174727,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 77760,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 243,
+      "speedup_previous": 1.08018862795872,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d",
+      "C": 243,
+      "Q": 169,
+      "speedup_previous": 0.8735849113796064,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 82944,
+      "func": "d2z_1d",
+      "C": 81,
+      "Q": 512,
+      "speedup_previous": 1.033149165585162,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 86400,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 200,
+      "speedup_previous": 1.0860215363342867,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 169,
+      "speedup_previous": 1.2008367874749195,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 110592,
+      "func": "d2z_1d",
+      "C": 108,
+      "Q": 512,
+      "speedup_previous": 1.0312499962104387,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 115600,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 200,
+      "speedup_previous": 1.0213675855749669,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 118098,
+      "func": "d2z_1d",
+      "C": 243,
+      "Q": 243,
+      "speedup_previous": 1.0969387997532944,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 122880,
+      "func": "d2z_1d",
+      "C": 60,
+      "Q": 1024,
+      "speedup_previous": 1.0670390959719454,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 123904,
+      "func": "d2z_1d",
+      "C": 121,
+      "Q": 512,
+      "speedup_previous": 0.9324324395188293,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 128000,
+      "func": "d2z_1d",
+      "C": 125,
+      "Q": 512,
+      "speedup_previous": 0.9330142922360898,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 133100,
+      "func": "d2z_1d",
+      "C": 50,
+      "Q": 1331,
+      "speedup_previous": 1.0196078789435834,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 133100,
+      "func": "z2d_1d",
+      "C": 50,
+      "Q": 1331,
+      "speedup_previous": 0.9952829831227442,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 134400,
+      "func": "d2z_1d",
+      "C": 336,
+      "Q": 200,
+      "speedup_previous": 0.9400000579489627,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 137200,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 200,
+      "speedup_previous": 0.9450800993361024,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 138424,
+      "func": "z2d_1d",
+      "C": 52,
+      "Q": 1331,
+      "speedup_previous": 1.2837209151218625,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 343,
+      "speedup_previous": 1.1524249769105126,
+      "assessment": "差异不明确",
+      "reasons": [
+        "positive Q289/Q343 reference"
+      ]
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 343,
+      "speedup_previous": 1.1416309347396172,
+      "assessment": "差异不明确",
+      "reasons": [
+        "positive Q289/Q343 reference"
+      ]
+    },
+    {
+      "N": 151250,
+      "func": "d2z_1d",
+      "C": 121,
+      "Q": 625,
+      "speedup_previous": 0.948275843282733,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 163840,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 512,
+      "speedup_previous": 0.9414316781700662,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 243,
+      "speedup_previous": 0.9779735036682621,
+      "assessment": "更慢",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 289,
+      "speedup_previous": 1.2593283860874303,
+      "assessment": "差异不明确",
+      "reasons": [
+        "positive Q289/Q343 reference"
+      ]
+    },
+    {
+      "N": 167042,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 289,
+      "speedup_previous": 1.5138461873517226,
+      "assessment": "差异不明确",
+      "reasons": [
+        "positive Q289/Q343 reference"
+      ]
+    },
+    {
+      "N": 173056,
+      "func": "d2z_1d",
+      "C": 169,
+      "Q": 512,
+      "speedup_previous": 0.9482758689902094,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 200,
+      "speedup_previous": 0.9391303775652495,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 212992,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 512,
+      "speedup_previous": 0.9377593441170313,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 221184,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 512,
+      "speedup_previous": 0.9377778187099816,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 229376,
+      "func": "d2z_1d",
+      "C": 224,
+      "Q": 512,
+      "speedup_previous": 0.9393939791000723,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 245760,
+      "func": "d2z_1d",
+      "C": 240,
+      "Q": 512,
+      "speedup_previous": 0.9336283277010982,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 248832,
+      "func": "d2z_1d",
+      "C": 243,
+      "Q": 512,
+      "speedup_previous": 0.9804772260566887,
+      "assessment": "差异不明确",
+      "reasons": [
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 512,
+      "speedup_previous": 0.9404255728104531,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 270000,
+      "func": "z2d_1d",
+      "C": 216,
+      "Q": 625,
+      "speedup_previous": 0.9315352785287344,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 286720,
+      "func": "d2z_1d",
+      "C": 280,
+      "Q": 512,
+      "speedup_previous": 0.9306121925328837,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 295936,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 512,
+      "speedup_previous": 1.0194552197821611,
+      "assessment": "差异不明确",
+      "reasons": [
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 298144,
+      "func": "d2z_1d",
+      "C": 112,
+      "Q": 1331,
+      "speedup_previous": 1.1031578992773623,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 303750,
+      "func": "d2z_1d",
+      "C": 243,
+      "Q": 625,
+      "speedup_previous": 0.9326732623053876,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 346112,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 169,
+      "speedup_previous": 1.1095406514502923,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 350000,
+      "func": "d2z_1d",
+      "C": 280,
+      "Q": 625,
+      "speedup_previous": 0.9328493611101838,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 350000,
+      "func": "z2d_1d",
+      "C": 280,
+      "Q": 625,
+      "speedup_previous": 1.0785714891549145,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 351232,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 512,
+      "speedup_previous": 0.96953402744681,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 393216,
+      "func": "d2z_1d",
+      "C": 192,
+      "Q": 1024,
+      "speedup_previous": 1.0700000223517423,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 420000,
+      "func": "d2z_1d",
+      "C": 336,
+      "Q": 625,
+      "speedup_previous": 1.06474819240086,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 425920,
+      "func": "z2d_1d",
+      "C": 160,
+      "Q": 1331,
+      "speedup_previous": 0.9273256033334039,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 425984,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 1024,
+      "speedup_previous": 0.9386281937409909,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 497664,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 243,
+      "speedup_previous": 0.9036334932287663,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 512,
+      "speedup_previous": 0.9412751133818783,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 1331,
+      "speedup_previous": 0.9311926703489035,
+      "assessment": "差异不明确",
+      "reasons": [
+        "all 24 ratios below 0.95"
+      ]
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 512,
+      "speedup_previous": 0.9360587014376047,
+      "assessment": "更慢",
+      "reasons": [
+        "all 24 ratios below 0.95",
+        "entire existing Q512 forward class"
+      ]
+    },
+    {
+      "N": 1280000,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 625,
+      "speedup_previous": 1.024200542654394,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 1280000,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 625,
+      "speedup_previous": 1.0219364506902389,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 2097152,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 1024,
+      "speedup_previous": 1.0567503139736552,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 2725888,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 1331,
+      "speedup_previous": 1.0459189367349564,
+      "assessment": "更快",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    },
+    {
+      "N": 2725888,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 1331,
+      "speedup_previous": 0.9973036532202981,
+      "assessment": "差异不明确",
+      "reasons": [
+        "three same-row-type controls"
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "N": 86400,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 200
+    },
+    {
+      "N": 67200,
+      "func": "d2z_1d",
+      "C": 168,
+      "Q": 200
+    },
+    {
+      "N": 115600,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 200
+    },
+    {
+      "N": 118098,
+      "func": "d2z_1d",
+      "C": 243,
+      "Q": 243
+    },
+    {
+      "N": 77760,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 243
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 243
+    },
+    {
+      "N": 82944,
+      "func": "d2z_1d",
+      "C": 81,
+      "Q": 512
+    },
+    {
+      "N": 351232,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 512
+    },
+    {
+      "N": 110592,
+      "func": "d2z_1d",
+      "C": 108,
+      "Q": 512
+    },
+    {
+      "N": 420000,
+      "func": "d2z_1d",
+      "C": 336,
+      "Q": 625
+    },
+    {
+      "N": 75000,
+      "func": "d2z_1d",
+      "C": 60,
+      "Q": 625
+    },
+    {
+      "N": 1280000,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 625
+    },
+    {
+      "N": 393216,
+      "func": "d2z_1d",
+      "C": 192,
+      "Q": 1024
+    },
+    {
+      "N": 122880,
+      "func": "d2z_1d",
+      "C": 60,
+      "Q": 1024
+    },
+    {
+      "N": 2097152,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 1024
+    },
+    {
+      "N": 298144,
+      "func": "d2z_1d",
+      "C": 112,
+      "Q": 1331
+    },
+    {
+      "N": 133100,
+      "func": "d2z_1d",
+      "C": 50,
+      "Q": 1331
+    },
+    {
+      "N": 2725888,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 1331
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 169
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 169
+    },
+    {
+      "N": 346112,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 169
+    },
+    {
+      "N": 350000,
+      "func": "z2d_1d",
+      "C": 280,
+      "Q": 625
+    },
+    {
+      "N": 75000,
+      "func": "z2d_1d",
+      "C": 60,
+      "Q": 625
+    },
+    {
+      "N": 1280000,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 625
+    },
+    {
+      "N": 138424,
+      "func": "z2d_1d",
+      "C": 52,
+      "Q": 1331
+    },
+    {
+      "N": 133100,
+      "func": "z2d_1d",
+      "C": 50,
+      "Q": 1331
+    },
+    {
+      "N": 2725888,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 1331
+    }
+  ],
+  "pmc_cases": [
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 134400,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 86400,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 497664,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 118098,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative",
+        "Q512 odd/even columns and size range"
+      ]
+    },
+    {
+      "N": 229376,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 82944,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 303750,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 350000,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 420000,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 425984,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 393216,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 298144,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 270000,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 350000,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 425920,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "type regression representative"
+      ]
+    },
+    {
+      "N": 138424,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "same-type positive/control"
+      ]
+    },
+    {
+      "N": 173056,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "Q512 odd/even columns and size range"
+      ]
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "Q512 odd/even columns and size range"
+      ]
+    },
+    {
+      "N": 142688,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "positive unchanged-type reference"
+      ]
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "positive unchanged-type reference"
+      ]
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "positive unchanged-type reference"
+      ]
+    },
+    {
+      "N": 167042,
+      "func": "z2d_1d",
+      "modes": [
+        "general",
+        "read"
+      ],
+      "reasons": [
+        "positive unchanged-type reference"
+      ]
+    }
+  ],
+  "ablations": [
+    {
+      "N": 173056,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": [
+        "general",
+        "read"
+      ]
+    },
+    {
+      "N": 173056,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 173056,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": [
+        "general",
+        "read"
+      ]
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": [
+        "general",
+        "read"
+      ]
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": []
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 497664,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": []
+    },
+    {
+      "N": 497664,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 497664,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 303750,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": []
+    },
+    {
+      "N": 303750,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 303750,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 425984,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": []
+    },
+    {
+      "N": 425984,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 425984,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": []
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "variant": "restore_input",
+      "pmc_modes": []
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d",
+      "variant": "restore_both",
+      "pmc_modes": []
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d",
+      "variant": "restore_output",
+      "pmc_modes": []
+    }
+  ],
+  "timing_rounds": [
+    "before profiling for all cases",
+    "after profiling for all 24 regressions"
+  ],
+  "scope": "Existing default CC plans only; all Q512 d2z sizes and at least three controls per affected row type.",
+  "formal": false,
+  "production_source_modified": false
+}
