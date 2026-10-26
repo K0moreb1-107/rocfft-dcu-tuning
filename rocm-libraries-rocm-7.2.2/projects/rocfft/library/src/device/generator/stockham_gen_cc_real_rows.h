@@ -239,6 +239,26 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
         return { If { row == 0, input_value(j, row, value, true) },
                  Else { input_value(j, row, value, false) } };
     }
+    StatementList grouped_register_input(const Expression& lane, const Expression& row) const
+    {
+        const unsigned int width = factors.front(), count = length / width;
+        StatementList groups;
+        // With fewer first-pass butterflies than lanes, pass_io has only h=0:
+        // j=lane+w*count maps to R[w]. Keep its single active-lane guard.
+        for (unsigned int first = 0; first < width; first += 2)
+        {
+            StatementList carrier_values, ordinary_values;
+            for (unsigned int reg = first; reg < std::min(first + 2, width); ++reg)
+            {
+                Expression j = lane + reg * count;
+                carrier_values += input_value(j, row, R[reg], true, reg);
+                ordinary_values += input_value(j, row, R[reg], false, reg);
+            }
+            groups += If { row == 0, carrier_values };
+            groups += Else { ordinary_values };
+        }
+        return { If { lane < count, groups } };
+    }
     StatementList load_from_global(bool) override
     {
         Expression slot = thread_id / threads_per_transform,
@@ -253,8 +273,12 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
                 return pass_io(true, lane, [&](Expression j, unsigned int reg)
                     { return input_value(j, row, R[reg], carrier_row, reg); });
             };
-            s += If { row < static_cast<unsigned int>(io.columns),
-                { If { row == 0, loads(true) }, Else { loads(false) } } };
+            if (threads_per_transform > length / factors.front())
+                s += If { row < static_cast<unsigned int>(io.columns),
+                    grouped_register_input(lane, row) };
+            else
+                s += If { row < static_cast<unsigned int>(io.columns),
+                    { If { row == 0, loads(true) }, Else { loads(false) } } };
             return s;
         }
         const unsigned int tasks = length * transforms_per_block;

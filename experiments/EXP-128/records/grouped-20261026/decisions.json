@@ -1,0 +1,255 @@
+{
+  "experiment": "EXP-128",
+  "predecessor_commit": "3bb8359690f4f7458e1683daf41e68e0193861c4",
+  "implementation": "d2z register input: two-register classification groups iff tpt > Q / first factor",
+  "scope": "1D double batch1 out-of-place even N>=65536 generic CC, default plans; no per-size gates",
+  "references": [
+    "EXP125 retained",
+    "measured generic row v3",
+    "new grouped input v4"
+  ],
+  "validation_N": [
+    65536,
+    67600,
+    69938,
+    70000,
+    71680,
+    72250,
+    73008,
+    73728,
+    75264,
+    81120,
+    82134,
+    92480,
+    100352,
+    102400,
+    120224,
+    122880,
+    131072,
+    142688,
+    167042,
+    173056,
+    191664,
+    204800,
+    262144,
+    346112,
+    361250,
+    497664,
+    524288,
+    591872,
+    1048576
+  ],
+  "smoke_N": [
+    262144,
+    102400
+  ],
+  "validation_checks": "numeric and actual fused/grouped path only",
+  "changed_default_cases": [
+    {
+      "N": 67200,
+      "func": "d2z_1d",
+      "C": 168,
+      "Q": 200
+    },
+    {
+      "N": 67600,
+      "func": "d2z_1d",
+      "C": 169,
+      "Q": 200
+    },
+    {
+      "N": 80000,
+      "func": "d2z_1d",
+      "C": 200,
+      "Q": 200
+    },
+    {
+      "N": 82944,
+      "func": "d2z_1d",
+      "C": 81,
+      "Q": 512
+    },
+    {
+      "N": 83200,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 200
+    },
+    {
+      "N": 86400,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 200
+    },
+    {
+      "N": 89600,
+      "func": "d2z_1d",
+      "C": 224,
+      "Q": 200
+    },
+    {
+      "N": 96000,
+      "func": "d2z_1d",
+      "C": 240,
+      "Q": 200
+    },
+    {
+      "N": 102400,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 100
+    },
+    {
+      "N": 110592,
+      "func": "d2z_1d",
+      "C": 108,
+      "Q": 512
+    },
+    {
+      "N": 112000,
+      "func": "d2z_1d",
+      "C": 280,
+      "Q": 200
+    },
+    {
+      "N": 115600,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 200
+    },
+    {
+      "N": 123904,
+      "func": "d2z_1d",
+      "C": 121,
+      "Q": 512
+    },
+    {
+      "N": 128000,
+      "func": "d2z_1d",
+      "C": 125,
+      "Q": 512
+    },
+    {
+      "N": 134400,
+      "func": "d2z_1d",
+      "C": 336,
+      "Q": 200
+    },
+    {
+      "N": 137200,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 200
+    },
+    {
+      "N": 163840,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 512
+    },
+    {
+      "N": 173056,
+      "func": "d2z_1d",
+      "C": 169,
+      "Q": 512
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 200
+    },
+    {
+      "N": 212992,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 512
+    },
+    {
+      "N": 221184,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 512
+    },
+    {
+      "N": 229376,
+      "func": "d2z_1d",
+      "C": 224,
+      "Q": 512
+    },
+    {
+      "N": 245760,
+      "func": "d2z_1d",
+      "C": 240,
+      "Q": 512
+    },
+    {
+      "N": 248832,
+      "func": "d2z_1d",
+      "C": 243,
+      "Q": 512
+    },
+    {
+      "N": 262144,
+      "func": "d2z_1d",
+      "C": 256,
+      "Q": 512
+    },
+    {
+      "N": 286720,
+      "func": "d2z_1d",
+      "C": 280,
+      "Q": 512
+    },
+    {
+      "N": 295936,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 512
+    },
+    {
+      "N": 351232,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 512
+    },
+    {
+      "N": 524288,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 512
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 512
+    }
+  ],
+  "performance_N": 194,
+  "performance_cases": 388,
+  "processes": 1164,
+  "event_samples": 34920,
+  "q100_default_N": [
+    102400
+  ],
+  "q100_generation_only_N": [
+    67200,
+    68600,
+    102400,
+    204800
+  ],
+  "q100_limit": "One existing default case, four legal generated geometries. No fifth registered SBCC column kernel in the N range; no plan-table change.",
+  "free_bytes": 290392637440,
+  "reserved_peak_bytes": 12884901888,
+  "source_state_freeze": false,
+  "reference_installs_rebuilt": false,
+  "unchanged_production_paths": [
+    "z2d",
+    "column kernels",
+    "d2z output",
+    "full-lane register input",
+    "retained LDS input",
+    "default decomposition"
+  ]
+}

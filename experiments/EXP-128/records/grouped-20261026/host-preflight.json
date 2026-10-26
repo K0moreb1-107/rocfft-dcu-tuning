@@ -1,0 +1,3779 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "geometries": 283,
+  "generated_sources": 2862,
+  "unchanged_sources": 2730,
+  "changed_sources": [
+    {
+      "N": 65536,
+      "C": 64,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/64-512-7-0.cpp"
+    },
+    {
+      "N": 65536,
+      "C": 64,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/64-512-7-1.cpp"
+    },
+    {
+      "N": 73728,
+      "C": 72,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/72-512-7-0.cpp"
+    },
+    {
+      "N": 73728,
+      "C": 72,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/72-512-7-1.cpp"
+    },
+    {
+      "N": 81920,
+      "C": 80,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/80-512-7-0.cpp"
+    },
+    {
+      "N": 81920,
+      "C": 80,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/80-512-7-1.cpp"
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/81-512-7-0.cpp"
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/81-512-7-1.cpp"
+    },
+    {
+      "N": 86016,
+      "C": 84,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/84-512-7-0.cpp"
+    },
+    {
+      "N": 86016,
+      "C": 84,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/84-512-7-1.cpp"
+    },
+    {
+      "N": 98304,
+      "C": 96,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/96-512-7-0.cpp"
+    },
+    {
+      "N": 98304,
+      "C": 96,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/96-512-7-1.cpp"
+    },
+    {
+      "N": 102400,
+      "C": 100,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/100-512-7-0.cpp"
+    },
+    {
+      "N": 102400,
+      "C": 100,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/100-512-7-1.cpp"
+    },
+    {
+      "N": 106496,
+      "C": 104,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/104-512-7-0.cpp"
+    },
+    {
+      "N": 106496,
+      "C": 104,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/104-512-7-1.cpp"
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/108-512-7-0.cpp"
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/108-512-7-1.cpp"
+    },
+    {
+      "N": 114688,
+      "C": 112,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/112-512-7-0.cpp"
+    },
+    {
+      "N": 114688,
+      "C": 112,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/112-512-7-1.cpp"
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/121-512-7-0.cpp"
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/121-512-7-1.cpp"
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/125-512-7-0.cpp"
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/125-512-7-1.cpp"
+    },
+    {
+      "N": 131072,
+      "C": 128,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/128-512-7-0.cpp"
+    },
+    {
+      "N": 131072,
+      "C": 128,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/128-512-7-1.cpp"
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/160-512-7-0.cpp"
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/160-512-7-1.cpp"
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/168-200-7-0.cpp"
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/168-200-7-1.cpp"
+    },
+    {
+      "N": 172032,
+      "C": 168,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/168-512-7-0.cpp"
+    },
+    {
+      "N": 172032,
+      "C": 168,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/168-512-7-1.cpp"
+    },
+    {
+      "N": 67600,
+      "C": 169,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/169-200-7-0.cpp"
+    },
+    {
+      "N": 67600,
+      "C": 169,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/169-200-7-1.cpp"
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/169-512-7-0.cpp"
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/169-512-7-1.cpp"
+    },
+    {
+      "N": 76800,
+      "C": 192,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/192-200-7-0.cpp"
+    },
+    {
+      "N": 76800,
+      "C": 192,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/192-200-7-1.cpp"
+    },
+    {
+      "N": 196608,
+      "C": 192,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/192-512-7-0.cpp"
+    },
+    {
+      "N": 196608,
+      "C": 192,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/192-512-7-1.cpp"
+    },
+    {
+      "N": 80000,
+      "C": 200,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/200-200-7-0.cpp"
+    },
+    {
+      "N": 80000,
+      "C": 200,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/200-200-7-1.cpp"
+    },
+    {
+      "N": 204800,
+      "C": 200,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/200-512-7-0.cpp"
+    },
+    {
+      "N": 204800,
+      "C": 200,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/200-512-7-1.cpp"
+    },
+    {
+      "N": 83200,
+      "C": 208,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/208-200-7-0.cpp"
+    },
+    {
+      "N": 83200,
+      "C": 208,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/208-200-7-1.cpp"
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/208-512-7-0.cpp"
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/208-512-7-1.cpp"
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/216-200-7-0.cpp"
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/216-200-7-1.cpp"
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/216-512-7-0.cpp"
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/216-512-7-1.cpp"
+    },
+    {
+      "N": 89600,
+      "C": 224,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/224-200-7-0.cpp"
+    },
+    {
+      "N": 89600,
+      "C": 224,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/224-200-7-1.cpp"
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/224-512-7-0.cpp"
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/224-512-7-1.cpp"
+    },
+    {
+      "N": 96000,
+      "C": 240,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/240-200-7-0.cpp"
+    },
+    {
+      "N": 96000,
+      "C": 240,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/240-200-7-1.cpp"
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/240-512-7-0.cpp"
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/240-512-7-1.cpp"
+    },
+    {
+      "N": 97200,
+      "C": 243,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/243-200-7-0.cpp"
+    },
+    {
+      "N": 97200,
+      "C": 243,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/243-200-7-1.cpp"
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/243-512-7-0.cpp"
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/243-512-7-1.cpp"
+    },
+    {
+      "N": 102400,
+      "C": 256,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/256-200-7-0.cpp"
+    },
+    {
+      "N": 102400,
+      "C": 256,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/256-200-7-1.cpp"
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/256-512-7-0.cpp"
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/256-512-7-1.cpp"
+    },
+    {
+      "N": 112000,
+      "C": 280,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/280-200-7-0.cpp"
+    },
+    {
+      "N": 112000,
+      "C": 280,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/280-200-7-1.cpp"
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/280-512-7-0.cpp"
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/280-512-7-1.cpp"
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/289-200-7-0.cpp"
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/289-200-7-1.cpp"
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/289-512-7-0.cpp"
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/289-512-7-1.cpp"
+    },
+    {
+      "N": 67200,
+      "C": 336,
+      "Q": 100,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-100-7-0.cpp"
+    },
+    {
+      "N": 67200,
+      "C": 336,
+      "Q": 100,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-100-7-1.cpp"
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-200-7-0.cpp"
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-200-7-1.cpp"
+    },
+    {
+      "N": 344064,
+      "C": 336,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-512-7-0.cpp"
+    },
+    {
+      "N": 344064,
+      "C": 336,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-512-7-1.cpp"
+    },
+    {
+      "N": 68600,
+      "C": 343,
+      "Q": 100,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-100-7-0.cpp"
+    },
+    {
+      "N": 68600,
+      "C": 343,
+      "Q": 100,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-100-7-1.cpp"
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-200-7-0.cpp"
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-200-7-1.cpp"
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-512-7-0.cpp"
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-512-7-1.cpp"
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/512-100-7-0.cpp"
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/512-100-7-1.cpp"
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/512-200-7-0.cpp"
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/512-200-7-1.cpp"
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/512-512-7-0.cpp"
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/512-512-7-1.cpp"
+    },
+    {
+      "N": 204800,
+      "C": 1024,
+      "Q": 100,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/1024-100-7-0.cpp"
+    },
+    {
+      "N": 204800,
+      "C": 1024,
+      "Q": 100,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/1024-100-7-1.cpp"
+    },
+    {
+      "N": 409600,
+      "C": 1024,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/1024-200-7-0.cpp"
+    },
+    {
+      "N": 409600,
+      "C": 1024,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/1024-200-7-1.cpp"
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/1024-512-7-0.cpp"
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/1024-512-7-1.cpp"
+    }
+  ],
+  "native_mapping": [
+    {
+      "N": 65536,
+      "C": 64,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 73728,
+      "C": 72,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 81920,
+      "C": 80,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 86016,
+      "C": 84,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 98304,
+      "C": 96,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 102400,
+      "C": 100,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 106496,
+      "C": 104,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 114688,
+      "C": 112,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 131072,
+      "C": 128,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 172032,
+      "C": 168,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 67600,
+      "C": 169,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 76800,
+      "C": 192,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 196608,
+      "C": 192,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 80000,
+      "C": 200,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 204800,
+      "C": 200,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 83200,
+      "C": 208,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 89600,
+      "C": 224,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 96000,
+      "C": 240,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 97200,
+      "C": 243,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 102400,
+      "C": 256,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 112000,
+      "C": 280,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 67200,
+      "C": 336,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 344064,
+      "C": 336,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 68600,
+      "C": 343,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 204800,
+      "C": 1024,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "N": 409600,
+      "C": 1024,
+      "Q": 200,
+      "tpt": 40,
+      "first_factor": 8,
+      "active_lanes": 25,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "tpt": 128,
+      "first_factor": 8,
+      "active_lanes": 64,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "N": 67200,
+      "C": 336,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "N": 68600,
+      "C": 343,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "N": 204800,
+      "C": 1024,
+      "Q": 100,
+      "tpt": 25,
+      "first_factor": 5,
+      "active_lanes": 20,
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    }
+  ],
+  "q100_extra_scope": "Four legal generated/compiled geometries; only N102400 is a registered default performance case. The existing DP SBCC pool has no fifth column length in this N range.",
+  "q100_generation_N": [
+    67200,
+    68600,
+    102400,
+    204800
+  ],
+  "actual_source_overlays": [
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/67200-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0001_67200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "7a7e04d8dff6f060ed5b86b5f7866fb9add3eb3f55328245fbc71ff0ab758bea"
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/67200-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0001_67200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "2f52bd30bf8936c41d836e7a8b9a3610384c9621c706f050668133ac16b23a84"
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/82944-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0013_82944_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "0ede02a174c05f0d8466b13183c4d91b4e18a15cc791e465bf4e3cbe1d22ead6"
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/82944-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0013_82944_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "2ae617f52146ff97be939d2c09e28db0db113103f56eea317f0dfae9f336b761"
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/86400-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0014_86400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "00f20775d56105599644eaec420174d0622a12f329fbc3c3b3dbeccedbf9396e"
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/86400-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0014_86400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b6a20afe55451b876fecb03e99aebe91ccdd4b8092d27ce961d947633ca3c02a"
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/110592-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0018_110592_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "9293ab9991dfa28884d90e6b249303988fa38dbb88399eb494bad635ea288472"
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/110592-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0018_110592_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "ec230bee987b1030049f8ac188d814c3912e1ec1ca9e2654df3a96bbd21bab90"
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/115600-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0021_115600_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "e1a3d0376c214edf4123743bcdbfc129f7f836689aaaeaf65e81e08bf7480739"
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/115600-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0021_115600_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "767cc265b5eebc14d3b05bc431566124e7af0baab7126f6a93ba0c1c98e330ac"
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/123904-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0026_123904_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "96d02cc61231929d67573b1f2ed82aff8a541b3fb91c09c0e22e585b573806bf"
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/123904-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0026_123904_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "32c2d81ff28bdb762fa49eb01997fa95ab060276286bf02ed26fe7b4d9bec46a"
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/128000-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0029_128000_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "87547561af0b38ea60effdc2e60dab2ef137f91cb7437025594c276571919391"
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/128000-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0029_128000_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "99b6a003041ddd86e92317dc5ebea4842e1d41df66054fe6c267c1a9ad6d76f2"
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/134400-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0034_134400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "f89cf75e3bc8a3d73ca89dc42ae749a78547c4ba974163ee52489e04093440e4"
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/134400-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0034_134400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "f786ba140f9206a3c95d5bd0e46ca32699af9d3adde6850cc41cb7b095ff3372"
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/137200-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0037_137200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "8580d5a43676888cd5c9e9a2e9295625f269af8ee6960fe0dc430e1cb0a24d3b"
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/137200-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0037_137200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b8e0cf20e27d579ab604b5562a6ddf52ee196c7fc12afc23c541745c7ff289a1"
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/163840-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0046_163840_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "cb499a18dd63bc2f73c60659d008fa39b347a6285d4865c4c85dd61d05277294"
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/163840-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0046_163840_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "8acc17354a29b2371d14e89c870937f285142820dcf526f7bdec8ff6491f534f"
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/173056-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0054_173056_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "95e1f4e33f0b192c3e11bad42cbfa45d0e6c9a0e7a3fc930c71a4980b1d07b5b"
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/173056-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0054_173056_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "a9ffdcbcdf28ff3ff9216c74efbacd1ebd31d95dc32629e224c4bf237fa6929f"
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/204800-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0057_204800_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "6e05b38484ef66902746b5d257ce2f3314e2b78505080e845e4d9fbe81a902dd"
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/204800-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0057_204800_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "ced604b1b390c8c3074a7e700c8de000f14c7ba61ee9fef4c9baa4da18ea69e2"
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/212992-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0058_212992_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "7bbc0d4319ad0d57d33542d9690ed5d4c1ddcf5c129493fefb4839af5a776efa"
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/212992-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0058_212992_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b678e4a7103e434d79ceabc40a8d57caf95c63b3bcd2db996596fdd1e58b42dc"
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/221184-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0061_221184_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "e5db3d77f9a1a779f5198524344e413b03224acacb5fff2988a9d229a3b11e57"
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/221184-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0061_221184_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "c24a0867865ea56bd2d4f9e3f3077e2e369f4ab2b0554c98b53eb8ca0c5cd0ee"
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/229376-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0062_229376_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "acaabc87693120bb6c7819a969e04019643f6a103b1240dfee809202e9b54853"
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/229376-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0062_229376_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "cc67b4f462c937a0dbce9b84c376b896c6699822f6beaaccf2d290e1375b42a5"
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/245760-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0065_245760_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "258da3bcb40e703060a7e73014c2a439e6dd1686635f9ef36a367ef3fa4e362d"
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/245760-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0065_245760_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "43d9606b09e1c71046c92524540d848e8f19342b191e25f63b4089315041fada"
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/248832-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0066_248832_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "eced42ffa69981c42302169f90415e4011f3080a912506f0a9e96d8396594aa9"
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/248832-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0066_248832_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "e390d1df7bd7c4482b09aa78fe411116ab8ad2963753db9447e7c48d77111e88"
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/262144-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0069_262144_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "7ac088cb009222a7d6c2fced9bc2286cbc7f2013a8acb0999a13bd700dd0bda0"
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/262144-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0069_262144_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "d8f08d020f90492486302f0f6330854ef42233050a678b3a46e6016ed07b829b"
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/286720-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0073_286720_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "cc72bb3a29281208f4bf7c6f21f531da514fb17f9700f51ca21dbd969d087e81"
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/286720-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0073_286720_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "d12e6268fcf177f873c1e7917aad8504306711b90d66a7d54d049342054cf563"
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/295936-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0074_295936_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "d442eccd1421e9bafe9a59b668bfa2a25289b4d3fbbbf162302b69429452f751"
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/295936-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0074_295936_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "61da213fa2a75674e7fb45bb86ae6b85b0e8492bece1556a9e304675eee3b94f"
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/351232-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0086_351232_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "f382f879249726c760a3fc5d5850bfe63824e5188266a9a373214b2e32b65898"
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/351232-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0086_351232_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "847e96e0654faed23d2e1cc18074e85ea3287f621c229d698038a2c4f0c9482c"
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/524288-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0098_524288_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "44f4fde5d435934b3c71a9c1a554afeee738715178dc4eca8e31b078204ca05d"
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/524288-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0098_524288_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "448fd43981e8e219204252b6eecc3403505ec3d26a1da637b8727a0c0043ebb8"
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/1048576-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0102_1048576_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "c88de3750612bdcb121f197778d38e67e44d6614bfa0fadb4781f3e303fe9905"
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/1048576-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0102_1048576_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b67762966e762e71bf94088235818929a838d3d1d8ffd066c35a6f3f49fb3add"
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/102400-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022/measurement-validation/102400-d2z_1d/metadata/rtc.txt",
+      "source_sha256": "47009daad2b01b95803bf990db90a74e127a14bc01b87380f7ed8d97decab684"
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/102400-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022/measurement-validation/102400-d2z_1d/metadata/rtc.txt",
+      "source_sha256": "d654a73146c7010fa61288a799237aece189dfd51d8571b75aa17292359c1bc4"
+    }
+  ],
+  "compiles": [
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/64-512-7-0.cpp",
+      "kind": "native",
+      "shape": [
+        512,
+        128,
+        4,
+        0,
+        true,
+        0
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/64-512-7-1.cpp",
+      "kind": "native",
+      "shape": [
+        512,
+        128,
+        4,
+        0,
+        true,
+        1
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/81-512-7-0.cpp",
+      "kind": "native",
+      "shape": [
+        512,
+        128,
+        4,
+        1,
+        false,
+        0
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/81-512-7-1.cpp",
+      "kind": "native",
+      "shape": [
+        512,
+        128,
+        4,
+        1,
+        false,
+        1
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/168-200-7-0.cpp",
+      "kind": "native",
+      "shape": [
+        200,
+        40,
+        10,
+        0,
+        false,
+        0
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/168-200-7-1.cpp",
+      "kind": "native",
+      "shape": [
+        200,
+        40,
+        10,
+        0,
+        false,
+        1
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/169-200-7-0.cpp",
+      "kind": "native",
+      "shape": [
+        200,
+        40,
+        10,
+        1,
+        false,
+        0
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/169-200-7-1.cpp",
+      "kind": "native",
+      "shape": [
+        200,
+        40,
+        10,
+        1,
+        false,
+        1
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/200-200-7-0.cpp",
+      "kind": "native",
+      "shape": [
+        200,
+        40,
+        10,
+        0,
+        true,
+        0
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/200-200-7-1.cpp",
+      "kind": "native",
+      "shape": [
+        200,
+        40,
+        10,
+        0,
+        true,
+        1
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-100-7-0.cpp",
+      "kind": "native",
+      "shape": [
+        100,
+        25,
+        4,
+        0,
+        true,
+        0
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/336-100-7-1.cpp",
+      "kind": "native",
+      "shape": [
+        100,
+        25,
+        4,
+        0,
+        true,
+        1
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-100-7-0.cpp",
+      "kind": "native",
+      "shape": [
+        100,
+        25,
+        4,
+        1,
+        false,
+        0
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/default/343-100-7-1.cpp",
+      "kind": "native",
+      "shape": [
+        100,
+        25,
+        4,
+        1,
+        false,
+        1
+      ],
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/67200-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0001_67200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "7a7e04d8dff6f060ed5b86b5f7866fb9add3eb3f55328245fbc71ff0ab758bea",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/67200-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0001_67200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "2f52bd30bf8936c41d836e7a8b9a3610384c9621c706f050668133ac16b23a84",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/82944-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0013_82944_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "0ede02a174c05f0d8466b13183c4d91b4e18a15cc791e465bf4e3cbe1d22ead6",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/82944-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0013_82944_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "2ae617f52146ff97be939d2c09e28db0db113103f56eea317f0dfae9f336b761",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/86400-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0014_86400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "00f20775d56105599644eaec420174d0622a12f329fbc3c3b3dbeccedbf9396e",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/86400-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0014_86400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b6a20afe55451b876fecb03e99aebe91ccdd4b8092d27ce961d947633ca3c02a",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/110592-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0018_110592_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "9293ab9991dfa28884d90e6b249303988fa38dbb88399eb494bad635ea288472",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/110592-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0018_110592_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "ec230bee987b1030049f8ac188d814c3912e1ec1ca9e2654df3a96bbd21bab90",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/115600-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0021_115600_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "e1a3d0376c214edf4123743bcdbfc129f7f836689aaaeaf65e81e08bf7480739",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/115600-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0021_115600_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "767cc265b5eebc14d3b05bc431566124e7af0baab7126f6a93ba0c1c98e330ac",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/123904-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0026_123904_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "96d02cc61231929d67573b1f2ed82aff8a541b3fb91c09c0e22e585b573806bf",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/123904-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0026_123904_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "32c2d81ff28bdb762fa49eb01997fa95ab060276286bf02ed26fe7b4d9bec46a",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/128000-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0029_128000_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "87547561af0b38ea60effdc2e60dab2ef137f91cb7437025594c276571919391",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/128000-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0029_128000_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "99b6a003041ddd86e92317dc5ebea4842e1d41df66054fe6c267c1a9ad6d76f2",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/134400-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0034_134400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "f89cf75e3bc8a3d73ca89dc42ae749a78547c4ba974163ee52489e04093440e4",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/134400-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0034_134400_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "f786ba140f9206a3c95d5bd0e46ca32699af9d3adde6850cc41cb7b095ff3372",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/137200-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0037_137200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "8580d5a43676888cd5c9e9a2e9295625f269af8ee6960fe0dc430e1cb0a24d3b",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/137200-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0037_137200_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b8e0cf20e27d579ab604b5562a6ddf52ee196c7fc12afc23c541745c7ff289a1",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/163840-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0046_163840_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "cb499a18dd63bc2f73c60659d008fa39b347a6285d4865c4c85dd61d05277294",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/163840-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0046_163840_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "8acc17354a29b2371d14e89c870937f285142820dcf526f7bdec8ff6491f534f",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/173056-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0054_173056_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "95e1f4e33f0b192c3e11bad42cbfa45d0e6c9a0e7a3fc930c71a4980b1d07b5b",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0,
+      "isa": {
+        "resources": {
+          "vgpr_count": 63,
+          "sgpr_count": 22,
+          "vgpr_spill_count": 0,
+          "private_segment_fixed_size": 0
+        },
+        "static_instruction_groups": {
+          "total": 922,
+          "fp64": 328,
+          "vector_integer": 248,
+          "exec_control": 55,
+          "barriers": 9,
+          "ds_reads": 22,
+          "ds_writes": 24,
+          "global_loads": 63,
+          "global_stores": 9
+        },
+        "mnemonics": {
+          "s_load_dwordx2": 6,
+          "v_and_b32_e32": 16,
+          "v_cmp_eq_u32_e32": 1,
+          "s_waitcnt": 76,
+          "s_load_dword": 1,
+          "v_lshrrev_b32_e32": 2,
+          "s_movk_i32": 17,
+          "v_mov_b64_e32": 16,
+          "s_add_i32": 3,
+          "s_lshr_b32": 1,
+          "v_cvt_f32_u32_e32": 1,
+          "s_not_b32": 1,
+          "v_rcp_iflag_f32_e32": 1,
+          "v_mul_f32_e32": 1,
+          "v_cvt_u32_f32_e32": 1,
+          "v_readfirstlane_b32": 1,
+          "s_mul_i32": 2,
+          "s_mul_hi_u32": 2,
+          "s_sub_i32": 3,
+          "s_cmp_ge_u32": 2,
+          "s_cselect_b32": 2,
+          "s_lshl_b32": 1,
+          "v_or_b32_e32": 19,
+          "v_cmp_gt_u32_e64": 1,
+          "s_and_b64": 3,
+          "v_lshlrev_b32_e32": 17,
+          "s_and_saveexec_b64": 18,
+          "s_cbranch_execz": 25,
+          "v_cmp_ne_u32_e32": 2,
+          "s_xor_b64": 6,
+          "v_mul_lo_u32": 4,
+          "s_mov_b32": 16,
+          "v_mov_b32_e32": 32,
+          "v_lshlrev_b32_sdwa": 8,
+          "v_alignbit_b32": 13,
+          "v_lshl_add_u32": 16,
+          "v_lshl_or_b32": 20,
+          "global_load_dwordx4": 47,
+          "v_lshlrev_b64": 12,
+          "v_add_co_u32_e64": 6,
+          "v_addc_co_u32_e64": 6,
+          "v_mul_f64": 84,
+          "v_fma_f64": 124,
+          "v_fmac_f64_e32": 50,
+          "s_andn2_saveexec_b64": 8,
+          "global_load_dwordx2": 16,
+          "s_or_b64": 15,
+          "s_cbranch_execnz": 2,
+          "s_branch": 2,
+          "v_sub_u32_e32": 5,
+          "v_bfe_u32": 4,
+          "v_add_u32_e32": 13,
+          "v_add_co_u32_e32": 7,
+          "v_addc_co_u32_e32": 7,
+          "v_cmp_gt_u32_e32": 4,
+          "v_add_f64": 70,
+          "ds_write_b128": 16,
+          "s_barrier": 9,
+          "ds_read2st64_b64": 16,
+          "v_mul_u32_u24_e32": 3,
+          "v_and_or_b32": 2,
+          "ds_write2_b64": 8,
+          "v_mad_u32_u24": 1,
+          "ds_read_b128": 6,
+          "global_store_dwordx4": 9,
+          "v_cmp_lt_u32_e32": 1,
+          "v_cndmask_b32_e32": 2,
+          "v_xor_b32_e32": 4,
+          "v_mul_i32_i24_e32": 2,
+          "s_cmp_eq_u32": 1,
+          "s_cselect_b64": 1,
+          "v_cmp_lt_i32_e32": 1,
+          "s_endpgm": 1
+        },
+        "instruction_text_sha256": "1bc1cf70a0488dfabae9ac002c3074a14fd7c98c55eda786dab74008ccd17d1a"
+      },
+      "static_wait_all_before_first_barrier": 6
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/173056-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0054_173056_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "a9ffdcbcdf28ff3ff9216c74efbacd1ebd31d95dc32629e224c4bf237fa6929f",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/204800-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0057_204800_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "6e05b38484ef66902746b5d257ce2f3314e2b78505080e845e4d9fbe81a902dd",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/204800-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0057_204800_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "ced604b1b390c8c3074a7e700c8de000f14c7ba61ee9fef4c9baa4da18ea69e2",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0,
+      "isa": {
+        "resources": {
+          "vgpr_count": 64,
+          "sgpr_count": 24,
+          "vgpr_spill_count": 0,
+          "private_segment_fixed_size": 0
+        },
+        "static_instruction_groups": {
+          "total": 841,
+          "fp64": 308,
+          "vector_integer": 218,
+          "exec_control": 47,
+          "barriers": 5,
+          "ds_reads": 17,
+          "ds_writes": 18,
+          "global_loads": 57,
+          "global_stores": 10
+        },
+        "mnemonics": {
+          "s_load_dwordx2": 6,
+          "v_mul_u32_u24_e32": 3,
+          "v_lshrrev_b32_e32": 4,
+          "v_mul_lo_u16_e32": 2,
+          "s_waitcnt": 67,
+          "s_load_dword": 1,
+          "s_movk_i32": 23,
+          "v_sub_u16_e32": 2,
+          "v_mov_b64_e32": 16,
+          "v_cmp_gt_u16_e32": 1,
+          "s_add_i32": 3,
+          "s_mul_hi_u32": 3,
+          "s_lshr_b32": 1,
+          "v_cvt_f32_u32_e32": 1,
+          "s_not_b32": 1,
+          "v_rcp_iflag_f32_e32": 1,
+          "v_mul_f32_e32": 1,
+          "v_cvt_u32_f32_e32": 1,
+          "v_readfirstlane_b32": 1,
+          "s_mul_i32": 3,
+          "s_sub_i32": 3,
+          "s_cmp_ge_u32": 2,
+          "s_cselect_b32": 2,
+          "v_add_u32_e32": 11,
+          "v_cmp_gt_u32_e64": 1,
+          "s_and_b64": 3,
+          "s_and_saveexec_b64": 11,
+          "s_cbranch_execz": 21,
+          "v_cmp_ne_u32_e64": 1,
+          "s_xor_b64": 8,
+          "v_mul_lo_u32": 9,
+          "s_mov_b32": 19,
+          "v_mov_b32_e32": 30,
+          "v_alignbit_b32": 13,
+          "v_lshl_or_b32": 16,
+          "v_mad_u64_u32": 4,
+          "v_lshlrev_b32_sdwa": 8,
+          "global_load_dwordx4": 41,
+          "v_add_co_u32_e64": 9,
+          "v_lshlrev_b64": 11,
+          "v_addc_co_u32_e64": 9,
+          "v_mul_f64": 68,
+          "v_fma_f64": 76,
+          "v_fmac_f64_e32": 82,
+          "s_or_saveexec_b64": 2,
+          "v_lshlrev_b32_e32": 10,
+          "s_branch": 4,
+          "global_load_dwordx2": 16,
+          "s_or_b64": 8,
+          "s_andn2_saveexec_b64": 8,
+          "v_bfe_u32": 3,
+          "s_nop": 1,
+          "s_cbranch_execnz": 1,
+          "v_mul_hi_u32": 1,
+          "v_sub_u32_e32": 8,
+          "v_add_f64": 82,
+          "v_lshl_add_u32": 7,
+          "ds_write_b128": 18,
+          "v_and_b32_e32": 2,
+          "s_barrier": 5,
+          "ds_read_b128": 17,
+          "v_or_b32_e32": 1,
+          "v_mul_u32_u24_sdwa": 1,
+          "v_cmp_gt_u32_e32": 4,
+          "v_mad_u32_u24": 1,
+          "v_xor_b32_e32": 6,
+          "v_cmp_lt_u32_e32": 3,
+          "v_cndmask_b32_e32": 6,
+          "v_add_co_u32_e32": 6,
+          "v_addc_co_u32_e32": 6,
+          "global_store_dwordx4": 10,
+          "s_cmp_eq_u32": 1,
+          "s_cselect_b64": 1,
+          "v_cmp_lt_i32_e32": 1,
+          "v_cmp_ne_u32_e32": 1,
+          "s_endpgm": 1
+        },
+        "instruction_text_sha256": "bd353ba0de019ba9b2f8a7e48d499ee1e6970b3ec87a84d0f9862e98767c7851"
+      },
+      "static_wait_all_before_first_barrier": 12
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/212992-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0058_212992_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "7bbc0d4319ad0d57d33542d9690ed5d4c1ddcf5c129493fefb4839af5a776efa",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/212992-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0058_212992_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b678e4a7103e434d79ceabc40a8d57caf95c63b3bcd2db996596fdd1e58b42dc",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/221184-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0061_221184_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "e5db3d77f9a1a779f5198524344e413b03224acacb5fff2988a9d229a3b11e57",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/221184-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0061_221184_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "c24a0867865ea56bd2d4f9e3f3077e2e369f4ab2b0554c98b53eb8ca0c5cd0ee",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/229376-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0062_229376_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "acaabc87693120bb6c7819a969e04019643f6a103b1240dfee809202e9b54853",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/229376-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0062_229376_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "cc67b4f462c937a0dbce9b84c376b896c6699822f6beaaccf2d290e1375b42a5",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/245760-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0065_245760_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "258da3bcb40e703060a7e73014c2a439e6dd1686635f9ef36a367ef3fa4e362d",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/245760-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0065_245760_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "43d9606b09e1c71046c92524540d848e8f19342b191e25f63b4089315041fada",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/248832-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0066_248832_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "eced42ffa69981c42302169f90415e4011f3080a912506f0a9e96d8396594aa9",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/248832-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0066_248832_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "e390d1df7bd7c4482b09aa78fe411116ab8ad2963753db9447e7c48d77111e88",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/262144-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0069_262144_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "7ac088cb009222a7d6c2fced9bc2286cbc7f2013a8acb0999a13bd700dd0bda0",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0,
+      "isa": {
+        "resources": {
+          "vgpr_count": 63,
+          "sgpr_count": 22,
+          "vgpr_spill_count": 0,
+          "private_segment_fixed_size": 0
+        },
+        "static_instruction_groups": {
+          "total": 918,
+          "fp64": 328,
+          "vector_integer": 245,
+          "exec_control": 55,
+          "barriers": 9,
+          "ds_reads": 22,
+          "ds_writes": 24,
+          "global_loads": 63,
+          "global_stores": 9
+        },
+        "mnemonics": {
+          "s_load_dwordx2": 6,
+          "v_and_b32_e32": 16,
+          "v_cmp_eq_u32_e32": 1,
+          "s_waitcnt": 76,
+          "s_load_dword": 1,
+          "v_lshrrev_b32_e32": 2,
+          "s_movk_i32": 16,
+          "v_mov_b64_e32": 16,
+          "s_add_i32": 3,
+          "s_lshr_b32": 1,
+          "v_cvt_f32_u32_e32": 1,
+          "s_not_b32": 1,
+          "v_rcp_iflag_f32_e32": 1,
+          "v_mul_f32_e32": 1,
+          "v_cvt_u32_f32_e32": 1,
+          "v_readfirstlane_b32": 1,
+          "s_mul_i32": 2,
+          "s_mul_hi_u32": 2,
+          "s_sub_i32": 3,
+          "s_cmp_ge_u32": 2,
+          "s_cselect_b32": 2,
+          "s_lshl_b32": 1,
+          "v_or_b32_e32": 18,
+          "v_cmp_gt_u32_e64": 1,
+          "s_and_b64": 3,
+          "v_lshlrev_b32_e32": 17,
+          "s_and_saveexec_b64": 18,
+          "s_cbranch_execz": 25,
+          "v_cmp_ne_u32_e32": 2,
+          "s_xor_b64": 6,
+          "v_mul_lo_u32": 4,
+          "s_mov_b32": 16,
+          "v_mov_b32_e32": 34,
+          "v_lshlrev_b32_sdwa": 8,
+          "v_alignbit_b32": 11,
+          "v_lshl_add_u32": 17,
+          "v_lshl_or_b32": 20,
+          "global_load_dwordx4": 47,
+          "v_lshlrev_b64": 12,
+          "v_add_co_u32_e64": 6,
+          "v_addc_co_u32_e64": 6,
+          "v_mul_f64": 84,
+          "v_fma_f64": 124,
+          "v_fmac_f64_e32": 50,
+          "s_andn2_saveexec_b64": 8,
+          "global_load_dwordx2": 16,
+          "s_or_b64": 15,
+          "v_bfe_u32": 6,
+          "s_cbranch_execnz": 2,
+          "s_branch": 2,
+          "v_sub_u32_e32": 6,
+          "v_add_u32_e32": 11,
+          "v_add_co_u32_e32": 7,
+          "v_addc_co_u32_e32": 7,
+          "v_cmp_gt_u32_e32": 4,
+          "v_add_f64": 70,
+          "ds_write_b128": 16,
+          "s_barrier": 9,
+          "ds_read2st64_b64": 16,
+          "v_mul_u32_u24_e32": 2,
+          "v_and_or_b32": 2,
+          "ds_write2_b64": 8,
+          "ds_read_b128": 6,
+          "global_store_dwordx4": 9,
+          "v_cmp_lt_u32_e32": 1,
+          "v_xor_b32_e32": 4,
+          "v_cndmask_b32_e32": 2,
+          "s_cmp_eq_u32": 1,
+          "s_cselect_b64": 1,
+          "v_cmp_lt_i32_e32": 1,
+          "s_endpgm": 1
+        },
+        "instruction_text_sha256": "cbac3074dfc1906551cc56dfa06abf58c4d55c43fa0153966bf469be9eb15fb0"
+      },
+      "static_wait_all_before_first_barrier": 6
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/262144-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0069_262144_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "d8f08d020f90492486302f0f6330854ef42233050a678b3a46e6016ed07b829b",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/286720-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0073_286720_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "cc72bb3a29281208f4bf7c6f21f531da514fb17f9700f51ca21dbd969d087e81",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/286720-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0073_286720_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "d12e6268fcf177f873c1e7917aad8504306711b90d66a7d54d049342054cf563",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/295936-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0074_295936_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "d442eccd1421e9bafe9a59b668bfa2a25289b4d3fbbbf162302b69429452f751",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/295936-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0074_295936_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "61da213fa2a75674e7fb45bb86ae6b85b0e8492bece1556a9e304675eee3b94f",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/351232-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0086_351232_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "f382f879249726c760a3fc5d5850bfe63824e5188266a9a373214b2e32b65898",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/351232-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0086_351232_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "847e96e0654faed23d2e1cc18074e85ea3287f621c229d698038a2c4f0c9482c",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/524288-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0098_524288_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "44f4fde5d435934b3c71a9c1a554afeee738715178dc4eca8e31b078204ca05d",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/524288-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0098_524288_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "448fd43981e8e219204252b6eecc3403505ec3d26a1da637b8727a0c0043ebb8",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/1048576-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0102_1048576_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "c88de3750612bdcb121f197778d38e67e44d6614bfa0fadb4781f3e303fe9905",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0,
+      "isa": {
+        "resources": {
+          "vgpr_count": 63,
+          "sgpr_count": 22,
+          "vgpr_spill_count": 0,
+          "private_segment_fixed_size": 0
+        },
+        "static_instruction_groups": {
+          "total": 918,
+          "fp64": 328,
+          "vector_integer": 245,
+          "exec_control": 55,
+          "barriers": 9,
+          "ds_reads": 22,
+          "ds_writes": 24,
+          "global_loads": 63,
+          "global_stores": 9
+        },
+        "mnemonics": {
+          "s_load_dwordx2": 6,
+          "v_and_b32_e32": 16,
+          "v_cmp_eq_u32_e32": 1,
+          "s_waitcnt": 76,
+          "s_load_dword": 1,
+          "v_lshrrev_b32_e32": 2,
+          "s_movk_i32": 16,
+          "v_mov_b64_e32": 16,
+          "s_add_i32": 3,
+          "s_lshr_b32": 1,
+          "v_cvt_f32_u32_e32": 1,
+          "s_not_b32": 1,
+          "v_rcp_iflag_f32_e32": 1,
+          "v_mul_f32_e32": 1,
+          "v_cvt_u32_f32_e32": 1,
+          "v_readfirstlane_b32": 1,
+          "s_mul_i32": 2,
+          "s_mul_hi_u32": 2,
+          "s_sub_i32": 3,
+          "s_cmp_ge_u32": 2,
+          "s_cselect_b32": 2,
+          "s_lshl_b32": 1,
+          "v_or_b32_e32": 18,
+          "v_cmp_gt_u32_e64": 1,
+          "s_and_b64": 3,
+          "v_lshlrev_b32_e32": 17,
+          "s_and_saveexec_b64": 18,
+          "s_cbranch_execz": 25,
+          "v_cmp_ne_u32_e32": 2,
+          "s_xor_b64": 6,
+          "v_mul_lo_u32": 4,
+          "v_mov_b32_e32": 34,
+          "v_lshlrev_b32_sdwa": 8,
+          "v_bfe_u32": 9,
+          "v_lshl_add_u32": 17,
+          "v_lshl_or_b32": 20,
+          "global_load_dwordx4": 47,
+          "s_mov_b32": 16,
+          "v_alignbit_b32": 8,
+          "v_lshlrev_b64": 12,
+          "v_add_co_u32_e64": 6,
+          "v_addc_co_u32_e64": 6,
+          "v_mul_f64": 84,
+          "v_fma_f64": 124,
+          "v_fmac_f64_e32": 50,
+          "s_andn2_saveexec_b64": 8,
+          "global_load_dwordx2": 16,
+          "s_or_b64": 15,
+          "s_cbranch_execnz": 2,
+          "s_branch": 2,
+          "v_sub_u32_e32": 6,
+          "v_add_u32_e32": 11,
+          "v_add_co_u32_e32": 7,
+          "v_addc_co_u32_e32": 7,
+          "v_cmp_gt_u32_e32": 4,
+          "v_add_f64": 70,
+          "ds_write_b128": 16,
+          "s_barrier": 9,
+          "ds_read2st64_b64": 16,
+          "v_mul_u32_u24_e32": 2,
+          "v_and_or_b32": 2,
+          "ds_write2_b64": 8,
+          "ds_read_b128": 6,
+          "global_store_dwordx4": 9,
+          "v_cmp_lt_u32_e32": 1,
+          "v_xor_b32_e32": 4,
+          "v_cndmask_b32_e32": 2,
+          "s_cmp_eq_u32": 1,
+          "s_cselect_b64": 1,
+          "v_cmp_lt_i32_e32": 1,
+          "s_endpgm": 1
+        },
+        "instruction_text_sha256": "7a3ef526f747bb47f8c66ef06498ccef25ac65be620bc2d8a36c446960985650"
+      },
+      "static_wait_all_before_first_barrier": 6
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/1048576-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-rows-v3-regression-diagnostic-20261023/profiles/0102_1048576_d2z_1d_candidate/metadata/rtc.txt",
+      "source_sha256": "b67762966e762e71bf94088235818929a838d3d1d8ffd066c35a6f3f49fb3add",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "callback": 0,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/102400-0.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022/measurement-validation/102400-d2z_1d/metadata/rtc.txt",
+      "source_sha256": "47009daad2b01b95803bf990db90a74e127a14bc01b87380f7ed8d97decab684",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0,
+      "isa": {
+        "resources": {
+          "vgpr_count": 62,
+          "sgpr_count": 28,
+          "vgpr_spill_count": 0,
+          "private_segment_fixed_size": 0
+        },
+        "static_instruction_groups": {
+          "total": 698,
+          "fp64": 232,
+          "vector_integer": 205,
+          "exec_control": 42,
+          "barriers": 5,
+          "ds_reads": 15,
+          "ds_writes": 14,
+          "global_loads": 33,
+          "global_stores": 9
+        },
+        "mnemonics": {
+          "s_load_dwordx2": 6,
+          "v_mul_u32_u24_e32": 3,
+          "v_lshrrev_b32_e32": 2,
+          "s_waitcnt": 47,
+          "s_load_dword": 1,
+          "v_sub_u16_e32": 3,
+          "v_lshrrev_b16_e32": 3,
+          "v_add_u16_e32": 1,
+          "s_add_i32": 3,
+          "s_lshr_b32": 1,
+          "v_cvt_f32_u32_e32": 1,
+          "s_not_b32": 1,
+          "v_mul_lo_u16_e32": 3,
+          "s_movk_i32": 17,
+          "v_rcp_iflag_f32_e32": 1,
+          "v_mov_b64_e32": 22,
+          "v_cmp_gt_u16_e32": 1,
+          "v_mul_f32_e32": 1,
+          "v_cvt_u32_f32_e32": 1,
+          "v_readfirstlane_b32": 1,
+          "s_mul_i32": 2,
+          "s_mul_hi_u32": 2,
+          "s_sub_i32": 3,
+          "s_cmp_ge_u32": 2,
+          "s_cselect_b32": 2,
+          "s_lshl_b32": 1,
+          "v_add_u32_e32": 9,
+          "v_cmp_gt_u32_e64": 1,
+          "s_and_b64": 3,
+          "s_and_saveexec_b64": 14,
+          "s_cbranch_execz": 20,
+          "v_cmp_ne_u32_e64": 1,
+          "s_xor_b64": 6,
+          "v_mul_lo_u32": 6,
+          "s_mov_b32": 23,
+          "v_mov_b32_e32": 30,
+          "v_alignbit_b32": 5,
+          "v_mad_u64_u32": 2,
+          "v_lshlrev_b32_sdwa": 5,
+          "v_lshl_or_b32": 5,
+          "global_load_dwordx4": 23,
+          "s_nop": 2,
+          "s_load_dwordx4": 3,
+          "v_add_co_u32_e64": 9,
+          "v_lshlrev_b64": 11,
+          "v_addc_co_u32_e64": 9,
+          "v_mul_f64": 48,
+          "v_fma_f64": 48,
+          "v_fmac_f64_e32": 66,
+          "s_or_saveexec_b64": 1,
+          "v_lshlrev_b32_e32": 8,
+          "global_load_dwordx2": 10,
+          "s_or_b64": 11,
+          "s_andn2_saveexec_b64": 5,
+          "v_cmp_lt_u16_e64": 1,
+          "v_cndmask_b32_e64": 2,
+          "v_lshl_add_u32": 12,
+          "v_or_b32_e32": 2,
+          "s_cbranch_execnz": 1,
+          "s_branch": 1,
+          "v_and_b32_e32": 4,
+          "v_add_f64": 70,
+          "v_mad_u32_u24": 5,
+          "ds_write_b128": 14,
+          "s_barrier": 5,
+          "ds_read_b128": 15,
+          "v_mul_lo_u16_sdwa": 1,
+          "v_add_co_u32_e32": 6,
+          "v_addc_co_u32_e32": 6,
+          "v_add3_u32": 1,
+          "v_cmp_gt_u32_e32": 6,
+          "v_sub_u32_e32": 6,
+          "v_cmp_lt_u32_e32": 2,
+          "v_cndmask_b32_e32": 4,
+          "v_xor_b32_e32": 5,
+          "global_store_dwordx4": 9,
+          "s_cmp_eq_u32": 1,
+          "s_cselect_b64": 1,
+          "v_cmp_lt_i32_e32": 1,
+          "v_cmp_ne_u32_e32": 1,
+          "s_endpgm": 1
+        },
+        "instruction_text_sha256": "0e975af6ed88d0515af2e934bbad36d9db5ea72d7c2171d8ad94b7ce34819625"
+      },
+      "static_wait_all_before_first_barrier": 5
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "callback": 1,
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grouped-20261026/actual-overlays/102400-1.cpp",
+      "runtime_log": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-validate-20261022/measurement-validation/102400-d2z_1d/metadata/rtc.txt",
+      "source_sha256": "d654a73146c7010fa61288a799237aece189dfd51d8571b75aa17292359c1bc4",
+      "kind": "actual",
+      "complete": true,
+      "returncode": 0
+    }
+  ],
+  "failures": [],
+  "elapsed_seconds": 177.68614507932216
+}
