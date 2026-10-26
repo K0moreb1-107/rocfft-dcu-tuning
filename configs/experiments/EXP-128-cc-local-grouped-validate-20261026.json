@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-grouped-validate-20261026",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:20:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-grouped-20261026",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "62b64cda550ccd333776adac3e64037078be2739",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_grouped.py",
+    "sha256": "3d3885b99b5da96adc9c92d704df9e332e78138b293baf87812788ee10a05fb4",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+        "sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18"
+      }
+    ]
+  },
+  "validation": {
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+    "fused": true,
+    "profile": "cc-local-grouped-two-checks-v4",
+    "smoke_N": [
+      262144,
+      102400
+    ],
+    "sample_N": [
+      65536,
+      67600,
+      69938,
+      70000,
+      71680,
+      72250,
+      73008,
+      73728,
+      75264,
+      81120,
+      82134,
+      92480,
+      100352,
+      102400,
+      120224,
+      122880,
+      131072,
+      142688,
+      167042,
+      173056,
+      191664,
+      204800,
+      262144,
+      346112,
+      361250,
+      497664,
+      524288,
+      591872,
+      1048576
+    ],
+    "scope": "Numerical result and actual two-kernel v4 dispatch; check pair grouping from native first-pass layout. Include Q512 odd columns/tail, Q200, Q100 odd-factor tail and unchanged row classes.",
+    "expected_cc_local_version": 4,
+    "known_limitations": [
+      "One existing default case, four legal generated geometries. No fifth registered SBCC column kernel in the N range; no plan-table change."
+    ]
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "Two direct-hit smoke sizes, then aggregate remaining numeric and actual path checks. No release callback/memory suite.",
+  "reference_policy": "Reuse validated EXP-125-pre-memory-i. This candidate build and complete validation have no reference-build prerequisite.",
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grouped-build-20261026/build-provenance.json",
+    "evidence_record": "cc-local-validation.json",
+    "isolated_helpers": false
+  }
+}
