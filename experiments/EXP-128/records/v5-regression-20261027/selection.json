@@ -1,0 +1,5302 @@
+{
+  "formal": false,
+  "original_below_one": {
+    "previous": 95,
+    "unfused_cc": 43
+  },
+  "original_below_095": {
+    "previous": 17,
+    "unfused_cc": 18
+  },
+  "cases": [
+    {
+      "N": 65856,
+      "func": "z2d_1d",
+      "C": 96,
+      "Q": 343,
+      "ratios": {
+        "previous": 1.0,
+        "unfused_cc": 1.0901163253069253
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 67200,
+      "func": "d2z_1d",
+      "C": 168,
+      "Q": 200,
+      "ratios": {
+        "previous": 1.0218579631262412,
+        "unfused_cc": 1.1147540837605077
+      },
+      "assessments": {
+        "previous": "更快",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 67760,
+      "func": "z2d_1d",
+      "C": 280,
+      "Q": 121,
+      "ratios": {
+        "previous": 1.0439276205960417,
+        "unfused_cc": 1.1369347359484003
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 68600,
+      "func": "z2d_1d",
+      "C": 100,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9944134303478354,
+        "unfused_cc": 1.0810055851388494
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 121,
+      "ratios": {
+        "previous": 0.9653680024561114,
+        "unfused_cc": 0.9415584978451573
+      },
+      "assessments": {
+        "previous": "更慢",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 169,
+      "ratios": {
+        "previous": 0.9951922710972547,
+        "unfused_cc": 1.14663461215564
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 73984,
+      "func": "d2z_1d",
+      "C": 128,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.9950494672904069,
+        "unfused_cc": 1.2103960264799902
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 73984,
+      "func": "z2d_1d",
+      "C": 128,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.9739478842903567,
+        "unfused_cc": 0.9699398844348144
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 75000,
+      "func": "d2z_1d",
+      "C": 60,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9941520702729184,
+        "unfused_cc": 1.175438572603812
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 75000,
+      "func": "z2d_1d",
+      "C": 60,
+      "Q": 625,
+      "ratios": {
+        "previous": 1.0148368048878131,
+        "unfused_cc": 1.1988130887717972
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 75712,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 169,
+      "ratios": {
+        "previous": 0.9903382028308158,
+        "unfused_cc": 1.0942029441942047
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 77760,
+      "func": "z2d_1d",
+      "C": 160,
+      "Q": 243,
+      "ratios": {
+        "previous": 1.0253806662643543,
+        "unfused_cc": 1.1319637928275401
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 81312,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 121,
+      "ratios": {
+        "previous": 1.002463015484728,
+        "unfused_cc": 1.1009698141392195
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 85750,
+      "func": "z2d_1d",
+      "C": 125,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9972751836158281,
+        "unfused_cc": 1.0762942560616855
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 86528,
+      "func": "d2z_1d",
+      "C": 169,
+      "Q": 256,
+      "ratios": {
+        "previous": 0.9609375350534425,
+        "unfused_cc": 1.093749988631316
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 87808,
+      "func": "z2d_1d",
+      "C": 128,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9943182047434613,
+        "unfused_cc": 1.1534091333772316
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 90000,
+      "func": "z2d_1d",
+      "C": 72,
+      "Q": 625,
+      "ratios": {
+        "previous": 1.005464522589026,
+        "unfused_cc": 0.9890710820518105
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 92480,
+      "func": "z2d_1d",
+      "C": 160,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.9882812514210855,
+        "unfused_cc": 0.9960938111066768
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 97104,
+      "func": "z2d_1d",
+      "C": 168,
+      "Q": 289,
+      "ratios": {
+        "previous": 1.0479165926944345,
+        "unfused_cc": 0.8791666254362421
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 169,
+      "ratios": {
+        "previous": 0.9937499527062778,
+        "unfused_cc": 1.5083332508724843
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 100000,
+      "func": "z2d_1d",
+      "C": 80,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9972006377310799,
+        "unfused_cc": 1.095793919084549
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 100352,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 49,
+      "ratios": {
+        "previous": 0.9975727971537698,
+        "unfused_cc": 1.0631067088790866
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 101250,
+      "func": "d2z_1d",
+      "C": 81,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9972144958803082,
+        "unfused_cc": 1.0779944396280352
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 101250,
+      "func": "z2d_1d",
+      "C": 81,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9891891698008084,
+        "unfused_cc": 1.0513513333235587
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 105000,
+      "func": "d2z_1d",
+      "C": 84,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9947916875092541,
+        "unfused_cc": 1.0026041865618638
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 110592,
+      "func": "d2z_1d",
+      "C": 108,
+      "Q": 512,
+      "ratios": {
+        "previous": 0.9920165077814229,
+        "unfused_cc": 1.0400173005364073
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 110976,
+      "func": "z2d_1d",
+      "C": 192,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.8972067699933244,
+        "unfused_cc": 0.9551513336324916
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 114688,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 112,
+      "ratios": {
+        "previous": 0.9950249534222863,
+        "unfused_cc": 0.9800995820168555
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": true,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 115600,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 200,
+      "ratios": {
+        "previous": 0.9362637108466485,
+        "unfused_cc": 1.107692361225643
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 115934,
+      "func": "z2d_1d",
+      "C": 169,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9949495739375485,
+        "unfused_cc": 1.1464647076358458
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 118098,
+      "func": "z2d_1d",
+      "C": 243,
+      "Q": 243,
+      "ratios": {
+        "previous": 0.9976190848402743,
+        "unfused_cc": 1.0523810204878778
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 289,
+      "ratios": {
+        "previous": 1.1044776287970508,
+        "unfused_cc": 0.9813433147022478
+      },
+      "assessments": {
+        "previous": "更快",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 122880,
+      "func": "d2z_1d",
+      "C": 60,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9835164859766552,
+        "unfused_cc": 1.1923076849271774
+      },
+      "assessments": {
+        "previous": "更慢",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 123904,
+      "func": "z2d_1d",
+      "C": 121,
+      "Q": 512,
+      "ratios": {
+        "previous": 0.997333344095283,
+        "unfused_cc": 1.1679999428788825
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 124848,
+      "func": "z2d_1d",
+      "C": 216,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.943130099183148,
+        "unfused_cc": 0.9321208000767965
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 129472,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.9273422818355727,
+        "unfused_cc": 0.8451242614471765
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 131712,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 192,
+      "ratios": {
+        "previous": 0.9946380600825406,
+        "unfused_cc": 1.1313672938986885
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 133100,
+      "func": "z2d_1d",
+      "C": 50,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.002378925862049,
+        "unfused_cc": 0.9881943210169972
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 135000,
+      "func": "z2d_1d",
+      "C": 108,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9975124767111431,
+        "unfused_cc": 1.0074627436207877
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 138424,
+      "func": "d2z_1d",
+      "C": 52,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9950494672904069,
+        "unfused_cc": 1.0618811978191376
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 138424,
+      "func": "z2d_1d",
+      "C": 52,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0,
+        "unfused_cc": 0.9906976039020249
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 138720,
+      "func": "z2d_1d",
+      "C": 240,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.9979166509020926,
+        "unfused_cc": 1.085416633924859
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one",
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 142688,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9852631432412399,
+        "unfused_cc": 0.9431579502550206
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 147968,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.9860834859384644,
+        "unfused_cc": 1.059642136994585
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 148176,
+      "func": "z2d_1d",
+      "C": 216,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9895833750185082,
+        "unfused_cc": 1.1744791657192764
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 153664,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9949238194718739,
+        "unfused_cc": 1.0304568467924804
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 159720,
+      "func": "z2d_1d",
+      "C": 60,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.065060288550668,
+        "unfused_cc": 1.1759036101317575
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 160000,
+      "func": "d2z_1d",
+      "C": 128,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9764397939265943,
+        "unfused_cc": 1.0811518412363186
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 160000,
+      "func": "z2d_1d",
+      "C": 128,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9923857292078109,
+        "unfused_cc": 1.0456852701887205
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 161840,
+      "func": "z2d_1d",
+      "C": 280,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.92524443259533,
+        "unfused_cc": 1.0112267458770108
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 163296,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 243,
+      "ratios": {
+        "previous": 1.0325814673815366,
+        "unfused_cc": 1.2531327683154265
+      },
+      "assessments": {
+        "previous": "更快",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 164640,
+      "func": "z2d_1d",
+      "C": 240,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9948186134706157,
+        "unfused_cc": 1.1632124089804106
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 165888,
+      "func": "z2d_1d",
+      "C": 81,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9949238194718739,
+        "unfused_cc": 1.1319637928275401
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 243,
+      "ratios": {
+        "previous": 0.9951337830118155,
+        "unfused_cc": 1.1143551928256892
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 167042,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.965299713273095,
+        "unfused_cc": 1.006309196458095
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 170368,
+      "func": "d2z_1d",
+      "C": 64,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9951455943075397,
+        "unfused_cc": 1.0800970157781182
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 170368,
+      "func": "z2d_1d",
+      "C": 64,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9369369785104649,
+        "unfused_cc": 1.0045045389916356
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 200000,
+      "func": "z2d_1d",
+      "C": 160,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9599109186838711,
+        "unfused_cc": 1.0155901637193538
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "C": 512,
+      "Q": 200,
+      "ratios": {
+        "previous": 1.0738916114907766,
+        "unfused_cc": 1.0689654658264272
+      },
+      "assessments": {
+        "previous": "更快",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 204800,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 200,
+      "ratios": {
+        "previous": 0.9951922710972547,
+        "unfused_cc": 1.0528845701789618
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 211250,
+      "func": "z2d_1d",
+      "C": 169,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9870129883219804,
+        "unfused_cc": 1.1753247080495102
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 212960,
+      "func": "d2z_1d",
+      "C": 80,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9954545108185817,
+        "unfused_cc": 1.1477272871589244
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 215622,
+      "func": "d2z_1d",
+      "C": 81,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9910713608233557,
+        "unfused_cc": 1.0803571289363059
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 215622,
+      "func": "z2d_1d",
+      "C": 81,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0393701032805562,
+        "unfused_cc": 0.9803149941925254
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 223608,
+      "func": "d2z_1d",
+      "C": 84,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0410366766589396,
+        "unfused_cc": 1.079900082969173
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 223608,
+      "func": "z2d_1d",
+      "C": 84,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0455574972692778,
+        "unfused_cc": 0.9802101191107124
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 230496,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9952606274223077,
+        "unfused_cc": 1.1943128411837904
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 235298,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 343,
+      "ratios": {
+        "previous": 0.9949999621650222,
+        "unfused_cc": 1.164999967985788
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one",
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 250000,
+      "func": "z2d_1d",
+      "C": 200,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9956710633023208,
+        "unfused_cc": 0.9978355316511605
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 255552,
+      "func": "z2d_1d",
+      "C": 96,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0163338935072366,
+        "unfused_cc": 0.9473684432926394
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 260000,
+      "func": "z2d_1d",
+      "C": 208,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9979508517403137,
+        "unfused_cc": 1.0286885527475924
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 266200,
+      "func": "d2z_1d",
+      "C": 100,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9958847425127945,
+        "unfused_cc": 1.0576131257455013
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 266200,
+      "func": "z2d_1d",
+      "C": 100,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9980430835106104,
+        "unfused_cc": 1.0176125217868655
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 270000,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9753914680018818,
+        "unfused_cc": 1.1118568405121565
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 276848,
+      "func": "z2d_1d",
+      "C": 104,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0218978068075855,
+        "unfused_cc": 0.9817518134978975
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 287496,
+      "func": "d2z_1d",
+      "C": 108,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9960783534928334,
+        "unfused_cc": 1.0431500271753211
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 287496,
+      "func": "z2d_1d",
+      "C": 108,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0545774709951632,
+        "unfused_cc": 0.9683098634849976
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 298144,
+      "func": "z2d_1d",
+      "C": 112,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0859223519060173,
+        "unfused_cc": 0.9828283954503764
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 300000,
+      "func": "z2d_1d",
+      "C": 240,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9310344950630538,
+        "unfused_cc": 0.9386972992092233
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 303750,
+      "func": "z2d_1d",
+      "C": 243,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9379432451373073,
+        "unfused_cc": 0.959219837368624
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 320000,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9982237875499376,
+        "unfused_cc": 0.9591474444913966
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 322102,
+      "func": "z2d_1d",
+      "C": 121,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0049158233118984,
+        "unfused_cc": 0.9556547471013828
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 327680,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9941860024387655,
+        "unfused_cc": 1.0639534317069843
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 332750,
+      "func": "d2z_1d",
+      "C": 125,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.998109670451331,
+        "unfused_cc": 1.1568998172873628
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 332750,
+      "func": "z2d_1d",
+      "C": 125,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.8955695645263956,
+        "unfused_cc": 0.9319620247335397
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 340736,
+      "func": "d2z_1d",
+      "C": 128,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9847328410475815,
+        "unfused_cc": 1.1469466215295125
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 340736,
+      "func": "z2d_1d",
+      "C": 128,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9796368665185152,
+        "unfused_cc": 1.071318680184902
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 344064,
+      "func": "z2d_1d",
+      "C": 168,
+      "Q": 1024,
+      "ratios": {
+        "previous": 1.0701536827432403,
+        "unfused_cc": 1.0901939792789337
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 346112,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 169,
+      "ratios": {
+        "previous": 0.9295664750760122,
+        "unfused_cc": 1.0616197372178229
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 351232,
+      "func": "d2z_1d",
+      "C": 343,
+      "Q": 512,
+      "ratios": {
+        "previous": 0.9902534277618185,
+        "unfused_cc": 1.0779727140637245
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 351232,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 512,
+      "ratios": {
+        "previous": 0.9864722863114691,
+        "unfused_cc": 1.0754481717462414
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 361250,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9808917221066843,
+        "unfused_cc": 1.1719745751897293
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 361250,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 625,
+      "ratios": {
+        "previous": 1.0354838785995477,
+        "unfused_cc": 1.1612802485970357
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 393216,
+      "func": "z2d_1d",
+      "C": 192,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9219858009638198,
+        "unfused_cc": 1.0354610145735468
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 420000,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 625,
+      "ratios": {
+        "previous": 1.003086443263268,
+        "unfused_cc": 0.9814814841430115
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 425920,
+      "func": "d2z_1d",
+      "C": 160,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9255499008657557,
+        "unfused_cc": 1.093062564823734
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 425920,
+      "func": "z2d_1d",
+      "C": 160,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0014298481445056,
+        "unfused_cc": 0.9266187165081916
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 425984,
+      "func": "d2z_1d",
+      "C": 208,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9518628715120003,
+        "unfused_cc": 1.1666801695630344
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 428750,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9668325221392788,
+        "unfused_cc": 0.9784411567659522
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 447216,
+      "func": "d2z_1d",
+      "C": 168,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9349999712842209,
+        "unfused_cc": 1.0299999953433872
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 447216,
+      "func": "z2d_1d",
+      "C": 168,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9898460193079369,
+        "unfused_cc": 0.9043478389975406
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 458752,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9479865345761698,
+        "unfused_cc": 1.00503351706379
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 491520,
+      "func": "z2d_1d",
+      "C": 240,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9744525718014889,
+        "unfused_cc": 1.091240893899752
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 497664,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 243,
+      "ratios": {
+        "previous": 0.9458987714099566,
+        "unfused_cc": 1.1064572431502075
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 511104,
+      "func": "z2d_1d",
+      "C": 192,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9359395553391262,
+        "unfused_cc": 0.924183007928416
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 512,
+      "ratios": {
+        "previous": 0.9959955452665995,
+        "unfused_cc": 1.0818363004446647
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 532400,
+      "func": "z2d_1d",
+      "C": 200,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0056337800927047,
+        "unfused_cc": 0.9957746485339475
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d",
+      "C": 216,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9325153930699172,
+        "unfused_cc": 1.1180982049685346
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 574992,
+      "func": "z2d_1d",
+      "C": 216,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.007042241512405,
+        "unfused_cc": 0.9366196952161633
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 591872,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 289,
+      "ratios": {
+        "previous": 0.9845201497266871,
+        "unfused_cc": 1.1408669041971797
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 591872,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 289,
+      "ratios": {
+        "previous": 1.012371057619916,
+        "unfused_cc": 1.0907840634436927
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 596288,
+      "func": "z2d_1d",
+      "C": 224,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9986595072179997,
+        "unfused_cc": 0.9584366402275922
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 638880,
+      "func": "d2z_1d",
+      "C": 240,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9971630990187427,
+        "unfused_cc": 1.1092198291122184
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 638880,
+      "func": "z2d_1d",
+      "C": 240,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0,
+        "unfused_cc": 0.9974160610913934
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 640000,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 625,
+      "ratios": {
+        "previous": 1.0,
+        "unfused_cc": 0.9353658445170598
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 646866,
+      "func": "d2z_1d",
+      "C": 243,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9892617568381735,
+        "unfused_cc": 1.1570470523546428
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 646866,
+      "func": "z2d_1d",
+      "C": 243,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9988937968764842,
+        "unfused_cc": 0.9203539932413178
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 681472,
+      "func": "z2d_1d",
+      "C": 256,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0056682765368394,
+        "unfused_cc": 0.8967082926980875
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 688128,
+      "func": "z2d_1d",
+      "C": 336,
+      "Q": 1024,
+      "ratios": {
+        "previous": 1.0423412545820232,
+        "unfused_cc": 1.0498132338623567
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 702464,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.9924778143435518,
+        "unfused_cc": 1.0615744325015144
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 745360,
+      "func": "d2z_1d",
+      "C": 280,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9671361738416306,
+        "unfused_cc": 1.1091549390073905
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 745360,
+      "func": "z2d_1d",
+      "C": 280,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9878235651548684,
+        "unfused_cc": 0.9959454589438007
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 769318,
+      "func": "d2z_1d",
+      "C": 289,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9943630310087368,
+        "unfused_cc": 1.2051860597705397
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 769318,
+      "func": "z2d_1d",
+      "C": 289,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0237191686064067,
+        "unfused_cc": 0.9459202902757465
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 913066,
+      "func": "z2d_1d",
+      "C": 343,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0,
+        "unfused_cc": 1.0419048154610904
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更快"
+      },
+      "row_changed": false,
+      "references": [
+        "unfused_cc"
+      ],
+      "reasons": [
+        "same-row positive control for unfused_cc"
+      ]
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 512,
+      "ratios": {
+        "previous": 0.9524301716344667,
+        "unfused_cc": 0.9813856837422139
+      },
+      "assessments": {
+        "previous": "更慢",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 1280000,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 625,
+      "ratios": {
+        "previous": 0.9992441363547746,
+        "unfused_cc": 0.9992441363547746
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 1362944,
+      "func": "z2d_1d",
+      "C": 512,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9980519332079636,
+        "unfused_cc": 0.9064935196881594
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 2097152,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 1024,
+      "ratios": {
+        "previous": 0.998908884237978,
+        "unfused_cc": 1.0054487196423396
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "差异不明确"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    },
+    {
+      "N": 2725888,
+      "func": "d2z_1d",
+      "C": 1024,
+      "Q": 1331,
+      "ratios": {
+        "previous": 1.0444444241021662,
+        "unfused_cc": 1.232478648534745
+      },
+      "assessments": {
+        "previous": "更快",
+        "unfused_cc": "更快"
+      },
+      "row_changed": true,
+      "references": [
+        "previous"
+      ],
+      "reasons": [
+        "same-row positive control for previous"
+      ]
+    },
+    {
+      "N": 2725888,
+      "func": "z2d_1d",
+      "C": 1024,
+      "Q": 1331,
+      "ratios": {
+        "previous": 0.9993240380352395,
+        "unfused_cc": 0.8962264082857335
+      },
+      "assessments": {
+        "previous": "差异不明确",
+        "unfused_cc": "更慢"
+      },
+      "row_changed": false,
+      "references": [
+        "previous",
+        "unfused_cc"
+      ],
+      "reasons": [
+        "every original median ratio below one"
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "N": 67200,
+      "func": "d2z_1d",
+      "Q": 200,
+      "reference": "previous"
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d",
+      "Q": 200,
+      "reference": "previous"
+    },
+    {
+      "N": 223608,
+      "func": "d2z_1d",
+      "Q": 1331,
+      "reference": "previous"
+    },
+    {
+      "N": 2725888,
+      "func": "d2z_1d",
+      "Q": 1331,
+      "reference": "previous"
+    },
+    {
+      "N": 77760,
+      "func": "z2d_1d",
+      "Q": 243,
+      "reference": "previous"
+    },
+    {
+      "N": 163296,
+      "func": "z2d_1d",
+      "Q": 243,
+      "reference": "previous"
+    },
+    {
+      "N": 344064,
+      "func": "z2d_1d",
+      "Q": 1024,
+      "reference": "previous"
+    },
+    {
+      "N": 688128,
+      "func": "z2d_1d",
+      "Q": 1024,
+      "reference": "previous"
+    },
+    {
+      "N": 67760,
+      "func": "z2d_1d",
+      "Q": 121,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 81312,
+      "func": "z2d_1d",
+      "Q": 121,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 138720,
+      "func": "z2d_1d",
+      "Q": 289,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 591872,
+      "func": "z2d_1d",
+      "Q": 289,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 65856,
+      "func": "z2d_1d",
+      "Q": 343,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 235298,
+      "func": "z2d_1d",
+      "Q": 343,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 75000,
+      "func": "z2d_1d",
+      "Q": 625,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 361250,
+      "func": "z2d_1d",
+      "Q": 625,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 159720,
+      "func": "z2d_1d",
+      "Q": 1331,
+      "reference": "unfused_cc"
+    },
+    {
+      "N": 913066,
+      "func": "z2d_1d",
+      "Q": 1331,
+      "reference": "unfused_cc"
+    }
+  ],
+  "clean_schedule": [
+    {
+      "index": 0,
+      "N": 65856,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 1,
+      "N": 65856,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 2,
+      "N": 67200,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 3,
+      "N": 67200,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 4,
+      "N": 67760,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 5,
+      "N": 67760,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 6,
+      "N": 68600,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 7,
+      "N": 68600,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 8,
+      "N": 69938,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 9,
+      "N": 69938,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 10,
+      "N": 69938,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 11,
+      "N": 70304,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 12,
+      "N": 70304,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 13,
+      "N": 73984,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 14,
+      "N": 73984,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 15,
+      "N": 73984,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 16,
+      "N": 73984,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 17,
+      "N": 73984,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 18,
+      "N": 75000,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 19,
+      "N": 75000,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 20,
+      "N": 75000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 21,
+      "N": 75000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 22,
+      "N": 75712,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 23,
+      "N": 75712,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 24,
+      "N": 77760,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 25,
+      "N": 77760,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 26,
+      "N": 81312,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 27,
+      "N": 81312,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 28,
+      "N": 85750,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 29,
+      "N": 85750,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 30,
+      "N": 86528,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 31,
+      "N": 86528,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 32,
+      "N": 87808,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 33,
+      "N": 87808,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 34,
+      "N": 90000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 35,
+      "N": 90000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 36,
+      "N": 92480,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 37,
+      "N": 92480,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 38,
+      "N": 92480,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 39,
+      "N": 97104,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 40,
+      "N": 97104,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 41,
+      "N": 97682,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 42,
+      "N": 97682,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 43,
+      "N": 100000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 44,
+      "N": 100000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 45,
+      "N": 100352,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 46,
+      "N": 100352,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 47,
+      "N": 101250,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 48,
+      "N": 101250,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 49,
+      "N": 101250,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 50,
+      "N": 101250,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 51,
+      "N": 105000,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 52,
+      "N": 105000,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 53,
+      "N": 110592,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 54,
+      "N": 110592,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 55,
+      "N": 110976,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 56,
+      "N": 110976,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 57,
+      "N": 110976,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 58,
+      "N": 114688,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 59,
+      "N": 114688,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 60,
+      "N": 114688,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 61,
+      "N": 115600,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 62,
+      "N": 115600,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 63,
+      "N": 115934,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 64,
+      "N": 115934,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 65,
+      "N": 118098,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 66,
+      "N": 118098,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 67,
+      "N": 120224,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 68,
+      "N": 120224,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 69,
+      "N": 122880,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 70,
+      "N": 122880,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 71,
+      "N": 123904,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 72,
+      "N": 123904,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 73,
+      "N": 124848,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 74,
+      "N": 124848,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 75,
+      "N": 124848,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 76,
+      "N": 129472,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 77,
+      "N": 129472,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 78,
+      "N": 129472,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 79,
+      "N": 131712,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 80,
+      "N": 131712,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 81,
+      "N": 133100,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 82,
+      "N": 133100,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 83,
+      "N": 135000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 84,
+      "N": 135000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 85,
+      "N": 138424,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 86,
+      "N": 138424,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 87,
+      "N": 138424,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 88,
+      "N": 138424,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 89,
+      "N": 138720,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 90,
+      "N": 138720,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 91,
+      "N": 138720,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 92,
+      "N": 142688,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 93,
+      "N": 142688,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 94,
+      "N": 142688,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 95,
+      "N": 147968,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 96,
+      "N": 147968,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 97,
+      "N": 148176,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 98,
+      "N": 148176,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 99,
+      "N": 153664,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 100,
+      "N": 153664,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 101,
+      "N": 159720,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 102,
+      "N": 159720,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 103,
+      "N": 160000,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 104,
+      "N": 160000,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 105,
+      "N": 160000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 106,
+      "N": 160000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 107,
+      "N": 161840,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 108,
+      "N": 161840,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 109,
+      "N": 163296,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 110,
+      "N": 163296,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 111,
+      "N": 164640,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 112,
+      "N": 164640,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 113,
+      "N": 165888,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 114,
+      "N": 165888,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 115,
+      "N": 166698,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 116,
+      "N": 166698,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 117,
+      "N": 167042,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 118,
+      "N": 167042,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 119,
+      "N": 170368,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 120,
+      "N": 170368,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 121,
+      "N": 170368,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 122,
+      "N": 170368,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 123,
+      "N": 200000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 124,
+      "N": 200000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 125,
+      "N": 204800,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 126,
+      "N": 204800,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 127,
+      "N": 204800,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 128,
+      "N": 204800,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 129,
+      "N": 211250,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 130,
+      "N": 211250,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 131,
+      "N": 212960,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 132,
+      "N": 212960,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 133,
+      "N": 215622,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 134,
+      "N": 215622,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 135,
+      "N": 215622,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 136,
+      "N": 215622,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 137,
+      "N": 223608,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 138,
+      "N": 223608,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 139,
+      "N": 223608,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 140,
+      "N": 223608,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 141,
+      "N": 230496,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 142,
+      "N": 230496,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 143,
+      "N": 235298,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 144,
+      "N": 235298,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 145,
+      "N": 235298,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 146,
+      "N": 250000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 147,
+      "N": 250000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 148,
+      "N": 250000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 149,
+      "N": 255552,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 150,
+      "N": 255552,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 151,
+      "N": 260000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 152,
+      "N": 260000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 153,
+      "N": 266200,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 154,
+      "N": 266200,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 155,
+      "N": 266200,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 156,
+      "N": 266200,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 157,
+      "N": 270000,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 158,
+      "N": 270000,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 159,
+      "N": 276848,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 160,
+      "N": 276848,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 161,
+      "N": 287496,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 162,
+      "N": 287496,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 163,
+      "N": 287496,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 164,
+      "N": 287496,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 165,
+      "N": 298144,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 166,
+      "N": 298144,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 167,
+      "N": 300000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 168,
+      "N": 300000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 169,
+      "N": 300000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 170,
+      "N": 303750,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 171,
+      "N": 303750,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 172,
+      "N": 303750,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 173,
+      "N": 320000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 174,
+      "N": 320000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 175,
+      "N": 320000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 176,
+      "N": 322102,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 177,
+      "N": 322102,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 178,
+      "N": 327680,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 179,
+      "N": 327680,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 180,
+      "N": 332750,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 181,
+      "N": 332750,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 182,
+      "N": 332750,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 183,
+      "N": 332750,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 184,
+      "N": 332750,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 185,
+      "N": 340736,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 186,
+      "N": 340736,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 187,
+      "N": 340736,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 188,
+      "N": 340736,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 189,
+      "N": 344064,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 190,
+      "N": 344064,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 191,
+      "N": 346112,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 192,
+      "N": 346112,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 193,
+      "N": 351232,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 194,
+      "N": 351232,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 195,
+      "N": 351232,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 196,
+      "N": 351232,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 197,
+      "N": 361250,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 198,
+      "N": 361250,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 199,
+      "N": 361250,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 200,
+      "N": 361250,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 201,
+      "N": 393216,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 202,
+      "N": 393216,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 203,
+      "N": 420000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 204,
+      "N": 420000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 205,
+      "N": 425920,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 206,
+      "N": 425920,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 207,
+      "N": 425920,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 208,
+      "N": 425920,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 209,
+      "N": 425984,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 210,
+      "N": 425984,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 211,
+      "N": 428750,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 212,
+      "N": 428750,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 213,
+      "N": 428750,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 214,
+      "N": 447216,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 215,
+      "N": 447216,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 216,
+      "N": 447216,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 217,
+      "N": 447216,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 218,
+      "N": 447216,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 219,
+      "N": 458752,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 220,
+      "N": 458752,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 221,
+      "N": 491520,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 222,
+      "N": 491520,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 223,
+      "N": 497664,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 224,
+      "N": 497664,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 225,
+      "N": 511104,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 226,
+      "N": 511104,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 227,
+      "N": 511104,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 228,
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 229,
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 230,
+      "N": 532400,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 231,
+      "N": 532400,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 232,
+      "N": 574992,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 233,
+      "N": 574992,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 234,
+      "N": 574992,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 235,
+      "N": 574992,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 236,
+      "N": 591872,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 237,
+      "N": 591872,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 238,
+      "N": 591872,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 239,
+      "N": 591872,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 240,
+      "N": 596288,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 241,
+      "N": 596288,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 242,
+      "N": 596288,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 243,
+      "N": 638880,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 244,
+      "N": 638880,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 245,
+      "N": 638880,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 246,
+      "N": 638880,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 247,
+      "N": 640000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 248,
+      "N": 640000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 249,
+      "N": 646866,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 250,
+      "N": 646866,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 251,
+      "N": 646866,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 252,
+      "N": 646866,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 253,
+      "N": 646866,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 254,
+      "N": 681472,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 255,
+      "N": 681472,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 256,
+      "N": 688128,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 257,
+      "N": 688128,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 258,
+      "N": 702464,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 259,
+      "N": 702464,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 260,
+      "N": 745360,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 261,
+      "N": 745360,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 262,
+      "N": 745360,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 263,
+      "N": 745360,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 264,
+      "N": 745360,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 265,
+      "N": 769318,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 266,
+      "N": 769318,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 267,
+      "N": 769318,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 268,
+      "N": 769318,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 269,
+      "N": 913066,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 270,
+      "N": 913066,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 271,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 272,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 273,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 274,
+      "N": 1280000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 275,
+      "N": 1280000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 276,
+      "N": 1280000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 277,
+      "N": 1362944,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 278,
+      "N": 1362944,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 279,
+      "N": 1362944,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 280,
+      "N": 2097152,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 281,
+      "N": 2097152,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 282,
+      "N": 2725888,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 283,
+      "N": 2725888,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 284,
+      "N": 2725888,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 285,
+      "N": 2725888,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 286,
+      "N": 2725888,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    }
+  ],
+  "mandatory_detailed": [
+    {
+      "index": 0,
+      "N": 65856,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 1,
+      "N": 65856,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 2,
+      "N": 67200,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 3,
+      "N": 67200,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 4,
+      "N": 67760,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 5,
+      "N": 67760,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 6,
+      "N": 69938,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 7,
+      "N": 69938,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 8,
+      "N": 75000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 9,
+      "N": 75000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 10,
+      "N": 77760,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 11,
+      "N": 77760,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 12,
+      "N": 81312,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 13,
+      "N": 81312,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 14,
+      "N": 97104,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 15,
+      "N": 97104,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 16,
+      "N": 110976,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 17,
+      "N": 110976,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 18,
+      "N": 115600,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 19,
+      "N": 115600,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 20,
+      "N": 124848,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 21,
+      "N": 124848,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 22,
+      "N": 124848,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 23,
+      "N": 129472,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 24,
+      "N": 129472,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 25,
+      "N": 129472,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 26,
+      "N": 138720,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 27,
+      "N": 138720,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 28,
+      "N": 142688,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 29,
+      "N": 142688,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 30,
+      "N": 159720,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 31,
+      "N": 159720,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 32,
+      "N": 161840,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 33,
+      "N": 161840,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 34,
+      "N": 163296,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 35,
+      "N": 163296,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 36,
+      "N": 170368,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 37,
+      "N": 170368,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 38,
+      "N": 204800,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 39,
+      "N": 204800,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 40,
+      "N": 223608,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 41,
+      "N": 223608,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 42,
+      "N": 235298,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 43,
+      "N": 235298,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 44,
+      "N": 255552,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 45,
+      "N": 255552,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 46,
+      "N": 300000,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 47,
+      "N": 300000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 48,
+      "N": 300000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 49,
+      "N": 303750,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 50,
+      "N": 303750,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 51,
+      "N": 332750,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 52,
+      "N": 332750,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 53,
+      "N": 332750,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 54,
+      "N": 344064,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 55,
+      "N": 344064,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 56,
+      "N": 346112,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 57,
+      "N": 346112,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 58,
+      "N": 361250,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 59,
+      "N": 361250,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 60,
+      "N": 393216,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 61,
+      "N": 393216,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 62,
+      "N": 425920,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 63,
+      "N": 425920,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 64,
+      "N": 425920,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 65,
+      "N": 425920,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 66,
+      "N": 447216,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 67,
+      "N": 447216,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 68,
+      "N": 447216,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 69,
+      "N": 447216,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 70,
+      "N": 458752,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 71,
+      "N": 458752,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 72,
+      "N": 497664,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 73,
+      "N": 497664,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 74,
+      "N": 511104,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 75,
+      "N": 511104,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 76,
+      "N": 511104,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 77,
+      "N": 574992,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 78,
+      "N": 574992,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 79,
+      "N": 574992,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 80,
+      "N": 574992,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 81,
+      "N": 591872,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 82,
+      "N": 591872,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 83,
+      "N": 640000,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 84,
+      "N": 640000,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 85,
+      "N": 646866,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 86,
+      "N": 646866,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 87,
+      "N": 681472,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 88,
+      "N": 681472,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 89,
+      "N": 688128,
+      "func": "z2d_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 90,
+      "N": 688128,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 91,
+      "N": 769318,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 92,
+      "N": 769318,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 93,
+      "N": 913066,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 94,
+      "N": 913066,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 95,
+      "N": 1362944,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 96,
+      "N": 1362944,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 97,
+      "N": 2725888,
+      "func": "d2z_1d",
+      "arm": "previous"
+    },
+    {
+      "index": 98,
+      "N": 2725888,
+      "func": "d2z_1d",
+      "arm": "candidate"
+    },
+    {
+      "index": 99,
+      "N": 2725888,
+      "func": "z2d_1d",
+      "arm": "unfused_cc"
+    },
+    {
+      "index": 100,
+      "N": 2725888,
+      "func": "z2d_1d",
+      "arm": "candidate"
+    }
+  ],
+  "ablations": [
+    {
+      "N": 115600,
+      "func": "d2z_1d",
+      "variant": "restore_v4_input",
+      "reason": "all changed-row severe v4 comparisons"
+    },
+    {
+      "N": 393216,
+      "func": "z2d_1d",
+      "variant": "restore_v4_output",
+      "reason": "all changed-row severe v4 comparisons"
+    },
+    {
+      "N": 425920,
+      "func": "d2z_1d",
+      "variant": "restore_v4_input",
+      "reason": "all changed-row severe v4 comparisons"
+    },
+    {
+      "N": 447216,
+      "func": "d2z_1d",
+      "variant": "restore_v4_input",
+      "reason": "all changed-row severe v4 comparisons"
+    },
+    {
+      "N": 458752,
+      "func": "z2d_1d",
+      "variant": "restore_v4_output",
+      "reason": "all changed-row severe v4 comparisons"
+    },
+    {
+      "N": 497664,
+      "func": "z2d_1d",
+      "variant": "restore_v4_output",
+      "reason": "all changed-row severe v4 comparisons"
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d",
+      "variant": "restore_v4_input",
+      "reason": "all changed-row severe v4 comparisons"
+    },
+    {
+      "N": 67200,
+      "func": "d2z_1d",
+      "variant": "restore_v4_input",
+      "reason": "matched changed-type positive control"
+    },
+    {
+      "N": 223608,
+      "func": "d2z_1d",
+      "variant": "restore_v4_input",
+      "reason": "matched changed-type positive control"
+    },
+    {
+      "N": 77760,
+      "func": "z2d_1d",
+      "variant": "restore_v4_output",
+      "reason": "matched changed-type positive control"
+    },
+    {
+      "N": 344064,
+      "func": "z2d_1d",
+      "variant": "restore_v4_output",
+      "reason": "matched changed-type positive control"
+    }
+  ],
+  "adaptive_rule": "Add a previously non-detailed pair if both clean repeats have ratio<0.98. This threshold schedules instrumentation; it is not a significance verdict."
+}

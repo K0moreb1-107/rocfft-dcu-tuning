@@ -1,0 +1,22 @@
+{
+  "formal": false,
+  "negative_comparisons": 138,
+  "negative_cases": 115,
+  "severe_comparisons": 35,
+  "severe_cases": 30,
+  "cases_with_controls": 131,
+  "clean_repeats": 2,
+  "clean_processes": 574,
+  "minimum_profile_case_arms": 101,
+  "minimum_metadata_and_trace_processes": 202,
+  "minimum_counter_processes": 287,
+  "row_intervention_cases": 11,
+  "row_intervention_processes": 66,
+  "row_intervention_counter_processes": 27,
+  "end_anchor_processes": 65,
+  "warmups": 10,
+  "samples_per_successful_process": 30,
+  "adaptive_policy": "Add a previously non-detailed pair if both clean repeats have ratio<0.98. This threshold schedules instrumentation; it is not a significance verdict.",
+  "production_libraries_rebuilt": false,
+  "minimum_processes": 1221
+}
