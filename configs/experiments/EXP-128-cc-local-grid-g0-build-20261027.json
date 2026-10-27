@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-grid-g0-build-20261027",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 2,
+    "time_limit": "00:10:00",
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-grid-g0-20261027",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "c425588dfc5a5ea52956a420f33f98f62d00693e",
+    "source_dir": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_grid_v3_build",
+    "cmake": {
+      "CC_GRID_GROUP": "0",
+      "GPU_TARGETS": "gfx936",
+      "CMAKE_BUILD_TYPE": "Release"
+    }
+  },
+  "scope": "Measurement-only v3 divisor data copy; executable and embedded generator bytes preserved.",
+  "base_v3_commit": "8da0abb02ae6f5591e448d3e10adef8919aae40f"
+}

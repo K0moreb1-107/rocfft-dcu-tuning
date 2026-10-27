@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-grid-g0-validate-20261027",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:30:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-grid-g0-20261027",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "c425588dfc5a5ea52956a420f33f98f62d00693e",
+    "source_dir": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_grid_v3_build",
+    "cmake": {
+      "CC_GRID_GROUP": "0",
+      "GPU_TARGETS": "gfx936",
+      "CMAKE_BUILD_TYPE": "Release"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_grid_v3.py",
+    "sha256": "4adeadad37313f4642bb16ada6d8a5c45927e847b0d53a55d5ed7449821f9e41",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_rows.py",
+        "sha256": "d33897efa92eef93eeac188ec25d0c508c978d0d1c923ead74e249c8f145c48c"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/grid-fill-20261027/matrix.json",
+        "sha256": "6d794c14cc149de5792fbe767823aaebaa762a39fbaa20b88f6c13262d3406e8"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/tools/fft_measurement/cufft261012_contract.py",
+        "sha256": "c2ea7fc70d3c10f51c235f6d4d77380ab3cf5872d8b0bd7755d82afb805fcee6"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/tools/fft_measurement/sample_contract.py",
+        "sha256": "ca53fcfb20758b3253433fbeefe55db050a9c94f884ceee68700f1d750babc6e"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py",
+        "sha256": "2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0"
+      }
+    ]
+  },
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-build-20261027/build-provenance.json",
+    "evidence_record": "cc-grid-validation.json"
+  },
+  "validation": {
+    "profile": "cc-v3-controlled-grid-two-checks",
+    "matrix": "/public/home/zhangkewei/zr/experiments/EXP-128/records/grid-fill-20261027/matrix.json",
+    "group": 0,
+    "sample_N": [
+      65536,
+      67200,
+      67600,
+      68600,
+      69938,
+      72250,
+      73728,
+      73984,
+      76800,
+      76832,
+      80000,
+      81920,
+      82134,
+      82944,
+      83006,
+      85750,
+      86016,
+      86528,
+      87808,
+      93312,
+      97200,
+      97682,
+      98304,
+      102400,
+      106496,
+      110592,
+      110976,
+      114688,
+      115600,
+      115934,
+      122880,
+      123904,
+      124416,
+      128000,
+      131072,
+      131712,
+      137200,
+      140454,
+      147968,
+      163840,
+      166698,
+      172032,
+      173056,
+      175616,
+      196608,
+      198254,
+      204800,
+      212992,
+      221184,
+      229376,
+      247808,
+      248832,
+      256000,
+      262144,
+      295936,
+      344064,
+      346112,
+      351232,
+      393216,
+      409600,
+      497664,
+      524288,
+      591872,
+      702464,
+      1048576
+    ],
+    "smoke_N": [
+      65536,
+      67200
+    ]
+  }
+}
