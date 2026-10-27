@@ -8,7 +8,8 @@
     "cpus": 8,
     "time_limit": "00:30:00",
     "node_exclusive": true,
-    "exclude": "a01r4n05"
+    "exclude": "a01r4n05",
+    "dependency": "afterok:983036"
   },
   "build": {
     "component": "rocfft",
@@ -67,5 +68,10 @@
       65536,
       86016
     ]
+  },
+  "pending_build_validation": {
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-build-20261027/submit-manifest.json",
+    "build_config_sha256": "92ab46e502f4b88c3d330504ba27d858b7f9eacbb44add4d9805254bd70d5057",
+    "build_job_id": "983036"
   }
 }

@@ -12,6 +12,10 @@ FOLDER=ROOT/'experiments/EXP-128/records/grid-fill-20261027'
 CONFIGS=ROOT/'configs/experiments'
 
 
+class SubmissionCapacityPending(RuntimeError):
+    pass
+
+
 def write(path,value):
     temporary=path.with_name(path.name+'.tmp')
     temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
@@ -35,6 +39,16 @@ def main():
             assert actual['job'].split(';')[0]==previous['job'].split(';')[0]
             assert Path(previous['run'])==mgr.locations(mgr.load(path),task)['run']
             return previous
+        qos=subprocess.run(['squeue','--noheader','--user=zhangkewei','--format=%q'],
+                           cwd=ROOT,capture_output=True,text=True)
+        assert qos.returncode==0, qos.stderr
+        used=sum(line.strip()=='user_zhangkewei' for line in qos.stdout.splitlines())
+        if used>=10:
+            pending=dict(complete=False,reason='QOSMaxSubmitJobPerUserLimit',limit=10,used=used,
+                next_step=key,config=str(path),recorded_receipts=records,
+                action='Stop; resume missing steps at the next user-requested inspection.')
+            write(FOLDER/'submission-state.json',pending)
+            raise SubmissionCapacityPending(json.dumps(pending,ensure_ascii=False))
         cfg=mgr.load(path)
         run=mgr.locations(cfg,task)['run']
         if run.exists():
@@ -111,6 +125,9 @@ def main():
         submit('measure',queue_path,'g%d-performance'%index)
         owned.extend([validation_path,measure_path,queue_path])
     owned.extend([FOLDER/'submission.json',FOLDER/'submission-previews.json'])
+    write(FOLDER/'submission-state.json',dict(complete=True,receipts=records,cells=84,cases=168,
+        processes=336,samples=10080,inspection='not performed; stop after submission'))
+    owned.append(FOLDER/'submission-state.json')
     rel=[str(path.relative_to(ROOT)) for path in owned]
     subprocess.run(['git','add','--',*rel],cwd=ROOT,check=True)
     subprocess.run(['git','commit','--only','-m','Record four controlled v3 heatmap supplement chains','--',*rel],
@@ -120,4 +137,8 @@ def main():
 
 
 if __name__=='__main__':
-    main()
+    try:
+        main()
+    except SubmissionCapacityPending as error:
+        print(str(error))
+        sys.exit(3)

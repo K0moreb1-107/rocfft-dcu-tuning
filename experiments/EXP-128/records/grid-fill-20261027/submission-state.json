@@ -1,0 +1,66 @@
+{
+  "complete": false,
+  "cells_requested": 84,
+  "cells_fully_queued": 83,
+  "cases_fully_queued": 166,
+  "processes_fully_queued": 332,
+  "samples_fully_queued": 9960,
+  "receipts": {
+    "g0-build": {
+      "job": "982992",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-build-20261027"
+    },
+    "g0-validation": {
+      "job": "983034",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-validate-20261027-retry1"
+    },
+    "g0-performance": {
+      "job": "983035",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-queue-20261027"
+    },
+    "g1-build": {
+      "job": "983036",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-build-20261027"
+    },
+    "g1-validation": {
+      "job": "983037",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-validate-20261027"
+    },
+    "g1-performance": {
+      "job": "983038",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-queue-20261027"
+    },
+    "g2-build": {
+      "job": "983039",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-build-20261027"
+    },
+    "g2-validation": {
+      "job": "983040",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-validate-20261027"
+    },
+    "g2-performance": {
+      "job": "983042",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-queue-20261027"
+    },
+    "g3-build": {
+      "job": "983043",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-build-20261027"
+    }
+  },
+  "pending_cells": [
+    {
+      "N": 102400,
+      "C": 256,
+      "Q": 200,
+      "group": 3
+    }
+  ],
+  "pending_steps": [
+    "g3-validation",
+    "g3-performance"
+  ],
+  "reason": "QOSMaxSubmitJobPerUserLimit: maximum 10 outstanding jobs; two submissions rejected, no job IDs created.",
+  "resume_command": "python -B experiments/EXP-128/scripts/submit_cc_grid_v3.py",
+  "inspection": "No numerical or performance results inspected; stop after submission.",
+  "reference_installs_rebuilt": false
+}
