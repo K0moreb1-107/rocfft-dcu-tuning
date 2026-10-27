@@ -1,0 +1,26 @@
+{
+  "returncode": 0,
+  "stdout": "{\"job\": \"985072\", \"run\": \"/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027\"}\n",
+  "stderr": "",
+  "reused_submission": false,
+  "registered_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-v5-regression-diagnostic-20261027.json",
+  "utc": "2026-10-27T10:54:30.921518+00:00",
+  "submission": {
+    "job": "985072",
+    "argv": [
+      "sbatch",
+      "--parsable",
+      "--chdir=/public/home/zhangkewei/zr",
+      "--output=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/logs/slurm_%j.out",
+      "--error=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/logs/slurm_%j.err",
+      "--cpus-per-task=8",
+      "--partition=hx1hdnormal01",
+      "--time=02:00:00",
+      "--exclusive",
+      "--exclude=a01r4n05",
+      "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+      "diagnose",
+      "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/submit-manifest.json"
+    ]
+  }
+}
