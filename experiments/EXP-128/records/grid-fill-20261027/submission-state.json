@@ -1,10 +1,5 @@
 {
-  "complete": false,
-  "cells_requested": 84,
-  "cells_fully_queued": 83,
-  "cases_fully_queued": 166,
-  "processes_fully_queued": 332,
-  "samples_fully_queued": 9960,
+  "complete": true,
   "receipts": {
     "g0-build": {
       "job": "982992",
@@ -45,22 +40,19 @@
     "g3-build": {
       "job": "983043",
       "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-build-20261027"
+    },
+    "g3-validation": {
+      "job": "983223",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-validate-20261027-retry1-retry1"
+    },
+    "g3-performance": {
+      "job": "983224",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-queue-20261027"
     }
   },
-  "pending_cells": [
-    {
-      "N": 102400,
-      "C": 256,
-      "Q": 200,
-      "group": 3
-    }
-  ],
-  "pending_steps": [
-    "g3-validation",
-    "g3-performance"
-  ],
-  "reason": "QOSMaxSubmitJobPerUserLimit: maximum 10 outstanding jobs; two submissions rejected, no job IDs created.",
-  "resume_command": "python -B experiments/EXP-128/scripts/submit_cc_grid_v3.py",
-  "inspection": "No numerical or performance results inspected; stop after submission.",
-  "reference_installs_rebuilt": false
+  "cells": 84,
+  "cases": 168,
+  "processes": 336,
+  "samples": 10080,
+  "inspection": "not performed; stop after submission"
 }

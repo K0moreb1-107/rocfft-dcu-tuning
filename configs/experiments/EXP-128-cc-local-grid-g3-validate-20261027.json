@@ -1,15 +1,14 @@
 {
   "schema_version": 1,
   "experiment": "EXP-128",
-  "run_id": "EXP-128-cc-local-grid-g3-validate-20261027-retry1",
+  "run_id": "EXP-128-cc-local-grid-g3-validate-20261027-retry1-retry1",
   "gpu_arch": "gfx936",
   "resources": {
     "partition": "hx1hdnormal01",
     "cpus": 8,
     "time_limit": "00:30:00",
     "node_exclusive": true,
-    "exclude": "a01r4n05",
-    "dependency": "afterok:983043"
+    "exclude": "a01r4n05"
   },
   "build": {
     "component": "rocfft",
@@ -56,9 +55,9 @@
       102400
     ]
   },
-  "pending_build_validation": {
-    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-build-20261027/submit-manifest.json",
-    "build_config_sha256": "de04928487bde7c283214b87ea9633c15e6f13791a8108838daf570bddddf073",
-    "build_job_id": "983043"
+  "successful_existing_build": {
+    "job_id": "983043",
+    "record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-build-20261027/build-provenance.json",
+    "reason": "Completed build reused; no pending build remains to depend on."
   }
 }
