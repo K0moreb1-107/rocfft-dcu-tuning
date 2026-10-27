@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-unfused-phasefix-queue-20261027",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05",
+    "dependency": "afterok:984724:984723"
+  },
+  "revalidated_measurement": {
+    "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-tail-validate-20261027/submit-manifest.json",
+    "validation_job_id": "984724",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-local-unfused-phasefix-performance-20261027.json",
+    "measurement_config_sha256": "9130b7d41dbed6d0ca7cfebbf1ae9d78ef7032b90f4479d5a623565b8a51a4e1",
+    "reference_validations": {
+      "unfused_cc": {
+        "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-validate-20261027/submit-manifest.json",
+        "validation_job_id": "984723"
+      }
+    }
+  }
+}

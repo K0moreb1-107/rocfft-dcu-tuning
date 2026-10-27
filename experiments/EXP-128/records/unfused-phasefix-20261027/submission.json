@@ -1,0 +1,23 @@
+{
+  "receipts": {
+    "unfused_cc_build": {
+      "job": "984720",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-build-20261027"
+    },
+    "unfused_cc_validation": {
+      "job": "984723",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-validate-20261027"
+    },
+    "candidate_tail_validation": {
+      "job": "984724",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-tail-validate-20261027"
+    },
+    "performance": {
+      "job": "984725",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-queue-20261027"
+    }
+  },
+  "result_inspection": "not performed; stop after submission",
+  "source_state_freeze": false,
+  "retained_installations_rebuilt": false
+}
