@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-boundary-v5-tail-validate-20261027",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:20:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-boundary-v5-20261027",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "a1f7c1b1d33c7db9258cbf84618a1ea6c7a5d7de",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_boundary.py",
+    "sha256": "935ce4b4cedae384c217622576b45e892a9fa564be60dd1a3dbccfa9d86aac46",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_grouped.py",
+        "sha256": "3d3885b99b5da96adc9c92d704df9e332e78138b293baf87812788ee10a05fb4"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+        "sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18"
+      }
+    ]
+  },
+  "validation": {
+    "profile": "cc-boundary-v5-two-checks",
+    "variant": "fused",
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+    "smoke_N": [
+      702464,
+      769318
+    ],
+    "sample_N": [
+      702464,
+      769318,
+      913066
+    ],
+    "scope": "Check retained v5 on the three previously unmeasured phase-capacity geometries; no candidate rebuild."
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "Numerical and actual path only; stop on a representative smoke failure, then aggregate independent remaining failures.",
+  "reference_policy": "Reuse validated EXP-125-pre-memory-i. This candidate build and complete validation have no reference-build prerequisite.",
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-build-20261027/build-provenance.json",
+    "evidence_record": "cc-boundary-validation.json",
+    "isolated_helpers": false
+  }
+}

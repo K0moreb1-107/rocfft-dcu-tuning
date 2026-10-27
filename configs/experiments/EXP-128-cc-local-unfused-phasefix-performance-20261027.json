@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "policy": "FFT-event-cufft261012-single-v3",
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-unfused-phasefix-performance-20261027",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "event_iterations": 30,
+  "timing_warmups": 10,
+  "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+  "cases": [
+    {
+      "N": 702464,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 702464,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 745360,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 745360,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 769318,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 769318,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 894432,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 894432,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 913066,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 913066,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1280000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1280000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1362944,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1362944,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 2097152,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 2097152,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 2725888,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 2725888,
+      "func": "d2z_1d"
+    }
+  ],
+  "case_scope": "Exactly the twenty incomplete cases from job983952; all four arms repeated per case in this allocation.",
+  "arms": {
+    "baseline": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+    },
+    "previous": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grouped-20261026",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "965122a7e5bdd2f6dc2ff5c79be0d840fb269b18",
+      "source_state": "{\"commit\": \"965122a7e5bdd2f6dc2ff5c79be0d840fb269b18\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"62b64cda550ccd333776adac3e64037078be2739\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"27fda703467bc8bce33da977bb53514cf8784459b6770de1bcca2724d6ba38aa\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"ca67bdc1ba1d8d66372989a4e1231b93f4862cb62d8ea7dd69e2279b5df8ecb6\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"98b7f95906c7a62de11735b5be5a008529c6289951a66e923da051bf170ebac9\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+      "library_sha256": "6b4a635fd1e29ca12a42fefc2fdf3f981054c9506fa8c8380c9b1bfc7afdb21f",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grouped-build-20261026/build-provenance.json"
+    },
+    "unfused_cc": {
+      "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-build-20261027/build-provenance.json"
+    },
+    "candidate": {
+      "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-build-20261027/build-provenance.json"
+    }
+  },
+  "comparison_kind": "version_comparison",
+  "arm_labels": {
+    "baseline": "EXP125保留版",
+    "previous": "通用融合第四版",
+    "unfused_cc": "同CC未融合",
+    "candidate": "行端改进第五版"
+  },
+  "acceptance": "Both retained-candidate tail path validation and repaired unfused validation must succeed before timing.",
+  "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+  "coverage_sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18",
+  "measurement_conditions": {
+    "precision": "double",
+    "batch": 1,
+    "placement": "out-of-place",
+    "load_path": "default",
+    "readonly_input": "Unchanged original v3 input/output semantics for each version; correctness outside timing and input restored.",
+    "reference": "20个组合，四版，每组合10/30，共80进程、2400个正式样本；不与旧节点的绝对时间交叉比较。",
+    "endpoint_packed_z2d": "extra C-point transform is included in net event time",
+    "callbacks": "none",
+    "scale_factor": 1.0
+  },
+  "source_state_policy": "Record actual starting commit and actual library identity. Do not freeze or compare workspace/build/validation source state.",
+  "comparison_description": "补测原任务983952未完成的20个组合，四版同卡紧邻交替。只修复未融合库的相位容量选择；复用EXP125、第四版与第五版。368个完整旧组合保留为独立测量批次。",
+  "a100_reference": {
+    "dataset": "test_fft_261012",
+    "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+    "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+    "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+    "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+    "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+    "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+    "warmups": 10,
+    "event_iterations": 30,
+    "input_pattern": "linear_index_real_imaginary_zero",
+    "comparison": "cross_device_reference",
+    "source_binary_correspondence_verified": false
+  },
+  "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+  "continuation": {
+    "original_run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-performance-20261027",
+    "original_complete_cases": 368,
+    "original_matrix_N": 194,
+    "segmented_measurement": true,
+    "unfused_repaired_only_for_previously_failing_geometries": true
+  }
+}
