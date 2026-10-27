@@ -43,9 +43,10 @@ def main():
                            cwd=ROOT,capture_output=True,text=True)
         assert qos.returncode==0, qos.stderr
         used=sum(line.strip()=='user_zhangkewei' for line in qos.stdout.splitlines())
-        if used>=10:
+        required=2 if task=='validate' and key.replace('-validation','-performance') not in records else 1
+        if used+required>10:
             pending=dict(complete=False,reason='QOSMaxSubmitJobPerUserLimit',limit=10,used=used,
-                next_step=key,config=str(path),recorded_receipts=records,
+                required_slots=required,next_step=key,config=str(path),recorded_receipts=records,
                 action='Stop; resume missing steps at the next user-requested inspection.')
             write(FOLDER/'submission-state.json',pending)
             raise SubmissionCapacityPending(json.dumps(pending,ensure_ascii=False))
