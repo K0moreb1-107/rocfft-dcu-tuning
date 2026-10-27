@@ -1,0 +1,75 @@
+"""Submit four v3 table-only builds, geometry validation and gated 10/30 timing."""
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT=Path('/public/home/zhangkewei/zr')
+sys.path.insert(0,str(ROOT))
+from tools.workspace_manager import manager as mgr
+
+FOLDER=ROOT/'experiments/EXP-128/records/grid-fill-20261027'
+CONFIGS=ROOT/'configs/experiments'
+
+
+def write(path,value):
+    temporary=path.with_name(path.name+'.tmp')
+    temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    temporary.replace(path)
+
+
+def main():
+    assert subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip()=='exp-128-cc-local-real'
+    receipt=FOLDER/'submission.json'
+    assert not receipt.exists(), 'inspect existing receipts before any retry'
+    preflight=json.loads((FOLDER/'host-preflight.json').read_text())
+    assert preflight['complete'] and preflight['unchanged_v3_relink']['text_and_rodata_match']
+    records,previews={},{}
+    owned=[]
+    def submit(task,path,key):
+        argv=[mgr.PYTHON,str(ROOT/'manage.py'),task,'--config',str(path)]
+        previews[key]=json.loads(subprocess.check_output(argv,cwd=ROOT,text=True))
+        write(FOLDER/'submission-previews.json',previews)
+        result=json.loads(subprocess.check_output(argv+['--execute'],cwd=ROOT,text=True))
+        records[key]=result
+        write(receipt,dict(receipts=records,inspection='not performed; stop after submission',
+            base_v3_implementation='8da0abb02ae6f5591e448d3e10adef8919aae40f',
+            reference_installs_rebuilt=False,cells=84,cases=168,versions=2,processes=336,samples=10080))
+        return result
+    for index in range(4):
+        label='EXP-128-cc-local-grid-g%d'%index
+        build_path=CONFIGS/(label+'-build-20261027.json')
+        validation_path=CONFIGS/(label+'-validate-20261027.json')
+        measure_path=CONFIGS/(label+'-performance-20261027.json')
+        build=submit('build',build_path,'g%d-build'%index)
+        build_job=build['job'].split(';')[0]
+        submitted_build=Path(build['run'])/'submit-manifest.json'
+        cfg=json.loads(validation_path.read_text())
+        cfg['build']=json.loads(submitted_build.read_text())['build']
+        cfg['resources']['dependency']='afterok:'+build_job
+        cfg['pending_build_validation']=dict(build_config=str(submitted_build),
+            build_config_sha256=mgr.common.sha(submitted_build),build_job_id=build_job)
+        write(validation_path,cfg)
+        validation=submit('validate',validation_path,'g%d-validation'%index)
+        validation_job=validation['job'].split(';')[0]
+        measurement=json.loads(measure_path.read_text())
+        queue=dict(schema_version=1,experiment='EXP-128',run_id=label+'-queue-20261027',gpu_arch='gfx936',
+            resources=dict(measurement['resources'],dependency='afterok:'+validation_job),
+            revalidated_measurement=dict(validation_config=str(Path(validation['run'])/'submit-manifest.json'),
+                validation_job_id=validation_job,measurement_config=str(measure_path),
+                measurement_config_sha256=mgr.common.sha(measure_path)))
+        queue_path=CONFIGS/(label+'-queue-20261027.json')
+        write(queue_path,queue)
+        submit('measure',queue_path,'g%d-performance'%index)
+        owned.extend([validation_path,queue_path])
+    owned.extend([FOLDER/'submission.json',FOLDER/'submission-previews.json'])
+    rel=[str(path.relative_to(ROOT)) for path in owned]
+    subprocess.run(['git','add','--',*rel],cwd=ROOT,check=True)
+    subprocess.run(['git','commit','--only','-m','Record four controlled v3 heatmap supplement chains','--',*rel],
+                   cwd=ROOT,capture_output=True,check=True)
+    print(json.dumps(dict(complete=True,receipts=records,cells=84,cases=168,processes=336,samples=10080,
+                         runtime_status_inspected=False),ensure_ascii=False,indent=2))
+
+
+if __name__=='__main__':
+    main()
