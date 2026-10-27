@@ -73,7 +73,17 @@ def main():
         cfg['build']=json.loads(submitted_build.read_text())['build']
         build_record=Path(build['run'])/'build-provenance.json'
         measurement=json.loads(measure_path.read_text())
-        if build_record.exists():
+        registered_validation=records.get('g%d-validation'%index)
+        validation_run=Path(registered_validation['run']) if registered_validation else mgr.locations(cfg,'validate')['run']
+        if registered_validation or (validation_run/'submission.json').exists():
+            # A resumed sender must preserve the exact already-submitted gate.
+            cfg=json.loads((validation_run/'submit-manifest.json').read_text())
+            if 'pending_build_validation' in cfg:
+                measurement['arms']['candidate']=dict(build_record=str(build_record))
+            else:
+                built=json.loads(build_record.read_text())
+                measurement['arms']['candidate']=built['arm']
+        elif build_record.exists():
             built=json.loads(build_record.read_text())
             assert built['complete'] and built['job_id']==build_job
             assert mgr.common.sha(Path(built['arm']['install'])/'lib/librocfft.so.0.1')==built['arm']['library_sha256']
