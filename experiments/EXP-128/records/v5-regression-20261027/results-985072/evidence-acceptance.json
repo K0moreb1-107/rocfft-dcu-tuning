@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "job_id": "985072",
+  "host": "a01r4n14",
+  "gpu": {
+    "count": 1,
+    "uuid": "30303135386332623736396531313031",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "counts": {
+    "timing": 574,
+    "traces": 117,
+    "pmc": 362,
+    "interventions": 66,
+    "anchors": 65,
+    "source_comparisons": 26
+  },
+  "numerical_checks": 1301,
+  "maximum_error": 4.440892098500626e-15,
+  "failures": [],
+  "timestamp_warnings": [],
+  "all_requested_workflows_attempted": true,
+  "original_result_sha256": "d2adb1a91e73aa0ef29f79594434e6e0d503295c1ae707060217b9ccb6519b55",
+  "counter_summary_sha256": "84666a5ef58e21f27295b2d8d48300930b43b88a94df35bc3cdd0eb6d7701ad8"
+}

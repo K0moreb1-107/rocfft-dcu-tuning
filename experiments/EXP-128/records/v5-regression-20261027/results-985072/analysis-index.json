@@ -1,0 +1,44 @@
+{
+  "job_id": "985072",
+  "evidence_complete": true,
+  "individual_causes_all_resolved": false,
+  "unresolved": [
+    "same-source timing differences",
+    "1048576 z2d full-tile output regression causal isolation",
+    "per-component split of pre-processing versus real-output adaptation"
+  ],
+  "generated_utc": "2026-10-27T13:55:07.192860+00:00",
+  "summary": {
+    "previous": {
+      "original_negative": 95,
+      "original_below095": 17,
+      "below_one_both_rounds": 24,
+      "below098_both_rounds": 3,
+      "severe_below095_all_three": 0,
+      "severe_below098_all_three": 1
+    },
+    "unfused_cc": {
+      "original_negative": 43,
+      "original_below095": 18,
+      "below_one_both_rounds": 23,
+      "below098_both_rounds": 18,
+      "severe_below095_all_three": 7,
+      "severe_below098_all_three": 11
+    }
+  },
+  "files": {
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/actual-isa-summary.json": "0ad7b89b509864665d13163ee17d786bc2eb9a0dd262fd15cc75a7bdf1a8deff",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/comparison-analysis.json": "621d3412582a24e62a9865900168b455dc128e22cd6aeedd4865f7f04e2e9383",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/evidence-acceptance.json": "dcb0847949150835218727143f57d9c56fdf164600159df1a78e543b32ca01cf",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/plot-data.json": "ff040bcdeb67a12a32585336cddec67235fedcc6d8978d16054592bbca4933b0",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/pmc-summary.json": "84666a5ef58e21f27295b2d8d48300930b43b88a94df35bc3cdd0eb6d7701ad8",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/scheduler-accounting.json": "c05fe0f48fb5b2c459c3ad93dac6f6a3ddcefe4b151bd48ff6224c4060c7fd1b",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/散点与顺序图.html": "b60b22b31c7df557f9ffcbe325e782c4c83879cf1a54bae970d89141c389c1b3",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/相对同分解未融合版逐项分析.csv": "e454fa3a6fcff9e6cd976136becd1257700450feca3bbe08fb63dd64146d1188",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/相对第四版逐项分析.csv": "b7de447f0b3c1a0389de1be379ba68b12a2a6aeeff1b10a2b535e6b5fc401376",
+    "experiments/EXP-128/records/v5-regression-20261027/results-985072/结果与原因分析.md": "bec827a0327435c0f11b90c9d80794d1b9f2c9d3a41ce1d13aad8bd9c3c63959",
+    "experiments/EXP-128/scripts/collect_v5_regression_evidence.py": "ff014b45d96946b0cd9c3b21fe4532d2defb633d0aa8f5bf899c4eda406d6c2b",
+    "experiments/EXP-128/scripts/compile_actual_v5_regression.py": "69539f4acd9d13585de9eacda8a42057959870b3b45e4b0606be644ce828e7ed",
+    "experiments/EXP-128/scripts/analyze_v5_regressions_985072.py": "a46723fc9a9d2f4a47a6fd98fcdb190b295014cbb22a2a70dfd830ad3da02ca1"
+  }
+}

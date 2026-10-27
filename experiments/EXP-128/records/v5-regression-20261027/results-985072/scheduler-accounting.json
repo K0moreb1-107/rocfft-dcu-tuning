@@ -1,0 +1,12 @@
+{
+  "command": [
+    "sacct",
+    "-j",
+    "985072",
+    "--format=JobID,State,ExitCode,Elapsed,NodeList",
+    "-P"
+  ],
+  "returncode": 0,
+  "stdout": "JobID|State|ExitCode|Elapsed|NodeList\n985072|COMPLETED|0:0|01:20:03|a01r4n14\n985072.batch|COMPLETED|0:0|01:20:03|a01r4n14\n985072.extern|COMPLETED|0:0|01:20:03|a01r4n14\n985072.0|COMPLETED|0:0|01:20:02|a01r4n14\n",
+  "stderr": ""
+}
