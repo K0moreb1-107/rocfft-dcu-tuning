@@ -39,8 +39,9 @@ def main():
     mgr.require(origin['group']==settings['group']
         and origin['base_commit']=='8da0abb02ae6f5591e448d3e10adef8919aae40f'
         and origin['only_static_divisor_table_changed']
+        and origin['all_executable_bytes_identical'] and origin['all_bytes_outside_table_identical']
         and origin['matrix_sha256']==mgr.common.sha(mgr.inside(settings['matrix']))
-        and origin['library_sha256']==built['arm']['library_sha256'], 'wrong v3 relink provenance')
+        and origin['library_sha256']==built['arm']['library_sha256'], 'wrong v3 table-copy provenance')
     mgr.require({int(m):c for m,c in origin['changed_divisors'].items()}
                 =={entry['N']//2:entry['C'] for entry in group}, 'changed map differs from requested cells')
     library=install/'lib/librocfft.so.0.1'

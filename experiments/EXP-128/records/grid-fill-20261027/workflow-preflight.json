@@ -1,0 +1,58 @@
+{
+  "complete": true,
+  "CMake_configure_build_install_passed": true,
+  "validator_import_cli_passed": true,
+  "device_execution": false,
+  "commands": [
+    {
+      "args": [
+        "cmake",
+        "-S",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_grid_v3_build",
+        "-B",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grid-fill-v3-cmake-20261027/build",
+        "-DCC_GRID_GROUP=3",
+        "-DCMAKE_CXX_COMPILER=/public/software/compiler/dtk-26.04/bin/hipcc",
+        "-DCMAKE_INSTALL_PREFIX=/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grid-fill-v3-cmake-20261027/install",
+        "-DCMAKE_BUILD_TYPE=Release"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grid-fill-v3-cmake-20261027/build",
+        "--target",
+        "rocfft-rtc-gen"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "cmake",
+        "--build",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grid-fill-v3-cmake-20261027/build"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "cmake",
+        "--install",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/grid-fill-v3-cmake-20261027/build"
+      ],
+      "returncode": 0
+    },
+    {
+      "args": [
+        "/public/software/apps/anaconda3/2023.09/bin/python",
+        "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_grid_v3.py",
+        "--help"
+      ],
+      "returncode": 0
+    }
+  ],
+  "group": 3,
+  "library_sha256": "199ed1877543b3817bd83f0c4010d13f4838072ff2a0a9842fb27fe1a9e76c7d"
+}

@@ -23,7 +23,8 @@ def main():
     receipt=FOLDER/'submission.json'
     assert not receipt.exists(), 'inspect existing receipts before any retry'
     preflight=json.loads((FOLDER/'host-preflight.json').read_text())
-    assert preflight['complete'] and preflight['unchanged_v3_relink']['text_and_rodata_match']
+    assert preflight['complete'] and preflight['incorrect_table_rejected']
+    assert all(item['identity']['all_executable_bytes_identical'] for item in preflight['builds'])
     records,previews={},{}
     owned=[]
     def submit(task,path,key):

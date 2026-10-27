@@ -6,7 +6,7 @@ endif()
 set(GRID_PYTHON "/public/software/apps/anaconda3/2023.09/bin/python")
 set(GRID_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/../build_cc_grid_v3.py")
 add_custom_target(rocfft-rtc-gen
-  COMMAND ${CMAKE_COMMAND} -E echo "Reusing the verified v3 runtime generator objects")
+  COMMAND ${CMAKE_COMMAND} -E echo "Preserving the verified v3 executable and embedded generator bytes")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/grid-install/lib/librocfft.so.0.1"
   COMMAND "${GRID_PYTHON}" -B "${GRID_SCRIPT}" --group "${CC_GRID_GROUP}"
           --output "${CMAKE_CURRENT_BINARY_DIR}"
