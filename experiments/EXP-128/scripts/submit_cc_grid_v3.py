@@ -35,6 +35,23 @@ def main():
             assert actual['job'].split(';')[0]==previous['job'].split(';')[0]
             assert Path(previous['run'])==mgr.locations(mgr.load(path),task)['run']
             return previous
+        cfg=mgr.load(path)
+        run=mgr.locations(cfg,task)['run']
+        if run.exists():
+            actual=run/'submission.json'
+            if actual.exists():
+                records[key]=dict(job=json.loads(actual.read_text())['job'],run=str(run))
+                write(receipt,dict(receipts=records,inspection='submission recovery only; not a runtime poll',
+                    cells=84,cases=168,versions=2,processes=336,samples=10080))
+                return records[key]
+            assert (run/'submission-failed.json').exists(), 'unknown reserved submission; inspect it'
+            for retry in range(1,20):
+                candidate=dict(cfg,run_id=cfg['run_id']+'-retry%d'%retry)
+                if not mgr.locations(candidate,task)['run'].exists():
+                    write(path,candidate)
+                    break
+            else:
+                raise RuntimeError('too many preserved submission failures')
         argv=[mgr.PYTHON,str(ROOT/'manage.py'),task,'--config',str(path)]
         previews[key]=json.loads(subprocess.check_output(argv,cwd=ROOT,text=True))
         write(FOLDER/'submission-previews.json',previews)
@@ -54,13 +71,26 @@ def main():
         submitted_build=Path(build['run'])/'submit-manifest.json'
         cfg=json.loads(validation_path.read_text())
         cfg['build']=json.loads(submitted_build.read_text())['build']
-        cfg['resources']['dependency']='afterok:'+build_job
-        cfg['pending_build_validation']=dict(build_config=str(submitted_build),
-            build_config_sha256=mgr.common.sha(submitted_build),build_job_id=build_job)
+        build_record=Path(build['run'])/'build-provenance.json'
+        measurement=json.loads(measure_path.read_text())
+        if build_record.exists():
+            built=json.loads(build_record.read_text())
+            assert built['complete'] and built['job_id']==build_job
+            assert mgr.common.sha(Path(built['arm']['install'])/'lib/librocfft.so.0.1')==built['arm']['library_sha256']
+            cfg['resources'].pop('dependency',None)
+            cfg.pop('pending_build_validation',None)
+            cfg['successful_existing_build']=dict(job_id=build_job,record=str(build_record),
+                reason='Completed build reused; no pending build remains to depend on.')
+            measurement['arms']['candidate']=built['arm']
+        else:
+            cfg['resources']['dependency']='afterok:'+build_job
+            cfg['pending_build_validation']=dict(build_config=str(submitted_build),
+                build_config_sha256=mgr.common.sha(submitted_build),build_job_id=build_job)
+            measurement['arms']['candidate']=dict(build_record=str(build_record))
         write(validation_path,cfg)
+        write(measure_path,measurement)
         validation=submit('validate',validation_path,'g%d-validation'%index)
         validation_job=validation['job'].split(';')[0]
-        measurement=json.loads(measure_path.read_text())
         queue=dict(schema_version=1,experiment='EXP-128',run_id=label+'-queue-20261027',gpu_arch='gfx936',
             resources=dict(measurement['resources'],dependency='afterok:'+validation_job),
             revalidated_measurement=dict(validation_config=str(Path(validation['run'])/'submit-manifest.json'),
@@ -69,7 +99,7 @@ def main():
         queue_path=CONFIGS/(label+'-queue-20261027.json')
         write(queue_path,queue)
         submit('measure',queue_path,'g%d-performance'%index)
-        owned.extend([validation_path,queue_path])
+        owned.extend([validation_path,measure_path,queue_path])
     owned.extend([FOLDER/'submission.json',FOLDER/'submission-previews.json'])
     rel=[str(path.relative_to(ROOT)) for path in owned]
     subprocess.run(['git','add','--',*rel],cwd=ROOT,check=True)
