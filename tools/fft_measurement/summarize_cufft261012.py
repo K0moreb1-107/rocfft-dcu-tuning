@@ -80,7 +80,8 @@ def report(run):
     plots = render(run, m, samples)
     selected = arms(m)
     baseline = next(arm for arm in ('official', 'baseline', 'previous') if arm in selected)
-    labels = dict(official='官方基线', baseline='固定对照', previous='上一有效版本', candidate='当前版本')
+    labels = dict(official='官方基线', baseline='固定对照', previous='上一有效版本',
+                  unfused_cc='同CC未融合', candidate='当前版本')
     labels.update(m.get('arm_labels', {}))
     lines = ['# '+m['experiment']+' 性能测量', '', '协议：`'+POLICY+'`。', '',
              '双精度、一维、批量一、非原位、默认计划；每个尺寸／类型／版本一个进程，十次预热、三十次计时。',

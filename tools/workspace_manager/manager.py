@@ -83,7 +83,7 @@ def measurement(cfg):
             require(record.get('role')==arm and record.get('eligible_formal_arm'), 'registry entry is not eligible for '+arm)
             record=record['arm']
         elif a.get('build_record'):
-            require(arm in ('candidate','previous'),'build_record cannot replace the fixed official arm')
+            require(arm in ('candidate','previous','unfused_cc'),'build_record cannot replace the fixed official arm')
             record_path=inside(a['build_record'])
             built=json.loads(record_path.read_text())
             require(built.get('complete') is True and built.get('component')=='rocfft','incomplete or wrong build record')

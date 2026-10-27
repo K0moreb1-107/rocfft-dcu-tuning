@@ -154,8 +154,41 @@ struct StockhamKernelPackedInverseRows : StockhamKernelCCRealRows
         s += If { And { lane < lanes, row < static_cast<unsigned int>(io.columns) }, a };
         return s;
     }
+    bool use_packed_output() const
+    {
+        return io.columns % 2 == 0 && transforms_per_block % 2 == 0
+            && io.columns % transforms_per_block == 0;
+    }
+    StatementList packed_output() const
+    {
+        const unsigned int rows = transforms_per_block;
+        Variable slot { "cc_packed_slot", "const unsigned int" },
+            component { "cc_packed_component", "const unsigned int" },
+            pair { "cc_packed_pair", "const unsigned int" };
+        Variable value { "cc_packed_value", "scalar_type" };
+        StatementList s { Declaration { slot, thread_id % rows },
+            Declaration { component, slot / (rows / 2) },
+            Declaration { pair, slot % (rows / 2) }, Declaration { value } };
+        for (unsigned int i = 0; i * threads_per_transform < length; ++i)
+        {
+            Expression j = thread_id / rows + i * threads_per_transform;
+            Expression left = 2 * (2 * pair * length + j) + component;
+            StatementList stores {
+                Assign { value, ComplexLiteral { lds_real[left], lds_real[left + 2 * length] } },
+                StoreGlobal { buf, tile_index_in_plane * (rows / 2) + pair
+                    + static_cast<unsigned int>(io.columns) * j
+                    + component * static_cast<unsigned int>(io.columns / 2), value } };
+            if ((i + 1) * threads_per_transform > length)
+                s += If { j < length, stores };
+            else
+                s += stores;
+        }
+        return s;
+    }
     StatementList store_to_global(bool) override
     {
+        if (use_packed_output())
+            return packed_output();
         Variable first { "cc_output_first", "const unsigned int" },
             valid { "cc_output_valid", "const unsigned int" },
             slot { "cc_output_slot", "const unsigned int" },
@@ -215,6 +248,64 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
         Expression high = t >= length, b = t - high * length;
         return LoadGlobal { cc_real_pointer(buf), 2 * b + high };
     }
+    Expression boundary_phase(const Expression& index) const
+    {
+        return CallExpr { "TW_NSteps",
+            { scalar_type, Variable { "cc_boundary_phase_base", "size_t" },
+                Variable { "cc_boundary_phase_steps", "size_t" } },
+            { boundary_phases, index } };
+    }
+    bool use_phase_recurrence() const
+    {
+        if (io.load != RealBlockLoad::Registers || factors.empty() || !factors.front())
+            return false;
+        const unsigned int count = length / factors.front();
+        // One initial phase per butterfly and one step per active thread.
+        return length > count + std::min(count, threads_per_transform);
+    }
+    StatementList phased_input(const Expression& j,
+                              const Expression& row,
+                              const Variable& value,
+                              const Variable& phase) const
+    {
+        return { Assign { value, LoadGlobal { buf, row * length + j } },
+            Assign { value, TwiddleMultiply { value, phase } } };
+    }
+    StatementList recurrent_input(const Expression& j,
+                                 const Expression& row,
+                                 const Variable& value,
+                                 unsigned int reg,
+                                 const Variable& phase,
+                                 const Variable& delta,
+                                 bool declare_phase) const
+    {
+        const unsigned int w = reg % factors.front();
+        StatementList s;
+        if (w == 0)
+        {
+            if (declare_phase)
+                s += Declaration { phase, boundary_phase(row * j) };
+            else
+                s += Assign { phase, boundary_phase(row * j) };
+        }
+        s += phased_input(j, row, value, phase);
+        if (w + 1 < factors.front())
+            s += Assign { phase, TwiddleMultiply { phase, delta } };
+        return s;
+    }
+    StatementList ordinary_register_input(const Expression& lane, const Expression& row) const
+    {
+        Variable delta { "cc_phase_delta", "const scalar_type" };
+        StatementList s { Declaration { delta,
+            boundary_phase(row * static_cast<unsigned int>(length / factors.front())) } };
+        s += pass_io(true, lane, [&](Expression j, unsigned int reg)
+            {
+                Variable phase { "cc_phase_current_" + std::to_string(reg / factors.front()),
+                    "scalar_type" };
+                return recurrent_input(j, row, R[reg], reg, phase, delta, true);
+            });
+        return s;
+    }
     StatementList input_value(const Expression& j,
                               const Expression& row,
                               const Variable& value,
@@ -225,13 +316,9 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
             return { Assign { value, ComplexLiteral { carrier(2 * j), carrier(2 * j + 1) } } };
         // Native pass_io may emit adjacent registers without additional scopes.
         Variable phase { "cc_row_phase_" + std::to_string(reg), "const scalar_type" };
-        Expression lookup = CallExpr { "TW_NSteps",
-            { scalar_type, Variable { "cc_boundary_phase_base", "size_t" },
-                Variable { "cc_boundary_phase_steps", "size_t" } },
-            { boundary_phases, row * j } };
-        return { Declaration { phase, lookup },
-            Assign { value, LoadGlobal { buf, row * length + j } },
-            Assign { value, TwiddleMultiply { value, phase } } };
+        StatementList s { Declaration { phase, boundary_phase(row * j) } };
+        s += phased_input(j, row, value, phase);
+        return s;
     }
     StatementList input_value(
         const Expression& j, const Expression& row, const Variable& value) const
@@ -243,6 +330,15 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
     {
         const unsigned int width = factors.front(), count = length / width;
         StatementList groups;
+        Variable phase { "cc_phase_current", "scalar_type" },
+            delta { "cc_phase_delta", "scalar_type" };
+        if (use_phase_recurrence())
+        {
+            groups += Declaration { phase };
+            groups += Declaration { delta };
+            groups += If { row != 0,
+                { Assign { delta, boundary_phase(row * count) } } };
+        }
         // With fewer first-pass butterflies than lanes, pass_io has only h=0:
         // j=lane+w*count maps to R[w]. Keep its single active-lane guard.
         for (unsigned int first = 0; first < width; first += 2)
@@ -252,7 +348,9 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
             {
                 Expression j = lane + reg * count;
                 carrier_values += input_value(j, row, R[reg], true, reg);
-                ordinary_values += input_value(j, row, R[reg], false, reg);
+                ordinary_values += use_phase_recurrence()
+                    ? recurrent_input(j, row, R[reg], reg, phase, delta, false)
+                    : input_value(j, row, R[reg], false, reg);
             }
             groups += If { row == 0, carrier_values };
             groups += Else { ordinary_values };
@@ -270,6 +368,8 @@ struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
             s += Declaration { row, tile_index_in_plane * transforms_per_block + slot };
             auto loads = [&](bool carrier_row)
             {
+                if (!carrier_row && use_phase_recurrence())
+                    return ordinary_register_input(lane, row);
                 return pass_io(true, lane, [&](Expression j, unsigned int reg)
                     { return input_value(j, row, R[reg], carrier_row, reg); });
             };

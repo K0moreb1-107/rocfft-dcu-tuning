@@ -20,7 +20,7 @@ SOURCE_FILES = {SOURCE_NAME: SOURCE_SHA, SUPPORT_NAME: SUPPORT_SHA}
 WARMUPS = 10
 EVENTS = 30
 CHECK_HEADER = ['func', 'N', 'batch', 'check', 'err_a', 'err_b']
-ARM_ORDER = ('official', 'baseline', 'previous', 'candidate')
+ARM_ORDER = ('official', 'baseline', 'previous', 'unfused_cc', 'candidate')
 HEADER = ['func', 'N', 'is_warmup', 'warmup_times', 'test_times',
           'tmax_ms', 'tmin_ms', 'tmean_ms', 'tmedium_ms'] + ['time_%d_ms' % i for i in range(1, EVENTS + 1)]
 

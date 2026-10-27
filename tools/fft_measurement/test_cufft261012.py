@@ -37,10 +37,11 @@ def synthetic_manifest(selected):
              comparison_description='Explicit stable-version comparison, not a fusion-only ablation.',
              case_scope='One exact A100 match and one case with no A100 reference.',
              cases=[dict(N=131072, func='d2z_1d'), dict(N=69938, func='z2d_1d')],
-             arm_labels=dict(baseline='EXP125固定对照', previous='上一轮EXP128', candidate='新候选'),
+             arm_labels=dict(baseline='EXP125固定对照', previous='上一轮EXP128',
+                             unfused_cc='同CC未融合', candidate='新候选'),
              arms={})
-    commits = dict(baseline='1'*40, previous='2'*40, candidate='a'*40)
-    libraries = dict(baseline='3'*64, previous='4'*64, candidate='b'*64)
+    commits = dict(baseline='1'*40, previous='2'*40, unfused_cc='5'*40, candidate='a'*40)
+    libraries = dict(baseline='3'*64, previous='4'*64, unfused_cc='6'*64, candidate='b'*64)
     for arm in selected:
         m['arms'][arm] = dict(install=str(ROOT/('synthetic-'+arm)), source_repo=str(ROOT),
             source_commit=v3.OFFICIAL_COMMIT if arm == 'official' else commits[arm],
@@ -78,6 +79,21 @@ class VersionAndEvidence(unittest.TestCase):
         for field, value in [('source_commit', 'a'*40), ('library_sha256', 'b'*64)]:
             changed = copy.deepcopy(m); changed['arms']['official'][field] = value
             with self.assertRaises(ValueError): v3.validate_manifest(changed)
+
+    def test_four_experimental_arms_are_adjacent_and_legacy_rejects_new_role(self):
+        m = synthetic_manifest(('candidate','unfused_cc','previous','baseline'))
+        checked = v3.validate_manifest(m)
+        self.assertEqual(v3.arms(checked), ('baseline','previous','unfused_cc','candidate'))
+        entries = v3.schedule(checked)
+        self.assertEqual([x['arm'] for x in entries],
+                         ['baseline','previous','unfused_cc','candidate',
+                          'candidate','unfused_cc','previous','baseline'])
+        for i, case in enumerate(m['cases']):
+            self.assertTrue(all(x['N']==case['N'] and x['func']==case['func']
+                                for x in entries[4*i:4*i+4]))
+        legacy = synthetic_manifest(('unfused_cc','candidate'))
+        legacy['policy'] = v2.POLICY
+        with self.assertRaises(ValueError): v2.arms(legacy)
 
     def test_dispatch_and_legacy_defaults(self):
         self.assertIs(manager.measurement_protocol({}), v3)
@@ -160,6 +176,9 @@ class VersionAndEvidence(unittest.TestCase):
     def test_complete_three_arm_report_has_both_median_ratios_and_plots(self):
         self.exercise_complete_report(('baseline', 'previous', 'candidate'))
 
+    def test_complete_four_arm_report_has_unfused_ratio_and_four_plots_series(self):
+        self.exercise_complete_report(('baseline','previous','unfused_cc','candidate'))
+
     def exercise_complete_report(self, selected):
         from summarize_cufft261012 import report
         parent = Path(__file__).resolve().parents[2]/'.worktree-archives/sample-tests'
@@ -184,8 +203,8 @@ class VersionAndEvidence(unittest.TestCase):
         entries = []
         for item in v3.schedule(m):
             directory = run/('p%04d'%item['index']); directory.mkdir()
-            medians = dict(official=.03, baseline=.04, previous=.03, candidate=.02)
-            outliers = dict(official=.09, baseline=.11, previous=.09, candidate=.12)
+            medians = dict(official=.03, baseline=.04, previous=.03, unfused_cc=.05, candidate=.02)
+            outliers = dict(official=.09, baseline=.11, previous=.09, unfused_cc=.13, candidate=.12)
             values = [medians[item['arm']]]*29+[outliers[item['arm']]]
             row, samples, check = fixture()
             for record in [row, check, *samples]: record.update(N=str(item['N']), func=item['func'])
@@ -219,7 +238,7 @@ class VersionAndEvidence(unittest.TestCase):
         self.assertIn(m['comparison_description'], (run/'comparison.md').read_text(encoding='utf-8'))
         if 'baseline' in selected:
             summary = json.loads((run/'summary.json').read_text(encoding='utf-8'))
-            self.assertEqual(summary['processes'], 6)
+            self.assertEqual(summary['processes'], 2*len(selected))
             self.assertEqual(summary['events_per_arm'], 30)
             self.assertEqual(summary['timing_warmups'], 10)
             self.assertTrue(all(r['speedup_baseline_median'] == 2.0
@@ -230,6 +249,9 @@ class VersionAndEvidence(unittest.TestCase):
             svg = next((run/'plots').glob('*.svg')).read_text(encoding='utf-8')
             for label in ('EXP125固定对照', '上一轮EXP128', '新候选'):
                 self.assertIn(label, svg)
+            if 'unfused_cc' in selected:
+                self.assertTrue(all(r['speedup_unfused_cc_median']==2.5 for r in summary['rows']))
+                self.assertIn('同CC未融合', svg)
             entries[0]['returncode'] = 1
             dump('processes.json', entries)
             from summarize_cufft261012 import aggregate

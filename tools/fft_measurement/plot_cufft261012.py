@@ -1,4 +1,4 @@
-"""Standalone two-column distributions and chronological event traces."""
+"""Standalone per-version distributions and chronological event traces."""
 import math
 import os
 from pathlib import Path
@@ -21,11 +21,11 @@ def render(run, manifest, samples):
 
     selected = arms(manifest)
     labels = {'official': '官方基线', 'baseline': '固定对照',
-              'previous': '上一有效版本', 'candidate': '当前版本'}
+              'previous': '上一有效版本', 'unfused_cc': '同CC未融合', 'candidate': '当前版本'}
     labels.update({a: manifest['arm_labels'][a] for a in selected
                    if a in manifest.get('arm_labels', {})})
     colors = {'official': '#2878b8', 'baseline': '#48864c',
-              'previous': '#677b97', 'candidate': '#e58b29'}
+              'previous': '#677b97', 'unfused_cc': '#a65d91', 'candidate': '#e58b29'}
     settings = {'svg.fonttype': 'none', 'font.family': 'sans-serif', 'axes.unicode_minus': False,
                 'font.size': 11, 'axes.spines.top': False, 'axes.spines.right': False}
     if os.name == 'nt' and Path('C:/Windows/Fonts/msyh.ttc').is_file():
@@ -71,7 +71,7 @@ def render(run, manifest, samples):
                 axes.set_axisbelow(True)
             fig.text(.5, .09, '全部样本保留；浅色区域为中间50%的样本区间。横向展开仅用于避开重叠。',
                      ha='center', fontsize=10)
-            fig.text(.5, .035, '同一组记录的两种画法；相同序号不代表两个版本同步或配对测量。',
+            fig.text(.5, .035, '同一组记录的两种画法；相同序号不代表各版本同步或配对测量。',
                      ha='center', fontsize=9, color='#66798b')
             path = output/('%d_%s.svg'%(n, func))
             try:

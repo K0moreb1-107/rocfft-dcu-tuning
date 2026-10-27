@@ -67,7 +67,7 @@ def resolve(cfg, allow_pending=False):
     return built
 
 
-def measurement_preview(cfg, build, validation):
+def measurement_preview(cfg, build, validation, reference_builds=None):
     """Validate a future candidate selection without inventing its library hash."""
     protocol = mgr.measurement_protocol(cfg)
     mgr.require(cfg.get('policy') == 'FFT-event-cufft261012-single-v3'
@@ -80,10 +80,21 @@ def measurement_preview(cfg, build, validation):
     mgr.require(cfg['arms']['candidate'] == expected,
                 'measurement selects another pending candidate')
     references = {}
+    pending_references = {}
+    reference_builds = reference_builds or {}
+    mgr.require(set(reference_builds) <= set(selected) - {'candidate', 'official', 'baseline'},
+                'invalid pending reference arm')
     fields = ('install', 'source_repo', 'source_commit', 'source_state',
               'library_sha256', 'build_provenance')
     for name in selected:
         if name == 'candidate':
+            continue
+        if name in reference_builds:
+            item = reference_builds[name]
+            expected_reference = {'build_record': item['validation']['existing_build_validation']['build_record']}
+            mgr.require(cfg['arms'][name] == expected_reference,
+                        'measurement selects another pending reference: '+name)
+            pending_references[name] = copy.deepcopy(item['built']['arm'])
             continue
         arm = copy.deepcopy(cfg['arms'][name])
         if arm.get('registry_id'):
@@ -111,4 +122,5 @@ def measurement_preview(cfg, build, validation):
                 processes=len(protocol.schedule(cfg)), cases=len(cases),
                 timing_warmups=protocol.WARMUPS, event_iterations=protocol.iterations(cfg),
                 resolved_preregistration=pinned, reference_arms=references,
+                pending_reference_arms=pending_references,
                 pending_candidate=copy.deepcopy(build['arm']))

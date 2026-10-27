@@ -42,8 +42,7 @@ def existing(cfg, allow_pending=False):
     return built, library, command, filename
 
 
-def gate(cfg, allow_pending=False):
-    spec = cfg['revalidated_measurement']
+def prerequisite(cfg, spec, allow_pending=False):
     validation_path = mgr.inside(spec['validation_config'])
     validation = mgr.load(validation_path)
     mgr.require('existing_build_validation' in validation and validation['experiment'] == cfg['experiment'],
@@ -54,8 +53,37 @@ def gate(cfg, allow_pending=False):
     job = spec['validation_job_id']
     mgr.require(re.fullmatch(r'[1-9][0-9]*', job or '') and receipt['job'].split(';')[0] == job,
                 'validation job differs from submitted receipt')
-    mgr.require(cfg['resources'].get('dependency') == 'afterok:'+job,
-                'successful validation dependency required')
+    built, library, command, filename = existing(validation, allow_pending=allow_pending)
+    return dict(validation=validation, paths=vp, built=built, command=command,
+                filename=filename, job_id=job)
+
+
+def reference_prerequisites(cfg, allow_pending=False):
+    specs = cfg['revalidated_measurement'].get('reference_validations', {})
+    mgr.require(isinstance(specs, dict) and set(specs) <= {'previous', 'unfused_cc'},
+                'invalid reference validation arms')
+    references = {}
+    for name in sorted(specs):
+        spec = specs[name]
+        mgr.require(isinstance(spec, dict) and set(spec) == {'validation_config', 'validation_job_id'},
+                    'invalid reference validation specification: '+name)
+        references[name] = prerequisite(cfg, spec, allow_pending=allow_pending)
+    return references
+
+
+def gate(cfg, allow_pending=False):
+    spec = cfg['revalidated_measurement']
+    main = prerequisite(cfg, spec, allow_pending=allow_pending)
+    validation, vp, built, command, filename = (main[k] for k in
+        ('validation', 'paths', 'built', 'command', 'filename'))
+    references = reference_prerequisites(cfg, allow_pending=allow_pending)
+    jobs = [main['job_id']] + [item['job_id'] for item in references.values()]
+    dependency = cfg['resources'].get('dependency') or ''
+    mgr.require(re.fullmatch(r'afterok:[1-9][0-9]*(?::[1-9][0-9]*)*', dependency)
+                and len(jobs) == len(set(jobs))
+                and len(dependency.split(':')[1:]) == len(jobs)
+                and set(dependency.split(':')[1:]) == set(jobs),
+                'successful validation dependency required for every pending arm')
     measurement_path = mgr.inside(spec['measurement_config'])
     mgr.require(mgr.common.sha(measurement_path) == spec['measurement_config_sha256'],
                 'measurement configuration differs from its submitted identity')
@@ -64,8 +92,13 @@ def gate(cfg, allow_pending=False):
                 'measurement experiment or run differs')
     mgr.require(measurement.get('policy') == 'FFT-event-cufft261012-single-v3',
                 'revalidated timing requires the registered v3 protocol')
-    built, library, command, filename = existing(validation, allow_pending=allow_pending)
-    if 'pending_build_validation' in validation:
+    if references:
+        from tools.workspace_manager import pending_build_validation as pending
+        for name in references:
+            mgr.require(name in measurement['arms'], 'validated reference arm is absent: '+name)
+        # Acceptance is checked by the worker before final four-arm resolution.
+        planned = pending.measurement_preview(measurement, built, validation, references)
+    elif 'pending_build_validation' in validation:
         expected = {'build_record': validation['existing_build_validation']['build_record']}
         mgr.require(measurement['arms']['candidate'] == expected, 'measurement selects another pending library')
         if built.get('pending') is True:
@@ -100,8 +133,10 @@ def plan(task, cfg):
     return dict(task=task, pending_acceptance=True, formal=True, rebuild_required=False,
                 measurement_run=planned['paths']['run'], processes=planned['processes'], cases=planned['cases'],
                 timing_warmups=planned['timing_warmups'], event_iterations=planned['event_iterations'],
+                event_samples=planned['processes']*planned['event_iterations'],
                 reference_arms=planned.get('reference_arms', planned['resolved_preregistration']['arms']),
                 pending_candidate=planned.get('pending_candidate'),
+                pending_reference_arms=planned.get('pending_reference_arms', {}),
                 submission_command=mgr.submission_command(task, cfg), source_state_freeze=False)
 
 
@@ -163,13 +198,23 @@ def measure(cfg):
     try:
         acceptance = verify_acceptance(vp, built, command, filename,
                                        cfg['revalidated_measurement']['validation_job_id'])
-        measurement = copy.deepcopy(planned['resolved_preregistration'])
+        acceptances = {'candidate': acceptance}
+        references = reference_prerequisites(cfg)
+        for name, item in references.items():
+            acceptances[name] = verify_acceptance(item['paths'], item['built'], item['command'],
+                                                 item['filename'], item['job_id'])
+        measurement = (mgr.measurement(planned['resolved_preregistration']) if references
+                       else copy.deepcopy(planned['resolved_preregistration']))
         measurement['validation_acceptance'] = acceptance
+        measurement['validation_acceptances'] = acceptances
         measurement['queued_submission'] = dict(queue_run=str(q['run']), validation_job_id=acceptance['job_id'])
+        measurement['queued_submission']['validation_job_ids'] = {
+            name: value['job_id'] for name, value in acceptances.items()}
         p = mgr.allocate(measurement, 'measure')
         for name in ('submission-command.json', 'submission.json'):
             mgr.dumps(p['run']/name, read(q['run']/name))
-        mgr.dumps(q['run']/'resolution.json', dict(measurement_run=str(p['run']), validation_acceptance=acceptance))
+        mgr.dumps(q['run']/'resolution.json', dict(measurement_run=str(p['run']),
+            validation_acceptance=acceptance, validation_acceptances=acceptances))
         import run_cufft261012 as worker
         mgr.require(measurement['policy'] == worker.POLICY, 'revalidated queue requires the registered v3 protocol')
         worker.execute(measurement)
