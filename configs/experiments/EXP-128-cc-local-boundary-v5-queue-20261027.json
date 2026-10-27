@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-boundary-v5-queue-20261027",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05",
+    "dependency": "afterok:983949:983951"
+  },
+  "revalidated_measurement": {
+    "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-validate-20261027/submit-manifest.json",
+    "validation_job_id": "983949",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-local-boundary-v5-performance-20261027.json",
+    "measurement_config_sha256": "73e511bfda84cf498e87a7745acab6223c46a1f70e2652753c434dfd2a4594db",
+    "reference_validations": {
+      "unfused_cc": {
+        "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-cc-validate-20261027/submit-manifest.json",
+        "validation_job_id": "983951"
+      }
+    }
+  }
+}
