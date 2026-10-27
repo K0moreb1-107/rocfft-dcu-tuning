@@ -21,13 +21,20 @@ def write(path,value):
 def main():
     assert subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip()=='exp-128-cc-local-real'
     receipt=FOLDER/'submission.json'
-    assert not receipt.exists(), 'inspect existing receipts before any retry'
     preflight=json.loads((FOLDER/'host-preflight.json').read_text())
     assert preflight['complete'] and preflight['incorrect_table_rejected']
     assert all(item['identity']['all_executable_bytes_identical'] for item in preflight['builds'])
-    records,previews={},{}
+    records=json.loads(receipt.read_text())['receipts'] if receipt.exists() else {}
+    preview_path=FOLDER/'submission-previews.json'
+    previews=json.loads(preview_path.read_text()) if preview_path.exists() else {}
     owned=[]
     def submit(task,path,key):
+        if key in records:
+            previous=records[key]
+            actual=json.loads((Path(previous['run'])/'submission.json').read_text())
+            assert actual['job'].split(';')[0]==previous['job'].split(';')[0]
+            assert Path(previous['run'])==mgr.locations(mgr.load(path),task)['run']
+            return previous
         argv=[mgr.PYTHON,str(ROOT/'manage.py'),task,'--config',str(path)]
         previews[key]=json.loads(subprocess.check_output(argv,cwd=ROOT,text=True))
         write(FOLDER/'submission-previews.json',previews)

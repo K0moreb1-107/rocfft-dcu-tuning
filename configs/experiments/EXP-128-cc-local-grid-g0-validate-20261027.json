@@ -8,7 +8,8 @@
     "cpus": 8,
     "time_limit": "00:30:00",
     "node_exclusive": true,
-    "exclude": "a01r4n05"
+    "exclude": "a01r4n05",
+    "dependency": "afterok:982992"
   },
   "build": {
     "component": "rocfft",
@@ -37,18 +38,6 @@
       {
         "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
         "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
-      },
-      {
-        "path": "/public/home/zhangkewei/zr/tools/fft_measurement/cufft261012_contract.py",
-        "sha256": "c2ea7fc70d3c10f51c235f6d4d77380ab3cf5872d8b0bd7755d82afb805fcee6"
-      },
-      {
-        "path": "/public/home/zhangkewei/zr/tools/fft_measurement/sample_contract.py",
-        "sha256": "ca53fcfb20758b3253433fbeefe55db050a9c94f884ceee68700f1d750babc6e"
-      },
-      {
-        "path": "/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py",
-        "sha256": "2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0"
       }
     ]
   },
@@ -131,5 +120,10 @@
       65536,
       67200
     ]
+  },
+  "pending_build_validation": {
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-build-20261027/submit-manifest.json",
+    "build_config_sha256": "62650ca1739f2640b31c3c588765403183b806c306fdf2f6acd14e3d5df83067",
+    "build_job_id": "982992"
   }
 }

@@ -52,7 +52,7 @@ def main():
     preflight['incorrect_table_rejected']=True
     old_cfg=read(ROOT/'experiments/EXP-128/runs/EXP-128-cc-local-rowsimplify-retry1-performance-20261022/preregistration.json')
     ref=old_cfg['arms']['baseline'];assert mgr.common.sha(mgr.inside(ref['install'])/'lib/librocfft.so.0.1')==ref['library_sha256']
-    inputs=['experiments/EXP-128/scripts/validate_cc_local_rows.py','experiments/EXP-128/records/grid-fill-20261027/matrix.json','experiments/EXP-128/scripts/cc_dispatch.py','tools/fft_measurement/cufft261012_contract.py','tools/fft_measurement/sample_contract.py','tools/workspace_manager/validation_finish.py']
+    inputs=['experiments/EXP-128/scripts/validate_cc_local_rows.py','experiments/EXP-128/records/grid-fill-20261027/matrix.json','experiments/EXP-128/scripts/cc_dispatch.py']
     hook=dict(script=str(ROOT/'experiments/EXP-128/scripts/validate_cc_grid_v3.py'),sha256=mgr.common.sha(ROOT/'experiments/EXP-128/scripts/validate_cc_grid_v3.py'),inputs=[dict(path=str(ROOT/p),sha256=mgr.common.sha(ROOT/p)) for p in inputs])
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();written=[]
     for index,group in enumerate(matrix['groups']):
@@ -68,7 +68,9 @@ def main():
         for key in ('validation_acceptance','queued_submission'):measurement.pop(key,None)
         measurement.update(run_id=prefix+'-performance-20261027',resources=dict(partition='hx1hdnormal01',cpus=8,time_limit='01:00:00',node_exclusive=True,exclude='a01r4n05'),cases=[dict(N=r['N'],func=f) for r in group for f in ('z2d_1d','d2z_1d')],arms=dict(baseline=ref,candidate=dict(build_record=str(build_run/'build-provenance.json'))),arm_labels=dict(baseline='EXP125默认计划',candidate='行端简化v3指定CC分解'),comparison_kind='version_comparison',comparison_description='Heatmap supplement: EXP125 default plan versus v3 controlled CC geometry. Only divisor data differs from verified v3. Not a default-plan or isolated-fusion comparison.',case_scope='Requested heatmap blanks, group %d; N>=65536; fixed C*Q=N/2; both real directions.'%index,acceptance='Each controlled geometry passes numerical and actual two-kernel v3 dispatch checks before timing. Preserve all 10/30 samples; exact EXP125 reference on the same exclusive GPU.',coverage_path=str(RECORDS/'matrix.json'),coverage_sha256=mgr.common.sha(RECORDS/'matrix.json'),controlled_geometry=dict(group=index,cells=group,matrix_sha256=mgr.common.sha(RECORDS/'matrix.json'),base_v3_commit=helper['BASE_COMMIT'],default_plan=False),measurement_conditions=dict(default_plan=False,baseline_default_plan=True,candidate_fixed_CC=True,double_precision=True,batch=1,out_of_place=True,dimensions=1))
         for task,cfg in [('build',build),('validate',validation),('performance',measurement)]:
-            path=CONFIGS/(prefix+'-'+task+'-20261027.json');write(path,cfg);written.append(str(path.relative_to(ROOT)))
+            path=CONFIGS/(prefix+'-'+task+'-20261027.json')
+            if task=='validate':mgr.validation_hook(cfg)
+            write(path,cfg);written.append(str(path.relative_to(ROOT)))
     preflight.update(complete=True,configs=written,maximum_new_storage_bytes=1024**3)
     write(RECORDS/'host-preflight.json',preflight)
     print(json.dumps(dict(complete=True,groups=preflight['groups'],cells=84,cases=168,processes=336,samples=10080,executable_bytes_identical=True,loaded_divisor_tables_checked=5,configs=written),ensure_ascii=False))
