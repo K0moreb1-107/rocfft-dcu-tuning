@@ -1,0 +1,6504 @@
+{
+  "task": "diagnose",
+  "formal": false,
+  "resolved_preregistration": {
+    "schema_version": 1,
+    "policy": "FFT-event-cufft261012-single-v3",
+    "experiment": "EXP-128",
+    "run_id": "EXP-128-cc-v5-regression-diagnostic-20261027",
+    "gpu_arch": "gfx936",
+    "resources": {
+      "partition": "hx1hdnormal01",
+      "cpus": 8,
+      "time_limit": "02:00:00",
+      "node_exclusive": true,
+      "exclude": "a01r4n05"
+    },
+    "event_iterations": 30,
+    "timing_warmups": 10,
+    "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+    "cases": [
+      {
+        "N": 65856,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 67200,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 67760,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 68600,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 69938,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 70304,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 73984,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 73984,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 75000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 75000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 75712,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 77760,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 81312,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 85750,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 86528,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 87808,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 90000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 92480,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 97104,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 97682,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 100000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 100352,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 101250,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 101250,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 105000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 110592,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 110976,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 114688,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 115600,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 115934,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 118098,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 120224,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 122880,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 123904,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 124848,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 129472,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 131712,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 133100,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 135000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 138424,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 138424,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 138720,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 142688,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 147968,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 148176,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 153664,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 159720,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 160000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 160000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 161840,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 163296,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 164640,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 165888,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 166698,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 167042,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 170368,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 170368,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 200000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 204800,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 204800,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 211250,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 212960,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 215622,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 215622,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 223608,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 223608,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 230496,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 235298,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 250000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 255552,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 260000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 266200,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 266200,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 270000,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 276848,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 287496,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 287496,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 298144,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 300000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 303750,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 320000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 322102,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 327680,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 332750,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 332750,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 340736,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 340736,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 344064,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 346112,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 351232,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 351232,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 361250,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 361250,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 393216,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 420000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 425920,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 425920,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 425984,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 428750,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 447216,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 447216,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 458752,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 491520,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 497664,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 511104,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 524288,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 532400,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 574992,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 574992,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 591872,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 591872,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 596288,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 638880,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 638880,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 640000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 646866,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 646866,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 681472,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 688128,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 702464,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 745360,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 745360,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 769318,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 769318,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 913066,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 1048576,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 1280000,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 1362944,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 2097152,
+        "func": "z2d_1d"
+      },
+      {
+        "N": 2725888,
+        "func": "d2z_1d"
+      },
+      {
+        "N": 2725888,
+        "func": "z2d_1d"
+      }
+    ],
+    "case_scope": "Every v5/v4 and fused/same-CC-unfused ratio below one; all ratios below 0.95 have mandatory stage/PMC evidence. Add matched row-type positive controls.",
+    "arms": {
+      "previous": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grouped-20261026",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "965122a7e5bdd2f6dc2ff5c79be0d840fb269b18",
+        "source_state": "{\"commit\": \"965122a7e5bdd2f6dc2ff5c79be0d840fb269b18\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"62b64cda550ccd333776adac3e64037078be2739\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"27fda703467bc8bce33da977bb53514cf8784459b6770de1bcca2724d6ba38aa\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"ca67bdc1ba1d8d66372989a4e1231b93f4862cb62d8ea7dd69e2279b5df8ecb6\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"98b7f95906c7a62de11735b5be5a008529c6289951a66e923da051bf170ebac9\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+        "library_sha256": "6b4a635fd1e29ca12a42fefc2fdf3f981054c9506fa8c8380c9b1bfc7afdb21f",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grouped-build-20261026/build-provenance.json"
+      },
+      "unfused_cc": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-unfused-phasefix-20261027",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "32ea37754a9900ac6c6b72c9155f8044c24de64d",
+        "source_state": "{\"commit\": \"32ea37754a9900ac6c6b72c9155f8044c24de64d\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"9fe80da53dc1b9a43e0a9daa3ca572f779ba968c\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"c16a83799c21bc5008588e072513dad87761bdb767f34734473332ec2fb4bde4\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"b6f2ff07d404c6c967849370a3e138de971e3d8d03df85012a9c7d2b4da1b58d\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"f14ddefdcfa54392767dd3fe67c8736f7b2e9c3cf74691db4f0a319e38c62062\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_dual_revalidate.py\": \"1c9b60a2bec2ac7b6571a33fc1b0b1969dcb8274ec2a49036bc01a164b89229c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+        "library_sha256": "43e6ab4835fbc382fced7cf251c00db7c4baf2b04d5a0d4f01b6a46e89f514d0",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-build-20261027/build-provenance.json"
+      },
+      "candidate": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-boundary-v5-20261027",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "e9d515047c9c39c15f8b562f0f35df59a12ce616",
+        "source_state": "{\"commit\": \"e9d515047c9c39c15f8b562f0f35df59a12ce616\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"a1f7c1b1d33c7db9258cbf84618a1ea6c7a5d7de\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"c16a83799c21bc5008588e072513dad87761bdb767f34734473332ec2fb4bde4\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"b6f2ff07d404c6c967849370a3e138de971e3d8d03df85012a9c7d2b4da1b58d\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"f14ddefdcfa54392767dd3fe67c8736f7b2e9c3cf74691db4f0a319e38c62062\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_dual_revalidate.py\": \"1c9b60a2bec2ac7b6571a33fc1b0b1969dcb8274ec2a49036bc01a164b89229c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+        "library_sha256": "2ca09d728a3cd008c631e8b4e5b2b031e5a24faa60e2636d2ca6c1e7adf2fc0d",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-build-20261027/build-provenance.json"
+      }
+    },
+    "comparison_kind": "version_comparison",
+    "arm_labels": {
+      "baseline": "EXP125保留版",
+      "previous": "通用融合第四版",
+      "unfused_cc": "同CC未融合",
+      "candidate": "行端改进第五版"
+    },
+    "acceptance": "Diagnostic only. Matched clean repeats, actual default kernels/sources, separate stage traces and raw PMC units, whole input/output-region restoration with identity controls, strict numerical checks, all independent failures retained. Timestamp anomalies invalidate stage times only; retain correlated dispatch/source/counter evidence. No production changes or stable promotion.",
+    "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+    "coverage_sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18",
+    "measurement_conditions": {
+      "precision": "double",
+      "batch": 1,
+      "placement": "out-of-place",
+      "load_path": "default",
+      "readonly_input": "Unchanged original v3 input/output semantics for each version; correctness outside timing and input restored.",
+      "reference": "复用已验收第四版、第五版和修正容量后的同CC未融合库。诊断时间只与本任务同卡对照，不跨历史节点横比。",
+      "endpoint_packed_z2d": "extra C-point transform is included in net event time",
+      "callbacks": "none",
+      "scale_factor": 1.0
+    },
+    "source_state_policy": "Record actual starting commit and actual library identity. Do not freeze or compare workspace/build/validation source state.",
+    "comparison_description": "诊断第五版相对第四版和同CC未融合版的退化。单卡受控复测、逐阶段时间、实际资源、读写与共享存储计数、行端单项恢复；不替换已有正式数据。",
+    "a100_reference": {
+      "dataset": "test_fft_261012",
+      "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+      "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+      "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+      "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+      "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+      "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+      "warmups": 10,
+      "event_iterations": 30,
+      "input_pattern": "linear_index_real_imaginary_zero",
+      "comparison": "cross_device_reference",
+      "source_binary_correspondence_verified": false
+    },
+    "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+    "regression_selection": {
+      "formal": false,
+      "original_below_one": {
+        "previous": 95,
+        "unfused_cc": 43
+      },
+      "original_below_095": {
+        "previous": 17,
+        "unfused_cc": 18
+      },
+      "cases": [
+        {
+          "N": 65856,
+          "func": "z2d_1d",
+          "C": 96,
+          "Q": 343,
+          "ratios": {
+            "previous": 1.0,
+            "unfused_cc": 1.0901163253069253
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 67200,
+          "func": "d2z_1d",
+          "C": 168,
+          "Q": 200,
+          "ratios": {
+            "previous": 1.0218579631262412,
+            "unfused_cc": 1.1147540837605077
+          },
+          "assessments": {
+            "previous": "更快",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 67760,
+          "func": "z2d_1d",
+          "C": 280,
+          "Q": 121,
+          "ratios": {
+            "previous": 1.0439276205960417,
+            "unfused_cc": 1.1369347359484003
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 68600,
+          "func": "z2d_1d",
+          "C": 100,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9944134303478354,
+            "unfused_cc": 1.0810055851388494
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 69938,
+          "func": "z2d_1d",
+          "C": 289,
+          "Q": 121,
+          "ratios": {
+            "previous": 0.9653680024561114,
+            "unfused_cc": 0.9415584978451573
+          },
+          "assessments": {
+            "previous": "更慢",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 70304,
+          "func": "z2d_1d",
+          "C": 208,
+          "Q": 169,
+          "ratios": {
+            "previous": 0.9951922710972547,
+            "unfused_cc": 1.14663461215564
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 73984,
+          "func": "d2z_1d",
+          "C": 128,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.9950494672904069,
+            "unfused_cc": 1.2103960264799902
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 73984,
+          "func": "z2d_1d",
+          "C": 128,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.9739478842903567,
+            "unfused_cc": 0.9699398844348144
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 75000,
+          "func": "d2z_1d",
+          "C": 60,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9941520702729184,
+            "unfused_cc": 1.175438572603812
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 75000,
+          "func": "z2d_1d",
+          "C": 60,
+          "Q": 625,
+          "ratios": {
+            "previous": 1.0148368048878131,
+            "unfused_cc": 1.1988130887717972
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 75712,
+          "func": "z2d_1d",
+          "C": 224,
+          "Q": 169,
+          "ratios": {
+            "previous": 0.9903382028308158,
+            "unfused_cc": 1.0942029441942047
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 77760,
+          "func": "z2d_1d",
+          "C": 160,
+          "Q": 243,
+          "ratios": {
+            "previous": 1.0253806662643543,
+            "unfused_cc": 1.1319637928275401
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 81312,
+          "func": "z2d_1d",
+          "C": 336,
+          "Q": 121,
+          "ratios": {
+            "previous": 1.002463015484728,
+            "unfused_cc": 1.1009698141392195
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 85750,
+          "func": "z2d_1d",
+          "C": 125,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9972751836158281,
+            "unfused_cc": 1.0762942560616855
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 86528,
+          "func": "d2z_1d",
+          "C": 169,
+          "Q": 256,
+          "ratios": {
+            "previous": 0.9609375350534425,
+            "unfused_cc": 1.093749988631316
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 87808,
+          "func": "z2d_1d",
+          "C": 128,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9943182047434613,
+            "unfused_cc": 1.1534091333772316
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 90000,
+          "func": "z2d_1d",
+          "C": 72,
+          "Q": 625,
+          "ratios": {
+            "previous": 1.005464522589026,
+            "unfused_cc": 0.9890710820518105
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 92480,
+          "func": "z2d_1d",
+          "C": 160,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.9882812514210855,
+            "unfused_cc": 0.9960938111066768
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 97104,
+          "func": "z2d_1d",
+          "C": 168,
+          "Q": 289,
+          "ratios": {
+            "previous": 1.0479165926944345,
+            "unfused_cc": 0.8791666254362421
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 97682,
+          "func": "z2d_1d",
+          "C": 289,
+          "Q": 169,
+          "ratios": {
+            "previous": 0.9937499527062778,
+            "unfused_cc": 1.5083332508724843
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 100000,
+          "func": "z2d_1d",
+          "C": 80,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9972006377310799,
+            "unfused_cc": 1.095793919084549
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 100352,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 49,
+          "ratios": {
+            "previous": 0.9975727971537698,
+            "unfused_cc": 1.0631067088790866
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 101250,
+          "func": "d2z_1d",
+          "C": 81,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9972144958803082,
+            "unfused_cc": 1.0779944396280352
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 101250,
+          "func": "z2d_1d",
+          "C": 81,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9891891698008084,
+            "unfused_cc": 1.0513513333235587
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 105000,
+          "func": "d2z_1d",
+          "C": 84,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9947916875092541,
+            "unfused_cc": 1.0026041865618638
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 110592,
+          "func": "d2z_1d",
+          "C": 108,
+          "Q": 512,
+          "ratios": {
+            "previous": 0.9920165077814229,
+            "unfused_cc": 1.0400173005364073
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 110976,
+          "func": "z2d_1d",
+          "C": 192,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.8972067699933244,
+            "unfused_cc": 0.9551513336324916
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 114688,
+          "func": "z2d_1d",
+          "C": 512,
+          "Q": 112,
+          "ratios": {
+            "previous": 0.9950249534222863,
+            "unfused_cc": 0.9800995820168555
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": true,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 115600,
+          "func": "d2z_1d",
+          "C": 289,
+          "Q": 200,
+          "ratios": {
+            "previous": 0.9362637108466485,
+            "unfused_cc": 1.107692361225643
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 115934,
+          "func": "z2d_1d",
+          "C": 169,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9949495739375485,
+            "unfused_cc": 1.1464647076358458
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 118098,
+          "func": "z2d_1d",
+          "C": 243,
+          "Q": 243,
+          "ratios": {
+            "previous": 0.9976190848402743,
+            "unfused_cc": 1.0523810204878778
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 120224,
+          "func": "z2d_1d",
+          "C": 208,
+          "Q": 289,
+          "ratios": {
+            "previous": 1.1044776287970508,
+            "unfused_cc": 0.9813433147022478
+          },
+          "assessments": {
+            "previous": "更快",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 122880,
+          "func": "d2z_1d",
+          "C": 60,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9835164859766552,
+            "unfused_cc": 1.1923076849271774
+          },
+          "assessments": {
+            "previous": "更慢",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 123904,
+          "func": "z2d_1d",
+          "C": 121,
+          "Q": 512,
+          "ratios": {
+            "previous": 0.997333344095283,
+            "unfused_cc": 1.1679999428788825
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 124848,
+          "func": "z2d_1d",
+          "C": 216,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.943130099183148,
+            "unfused_cc": 0.9321208000767965
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 129472,
+          "func": "z2d_1d",
+          "C": 224,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.9273422818355727,
+            "unfused_cc": 0.8451242614471765
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 131712,
+          "func": "z2d_1d",
+          "C": 343,
+          "Q": 192,
+          "ratios": {
+            "previous": 0.9946380600825406,
+            "unfused_cc": 1.1313672938986885
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 133100,
+          "func": "z2d_1d",
+          "C": 50,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.002378925862049,
+            "unfused_cc": 0.9881943210169972
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 135000,
+          "func": "z2d_1d",
+          "C": 108,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9975124767111431,
+            "unfused_cc": 1.0074627436207877
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 138424,
+          "func": "d2z_1d",
+          "C": 52,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9950494672904069,
+            "unfused_cc": 1.0618811978191376
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 138424,
+          "func": "z2d_1d",
+          "C": 52,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0,
+            "unfused_cc": 0.9906976039020249
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 138720,
+          "func": "z2d_1d",
+          "C": 240,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.9979166509020926,
+            "unfused_cc": 1.085416633924859
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one",
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 142688,
+          "func": "z2d_1d",
+          "C": 208,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9852631432412399,
+            "unfused_cc": 0.9431579502550206
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 147968,
+          "func": "z2d_1d",
+          "C": 256,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.9860834859384644,
+            "unfused_cc": 1.059642136994585
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 148176,
+          "func": "z2d_1d",
+          "C": 216,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9895833750185082,
+            "unfused_cc": 1.1744791657192764
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 153664,
+          "func": "z2d_1d",
+          "C": 224,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9949238194718739,
+            "unfused_cc": 1.0304568467924804
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 159720,
+          "func": "z2d_1d",
+          "C": 60,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.065060288550668,
+            "unfused_cc": 1.1759036101317575
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 160000,
+          "func": "d2z_1d",
+          "C": 128,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9764397939265943,
+            "unfused_cc": 1.0811518412363186
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 160000,
+          "func": "z2d_1d",
+          "C": 128,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9923857292078109,
+            "unfused_cc": 1.0456852701887205
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 161840,
+          "func": "z2d_1d",
+          "C": 280,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.92524443259533,
+            "unfused_cc": 1.0112267458770108
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 163296,
+          "func": "z2d_1d",
+          "C": 336,
+          "Q": 243,
+          "ratios": {
+            "previous": 1.0325814673815366,
+            "unfused_cc": 1.2531327683154265
+          },
+          "assessments": {
+            "previous": "更快",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 164640,
+          "func": "z2d_1d",
+          "C": 240,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9948186134706157,
+            "unfused_cc": 1.1632124089804106
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 165888,
+          "func": "z2d_1d",
+          "C": 81,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9949238194718739,
+            "unfused_cc": 1.1319637928275401
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 166698,
+          "func": "z2d_1d",
+          "C": 343,
+          "Q": 243,
+          "ratios": {
+            "previous": 0.9951337830118155,
+            "unfused_cc": 1.1143551928256892
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 167042,
+          "func": "z2d_1d",
+          "C": 289,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.965299713273095,
+            "unfused_cc": 1.006309196458095
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 170368,
+          "func": "d2z_1d",
+          "C": 64,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9951455943075397,
+            "unfused_cc": 1.0800970157781182
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 170368,
+          "func": "z2d_1d",
+          "C": 64,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9369369785104649,
+            "unfused_cc": 1.0045045389916356
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 200000,
+          "func": "z2d_1d",
+          "C": 160,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9599109186838711,
+            "unfused_cc": 1.0155901637193538
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 204800,
+          "func": "d2z_1d",
+          "C": 512,
+          "Q": 200,
+          "ratios": {
+            "previous": 1.0738916114907766,
+            "unfused_cc": 1.0689654658264272
+          },
+          "assessments": {
+            "previous": "更快",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 204800,
+          "func": "z2d_1d",
+          "C": 512,
+          "Q": 200,
+          "ratios": {
+            "previous": 0.9951922710972547,
+            "unfused_cc": 1.0528845701789618
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 211250,
+          "func": "z2d_1d",
+          "C": 169,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9870129883219804,
+            "unfused_cc": 1.1753247080495102
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 212960,
+          "func": "d2z_1d",
+          "C": 80,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9954545108185817,
+            "unfused_cc": 1.1477272871589244
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 215622,
+          "func": "d2z_1d",
+          "C": 81,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9910713608233557,
+            "unfused_cc": 1.0803571289363059
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 215622,
+          "func": "z2d_1d",
+          "C": 81,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0393701032805562,
+            "unfused_cc": 0.9803149941925254
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 223608,
+          "func": "d2z_1d",
+          "C": 84,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0410366766589396,
+            "unfused_cc": 1.079900082969173
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 223608,
+          "func": "z2d_1d",
+          "C": 84,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0455574972692778,
+            "unfused_cc": 0.9802101191107124
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 230496,
+          "func": "z2d_1d",
+          "C": 336,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9952606274223077,
+            "unfused_cc": 1.1943128411837904
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 235298,
+          "func": "z2d_1d",
+          "C": 343,
+          "Q": 343,
+          "ratios": {
+            "previous": 0.9949999621650222,
+            "unfused_cc": 1.164999967985788
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one",
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 250000,
+          "func": "z2d_1d",
+          "C": 200,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9956710633023208,
+            "unfused_cc": 0.9978355316511605
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 255552,
+          "func": "z2d_1d",
+          "C": 96,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0163338935072366,
+            "unfused_cc": 0.9473684432926394
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 260000,
+          "func": "z2d_1d",
+          "C": 208,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9979508517403137,
+            "unfused_cc": 1.0286885527475924
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 266200,
+          "func": "d2z_1d",
+          "C": 100,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9958847425127945,
+            "unfused_cc": 1.0576131257455013
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 266200,
+          "func": "z2d_1d",
+          "C": 100,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9980430835106104,
+            "unfused_cc": 1.0176125217868655
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 270000,
+          "func": "d2z_1d",
+          "C": 216,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9753914680018818,
+            "unfused_cc": 1.1118568405121565
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 276848,
+          "func": "z2d_1d",
+          "C": 104,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0218978068075855,
+            "unfused_cc": 0.9817518134978975
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 287496,
+          "func": "d2z_1d",
+          "C": 108,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9960783534928334,
+            "unfused_cc": 1.0431500271753211
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 287496,
+          "func": "z2d_1d",
+          "C": 108,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0545774709951632,
+            "unfused_cc": 0.9683098634849976
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 298144,
+          "func": "z2d_1d",
+          "C": 112,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0859223519060173,
+            "unfused_cc": 0.9828283954503764
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 300000,
+          "func": "z2d_1d",
+          "C": 240,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9310344950630538,
+            "unfused_cc": 0.9386972992092233
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 303750,
+          "func": "z2d_1d",
+          "C": 243,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9379432451373073,
+            "unfused_cc": 0.959219837368624
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 320000,
+          "func": "z2d_1d",
+          "C": 256,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9982237875499376,
+            "unfused_cc": 0.9591474444913966
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 322102,
+          "func": "z2d_1d",
+          "C": 121,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0049158233118984,
+            "unfused_cc": 0.9556547471013828
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 327680,
+          "func": "d2z_1d",
+          "C": 160,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9941860024387655,
+            "unfused_cc": 1.0639534317069843
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 332750,
+          "func": "d2z_1d",
+          "C": 125,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.998109670451331,
+            "unfused_cc": 1.1568998172873628
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 332750,
+          "func": "z2d_1d",
+          "C": 125,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.8955695645263956,
+            "unfused_cc": 0.9319620247335397
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 340736,
+          "func": "d2z_1d",
+          "C": 128,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9847328410475815,
+            "unfused_cc": 1.1469466215295125
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 340736,
+          "func": "z2d_1d",
+          "C": 128,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9796368665185152,
+            "unfused_cc": 1.071318680184902
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 344064,
+          "func": "z2d_1d",
+          "C": 168,
+          "Q": 1024,
+          "ratios": {
+            "previous": 1.0701536827432403,
+            "unfused_cc": 1.0901939792789337
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 346112,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 169,
+          "ratios": {
+            "previous": 0.9295664750760122,
+            "unfused_cc": 1.0616197372178229
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 351232,
+          "func": "d2z_1d",
+          "C": 343,
+          "Q": 512,
+          "ratios": {
+            "previous": 0.9902534277618185,
+            "unfused_cc": 1.0779727140637245
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 351232,
+          "func": "z2d_1d",
+          "C": 343,
+          "Q": 512,
+          "ratios": {
+            "previous": 0.9864722863114691,
+            "unfused_cc": 1.0754481717462414
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 361250,
+          "func": "d2z_1d",
+          "C": 289,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9808917221066843,
+            "unfused_cc": 1.1719745751897293
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 361250,
+          "func": "z2d_1d",
+          "C": 289,
+          "Q": 625,
+          "ratios": {
+            "previous": 1.0354838785995477,
+            "unfused_cc": 1.1612802485970357
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 393216,
+          "func": "z2d_1d",
+          "C": 192,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9219858009638198,
+            "unfused_cc": 1.0354610145735468
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 420000,
+          "func": "z2d_1d",
+          "C": 336,
+          "Q": 625,
+          "ratios": {
+            "previous": 1.003086443263268,
+            "unfused_cc": 0.9814814841430115
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 425920,
+          "func": "d2z_1d",
+          "C": 160,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9255499008657557,
+            "unfused_cc": 1.093062564823734
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 425920,
+          "func": "z2d_1d",
+          "C": 160,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0014298481445056,
+            "unfused_cc": 0.9266187165081916
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 425984,
+          "func": "d2z_1d",
+          "C": 208,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9518628715120003,
+            "unfused_cc": 1.1666801695630344
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 428750,
+          "func": "z2d_1d",
+          "C": 343,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9668325221392788,
+            "unfused_cc": 0.9784411567659522
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 447216,
+          "func": "d2z_1d",
+          "C": 168,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9349999712842209,
+            "unfused_cc": 1.0299999953433872
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 447216,
+          "func": "z2d_1d",
+          "C": 168,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9898460193079369,
+            "unfused_cc": 0.9043478389975406
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 458752,
+          "func": "z2d_1d",
+          "C": 224,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9479865345761698,
+            "unfused_cc": 1.00503351706379
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 491520,
+          "func": "z2d_1d",
+          "C": 240,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9744525718014889,
+            "unfused_cc": 1.091240893899752
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 497664,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 243,
+          "ratios": {
+            "previous": 0.9458987714099566,
+            "unfused_cc": 1.1064572431502075
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 511104,
+          "func": "z2d_1d",
+          "C": 192,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9359395553391262,
+            "unfused_cc": 0.924183007928416
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 524288,
+          "func": "z2d_1d",
+          "C": 512,
+          "Q": 512,
+          "ratios": {
+            "previous": 0.9959955452665995,
+            "unfused_cc": 1.0818363004446647
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 532400,
+          "func": "z2d_1d",
+          "C": 200,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0056337800927047,
+            "unfused_cc": 0.9957746485339475
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 574992,
+          "func": "d2z_1d",
+          "C": 216,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9325153930699172,
+            "unfused_cc": 1.1180982049685346
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 574992,
+          "func": "z2d_1d",
+          "C": 216,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.007042241512405,
+            "unfused_cc": 0.9366196952161633
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 591872,
+          "func": "d2z_1d",
+          "C": 1024,
+          "Q": 289,
+          "ratios": {
+            "previous": 0.9845201497266871,
+            "unfused_cc": 1.1408669041971797
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 591872,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 289,
+          "ratios": {
+            "previous": 1.012371057619916,
+            "unfused_cc": 1.0907840634436927
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 596288,
+          "func": "z2d_1d",
+          "C": 224,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9986595072179997,
+            "unfused_cc": 0.9584366402275922
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 638880,
+          "func": "d2z_1d",
+          "C": 240,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9971630990187427,
+            "unfused_cc": 1.1092198291122184
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 638880,
+          "func": "z2d_1d",
+          "C": 240,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0,
+            "unfused_cc": 0.9974160610913934
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 640000,
+          "func": "z2d_1d",
+          "C": 512,
+          "Q": 625,
+          "ratios": {
+            "previous": 1.0,
+            "unfused_cc": 0.9353658445170598
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 646866,
+          "func": "d2z_1d",
+          "C": 243,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9892617568381735,
+            "unfused_cc": 1.1570470523546428
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 646866,
+          "func": "z2d_1d",
+          "C": 243,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9988937968764842,
+            "unfused_cc": 0.9203539932413178
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 681472,
+          "func": "z2d_1d",
+          "C": 256,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0056682765368394,
+            "unfused_cc": 0.8967082926980875
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 688128,
+          "func": "z2d_1d",
+          "C": 336,
+          "Q": 1024,
+          "ratios": {
+            "previous": 1.0423412545820232,
+            "unfused_cc": 1.0498132338623567
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 702464,
+          "func": "z2d_1d",
+          "C": 343,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.9924778143435518,
+            "unfused_cc": 1.0615744325015144
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 745360,
+          "func": "d2z_1d",
+          "C": 280,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9671361738416306,
+            "unfused_cc": 1.1091549390073905
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 745360,
+          "func": "z2d_1d",
+          "C": 280,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9878235651548684,
+            "unfused_cc": 0.9959454589438007
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 769318,
+          "func": "d2z_1d",
+          "C": 289,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9943630310087368,
+            "unfused_cc": 1.2051860597705397
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 769318,
+          "func": "z2d_1d",
+          "C": 289,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0237191686064067,
+            "unfused_cc": 0.9459202902757465
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 913066,
+          "func": "z2d_1d",
+          "C": 343,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0,
+            "unfused_cc": 1.0419048154610904
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更快"
+          },
+          "row_changed": false,
+          "references": [
+            "unfused_cc"
+          ],
+          "reasons": [
+            "same-row positive control for unfused_cc"
+          ]
+        },
+        {
+          "N": 1048576,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 512,
+          "ratios": {
+            "previous": 0.9524301716344667,
+            "unfused_cc": 0.9813856837422139
+          },
+          "assessments": {
+            "previous": "更慢",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 1280000,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 625,
+          "ratios": {
+            "previous": 0.9992441363547746,
+            "unfused_cc": 0.9992441363547746
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 1362944,
+          "func": "z2d_1d",
+          "C": 512,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9980519332079636,
+            "unfused_cc": 0.9064935196881594
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 2097152,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 1024,
+          "ratios": {
+            "previous": 0.998908884237978,
+            "unfused_cc": 1.0054487196423396
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "差异不明确"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        },
+        {
+          "N": 2725888,
+          "func": "d2z_1d",
+          "C": 1024,
+          "Q": 1331,
+          "ratios": {
+            "previous": 1.0444444241021662,
+            "unfused_cc": 1.232478648534745
+          },
+          "assessments": {
+            "previous": "更快",
+            "unfused_cc": "更快"
+          },
+          "row_changed": true,
+          "references": [
+            "previous"
+          ],
+          "reasons": [
+            "same-row positive control for previous"
+          ]
+        },
+        {
+          "N": 2725888,
+          "func": "z2d_1d",
+          "C": 1024,
+          "Q": 1331,
+          "ratios": {
+            "previous": 0.9993240380352395,
+            "unfused_cc": 0.8962264082857335
+          },
+          "assessments": {
+            "previous": "差异不明确",
+            "unfused_cc": "更慢"
+          },
+          "row_changed": false,
+          "references": [
+            "previous",
+            "unfused_cc"
+          ],
+          "reasons": [
+            "every original median ratio below one"
+          ]
+        }
+      ],
+      "controls": [
+        {
+          "N": 67200,
+          "func": "d2z_1d",
+          "Q": 200,
+          "reference": "previous"
+        },
+        {
+          "N": 204800,
+          "func": "d2z_1d",
+          "Q": 200,
+          "reference": "previous"
+        },
+        {
+          "N": 223608,
+          "func": "d2z_1d",
+          "Q": 1331,
+          "reference": "previous"
+        },
+        {
+          "N": 2725888,
+          "func": "d2z_1d",
+          "Q": 1331,
+          "reference": "previous"
+        },
+        {
+          "N": 77760,
+          "func": "z2d_1d",
+          "Q": 243,
+          "reference": "previous"
+        },
+        {
+          "N": 163296,
+          "func": "z2d_1d",
+          "Q": 243,
+          "reference": "previous"
+        },
+        {
+          "N": 344064,
+          "func": "z2d_1d",
+          "Q": 1024,
+          "reference": "previous"
+        },
+        {
+          "N": 688128,
+          "func": "z2d_1d",
+          "Q": 1024,
+          "reference": "previous"
+        },
+        {
+          "N": 67760,
+          "func": "z2d_1d",
+          "Q": 121,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 81312,
+          "func": "z2d_1d",
+          "Q": 121,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 138720,
+          "func": "z2d_1d",
+          "Q": 289,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 591872,
+          "func": "z2d_1d",
+          "Q": 289,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 65856,
+          "func": "z2d_1d",
+          "Q": 343,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 235298,
+          "func": "z2d_1d",
+          "Q": 343,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 75000,
+          "func": "z2d_1d",
+          "Q": 625,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 361250,
+          "func": "z2d_1d",
+          "Q": 625,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 159720,
+          "func": "z2d_1d",
+          "Q": 1331,
+          "reference": "unfused_cc"
+        },
+        {
+          "N": 913066,
+          "func": "z2d_1d",
+          "Q": 1331,
+          "reference": "unfused_cc"
+        }
+      ],
+      "clean_schedule": [
+        {
+          "index": 0,
+          "N": 65856,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 1,
+          "N": 65856,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 2,
+          "N": 67200,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 3,
+          "N": 67200,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 4,
+          "N": 67760,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 5,
+          "N": 67760,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 6,
+          "N": 68600,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 7,
+          "N": 68600,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 8,
+          "N": 69938,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 9,
+          "N": 69938,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 10,
+          "N": 69938,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 11,
+          "N": 70304,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 12,
+          "N": 70304,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 13,
+          "N": 73984,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 14,
+          "N": 73984,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 15,
+          "N": 73984,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 16,
+          "N": 73984,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 17,
+          "N": 73984,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 18,
+          "N": 75000,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 19,
+          "N": 75000,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 20,
+          "N": 75000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 21,
+          "N": 75000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 22,
+          "N": 75712,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 23,
+          "N": 75712,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 24,
+          "N": 77760,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 25,
+          "N": 77760,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 26,
+          "N": 81312,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 27,
+          "N": 81312,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 28,
+          "N": 85750,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 29,
+          "N": 85750,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 30,
+          "N": 86528,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 31,
+          "N": 86528,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 32,
+          "N": 87808,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 33,
+          "N": 87808,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 34,
+          "N": 90000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 35,
+          "N": 90000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 36,
+          "N": 92480,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 37,
+          "N": 92480,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 38,
+          "N": 92480,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 39,
+          "N": 97104,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 40,
+          "N": 97104,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 41,
+          "N": 97682,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 42,
+          "N": 97682,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 43,
+          "N": 100000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 44,
+          "N": 100000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 45,
+          "N": 100352,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 46,
+          "N": 100352,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 47,
+          "N": 101250,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 48,
+          "N": 101250,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 49,
+          "N": 101250,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 50,
+          "N": 101250,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 51,
+          "N": 105000,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 52,
+          "N": 105000,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 53,
+          "N": 110592,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 54,
+          "N": 110592,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 55,
+          "N": 110976,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 56,
+          "N": 110976,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 57,
+          "N": 110976,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 58,
+          "N": 114688,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 59,
+          "N": 114688,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 60,
+          "N": 114688,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 61,
+          "N": 115600,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 62,
+          "N": 115600,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 63,
+          "N": 115934,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 64,
+          "N": 115934,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 65,
+          "N": 118098,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 66,
+          "N": 118098,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 67,
+          "N": 120224,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 68,
+          "N": 120224,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 69,
+          "N": 122880,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 70,
+          "N": 122880,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 71,
+          "N": 123904,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 72,
+          "N": 123904,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 73,
+          "N": 124848,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 74,
+          "N": 124848,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 75,
+          "N": 124848,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 76,
+          "N": 129472,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 77,
+          "N": 129472,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 78,
+          "N": 129472,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 79,
+          "N": 131712,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 80,
+          "N": 131712,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 81,
+          "N": 133100,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 82,
+          "N": 133100,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 83,
+          "N": 135000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 84,
+          "N": 135000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 85,
+          "N": 138424,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 86,
+          "N": 138424,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 87,
+          "N": 138424,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 88,
+          "N": 138424,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 89,
+          "N": 138720,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 90,
+          "N": 138720,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 91,
+          "N": 138720,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 92,
+          "N": 142688,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 93,
+          "N": 142688,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 94,
+          "N": 142688,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 95,
+          "N": 147968,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 96,
+          "N": 147968,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 97,
+          "N": 148176,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 98,
+          "N": 148176,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 99,
+          "N": 153664,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 100,
+          "N": 153664,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 101,
+          "N": 159720,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 102,
+          "N": 159720,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 103,
+          "N": 160000,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 104,
+          "N": 160000,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 105,
+          "N": 160000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 106,
+          "N": 160000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 107,
+          "N": 161840,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 108,
+          "N": 161840,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 109,
+          "N": 163296,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 110,
+          "N": 163296,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 111,
+          "N": 164640,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 112,
+          "N": 164640,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 113,
+          "N": 165888,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 114,
+          "N": 165888,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 115,
+          "N": 166698,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 116,
+          "N": 166698,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 117,
+          "N": 167042,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 118,
+          "N": 167042,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 119,
+          "N": 170368,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 120,
+          "N": 170368,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 121,
+          "N": 170368,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 122,
+          "N": 170368,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 123,
+          "N": 200000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 124,
+          "N": 200000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 125,
+          "N": 204800,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 126,
+          "N": 204800,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 127,
+          "N": 204800,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 128,
+          "N": 204800,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 129,
+          "N": 211250,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 130,
+          "N": 211250,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 131,
+          "N": 212960,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 132,
+          "N": 212960,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 133,
+          "N": 215622,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 134,
+          "N": 215622,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 135,
+          "N": 215622,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 136,
+          "N": 215622,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 137,
+          "N": 223608,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 138,
+          "N": 223608,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 139,
+          "N": 223608,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 140,
+          "N": 223608,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 141,
+          "N": 230496,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 142,
+          "N": 230496,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 143,
+          "N": 235298,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 144,
+          "N": 235298,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 145,
+          "N": 235298,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 146,
+          "N": 250000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 147,
+          "N": 250000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 148,
+          "N": 250000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 149,
+          "N": 255552,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 150,
+          "N": 255552,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 151,
+          "N": 260000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 152,
+          "N": 260000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 153,
+          "N": 266200,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 154,
+          "N": 266200,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 155,
+          "N": 266200,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 156,
+          "N": 266200,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 157,
+          "N": 270000,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 158,
+          "N": 270000,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 159,
+          "N": 276848,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 160,
+          "N": 276848,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 161,
+          "N": 287496,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 162,
+          "N": 287496,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 163,
+          "N": 287496,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 164,
+          "N": 287496,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 165,
+          "N": 298144,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 166,
+          "N": 298144,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 167,
+          "N": 300000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 168,
+          "N": 300000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 169,
+          "N": 300000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 170,
+          "N": 303750,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 171,
+          "N": 303750,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 172,
+          "N": 303750,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 173,
+          "N": 320000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 174,
+          "N": 320000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 175,
+          "N": 320000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 176,
+          "N": 322102,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 177,
+          "N": 322102,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 178,
+          "N": 327680,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 179,
+          "N": 327680,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 180,
+          "N": 332750,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 181,
+          "N": 332750,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 182,
+          "N": 332750,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 183,
+          "N": 332750,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 184,
+          "N": 332750,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 185,
+          "N": 340736,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 186,
+          "N": 340736,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 187,
+          "N": 340736,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 188,
+          "N": 340736,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 189,
+          "N": 344064,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 190,
+          "N": 344064,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 191,
+          "N": 346112,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 192,
+          "N": 346112,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 193,
+          "N": 351232,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 194,
+          "N": 351232,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 195,
+          "N": 351232,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 196,
+          "N": 351232,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 197,
+          "N": 361250,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 198,
+          "N": 361250,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 199,
+          "N": 361250,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 200,
+          "N": 361250,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 201,
+          "N": 393216,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 202,
+          "N": 393216,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 203,
+          "N": 420000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 204,
+          "N": 420000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 205,
+          "N": 425920,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 206,
+          "N": 425920,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 207,
+          "N": 425920,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 208,
+          "N": 425920,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 209,
+          "N": 425984,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 210,
+          "N": 425984,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 211,
+          "N": 428750,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 212,
+          "N": 428750,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 213,
+          "N": 428750,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 214,
+          "N": 447216,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 215,
+          "N": 447216,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 216,
+          "N": 447216,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 217,
+          "N": 447216,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 218,
+          "N": 447216,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 219,
+          "N": 458752,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 220,
+          "N": 458752,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 221,
+          "N": 491520,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 222,
+          "N": 491520,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 223,
+          "N": 497664,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 224,
+          "N": 497664,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 225,
+          "N": 511104,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 226,
+          "N": 511104,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 227,
+          "N": 511104,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 228,
+          "N": 524288,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 229,
+          "N": 524288,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 230,
+          "N": 532400,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 231,
+          "N": 532400,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 232,
+          "N": 574992,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 233,
+          "N": 574992,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 234,
+          "N": 574992,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 235,
+          "N": 574992,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 236,
+          "N": 591872,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 237,
+          "N": 591872,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 238,
+          "N": 591872,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 239,
+          "N": 591872,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 240,
+          "N": 596288,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 241,
+          "N": 596288,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 242,
+          "N": 596288,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 243,
+          "N": 638880,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 244,
+          "N": 638880,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 245,
+          "N": 638880,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 246,
+          "N": 638880,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 247,
+          "N": 640000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 248,
+          "N": 640000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 249,
+          "N": 646866,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 250,
+          "N": 646866,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 251,
+          "N": 646866,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 252,
+          "N": 646866,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 253,
+          "N": 646866,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 254,
+          "N": 681472,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 255,
+          "N": 681472,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 256,
+          "N": 688128,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 257,
+          "N": 688128,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 258,
+          "N": 702464,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 259,
+          "N": 702464,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 260,
+          "N": 745360,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 261,
+          "N": 745360,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 262,
+          "N": 745360,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 263,
+          "N": 745360,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 264,
+          "N": 745360,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 265,
+          "N": 769318,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 266,
+          "N": 769318,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 267,
+          "N": 769318,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 268,
+          "N": 769318,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 269,
+          "N": 913066,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 270,
+          "N": 913066,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 271,
+          "N": 1048576,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 272,
+          "N": 1048576,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 273,
+          "N": 1048576,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 274,
+          "N": 1280000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 275,
+          "N": 1280000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 276,
+          "N": 1280000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 277,
+          "N": 1362944,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 278,
+          "N": 1362944,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 279,
+          "N": 1362944,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 280,
+          "N": 2097152,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 281,
+          "N": 2097152,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 282,
+          "N": 2725888,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 283,
+          "N": 2725888,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 284,
+          "N": 2725888,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 285,
+          "N": 2725888,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 286,
+          "N": 2725888,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        }
+      ],
+      "mandatory_detailed": [
+        {
+          "index": 0,
+          "N": 65856,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 1,
+          "N": 65856,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 2,
+          "N": 67200,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 3,
+          "N": 67200,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 4,
+          "N": 67760,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 5,
+          "N": 67760,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 6,
+          "N": 69938,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 7,
+          "N": 69938,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 8,
+          "N": 75000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 9,
+          "N": 75000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 10,
+          "N": 77760,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 11,
+          "N": 77760,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 12,
+          "N": 81312,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 13,
+          "N": 81312,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 14,
+          "N": 97104,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 15,
+          "N": 97104,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 16,
+          "N": 110976,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 17,
+          "N": 110976,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 18,
+          "N": 115600,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 19,
+          "N": 115600,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 20,
+          "N": 124848,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 21,
+          "N": 124848,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 22,
+          "N": 124848,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 23,
+          "N": 129472,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 24,
+          "N": 129472,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 25,
+          "N": 129472,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 26,
+          "N": 138720,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 27,
+          "N": 138720,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 28,
+          "N": 142688,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 29,
+          "N": 142688,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 30,
+          "N": 159720,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 31,
+          "N": 159720,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 32,
+          "N": 161840,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 33,
+          "N": 161840,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 34,
+          "N": 163296,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 35,
+          "N": 163296,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 36,
+          "N": 170368,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 37,
+          "N": 170368,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 38,
+          "N": 204800,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 39,
+          "N": 204800,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 40,
+          "N": 223608,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 41,
+          "N": 223608,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 42,
+          "N": 235298,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 43,
+          "N": 235298,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 44,
+          "N": 255552,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 45,
+          "N": 255552,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 46,
+          "N": 300000,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 47,
+          "N": 300000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 48,
+          "N": 300000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 49,
+          "N": 303750,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 50,
+          "N": 303750,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 51,
+          "N": 332750,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 52,
+          "N": 332750,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 53,
+          "N": 332750,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 54,
+          "N": 344064,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 55,
+          "N": 344064,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 56,
+          "N": 346112,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 57,
+          "N": 346112,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 58,
+          "N": 361250,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 59,
+          "N": 361250,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 60,
+          "N": 393216,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 61,
+          "N": 393216,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 62,
+          "N": 425920,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 63,
+          "N": 425920,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 64,
+          "N": 425920,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 65,
+          "N": 425920,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 66,
+          "N": 447216,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 67,
+          "N": 447216,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 68,
+          "N": 447216,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 69,
+          "N": 447216,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 70,
+          "N": 458752,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 71,
+          "N": 458752,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 72,
+          "N": 497664,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 73,
+          "N": 497664,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 74,
+          "N": 511104,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 75,
+          "N": 511104,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 76,
+          "N": 511104,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 77,
+          "N": 574992,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 78,
+          "N": 574992,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 79,
+          "N": 574992,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 80,
+          "N": 574992,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 81,
+          "N": 591872,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 82,
+          "N": 591872,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 83,
+          "N": 640000,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 84,
+          "N": 640000,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 85,
+          "N": 646866,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 86,
+          "N": 646866,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 87,
+          "N": 681472,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 88,
+          "N": 681472,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 89,
+          "N": 688128,
+          "func": "z2d_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 90,
+          "N": 688128,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 91,
+          "N": 769318,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 92,
+          "N": 769318,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 93,
+          "N": 913066,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 94,
+          "N": 913066,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 95,
+          "N": 1362944,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 96,
+          "N": 1362944,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 97,
+          "N": 2725888,
+          "func": "d2z_1d",
+          "arm": "previous"
+        },
+        {
+          "index": 98,
+          "N": 2725888,
+          "func": "d2z_1d",
+          "arm": "candidate"
+        },
+        {
+          "index": 99,
+          "N": 2725888,
+          "func": "z2d_1d",
+          "arm": "unfused_cc"
+        },
+        {
+          "index": 100,
+          "N": 2725888,
+          "func": "z2d_1d",
+          "arm": "candidate"
+        }
+      ],
+      "ablations": [
+        {
+          "N": 115600,
+          "func": "d2z_1d",
+          "variant": "restore_v4_input",
+          "reason": "all changed-row severe v4 comparisons"
+        },
+        {
+          "N": 393216,
+          "func": "z2d_1d",
+          "variant": "restore_v4_output",
+          "reason": "all changed-row severe v4 comparisons"
+        },
+        {
+          "N": 425920,
+          "func": "d2z_1d",
+          "variant": "restore_v4_input",
+          "reason": "all changed-row severe v4 comparisons"
+        },
+        {
+          "N": 447216,
+          "func": "d2z_1d",
+          "variant": "restore_v4_input",
+          "reason": "all changed-row severe v4 comparisons"
+        },
+        {
+          "N": 458752,
+          "func": "z2d_1d",
+          "variant": "restore_v4_output",
+          "reason": "all changed-row severe v4 comparisons"
+        },
+        {
+          "N": 497664,
+          "func": "z2d_1d",
+          "variant": "restore_v4_output",
+          "reason": "all changed-row severe v4 comparisons"
+        },
+        {
+          "N": 574992,
+          "func": "d2z_1d",
+          "variant": "restore_v4_input",
+          "reason": "all changed-row severe v4 comparisons"
+        },
+        {
+          "N": 67200,
+          "func": "d2z_1d",
+          "variant": "restore_v4_input",
+          "reason": "matched changed-type positive control"
+        },
+        {
+          "N": 223608,
+          "func": "d2z_1d",
+          "variant": "restore_v4_input",
+          "reason": "matched changed-type positive control"
+        },
+        {
+          "N": 77760,
+          "func": "z2d_1d",
+          "variant": "restore_v4_output",
+          "reason": "matched changed-type positive control"
+        },
+        {
+          "N": 344064,
+          "func": "z2d_1d",
+          "variant": "restore_v4_output",
+          "reason": "matched changed-type positive control"
+        }
+      ],
+      "adaptive_rule": "Add a previously non-detailed pair if both clean repeats have ratio<0.98. This threshold schedules instrumentation; it is not a significance verdict."
+    },
+    "geometry": {
+      "65856": {
+        "C": 96,
+        "Q": 343
+      },
+      "67200": {
+        "C": 168,
+        "Q": 200
+      },
+      "67760": {
+        "C": 280,
+        "Q": 121
+      },
+      "68600": {
+        "C": 100,
+        "Q": 343
+      },
+      "69938": {
+        "C": 289,
+        "Q": 121
+      },
+      "70304": {
+        "C": 208,
+        "Q": 169
+      },
+      "73984": {
+        "C": 128,
+        "Q": 289
+      },
+      "75000": {
+        "C": 60,
+        "Q": 625
+      },
+      "75712": {
+        "C": 224,
+        "Q": 169
+      },
+      "77760": {
+        "C": 160,
+        "Q": 243
+      },
+      "81312": {
+        "C": 336,
+        "Q": 121
+      },
+      "85750": {
+        "C": 125,
+        "Q": 343
+      },
+      "86528": {
+        "C": 169,
+        "Q": 256
+      },
+      "87808": {
+        "C": 128,
+        "Q": 343
+      },
+      "90000": {
+        "C": 72,
+        "Q": 625
+      },
+      "92480": {
+        "C": 160,
+        "Q": 289
+      },
+      "97104": {
+        "C": 168,
+        "Q": 289
+      },
+      "97682": {
+        "C": 289,
+        "Q": 169
+      },
+      "100000": {
+        "C": 80,
+        "Q": 625
+      },
+      "100352": {
+        "C": 1024,
+        "Q": 49
+      },
+      "101250": {
+        "C": 81,
+        "Q": 625
+      },
+      "105000": {
+        "C": 84,
+        "Q": 625
+      },
+      "110592": {
+        "C": 108,
+        "Q": 512
+      },
+      "110976": {
+        "C": 192,
+        "Q": 289
+      },
+      "114688": {
+        "C": 512,
+        "Q": 112
+      },
+      "115600": {
+        "C": 289,
+        "Q": 200
+      },
+      "115934": {
+        "C": 169,
+        "Q": 343
+      },
+      "118098": {
+        "C": 243,
+        "Q": 243
+      },
+      "120224": {
+        "C": 208,
+        "Q": 289
+      },
+      "122880": {
+        "C": 60,
+        "Q": 1024
+      },
+      "123904": {
+        "C": 121,
+        "Q": 512
+      },
+      "124848": {
+        "C": 216,
+        "Q": 289
+      },
+      "129472": {
+        "C": 224,
+        "Q": 289
+      },
+      "131712": {
+        "C": 343,
+        "Q": 192
+      },
+      "133100": {
+        "C": 50,
+        "Q": 1331
+      },
+      "135000": {
+        "C": 108,
+        "Q": 625
+      },
+      "138424": {
+        "C": 52,
+        "Q": 1331
+      },
+      "138720": {
+        "C": 240,
+        "Q": 289
+      },
+      "142688": {
+        "C": 208,
+        "Q": 343
+      },
+      "147968": {
+        "C": 256,
+        "Q": 289
+      },
+      "148176": {
+        "C": 216,
+        "Q": 343
+      },
+      "153664": {
+        "C": 224,
+        "Q": 343
+      },
+      "159720": {
+        "C": 60,
+        "Q": 1331
+      },
+      "160000": {
+        "C": 128,
+        "Q": 625
+      },
+      "161840": {
+        "C": 280,
+        "Q": 289
+      },
+      "163296": {
+        "C": 336,
+        "Q": 243
+      },
+      "164640": {
+        "C": 240,
+        "Q": 343
+      },
+      "165888": {
+        "C": 81,
+        "Q": 1024
+      },
+      "166698": {
+        "C": 343,
+        "Q": 243
+      },
+      "167042": {
+        "C": 289,
+        "Q": 289
+      },
+      "170368": {
+        "C": 64,
+        "Q": 1331
+      },
+      "200000": {
+        "C": 160,
+        "Q": 625
+      },
+      "204800": {
+        "C": 512,
+        "Q": 200
+      },
+      "211250": {
+        "C": 169,
+        "Q": 625
+      },
+      "212960": {
+        "C": 80,
+        "Q": 1331
+      },
+      "215622": {
+        "C": 81,
+        "Q": 1331
+      },
+      "223608": {
+        "C": 84,
+        "Q": 1331
+      },
+      "230496": {
+        "C": 336,
+        "Q": 343
+      },
+      "235298": {
+        "C": 343,
+        "Q": 343
+      },
+      "250000": {
+        "C": 200,
+        "Q": 625
+      },
+      "255552": {
+        "C": 96,
+        "Q": 1331
+      },
+      "260000": {
+        "C": 208,
+        "Q": 625
+      },
+      "266200": {
+        "C": 100,
+        "Q": 1331
+      },
+      "270000": {
+        "C": 216,
+        "Q": 625
+      },
+      "276848": {
+        "C": 104,
+        "Q": 1331
+      },
+      "287496": {
+        "C": 108,
+        "Q": 1331
+      },
+      "298144": {
+        "C": 112,
+        "Q": 1331
+      },
+      "300000": {
+        "C": 240,
+        "Q": 625
+      },
+      "303750": {
+        "C": 243,
+        "Q": 625
+      },
+      "320000": {
+        "C": 256,
+        "Q": 625
+      },
+      "322102": {
+        "C": 121,
+        "Q": 1331
+      },
+      "327680": {
+        "C": 160,
+        "Q": 1024
+      },
+      "332750": {
+        "C": 125,
+        "Q": 1331
+      },
+      "340736": {
+        "C": 128,
+        "Q": 1331
+      },
+      "344064": {
+        "C": 168,
+        "Q": 1024
+      },
+      "346112": {
+        "C": 1024,
+        "Q": 169
+      },
+      "351232": {
+        "C": 343,
+        "Q": 512
+      },
+      "361250": {
+        "C": 289,
+        "Q": 625
+      },
+      "393216": {
+        "C": 192,
+        "Q": 1024
+      },
+      "420000": {
+        "C": 336,
+        "Q": 625
+      },
+      "425920": {
+        "C": 160,
+        "Q": 1331
+      },
+      "425984": {
+        "C": 208,
+        "Q": 1024
+      },
+      "428750": {
+        "C": 343,
+        "Q": 625
+      },
+      "447216": {
+        "C": 168,
+        "Q": 1331
+      },
+      "458752": {
+        "C": 224,
+        "Q": 1024
+      },
+      "491520": {
+        "C": 240,
+        "Q": 1024
+      },
+      "497664": {
+        "C": 1024,
+        "Q": 243
+      },
+      "511104": {
+        "C": 192,
+        "Q": 1331
+      },
+      "524288": {
+        "C": 512,
+        "Q": 512
+      },
+      "532400": {
+        "C": 200,
+        "Q": 1331
+      },
+      "574992": {
+        "C": 216,
+        "Q": 1331
+      },
+      "591872": {
+        "C": 1024,
+        "Q": 289
+      },
+      "596288": {
+        "C": 224,
+        "Q": 1331
+      },
+      "638880": {
+        "C": 240,
+        "Q": 1331
+      },
+      "640000": {
+        "C": 512,
+        "Q": 625
+      },
+      "646866": {
+        "C": 243,
+        "Q": 1331
+      },
+      "681472": {
+        "C": 256,
+        "Q": 1331
+      },
+      "688128": {
+        "C": 336,
+        "Q": 1024
+      },
+      "702464": {
+        "C": 343,
+        "Q": 1024
+      },
+      "745360": {
+        "C": 280,
+        "Q": 1331
+      },
+      "769318": {
+        "C": 289,
+        "Q": 1331
+      },
+      "913066": {
+        "C": 343,
+        "Q": 1331
+      },
+      "1048576": {
+        "C": 1024,
+        "Q": 512
+      },
+      "1280000": {
+        "C": 1024,
+        "Q": 625
+      },
+      "1362944": {
+        "C": 512,
+        "Q": 1331
+      },
+      "2097152": {
+        "C": 1024,
+        "Q": 1024
+      },
+      "2725888": {
+        "C": 1024,
+        "Q": 1331
+      }
+    },
+    "kernel_versions": {
+      "previous": 4,
+      "candidate": 5
+    },
+    "diagnostic_program": {
+      "binary": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/measurement/EXP-128-cc-local-unfused-phasefix-performance-20261027/fft_test_1d",
+      "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba",
+      "identity": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/measurement/EXP-128-cc-local-unfused-phasefix-performance-20261027/device_identity",
+      "identity_sha256": "c210e3db10d95706ffd328bdbfbbfc5e74d7beb8dad92716d86df6c6991e9a08",
+      "provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-performance-20261027/provenance.json",
+      "provenance_sha256": "eea038b357731589c5ac278b6434e7ad34d29a719148f1fb92d90a4d03a5d7ed"
+    },
+    "rtc_shim": {
+      "binary": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/ablation-957127/rtc_source_diagnostic.so",
+      "sha256": "12ddc7790b0d2b56f59e748a946d747ba5895af1c8d3c2bc5c96733a2b164640",
+      "source": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/rtc_source_diagnostic.cpp"
+    },
+    "diagnostic_workload": {
+      "formal": false,
+      "negative_comparisons": 138,
+      "negative_cases": 115,
+      "severe_comparisons": 35,
+      "severe_cases": 30,
+      "cases_with_controls": 131,
+      "clean_repeats": 2,
+      "clean_processes": 574,
+      "minimum_profile_case_arms": 101,
+      "minimum_metadata_and_trace_processes": 202,
+      "minimum_counter_processes": 287,
+      "row_intervention_cases": 11,
+      "row_intervention_processes": 66,
+      "row_intervention_counter_processes": 27,
+      "end_anchor_processes": 65,
+      "warmups": 10,
+      "samples_per_successful_process": 30,
+      "adaptive_policy": "Add a previously non-detailed pair if both clean repeats have ratio<0.98. This threshold schedules instrumentation; it is not a significance verdict.",
+      "production_libraries_rebuilt": false,
+      "minimum_processes": 1221
+    },
+    "diagnostic": {
+      "script": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/diagnose_cc_v5_regressions.py",
+      "sha256": "e3aa61a9e6ab341e8963e79cb08d94408d8ed18d015e702540c6d7d2a44cab32",
+      "tool_source_commit": "95a07849964f1c2ebd4c93f443c81473ce8a230e",
+      "inputs": [
+        {
+          "path": "/public/home/zhangkewei/zr/manage.py",
+          "sha256": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+          "sha256": "a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/tools/workspace_manager/manager.py",
+          "sha256": "c16a83799c21bc5008588e072513dad87761bdb767f34734473332ec2fb4bde4"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py",
+          "sha256": "dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/tools/fft_measurement/common.py",
+          "sha256": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/tools/fft_measurement/sample_contract.py",
+          "sha256": "ca53fcfb20758b3253433fbeefe55db050a9c94f884ceee68700f1d750babc6e"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/tools/fft_measurement/cufft261012_contract.py",
+          "sha256": "cb517840710ae90516fb2a0e8f874a7792296fafee84a28b08471818389b9e2d"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/diagnose_rows_v3_regression.py",
+          "sha256": "79baa0b2bff0fef09714c59c44f638ac314d2f4736eb7681e1f2c0f6eb4ee7a1"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_unified.py",
+          "sha256": "ead69e672d27c927aa387bec7708f90cef11be94ed78c5b00275cd3f7742b069"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_grouped.py",
+          "sha256": "3d3885b99b5da96adc9c92d704df9e332e78138b293baf87812788ee10a05fb4"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/validate_cc_local_boundary.py",
+          "sha256": "935ce4b4cedae384c217622576b45e892a9fa564be60dd1a3dbccfa9d86aac46"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_dispatch.py",
+          "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_regression_evidence.py",
+          "sha256": "2d4a832d66e6a10645e5e803033ae78593d5c52d24312e47f23c8461edcef9da"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_v5_regression_common.py",
+          "sha256": "97160bab70019fa4dd1d00bc429029b617d0138ead399cdfc7f352f91a546ef6"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/rtc_source_diagnostic.cpp",
+          "sha256": "2f55d5c16cba9ba4b354ee86f60da582bc590be38acde4e7f8a14cd8ae384e34"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/v5-regression-20261027/selection.json",
+          "sha256": "409c465ed35cd28d53d64cef8259edb5411dd43f4da3e8fcf0c52a9541703321"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/v5-regression-20261027/source-facts.json",
+          "sha256": "024a676ffcb72f74223c704a721bd82d77d6226ce9175e4cd99038476e6aac3d"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/v5-regression-20261027/compile-preflight.json",
+          "sha256": "1fe74d1d3440ed8105df73b040e60c20b1c3524c3fcaaf6c2da96c355884735a"
+        },
+        {
+          "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/v5-regression-20261027/host-tests.json",
+          "sha256": "170cdf252446172592cb6055ccf7a608112e29578643d83bb4d09a0602892887"
+        }
+      ],
+      "reason": "Separate reproducible code regressions from changing launch/device conditions, then locate per-case fusion overhead by actual stage timing, resource/counter evidence, and isolated restoration of the v4 row region."
+    }
+  },
+  "paths": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027",
+    "logs": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/logs",
+    "build": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/diagnostics/EXP-128-cc-v5-regression-diagnostic-20261027",
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-v5-regression-diagnostic-20261027",
+    "cache": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-v5-regression-diagnostic-20261027"
+  },
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/scripts/diagnose_cc_v5_regressions.py",
+    "--config",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/submit-manifest.json",
+    "--run",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027",
+    "--build",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/build/diagnostics/EXP-128-cc-v5-regression-diagnostic-20261027",
+    "--cache",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/cache/EXP-128-cc-v5-regression-diagnostic-20261027"
+  ],
+  "submission_command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/logs/slurm_%j.err",
+    "--cpus-per-task=8",
+    "--partition=hx1hdnormal01",
+    "--time=02:00:00",
+    "--exclusive",
+    "--exclude=a01r4n05",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "diagnose",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-v5-regression-diagnostic-20261027/submit-manifest.json"
+  ],
+  "cases": 131,
+  "node_exclusive": true,
+  "notice": "Diagnostic instrumentation only; retain original formal measurements unchanged."
+}
