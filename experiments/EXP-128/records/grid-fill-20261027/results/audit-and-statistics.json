@@ -1,0 +1,508 @@
+{
+  "complete": true,
+  "new_cells": 84,
+  "new_cases": 168,
+  "new_processes": 336,
+  "new_samples": 10080,
+  "validation_numerical_cases": 168,
+  "validation_dispatch_cases": 168,
+  "max_numerical_error": 5.0330110449673766e-15,
+  "total_cells_per_direction": 278,
+  "outside_scope_cells_per_direction": 283,
+  "original_cells_per_direction": 194,
+  "original_data_sha256": "83f309a87041bdd2317a9bb2ca64af11d4d516f00b627a3a594b809f86ff1983",
+  "matrix_sha256": "6d794c14cc149de5792fbe767823aaebaa762a39fbaa20b88f6c13262d3406e8",
+  "by_direction": {
+    "z2d": {
+      "cases": 84,
+      "faster": 70,
+      "equal": 1,
+      "slower": 13,
+      "median_case_speedup": 1.1628899022908534,
+      "min_speedup": 0.8442028967168349,
+      "max_speedup": 1.4942527853814476,
+      "clear_faster": 28,
+      "clear_slower": 6,
+      "unclear": 50,
+      "iqr_overlap": 14,
+      "order_effect": 41,
+      "below_095": 5,
+      "within_095_105": 14,
+      "above_105": 65
+    },
+    "d2z": {
+      "cases": 84,
+      "faster": 64,
+      "equal": 0,
+      "slower": 20,
+      "median_case_speedup": 1.1331607692239145,
+      "min_speedup": 0.8086253021934655,
+      "max_speedup": 1.492753616202159,
+      "clear_faster": 26,
+      "clear_slower": 4,
+      "unclear": 54,
+      "iqr_overlap": 12,
+      "order_effect": 50,
+      "below_095": 11,
+      "within_095_105": 15,
+      "above_105": 58
+    }
+  },
+  "groups": [
+    {
+      "group": 0,
+      "cells": 65,
+      "cases": 130,
+      "processes": 260,
+      "samples": 7800,
+      "performance_job": "983035",
+      "validation_job": "983034",
+      "host": "a14r1n15",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303134623438653535346531386531",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "validation_gpu": {
+        "count": 1,
+        "uuid": "30303134633161633936306332393231",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "first": "2026-10-27T05:20:45.401368+00:00",
+      "last": "2026-10-27T05:35:14.162142+00:00",
+      "validation_seconds": 732.395745519083,
+      "arms": {
+        "baseline": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g0-20261027",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "11334e05089d478225829382df54a65e0dae851a",
+          "source_state": "{\"commit\": \"11334e05089d478225829382df54a65e0dae851a\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"c425588dfc5a5ea52956a420f33f98f62d00693e\", \"source\": \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_grid_v3_build\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"27fda703467bc8bce33da977bb53514cf8784459b6770de1bcca2724d6ba38aa\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"ca67bdc1ba1d8d66372989a4e1231b93f4862cb62d8ea7dd69e2279b5df8ecb6\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"98b7f95906c7a62de11735b5be5a008529c6289951a66e923da051bf170ebac9\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+          "library_sha256": "b01eb39408fc5635d97fee34e9137017f74fbfbfa708451400bf02b0a0002452",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-build-20261027/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g0-20261027/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        }
+      },
+      "by_direction": {
+        "z2d": {
+          "cases": 65,
+          "faster": 58,
+          "equal": 1,
+          "slower": 6,
+          "median_case_speedup": 1.2128045275651191,
+          "min_speedup": 0.8442028967168349,
+          "max_speedup": 1.4942527853814476,
+          "clear_faster": 24,
+          "clear_slower": 3,
+          "unclear": 38,
+          "iqr_overlap": 7,
+          "order_effect": 33,
+          "below_095": 3,
+          "within_095_105": 6,
+          "above_105": 56
+        },
+        "d2z": {
+          "cases": 65,
+          "faster": 58,
+          "equal": 0,
+          "slower": 7,
+          "median_case_speedup": 1.173913136395345,
+          "min_speedup": 0.8086253021934655,
+          "max_speedup": 1.492753616202159,
+          "clear_faster": 22,
+          "clear_slower": 1,
+          "unclear": 42,
+          "iqr_overlap": 6,
+          "order_effect": 40,
+          "below_095": 4,
+          "within_095_105": 6,
+          "above_105": 55
+        }
+      }
+    },
+    {
+      "group": 1,
+      "cells": 13,
+      "cases": 26,
+      "processes": 52,
+      "samples": 1560,
+      "performance_job": "983038",
+      "validation_job": "983037",
+      "host": "a14r1n15",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303134623438653535346531386531",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "validation_gpu": {
+        "count": 1,
+        "uuid": "30303134623438653535346531386531",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "first": "2026-10-27T05:39:19.274445+00:00",
+      "last": "2026-10-27T05:42:13.789185+00:00",
+      "validation_seconds": 156.68099846178666,
+      "arms": {
+        "baseline": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g1-20261027",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "3095e4e9eb07fd52fecddea694a21d25d334835a",
+          "source_state": "{\"commit\": \"3095e4e9eb07fd52fecddea694a21d25d334835a\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"c425588dfc5a5ea52956a420f33f98f62d00693e\", \"source\": \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_grid_v3_build\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"27fda703467bc8bce33da977bb53514cf8784459b6770de1bcca2724d6ba38aa\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"ca67bdc1ba1d8d66372989a4e1231b93f4862cb62d8ea7dd69e2279b5df8ecb6\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"98b7f95906c7a62de11735b5be5a008529c6289951a66e923da051bf170ebac9\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+          "library_sha256": "a304fe37ca1066e226bf31430cf850dfe63f0a6c103350430e83a677d590c72d",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-build-20261027/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g1-20261027/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        }
+      },
+      "by_direction": {
+        "z2d": {
+          "cases": 13,
+          "faster": 10,
+          "equal": 0,
+          "slower": 3,
+          "median_case_speedup": 1.0648649182679488,
+          "min_speedup": 0.9744680884792126,
+          "max_speedup": 1.452631586686891,
+          "clear_faster": 4,
+          "clear_slower": 1,
+          "unclear": 8,
+          "iqr_overlap": 5,
+          "order_effect": 5,
+          "below_095": 0,
+          "within_095_105": 5,
+          "above_105": 8
+        },
+        "d2z": {
+          "cases": 13,
+          "faster": 5,
+          "equal": 0,
+          "slower": 8,
+          "median_case_speedup": 0.9779735036682621,
+          "min_speedup": 0.8398057989068941,
+          "max_speedup": 1.1892550681659728,
+          "clear_faster": 3,
+          "clear_slower": 2,
+          "unclear": 8,
+          "iqr_overlap": 4,
+          "order_effect": 6,
+          "below_095": 4,
+          "within_095_105": 6,
+          "above_105": 3
+        }
+      }
+    },
+    {
+      "group": 2,
+      "cells": 5,
+      "cases": 10,
+      "processes": 20,
+      "samples": 600,
+      "performance_job": "983042",
+      "validation_job": "983040",
+      "host": "a01r3n14",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135386332623766613831383831",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "validation_gpu": {
+        "count": 1,
+        "uuid": "30303134623438653535346531386531",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "first": "2026-10-27T05:42:43.512697+00:00",
+      "last": "2026-10-27T05:43:58.989836+00:00",
+      "validation_seconds": 61.88780496874824,
+      "arms": {
+        "baseline": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g2-20261027",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "3095e4e9eb07fd52fecddea694a21d25d334835a",
+          "source_state": "{\"commit\": \"3095e4e9eb07fd52fecddea694a21d25d334835a\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"c425588dfc5a5ea52956a420f33f98f62d00693e\", \"source\": \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_grid_v3_build\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"27fda703467bc8bce33da977bb53514cf8784459b6770de1bcca2724d6ba38aa\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"ca67bdc1ba1d8d66372989a4e1231b93f4862cb62d8ea7dd69e2279b5df8ecb6\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"98b7f95906c7a62de11735b5be5a008529c6289951a66e923da051bf170ebac9\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+          "library_sha256": "3516377b0d3b8df6d09be90daa4af21fbe339db9e1d1567d1e3525cd43929809",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-build-20261027/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g2-20261027/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        }
+      },
+      "by_direction": {
+        "z2d": {
+          "cases": 5,
+          "faster": 2,
+          "equal": 0,
+          "slower": 3,
+          "median_case_speedup": 0.9809782429891405,
+          "min_speedup": 0.8483478566221235,
+          "max_speedup": 1.0558658916311237,
+          "clear_faster": 0,
+          "clear_slower": 1,
+          "unclear": 4,
+          "iqr_overlap": 2,
+          "order_effect": 3,
+          "below_095": 1,
+          "within_095_105": 3,
+          "above_105": 1
+        },
+        "d2z": {
+          "cases": 5,
+          "faster": 1,
+          "equal": 0,
+          "slower": 4,
+          "median_case_speedup": 0.9523809582471819,
+          "min_speedup": 0.8524590351650616,
+          "max_speedup": 1.0382514036634567,
+          "clear_faster": 1,
+          "clear_slower": 1,
+          "unclear": 3,
+          "iqr_overlap": 2,
+          "order_effect": 3,
+          "below_095": 2,
+          "within_095_105": 3,
+          "above_105": 0
+        }
+      }
+    },
+    {
+      "group": 3,
+      "cells": 1,
+      "cases": 2,
+      "processes": 4,
+      "samples": 120,
+      "performance_job": "983224",
+      "validation_job": "983223",
+      "host": "a01r3n14",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135386332623766613831383831",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "validation_gpu": {
+        "count": 1,
+        "uuid": "30303135386332623766613831383831",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "first": "2026-10-27T05:47:59.336198+00:00",
+      "last": "2026-10-27T05:48:18.456701+00:00",
+      "validation_seconds": 18.609159119427204,
+      "arms": {
+        "baseline": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g3-20261027",
+          "source_repo": "/public/home/zhangkewei/zr",
+          "source_commit": "3095e4e9eb07fd52fecddea694a21d25d334835a",
+          "source_state": "{\"commit\": \"3095e4e9eb07fd52fecddea694a21d25d334835a\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"c425588dfc5a5ea52956a420f33f98f62d00693e\", \"source\": \"/public/home/zhangkewei/zr/experiments/EXP-128/scripts/cc_grid_v3_build\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"27fda703467bc8bce33da977bb53514cf8784459b6770de1bcca2724d6ba38aa\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"ca67bdc1ba1d8d66372989a4e1231b93f4862cb62d8ea7dd69e2279b5df8ecb6\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"98b7f95906c7a62de11735b5be5a008529c6289951a66e923da051bf170ebac9\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+          "library_sha256": "199ed1877543b3817bd83f0c4010d13f4838072ff2a0a9842fb27fe1a9e76c7d",
+          "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-build-20261027/build-provenance.json",
+          "actual_library": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grid-g3-20261027/lib/librocfft.so.0.1",
+          "binary_sha256": "f46541efa81f6ce9aae4d4f14f743f0274ec974c89268820a92157826e96faba"
+        }
+      },
+      "by_direction": {
+        "z2d": {
+          "cases": 1,
+          "faster": 0,
+          "equal": 0,
+          "slower": 1,
+          "median_case_speedup": 0.8737863561926675,
+          "min_speedup": 0.8737863561926675,
+          "max_speedup": 0.8737863561926675,
+          "clear_faster": 0,
+          "clear_slower": 1,
+          "unclear": 0,
+          "iqr_overlap": 0,
+          "order_effect": 0,
+          "below_095": 1,
+          "within_095_105": 0,
+          "above_105": 0
+        },
+        "d2z": {
+          "cases": 1,
+          "faster": 0,
+          "equal": 0,
+          "slower": 1,
+          "median_case_speedup": 0.8689320070124971,
+          "min_speedup": 0.8689320070124971,
+          "max_speedup": 0.8689320070124971,
+          "clear_faster": 0,
+          "clear_slower": 0,
+          "unclear": 1,
+          "iqr_overlap": 0,
+          "order_effect": 1,
+          "below_095": 1,
+          "within_095_105": 0,
+          "above_105": 0
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-performance-20261027/preregistration.json",
+      "sha256": "e83e14c89a8b152f3325306a1e40ff8cd38cbfbd4b89829ad6e80861630903d1"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-performance-20261027/provenance.json",
+      "sha256": "163cf6183c71ff75b3495badd4bf52ddd08467e838a972f8d0d5a3a35a560d4d"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-performance-20261027/summary.json",
+      "sha256": "5bbf6752e639194fd8fb4dd860af40ef2663c1ab7082cff1abafff67065d2855"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-performance-20261027/processes.json",
+      "sha256": "87b151dffb5ab92c5b318116aaffa9860e646916167a0e7f1caeb966d309d904"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-validate-20261027-retry1/cc-grid-validation.json",
+      "sha256": "e6184fda6ea59481e6c86d2c8c678db6620dcb9d0b26113a18ec024523de24ed"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-validate-20261027-retry1/post-build-validation.json",
+      "sha256": "c9115ca2e601428b8c6078deb3268b8eb3ac6d3b7ae438043ff7252568934e8c"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g0-build-20261027/build-provenance.json",
+      "sha256": "b1e5baa5e88dd1e3dfb7467d48966092ddf717aff86ef6fbd886c97f9e682141"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-performance-20261027/preregistration.json",
+      "sha256": "34c49005a18d2e6523c76d5efef5f36d1d6a4137cfe99b891774273f62338cc4"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-performance-20261027/provenance.json",
+      "sha256": "0e9b21ee2bf6d36014ecaf14d3aca43b82dc0af572bb1d67d24e55c4857c01c4"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-performance-20261027/summary.json",
+      "sha256": "8032633d73617126a8fffa597db4eda56caf6f6b08c94a69f00eabfa38c7c9d0"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-performance-20261027/processes.json",
+      "sha256": "e993a84b4f1a73abcf43bdc1d18dac97abc19887f6bd6d6b70c994361b900bb0"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-validate-20261027/cc-grid-validation.json",
+      "sha256": "ff71711fd9e22439e4401937004d8f573b7cc5fca3328312de08146b5626fa82"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-validate-20261027/post-build-validation.json",
+      "sha256": "ffbfa83fbe22a0bf0a353fc9fa803a954eb44ec27bcbd972f4174b92c95b32d6"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g1-build-20261027/build-provenance.json",
+      "sha256": "7775c9c3fcfb525b7f0fed6f5fc8d86cc9bcff1af22ac7ee4306dbff59136c70"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-performance-20261027/preregistration.json",
+      "sha256": "1d85464140628fa82a933e62e52a4e54e656f64231609a6f93116d2cbeb43834"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-performance-20261027/provenance.json",
+      "sha256": "6b12decf4d9e89f616e2017ceb0ea8deb32ceca4f373d50b8e7285bbcf0a6911"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-performance-20261027/summary.json",
+      "sha256": "e1547ecd2fea46ce9ba49150c9c7f9cfcf446779ffd401e5bc3f8b7b77ea941c"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-performance-20261027/processes.json",
+      "sha256": "5bc1d13049679f047e7e83df0e3a7f423af738e2d70697cea13a648a2bedb036"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-validate-20261027/cc-grid-validation.json",
+      "sha256": "c7767f476da8bf6fadac7540c03722dfde88770a05a3c4771080d745374e2031"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-validate-20261027/post-build-validation.json",
+      "sha256": "0cf66d4f7a022ec93cbde57f35bf83af5abdfeb7c59d169b34b69943e82f5f2b"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g2-build-20261027/build-provenance.json",
+      "sha256": "3854ec788435d0e0b58a48788e7db2eae29d23957102c56f90e9a65f34a26339"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-performance-20261027/preregistration.json",
+      "sha256": "6ee208d11840a62130ccf600358e8ab846349ad7f234c4108203ad144b504718"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-performance-20261027/provenance.json",
+      "sha256": "75c7a56ec76ac91fe4f31edd8ff2e24ef35d60ce80676339eb4f99aec7732498"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-performance-20261027/summary.json",
+      "sha256": "e21871350efb2bbc937353de0260e877bf8e9d8cb426fefb7f8bce45d21e449b"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-performance-20261027/processes.json",
+      "sha256": "7065edebc678885da958eccfed08627c54cbc9cdc0dbaef6e112139ef662ffff"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-validate-20261027-retry1-retry1/cc-grid-validation.json",
+      "sha256": "508dcbbc950ff01787512a5752e85fff03494eced06be08d5259e1f8ee07fd09"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-validate-20261027-retry1-retry1/post-build-validation.json",
+      "sha256": "8f229edb4152c9922d63766bc9eb1a683d66a7221b932c405383edd17b48418e"
+    },
+    {
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-grid-g3-build-20261027/build-provenance.json",
+      "sha256": "98ef561335936d9cefe0174644ad7a2d7b81a0f112c4852b17a97437e842d6be"
+    }
+  ],
+  "interpretation": "EXP125 default versus controlled v3 CC geometry, paired within each performance job; cells span different batches and GPUs. Not isolated fusion gains or one fixed-GPU decomposition ranking."
+}
