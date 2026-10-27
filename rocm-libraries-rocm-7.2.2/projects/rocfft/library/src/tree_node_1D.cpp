@@ -989,9 +989,9 @@ bool SBCCNode::KernelCheck(std::vector<FMKey>& kernel_keys)
     if(large1D > 0)
     {
         auto kernel    = GetKernel();
-        largeTwd3Steps = kernel.use_3steps_large_twd;
-        if(real_io.role==RealBlockRole::FoldedPackedColumns && large1D>(size_t(1)<<18))
-            largeTwd3Steps=false;
+        // Three small-table steps cover at most 64^3. Larger transforms
+        // use the existing base-8 table for every SBCC role.
+        largeTwd3Steps = kernel.use_3steps_large_twd && large1D <= (size_t(1) << 18);
         get_large_twd_base_steps(large1D, largeTwd3Steps, largeTwdBase, ltwdSteps);
     }
 

@@ -1,0 +1,107 @@
+{
+  "reason": "Native small phase table is limited to 64^3; general SBCC guard now honors that range.",
+  "affected_N": [
+    702464,
+    769318,
+    913066
+  ],
+  "failed_N": 702464,
+  "unchanged_completed_cases": 368,
+  "remaining_cases": [
+    {
+      "N": 702464,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 702464,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 745360,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 745360,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 769318,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 769318,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 894432,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 894432,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 913066,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 913066,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1048576,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1280000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1280000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 1362944,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 1362944,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 2097152,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 2097152,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 2725888,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 2725888,
+      "func": "d2z_1d"
+    }
+  ],
+  "candidate_rebuilt": false,
+  "reference_installs_rebuilt": false,
+  "new_build": "same-CC unfused only",
+  "candidate_validation_N": [
+    702464,
+    769318,
+    913066
+  ],
+  "measurement_processes": 80,
+  "event_samples": 2400,
+  "prior_run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-performance-20261027",
+  "prior_complete_subset": "/public/home/zhangkewei/zr/experiments/EXP-128/records/boundary-v5-20261027/inspection-983952",
+  "free_bytes": 288927776768,
+  "source_state_freeze": false,
+  "merge_policy": "Preserve the failed original run. Report two independent measurement segments; compare arms only within each case/segment. Never claim one allocation or one unfused library hash for both segments."
+}
