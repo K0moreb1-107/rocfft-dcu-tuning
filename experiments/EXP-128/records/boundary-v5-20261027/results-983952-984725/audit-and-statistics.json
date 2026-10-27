@@ -1,0 +1,351 @@
+{
+  "complete": true,
+  "full_matrix_covered": true,
+  "segmented_measurement": true,
+  "single_allocation": false,
+  "N": 194,
+  "cases": 388,
+  "processes_used": 1552,
+  "samples_used": 46560,
+  "timing_warmups": 10,
+  "event_iterations": 30,
+  "policy": "FFT-event-cufft261012-single-v3",
+  "segments": {
+    "983952": {
+      "host": "a01r4n17",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135373331373837613232303631",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "start": "2026-10-27T08:13:40.820228+00:00",
+      "end": "2026-10-27T09:16:07.345382+00:00",
+      "complete_cases_used": 368,
+      "processes_used": 1472,
+      "source_run_complete": false,
+      "arms": {
+        "baseline": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677"
+        },
+        "previous": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grouped-20261026",
+          "source_commit": "965122a7e5bdd2f6dc2ff5c79be0d840fb269b18",
+          "library_sha256": "6b4a635fd1e29ca12a42fefc2fdf3f981054c9506fa8c8380c9b1bfc7afdb21f"
+        },
+        "unfused_cc": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-unfused-cc-20261027",
+          "source_commit": "fe994532411a4cf3ba745260d95472cfb33fcc6a",
+          "library_sha256": "e92297116d0fd4f8cf591ac5cf0620b76f2a4475b1327cdfe91eaf9e85759120"
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-boundary-v5-20261027",
+          "source_commit": "e9d515047c9c39c15f8b562f0f35df59a12ce616",
+          "library_sha256": "2ca09d728a3cd008c631e8b4e5b2b031e5a24faa60e2636d2ca6c1e7adf2fc0d"
+        }
+      }
+    },
+    "984725": {
+      "host": "a01r4n08",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303134626138393233303430393031",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "start": "2026-10-27T09:59:45.178894+00:00",
+      "end": "2026-10-27T10:03:28.494725+00:00",
+      "complete_cases_used": 20,
+      "processes_used": 80,
+      "source_run_complete": true,
+      "arms": {
+        "baseline": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+          "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+          "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677"
+        },
+        "previous": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-grouped-20261026",
+          "source_commit": "965122a7e5bdd2f6dc2ff5c79be0d840fb269b18",
+          "library_sha256": "6b4a635fd1e29ca12a42fefc2fdf3f981054c9506fa8c8380c9b1bfc7afdb21f"
+        },
+        "unfused_cc": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-unfused-phasefix-20261027",
+          "source_commit": "32ea37754a9900ac6c6b72c9155f8044c24de64d",
+          "library_sha256": "43e6ab4835fbc382fced7cf251c00db7c4baf2b04d5a0d4f01b6a46e89f514d0"
+        },
+        "candidate": {
+          "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-boundary-v5-20261027",
+          "source_commit": "e9d515047c9c39c15f8b562f0f35df59a12ce616",
+          "library_sha256": "2ca09d728a3cd008c631e8b4e5b2b031e5a24faa60e2636d2ca6c1e7adf2fc0d"
+        }
+      }
+    }
+  },
+  "validation": {
+    "candidate": {
+      "acceptance": {
+        "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-tail-validate-20261027",
+        "job_id": "984724",
+        "record_sha256": "757b872c9d622c5c88f72b59d6d74e4329ffd607990b733edb7938076ede1f44",
+        "evidence_record": "cc-boundary-validation.json",
+        "evidence_sha256": "c606c924b7be88dce0d4c84fe3d0eb76e09bdf69e456835df88c4470fb2e4809",
+        "source_commit": "e9d515047c9c39c15f8b562f0f35df59a12ce616",
+        "library_sha256": "2ca09d728a3cd008c631e8b4e5b2b031e5a24faa60e2636d2ca6c1e7adf2fc0d"
+      },
+      "cases": 6,
+      "seconds": 41.63138103205711
+    },
+    "unfused_cc": {
+      "acceptance": {
+        "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-validate-20261027",
+        "job_id": "984723",
+        "record_sha256": "bdbf58ed2659c5a4e953cac8875d21859c590a8b23b603f0ee02998c69110adf",
+        "evidence_record": "cc-boundary-validation.json",
+        "evidence_sha256": "5acc2577be594a38efd8bfeb3dc7c33cfab1251a2d2edcc3bb5e0cb3a36ead68",
+        "source_commit": "32ea37754a9900ac6c6b72c9155f8044c24de64d",
+        "library_sha256": "43e6ab4835fbc382fced7cf251c00db7c4baf2b04d5a0d4f01b6a46e89f514d0"
+      },
+      "cases": 40,
+      "seconds": 162.97813320579007
+    }
+  },
+  "max_numerical_error": 5.0330110449673766e-15,
+  "all": {
+    "z2d": {
+      "baseline": {
+        "cases": 194,
+        "faster": 187,
+        "equal": 0,
+        "slower": 7,
+        "median_case_speedup": 1.2490818467085247,
+        "min_speedup": 0.913771996714017,
+        "max_speedup": 3.908064491234809,
+        "clear_faster": 81,
+        "clear_slower": 0,
+        "unclear": 113,
+        "iqr_overlap": 14,
+        "order_effect": 109,
+        "below_095": 3,
+        "within_095_105": 12,
+        "above_105": 179
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 106,
+        "equal": 23,
+        "slower": 65,
+        "median_case_speedup": 1.002673689138602,
+        "min_speedup": 0.8955695645263956,
+        "max_speedup": 1.260855249294755,
+        "clear_faster": 26,
+        "clear_slower": 2,
+        "unclear": 166,
+        "iqr_overlap": 158,
+        "order_effect": 98,
+        "below_095": 13,
+        "within_095_105": 164,
+        "above_105": 17
+      },
+      "unfused_cc": {
+        "cases": 194,
+        "faster": 150,
+        "equal": 1,
+        "slower": 43,
+        "median_case_speedup": 1.0904890213613132,
+        "min_speedup": 0.8451242614471765,
+        "max_speedup": 1.5083332508724843,
+        "clear_faster": 71,
+        "clear_slower": 9,
+        "unclear": 114,
+        "iqr_overlap": 57,
+        "order_effect": 102,
+        "below_095": 18,
+        "within_095_105": 50,
+        "above_105": 126
+      }
+    },
+    "d2z": {
+      "baseline": {
+        "cases": 194,
+        "faster": 190,
+        "equal": 0,
+        "slower": 4,
+        "median_case_speedup": 1.289298772604989,
+        "min_speedup": 0.9301075564936656,
+        "max_speedup": 3.8121021070654684,
+        "clear_faster": 82,
+        "clear_slower": 2,
+        "unclear": 110,
+        "iqr_overlap": 8,
+        "order_effect": 106,
+        "below_095": 1,
+        "within_095_105": 9,
+        "above_105": 184
+      },
+      "previous": {
+        "cases": 194,
+        "faster": 157,
+        "equal": 7,
+        "slower": 30,
+        "median_case_speedup": 1.0215059737501493,
+        "min_speedup": 0.9255499008657557,
+        "max_speedup": 1.2857143121123185,
+        "clear_faster": 60,
+        "clear_slower": 1,
+        "unclear": 133,
+        "iqr_overlap": 110,
+        "order_effect": 98,
+        "below_095": 4,
+        "within_095_105": 152,
+        "above_105": 38
+      },
+      "unfused_cc": {
+        "cases": 194,
+        "faster": 194,
+        "equal": 0,
+        "slower": 0,
+        "median_case_speedup": 1.1146687218103852,
+        "min_speedup": 1.0026041865618638,
+        "max_speedup": 1.5742221905906935,
+        "clear_faster": 77,
+        "clear_slower": 0,
+        "unclear": 117,
+        "iqr_overlap": 21,
+        "order_effect": 115,
+        "below_095": 0,
+        "within_095_105": 28,
+        "above_105": 166
+      }
+    }
+  },
+  "output_changed": {
+    "baseline": {
+      "cases": 60,
+      "faster": 58,
+      "equal": 0,
+      "slower": 2,
+      "median_case_speedup": 1.2697292574491508,
+      "min_speedup": 0.9426229581197462,
+      "max_speedup": 1.6603119502931991,
+      "clear_faster": 29,
+      "clear_slower": 0,
+      "unclear": 31,
+      "iqr_overlap": 3,
+      "order_effect": 29,
+      "below_095": 1,
+      "within_095_105": 4,
+      "above_105": 55
+    },
+    "previous": {
+      "cases": 60,
+      "faster": 52,
+      "equal": 0,
+      "slower": 8,
+      "median_case_speedup": 1.0236818792627393,
+      "min_speedup": 0.9219858009638198,
+      "max_speedup": 1.1117646398196814,
+      "clear_faster": 22,
+      "clear_slower": 1,
+      "unclear": 37,
+      "iqr_overlap": 32,
+      "order_effect": 21,
+      "below_095": 3,
+      "within_095_105": 53,
+      "above_105": 4
+    },
+    "unfused_cc": {
+      "cases": 60,
+      "faster": 58,
+      "equal": 0,
+      "slower": 2,
+      "median_case_speedup": 1.1402616004013792,
+      "min_speedup": 0.9800995820168555,
+      "max_speedup": 1.2538070172079565,
+      "clear_faster": 33,
+      "clear_slower": 1,
+      "unclear": 26,
+      "iqr_overlap": 6,
+      "order_effect": 24,
+      "below_095": 0,
+      "within_095_105": 6,
+      "above_105": 54
+    }
+  },
+  "input_changed": {
+    "baseline": {
+      "cases": 194,
+      "faster": 190,
+      "equal": 0,
+      "slower": 4,
+      "median_case_speedup": 1.289298772604989,
+      "min_speedup": 0.9301075564936656,
+      "max_speedup": 3.8121021070654684,
+      "clear_faster": 82,
+      "clear_slower": 2,
+      "unclear": 110,
+      "iqr_overlap": 8,
+      "order_effect": 106,
+      "below_095": 1,
+      "within_095_105": 9,
+      "above_105": 184
+    },
+    "previous": {
+      "cases": 194,
+      "faster": 157,
+      "equal": 7,
+      "slower": 30,
+      "median_case_speedup": 1.0215059737501493,
+      "min_speedup": 0.9255499008657557,
+      "max_speedup": 1.2857143121123185,
+      "clear_faster": 60,
+      "clear_slower": 1,
+      "unclear": 133,
+      "iqr_overlap": 110,
+      "order_effect": 98,
+      "below_095": 4,
+      "within_095_105": 152,
+      "above_105": 38
+    },
+    "unfused_cc": {
+      "cases": 194,
+      "faster": 194,
+      "equal": 0,
+      "slower": 0,
+      "median_case_speedup": 1.1146687218103852,
+      "min_speedup": 1.0026041865618638,
+      "max_speedup": 1.5742221905906935,
+      "clear_faster": 77,
+      "clear_slower": 0,
+      "unclear": 117,
+      "iqr_overlap": 21,
+      "order_effect": 115,
+      "below_095": 0,
+      "within_095_105": 28,
+      "above_105": 166
+    }
+  },
+  "repaired_N": [
+    702464,
+    769318,
+    913066
+  ],
+  "original_failed_run_preserved": true,
+  "merge_policy": "Exactly one four-arm group per case; ratios only within its own allocation. Original abandoned partial group retained but superseded by the complete tail group. Two OFF identities are explicit.",
+  "evidence_sha256": {
+    "experiments/EXP-128/records/boundary-v5-20261027/inspection-983952/audit.json": "457ce5344801bbc8eebb72d48f8ce5586fb068a05d404eba3c1fa29550f81440",
+    "experiments/EXP-128/records/boundary-v5-20261027/inspection-983952/valid-four-arm-cases.json": "206fb485177570fbb072256cbcdf88478929c74f06b26d0a3bf0549480e6c7a0",
+    "experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-performance-20261027/preregistration.json": "934ead00516bb765e5d95d817a6f94891289db5023c3f95a9db5c83b3391dd18",
+    "experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-performance-20261027/provenance.json": "e7957e264a00017a39c0a60c07bc11e33f1417ee6a2279de68df4f7981ae93f5",
+    "experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-performance-20261027/processes.json": "4deed2c7694755ba2ce0e14ada77e3cb660f315f3668053eb54af09813c58e61",
+    "experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-performance-20261027/preregistration.json": "d06810efc158c5de37b72362c941458b8ba04bff8a380029d172fab089ec7c96",
+    "experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-performance-20261027/provenance.json": "eea038b357731589c5ac278b6434e7ad34d29a719148f1fb92d90a4d03a5d7ed",
+    "experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-performance-20261027/processes.json": "696881aeb756f499227ad1d7a48a86e63b48e22e9f0ed83bd5bbe51a93d22852",
+    "experiments/EXP-128/runs/EXP-128-cc-local-unfused-phasefix-performance-20261027/summary.json": "24cd2f8459ca1730f59c75987315feac4c8fab71f24f8b721702488b0cfef2ca",
+    "experiments/EXP-128/records/unfused-phasefix-20261027/phase-selector-model.json": "edb25fab04de6248c403d93c6b9635e7bf46b6f730aa677843146fee9e735c66"
+  }
+}
