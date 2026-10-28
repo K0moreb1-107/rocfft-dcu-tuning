@@ -1,0 +1,47 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXP128 第六版行端输出四版结果 · 991869</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f8fb;color:#18253a;font:15px/1.6 system-ui,"Microsoft Yahei",sans-serif}
+main{max-width:1500px;margin:auto;padding:28px}h1{font-size:26px;margin:0 0 8px}p{margin:8px 0;color:#526176}
+.card{background:white;border:1px solid #dde5ef;border-radius:12px;padding:20px;margin:16px 0}.controls{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+select,input{font:inherit;padding:7px;border:1px solid #becbdd;border-radius:6px}label{white-space:nowrap}.charts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+svg{width:100%;height:auto;display:block}th,td{text-align:right;padding:8px 10px;border-bottom:1px solid #e5ebf1;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}thead{position:sticky;top:0;background:#f1f5fa}tbody tr{cursor:pointer}tbody tr:hover{background:#f0f6ff}
+.scroll{max-height:600px;overflow:auto}.legend{display:flex;gap:20px;flex-wrap:wrap}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.up{color:#096d5e}.down{color:#b53e3d}.muted{color:#69788b;font-size:13px}.numbers{font-variant-numeric:tabular-nums}.chip{padding:4px 9px;border-radius:6px;background:#eff3f8}
+@media(max-width:1000px){.charts{grid-template-columns:1fr}main{padding:16px}}
+</style><main>
+<h1>EXP128：第六版行端输出四版结果</h1>
+<p>任务991869：194个默认尺寸、388个方向组合；四版全程在a03r1n04同一张独占gfx936显卡相邻交替测量。每版一个独立进程，10次预热、30次正式计时；全部46560个正式样本保留，只用中位数计算加速比。所有时间为微秒。筛选可区分本轮修改与未改的输出类型。</p>
+<div class="legend"><span><b class="dot" style="background:#68788f"></b>EXP125 对照</span><span><b class="dot" style="background:#c78118"></b>第五版</span><span><b class="dot" style="background:#a65d91"></b>同CC未融合</span><span><b class="dot" style="background:#007e80"></b>第六版</span></div>
+<div class="card controls"><label>筛选 <select id="family"></select></label><label>方向 <select id="direction"><option value="">全部</option><option>z2d</option><option>d2z</option></select></label><label>尺寸 <select id="case"></select></label><label><input id="zero" type="checkbox">纵轴从零开始</label><label><input id="log" type="checkbox">对数纵轴</label></div>
+<div class="card"><h2 id="heading" style="font-size:20px;margin:0"></h2><p id="numbers" class="numbers"></p><p id="assessment"></p>
+<div class="charts"><div><h3>每版一列散点</h3><svg id="scatter" viewBox="0 0 680 370"></svg></div><div><h3>测量序号与耗时</h3><svg id="order" viewBox="0 0 680 370"></svg></div></div>
+<p class="muted">散点水平错开仅为便于观察；横线为中位数，色块为中间50%区间。鼠标指向圆点可看具体测量。右图的同一序号不表示同时测量；两张图使用完全相同的全部30个样本。</p></div>
+<div class="card"><h2 style="font-size:20px;margin-top:0">完整组合 <span id="count" class="muted"></span></h2><p class="muted">点击一行查看。加速比＝对照中位数／当前中位数，大于1为当前更快。“差异不明确”表示中间50%区间重叠，或任一版本前15次与后15次的中间50%区间不重叠。</p>
+<div class="scroll"><table><thead><tr><th>尺寸／类型</th><th>列长×行长</th><th>EXP125</th><th>第五版</th><th>同CC未融合</th><th>第六版</th><th>对EXP125</th><th>对第五版</th><th>融合净收益</th><th>与第五版分布</th><th>与未融合分布</th></tr></thead><tbody id="table"></tbody></table></div></div>
+<p>EXP125是保留版，与其比较包含既有计划及融合布局变化。同CC未融合对照为修复后的安装，其耗时／第六版耗时衡量整条融合流水的净收益。第五版与第六版默认分解、输入处理及列端保持相同；本轮只修改选中的行端输出。图中分布差异只描述本轮样本，不能仅凭计时指定硬件原因。</p>
+</main><script id="data" type="application/json">__ROW_DATA__</script><script>
+const data=JSON.parse(document.getElementById('data').textContent), $=id=>document.getElementById(id);
+const arms=['baseline','previous','unfused_cc','candidate'], names=['EXP125','第五版','同CC未融合','第六版'], colors=['#68788f','#c78118','#a65d91','#007e80'];
+const options=[['all','全部组合'],['changed','本轮修改输出'],['unchanged','本轮未改输出'],['single','单行寄存器直写'],['classified','多行输出分类简化'],['prev095','对第五版低于0.95'],['fusion095','对同CC未融合低于0.95'],['power','二次幂'],...Array.from(new Set(data.map(r=>r.C))).sort((a,b)=>a-b).map(x=>['C'+x,'列长 '+x]),...Array.from(new Set(data.map(r=>r.Q))).sort((a,b)=>a-b).map(x=>['Q'+x,'行长 '+x])];
+options.forEach(([v,t])=>$('family').add(new Option(t,v)));let filtered=[],current;
+const fixed=(n,k=3)=>Number(n).toFixed(k), tag=r=>r.N+' '+r.type;
+function refresh(){let f=$('family').value,d=$('direction').value;filtered=data.filter(r=>(!d||r.type===d)&&(f==='all'||f==='changed'&&r.output_changed||f==='unchanged'&&!r.output_changed||f==='single'&&r.output_group==='单行寄存器直写'||f==='classified'&&r.output_group==='多行输出分类简化'||f==='prev095'&&r.speedup_previous<.95||f==='fusion095'&&r.speedup_unfused_cc<.95||f==='power'&&r.power_of_two||f==='C'+r.C||f==='Q'+r.Q));
+let selected=$('case').value;$('case').replaceChildren();filtered.forEach(r=>$('case').add(new Option(tag(r),tag(r))));if(filtered.some(r=>tag(r)===selected))$('case').value=selected;
+$('count').textContent='（'+filtered.length+'项）';$('table').replaceChildren();filtered.forEach(r=>{let tr=document.createElement('tr');const fields=[tag(r),r.C+'×'+r.Q,...arms.map(a=>fixed(r[a+'_us'])),fixed(r.speedup_baseline,4)+'倍',fixed(r.speedup_previous,4)+'倍',fixed(r.speedup_unfused_cc,4)+'倍',r.assessment_previous,r.assessment_unfused_cc];fields.forEach((v,i)=>{let td=document.createElement('td');td.textContent=v;if(i>=6&&i<=8)td.className=(r[['speedup_baseline','speedup_previous','speedup_unfused_cc'][i-6]]>1?'up':'down');tr.append(td)});tr.onclick=()=>{$('case').value=tag(r);draw()};$('table').append(tr)});draw()}
+function el(svg,name,attrs,text){let e=document.createElementNS('http://www.w3.org/2000/svg',name);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;svg.append(e);return e}
+function draw(){current=filtered.find(r=>tag(r)===$('case').value);if(!current)return;let r=current;$('heading').textContent=tag(r)+' · 列长 '+r.C+'，行长 '+r.Q+' · '+r.output_group+' · 任务 '+r.measurement_job+' · '+r.host;
+$('numbers').textContent=arms.map((a,i)=>names[i]+' '+fixed(r[a+'_us'],6)).join('　｜　')+'　｜　对第五版 '+fixed(r.speedup_previous,4)+'倍　｜　同CC融合净收益 '+fixed(r.speedup_unfused_cc,4)+'倍';
+$('assessment').textContent='相较第五版：'+r.assessment_previous+'；相较EXP125：'+r.assessment_baseline+'；相较同CC未融合：'+r.assessment_unfused_cc+'。';
+let all=arms.flatMap(a=>r.samples_us[a]),lo=Math.min(...all),hi=Math.max(...all),log=$('log').checked;
+if($('zero').checked&&!log)lo=0;let pad=Math.max((hi-lo)*.08,hi*.003);if(lo>0)lo=Math.max(log?lo*.8:0,lo-pad);hi+=pad;
+const L=64,R=654,T=28,B=310,scale=log?Math.log:x=>x, y=v=>B-(scale(v)-scale(lo))/(scale(hi)-scale(lo))*(B-T);
+for(const id of ['scatter','order']){let s=$(id);s.replaceChildren();for(let i=0;i<=5;i++){let v=log?Math.exp(Math.log(lo)+(Math.log(hi)-Math.log(lo))*i/5):lo+(hi-lo)*i/5;let py=y(v);el(s,'line',{x1:L,y1:py,x2:R,y2:py,stroke:'#e3e9f1'});el(s,'text',{x:L-8,y:py+4,'text-anchor':'end',fill:'#66748a','font-size':12},fixed(v,2))}el(s,'text',{x:L,y:15,fill:'#66748a','font-size':12},'微秒');el(s,'line',{x1:L,y1:B,x2:R,y2:B,stroke:'#97a8bc'})}
+arms.forEach((a,k)=>{let x=L+(R-L)*(k+.5)/arms.length,s=$('scatter'),p25=r[a+'_p25_us'],p75=r[a+'_p75_us'],med=r[a+'_us'];el(s,'rect',{x:x-38,y:y(p75),width:76,height:Math.max(1,y(p25)-y(p75)),fill:colors[k],opacity:.13});el(s,'line',{x1:x-42,x2:x+42,y1:y(med),y2:y(med),stroke:colors[k],'stroke-width':3});
+r.samples_us[a].forEach((v,i)=>{let dot=el(s,'circle',{cx:x+((i*17+k*3)%31-15)*1.6,cy:y(v),r:3.2,fill:colors[k],opacity:.75});el(dot,'title',{},names[k]+' 第'+(i+1)+'次：'+v+' 微秒')});el(s,'text',{x,y:340,'text-anchor':'middle',fill:colors[k],'font-size':14},names[k]);
+s=$('order');let points=r.samples_us[a].map((v,i)=>[L+(R-L)*i/29,y(v)]);el(s,'polyline',{points:points.map(p=>p.join(',')).join(' '),fill:'none',stroke:colors[k],'stroke-width':1.6,opacity:.85});points.forEach(([cx,cy],i)=>{let dot=el(s,'circle',{cx,cy,r:2.7,fill:colors[k]});el(dot,'title',{},names[k]+' 第'+(i+1)+'次：'+r.samples_us[a][i]+' 微秒')})});
+for(let i of [1,5,10,15,20,25,30])el($('order'),'text',{x:L+(R-L)*(i-1)/29,y:333,'text-anchor':'middle',fill:'#66748a','font-size':12},i);el($('order'),'text',{x:(L+R)/2,y:359,'text-anchor':'middle',fill:'#66748a','font-size':12},'正式测量序号')}
+['family','direction'].forEach(id=>$(id).onchange=refresh);['case','zero','log'].forEach(id=>$(id).onchange=draw);refresh();$('case').value='65536 d2z';draw();
+</script></html>

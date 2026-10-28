@@ -1,0 +1,72 @@
+{
+  "complete": true,
+  "job_id": "991869",
+  "validation_job": "991868",
+  "host": "a03r1n04",
+  "gpu": {
+    "count": 1,
+    "uuid": "30303134626138613532623032393031",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "N": 194,
+  "cases": 388,
+  "processes": 1552,
+  "formal_samples": 46560,
+  "max_numerical_error": 5.0330110449673766e-15,
+  "new_device_tasks": false,
+  "production_edits": false,
+  "stable_promoted": false,
+  "pushed": false,
+  "files": {
+    "all-samples-and-statistics.json": {
+      "bytes": 2113910,
+      "sha256": "c1f7f13533838839173a6169253e0e6370c2179b6fa316dab7cd19df8e9d56c9"
+    },
+    "audit-and-statistics.json": {
+      "bytes": 57936,
+      "sha256": "80c147aacbbb6f505f24d2a7ae1e01b4872a42da91786a92adc385d94738f313"
+    },
+    "低于095-baseline.csv": {
+      "bytes": 1923,
+      "sha256": "0847b8445c4c0276ac591acf95006a60d9f131f5c9428f9c8c2670c5968d6473"
+    },
+    "低于095-previous.csv": {
+      "bytes": 5430,
+      "sha256": "f163112b40132590c14d6d7de16099bff83da6c33b45ce9ce755374ca133945e"
+    },
+    "低于095-unfused_cc.csv": {
+      "bytes": 5041,
+      "sha256": "e92b2c158df4a3138edc5032e73abe72f26c7923bc111420eb99c2c4047941f3"
+    },
+    "全部尺寸.csv": {
+      "bytes": 172437,
+      "sha256": "cf06cd09dd13a5092cd50cd63f922cd104af15356ca5595f1c0532214203f739"
+    },
+    "全部尺寸散点与顺序图.html": {
+      "bytes": 1509622,
+      "sha256": "f7343dfd63673ee4853cf1e5b455b6f9b77c6f113d1e2ab0de439c395665f754"
+    },
+    "原始逐次样本.csv": {
+      "bytes": 1979424,
+      "sha256": "24513302c51c4ed97e2f3393cf090cba3c3f6f8e1d54ecc64c572f1365db4a55"
+    },
+    "完整六列表格.md": {
+      "bytes": 24941,
+      "sha256": "f94ab73e04a8bebaa2a30e1312b14a8cb9366c8ea733c12a1e8ef834874739e9"
+    },
+    "独立正确性表.csv": {
+      "bytes": 89307,
+      "sha256": "c55cfb15bb74d284688f62e4f38bd6446829f26266ff4fb2df541399bc801b37"
+    },
+    "类型汇总.csv": {
+      "bytes": 35673,
+      "sha256": "782c30e70ec9f5d897f8c993beab6e82a25bf361080c2bfd472c019c1b93568b"
+    },
+    "结果分析.md": {
+      "bytes": 11286,
+      "sha256": "dd5f842b91d698da46af94b3a4bf601bf7c8f77bb6fdbc507a9f81f891aec24a"
+    }
+  }
+}
