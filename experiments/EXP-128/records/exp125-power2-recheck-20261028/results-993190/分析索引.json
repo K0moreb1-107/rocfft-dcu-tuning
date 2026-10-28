@@ -1,0 +1,68 @@
+{
+  "job_id": "993190",
+  "completed": true,
+  "production_source_modified": false,
+  "main_findings": [
+    "128K loss reproduced in row stage",
+    "1M stage loss concentrated in column",
+    "phase-order restoration has no clear timing benefit",
+    "layout and endpoint representation are not causally isolated"
+  ],
+  "artifact_files": [
+    {
+      "name": "analysis.json",
+      "sha256": "f00bc66b2ab101a8cdaf698b2fb4e91c90215f5ee63848f3fcd7a936cdcf923f",
+      "bytes": 62569
+    },
+    {
+      "name": "evidence-acceptance.json",
+      "sha256": "de5f5ef2258706dada6952caf2016bec7dde30e4bd512682a43f7e7e7a7d2c83",
+      "bytes": 1032
+    },
+    {
+      "name": "pmc-summary.json",
+      "sha256": "96ab66bc98b7d3c59615ee2107c7f3e8924f76f1400100ed4b376d3fb0c68542",
+      "bytes": 184046
+    },
+    {
+      "name": "source-index.json",
+      "sha256": "7606cf2807927d15896e2fbb7b8ce0433c7ad05b2a3d1f60a73d54e27b7fae3b",
+      "bytes": 25583
+    },
+    {
+      "name": "全部计数器中位数.csv",
+      "sha256": "89b4444184bc3888d20b4277231c0a392cf47eede6132710447be30fd95fb6dc",
+      "bytes": 70106
+    },
+    {
+      "name": "全部计时散点与顺序图.html",
+      "sha256": "3c55e235d20a0713d719f2a4efbad0e7fc6e1f6d1d42e26e2d6068f8db40600f",
+      "bytes": 43858
+    },
+    {
+      "name": "原始计时样本.csv",
+      "sha256": "eeb37c34406eaa0e84f6ac8fab8b59b5425d490c41929b9208688b7c77c6be8d",
+      "bytes": 30665
+    },
+    {
+      "name": "实际内核分段.csv",
+      "sha256": "3b0466c137305fcb3429c5d668616f36056afe127b22a667cc7a700786d584ac",
+      "bytes": 718
+    },
+    {
+      "name": "独立正确性表.csv",
+      "sha256": "5038a0c16e5512067c95521455794c6540d2ac6cc0d1569f98e0dd7b1976e166",
+      "bytes": 4103
+    },
+    {
+      "name": "结果分析.md",
+      "sha256": "8f0a2c6b801f6d7a04925b64349110379bc06a52e053e8f7a8a3517828f7d712",
+      "bytes": 10450
+    },
+    {
+      "name": "计时对照.csv",
+      "sha256": "3365506eaacc00c95c757aa7e3159334d2ec8d5d4173a41963b19ce87bb250e2",
+      "bytes": 899
+    }
+  ]
+}

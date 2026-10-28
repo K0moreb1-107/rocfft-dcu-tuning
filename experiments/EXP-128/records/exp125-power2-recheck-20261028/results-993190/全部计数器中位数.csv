@@ -1,0 +1,673 @@
+﻿N,arm,variant,mode,stage,field,unit,median,p25,p75,minimum,maximum
+131072,baseline,original,general,列端,L1 cache unit is active,(%),6.4420762337,5.9387900297,6.72007871565,4.6896511416,7.1717402914
+131072,baseline,original,general,列端,L1 cache unit is stalled,(%),0.1954662726,0.18717423035,0.20655469982500002,0.1705665498,0.2244000733
+131072,baseline,original,general,列端,L2 cache hit rate,(%),27.2848775,27.03064225,27.414437,26.777884,27.733977
+131072,baseline,original,general,列端,L2 cache write unit is stalled,(%),0.0,0.0,0.0,0.0,0.2348091523
+131072,baseline,original,general,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,general,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,baseline,original,general,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,general,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,baseline,original,general,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,baseline,original,general,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.4e-05,1.6e-05
+131072,baseline,original,general,列端,performance,(Gflops),729.049462,721.293617,745.072527,698.985567,761.81573
+131072,baseline,original,general,列端,process id,,2794891.0,2794891.0,2794891.0,2794891.0,2794891.0
+131072,baseline,original,general,列端,processed ALU instructions,(%),2.7455052050499997,2.71573293525,2.7666294316,2.6795649656,2.8079409049
+131072,baseline,original,general,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,general,列端,sgpr count,,48.0,48.0,48.0,48.0,48.0
+131072,baseline,original,general,列端,shared memory bank conflict,(%),0.39118322385000004,0.386941231425,0.394193031725,0.3817879711,0.4000791452
+131072,baseline,original,general,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,baseline,original,general,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,baseline,original,general,列端,thread id,,2794891.0,2794891.0,2794891.0,2794891.0,2794891.0
+131072,baseline,original,general,列端,vgpr count,,84.0,84.0,84.0,84.0,84.0
+131072,baseline,original,general,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,baseline,original,general,行端,L1 cache unit is active,(%),8.49923549855,7.0485550762499996,8.661770396025,6.8618808307,9.0389599647
+131072,baseline,original,general,行端,L1 cache unit is stalled,(%),3.8647013721,3.296307895225,4.072092750875,3.1521194927,4.3709330539
+131072,baseline,original,general,行端,L2 cache hit rate,(%),13.863823,13.787659,14.230733,13.120962,14.492436
+131072,baseline,original,general,行端,L2 cache write unit is stalled,(%),0.0,0.0,0.0,0.0,0.0637189716
+131072,baseline,original,general,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,general,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,baseline,original,general,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,general,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,baseline,original,general,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,baseline,original,general,行端,kernel time,(s),1.3e-05,1.3e-05,1.3e-05,1.3e-05,1.3e-05
+131072,baseline,original,general,行端,performance,(Gflops),544.869136,538.22439,551.68,531.739759,558.663291
+131072,baseline,original,general,行端,process id,,2794891.0,2794891.0,2794891.0,2794891.0,2794891.0
+131072,baseline,original,general,行端,processed ALU instructions,(%),1.93157163325,1.923439162325,1.9390148554,1.9022572869,1.9618035936
+131072,baseline,original,general,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,general,行端,sgpr count,,48.0,48.0,48.0,48.0,48.0
+131072,baseline,original,general,行端,shared memory bank conflict,(%),1.9938803956,1.985485586975,2.0015637217,1.9636204252,2.0250875805
+131072,baseline,original,general,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,baseline,original,general,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,baseline,original,general,行端,thread id,,2794891.0,2794891.0,2794891.0,2794891.0,2794891.0
+131072,baseline,original,general,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,baseline,original,general,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,baseline,original,read,列端,L1 cache unit is active,(%),6.75035974435,6.6275171327999995,6.9326682309,4.5239882,7.7425898434
+131072,baseline,original,read,列端,L1 cache unit is stalled,(%),0.206456023,0.19836378232500002,0.2207588324,0.1676892679,0.2742254107
+131072,baseline,original,read,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,read,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,baseline,original,read,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,read,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,baseline,original,read,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,baseline,original,read,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.4e-05,1.6e-05
+131072,baseline,original,read,列端,number of L2 cache read requests,,16736.0,16736.0,16736.0,16736.0,16736.0
+131072,baseline,original,read,列端,performance,(Gflops),729.049462,713.701053,736.973913,691.853061,761.81573
+131072,baseline,original,read,列端,process id,,2795646.0,2795646.0,2795646.0,2795646.0,2795646.0
+131072,baseline,original,read,列端,processed ALU instructions,(%),2.73190739715,2.6959227334499998,2.75852907175,2.6442164365,2.7970934511
+131072,baseline,original,read,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,read,列端,sgpr count,,48.0,48.0,48.0,48.0,48.0
+131072,baseline,original,read,列端,shared memory bank conflict,(%),0.38924579015,0.3841186476,0.39303888165,0.3767514658,0.3985335856
+131072,baseline,original,read,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,baseline,original,read,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,baseline,original,read,列端,size of L2 cache read,(kilobytes),1046.0,1046.0,1046.0,1046.0,1046.0
+131072,baseline,original,read,列端,thread id,,2795646.0,2795646.0,2795646.0,2795646.0,2795646.0
+131072,baseline,original,read,列端,vgpr count,,84.0,84.0,84.0,84.0,84.0
+131072,baseline,original,read,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,baseline,original,read,行端,L1 cache unit is active,(%),8.572611631400001,8.483619869875,8.751988893075,6.8488013556,10.3299556151
+131072,baseline,original,read,行端,L1 cache unit is stalled,(%),3.9584568454,3.8451085539500003,4.099368803575,3.1532125892,4.6939117327
+131072,baseline,original,read,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,read,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,baseline,original,read,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,read,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,baseline,original,read,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,baseline,original,read,行端,kernel time,(s),1.3e-05,1.3e-05,1.3e-05,1.3e-05,1.3e-05
+131072,baseline,original,read,行端,number of L2 cache read requests,,16821.0,16821.0,16821.0,16821.0,16821.0
+131072,baseline,original,read,行端,performance,(Gflops),538.22439,538.22439,544.869136,525.409524,551.68
+131072,baseline,original,read,行端,process id,,2795646.0,2795646.0,2795646.0,2795646.0,2795646.0
+131072,baseline,original,read,行端,processed ALU instructions,(%),1.9239188186,1.9174400555750002,1.9348587399750001,1.8933878664,1.9455885237
+131072,baseline,original,read,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,read,行端,sgpr count,,48.0,48.0,48.0,48.0,48.0
+131072,baseline,original,read,行端,shared memory bank conflict,(%),1.9859807159499998,1.979292960575,1.99727353805,1.9544648943,2.0083494438
+131072,baseline,original,read,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,baseline,original,read,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,baseline,original,read,行端,size of L2 cache read,(kilobytes),1051.3125,1051.3125,1051.3125,1051.3125,1051.3125
+131072,baseline,original,read,行端,thread id,,2795646.0,2795646.0,2795646.0,2795646.0,2795646.0
+131072,baseline,original,read,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,baseline,original,read,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,baseline,original,write,列端,L1 cache unit is active,(%),6.785318133900001,6.629957097275,6.927547886,6.3960340234,8.1010719755
+131072,baseline,original,write,列端,L1 cache unit is stalled,(%),0.2168178902,0.1990745839,0.234377115925,0.1583274577,0.2688172043
+131072,baseline,original,write,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,write,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,baseline,original,write,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,write,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,baseline,original,write,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,baseline,original,write,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.4e-05,1.6e-05
+131072,baseline,original,write,列端,number of L2 cache write requests,,16640.0,16640.0,16640.0,16640.0,16640.0
+131072,baseline,original,write,列端,performance,(Gflops),729.049462,721.293617,745.072527,698.985567,761.81573
+131072,baseline,original,write,列端,process id,,2796253.0,2796253.0,2796253.0,2796253.0,2796253.0
+131072,baseline,original,write,列端,processed ALU instructions,(%),2.71269285395,2.68233661675,2.739287751325,2.6484273913,2.7810148411
+131072,baseline,original,write,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,write,列端,sgpr count,,48.0,48.0,48.0,48.0,48.0
+131072,baseline,original,write,列端,shared memory bank conflict,(%),0.38650807654999997,0.38218287965,0.39029735285,0.3773514482,0.3962426839
+131072,baseline,original,write,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,baseline,original,write,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,baseline,original,write,列端,size of L2 cache write,(kilobytes),1032.0,1032.0,1032.0,1032.0,1032.0
+131072,baseline,original,write,列端,thread id,,2796253.0,2796253.0,2796253.0,2796253.0,2796253.0
+131072,baseline,original,write,列端,vgpr count,,84.0,84.0,84.0,84.0,84.0
+131072,baseline,original,write,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,baseline,original,write,行端,L1 cache unit is active,(%),8.618473970650001,8.44007886815,8.8343029011,7.9110924924,10.4223498939
+131072,baseline,original,write,行端,L1 cache unit is stalled,(%),3.9889145049500003,3.88389538605,4.25339678315,3.3383237645,4.8221322091
+131072,baseline,original,write,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,write,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,baseline,original,write,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,write,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,baseline,original,write,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,baseline,original,write,行端,kernel time,(s),1.3e-05,1.3e-05,1.3e-05,1.3e-05,1.3e-05
+131072,baseline,original,write,行端,number of L2 cache write requests,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,baseline,original,write,行端,performance,(Gflops),544.869136,538.22439,551.68,525.409524,558.663291
+131072,baseline,original,write,行端,process id,,2796253.0,2796253.0,2796253.0,2796253.0,2796253.0
+131072,baseline,original,write,行端,processed ALU instructions,(%),1.9115258855,1.902778646125,1.919398569075,1.8841405508,1.9347468725
+131072,baseline,original,write,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,baseline,original,write,行端,sgpr count,,48.0,48.0,48.0,48.0,48.0
+131072,baseline,original,write,行端,shared memory bank conflict,(%),1.9731880108,1.964158602425,1.98131465195,1.9449192783,1.9971580619
+131072,baseline,original,write,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,baseline,original,write,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,baseline,original,write,行端,size of L2 cache write,(kilobytes),1024.0,1024.0,1024.0,1024.0,1024.0
+131072,baseline,original,write,行端,thread id,,2796253.0,2796253.0,2796253.0,2796253.0,2796253.0
+131072,baseline,original,write,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,baseline,original,write,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,original,general,列端,L1 cache unit is active,(%),7.16592317195,6.994202491399999,7.811653879625,6.7108214186,8.7087360934
+131072,candidate,original,general,列端,L1 cache unit is stalled,(%),0.39534260495,0.310997179275,0.45664491875,0.2628259041,0.5862662834
+131072,candidate,original,general,列端,L2 cache hit rate,(%),27.765734000000002,27.594952499999998,27.92388075,27.092267,28.412229
+131072,candidate,original,general,列端,L2 cache write unit is stalled,(%),0.0,0.0,0.0,0.0,0.3945080329
+131072,candidate,original,general,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,general,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,candidate,original,general,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,general,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,candidate,original,general,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,candidate,original,general,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.4e-05,1.5e-05
+131072,candidate,original,general,列端,performance,(Gflops),668.452174,661.264516,675.797802,647.343158,683.306667
+131072,candidate,original,general,列端,process id,,2797128.0,2797128.0,2797128.0,2797128.0,2797128.0
+131072,candidate,original,general,列端,processed ALU instructions,(%),2.48673691235,2.4694818138250003,2.4996749075249998,2.4489639881,2.5151158225
+131072,candidate,original,general,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,general,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,original,general,列端,shared memory bank conflict,(%),0.4015165282,0.3987304646,0.40360553845,0.3954175905,0.4060986782
+131072,candidate,original,general,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,candidate,original,general,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,candidate,original,general,列端,thread id,,2797128.0,2797128.0,2797128.0,2797128.0,2797128.0
+131072,candidate,original,general,列端,vgpr count,,88.0,88.0,88.0,88.0,88.0
+131072,candidate,original,general,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,original,general,行端,L1 cache unit is active,(%),7.888019877850001,7.714365773225,8.1510103566,7.3509449723,9.627237646
+131072,candidate,original,general,行端,L1 cache unit is stalled,(%),3.7851206467500003,3.6217598948,3.994229458425,3.3181711392,4.4086316861
+131072,candidate,original,general,行端,L2 cache hit rate,(%),13.5121435,13.315061,13.8860615,12.870276,14.408454
+131072,candidate,original,general,行端,L2 cache write unit is stalled,(%),0.0,0.0,0.0,0.0,0.3644549255
+131072,candidate,original,general,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,general,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,candidate,original,general,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,general,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,candidate,original,general,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,candidate,original,general,行端,kernel time,(s),1.4e-05,1.4e-05,1.4e-05,1.4e-05,1.5e-05
+131072,candidate,original,general,行端,performance,(Gflops),526.957303,521.102222,531.4484170000001,515.375824,539.071264
+131072,candidate,original,general,行端,process id,,2797128.0,2797128.0,2797128.0,2797128.0,2797128.0
+131072,candidate,original,general,行端,processed ALU instructions,(%),1.9487450517,1.939827541825,1.962018026675,1.925446382,1.9779041081
+131072,candidate,original,general,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,general,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,original,general,行端,shared memory bank conflict,(%),1.89379128665,1.885125246725,1.9066899695,1.8711496293,1.9221280704
+131072,candidate,original,general,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,candidate,original,general,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,candidate,original,general,行端,thread id,,2797128.0,2797128.0,2797128.0,2797128.0,2797128.0
+131072,candidate,original,general,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,candidate,original,general,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,original,read,列端,L1 cache unit is active,(%),6.9410651449,6.6943774407,7.1255203832,6.1993903574,7.6851780335
+131072,candidate,original,read,列端,L1 cache unit is stalled,(%),0.37714637154999997,0.30556817255,0.407155579725,0.2204103171,0.5012820513
+131072,candidate,original,read,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,read,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,candidate,original,read,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,read,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,candidate,original,read,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,candidate,original,read,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.5e-05,1.6e-05
+131072,candidate,original,read,列端,number of L2 cache read requests,,16714.0,16714.0,16714.0,16714.0,16714.0
+131072,candidate,original,read,列端,performance,(Gflops),661.264516,649.06481525,666.6552595,614.976,675.797802
+131072,candidate,original,read,列端,process id,,2797301.0,2797301.0,2797301.0,2797301.0,2797301.0
+131072,candidate,original,read,列端,processed ALU instructions,(%),2.4552843682,2.442303782,2.473820740975,2.2358991065,2.4992197253
+131072,candidate,original,read,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,read,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,original,read,列端,shared memory bank conflict,(%),0.39643809945,0.3943422123,0.399431041675,0.3610154505,0.4035320433
+131072,candidate,original,read,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,candidate,original,read,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,candidate,original,read,列端,size of L2 cache read,(kilobytes),1044.625,1044.625,1044.625,1044.625,1044.625
+131072,candidate,original,read,列端,thread id,,2797301.0,2797301.0,2797301.0,2797301.0,2797301.0
+131072,candidate,original,read,列端,vgpr count,,88.0,88.0,88.0,88.0,88.0
+131072,candidate,original,read,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,original,read,行端,L1 cache unit is active,(%),7.4790030135,7.361727383650001,7.7289535083,5.913617324,8.1877177585
+131072,candidate,original,read,行端,L1 cache unit is stalled,(%),3.4227731094,3.2811398879750002,3.641383810625,2.6581311415,3.9538950504
+131072,candidate,original,read,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,read,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,candidate,original,read,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,read,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,candidate,original,read,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,candidate,original,read,行端,kernel time,(s),1.4e-05,1.4e-05,1.4e-05,1.4e-05,1.5e-05
+131072,candidate,original,read,行端,number of L2 cache read requests,,16559.0,16559.0,16559.0,16557.0,16559.0
+131072,candidate,original,read,行端,performance,(Gflops),526.957303,521.102222,532.945455,515.375824,539.071264
+131072,candidate,original,read,行端,process id,,2797301.0,2797301.0,2797301.0,2797301.0,2797301.0
+131072,candidate,original,read,行端,processed ALU instructions,(%),1.94756398255,1.93921567715,1.960450879975,1.9075697623,1.990554581
+131072,candidate,original,read,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,read,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,original,read,行端,shared memory bank conflict,(%),1.89264352315,1.8845306364,1.905167015625,1.8537771226,1.9344218054
+131072,candidate,original,read,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,candidate,original,read,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,candidate,original,read,行端,size of L2 cache read,(kilobytes),1034.9375,1034.9375,1034.9375,1034.8125,1034.9375
+131072,candidate,original,read,行端,thread id,,2797301.0,2797301.0,2797301.0,2797301.0,2797301.0
+131072,candidate,original,read,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,candidate,original,read,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,original,write,列端,L1 cache unit is active,(%),7.00843773505,6.827031432675001,7.134511782025,5.9223050459,7.7020169245
+131072,candidate,original,write,列端,L1 cache unit is stalled,(%),0.35912601595,0.321558446575,0.413247302425,0.2630657048,0.4822814007
+131072,candidate,original,write,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,write,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,candidate,original,write,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,write,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,candidate,original,write,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,candidate,original,write,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.4e-05,1.6e-05
+131072,candidate,original,write,列端,number of L2 cache write requests,,16384.5,16384.0,16385.0,16384.0,16385.0
+131072,candidate,original,write,列端,performance,(Gflops),668.452174,661.264516,675.797802,597.064078,690.98427
+131072,candidate,original,write,列端,process id,,2797476.0,2797476.0,2797476.0,2797476.0,2797476.0
+131072,candidate,original,write,列端,processed ALU instructions,(%),2.4850006236,2.4690384226249997,2.4977905063500003,2.2038990826,2.5207240294
+131072,candidate,original,write,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,write,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,original,write,列端,shared memory bank conflict,(%),0.40123618145,0.3986588732,0.40330127702499996,0.3558486239,0.4070041973
+131072,candidate,original,write,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,candidate,original,write,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,candidate,original,write,列端,size of L2 cache write,(kilobytes),1024.03125,1024.0,1024.0625,1024.0,1024.0625
+131072,candidate,original,write,列端,thread id,,2797476.0,2797476.0,2797476.0,2797476.0,2797476.0
+131072,candidate,original,write,列端,vgpr count,,88.0,88.0,88.0,88.0,88.0
+131072,candidate,original,write,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,original,write,行端,L1 cache unit is active,(%),7.918446928,7.640527177975,8.109762042625,6.4535658894,8.5467870891
+131072,candidate,original,write,行端,L1 cache unit is stalled,(%),3.73637976395,3.485107157525,3.908224153,3.1142009741,4.2429402105
+131072,candidate,original,write,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,write,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,candidate,original,write,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,write,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,candidate,original,write,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,candidate,original,write,行端,kernel time,(s),1.4e-05,1.4e-05,1.4e-05,1.4e-05,1.6e-05
+131072,candidate,original,write,行端,number of L2 cache write requests,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,candidate,original,write,行端,performance,(Gflops),539.071264,532.945455,539.071264,483.496907,545.339535
+131072,candidate,original,write,行端,process id,,2797476.0,2797476.0,2797476.0,2797476.0,2797476.0
+131072,candidate,original,write,行端,processed ALU instructions,(%),1.9975626797000001,1.98364891995,2.00097683185,1.7765360437,2.0070202171
+131072,candidate,original,write,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,original,write,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,original,write,行端,shared memory bank conflict,(%),1.94123227875,1.9277108810499999,1.94455015335,1.726438498,1.9504231177
+131072,candidate,original,write,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,candidate,original,write,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,candidate,original,write,行端,size of L2 cache write,(kilobytes),1024.0,1024.0,1024.0,1024.0,1024.0
+131072,candidate,original,write,行端,thread id,,2797476.0,2797476.0,2797476.0,2797476.0,2797476.0
+131072,candidate,original,write,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,candidate,original,write,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,phase_order,general,列端,L1 cache unit is active,(%),6.766197928,5.961478842,7.008277676125,5.4283765699,7.5868495888
+131072,candidate,phase_order,general,列端,L1 cache unit is stalled,(%),0.34362963255,0.315654958125,0.376490385575,0.2315698399,0.4654885389
+131072,candidate,phase_order,general,列端,L2 cache hit rate,(%),27.7765235,27.588542,28.068509499999998,27.115482,28.265909
+131072,candidate,phase_order,general,列端,L2 cache write unit is stalled,(%),0.0,0.0,0.0,0.0,0.0685958182
+131072,candidate,phase_order,general,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,general,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,candidate,phase_order,general,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,general,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,candidate,phase_order,general,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,candidate,phase_order,general,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.4e-05,1.5e-05
+131072,candidate,phase_order,general,列端,performance,(Gflops),661.264516,649.06481525,668.452174,640.6,683.306667
+131072,candidate,phase_order,general,列端,process id,,2797653.0,2797653.0,2797653.0,2797653.0,2797653.0
+131072,candidate,phase_order,general,列端,processed ALU instructions,(%),2.4616369989,2.44528705685,2.473120357925,2.4072450334,2.5072407045
+131072,candidate,phase_order,general,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,general,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,phase_order,general,列端,shared memory bank conflict,(%),0.3974638156,0.394823901425,0.3993179556,0.3886815141,0.4048271363
+131072,candidate,phase_order,general,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,candidate,phase_order,general,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,candidate,phase_order,general,列端,thread id,,2797653.0,2797653.0,2797653.0,2797653.0,2797653.0
+131072,candidate,phase_order,general,列端,vgpr count,,88.0,88.0,88.0,88.0,88.0
+131072,candidate,phase_order,general,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,phase_order,general,行端,L1 cache unit is active,(%),7.5029637039,6.48064996445,7.716595391825,6.1283732932,8.130220045
+131072,candidate,phase_order,general,行端,L1 cache unit is stalled,(%),3.16103552765,2.897524556575,3.269016466775,2.6345716452,3.7239666988
+131072,candidate,phase_order,general,行端,L2 cache hit rate,(%),13.5353455,13.50045175,13.7304325,13.07048,14.164858
+131072,candidate,phase_order,general,行端,L2 cache write unit is stalled,(%),0.0,0.0,0.0,0.0,0.2872654438
+131072,candidate,phase_order,general,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,general,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,candidate,phase_order,general,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,general,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,candidate,phase_order,general,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,candidate,phase_order,general,行端,kernel time,(s),1.4e-05,1.4e-05,1.4e-05,1.4e-05,1.5e-05
+131072,candidate,phase_order,general,行端,performance,(Gflops),540.689655,537.6,543.77931,519.876923,550.102326
+131072,candidate,phase_order,general,行端,process id,,2797653.0,2797653.0,2797653.0,2797653.0,2797653.0
+131072,candidate,phase_order,general,行端,processed ALU instructions,(%),2.00032268475,1.9864897720249999,2.009561663475,1.9607843137,2.0390265293
+131072,candidate,phase_order,general,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,general,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,phase_order,general,行端,shared memory bank conflict,(%),1.9271926081,1.913865414825,1.936093817675,1.8890997259,1.9644814734
+131072,candidate,phase_order,general,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,candidate,phase_order,general,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,candidate,phase_order,general,行端,thread id,,2797653.0,2797653.0,2797653.0,2797653.0,2797653.0
+131072,candidate,phase_order,general,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,candidate,phase_order,general,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,phase_order,read,列端,L1 cache unit is active,(%),5.84928843325,5.6432014774749995,6.489480142675,5.4652437115,7.1558206703
+131072,candidate,phase_order,read,列端,L1 cache unit is stalled,(%),0.3343290863,0.2963465472,0.383535082625,0.2336479224,0.4823561773
+131072,candidate,phase_order,read,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,read,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+131072,candidate,phase_order,read,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,read,列端,grid size,,8448.0,8448.0,8448.0,8448.0,8448.0
+131072,candidate,phase_order,read,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+131072,candidate,phase_order,read,列端,kernel time,(s),1.5e-05,1.5e-05,1.5e-05,1.4e-05,1.5e-05
+131072,candidate,phase_order,read,列端,number of L2 cache read requests,,16713.0,16713.0,16713.0,16713.0,16713.0
+131072,candidate,phase_order,read,列端,performance,(Gflops),675.797802,668.452174,675.797802,654.229787,690.98427
+131072,candidate,phase_order,read,列端,process id,,2797823.0,2797823.0,2797823.0,2797823.0,2797823.0
+131072,candidate,phase_order,read,列端,processed ALU instructions,(%),2.4954560683,2.48063824545,2.50678317205,2.4465322334,2.5249632121
+131072,candidate,phase_order,read,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,read,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,phase_order,read,列端,shared memory bank conflict,(%),0.4029243511,0.40053181782499997,0.404753261675,0.3950249516,0.4076886693
+131072,candidate,phase_order,read,列端,shared memory operation,,9636.0,9636.0,9636.0,9636.0,9636.0
+131072,candidate,phase_order,read,列端,shared memory size,,16384.0,16384.0,16384.0,16384.0,16384.0
+131072,candidate,phase_order,read,列端,size of L2 cache read,(kilobytes),1044.5625,1044.5625,1044.5625,1044.5625,1044.5625
+131072,candidate,phase_order,read,列端,thread id,,2797823.0,2797823.0,2797823.0,2797823.0,2797823.0
+131072,candidate,phase_order,read,列端,vgpr count,,88.0,88.0,88.0,88.0,88.0
+131072,candidate,phase_order,read,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+131072,candidate,phase_order,read,行端,L1 cache unit is active,(%),6.8324687636,6.7286192779250005,6.9613670528750005,6.6097811218,8.4337796615
+131072,candidate,phase_order,read,行端,L1 cache unit is stalled,(%),3.2061313145500003,3.150929991175,3.354701380925,3.0502735978,3.9258429393
+131072,candidate,phase_order,read,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,read,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+131072,candidate,phase_order,read,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,read,行端,grid size,,8192.0,8192.0,8192.0,8192.0,8192.0
+131072,candidate,phase_order,read,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+131072,candidate,phase_order,read,行端,kernel time,(s),1.4e-05,1.4e-05,1.4e-05,1.4e-05,1.4e-05
+131072,candidate,phase_order,read,行端,number of L2 cache read requests,,16558.0,16558.0,16558.0,16558.0,16558.0
+131072,candidate,phase_order,read,行端,performance,(Gflops),543.77931,537.6,550.102326,531.559551,556.574118
+131072,candidate,phase_order,read,行端,process id,,2797823.0,2797823.0,2797823.0,2797823.0,2797823.0
+131072,candidate,phase_order,read,行端,processed ALU instructions,(%),2.0212465288,2.003825359125,2.031843151175,1.9842645686,2.0491916159
+131072,candidate,phase_order,read,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+131072,candidate,phase_order,read,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+131072,candidate,phase_order,read,行端,shared memory bank conflict,(%),1.9473514943999999,1.9305672277,1.9575607134,1.9117215629,1.9742749332
+131072,candidate,phase_order,read,行端,shared memory operation,,10240.0,10240.0,10240.0,10240.0,10240.0
+131072,candidate,phase_order,read,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+131072,candidate,phase_order,read,行端,size of L2 cache read,(kilobytes),1034.875,1034.875,1034.875,1034.875,1034.875
+131072,candidate,phase_order,read,行端,thread id,,2797823.0,2797823.0,2797823.0,2797823.0,2797823.0
+131072,candidate,phase_order,read,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+131072,candidate,phase_order,read,行端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,baseline,original,general,列端,L1 cache unit is active,(%),39.66388173875,38.799547792525004,41.20520408185,37.5129623756,43.0058809058
+1048576,baseline,original,general,列端,L1 cache unit is stalled,(%),20.06273427095,17.952948695125002,20.906147323524998,15.7920159605,22.8938263968
+1048576,baseline,original,general,列端,L2 cache hit rate,(%),27.77278,27.7602485,27.790229500000002,27.727743,27.847568
+1048576,baseline,original,general,列端,L2 cache write unit is stalled,(%),4.4481398709499995,4.240264483974999,4.6659062355500005,3.9033896303,5.0512288642
+1048576,baseline,original,general,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,general,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,baseline,original,general,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,general,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,baseline,original,general,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,baseline,original,general,列端,kernel time,(s),4.1e-05,4e-05,4.275e-05,3.9e-05,4.4e-05
+1048576,baseline,original,general,列端,performance,(Gflops),2148.522008,2097.98454925,2199.475099,2016.185507,2309.052413
+1048576,baseline,original,general,列端,process id,,2798997.0,2798997.0,2798997.0,2798997.0,2798997.0
+1048576,baseline,original,general,列端,processed ALU instructions,(%),10.44938043075,10.304356402975,10.622402795074999,9.9828733776,11.0312678018
+1048576,baseline,original,general,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,general,列端,sgpr count,,64.0,64.0,64.0,64.0,64.0
+1048576,baseline,original,general,列端,shared memory bank conflict,(%),3.6499654727,3.5993086230249998,3.710402133075,3.487014698,3.8532185581
+1048576,baseline,original,general,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,baseline,original,general,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,baseline,original,general,列端,thread id,,2798997.0,2798997.0,2798997.0,2798997.0,2798997.0
+1048576,baseline,original,general,列端,vgpr count,,148.0,148.0,148.0,148.0,148.0
+1048576,baseline,original,general,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,baseline,original,general,行端,L1 cache unit is active,(%),45.958535072299995,44.733765548099996,46.4431870325,42.6997545259,48.8870294805
+1048576,baseline,original,general,行端,L1 cache unit is stalled,(%),26.150293671950003,24.162107330925,27.00208421995,23.2412191994,28.3032755095
+1048576,baseline,original,general,行端,L2 cache hit rate,(%),42.11959,42.0557995,42.159574500000005,41.979026,42.243158
+1048576,baseline,original,general,行端,L2 cache write unit is stalled,(%),5.681758863,4.760987598825,6.1766812649,3.6790549926,6.6074926239
+1048576,baseline,original,general,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,general,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,baseline,original,general,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,general,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,baseline,original,general,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,baseline,original,general,行端,kernel time,(s),4.4e-05,4.3e-05,4.5e-05,4.2e-05,4.6e-05
+1048576,baseline,original,general,行端,performance,(Gflops),1676.7823804999998,1657.37028975,1747.6312805,1604.502069,1782.780077
+1048576,baseline,original,general,行端,process id,,2798997.0,2798997.0,2798997.0,2798997.0,2798997.0
+1048576,baseline,original,general,行端,processed ALU instructions,(%),8.7477629598,8.670198786,9.03835623935,8.4654532117,9.1557781469
+1048576,baseline,original,general,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,general,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,baseline,original,general,行端,shared memory bank conflict,(%),4.8514456623,4.8084291361,5.0126065798749995,4.6948787309,5.0777279151
+1048576,baseline,original,general,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,baseline,original,general,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,baseline,original,general,行端,thread id,,2798997.0,2798997.0,2798997.0,2798997.0,2798997.0
+1048576,baseline,original,general,行端,vgpr count,,64.0,64.0,64.0,64.0,64.0
+1048576,baseline,original,general,行端,work group size,,512.0,512.0,512.0,512.0,512.0
+1048576,baseline,original,read,列端,L1 cache unit is active,(%),40.75567491575,39.417140200549994,41.9824274449,35.4122206879,43.3273576253
+1048576,baseline,original,read,列端,L1 cache unit is stalled,(%),20.3478842519,18.241195626375003,21.691915192750002,16.7366295513,23.4210085683
+1048576,baseline,original,read,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,read,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,baseline,original,read,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,read,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,baseline,original,read,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,baseline,original,read,列端,kernel time,(s),4.1e-05,4e-05,4.2e-05,3.8e-05,4.4e-05
+1048576,baseline,original,read,列端,number of L2 cache read requests,,131805.0,131792.5,131817.25,131781.0,131871.0
+1048576,baseline,original,read,列端,performance,(Gflops),2161.0458175,2125.95501775,2241.56652425,2016.185507,2338.097479
+1048576,baseline,original,read,列端,process id,,2799185.0,2799185.0,2799185.0,2799185.0,2799185.0
+1048576,baseline,original,read,列端,processed ALU instructions,(%),10.5317783028,10.35757402685,10.812144317825,9.9833308511,11.1016765613
+1048576,baseline,original,read,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,read,列端,sgpr count,,64.0,64.0,64.0,64.0,64.0
+1048576,baseline,original,read,列端,shared memory bank conflict,(%),3.67874702495,3.617897523225,3.7766787904249997,3.4871744933,3.8778123169
+1048576,baseline,original,read,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,baseline,original,read,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,baseline,original,read,列端,size of L2 cache read,(kilobytes),8237.8125,8237.03125,8238.578125,8236.3125,8241.9375
+1048576,baseline,original,read,列端,thread id,,2799185.0,2799185.0,2799185.0,2799185.0,2799185.0
+1048576,baseline,original,read,列端,vgpr count,,148.0,148.0,148.0,148.0,148.0
+1048576,baseline,original,read,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,baseline,original,read,行端,L1 cache unit is active,(%),46.21244870865,44.881451443125,47.291025400125,43.6615341063,49.4452250453
+1048576,baseline,original,read,行端,L1 cache unit is stalled,(%),26.70737756465,24.592882173025,27.3285053868,23.1531398469,28.0018780936
+1048576,baseline,original,read,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,read,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,baseline,original,read,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,read,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,baseline,original,read,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,baseline,original,read,行端,kernel time,(s),4.5e-05,4.3e-05,4.5e-05,4.2e-05,4.6e-05
+1048576,baseline,original,read,行端,number of L2 cache read requests,,132477.5,132472.25,132482.75,132467.0,132489.0
+1048576,baseline,original,read,行端,performance,(Gflops),1661.805714,1645.64701375,1723.354074,1626.942657,1769.222814
+1048576,baseline,original,read,行端,process id,,2799185.0,2799185.0,2799185.0,2799185.0,2799185.0
+1048576,baseline,original,read,行端,processed ALU instructions,(%),8.68906467445,8.592330082075,8.960844722274999,8.5158195738,9.1098146115
+1048576,baseline,original,read,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,read,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,baseline,original,read,行端,shared memory bank conflict,(%),4.8188920205,4.765243719725,4.969619256775,4.7228115488,5.0522368729
+1048576,baseline,original,read,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,baseline,original,read,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,baseline,original,read,行端,size of L2 cache read,(kilobytes),8279.84375,8279.515625,8280.171875,8279.1875,8280.5625
+1048576,baseline,original,read,行端,thread id,,2799185.0,2799185.0,2799185.0,2799185.0,2799185.0
+1048576,baseline,original,read,行端,vgpr count,,64.0,64.0,64.0,64.0,64.0
+1048576,baseline,original,read,行端,work group size,,512.0,512.0,512.0,512.0,512.0
+1048576,baseline,original,write,列端,L1 cache unit is active,(%),40.4285472785,39.795662466875,41.872852309625,37.6835631166,44.876730177
+1048576,baseline,original,write,列端,L1 cache unit is stalled,(%),20.3542472206,19.148096923825,21.119727474,16.2438337971,22.3813270613
+1048576,baseline,original,write,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,write,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,baseline,original,write,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,write,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,baseline,original,write,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,baseline,original,write,列端,kernel time,(s),4.15e-05,4.1e-05,4.2e-05,3.9e-05,4.5e-05
+1048576,baseline,original,write,列端,number of L2 cache write requests,,132096.0,132096.0,132096.0,132096.0,132096.0
+1048576,baseline,original,write,列端,performance,(Gflops),2144.453925,2101.86474525,2184.42231675,1973.287943,2308.992531
+1048576,baseline,original,write,列端,process id,,2799363.0,2799363.0,2799363.0,2799363.0,2799363.0
+1048576,baseline,original,write,列端,processed ALU instructions,(%),10.4575242265,10.2992593618,10.630741229675,9.8301690977,11.0221983304
+1048576,baseline,original,write,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,write,列端,sgpr count,,64.0,64.0,64.0,64.0,64.0
+1048576,baseline,original,write,列端,shared memory bank conflict,(%),3.65281009815,3.597528228075,3.71331474575,3.4336751385,3.8500505945
+1048576,baseline,original,write,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,baseline,original,write,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,baseline,original,write,列端,size of L2 cache write,(kilobytes),8224.0,8224.0,8224.0,8224.0,8224.0
+1048576,baseline,original,write,列端,thread id,,2799363.0,2799363.0,2799363.0,2799363.0,2799363.0
+1048576,baseline,original,write,列端,vgpr count,,148.0,148.0,148.0,148.0,148.0
+1048576,baseline,original,write,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,baseline,original,write,行端,L1 cache unit is active,(%),46.27921634875,44.954487634675,46.7787296091,43.8458383961,48.8084514315
+1048576,baseline,original,write,行端,L1 cache unit is stalled,(%),26.898095430650002,24.32694933835,27.514642258625,23.3539428278,28.7969763039
+1048576,baseline,original,write,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,write,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,baseline,original,write,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,write,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,baseline,original,write,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,baseline,original,write,行端,kernel time,(s),4.5e-05,4.3e-05,4.575e-05,4.2e-05,4.6e-05
+1048576,baseline,original,write,行端,number of L2 cache write requests,,132978.0,132558.75,133959.75,132125.0,136313.0
+1048576,baseline,original,write,行端,performance,(Gflops),1658.8487645,1634.088421,1726.56915475,1610.053979,1769.222814
+1048576,baseline,original,write,行端,process id,,2799363.0,2799363.0,2799363.0,2799363.0,2799363.0
+1048576,baseline,original,write,行端,processed ALU instructions,(%),8.688027851800001,8.566367026675,8.9248367759,8.4550835136,9.0939985717
+1048576,baseline,original,write,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,baseline,original,write,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,baseline,original,write,行端,shared memory bank conflict,(%),4.8183170062,4.750844798125,4.9496495117,4.6891277719,5.0434654124
+1048576,baseline,original,write,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,baseline,original,write,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,baseline,original,write,行端,size of L2 cache write,(kilobytes),8251.75,8238.484375,8282.75,8225.09375,8358.5
+1048576,baseline,original,write,行端,thread id,,2799363.0,2799363.0,2799363.0,2799363.0,2799363.0
+1048576,baseline,original,write,行端,vgpr count,,64.0,64.0,64.0,64.0,64.0
+1048576,baseline,original,write,行端,work group size,,512.0,512.0,512.0,512.0,512.0
+1048576,candidate,original,general,列端,L1 cache unit is active,(%),42.3810799058,41.4273315425,43.351226209874994,39.0069472824,46.3859309455
+1048576,candidate,original,general,列端,L1 cache unit is stalled,(%),22.345992472299997,21.384422027175,23.525512718225,18.0366187416,25.2850709639
+1048576,candidate,original,general,列端,L2 cache hit rate,(%),27.964571499999998,27.90136475,28.0341105,27.864004,28.150565
+1048576,candidate,original,general,列端,L2 cache write unit is stalled,(%),3.43003239,3.383636175275,3.487539168275,3.2329838519,3.7423685156
+1048576,candidate,original,general,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,general,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,candidate,original,general,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,general,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,candidate,original,general,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,candidate,original,general,列端,kernel time,(s),4.4e-05,4.3e-05,4.4750000000000004e-05,4e-05,4.9e-05
+1048576,candidate,original,general,列端,performance,(Gflops),1839.663544,1801.71628375,1873.98209,1641.265359,1992.965079
+1048576,candidate,original,general,列端,process id,,2799539.0,2799539.0,2799539.0,2799539.0,2799539.0
+1048576,candidate,original,general,列端,processed ALU instructions,(%),9.153965390500002,9.02378907085,9.294665593675001,8.3554803126,9.7178982304
+1048576,candidate,original,general,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,general,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,original,general,列端,shared memory bank conflict,(%),3.55399588785,3.5034553750999997,3.608622262525,3.2439867757,3.7729408924
+1048576,candidate,original,general,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,candidate,original,general,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,original,general,列端,thread id,,2799539.0,2799539.0,2799539.0,2799539.0,2799539.0
+1048576,candidate,original,general,列端,vgpr count,,168.0,168.0,168.0,168.0,168.0
+1048576,candidate,original,general,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,candidate,original,general,行端,L1 cache unit is active,(%),50.596087894099995,49.895289248875,51.308317179325,49.1030918676,52.1369953634
+1048576,candidate,original,general,行端,L1 cache unit is stalled,(%),29.9920833846,29.12566592035,30.406406165775,28.205504903,32.8043803207
+1048576,candidate,original,general,行端,L2 cache hit rate,(%),42.1315775,42.10265925,42.1475975,42.051336,42.183415
+1048576,candidate,original,general,行端,L2 cache write unit is stalled,(%),4.651570425999999,3.236770951425,5.262545307625,2.0961545199,6.0834080294
+1048576,candidate,original,general,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,general,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,candidate,original,general,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,general,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,candidate,original,general,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,candidate,original,general,行端,kernel time,(s),4.4e-05,4.3e-05,4.4e-05,4.2e-05,4.5e-05
+1048576,candidate,original,general,行端,performance,(Gflops),1772.940146,1749.007319,1804.2222995000002,1716.55689,1847.093536
+1048576,candidate,original,general,行端,process id,,2799539.0,2799539.0,2799539.0,2799539.0,2799539.0
+1048576,candidate,original,general,行端,processed ALU instructions,(%),9.166631869749999,9.059504018650001,9.277915780975,8.9535576238,9.4506280122
+1048576,candidate,original,general,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,general,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,original,general,行端,shared memory bank conflict,(%),4.8970320506,4.83980181295,4.9564825541249995,4.7832027373,5.0487495224
+1048576,candidate,original,general,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,candidate,original,general,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,original,general,行端,thread id,,2799539.0,2799539.0,2799539.0,2799539.0,2799539.0
+1048576,candidate,original,general,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+1048576,candidate,original,general,行端,work group size,,512.0,512.0,512.0,512.0,512.0
+1048576,candidate,original,read,列端,L1 cache unit is active,(%),41.673972542200005,41.21865618025,42.771929211125,39.5554298505,45.465658723
+1048576,candidate,original,read,列端,L1 cache unit is stalled,(%),21.445131459800002,20.9968372642,22.503646572275,18.1655474861,25.2730159622
+1048576,candidate,original,read,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,read,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,candidate,original,read,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,read,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,candidate,original,read,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,candidate,original,read,列端,kernel time,(s),4.35e-05,4.2e-05,4.4e-05,4e-05,4.8e-05
+1048576,candidate,original,read,列端,number of L2 cache read requests,,131777.0,131751.75,131788.75,131725.0,131813.0
+1048576,candidate,original,read,列端,performance,(Gflops),1860.2028095,1806.572662,1895.196981,1685.326174,1985.087747
+1048576,candidate,original,read,列端,process id,,2799969.0,2799969.0,2799969.0,2799969.0,2799969.0
+1048576,candidate,original,read,列端,processed ALU instructions,(%),9.222645268499999,9.02338584905,9.348925101275,8.5549668585,9.7103224689
+1048576,candidate,original,read,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,read,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,original,read,列端,shared memory bank conflict,(%),3.5806606166000003,3.503298825625,3.629688331575,3.3214367478,3.7699996288
+1048576,candidate,original,read,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,candidate,original,read,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,original,read,列端,size of L2 cache read,(kilobytes),8236.0625,8234.484375,8236.796875,8232.8125,8238.3125
+1048576,candidate,original,read,列端,thread id,,2799969.0,2799969.0,2799969.0,2799969.0,2799969.0
+1048576,candidate,original,read,列端,vgpr count,,168.0,168.0,168.0,168.0,168.0
+1048576,candidate,original,read,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,candidate,original,read,行端,L1 cache unit is active,(%),50.78105224485,50.275386600924996,51.226523806675,49.3630273435,54.7532259778
+1048576,candidate,original,read,行端,L1 cache unit is stalled,(%),29.638305252400002,29.301326831799997,30.25312118905,28.7199500562,32.379756325
+1048576,candidate,original,read,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,read,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,candidate,original,read,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,read,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,candidate,original,read,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,candidate,original,read,行端,kernel time,(s),4.4e-05,4.3e-05,4.4e-05,4.2e-05,4.5e-05
+1048576,candidate,original,read,行端,number of L2 cache read requests,,131425.0,131418.5,131428.0,131409.0,131433.0
+1048576,candidate,original,read,行端,performance,(Gflops),1785.976471,1755.3271595,1792.56679,1710.512676,1840.09697
+1048576,candidate,original,read,行端,process id,,2799969.0,2799969.0,2799969.0,2799969.0,2799969.0
+1048576,candidate,original,read,行端,processed ALU instructions,(%),9.20498687565,9.084860514625,9.251579559675001,8.9178375361,9.4474838582
+1048576,candidate,original,read,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,read,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,original,read,行端,shared memory bank conflict,(%),4.917522204000001,4.8533478542,4.942413120325,4.7641202196,5.0470698408
+1048576,candidate,original,read,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,candidate,original,read,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,original,read,行端,size of L2 cache read,(kilobytes),8214.0625,8213.65625,8214.25,8213.0625,8214.5625
+1048576,candidate,original,read,行端,thread id,,2799969.0,2799969.0,2799969.0,2799969.0,2799969.0
+1048576,candidate,original,read,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+1048576,candidate,original,read,行端,work group size,,512.0,512.0,512.0,512.0,512.0
+1048576,candidate,original,write,列端,L1 cache unit is active,(%),41.85781995755001,41.26882783135,43.28849832905,38.8911265336,44.9754183662
+1048576,candidate,original,write,列端,L1 cache unit is stalled,(%),21.7425171772,20.549082920375,22.44001025005,19.7156868736,24.0009823183
+1048576,candidate,original,write,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,write,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,candidate,original,write,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,write,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,candidate,original,write,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,candidate,original,write,列端,kernel time,(s),4.3e-05,4.2e-05,4.4e-05,4.1e-05,4.7e-05
+1048576,candidate,original,write,列端,number of L2 cache write requests,,131410.0,131353.5,131481.75,131266.0,131579.0
+1048576,candidate,original,write,列端,performance,(Gflops),1860.1479465000002,1814.73688075,1915.07556375,1725.866667,1961.825
+1048576,candidate,original,write,列端,process id,,2800903.0,2800903.0,2800903.0,2800903.0,2800903.0
+1048576,candidate,original,write,列端,processed ALU instructions,(%),9.246481503350001,9.073755483325,9.43278901345,8.6804495476,9.6126661358
+1048576,candidate,original,write,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,write,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,original,write,列端,shared memory bank conflict,(%),3.5899149536,3.52285466455,3.662248209875,3.3701549744,3.7320848901
+1048576,candidate,original,write,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,candidate,original,write,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,original,write,列端,size of L2 cache write,(kilobytes),8212.4375,8209.5234375,8217.109375,8204.03125,8222.6875
+1048576,candidate,original,write,列端,thread id,,2800903.0,2800903.0,2800903.0,2800903.0,2800903.0
+1048576,candidate,original,write,列端,vgpr count,,168.0,168.0,168.0,168.0,168.0
+1048576,candidate,original,write,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,candidate,original,write,行端,L1 cache unit is active,(%),50.71567366955,49.8001243366,51.2150231889,48.146250871,52.6346565491
+1048576,candidate,original,write,行端,L1 cache unit is stalled,(%),29.55021494875,28.73553310025,30.482414376475,27.8481629327,32.4910193215
+1048576,candidate,original,write,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,write,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,candidate,original,write,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,write,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,candidate,original,write,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,candidate,original,write,行端,kernel time,(s),4.3e-05,4.3e-05,4.4e-05,4.1e-05,4.6e-05
+1048576,candidate,original,write,行端,number of L2 cache write requests,,133966.0,133329.25,134351.25,132374.0,136875.0
+1048576,candidate,original,write,行端,performance,(Gflops),1805.894424,1785.976471,1817.72450125,1698.551049,1890.216342
+1048576,candidate,original,write,行端,process id,,2800903.0,2800903.0,2800903.0,2800903.0,2800903.0
+1048576,candidate,original,write,行端,processed ALU instructions,(%),9.29802989545,9.205483924700001,9.349737642225001,8.8356227528,9.6239393483
+1048576,candidate,original,write,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,original,write,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,original,write,行端,shared memory bank conflict,(%),4.9672279909,4.9177877394,4.99485149505,4.7201991334,5.1413365467
+1048576,candidate,original,write,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,candidate,original,write,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,original,write,行端,size of L2 cache write,(kilobytes),8282.390625,8262.9375,8294.703125,8233.0,8372.71875
+1048576,candidate,original,write,行端,thread id,,2800903.0,2800903.0,2800903.0,2800903.0,2800903.0
+1048576,candidate,original,write,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+1048576,candidate,original,write,行端,work group size,,512.0,512.0,512.0,512.0,512.0
+1048576,candidate,phase_order,general,列端,L1 cache unit is active,(%),42.90708525,41.392380672575,44.2047300121,40.0851842938,45.9154548224
+1048576,candidate,phase_order,general,列端,L1 cache unit is stalled,(%),22.54685856105,21.644387789675,23.42202786085,20.4062363891,25.0252428389
+1048576,candidate,phase_order,general,列端,L2 cache hit rate,(%),27.930261,27.90043625,27.95649375,27.851046,28.166468
+1048576,candidate,phase_order,general,列端,L2 cache write unit is stalled,(%),3.41189610085,3.3368414373,3.486792086525,3.238445817,3.629352518
+1048576,candidate,phase_order,general,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,general,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,candidate,phase_order,general,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,general,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,candidate,phase_order,general,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,candidate,phase_order,general,列端,kernel time,(s),4.4e-05,4.325e-05,4.5e-05,4.2e-05,4.6e-05
+1048576,candidate,phase_order,general,列端,performance,(Gflops),1819.687656,1776.22769225,1856.681438,1749.920557,1916.89771
+1048576,candidate,phase_order,general,列端,process id,,2801778.0,2801778.0,2801778.0,2801778.0,2801778.0
+1048576,candidate,phase_order,general,列端,processed ALU instructions,(%),9.0540502231,8.90706315035,9.231761675075001,8.7779368666,9.4668966848
+1048576,candidate,phase_order,general,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,general,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,phase_order,general,列端,shared memory bank conflict,(%),3.5152041644,3.458136933925,3.584200030375,3.4080040941,3.6754903971
+1048576,candidate,phase_order,general,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,candidate,phase_order,general,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,phase_order,general,列端,thread id,,2801778.0,2801778.0,2801778.0,2801778.0,2801778.0
+1048576,candidate,phase_order,general,列端,vgpr count,,168.0,168.0,168.0,168.0,168.0
+1048576,candidate,phase_order,general,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,candidate,phase_order,general,行端,L1 cache unit is active,(%),48.163125012449996,47.701243325675,49.064524123225,46.8307108241,50.6747125344
+1048576,candidate,phase_order,general,行端,L1 cache unit is stalled,(%),29.44797199875,28.63013411815,30.297706892325,28.1036010879,32.0971934695
+1048576,candidate,phase_order,general,行端,L2 cache hit rate,(%),42.194445,42.172119,42.22782125,42.131152,42.285516
+1048576,candidate,phase_order,general,行端,L2 cache write unit is stalled,(%),4.0958946744,3.4014689365499997,4.62878777405,2.1728780869,6.4062054547
+1048576,candidate,phase_order,general,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,general,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,candidate,phase_order,general,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,general,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,candidate,phase_order,general,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,candidate,phase_order,general,行端,kernel time,(s),4.35e-05,4.3e-05,4.4e-05,4.2e-05,4.6e-05
+1048576,candidate,phase_order,general,行端,performance,(Gflops),1792.5911985,1766.493091,1810.948233,1698.551049,1833.153208
+1048576,candidate,phase_order,general,行端,process id,,2801778.0,2801778.0,2801778.0,2801778.0,2801778.0
+1048576,candidate,phase_order,general,行端,processed ALU instructions,(%),9.2381540234,9.13536955485,9.311210813875,8.8568524166,9.4170822177
+1048576,candidate,phase_order,general,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,general,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,phase_order,general,行端,shared memory bank conflict,(%),4.9352408806,4.880330980875001,4.974269549975,4.7315405231,5.0308285637
+1048576,candidate,phase_order,general,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,candidate,phase_order,general,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,phase_order,general,行端,thread id,,2801778.0,2801778.0,2801778.0,2801778.0,2801778.0
+1048576,candidate,phase_order,general,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+1048576,candidate,phase_order,general,行端,work group size,,512.0,512.0,512.0,512.0,512.0
+1048576,candidate,phase_order,read,列端,L1 cache unit is active,(%),42.803546173849995,42.2196517158,44.539439614100004,40.3339018998,46.3131523128
+1048576,candidate,phase_order,read,列端,L1 cache unit is stalled,(%),22.5407802346,21.81492463315,23.774552197525,21.0369346123,26.0270737786
+1048576,candidate,phase_order,read,列端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,read,列端,dispatch queue index,,122.0,93.0,151.0,64.0,180.0
+1048576,candidate,phase_order,read,列端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,read,列端,grid size,,33024.0,33024.0,33024.0,33024.0,33024.0
+1048576,candidate,phase_order,read,列端,kernel dispatch index,,55.0,40.5,69.5,26.0,84.0
+1048576,candidate,phase_order,read,列端,kernel time,(s),4.4e-05,4.3e-05,4.5e-05,4.2e-05,4.7e-05
+1048576,candidate,phase_order,read,列端,number of L2 cache read requests,,131764.0,131758.25,131775.0,131735.0,131814.0
+1048576,candidate,phase_order,read,列端,performance,(Gflops),1829.613356,1776.22769225,1863.57093475,1714.086007,1916.89771
+1048576,candidate,phase_order,read,列端,process id,,2801956.0,2801956.0,2801956.0,2801956.0,2801956.0
+1048576,candidate,phase_order,read,列端,processed ALU instructions,(%),9.10666077975,8.93055385835,9.26003650185,8.6710497238,9.4575409164
+1048576,candidate,phase_order,read,列端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,read,列端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,phase_order,read,列端,shared memory bank conflict,(%),3.53563003385,3.467257121325,3.595177635625,3.3665055249,3.6718580519
+1048576,candidate,phase_order,read,列端,shared memory operation,,75336.0,75336.0,75336.0,75336.0,75336.0
+1048576,candidate,phase_order,read,列端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,phase_order,read,列端,size of L2 cache read,(kilobytes),8235.25,8234.890625,8235.9375,8233.4375,8238.375
+1048576,candidate,phase_order,read,列端,thread id,,2801956.0,2801956.0,2801956.0,2801956.0,2801956.0
+1048576,candidate,phase_order,read,列端,vgpr count,,168.0,168.0,168.0,168.0,168.0
+1048576,candidate,phase_order,read,列端,work group size,,256.0,256.0,256.0,256.0,256.0
+1048576,candidate,phase_order,read,行端,L1 cache unit is active,(%),48.52645516295,47.758097491025005,49.074666263575,46.1806378388,51.7076348321
+1048576,candidate,phase_order,read,行端,L1 cache unit is stalled,(%),29.33204648245,28.722520385975,30.310253264025,27.0278571161,33.214702138
+1048576,candidate,phase_order,read,行端,dispatch queue id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,read,行端,dispatch queue index,,123.0,94.0,152.0,65.0,181.0
+1048576,candidate,phase_order,read,行端,gpu id,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,read,行端,grid size,,131072.0,131072.0,131072.0,131072.0,131072.0
+1048576,candidate,phase_order,read,行端,kernel dispatch index,,56.0,41.5,70.5,27.0,85.0
+1048576,candidate,phase_order,read,行端,kernel time,(s),4.4e-05,4.3e-05,4.4e-05,4.2e-05,4.5e-05
+1048576,candidate,phase_order,read,行端,number of L2 cache read requests,,131447.0,131436.0,131452.0,131401.0,131460.0
+1048576,candidate,phase_order,read,行端,performance,(Gflops),1782.7054515,1761.69283825,1804.2222995000002,1722.643972,1868.406154
+1048576,candidate,phase_order,read,行端,process id,,2801956.0,2801956.0,2801956.0,2801956.0,2801956.0
+1048576,candidate,phase_order,read,行端,processed ALU instructions,(%),9.212637517600001,9.127028794625,9.29053562795,8.9549170754,9.5628422116
+1048576,candidate,phase_order,read,行端,scratch size,,0.0,0.0,0.0,0.0,0.0
+1048576,candidate,phase_order,read,行端,sgpr count,,32.0,32.0,32.0,32.0,32.0
+1048576,candidate,phase_order,read,行端,shared memory bank conflict,(%),4.9216093583500005,4.875875149025,4.9632243755,4.7839289886,5.1086970079
+1048576,candidate,phase_order,read,行端,shared memory operation,,65536.0,65536.0,65536.0,65536.0,65536.0
+1048576,candidate,phase_order,read,行端,shared memory size,,32768.0,32768.0,32768.0,32768.0,32768.0
+1048576,candidate,phase_order,read,行端,size of L2 cache read,(kilobytes),8215.4375,8214.75,8215.75,8212.5625,8216.25
+1048576,candidate,phase_order,read,行端,thread id,,2801956.0,2801956.0,2801956.0,2801956.0,2801956.0
+1048576,candidate,phase_order,read,行端,vgpr count,,68.0,68.0,68.0,68.0,68.0
+1048576,candidate,phase_order,read,行端,work group size,,512.0,512.0,512.0,512.0,512.0

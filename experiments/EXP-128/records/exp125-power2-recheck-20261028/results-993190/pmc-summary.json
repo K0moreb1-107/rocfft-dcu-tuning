@@ -1,0 +1,6054 @@
+{
+  "complete": true,
+  "job_id": "993190",
+  "entries": [
+    {
+      "N": 131072,
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "general",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0000_131072_z2d_1d_baseline_general_original/measured-counter-windows.json",
+      "raw_sha256": "73e4bc6870bd6dd9095e3e05271cab9f4d5454ca2512333b1e3d56629bbd6e90",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 6.4420762337,
+              "p25": 5.9387900297,
+              "p75": 6.72007871565,
+              "minimum": 4.6896511416,
+              "maximum": 7.1717402914
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.1954662726,
+              "p25": 0.18717423035,
+              "p75": 0.20655469982500002,
+              "minimum": 0.1705665498,
+              "maximum": 0.2244000733
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 27.2848775,
+              "p25": 27.03064225,
+              "p75": 27.414437,
+              "minimum": 26.777884,
+              "maximum": 27.733977
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.2348091523
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.6e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 729.049462,
+              "p25": 721.293617,
+              "p75": 745.072527,
+              "minimum": 698.985567,
+              "maximum": 761.81573
+            },
+            "process id": {
+              "unit": "",
+              "median": 2794891.0,
+              "p25": 2794891.0,
+              "p75": 2794891.0,
+              "minimum": 2794891.0,
+              "maximum": 2794891.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.7455052050499997,
+              "p25": 2.71573293525,
+              "p75": 2.7666294316,
+              "minimum": 2.6795649656,
+              "maximum": 2.8079409049
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 48.0,
+              "p25": 48.0,
+              "p75": 48.0,
+              "minimum": 48.0,
+              "maximum": 48.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.39118322385000004,
+              "p25": 0.386941231425,
+              "p75": 0.394193031725,
+              "minimum": 0.3817879711,
+              "maximum": 0.4000791452
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2794891.0,
+              "p25": 2794891.0,
+              "p75": 2794891.0,
+              "minimum": 2794891.0,
+              "maximum": 2794891.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 84.0,
+              "p25": 84.0,
+              "p75": 84.0,
+              "minimum": 84.0,
+              "maximum": 84.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 8.49923549855,
+              "p25": 7.0485550762499996,
+              "p75": 8.661770396025,
+              "minimum": 6.8618808307,
+              "maximum": 9.0389599647
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.8647013721,
+              "p25": 3.296307895225,
+              "p75": 4.072092750875,
+              "minimum": 3.1521194927,
+              "maximum": 4.3709330539
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 13.863823,
+              "p25": 13.787659,
+              "p75": 14.230733,
+              "minimum": 13.120962,
+              "maximum": 14.492436
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0637189716
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.3e-05,
+              "p25": 1.3e-05,
+              "p75": 1.3e-05,
+              "minimum": 1.3e-05,
+              "maximum": 1.3e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 544.869136,
+              "p25": 538.22439,
+              "p75": 551.68,
+              "minimum": 531.739759,
+              "maximum": 558.663291
+            },
+            "process id": {
+              "unit": "",
+              "median": 2794891.0,
+              "p25": 2794891.0,
+              "p75": 2794891.0,
+              "minimum": 2794891.0,
+              "maximum": 2794891.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 1.93157163325,
+              "p25": 1.923439162325,
+              "p75": 1.9390148554,
+              "minimum": 1.9022572869,
+              "maximum": 1.9618035936
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 48.0,
+              "p25": 48.0,
+              "p75": 48.0,
+              "minimum": 48.0,
+              "maximum": 48.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.9938803956,
+              "p25": 1.985485586975,
+              "p75": 2.0015637217,
+              "minimum": 1.9636204252,
+              "maximum": 2.0250875805
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2794891.0,
+              "p25": 2794891.0,
+              "p75": 2794891.0,
+              "minimum": 2794891.0,
+              "maximum": 2794891.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        }
+      }
+    },
+    {
+      "N": 131072,
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "read",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0001_131072_z2d_1d_baseline_read_original/measured-counter-windows.json",
+      "raw_sha256": "95fd8e9b7c0daa6b7802310cf897b8f8cfab64930622a2c3470a98b2e716ff2b",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 6.75035974435,
+              "p25": 6.6275171327999995,
+              "p75": 6.9326682309,
+              "minimum": 4.5239882,
+              "maximum": 7.7425898434
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.206456023,
+              "p25": 0.19836378232500002,
+              "p75": 0.2207588324,
+              "minimum": 0.1676892679,
+              "maximum": 0.2742254107
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.6e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 16736.0,
+              "p25": 16736.0,
+              "p75": 16736.0,
+              "minimum": 16736.0,
+              "maximum": 16736.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 729.049462,
+              "p25": 713.701053,
+              "p75": 736.973913,
+              "minimum": 691.853061,
+              "maximum": 761.81573
+            },
+            "process id": {
+              "unit": "",
+              "median": 2795646.0,
+              "p25": 2795646.0,
+              "p75": 2795646.0,
+              "minimum": 2795646.0,
+              "maximum": 2795646.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.73190739715,
+              "p25": 2.6959227334499998,
+              "p75": 2.75852907175,
+              "minimum": 2.6442164365,
+              "maximum": 2.7970934511
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 48.0,
+              "p25": 48.0,
+              "p75": 48.0,
+              "minimum": 48.0,
+              "maximum": 48.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.38924579015,
+              "p25": 0.3841186476,
+              "p75": 0.39303888165,
+              "minimum": 0.3767514658,
+              "maximum": 0.3985335856
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 1046.0,
+              "p25": 1046.0,
+              "p75": 1046.0,
+              "minimum": 1046.0,
+              "maximum": 1046.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2795646.0,
+              "p25": 2795646.0,
+              "p75": 2795646.0,
+              "minimum": 2795646.0,
+              "maximum": 2795646.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 84.0,
+              "p25": 84.0,
+              "p75": 84.0,
+              "minimum": 84.0,
+              "maximum": 84.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 8.572611631400001,
+              "p25": 8.483619869875,
+              "p75": 8.751988893075,
+              "minimum": 6.8488013556,
+              "maximum": 10.3299556151
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.9584568454,
+              "p25": 3.8451085539500003,
+              "p75": 4.099368803575,
+              "minimum": 3.1532125892,
+              "maximum": 4.6939117327
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.3e-05,
+              "p25": 1.3e-05,
+              "p75": 1.3e-05,
+              "minimum": 1.3e-05,
+              "maximum": 1.3e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 16821.0,
+              "p25": 16821.0,
+              "p75": 16821.0,
+              "minimum": 16821.0,
+              "maximum": 16821.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 538.22439,
+              "p25": 538.22439,
+              "p75": 544.869136,
+              "minimum": 525.409524,
+              "maximum": 551.68
+            },
+            "process id": {
+              "unit": "",
+              "median": 2795646.0,
+              "p25": 2795646.0,
+              "p75": 2795646.0,
+              "minimum": 2795646.0,
+              "maximum": 2795646.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 1.9239188186,
+              "p25": 1.9174400555750002,
+              "p75": 1.9348587399750001,
+              "minimum": 1.8933878664,
+              "maximum": 1.9455885237
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 48.0,
+              "p25": 48.0,
+              "p75": 48.0,
+              "minimum": 48.0,
+              "maximum": 48.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.9859807159499998,
+              "p25": 1.979292960575,
+              "p75": 1.99727353805,
+              "minimum": 1.9544648943,
+              "maximum": 2.0083494438
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 1051.3125,
+              "p25": 1051.3125,
+              "p75": 1051.3125,
+              "minimum": 1051.3125,
+              "maximum": 1051.3125
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2795646.0,
+              "p25": 2795646.0,
+              "p75": 2795646.0,
+              "minimum": 2795646.0,
+              "maximum": 2795646.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache read requests": {
+          "unit": "",
+          "median": 33557.0,
+          "p25": 33557.0,
+          "p75": 33557.0,
+          "minimum": 33557.0,
+          "maximum": 33557.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        },
+        "size of L2 cache read": {
+          "unit": "(kilobytes)",
+          "median": 2097.3125,
+          "p25": 2097.3125,
+          "p75": 2097.3125,
+          "minimum": 2097.3125,
+          "maximum": 2097.3125
+        }
+      }
+    },
+    {
+      "N": 131072,
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "write",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0002_131072_z2d_1d_baseline_write_original/measured-counter-windows.json",
+      "raw_sha256": "4531f747a8f7104115cb14970e3e7bc9ca8de54f06027a9dcad7c0358068bb82",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 6.785318133900001,
+              "p25": 6.629957097275,
+              "p75": 6.927547886,
+              "minimum": 6.3960340234,
+              "maximum": 8.1010719755
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.2168178902,
+              "p25": 0.1990745839,
+              "p75": 0.234377115925,
+              "minimum": 0.1583274577,
+              "maximum": 0.2688172043
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.6e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 16640.0,
+              "p25": 16640.0,
+              "p75": 16640.0,
+              "minimum": 16640.0,
+              "maximum": 16640.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 729.049462,
+              "p25": 721.293617,
+              "p75": 745.072527,
+              "minimum": 698.985567,
+              "maximum": 761.81573
+            },
+            "process id": {
+              "unit": "",
+              "median": 2796253.0,
+              "p25": 2796253.0,
+              "p75": 2796253.0,
+              "minimum": 2796253.0,
+              "maximum": 2796253.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.71269285395,
+              "p25": 2.68233661675,
+              "p75": 2.739287751325,
+              "minimum": 2.6484273913,
+              "maximum": 2.7810148411
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 48.0,
+              "p25": 48.0,
+              "p75": 48.0,
+              "minimum": 48.0,
+              "maximum": 48.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.38650807654999997,
+              "p25": 0.38218287965,
+              "p75": 0.39029735285,
+              "minimum": 0.3773514482,
+              "maximum": 0.3962426839
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 1032.0,
+              "p25": 1032.0,
+              "p75": 1032.0,
+              "minimum": 1032.0,
+              "maximum": 1032.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2796253.0,
+              "p25": 2796253.0,
+              "p75": 2796253.0,
+              "minimum": 2796253.0,
+              "maximum": 2796253.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 84.0,
+              "p25": 84.0,
+              "p75": 84.0,
+              "minimum": 84.0,
+              "maximum": 84.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 8.618473970650001,
+              "p25": 8.44007886815,
+              "p75": 8.8343029011,
+              "minimum": 7.9110924924,
+              "maximum": 10.4223498939
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.9889145049500003,
+              "p25": 3.88389538605,
+              "p75": 4.25339678315,
+              "minimum": 3.3383237645,
+              "maximum": 4.8221322091
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.3e-05,
+              "p25": 1.3e-05,
+              "p75": 1.3e-05,
+              "minimum": 1.3e-05,
+              "maximum": 1.3e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 544.869136,
+              "p25": 538.22439,
+              "p75": 551.68,
+              "minimum": 525.409524,
+              "maximum": 558.663291
+            },
+            "process id": {
+              "unit": "",
+              "median": 2796253.0,
+              "p25": 2796253.0,
+              "p75": 2796253.0,
+              "minimum": 2796253.0,
+              "maximum": 2796253.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 1.9115258855,
+              "p25": 1.902778646125,
+              "p75": 1.919398569075,
+              "minimum": 1.8841405508,
+              "maximum": 1.9347468725
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 48.0,
+              "p25": 48.0,
+              "p75": 48.0,
+              "minimum": 48.0,
+              "maximum": 48.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.9731880108,
+              "p25": 1.964158602425,
+              "p75": 1.98131465195,
+              "minimum": 1.9449192783,
+              "maximum": 1.9971580619
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 1024.0,
+              "p25": 1024.0,
+              "p75": 1024.0,
+              "minimum": 1024.0,
+              "maximum": 1024.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2796253.0,
+              "p25": 2796253.0,
+              "p75": 2796253.0,
+              "minimum": 2796253.0,
+              "maximum": 2796253.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache write requests": {
+          "unit": "",
+          "median": 33024.0,
+          "p25": 33024.0,
+          "p75": 33024.0,
+          "minimum": 33024.0,
+          "maximum": 33024.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        },
+        "size of L2 cache write": {
+          "unit": "(kilobytes)",
+          "median": 2056.0,
+          "p25": 2056.0,
+          "p75": 2056.0,
+          "minimum": 2056.0,
+          "maximum": 2056.0
+        }
+      }
+    },
+    {
+      "N": 131072,
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "general",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0003_131072_z2d_1d_candidate_general_original/measured-counter-windows.json",
+      "raw_sha256": "458a982abc9e986600291789f635124ee2dd383ef6d221fea65bd3a29664b254",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 7.16592317195,
+              "p25": 6.994202491399999,
+              "p75": 7.811653879625,
+              "minimum": 6.7108214186,
+              "maximum": 8.7087360934
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.39534260495,
+              "p25": 0.310997179275,
+              "p75": 0.45664491875,
+              "minimum": 0.2628259041,
+              "maximum": 0.5862662834
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 27.765734000000002,
+              "p25": 27.594952499999998,
+              "p75": 27.92388075,
+              "minimum": 27.092267,
+              "maximum": 28.412229
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.3945080329
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.5e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 668.452174,
+              "p25": 661.264516,
+              "p75": 675.797802,
+              "minimum": 647.343158,
+              "maximum": 683.306667
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797128.0,
+              "p25": 2797128.0,
+              "p75": 2797128.0,
+              "minimum": 2797128.0,
+              "maximum": 2797128.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.48673691235,
+              "p25": 2.4694818138250003,
+              "p75": 2.4996749075249998,
+              "minimum": 2.4489639881,
+              "maximum": 2.5151158225
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.4015165282,
+              "p25": 0.3987304646,
+              "p75": 0.40360553845,
+              "minimum": 0.3954175905,
+              "maximum": 0.4060986782
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797128.0,
+              "p25": 2797128.0,
+              "p75": 2797128.0,
+              "minimum": 2797128.0,
+              "maximum": 2797128.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 88.0,
+              "p25": 88.0,
+              "p75": 88.0,
+              "minimum": 88.0,
+              "maximum": 88.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 7.888019877850001,
+              "p25": 7.714365773225,
+              "p75": 8.1510103566,
+              "minimum": 7.3509449723,
+              "maximum": 9.627237646
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.7851206467500003,
+              "p25": 3.6217598948,
+              "p75": 3.994229458425,
+              "minimum": 3.3181711392,
+              "maximum": 4.4086316861
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 13.5121435,
+              "p25": 13.315061,
+              "p75": 13.8860615,
+              "minimum": 12.870276,
+              "maximum": 14.408454
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.3644549255
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.4e-05,
+              "p25": 1.4e-05,
+              "p75": 1.4e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.5e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 526.957303,
+              "p25": 521.102222,
+              "p75": 531.4484170000001,
+              "minimum": 515.375824,
+              "maximum": 539.071264
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797128.0,
+              "p25": 2797128.0,
+              "p75": 2797128.0,
+              "minimum": 2797128.0,
+              "maximum": 2797128.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 1.9487450517,
+              "p25": 1.939827541825,
+              "p75": 1.962018026675,
+              "minimum": 1.925446382,
+              "maximum": 1.9779041081
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.89379128665,
+              "p25": 1.885125246725,
+              "p75": 1.9066899695,
+              "minimum": 1.8711496293,
+              "maximum": 1.9221280704
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797128.0,
+              "p25": 2797128.0,
+              "p75": 2797128.0,
+              "minimum": 2797128.0,
+              "maximum": 2797128.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        }
+      }
+    },
+    {
+      "N": 131072,
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "read",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0004_131072_z2d_1d_candidate_read_original/measured-counter-windows.json",
+      "raw_sha256": "9fe225bb45bf3ca340f878d5be40acb10205d14cc3f094a2b7e78e2dda2d43d5",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 6.9410651449,
+              "p25": 6.6943774407,
+              "p75": 7.1255203832,
+              "minimum": 6.1993903574,
+              "maximum": 7.6851780335
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.37714637154999997,
+              "p25": 0.30556817255,
+              "p75": 0.407155579725,
+              "minimum": 0.2204103171,
+              "maximum": 0.5012820513
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.5e-05,
+              "maximum": 1.6e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 16714.0,
+              "p25": 16714.0,
+              "p75": 16714.0,
+              "minimum": 16714.0,
+              "maximum": 16714.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 661.264516,
+              "p25": 649.06481525,
+              "p75": 666.6552595,
+              "minimum": 614.976,
+              "maximum": 675.797802
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797301.0,
+              "p25": 2797301.0,
+              "p75": 2797301.0,
+              "minimum": 2797301.0,
+              "maximum": 2797301.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.4552843682,
+              "p25": 2.442303782,
+              "p75": 2.473820740975,
+              "minimum": 2.2358991065,
+              "maximum": 2.4992197253
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.39643809945,
+              "p25": 0.3943422123,
+              "p75": 0.399431041675,
+              "minimum": 0.3610154505,
+              "maximum": 0.4035320433
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 1044.625,
+              "p25": 1044.625,
+              "p75": 1044.625,
+              "minimum": 1044.625,
+              "maximum": 1044.625
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797301.0,
+              "p25": 2797301.0,
+              "p75": 2797301.0,
+              "minimum": 2797301.0,
+              "maximum": 2797301.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 88.0,
+              "p25": 88.0,
+              "p75": 88.0,
+              "minimum": 88.0,
+              "maximum": 88.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 7.4790030135,
+              "p25": 7.361727383650001,
+              "p75": 7.7289535083,
+              "minimum": 5.913617324,
+              "maximum": 8.1877177585
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.4227731094,
+              "p25": 3.2811398879750002,
+              "p75": 3.641383810625,
+              "minimum": 2.6581311415,
+              "maximum": 3.9538950504
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.4e-05,
+              "p25": 1.4e-05,
+              "p75": 1.4e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.5e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 16559.0,
+              "p25": 16559.0,
+              "p75": 16559.0,
+              "minimum": 16557.0,
+              "maximum": 16559.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 526.957303,
+              "p25": 521.102222,
+              "p75": 532.945455,
+              "minimum": 515.375824,
+              "maximum": 539.071264
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797301.0,
+              "p25": 2797301.0,
+              "p75": 2797301.0,
+              "minimum": 2797301.0,
+              "maximum": 2797301.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 1.94756398255,
+              "p25": 1.93921567715,
+              "p75": 1.960450879975,
+              "minimum": 1.9075697623,
+              "maximum": 1.990554581
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.89264352315,
+              "p25": 1.8845306364,
+              "p75": 1.905167015625,
+              "minimum": 1.8537771226,
+              "maximum": 1.9344218054
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 1034.9375,
+              "p25": 1034.9375,
+              "p75": 1034.9375,
+              "minimum": 1034.8125,
+              "maximum": 1034.9375
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797301.0,
+              "p25": 2797301.0,
+              "p75": 2797301.0,
+              "minimum": 2797301.0,
+              "maximum": 2797301.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache read requests": {
+          "unit": "",
+          "median": 33273.0,
+          "p25": 33273.0,
+          "p75": 33273.0,
+          "minimum": 33271.0,
+          "maximum": 33273.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        },
+        "size of L2 cache read": {
+          "unit": "(kilobytes)",
+          "median": 2079.5625,
+          "p25": 2079.5625,
+          "p75": 2079.5625,
+          "minimum": 2079.4375,
+          "maximum": 2079.5625
+        }
+      }
+    },
+    {
+      "N": 131072,
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "write",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0005_131072_z2d_1d_candidate_write_original/measured-counter-windows.json",
+      "raw_sha256": "1edc7749904b9b850b6bcd7bf10cd23c70748c8370a1c235dd1c06bf9a85d632",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 7.00843773505,
+              "p25": 6.827031432675001,
+              "p75": 7.134511782025,
+              "minimum": 5.9223050459,
+              "maximum": 7.7020169245
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.35912601595,
+              "p25": 0.321558446575,
+              "p75": 0.413247302425,
+              "minimum": 0.2630657048,
+              "maximum": 0.4822814007
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.6e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 16384.5,
+              "p25": 16384.0,
+              "p75": 16385.0,
+              "minimum": 16384.0,
+              "maximum": 16385.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 668.452174,
+              "p25": 661.264516,
+              "p75": 675.797802,
+              "minimum": 597.064078,
+              "maximum": 690.98427
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797476.0,
+              "p25": 2797476.0,
+              "p75": 2797476.0,
+              "minimum": 2797476.0,
+              "maximum": 2797476.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.4850006236,
+              "p25": 2.4690384226249997,
+              "p75": 2.4977905063500003,
+              "minimum": 2.2038990826,
+              "maximum": 2.5207240294
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.40123618145,
+              "p25": 0.3986588732,
+              "p75": 0.40330127702499996,
+              "minimum": 0.3558486239,
+              "maximum": 0.4070041973
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 1024.03125,
+              "p25": 1024.0,
+              "p75": 1024.0625,
+              "minimum": 1024.0,
+              "maximum": 1024.0625
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797476.0,
+              "p25": 2797476.0,
+              "p75": 2797476.0,
+              "minimum": 2797476.0,
+              "maximum": 2797476.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 88.0,
+              "p25": 88.0,
+              "p75": 88.0,
+              "minimum": 88.0,
+              "maximum": 88.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 7.918446928,
+              "p25": 7.640527177975,
+              "p75": 8.109762042625,
+              "minimum": 6.4535658894,
+              "maximum": 8.5467870891
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.73637976395,
+              "p25": 3.485107157525,
+              "p75": 3.908224153,
+              "minimum": 3.1142009741,
+              "maximum": 4.2429402105
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.4e-05,
+              "p25": 1.4e-05,
+              "p75": 1.4e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.6e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 539.071264,
+              "p25": 532.945455,
+              "p75": 539.071264,
+              "minimum": 483.496907,
+              "maximum": 545.339535
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797476.0,
+              "p25": 2797476.0,
+              "p75": 2797476.0,
+              "minimum": 2797476.0,
+              "maximum": 2797476.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 1.9975626797000001,
+              "p25": 1.98364891995,
+              "p75": 2.00097683185,
+              "minimum": 1.7765360437,
+              "maximum": 2.0070202171
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.94123227875,
+              "p25": 1.9277108810499999,
+              "p75": 1.94455015335,
+              "minimum": 1.726438498,
+              "maximum": 1.9504231177
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 1024.0,
+              "p25": 1024.0,
+              "p75": 1024.0,
+              "minimum": 1024.0,
+              "maximum": 1024.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797476.0,
+              "p25": 2797476.0,
+              "p75": 2797476.0,
+              "minimum": 2797476.0,
+              "maximum": 2797476.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache write requests": {
+          "unit": "",
+          "median": 32768.5,
+          "p25": 32768.0,
+          "p75": 32769.0,
+          "minimum": 32768.0,
+          "maximum": 32769.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        },
+        "size of L2 cache write": {
+          "unit": "(kilobytes)",
+          "median": 2048.03125,
+          "p25": 2048.0,
+          "p75": 2048.0625,
+          "minimum": 2048.0,
+          "maximum": 2048.0625
+        }
+      }
+    },
+    {
+      "N": 131072,
+      "arm": "candidate",
+      "variant": "phase_order",
+      "mode": "general",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0006_131072_z2d_1d_candidate_general_phase_order/measured-counter-windows.json",
+      "raw_sha256": "a190b6d8c1440c2c4e51983bf126468eeb3ccc97dc0c9b3561e7ef4b4bbbad9c",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 6.766197928,
+              "p25": 5.961478842,
+              "p75": 7.008277676125,
+              "minimum": 5.4283765699,
+              "maximum": 7.5868495888
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.34362963255,
+              "p25": 0.315654958125,
+              "p75": 0.376490385575,
+              "minimum": 0.2315698399,
+              "maximum": 0.4654885389
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 27.7765235,
+              "p25": 27.588542,
+              "p75": 28.068509499999998,
+              "minimum": 27.115482,
+              "maximum": 28.265909
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0685958182
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.5e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 661.264516,
+              "p25": 649.06481525,
+              "p75": 668.452174,
+              "minimum": 640.6,
+              "maximum": 683.306667
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797653.0,
+              "p25": 2797653.0,
+              "p75": 2797653.0,
+              "minimum": 2797653.0,
+              "maximum": 2797653.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.4616369989,
+              "p25": 2.44528705685,
+              "p75": 2.473120357925,
+              "minimum": 2.4072450334,
+              "maximum": 2.5072407045
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.3974638156,
+              "p25": 0.394823901425,
+              "p75": 0.3993179556,
+              "minimum": 0.3886815141,
+              "maximum": 0.4048271363
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797653.0,
+              "p25": 2797653.0,
+              "p75": 2797653.0,
+              "minimum": 2797653.0,
+              "maximum": 2797653.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 88.0,
+              "p25": 88.0,
+              "p75": 88.0,
+              "minimum": 88.0,
+              "maximum": 88.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 7.5029637039,
+              "p25": 6.48064996445,
+              "p75": 7.716595391825,
+              "minimum": 6.1283732932,
+              "maximum": 8.130220045
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.16103552765,
+              "p25": 2.897524556575,
+              "p75": 3.269016466775,
+              "minimum": 2.6345716452,
+              "maximum": 3.7239666988
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 13.5353455,
+              "p25": 13.50045175,
+              "p75": 13.7304325,
+              "minimum": 13.07048,
+              "maximum": 14.164858
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.2872654438
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.4e-05,
+              "p25": 1.4e-05,
+              "p75": 1.4e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.5e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 540.689655,
+              "p25": 537.6,
+              "p75": 543.77931,
+              "minimum": 519.876923,
+              "maximum": 550.102326
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797653.0,
+              "p25": 2797653.0,
+              "p75": 2797653.0,
+              "minimum": 2797653.0,
+              "maximum": 2797653.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.00032268475,
+              "p25": 1.9864897720249999,
+              "p75": 2.009561663475,
+              "minimum": 1.9607843137,
+              "maximum": 2.0390265293
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.9271926081,
+              "p25": 1.913865414825,
+              "p75": 1.936093817675,
+              "minimum": 1.8890997259,
+              "maximum": 1.9644814734
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797653.0,
+              "p25": 2797653.0,
+              "p75": 2797653.0,
+              "minimum": 2797653.0,
+              "maximum": 2797653.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        }
+      }
+    },
+    {
+      "N": 131072,
+      "arm": "candidate",
+      "variant": "phase_order",
+      "mode": "read",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0007_131072_z2d_1d_candidate_read_phase_order/measured-counter-windows.json",
+      "raw_sha256": "66b8149b84a0aeab8099ff5d1b24d12726d4812b648a516a81f610ed4fa0225e",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 5.84928843325,
+              "p25": 5.6432014774749995,
+              "p75": 6.489480142675,
+              "minimum": 5.4652437115,
+              "maximum": 7.1558206703
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 0.3343290863,
+              "p25": 0.2963465472,
+              "p75": 0.383535082625,
+              "minimum": 0.2336479224,
+              "maximum": 0.4823561773
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8448.0,
+              "p25": 8448.0,
+              "p75": 8448.0,
+              "minimum": 8448.0,
+              "maximum": 8448.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.5e-05,
+              "p25": 1.5e-05,
+              "p75": 1.5e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.5e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 16713.0,
+              "p25": 16713.0,
+              "p75": 16713.0,
+              "minimum": 16713.0,
+              "maximum": 16713.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 675.797802,
+              "p25": 668.452174,
+              "p75": 675.797802,
+              "minimum": 654.229787,
+              "maximum": 690.98427
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797823.0,
+              "p25": 2797823.0,
+              "p75": 2797823.0,
+              "minimum": 2797823.0,
+              "maximum": 2797823.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.4954560683,
+              "p25": 2.48063824545,
+              "p75": 2.50678317205,
+              "minimum": 2.4465322334,
+              "maximum": 2.5249632121
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 0.4029243511,
+              "p25": 0.40053181782499997,
+              "p75": 0.404753261675,
+              "minimum": 0.3950249516,
+              "maximum": 0.4076886693
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 9636.0,
+              "p25": 9636.0,
+              "p75": 9636.0,
+              "minimum": 9636.0,
+              "maximum": 9636.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 16384.0,
+              "p25": 16384.0,
+              "p75": 16384.0,
+              "minimum": 16384.0,
+              "maximum": 16384.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 1044.5625,
+              "p25": 1044.5625,
+              "p75": 1044.5625,
+              "minimum": 1044.5625,
+              "maximum": 1044.5625
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797823.0,
+              "p25": 2797823.0,
+              "p75": 2797823.0,
+              "minimum": 2797823.0,
+              "maximum": 2797823.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 88.0,
+              "p25": 88.0,
+              "p75": 88.0,
+              "minimum": 88.0,
+              "maximum": 88.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 6.8324687636,
+              "p25": 6.7286192779250005,
+              "p75": 6.9613670528750005,
+              "minimum": 6.6097811218,
+              "maximum": 8.4337796615
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 3.2061313145500003,
+              "p25": 3.150929991175,
+              "p75": 3.354701380925,
+              "minimum": 3.0502735978,
+              "maximum": 3.9258429393
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 8192.0,
+              "p25": 8192.0,
+              "p75": 8192.0,
+              "minimum": 8192.0,
+              "maximum": 8192.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 1.4e-05,
+              "p25": 1.4e-05,
+              "p75": 1.4e-05,
+              "minimum": 1.4e-05,
+              "maximum": 1.4e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 16558.0,
+              "p25": 16558.0,
+              "p75": 16558.0,
+              "minimum": 16558.0,
+              "maximum": 16558.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 543.77931,
+              "p25": 537.6,
+              "p75": 550.102326,
+              "minimum": 531.559551,
+              "maximum": 556.574118
+            },
+            "process id": {
+              "unit": "",
+              "median": 2797823.0,
+              "p25": 2797823.0,
+              "p75": 2797823.0,
+              "minimum": 2797823.0,
+              "maximum": 2797823.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 2.0212465288,
+              "p25": 2.003825359125,
+              "p75": 2.031843151175,
+              "minimum": 1.9842645686,
+              "maximum": 2.0491916159
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 1.9473514943999999,
+              "p25": 1.9305672277,
+              "p75": 1.9575607134,
+              "minimum": 1.9117215629,
+              "maximum": 1.9742749332
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 10240.0,
+              "p25": 10240.0,
+              "p75": 10240.0,
+              "minimum": 10240.0,
+              "maximum": 10240.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 1034.875,
+              "p25": 1034.875,
+              "p75": 1034.875,
+              "minimum": 1034.875,
+              "maximum": 1034.875
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2797823.0,
+              "p25": 2797823.0,
+              "p75": 2797823.0,
+              "minimum": 2797823.0,
+              "maximum": 2797823.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache read requests": {
+          "unit": "",
+          "median": 33271.0,
+          "p25": 33271.0,
+          "p75": 33271.0,
+          "minimum": 33271.0,
+          "maximum": 33271.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 19876.0,
+          "p25": 19876.0,
+          "p75": 19876.0,
+          "minimum": 19876.0,
+          "maximum": 19876.0
+        },
+        "size of L2 cache read": {
+          "unit": "(kilobytes)",
+          "median": 2079.4375,
+          "p25": 2079.4375,
+          "p75": 2079.4375,
+          "minimum": 2079.4375,
+          "maximum": 2079.4375
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "general",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0008_1048576_z2d_1d_baseline_general_original/measured-counter-windows.json",
+      "raw_sha256": "ac5fcf6f0ac4bf12e0e0d84d9dd93da5240ac4f00cfaa90e4ce38cdaa5ecbf07",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 39.66388173875,
+              "p25": 38.799547792525004,
+              "p75": 41.20520408185,
+              "minimum": 37.5129623756,
+              "maximum": 43.0058809058
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 20.06273427095,
+              "p25": 17.952948695125002,
+              "p75": 20.906147323524998,
+              "minimum": 15.7920159605,
+              "maximum": 22.8938263968
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 27.77278,
+              "p25": 27.7602485,
+              "p75": 27.790229500000002,
+              "minimum": 27.727743,
+              "maximum": 27.847568
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 4.4481398709499995,
+              "p25": 4.240264483974999,
+              "p75": 4.6659062355500005,
+              "minimum": 3.9033896303,
+              "maximum": 5.0512288642
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.1e-05,
+              "p25": 4e-05,
+              "p75": 4.275e-05,
+              "minimum": 3.9e-05,
+              "maximum": 4.4e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 2148.522008,
+              "p25": 2097.98454925,
+              "p75": 2199.475099,
+              "minimum": 2016.185507,
+              "maximum": 2309.052413
+            },
+            "process id": {
+              "unit": "",
+              "median": 2798997.0,
+              "p25": 2798997.0,
+              "p75": 2798997.0,
+              "minimum": 2798997.0,
+              "maximum": 2798997.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 10.44938043075,
+              "p25": 10.304356402975,
+              "p75": 10.622402795074999,
+              "minimum": 9.9828733776,
+              "maximum": 11.0312678018
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 64.0,
+              "p25": 64.0,
+              "p75": 64.0,
+              "minimum": 64.0,
+              "maximum": 64.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.6499654727,
+              "p25": 3.5993086230249998,
+              "p75": 3.710402133075,
+              "minimum": 3.487014698,
+              "maximum": 3.8532185581
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2798997.0,
+              "p25": 2798997.0,
+              "p75": 2798997.0,
+              "minimum": 2798997.0,
+              "maximum": 2798997.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 148.0,
+              "p25": 148.0,
+              "p75": 148.0,
+              "minimum": 148.0,
+              "maximum": 148.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N1048576_reg_pre_twiddle_preload",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 45.958535072299995,
+              "p25": 44.733765548099996,
+              "p75": 46.4431870325,
+              "minimum": 42.6997545259,
+              "maximum": 48.8870294805
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 26.150293671950003,
+              "p25": 24.162107330925,
+              "p75": 27.00208421995,
+              "minimum": 23.2412191994,
+              "maximum": 28.3032755095
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 42.11959,
+              "p25": 42.0557995,
+              "p75": 42.159574500000005,
+              "minimum": 41.979026,
+              "maximum": 42.243158
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 5.681758863,
+              "p25": 4.760987598825,
+              "p75": 6.1766812649,
+              "minimum": 3.6790549926,
+              "maximum": 6.6074926239
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.4e-05,
+              "p25": 4.3e-05,
+              "p75": 4.5e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.6e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1676.7823804999998,
+              "p25": 1657.37028975,
+              "p75": 1747.6312805,
+              "minimum": 1604.502069,
+              "maximum": 1782.780077
+            },
+            "process id": {
+              "unit": "",
+              "median": 2798997.0,
+              "p25": 2798997.0,
+              "p75": 2798997.0,
+              "minimum": 2798997.0,
+              "maximum": 2798997.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 8.7477629598,
+              "p25": 8.670198786,
+              "p75": 9.03835623935,
+              "minimum": 8.4654532117,
+              "maximum": 9.1557781469
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.8514456623,
+              "p25": 4.8084291361,
+              "p75": 5.0126065798749995,
+              "minimum": 4.6948787309,
+              "maximum": 5.0777279151
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2798997.0,
+              "p25": 2798997.0,
+              "p75": 2798997.0,
+              "minimum": 2798997.0,
+              "maximum": 2798997.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 64.0,
+              "p25": 64.0,
+              "p75": 64.0,
+              "minimum": 64.0,
+              "maximum": 64.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "read",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0009_1048576_z2d_1d_baseline_read_original/measured-counter-windows.json",
+      "raw_sha256": "aae1749f890beec9647d08c94050f0b96005ed7cab2a0826d03c5ac85b596a86",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 40.75567491575,
+              "p25": 39.417140200549994,
+              "p75": 41.9824274449,
+              "minimum": 35.4122206879,
+              "maximum": 43.3273576253
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 20.3478842519,
+              "p25": 18.241195626375003,
+              "p75": 21.691915192750002,
+              "minimum": 16.7366295513,
+              "maximum": 23.4210085683
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.1e-05,
+              "p25": 4e-05,
+              "p75": 4.2e-05,
+              "minimum": 3.8e-05,
+              "maximum": 4.4e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 131805.0,
+              "p25": 131792.5,
+              "p75": 131817.25,
+              "minimum": 131781.0,
+              "maximum": 131871.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 2161.0458175,
+              "p25": 2125.95501775,
+              "p75": 2241.56652425,
+              "minimum": 2016.185507,
+              "maximum": 2338.097479
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799185.0,
+              "p25": 2799185.0,
+              "p75": 2799185.0,
+              "minimum": 2799185.0,
+              "maximum": 2799185.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 10.5317783028,
+              "p25": 10.35757402685,
+              "p75": 10.812144317825,
+              "minimum": 9.9833308511,
+              "maximum": 11.1016765613
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 64.0,
+              "p25": 64.0,
+              "p75": 64.0,
+              "minimum": 64.0,
+              "maximum": 64.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.67874702495,
+              "p25": 3.617897523225,
+              "p75": 3.7766787904249997,
+              "minimum": 3.4871744933,
+              "maximum": 3.8778123169
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 8237.8125,
+              "p25": 8237.03125,
+              "p75": 8238.578125,
+              "minimum": 8236.3125,
+              "maximum": 8241.9375
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799185.0,
+              "p25": 2799185.0,
+              "p75": 2799185.0,
+              "minimum": 2799185.0,
+              "maximum": 2799185.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 148.0,
+              "p25": 148.0,
+              "p75": 148.0,
+              "minimum": 148.0,
+              "maximum": 148.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N1048576_reg_pre_twiddle_preload",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 46.21244870865,
+              "p25": 44.881451443125,
+              "p75": 47.291025400125,
+              "minimum": 43.6615341063,
+              "maximum": 49.4452250453
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 26.70737756465,
+              "p25": 24.592882173025,
+              "p75": 27.3285053868,
+              "minimum": 23.1531398469,
+              "maximum": 28.0018780936
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.5e-05,
+              "p25": 4.3e-05,
+              "p75": 4.5e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.6e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 132477.5,
+              "p25": 132472.25,
+              "p75": 132482.75,
+              "minimum": 132467.0,
+              "maximum": 132489.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1661.805714,
+              "p25": 1645.64701375,
+              "p75": 1723.354074,
+              "minimum": 1626.942657,
+              "maximum": 1769.222814
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799185.0,
+              "p25": 2799185.0,
+              "p75": 2799185.0,
+              "minimum": 2799185.0,
+              "maximum": 2799185.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 8.68906467445,
+              "p25": 8.592330082075,
+              "p75": 8.960844722274999,
+              "minimum": 8.5158195738,
+              "maximum": 9.1098146115
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.8188920205,
+              "p25": 4.765243719725,
+              "p75": 4.969619256775,
+              "minimum": 4.7228115488,
+              "maximum": 5.0522368729
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 8279.84375,
+              "p25": 8279.515625,
+              "p75": 8280.171875,
+              "minimum": 8279.1875,
+              "maximum": 8280.5625
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799185.0,
+              "p25": 2799185.0,
+              "p75": 2799185.0,
+              "minimum": 2799185.0,
+              "maximum": 2799185.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 64.0,
+              "p25": 64.0,
+              "p75": 64.0,
+              "minimum": 64.0,
+              "maximum": 64.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache read requests": {
+          "unit": "",
+          "median": 264284.0,
+          "p25": 264267.0,
+          "p75": 264292.75,
+          "minimum": 264252.0,
+          "maximum": 264342.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        },
+        "size of L2 cache read": {
+          "unit": "(kilobytes)",
+          "median": 16517.75,
+          "p25": 16516.6875,
+          "p75": 16518.296875,
+          "minimum": 16515.75,
+          "maximum": 16521.375
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "write",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0010_1048576_z2d_1d_baseline_write_original/measured-counter-windows.json",
+      "raw_sha256": "4a1082b6a5d0785a4378c17fc8fcecae9ead191633a604600827b92f5896d40e",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 40.4285472785,
+              "p25": 39.795662466875,
+              "p75": 41.872852309625,
+              "minimum": 37.6835631166,
+              "maximum": 44.876730177
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 20.3542472206,
+              "p25": 19.148096923825,
+              "p75": 21.119727474,
+              "minimum": 16.2438337971,
+              "maximum": 22.3813270613
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.15e-05,
+              "p25": 4.1e-05,
+              "p75": 4.2e-05,
+              "minimum": 3.9e-05,
+              "maximum": 4.5e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 132096.0,
+              "p25": 132096.0,
+              "p75": 132096.0,
+              "minimum": 132096.0,
+              "maximum": 132096.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 2144.453925,
+              "p25": 2101.86474525,
+              "p75": 2184.42231675,
+              "minimum": 1973.287943,
+              "maximum": 2308.992531
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799363.0,
+              "p25": 2799363.0,
+              "p75": 2799363.0,
+              "minimum": 2799363.0,
+              "maximum": 2799363.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 10.4575242265,
+              "p25": 10.2992593618,
+              "p75": 10.630741229675,
+              "minimum": 9.8301690977,
+              "maximum": 11.0221983304
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 64.0,
+              "p25": 64.0,
+              "p75": 64.0,
+              "minimum": 64.0,
+              "maximum": 64.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.65281009815,
+              "p25": 3.597528228075,
+              "p75": 3.71331474575,
+              "minimum": 3.4336751385,
+              "maximum": 3.8500505945
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 8224.0,
+              "p25": 8224.0,
+              "p75": 8224.0,
+              "minimum": 8224.0,
+              "maximum": 8224.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799363.0,
+              "p25": 2799363.0,
+              "p75": 2799363.0,
+              "minimum": 2799363.0,
+              "maximum": 2799363.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 148.0,
+              "p25": 148.0,
+              "p75": 148.0,
+              "minimum": 148.0,
+              "maximum": 148.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N1048576_reg_pre_twiddle_preload",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 46.27921634875,
+              "p25": 44.954487634675,
+              "p75": 46.7787296091,
+              "minimum": 43.8458383961,
+              "maximum": 48.8084514315
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 26.898095430650002,
+              "p25": 24.32694933835,
+              "p75": 27.514642258625,
+              "minimum": 23.3539428278,
+              "maximum": 28.7969763039
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.5e-05,
+              "p25": 4.3e-05,
+              "p75": 4.575e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.6e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 132978.0,
+              "p25": 132558.75,
+              "p75": 133959.75,
+              "minimum": 132125.0,
+              "maximum": 136313.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1658.8487645,
+              "p25": 1634.088421,
+              "p75": 1726.56915475,
+              "minimum": 1610.053979,
+              "maximum": 1769.222814
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799363.0,
+              "p25": 2799363.0,
+              "p75": 2799363.0,
+              "minimum": 2799363.0,
+              "maximum": 2799363.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 8.688027851800001,
+              "p25": 8.566367026675,
+              "p75": 8.9248367759,
+              "minimum": 8.4550835136,
+              "maximum": 9.0939985717
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.8183170062,
+              "p25": 4.750844798125,
+              "p75": 4.9496495117,
+              "minimum": 4.6891277719,
+              "maximum": 5.0434654124
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 8251.75,
+              "p25": 8238.484375,
+              "p75": 8282.75,
+              "minimum": 8225.09375,
+              "maximum": 8358.5
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799363.0,
+              "p25": 2799363.0,
+              "p75": 2799363.0,
+              "minimum": 2799363.0,
+              "maximum": 2799363.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 64.0,
+              "p25": 64.0,
+              "p75": 64.0,
+              "minimum": 64.0,
+              "maximum": 64.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache write requests": {
+          "unit": "",
+          "median": 265074.0,
+          "p25": 264654.75,
+          "p75": 266055.75,
+          "minimum": 264221.0,
+          "maximum": 268409.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        },
+        "size of L2 cache write": {
+          "unit": "(kilobytes)",
+          "median": 16475.75,
+          "p25": 16462.484375,
+          "p75": 16506.75,
+          "minimum": 16449.09375,
+          "maximum": 16582.5
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "general",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0011_1048576_z2d_1d_candidate_general_original/measured-counter-windows.json",
+      "raw_sha256": "5d7bbbedced8be496b74b9f6dec55f24d0080774954029541f28940cd7ab0ebf",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 42.3810799058,
+              "p25": 41.4273315425,
+              "p75": 43.351226209874994,
+              "minimum": 39.0069472824,
+              "maximum": 46.3859309455
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 22.345992472299997,
+              "p25": 21.384422027175,
+              "p75": 23.525512718225,
+              "minimum": 18.0366187416,
+              "maximum": 25.2850709639
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 27.964571499999998,
+              "p25": 27.90136475,
+              "p75": 28.0341105,
+              "minimum": 27.864004,
+              "maximum": 28.150565
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 3.43003239,
+              "p25": 3.383636175275,
+              "p75": 3.487539168275,
+              "minimum": 3.2329838519,
+              "maximum": 3.7423685156
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.4e-05,
+              "p25": 4.3e-05,
+              "p75": 4.4750000000000004e-05,
+              "minimum": 4e-05,
+              "maximum": 4.9e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1839.663544,
+              "p25": 1801.71628375,
+              "p75": 1873.98209,
+              "minimum": 1641.265359,
+              "maximum": 1992.965079
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799539.0,
+              "p25": 2799539.0,
+              "p75": 2799539.0,
+              "minimum": 2799539.0,
+              "maximum": 2799539.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.153965390500002,
+              "p25": 9.02378907085,
+              "p75": 9.294665593675001,
+              "minimum": 8.3554803126,
+              "maximum": 9.7178982304
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.55399588785,
+              "p25": 3.5034553750999997,
+              "p75": 3.608622262525,
+              "minimum": 3.2439867757,
+              "maximum": 3.7729408924
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799539.0,
+              "p25": 2799539.0,
+              "p75": 2799539.0,
+              "minimum": 2799539.0,
+              "maximum": 2799539.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 168.0,
+              "p25": 168.0,
+              "p75": 168.0,
+              "minimum": 168.0,
+              "maximum": 168.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 50.596087894099995,
+              "p25": 49.895289248875,
+              "p75": 51.308317179325,
+              "minimum": 49.1030918676,
+              "maximum": 52.1369953634
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 29.9920833846,
+              "p25": 29.12566592035,
+              "p75": 30.406406165775,
+              "minimum": 28.205504903,
+              "maximum": 32.8043803207
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 42.1315775,
+              "p25": 42.10265925,
+              "p75": 42.1475975,
+              "minimum": 42.051336,
+              "maximum": 42.183415
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 4.651570425999999,
+              "p25": 3.236770951425,
+              "p75": 5.262545307625,
+              "minimum": 2.0961545199,
+              "maximum": 6.0834080294
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.4e-05,
+              "p25": 4.3e-05,
+              "p75": 4.4e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.5e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1772.940146,
+              "p25": 1749.007319,
+              "p75": 1804.2222995000002,
+              "minimum": 1716.55689,
+              "maximum": 1847.093536
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799539.0,
+              "p25": 2799539.0,
+              "p75": 2799539.0,
+              "minimum": 2799539.0,
+              "maximum": 2799539.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.166631869749999,
+              "p25": 9.059504018650001,
+              "p75": 9.277915780975,
+              "minimum": 8.9535576238,
+              "maximum": 9.4506280122
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.8970320506,
+              "p25": 4.83980181295,
+              "p75": 4.9564825541249995,
+              "minimum": 4.7832027373,
+              "maximum": 5.0487495224
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799539.0,
+              "p25": 2799539.0,
+              "p75": 2799539.0,
+              "minimum": 2799539.0,
+              "maximum": 2799539.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "read",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0012_1048576_z2d_1d_candidate_read_original/measured-counter-windows.json",
+      "raw_sha256": "aca46fcd5808f86ceac58f1b6deb117de175ae0d76c10afb1aa3a5286613ae3d",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 41.673972542200005,
+              "p25": 41.21865618025,
+              "p75": 42.771929211125,
+              "minimum": 39.5554298505,
+              "maximum": 45.465658723
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 21.445131459800002,
+              "p25": 20.9968372642,
+              "p75": 22.503646572275,
+              "minimum": 18.1655474861,
+              "maximum": 25.2730159622
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.35e-05,
+              "p25": 4.2e-05,
+              "p75": 4.4e-05,
+              "minimum": 4e-05,
+              "maximum": 4.8e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 131777.0,
+              "p25": 131751.75,
+              "p75": 131788.75,
+              "minimum": 131725.0,
+              "maximum": 131813.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1860.2028095,
+              "p25": 1806.572662,
+              "p75": 1895.196981,
+              "minimum": 1685.326174,
+              "maximum": 1985.087747
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799969.0,
+              "p25": 2799969.0,
+              "p75": 2799969.0,
+              "minimum": 2799969.0,
+              "maximum": 2799969.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.222645268499999,
+              "p25": 9.02338584905,
+              "p75": 9.348925101275,
+              "minimum": 8.5549668585,
+              "maximum": 9.7103224689
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.5806606166000003,
+              "p25": 3.503298825625,
+              "p75": 3.629688331575,
+              "minimum": 3.3214367478,
+              "maximum": 3.7699996288
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 8236.0625,
+              "p25": 8234.484375,
+              "p75": 8236.796875,
+              "minimum": 8232.8125,
+              "maximum": 8238.3125
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799969.0,
+              "p25": 2799969.0,
+              "p75": 2799969.0,
+              "minimum": 2799969.0,
+              "maximum": 2799969.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 168.0,
+              "p25": 168.0,
+              "p75": 168.0,
+              "minimum": 168.0,
+              "maximum": 168.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 50.78105224485,
+              "p25": 50.275386600924996,
+              "p75": 51.226523806675,
+              "minimum": 49.3630273435,
+              "maximum": 54.7532259778
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 29.638305252400002,
+              "p25": 29.301326831799997,
+              "p75": 30.25312118905,
+              "minimum": 28.7199500562,
+              "maximum": 32.379756325
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.4e-05,
+              "p25": 4.3e-05,
+              "p75": 4.4e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.5e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 131425.0,
+              "p25": 131418.5,
+              "p75": 131428.0,
+              "minimum": 131409.0,
+              "maximum": 131433.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1785.976471,
+              "p25": 1755.3271595,
+              "p75": 1792.56679,
+              "minimum": 1710.512676,
+              "maximum": 1840.09697
+            },
+            "process id": {
+              "unit": "",
+              "median": 2799969.0,
+              "p25": 2799969.0,
+              "p75": 2799969.0,
+              "minimum": 2799969.0,
+              "maximum": 2799969.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.20498687565,
+              "p25": 9.084860514625,
+              "p75": 9.251579559675001,
+              "minimum": 8.9178375361,
+              "maximum": 9.4474838582
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.917522204000001,
+              "p25": 4.8533478542,
+              "p75": 4.942413120325,
+              "minimum": 4.7641202196,
+              "maximum": 5.0470698408
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 8214.0625,
+              "p25": 8213.65625,
+              "p75": 8214.25,
+              "minimum": 8213.0625,
+              "maximum": 8214.5625
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2799969.0,
+              "p25": 2799969.0,
+              "p75": 2799969.0,
+              "minimum": 2799969.0,
+              "maximum": 2799969.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache read requests": {
+          "unit": "",
+          "median": 263194.0,
+          "p25": 263177.5,
+          "p75": 263209.75,
+          "minimum": 263147.0,
+          "maximum": 263238.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        },
+        "size of L2 cache read": {
+          "unit": "(kilobytes)",
+          "median": 16449.625,
+          "p25": 16448.59375,
+          "p75": 16450.609375,
+          "minimum": 16446.6875,
+          "maximum": 16452.375
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "write",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0013_1048576_z2d_1d_candidate_write_original/measured-counter-windows.json",
+      "raw_sha256": "4d06dedd6245fa56eab55689de281bc00bf71730bc2f63acc7cdf780ebaeec68",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 41.85781995755001,
+              "p25": 41.26882783135,
+              "p75": 43.28849832905,
+              "minimum": 38.8911265336,
+              "maximum": 44.9754183662
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 21.7425171772,
+              "p25": 20.549082920375,
+              "p75": 22.44001025005,
+              "minimum": 19.7156868736,
+              "maximum": 24.0009823183
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.3e-05,
+              "p25": 4.2e-05,
+              "p75": 4.4e-05,
+              "minimum": 4.1e-05,
+              "maximum": 4.7e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 131410.0,
+              "p25": 131353.5,
+              "p75": 131481.75,
+              "minimum": 131266.0,
+              "maximum": 131579.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1860.1479465000002,
+              "p25": 1814.73688075,
+              "p75": 1915.07556375,
+              "minimum": 1725.866667,
+              "maximum": 1961.825
+            },
+            "process id": {
+              "unit": "",
+              "median": 2800903.0,
+              "p25": 2800903.0,
+              "p75": 2800903.0,
+              "minimum": 2800903.0,
+              "maximum": 2800903.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.246481503350001,
+              "p25": 9.073755483325,
+              "p75": 9.43278901345,
+              "minimum": 8.6804495476,
+              "maximum": 9.6126661358
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.5899149536,
+              "p25": 3.52285466455,
+              "p75": 3.662248209875,
+              "minimum": 3.3701549744,
+              "maximum": 3.7320848901
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 8212.4375,
+              "p25": 8209.5234375,
+              "p75": 8217.109375,
+              "minimum": 8204.03125,
+              "maximum": 8222.6875
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2800903.0,
+              "p25": 2800903.0,
+              "p75": 2800903.0,
+              "minimum": 2800903.0,
+              "maximum": 2800903.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 168.0,
+              "p25": 168.0,
+              "p75": 168.0,
+              "minimum": 168.0,
+              "maximum": 168.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 50.71567366955,
+              "p25": 49.8001243366,
+              "p75": 51.2150231889,
+              "minimum": 48.146250871,
+              "maximum": 52.6346565491
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 29.55021494875,
+              "p25": 28.73553310025,
+              "p75": 30.482414376475,
+              "minimum": 27.8481629327,
+              "maximum": 32.4910193215
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.3e-05,
+              "p25": 4.3e-05,
+              "p75": 4.4e-05,
+              "minimum": 4.1e-05,
+              "maximum": 4.6e-05
+            },
+            "number of L2 cache write requests": {
+              "unit": "",
+              "median": 133966.0,
+              "p25": 133329.25,
+              "p75": 134351.25,
+              "minimum": 132374.0,
+              "maximum": 136875.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1805.894424,
+              "p25": 1785.976471,
+              "p75": 1817.72450125,
+              "minimum": 1698.551049,
+              "maximum": 1890.216342
+            },
+            "process id": {
+              "unit": "",
+              "median": 2800903.0,
+              "p25": 2800903.0,
+              "p75": 2800903.0,
+              "minimum": 2800903.0,
+              "maximum": 2800903.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.29802989545,
+              "p25": 9.205483924700001,
+              "p75": 9.349737642225001,
+              "minimum": 8.8356227528,
+              "maximum": 9.6239393483
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.9672279909,
+              "p25": 4.9177877394,
+              "p75": 4.99485149505,
+              "minimum": 4.7201991334,
+              "maximum": 5.1413365467
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache write": {
+              "unit": "(kilobytes)",
+              "median": 8282.390625,
+              "p25": 8262.9375,
+              "p75": 8294.703125,
+              "minimum": 8233.0,
+              "maximum": 8372.71875
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2800903.0,
+              "p25": 2800903.0,
+              "p75": 2800903.0,
+              "minimum": 2800903.0,
+              "maximum": 2800903.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache write requests": {
+          "unit": "",
+          "median": 265345.5,
+          "p25": 264673.0,
+          "p75": 265736.0,
+          "minimum": 263849.0,
+          "maximum": 268279.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        },
+        "size of L2 cache write": {
+          "unit": "(kilobytes)",
+          "median": 16495.265625,
+          "p25": 16475.53125,
+          "p75": 16511.734375,
+          "minimum": 16448.5,
+          "maximum": 16585.28125
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "candidate",
+      "variant": "phase_order",
+      "mode": "general",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0014_1048576_z2d_1d_candidate_general_phase_order/measured-counter-windows.json",
+      "raw_sha256": "45296968eec1bdb36d19a39bd930bfbc7dbe4854a202a6d76735d8fe4630d7af",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 42.90708525,
+              "p25": 41.392380672575,
+              "p75": 44.2047300121,
+              "minimum": 40.0851842938,
+              "maximum": 45.9154548224
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 22.54685856105,
+              "p25": 21.644387789675,
+              "p75": 23.42202786085,
+              "minimum": 20.4062363891,
+              "maximum": 25.0252428389
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 27.930261,
+              "p25": 27.90043625,
+              "p75": 27.95649375,
+              "minimum": 27.851046,
+              "maximum": 28.166468
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 3.41189610085,
+              "p25": 3.3368414373,
+              "p75": 3.486792086525,
+              "minimum": 3.238445817,
+              "maximum": 3.629352518
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.4e-05,
+              "p25": 4.325e-05,
+              "p75": 4.5e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.6e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1819.687656,
+              "p25": 1776.22769225,
+              "p75": 1856.681438,
+              "minimum": 1749.920557,
+              "maximum": 1916.89771
+            },
+            "process id": {
+              "unit": "",
+              "median": 2801778.0,
+              "p25": 2801778.0,
+              "p75": 2801778.0,
+              "minimum": 2801778.0,
+              "maximum": 2801778.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.0540502231,
+              "p25": 8.90706315035,
+              "p75": 9.231761675075001,
+              "minimum": 8.7779368666,
+              "maximum": 9.4668966848
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.5152041644,
+              "p25": 3.458136933925,
+              "p75": 3.584200030375,
+              "minimum": 3.4080040941,
+              "maximum": 3.6754903971
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2801778.0,
+              "p25": 2801778.0,
+              "p75": 2801778.0,
+              "minimum": 2801778.0,
+              "maximum": 2801778.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 168.0,
+              "p25": 168.0,
+              "p75": 168.0,
+              "minimum": 168.0,
+              "maximum": 168.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 48.163125012449996,
+              "p25": 47.701243325675,
+              "p75": 49.064524123225,
+              "minimum": 46.8307108241,
+              "maximum": 50.6747125344
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 29.44797199875,
+              "p25": 28.63013411815,
+              "p75": 30.297706892325,
+              "minimum": 28.1036010879,
+              "maximum": 32.0971934695
+            },
+            "L2 cache hit rate": {
+              "unit": "(%)",
+              "median": 42.194445,
+              "p25": 42.172119,
+              "p75": 42.22782125,
+              "minimum": 42.131152,
+              "maximum": 42.285516
+            },
+            "L2 cache write unit is stalled": {
+              "unit": "(%)",
+              "median": 4.0958946744,
+              "p25": 3.4014689365499997,
+              "p75": 4.62878777405,
+              "minimum": 2.1728780869,
+              "maximum": 6.4062054547
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.35e-05,
+              "p25": 4.3e-05,
+              "p75": 4.4e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.6e-05
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1792.5911985,
+              "p25": 1766.493091,
+              "p75": 1810.948233,
+              "minimum": 1698.551049,
+              "maximum": 1833.153208
+            },
+            "process id": {
+              "unit": "",
+              "median": 2801778.0,
+              "p25": 2801778.0,
+              "p75": 2801778.0,
+              "minimum": 2801778.0,
+              "maximum": 2801778.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.2381540234,
+              "p25": 9.13536955485,
+              "p75": 9.311210813875,
+              "minimum": 8.8568524166,
+              "maximum": 9.4170822177
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.9352408806,
+              "p25": 4.880330980875001,
+              "p75": 4.974269549975,
+              "minimum": 4.7315405231,
+              "maximum": 5.0308285637
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2801778.0,
+              "p25": 2801778.0,
+              "p75": 2801778.0,
+              "minimum": 2801778.0,
+              "maximum": 2801778.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        }
+      }
+    },
+    {
+      "N": 1048576,
+      "arm": "candidate",
+      "variant": "phase_order",
+      "mode": "read",
+      "raw_path": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/pmc/0015_1048576_z2d_1d_candidate_read_phase_order/measured-counter-windows.json",
+      "raw_sha256": "a6ace2727bd9792cb1b93511df2aabe205bdf1143b0cef67d95f32038ba9e0ab",
+      "stages": [
+        {
+          "position": 0,
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 42.803546173849995,
+              "p25": 42.2196517158,
+              "p75": 44.539439614100004,
+              "minimum": 40.3339018998,
+              "maximum": 46.3131523128
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 22.5407802346,
+              "p25": 21.81492463315,
+              "p75": 23.774552197525,
+              "minimum": 21.0369346123,
+              "maximum": 26.0270737786
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 122.0,
+              "p25": 93.0,
+              "p75": 151.0,
+              "minimum": 64.0,
+              "maximum": 180.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 33024.0,
+              "p25": 33024.0,
+              "p75": 33024.0,
+              "minimum": 33024.0,
+              "maximum": 33024.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 55.0,
+              "p25": 40.5,
+              "p75": 69.5,
+              "minimum": 26.0,
+              "maximum": 84.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.4e-05,
+              "p25": 4.3e-05,
+              "p75": 4.5e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.7e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 131764.0,
+              "p25": 131758.25,
+              "p75": 131775.0,
+              "minimum": 131735.0,
+              "maximum": 131814.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1829.613356,
+              "p25": 1776.22769225,
+              "p75": 1863.57093475,
+              "minimum": 1714.086007,
+              "maximum": 1916.89771
+            },
+            "process id": {
+              "unit": "",
+              "median": 2801956.0,
+              "p25": 2801956.0,
+              "p75": 2801956.0,
+              "minimum": 2801956.0,
+              "maximum": 2801956.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.10666077975,
+              "p25": 8.93055385835,
+              "p75": 9.26003650185,
+              "minimum": 8.6710497238,
+              "maximum": 9.4575409164
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 3.53563003385,
+              "p25": 3.467257121325,
+              "p75": 3.595177635625,
+              "minimum": 3.3665055249,
+              "maximum": 3.6718580519
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 75336.0,
+              "p25": 75336.0,
+              "p75": 75336.0,
+              "minimum": 75336.0,
+              "maximum": 75336.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 8235.25,
+              "p25": 8234.890625,
+              "p75": 8235.9375,
+              "minimum": 8233.4375,
+              "maximum": 8238.375
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2801956.0,
+              "p25": 2801956.0,
+              "p75": 2801956.0,
+              "minimum": 2801956.0,
+              "maximum": 2801956.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 168.0,
+              "p25": 168.0,
+              "p75": 168.0,
+              "minimum": 168.0,
+              "maximum": 168.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 256.0,
+              "p25": 256.0,
+              "p75": 256.0,
+              "minimum": 256.0,
+              "maximum": 256.0
+            }
+          }
+        },
+        {
+          "position": 1,
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "fields": {
+            "L1 cache unit is active": {
+              "unit": "(%)",
+              "median": 48.52645516295,
+              "p25": 47.758097491025005,
+              "p75": 49.074666263575,
+              "minimum": 46.1806378388,
+              "maximum": 51.7076348321
+            },
+            "L1 cache unit is stalled": {
+              "unit": "(%)",
+              "median": 29.33204648245,
+              "p25": 28.722520385975,
+              "p75": 30.310253264025,
+              "minimum": 27.0278571161,
+              "maximum": 33.214702138
+            },
+            "dispatch queue id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "dispatch queue index": {
+              "unit": "",
+              "median": 123.0,
+              "p25": 94.0,
+              "p75": 152.0,
+              "minimum": 65.0,
+              "maximum": 181.0
+            },
+            "gpu id": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "grid size": {
+              "unit": "",
+              "median": 131072.0,
+              "p25": 131072.0,
+              "p75": 131072.0,
+              "minimum": 131072.0,
+              "maximum": 131072.0
+            },
+            "kernel dispatch index": {
+              "unit": "",
+              "median": 56.0,
+              "p25": 41.5,
+              "p75": 70.5,
+              "minimum": 27.0,
+              "maximum": 85.0
+            },
+            "kernel time": {
+              "unit": "(s)",
+              "median": 4.4e-05,
+              "p25": 4.3e-05,
+              "p75": 4.4e-05,
+              "minimum": 4.2e-05,
+              "maximum": 4.5e-05
+            },
+            "number of L2 cache read requests": {
+              "unit": "",
+              "median": 131447.0,
+              "p25": 131436.0,
+              "p75": 131452.0,
+              "minimum": 131401.0,
+              "maximum": 131460.0
+            },
+            "performance": {
+              "unit": "(Gflops)",
+              "median": 1782.7054515,
+              "p25": 1761.69283825,
+              "p75": 1804.2222995000002,
+              "minimum": 1722.643972,
+              "maximum": 1868.406154
+            },
+            "process id": {
+              "unit": "",
+              "median": 2801956.0,
+              "p25": 2801956.0,
+              "p75": 2801956.0,
+              "minimum": 2801956.0,
+              "maximum": 2801956.0
+            },
+            "processed ALU instructions": {
+              "unit": "(%)",
+              "median": 9.212637517600001,
+              "p25": 9.127028794625,
+              "p75": 9.29053562795,
+              "minimum": 8.9549170754,
+              "maximum": 9.5628422116
+            },
+            "scratch size": {
+              "unit": "",
+              "median": 0.0,
+              "p25": 0.0,
+              "p75": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "sgpr count": {
+              "unit": "",
+              "median": 32.0,
+              "p25": 32.0,
+              "p75": 32.0,
+              "minimum": 32.0,
+              "maximum": 32.0
+            },
+            "shared memory bank conflict": {
+              "unit": "(%)",
+              "median": 4.9216093583500005,
+              "p25": 4.875875149025,
+              "p75": 4.9632243755,
+              "minimum": 4.7839289886,
+              "maximum": 5.1086970079
+            },
+            "shared memory operation": {
+              "unit": "",
+              "median": 65536.0,
+              "p25": 65536.0,
+              "p75": 65536.0,
+              "minimum": 65536.0,
+              "maximum": 65536.0
+            },
+            "shared memory size": {
+              "unit": "",
+              "median": 32768.0,
+              "p25": 32768.0,
+              "p75": 32768.0,
+              "minimum": 32768.0,
+              "maximum": 32768.0
+            },
+            "size of L2 cache read": {
+              "unit": "(kilobytes)",
+              "median": 8215.4375,
+              "p25": 8214.75,
+              "p75": 8215.75,
+              "minimum": 8212.5625,
+              "maximum": 8216.25
+            },
+            "thread id": {
+              "unit": "",
+              "median": 2801956.0,
+              "p25": 2801956.0,
+              "p75": 2801956.0,
+              "minimum": 2801956.0,
+              "maximum": 2801956.0
+            },
+            "vgpr count": {
+              "unit": "",
+              "median": 68.0,
+              "p25": 68.0,
+              "p75": 68.0,
+              "minimum": 68.0,
+              "maximum": 68.0
+            },
+            "work group size": {
+              "unit": "",
+              "median": 512.0,
+              "p25": 512.0,
+              "p75": 512.0,
+              "minimum": 512.0,
+              "maximum": 512.0
+            }
+          }
+        }
+      ],
+      "summed_fields": {
+        "number of L2 cache read requests": {
+          "unit": "",
+          "median": 263209.5,
+          "p25": 263193.75,
+          "p75": 263224.25,
+          "minimum": 263177.0,
+          "maximum": 263256.0
+        },
+        "shared memory operation": {
+          "unit": "",
+          "median": 140872.0,
+          "p25": 140872.0,
+          "p75": 140872.0,
+          "minimum": 140872.0,
+          "maximum": 140872.0
+        },
+        "size of L2 cache read": {
+          "unit": "(kilobytes)",
+          "median": 16450.59375,
+          "p25": 16449.609375,
+          "p75": 16451.515625,
+          "minimum": 16448.5625,
+          "maximum": 16453.5
+        }
+      }
+    }
+  ]
+}

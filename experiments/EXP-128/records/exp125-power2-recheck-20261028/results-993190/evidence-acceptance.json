@@ -1,0 +1,29 @@
+{
+  "complete": true,
+  "formal": false,
+  "job_id": "993190",
+  "host": "a01r4n11",
+  "gpu": {
+    "count": 1,
+    "uuid": "30303134626138613430623032306131",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "counts": {
+    "timing_processes": 20,
+    "clean_samples": 600,
+    "trace_processes": 10,
+    "traced_kernel_samples": 600,
+    "counter_processes": 16,
+    "counter_windows": 480,
+    "numerical_checks": 56,
+    "source_override_processes": 14
+  },
+  "maximum_numerical_error": 2.3684757858670005e-15,
+  "original_result_sha256": "f9166c7e8ff964465e914b25b1873a07a98d8013233ced37c519ef6adf4e3883",
+  "timestamp_warnings": [],
+  "production_source_modified": false,
+  "counter_units": "Raw SDK units; stall percentages are not wait cycles, L2 bytes are not HBM bytes.",
+  "sample_policy": "Median only; preserve all 30 samples per process. IQR overlap or disjoint first/last 15-sample IQR => inconclusive. Diagnostic, not a replacement of formal job991869."
+}
