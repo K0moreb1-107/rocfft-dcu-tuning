@@ -1,0 +1,34 @@
+{
+  "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-exp125-power2-z2d-diagnostic-20261028.json",
+  "run_id": "EXP-128-exp125-power2-z2d-diagnostic-20261028",
+  "tool_source_commit": "f3641652d7041aef4990ef25ebe49fa89e1d1324",
+  "submission_command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/logs/slurm_%j.err",
+    "--cpus-per-task=8",
+    "--partition=hx1hdnormal01",
+    "--time=00:45:00",
+    "--exclusive",
+    "--exclude=a01r4n05",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "diagnose",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-exp125-power2-z2d-diagnostic-20261028/submit-manifest.json"
+  ],
+  "workload": {
+    "cases": 5,
+    "clean_timing_processes": 20,
+    "clean_samples": 600,
+    "metadata_processes": 10,
+    "trace_processes": 10,
+    "counter_processes": 16,
+    "total_processes": 56,
+    "formal_samples": 0,
+    "warmups": 10,
+    "event_iterations": 30,
+    "expected_peak_additional_bytes": 2147483648
+  },
+  "status": "Reviewed preview; not submitted"
+}
