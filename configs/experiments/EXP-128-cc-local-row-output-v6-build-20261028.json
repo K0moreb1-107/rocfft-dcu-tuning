@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-128",
+  "run_id": "EXP-128-cc-local-row-output-v6-build-20261028",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "02:00:00",
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-128-cc-local-row-output-v6-20261028",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "19a7f34c2d9e61f5f58b10cc001f304ca589420f",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON",
+      "ROCFFT_CC_LOCAL_REAL_FUSION": "ON"
+    }
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-128-cc-local-real",
+  "acceptance": "Build output-only v6; separate numerical/path validation follows.",
+  "reference_policy": "Reuse EXP125, v5 and repaired same-CC OFF; no reference builds or dependencies."
+}
