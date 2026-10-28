@@ -8,7 +8,8 @@
     "cpus": 8,
     "time_limit": "00:20:00",
     "node_exclusive": true,
-    "exclude": "a01r4n05"
+    "exclude": "a01r4n05",
+    "dependency": "afterok:991867"
   },
   "build": {
     "component": "rocfft",
@@ -93,5 +94,10 @@
     "build_record": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-build-20261028/build-provenance.json",
     "evidence_record": "cc-row-output-validation.json",
     "isolated_helpers": false
+  },
+  "pending_build_validation": {
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-build-20261028/submit-manifest.json",
+    "build_config_sha256": "acdfcafbb6b6e4412b709e54b643cd201c36912c6d4b84e5d94b3f478bd1e960",
+    "build_job_id": "991867"
   }
 }
