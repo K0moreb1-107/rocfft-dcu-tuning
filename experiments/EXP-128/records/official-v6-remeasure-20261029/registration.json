@@ -1,0 +1,38 @@
+{
+  "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-local-v6-official-performance-20261029.json",
+  "run_id": "EXP-128-cc-local-v6-official-performance-20261029",
+  "record_commit": "7c096af294ce0f528cc5b7e2ab59db32e29578ec",
+  "submission_command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/public/home/zhangkewei/zr",
+    "--output=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-v6-official-performance-20261029/logs/slurm_%j.out",
+    "--error=/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-v6-official-performance-20261029/logs/slurm_%j.err",
+    "--cpus-per-task=8",
+    "--partition=hx1hdnormal01",
+    "--time=02:00:00",
+    "--exclusive",
+    "--exclude=a01r4n05",
+    "/public/home/zhangkewei/zr/jobs/workspace_task.slurm",
+    "measure",
+    "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-v6-official-performance-20261029/submit-manifest.json"
+  ],
+  "cases": 388,
+  "sizes": 194,
+  "processes": 776,
+  "event_samples": 23280,
+  "arms": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5"
+    },
+    "candidate": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-row-output-v6-20261028",
+      "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+      "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4"
+    }
+  },
+  "status": "Submitted; stop until the user requests results.",
+  "job": "993654"
+}

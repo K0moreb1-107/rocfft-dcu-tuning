@@ -1,0 +1,27 @@
+{
+  "job": "993654",
+  "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-v6-official-performance-20261029",
+  "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-128-cc-local-v6-official-performance-20261029.json",
+  "sizes": 194,
+  "cases": 388,
+  "processes": 776,
+  "event_samples": 23280,
+  "timing_warmups": 10,
+  "event_iterations": 30,
+  "arms": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5"
+    },
+    "candidate": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-row-output-v6-20261028",
+      "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+      "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4"
+    }
+  },
+  "libraries_rebuilt": false,
+  "new_validation_jobs": false,
+  "source_state_frozen": false,
+  "status": "Submitted; no scheduler or result polling after receipt."
+}
