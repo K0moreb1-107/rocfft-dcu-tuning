@@ -1,0 +1,675 @@
+{
+  "clean_schedule": [
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "index": 0
+    },
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "index": 1
+    },
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "identity",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C128_Q256_N65536_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/65536/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/65536/original.cpp",
+          "original_sha256": "e120753a1af2edfa982f0a9fe6e9f3c2a9de589506693eab1904a1d571aedab4",
+          "replacement_sha256": "e120753a1af2edfa982f0a9fe6e9f3c2a9de589506693eab1904a1d571aedab4"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/65536/identity.tsv",
+      "rules_manifest_sha256": "034a8656aae8b70c51b0f4a2e00fcb88206135ac055954f031c11ed6b3d7de1f",
+      "required_source_names": [
+        "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C128_Q256_N65536_reg"
+      ],
+      "index": 2
+    },
+    {
+      "N": 65536,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C128_Q256_N65536_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/65536/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/65536/phase-order-only.cpp",
+          "original_sha256": "e120753a1af2edfa982f0a9fe6e9f3c2a9de589506693eab1904a1d571aedab4",
+          "replacement_sha256": "d53fdb600b4860dfd9443d8569941e7f0582d5decba3a95bba19d23fc18cc56f"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/65536/phase_order.tsv",
+      "rules_manifest_sha256": "f678b0ffbb29509d56a405e3a08174c5bc8b11dcbd873c0de383ba768a3f1537",
+      "required_source_names": [
+        "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C128_Q256_N65536_reg"
+      ],
+      "index": 3
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/phase-order-only.cpp",
+          "original_sha256": "2be8eb8101cea162a1251711169f1a3eddebe231a5250d8e7c6c1c538dee8140",
+          "replacement_sha256": "4f38d8f631cc73b975c2bae8a472d4381baa9ff5e4c8e3ac39563507cad55b01"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/phase_order.tsv",
+      "rules_manifest_sha256": "30f1e3621607e02ad6bedf5234a98410c392bcd6d2587bac62026b7321a515b1",
+      "required_source_names": [
+        "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg"
+      ],
+      "index": 4
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "identity",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/original.cpp",
+          "original_sha256": "2be8eb8101cea162a1251711169f1a3eddebe231a5250d8e7c6c1c538dee8140",
+          "replacement_sha256": "2be8eb8101cea162a1251711169f1a3eddebe231a5250d8e7c6c1c538dee8140"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/identity.tsv",
+      "rules_manifest_sha256": "14f8ba4dd8b959fc5bac1527754feac298c7c4981c085ec7cb3c4f720f5b99ad",
+      "required_source_names": [
+        "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg"
+      ],
+      "index": 5
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "index": 6
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "index": 7
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "index": 8
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "index": 9
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "identity",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q512_N262144_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/262144/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/262144/original.cpp",
+          "original_sha256": "96ac3e6b2239607ba61e8dc4ff11f7de610bad546168bf8fa9f5c382a5057ddf",
+          "replacement_sha256": "96ac3e6b2239607ba61e8dc4ff11f7de610bad546168bf8fa9f5c382a5057ddf"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/262144/identity.tsv",
+      "rules_manifest_sha256": "85dd5ce37e3937eced2de29f34e937cc9f9333fb2b19e30804b97415df955e14",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q512_N262144_reg"
+      ],
+      "index": 10
+    },
+    {
+      "N": 262144,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q512_N262144_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/262144/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/262144/phase-order-only.cpp",
+          "original_sha256": "96ac3e6b2239607ba61e8dc4ff11f7de610bad546168bf8fa9f5c382a5057ddf",
+          "replacement_sha256": "fcefe1b2d1a10b2437a3ff31a11a89a1aa0cb5b2e3299e17e04f4bb6e350b19a"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/262144/phase_order.tsv",
+      "rules_manifest_sha256": "5bb4c6eb672dbee8ad87521a5c596aa850f0988d5f827e917fcaf22b06e1bfe0",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q512_N262144_reg"
+      ],
+      "index": 11
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C512_Q512_N524288_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/524288/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/524288/phase-order-only.cpp",
+          "original_sha256": "3017b76e17a20f1d7375ccfe2893f834d6d92f4df0e746e13627568b96f86a44",
+          "replacement_sha256": "6ec748a726bfd0528eeb061da2b69481591a2e545212fc0723c812c7d7baed64"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/524288/phase_order.tsv",
+      "rules_manifest_sha256": "8fe5eea9fd8ce45462d522eb7fefea1117ed313a5984aa851ff37bf283af7002",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C512_Q512_N524288_reg"
+      ],
+      "index": 12
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "identity",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C512_Q512_N524288_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/524288/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/524288/original.cpp",
+          "original_sha256": "3017b76e17a20f1d7375ccfe2893f834d6d92f4df0e746e13627568b96f86a44",
+          "replacement_sha256": "3017b76e17a20f1d7375ccfe2893f834d6d92f4df0e746e13627568b96f86a44"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/524288/identity.tsv",
+      "rules_manifest_sha256": "8c4e6e9113395cd42b6c5c57d2bea30c7164d23f1ce487404e656f29adfbf606",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C512_Q512_N524288_reg"
+      ],
+      "index": 13
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "index": 14
+    },
+    {
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "index": 15
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "index": 16
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "index": 17
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "identity",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/original.cpp",
+          "original_sha256": "0f4722099ee6a461dc92bec2436c19ccf87eba661a9340eb10932de4a6ec3114",
+          "replacement_sha256": "0f4722099ee6a461dc92bec2436c19ccf87eba661a9340eb10932de4a6ec3114"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/identity.tsv",
+      "rules_manifest_sha256": "590959f028f3f9f20ad7a42b6c64e011f37a26fc23da24fa2b467701b8d3d04b",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg"
+      ],
+      "index": 18
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/phase-order-only.cpp",
+          "original_sha256": "0f4722099ee6a461dc92bec2436c19ccf87eba661a9340eb10932de4a6ec3114",
+          "replacement_sha256": "3df47181ef2f669e05525603ac6d9065659e460eb46289134798031f23750b62"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/phase_order.tsv",
+      "rules_manifest_sha256": "2b55ac09b418ae8a09af30fc6257c3a9d4208453a38177fb367981eb78f9f126",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg"
+      ],
+      "index": 19
+    }
+  ],
+  "trace_schedule": [
+    {
+      "index": 0,
+      "N": 65536,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original"
+    },
+    {
+      "index": 1,
+      "N": 65536,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original"
+    },
+    {
+      "index": 2,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original"
+    },
+    {
+      "index": 3,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original"
+    },
+    {
+      "index": 4,
+      "N": 262144,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original"
+    },
+    {
+      "index": 5,
+      "N": 262144,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original"
+    },
+    {
+      "index": 6,
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original"
+    },
+    {
+      "index": 7,
+      "N": 524288,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original"
+    },
+    {
+      "index": 8,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original"
+    },
+    {
+      "index": 9,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original"
+    }
+  ],
+  "counter_schedule": [
+    {
+      "index": 0,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "general"
+    },
+    {
+      "index": 1,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "read"
+    },
+    {
+      "index": 2,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "write"
+    },
+    {
+      "index": 3,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "general"
+    },
+    {
+      "index": 4,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "read"
+    },
+    {
+      "index": 5,
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "write"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/phase-order-only.cpp",
+          "original_sha256": "2be8eb8101cea162a1251711169f1a3eddebe231a5250d8e7c6c1c538dee8140",
+          "replacement_sha256": "4f38d8f631cc73b975c2bae8a472d4381baa9ff5e4c8e3ac39563507cad55b01"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/phase_order.tsv",
+      "rules_manifest_sha256": "30f1e3621607e02ad6bedf5234a98410c392bcd6d2587bac62026b7321a515b1",
+      "required_source_names": [
+        "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg"
+      ],
+      "index": 6,
+      "mode": "general"
+    },
+    {
+      "N": 131072,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/phase-order-only.cpp",
+          "original_sha256": "2be8eb8101cea162a1251711169f1a3eddebe231a5250d8e7c6c1c538dee8140",
+          "replacement_sha256": "4f38d8f631cc73b975c2bae8a472d4381baa9ff5e4c8e3ac39563507cad55b01"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/131072/phase_order.tsv",
+      "rules_manifest_sha256": "30f1e3621607e02ad6bedf5234a98410c392bcd6d2587bac62026b7321a515b1",
+      "required_source_names": [
+        "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg"
+      ],
+      "index": 7,
+      "mode": "read"
+    },
+    {
+      "index": 8,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "general"
+    },
+    {
+      "index": 9,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "read"
+    },
+    {
+      "index": 10,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "baseline",
+      "variant": "original",
+      "mode": "write"
+    },
+    {
+      "index": 11,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "general"
+    },
+    {
+      "index": 12,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "read"
+    },
+    {
+      "index": 13,
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "original",
+      "mode": "write"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/phase-order-only.cpp",
+          "original_sha256": "0f4722099ee6a461dc92bec2436c19ccf87eba661a9340eb10932de4a6ec3114",
+          "replacement_sha256": "3df47181ef2f669e05525603ac6d9065659e460eb46289134798031f23750b62"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/phase_order.tsv",
+      "rules_manifest_sha256": "2b55ac09b418ae8a09af30fc6257c3a9d4208453a38177fb367981eb78f9f126",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg"
+      ],
+      "index": 14,
+      "mode": "general"
+    },
+    {
+      "N": 1048576,
+      "func": "z2d_1d",
+      "arm": "candidate",
+      "variant": "phase_order",
+      "rules": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "original": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/original.cpp",
+          "replacement": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/phase-order-only.cpp",
+          "original_sha256": "0f4722099ee6a461dc92bec2436c19ccf87eba661a9340eb10932de4a6ec3114",
+          "replacement_sha256": "3df47181ef2f669e05525603ac6d9065659e460eb46289134798031f23750b62"
+        }
+      ],
+      "rules_manifest": "/public/home/zhangkewei/zr/experiments/EXP-128/records/exp125-power2-recheck-20261028/rtc-rules/1048576/phase_order.tsv",
+      "rules_manifest_sha256": "2b55ac09b418ae8a09af30fc6257c3a9d4208453a38177fb367981eb78f9f126",
+      "required_source_names": [
+        "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg"
+      ],
+      "index": 15,
+      "mode": "read"
+    }
+  ],
+  "expected_sources": {
+    "65536": {
+      "baseline": [
+        {
+          "name": "fft_rtc_back_len_128_factors_16_8_wgs_256_tpt_16_dp_op_CI_CI_sbcc_twdbase6_3step_dirReg_local_real_columns_N65536_reg",
+          "sha256": "c3622242529676b5ec4756814e10ed1f0321c55c19bb0e3df1aa7a2fe08c5179",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0005_65536_z2d_1d_baseline/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N65536_reg",
+          "sha256": "83144b6af25db8dae031f556e056de1062e1f21185e7ae74ff87496490c1b6f9",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0005_65536_z2d_1d_baseline/metadata/rtc.txt"
+        }
+      ],
+      "candidate": [
+        {
+          "name": "fft_rtc_back_len_128_factors_16_8_wgs_256_tpt_16_dp_op_CI_CI_sbcc_twdbase6_3step_dirReg_cc_local_v6_role4_C128_Q256_N65536_reg",
+          "sha256": "e8ef9c929d10046e27492458977f5e433a4f5e7acc1e13678a81fae1612711e6",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-validate-20261028/measurement-validation/65536-z2d_1d/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C128_Q256_N65536_reg",
+          "sha256": "e120753a1af2edfa982f0a9fe6e9f3c2a9de589506693eab1904a1d571aedab4",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-validate-20261028/measurement-validation/65536-z2d_1d/metadata/rtc.txt"
+        }
+      ]
+    },
+    "131072": {
+      "baseline": [
+        {
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N131072_reg",
+          "sha256": "c9a0dc463d06ff390ded99875b21ef395a4f7b4124a5c06cadaa6f4ede562e37",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0150_131072_z2d_1d_baseline/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N131072_reg",
+          "sha256": "2721ffc25854dc38c11d3c520deac22ff946cd7f2e5822c2ee5f75851847558b",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0150_131072_z2d_1d_baseline/metadata/rtc.txt"
+        }
+      ],
+      "candidate": [
+        {
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C256_Q256_N131072_reg",
+          "sha256": "dc0138c0cc4e0855bc1a5d8ce981c56e089d06c0800a7dfdc810ad324f0ab367",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-validate-20261027/measurement-validation/131072-z2d_1d/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q256_N131072_reg",
+          "sha256": "2be8eb8101cea162a1251711169f1a3eddebe231a5250d8e7c6c1c538dee8140",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-validate-20261027/measurement-validation/131072-z2d_1d/metadata/rtc.txt"
+        }
+      ]
+    },
+    "262144": {
+      "baseline": [
+        {
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N262144_reg",
+          "sha256": "d4838d52785439f5dde82d970250e7fc9f22b97dc2e13ddf7d4e7231d6fff365",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0228_262144_z2d_1d_baseline/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N262144_reg_pre_twiddle_preload",
+          "sha256": "6d755485bd3def1975a3692e2c520da084b1c27a5d3f8eedc99627d265a2a08a",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0228_262144_z2d_1d_baseline/metadata/rtc.txt"
+        }
+      ],
+      "candidate": [
+        {
+          "name": "fft_rtc_back_len_256_factors_8_4_8_wgs_256_tpt_32_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C256_Q512_N262144_reg",
+          "sha256": "a8f495deb20933e87f533e149932b94c994129da40d33ab72a284ff78f8a5cbf",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-validate-20261027/measurement-validation/262144-z2d_1d/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C256_Q512_N262144_reg",
+          "sha256": "96ac3e6b2239607ba61e8dc4ff11f7de610bad546168bf8fa9f5c382a5057ddf",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-validate-20261027/measurement-validation/262144-z2d_1d/metadata/rtc.txt"
+        }
+      ]
+    },
+    "524288": {
+      "baseline": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N524288_reg",
+          "sha256": "ec95ac6f3f8d0da9d6bcde3fb255c148c7c1ca884e32009ff3b341ca8f659abc",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0275_524288_z2d_1d_baseline/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N524288_reg_pre_twiddle_preload",
+          "sha256": "a72d032880d6569b9d0bb28bfd92460c3997856b1b6d5e35eb19de54f4a436e7",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0275_524288_z2d_1d_baseline/metadata/rtc.txt"
+        }
+      ],
+      "candidate": [
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C512_Q512_N524288_reg",
+          "sha256": "c0c533d9d5417a1b29d5bd234130d0b457b275a58f3b17f0ed54255361fb1804",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-validate-20261027/measurement-validation/524288-z2d_1d/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C512_Q512_N524288_reg",
+          "sha256": "3017b76e17a20f1d7375ccfe2893f834d6d92f4df0e746e13627568b96f86a44",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-boundary-v5-validate-20261027/measurement-validation/524288-z2d_1d/metadata/rtc.txt"
+        }
+      ]
+    },
+    "1048576": {
+      "baseline": [
+        {
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_local_real_columns_N1048576_reg",
+          "sha256": "0a66bf4ceccb1b20897b8756e67de08999ce8edc9a9fec8d65e99d5c8c779133",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0293_1048576_z2d_1d_baseline/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_local_real_rows_N1048576_reg_pre_twiddle_preload",
+          "sha256": "fa69d193440a39f480cd16d6c4e133e1e9e2769b8eed35cdd4e66350e0f585ae",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-regression-955252-diagnostic-20261022/profiles/0293_1048576_z2d_1d_baseline/metadata/rtc.txt"
+        }
+      ],
+      "candidate": [
+        {
+          "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_64_halfLds_dim_2_dp_op_CI_CI_sbcc_twdbase8_3step_dirReg_cc_local_v6_role4_C1024_Q512_N1048576_reg",
+          "sha256": "9dbecd8f68216d0196189dfee5e87aab8c6e5f3e9287965870c457cf0c88dcdc",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-validate-20261028/measurement-validation/1048576-z2d_1d/metadata/rtc.txt"
+        },
+        {
+          "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dp_op_CI_CI_unitstride_sbrc_aligned_cc_local_v6_role5_C1024_Q512_N1048576_reg",
+          "sha256": "0f4722099ee6a461dc92bec2436c19ccf87eba661a9340eb10932de4a6ec3114",
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-validate-20261028/measurement-validation/1048576-z2d_1d/metadata/rtc.txt"
+        }
+      ]
+    }
+  },
+  "interpretation": "Five old EXP125 powers, same-card matched data; phase intervention changes only load order in V6 rows. Padding and packed endpoints are unchanged by the intervention."
+}
