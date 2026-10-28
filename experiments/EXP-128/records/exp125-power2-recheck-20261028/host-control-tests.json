@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "checks": [
+    {
+      "case": "successful-flow",
+      "passed": true,
+      "calls": {
+        "timing": 20,
+        "traces": 10,
+        "pmc": 16
+      },
+      "GPU_execution": false
+    },
+    {
+      "case": "failure-aggregation",
+      "passed": true,
+      "calls": {
+        "timing": 20,
+        "traces": 10,
+        "pmc": 16
+      },
+      "GPU_execution": false
+    }
+  ],
+  "scope": "Mocked main control flow and error aggregation only; not a device or numerical validation."
+}
