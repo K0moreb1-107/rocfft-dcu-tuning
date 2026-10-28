@@ -1,0 +1,91 @@
+{
+  "user_choice": "A: 194 N, z2d and d2z, 388 combinations; scope and submission flow confirmed.",
+  "official_registry_id": "install-exp096-official",
+  "arms": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+    },
+    "candidate": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-row-output-v6-20261028",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+      "source_state": "{\"commit\": \"babe7b5379aa37892f56cd190de21190d1838f68\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"19a7f34c2d9e61f5f58b10cc001f304ca589420f\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"c16a83799c21bc5008588e072513dad87761bdb767f34734473332ec2fb4bde4\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"b6f2ff07d404c6c967849370a3e138de971e3d8d03df85012a9c7d2b4da1b58d\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"f14ddefdcfa54392767dd3fe67c8736f7b2e9c3cf74691db4f0a319e38c62062\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_dual_revalidate.py\": \"1c9b60a2bec2ac7b6571a33fc1b0b1969dcb8274ec2a49036bc01a164b89229c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+      "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-build-20261028/build-provenance.json"
+    }
+  },
+  "coverage": {
+    "path": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+    "sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18",
+    "sizes": 194,
+    "cases": 388,
+    "minimum": 65536,
+    "maximum": 2725888
+  },
+  "protocol": "FFT-event-cufft261012-single-v3",
+  "timing_warmups": 10,
+  "samples_per_process": 30,
+  "processes": 776,
+  "event_samples": 23280,
+  "schedule_first_four": [
+    {
+      "index": 0,
+      "N": 65536,
+      "func": "z2d_1d",
+      "round": 1,
+      "slot": 1,
+      "arm": "official"
+    },
+    {
+      "index": 1,
+      "N": 65536,
+      "func": "z2d_1d",
+      "round": 1,
+      "slot": 2,
+      "arm": "candidate"
+    },
+    {
+      "index": 2,
+      "N": 65536,
+      "func": "d2z_1d",
+      "round": 1,
+      "slot": 1,
+      "arm": "candidate"
+    },
+    {
+      "index": 3,
+      "N": 65536,
+      "func": "d2z_1d",
+      "round": 1,
+      "slot": 2,
+      "arm": "official"
+    }
+  ],
+  "schedule_adjacency_and_alternation_verified": true,
+  "candidate_validation": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-validate-20261028",
+    "job_id": "991868",
+    "record_sha256": "9492bc8cb4837e5f636bda1453611b1b7bca537bcf0690be0e45628e79ddccd1",
+    "evidence_record": "cc-row-output-validation.json",
+    "evidence_sha256": "c3b40bd809fd0bac5a39c441a5b80e9bf88bcb06dc4b2278bfb6d7026d875142",
+    "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+    "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4"
+  },
+  "accepted_numerical_cases": 56,
+  "accepted_actual_path_cases": 56,
+  "official_default_plan": true,
+  "forced_CC_or_load_path": false,
+  "official_historical_v3_full_scope_evidence": "Not found in bounded historical lookup; each fresh v3 measurement process independently checks numerical results.",
+  "references_rebuilt": false,
+  "production_source_modified": false,
+  "new_validation_jobs": false,
+  "source_state_freeze": false,
+  "free_bytes": 284017295360,
+  "analysis": "Official median / current median; keep raw samples, IQR, all points and order plots. No cross-run sample mixing.",
+  "stop_policy": "Stop after submission receipt; no scheduler or result polling until requested."
+}
