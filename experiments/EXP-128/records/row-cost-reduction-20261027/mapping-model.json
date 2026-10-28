@@ -1,0 +1,5256 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "cases": [
+    {
+      "N": 65536,
+      "C": 128,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C128_Q256_N65536_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/128-256-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 65856,
+      "C": 96,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C96_Q343_N65856_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/96-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7546,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C168_Q200_N67200_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11200,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 67600,
+      "C": 169,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C169_Q200_N67600_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/169-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11600,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 67760,
+      "C": 280,
+      "Q": 121,
+      "T": 11,
+      "R": 11,
+      "factors": [
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_121_factors_11_11_wgs_121_tpt_11_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C280_Q121_N67760_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-121-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6534,
+        "register_pair_locality": {
+          "same_wave": 583,
+          "same_thread": 55,
+          "cross_wave": 22
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 68600,
+      "C": 100,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C100_Q343_N68600_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/100-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6860,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 69938,
+      "C": 289,
+      "Q": 121,
+      "T": 11,
+      "R": 11,
+      "factors": [
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_121_factors_11_11_wgs_121_tpt_11_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C289_Q121_N69938_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-121-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6050,
+        "register_pair_locality": {
+          "same_wave": 583,
+          "same_thread": 55,
+          "cross_wave": 22
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 70000,
+      "C": 280,
+      "Q": 125,
+      "T": 25,
+      "R": 10,
+      "factors": [
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_125_factors_5_5_5_wgs_250_tpt_25_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q125_N70000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-125-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5000,
+        "register_pair_locality": {
+          "same_wave": 495,
+          "same_thread": 20,
+          "cross_wave": 105
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 70304,
+      "C": 208,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C208_Q169_N70304_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-169-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9464,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 71344,
+      "C": 104,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C104_Q343_N71344_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/104-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9604,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 71680,
+      "C": 280,
+      "Q": 128,
+      "T": 16,
+      "R": 8,
+      "factors": [
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_128_factors_8_4_4_wgs_128_tpt_16_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q128_N71680_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-128-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 4096,
+        "register_pair_locality": {
+          "same_wave": 448,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 72250,
+      "C": 125,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C125_Q289_N72250_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/125-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11560,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 73008,
+      "C": 216,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C216_Q169_N73008_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-169-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8112,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 73728,
+      "C": 192,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C192_Q192_N73728_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/192-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 73984,
+      "C": 128,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C128_Q289_N73984_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/128-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9248,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 74088,
+      "C": 108,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C108_Q343_N74088_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/108-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8918,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 75000,
+      "C": 60,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C60_Q625_N75000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/60-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 75264,
+      "C": 336,
+      "Q": 112,
+      "T": 28,
+      "R": 16,
+      "factors": [
+        4,
+        7,
+        4
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_112_factors_4_7_4_wgs_448_tpt_28_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q112_N75264_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-112-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7168,
+        "register_pair_locality": {
+          "same_wave": 652,
+          "same_thread": 48,
+          "cross_wave": 180
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 75712,
+      "C": 224,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C224_Q169_N75712_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-169-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10816,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 76800,
+      "C": 200,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C200_Q192_N76800_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/200-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 76832,
+      "C": 112,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C112_Q343_N76832_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/112-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8232,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 77760,
+      "C": 160,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C160_Q243_N77760_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 79872,
+      "C": 208,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C208_Q192_N79872_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 80000,
+      "C": 200,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C200_Q200_N80000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/200-200-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8000,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 81120,
+      "C": 240,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q169_N81120_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-169-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8112,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 81312,
+      "C": 336,
+      "Q": 121,
+      "T": 11,
+      "R": 11,
+      "factors": [
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_121_factors_11_11_wgs_121_tpt_11_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C336_Q121_N81312_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-121-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6776,
+        "register_pair_locality": {
+          "same_wave": 583,
+          "same_thread": 55,
+          "cross_wave": 22
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 81648,
+      "C": 168,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C168_Q243_N81648_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 81920,
+      "C": 160,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C160_Q256_N81920_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-256-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 82134,
+      "C": 243,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C243_Q169_N82134_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/243-169-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9126,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C81_Q512_N82944_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/81-512-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9216,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 83006,
+      "C": 121,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C121_Q343_N83006_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/121-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7546,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 83200,
+      "C": 208,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C208_Q200_N83200_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11200,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 84000,
+      "C": 336,
+      "Q": 125,
+      "T": 25,
+      "R": 10,
+      "factors": [
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_125_factors_5_5_5_wgs_250_tpt_25_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C336_Q125_N84000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-125-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6500,
+        "register_pair_locality": {
+          "same_wave": 495,
+          "same_thread": 20,
+          "cross_wave": 105
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 85750,
+      "C": 125,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C125_Q343_N85750_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/125-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6860,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 86016,
+      "C": 168,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C168_Q256_N86016_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-256-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C216_Q200_N86400_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10400,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 86528,
+      "C": 169,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C169_Q256_N86528_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/169-256-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8704,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 87808,
+      "C": 128,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C128_Q343_N87808_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/128-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8918,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 89600,
+      "C": 224,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C224_Q200_N89600_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9600,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 90000,
+      "C": 72,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C72_Q625_N90000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/72-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 92160,
+      "C": 240,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q192_N92160_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 92480,
+      "C": 160,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C160_Q289_N92480_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11560,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 93312,
+      "C": 192,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C192_Q243_N93312_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/192-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 94640,
+      "C": 280,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C280_Q169_N94640_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-169-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9464,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 96000,
+      "C": 240,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q200_N96000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-200-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8000,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 97104,
+      "C": 168,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C168_Q289_N97104_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8092,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 97200,
+      "C": 200,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C200_Q243_N97200_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/200-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 97682,
+      "C": 289,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C289_Q169_N97682_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-169-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8450,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 98304,
+      "C": 256,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C256_Q192_N98304_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/256-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 100000,
+      "C": 80,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C80_Q625_N100000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/80-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 100352,
+      "C": 1024,
+      "Q": 49,
+      "T": 7,
+      "R": 28,
+      "factors": [
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_49_factors_7_7_wgs_196_tpt_7_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C1024_Q49_N100352_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-49-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7056,
+        "register_pair_locality": {
+          "same_wave": 567,
+          "same_thread": 84,
+          "cross_wave": 21
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 101088,
+      "C": 208,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C208_Q243_N101088_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 101250,
+      "C": 81,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C81_Q625_N101250_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/81-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "T": 25,
+      "R": 4,
+      "factors": [
+        5,
+        5,
+        4
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_100_factors_5_5_4_wgs_100_tpt_25_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C512_Q100_N102400_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/512-100-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 1600,
+        "register_pair_locality": {
+          "same_wave": 150,
+          "same_thread": 16,
+          "cross_wave": 30
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 104976,
+      "C": 216,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C216_Q243_N104976_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 105000,
+      "C": 84,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C84_Q625_N105000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/84-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 106496,
+      "C": 208,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C208_Q256_N106496_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-256-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 107520,
+      "C": 280,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q192_N107520_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 108864,
+      "C": 224,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C224_Q243_N108864_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 109760,
+      "C": 160,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C160_Q343_N109760_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6860,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C108_Q512_N110592_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/108-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 110976,
+      "C": 192,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C192_Q289_N110976_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/192-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9826,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 112000,
+      "C": 280,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q200_N112000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-200-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8000,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 113568,
+      "C": 336,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q169_N113568_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-169-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8112,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 114688,
+      "C": 512,
+      "Q": 112,
+      "T": 28,
+      "R": 16,
+      "factors": [
+        4,
+        7,
+        4
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_112_factors_4_7_4_wgs_448_tpt_28_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C512_Q112_N114688_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/512-112-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7168,
+        "register_pair_locality": {
+          "same_wave": 652,
+          "same_thread": 48,
+          "cross_wave": 180
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 115248,
+      "C": 168,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C168_Q343_N115248_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8918,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C289_Q200_N115600_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11600,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 115934,
+      "C": 169,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C169_Q343_N115934_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/169-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9604,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 116640,
+      "C": 240,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q243_N116640_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 118098,
+      "C": 243,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C243_Q243_N118098_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/243-243-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9234,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 120000,
+      "C": 96,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C96_Q625_N120000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/96-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 120224,
+      "C": 208,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C208_Q289_N120224_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10982,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 122880,
+      "C": 60,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C60_Q1024_N122880_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/60-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C121_Q512_N123904_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/121-512-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9216,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 124416,
+      "C": 243,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C243_Q256_N124416_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/243-256-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9728,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 124848,
+      "C": 216,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C216_Q289_N124848_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11560,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 125000,
+      "C": 100,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C100_Q625_N125000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/100-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C125_Q512_N128000_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/125-512-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9216,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 129024,
+      "C": 336,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q192_N129024_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 129472,
+      "C": 224,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C224_Q289_N129472_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8092,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 130000,
+      "C": 104,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C104_Q625_N130000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/104-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 131072,
+      "C": 256,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C256_Q256_N131072_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/256-256-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 131712,
+      "C": 343,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C343_Q192_N131712_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-192-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8832,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 133100,
+      "C": 50,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C50_Q1331_N133100_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/50-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C336_Q200_N134400_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10400,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 135000,
+      "C": 108,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C108_Q625_N135000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/108-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 136080,
+      "C": 280,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q243_N136080_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C343_Q200_N137200_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9200,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 138424,
+      "C": 52,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C52_Q1331_N138424_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/52-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 138720,
+      "C": 240,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C240_Q289_N138720_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9248,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 140000,
+      "C": 112,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C112_Q625_N140000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/112-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 140454,
+      "C": 243,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C243_Q289_N140454_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/243-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10982,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 142688,
+      "C": 208,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C208_Q343_N142688_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8918,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 143360,
+      "C": 280,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q256_N143360_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-256-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 147456,
+      "C": 72,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C72_Q1024_N147456_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/72-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 147968,
+      "C": 256,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C256_Q289_N147968_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/256-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10404,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 148176,
+      "C": 216,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C216_Q343_N148176_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7546,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 151250,
+      "C": 121,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C121_Q625_N151250_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/121-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 153664,
+      "C": 224,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C224_Q343_N153664_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9604,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 156250,
+      "C": 125,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C125_Q625_N156250_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/125-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 159720,
+      "C": 60,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C60_Q1331_N159720_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/60-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 160000,
+      "C": 128,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C128_Q625_N160000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/128-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 161840,
+      "C": 280,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q289_N161840_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8092,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 163296,
+      "C": 336,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q243_N163296_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C160_Q512_N163840_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 164640,
+      "C": 240,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q343_N164640_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6860,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 165888,
+      "C": 81,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C81_Q1024_N165888_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/81-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10240,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 166698,
+      "C": 343,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C343_Q243_N166698_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-243-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11178,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 167042,
+      "C": 289,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C289_Q289_N167042_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9248,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 170368,
+      "C": 64,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C64_Q1331_N170368_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/64-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 172032,
+      "C": 84,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C84_Q1024_N172032_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/84-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C169_Q512_N173056_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/169-512-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9216,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 175616,
+      "C": 343,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_256_factors_4_4_4_4_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C343_Q256_N175616_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-256-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11776,
+        "register_pair_locality": {
+          "same_wave": 960,
+          "same_thread": 56
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 191664,
+      "C": 72,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C72_Q1331_N191664_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/72-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 192080,
+      "C": 280,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q343_N192080_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6860,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 194208,
+      "C": 336,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q289_N194208_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8092,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 196608,
+      "C": 512,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "factors": [
+        6,
+        4,
+        4,
+        2
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_192_factors_6_4_4_2_wgs_256_tpt_32_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C512_Q192_N196608_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/512-192-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6144,
+        "register_pair_locality": {
+          "same_wave": 720,
+          "same_thread": 40
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 198254,
+      "C": 289,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C289_Q343_N198254_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9604,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 200000,
+      "C": 160,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C160_Q625_N200000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "factors": [
+        8,
+        5,
+        5
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_200_factors_8_5_5_wgs_400_tpt_40_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C512_Q200_N204800_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/512-200-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8800,
+        "register_pair_locality": {
+          "same_wave": 816,
+          "same_thread": 30,
+          "cross_wave": 144
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 210000,
+      "C": 168,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C168_Q625_N210000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 211250,
+      "C": 169,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C169_Q625_N211250_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/169-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 212960,
+      "C": 80,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C80_Q1331_N212960_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/80-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C208_Q512_N212992_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 215622,
+      "C": 81,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C81_Q1331_N215622_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/81-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C216_Q512_N221184_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 223608,
+      "C": 84,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C84_Q1331_N223608_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/84-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C224_Q512_N229376_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 230496,
+      "C": 336,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C336_Q343_N230496_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7546,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 235298,
+      "C": 343,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "factors": [
+        7,
+        7,
+        7
+      ],
+      "registers": 7,
+      "name": "fft_rtc_back_len_343_factors_7_7_7_wgs_245_tpt_49_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C343_Q343_N235298_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-343-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8918,
+        "register_pair_locality": {
+          "same_wave": 581,
+          "same_thread": 15,
+          "cross_wave": 259
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 240000,
+      "C": 192,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C192_Q625_N240000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/192-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q512_N245760_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 247808,
+      "C": 121,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C121_Q1024_N247808_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/121-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10240,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C243_Q512_N248832_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/243-512-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11264,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 250000,
+      "C": 200,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C200_Q625_N250000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/200-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 255552,
+      "C": 96,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C96_Q1331_N255552_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/96-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 256000,
+      "C": 1024,
+      "Q": 125,
+      "T": 25,
+      "R": 10,
+      "factors": [
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_125_factors_5_5_5_wgs_250_tpt_25_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C1024_Q125_N256000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-125-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 6000,
+        "register_pair_locality": {
+          "same_wave": 495,
+          "same_thread": 20,
+          "cross_wave": 105
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 260000,
+      "C": 208,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C208_Q625_N260000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C256_Q512_N262144_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/256-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 266200,
+      "C": 100,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C100_Q1331_N266200_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/100-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 270000,
+      "C": 216,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C216_Q625_N270000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 276848,
+      "C": 104,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C104_Q1331_N276848_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/104-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 280000,
+      "C": 224,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C224_Q625_N280000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q512_N286720_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 287496,
+      "C": 108,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C108_Q1331_N287496_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/108-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C289_Q512_N295936_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-512-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9216,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 298144,
+      "C": 112,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C112_Q1331_N298144_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/112-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 300000,
+      "C": 240,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q625_N300000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 303750,
+      "C": 243,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C243_Q625_N303750_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/243-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 320000,
+      "C": 256,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C256_Q625_N320000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/256-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 322102,
+      "C": 121,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C121_Q1331_N322102_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/121-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 327680,
+      "C": 160,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C160_Q1024_N327680_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 332750,
+      "C": 125,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C125_Q1331_N332750_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/125-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 340736,
+      "C": 128,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C128_Q1331_N340736_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/128-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 344064,
+      "C": 168,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C168_Q1024_N344064_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 346112,
+      "C": 1024,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "factors": [
+        13,
+        13
+      ],
+      "registers": 13,
+      "name": "fft_rtc_back_len_169_factors_13_13_wgs_156_tpt_13_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C1024_Q169_N346112_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-169-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9464,
+        "register_pair_locality": {
+          "same_wave": 897,
+          "same_thread": 72,
+          "cross_wave": 39
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 350000,
+      "C": 280,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q625_N350000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C343_Q512_N351232_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-512-5-0.cpp",
+      "load": "registers",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 11264,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 361250,
+      "C": 289,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C289_Q625_N361250_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 393216,
+      "C": 192,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C192_Q1024_N393216_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/192-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 409600,
+      "C": 200,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C200_Q1024_N409600_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/200-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 420000,
+      "C": 336,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q625_N420000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 425920,
+      "C": 160,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C160_Q1331_N425920_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/160-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 425984,
+      "C": 208,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C208_Q1024_N425984_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 428750,
+      "C": 343,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C343_Q625_N428750_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 442368,
+      "C": 216,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C216_Q1024_N442368_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 447216,
+      "C": 168,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C168_Q1331_N447216_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/168-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 449878,
+      "C": 169,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C169_Q1331_N449878_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/169-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 458752,
+      "C": 224,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C224_Q1024_N458752_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 491520,
+      "C": 240,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q1024_N491520_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 497664,
+      "C": 1024,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "factors": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "registers": 9,
+      "name": "fft_rtc_back_len_243_factors_3_3_3_3_3_wgs_216_tpt_27_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C1024_Q243_N497664_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-243-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 7776,
+        "register_pair_locality": {
+          "same_wave": 774,
+          "same_thread": 32,
+          "cross_wave": 162
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 511104,
+      "C": 192,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C192_Q1331_N511104_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/192-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C512_Q512_N524288_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/512-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 532400,
+      "C": 200,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C200_Q1331_N532400_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/200-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 553696,
+      "C": 208,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C208_Q1331_N553696_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/208-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 573440,
+      "C": 280,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q1024_N573440_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 574992,
+      "C": 216,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C216_Q1331_N574992_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/216-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 591872,
+      "C": 1024,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "factors": [
+        17,
+        17
+      ],
+      "registers": 17,
+      "name": "fft_rtc_back_len_289_factors_17_17_wgs_119_tpt_17_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C1024_Q289_N591872_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-289-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 9248,
+        "register_pair_locality": {
+          "same_wave": 884,
+          "same_thread": 56,
+          "cross_wave": 68
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 596288,
+      "C": 224,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C224_Q1331_N596288_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/224-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 638880,
+      "C": 240,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C240_Q1331_N638880_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/240-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 640000,
+      "C": 512,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C512_Q625_N640000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/512-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 646866,
+      "C": 243,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C243_Q1331_N646866_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/243-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 681472,
+      "C": 256,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C256_Q1331_N681472_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/256-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 688128,
+      "C": 336,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q1024_N688128_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 702464,
+      "C": 343,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_unaligned_dirReg_cc_local_v5_role5_C343_Q1024_N702464_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 10240,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 745360,
+      "C": 280,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C280_Q1331_N745360_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/280-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 769318,
+      "C": 289,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C289_Q1331_N769318_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/289-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 894432,
+      "C": 336,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C336_Q1331_N894432_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/336-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 913066,
+      "C": 343,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C343_Q1331_N913066_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/343-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "factors": [
+        8,
+        8,
+        8
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_512_factors_8_8_8_wgs_512_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C1024_Q512_N1048576_reg",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-512-5-0.cpp",
+      "load": "registers",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "same_wave": 992,
+          "same_thread": 28
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 1280000,
+      "C": 1024,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "factors": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "registers": 5,
+      "name": "fft_rtc_back_len_625_factors_5_5_5_5_wgs_125_tpt_125_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C1024_Q625_N1280000_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-625-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 2500,
+        "register_pair_locality": {
+          "cross_wave": 305,
+          "same_wave": 5,
+          "same_thread": 2
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 1362944,
+      "C": 512,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C512_Q1331_N1362944_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/512-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 2097152,
+      "C": 1024,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "factors": [
+        8,
+        8,
+        4,
+        4
+      ],
+      "registers": 8,
+      "name": "fft_rtc_back_len_1024_factors_8_8_4_4_wgs_256_tpt_128_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C1024_Q1024_N2097152_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-1024-5-0.cpp",
+      "load": "LDS",
+      "packed": true,
+      "model": {
+        "complete": true,
+        "checked_output_points": 8192,
+        "register_pair_locality": {
+          "cross_wave": 1008,
+          "same_thread": 14
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    },
+    {
+      "N": 2725888,
+      "C": 1024,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "factors": [
+        11,
+        11,
+        11
+      ],
+      "registers": 11,
+      "name": "fft_rtc_back_len_1331_factors_11_11_11_wgs_121_tpt_121_dim_2_dp_op_CI_CI_sbrc_aligned_dirReg_cc_local_v5_role5_C1024_Q1331_N2725888_lds",
+      "path": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/boundary-v5-20261027/default/1024-1331-5-0.cpp",
+      "load": "LDS",
+      "packed": false,
+      "model": {
+        "complete": true,
+        "checked_output_points": 5324,
+        "register_pair_locality": {
+          "cross_wave": 627,
+          "same_wave": 33,
+          "same_thread": 5
+        },
+        "scope": "Exact first/last native pass maps, full and partial row tiles; counts are element ownership, not device time."
+      }
+    }
+  ],
+  "direct_scope": "R=1; full native output map proved for all cases but multitransform output coalescing remains separate.",
+  "synchronization": "Keep both reload barriers: native pass zero skips the overwrite barrier when direct_load_to_reg=true."
+}

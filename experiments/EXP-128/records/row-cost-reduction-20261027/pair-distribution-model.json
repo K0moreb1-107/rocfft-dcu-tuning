@@ -1,0 +1,3306 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "cases": [
+    {
+      "N": 65536,
+      "C": 128,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 65856,
+      "C": 96,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 67200,
+      "C": 168,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 67600,
+      "C": 169,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 67760,
+      "C": 280,
+      "Q": 121,
+      "T": 11,
+      "R": 11,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 518,
+        "phase_address_bins": 26
+      },
+      "row_grouped": {
+        "data_address_bins": 440,
+        "phase_address_bins": 40
+      }
+    },
+    {
+      "N": 68600,
+      "C": 100,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 69938,
+      "C": 289,
+      "Q": 121,
+      "T": 11,
+      "R": 11,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 518,
+        "phase_address_bins": 26
+      },
+      "row_grouped": {
+        "data_address_bins": 440,
+        "phase_address_bins": 40
+      }
+    },
+    {
+      "N": 70000,
+      "C": 280,
+      "Q": 125,
+      "T": 25,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 467,
+        "phase_address_bins": 26
+      },
+      "row_grouped": {
+        "data_address_bins": 367,
+        "phase_address_bins": 72
+      }
+    },
+    {
+      "N": 70304,
+      "C": 208,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 71344,
+      "C": 104,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 71680,
+      "C": 280,
+      "Q": 128,
+      "T": 16,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 320,
+        "phase_address_bins": 16
+      },
+      "row_grouped": {
+        "data_address_bins": 288,
+        "phase_address_bins": 32
+      }
+    },
+    {
+      "N": 72250,
+      "C": 125,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 73008,
+      "C": 216,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 73728,
+      "C": 192,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 73984,
+      "C": 128,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 74088,
+      "C": 108,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 75000,
+      "C": 60,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 75264,
+      "C": 336,
+      "Q": 112,
+      "T": 28,
+      "R": 16,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 672,
+        "phase_address_bins": 14
+      },
+      "row_grouped": {
+        "data_address_bins": 492,
+        "phase_address_bins": 98
+      }
+    },
+    {
+      "N": 75712,
+      "C": 224,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 76800,
+      "C": 200,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 76832,
+      "C": 112,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 77760,
+      "C": 160,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 79872,
+      "C": 208,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 80000,
+      "C": 200,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 81120,
+      "C": 240,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 81312,
+      "C": 336,
+      "Q": 121,
+      "T": 11,
+      "R": 11,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 518,
+        "phase_address_bins": 26
+      },
+      "row_grouped": {
+        "data_address_bins": 440,
+        "phase_address_bins": 40
+      }
+    },
+    {
+      "N": 81648,
+      "C": 168,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 81920,
+      "C": 160,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 82134,
+      "C": 243,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 82944,
+      "C": 81,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 83006,
+      "C": 121,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 83200,
+      "C": 208,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 84000,
+      "C": 336,
+      "Q": 125,
+      "T": 25,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 467,
+        "phase_address_bins": 26
+      },
+      "row_grouped": {
+        "data_address_bins": 367,
+        "phase_address_bins": 72
+      }
+    },
+    {
+      "N": 85750,
+      "C": 125,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 86016,
+      "C": 168,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 86400,
+      "C": 216,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 86528,
+      "C": 169,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 87808,
+      "C": 128,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 89600,
+      "C": 224,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 90000,
+      "C": 72,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 92160,
+      "C": 240,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 92480,
+      "C": 160,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 93312,
+      "C": 192,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 94640,
+      "C": 280,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 96000,
+      "C": 240,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 97104,
+      "C": 168,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 97200,
+      "C": 200,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 97682,
+      "C": 289,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 98304,
+      "C": 256,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 100000,
+      "C": 80,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 100352,
+      "C": 1024,
+      "Q": 49,
+      "T": 7,
+      "R": 28,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 823,
+        "phase_address_bins": 20
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 37
+      }
+    },
+    {
+      "N": 101088,
+      "C": 208,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 101250,
+      "C": 81,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 102400,
+      "C": 512,
+      "Q": 100,
+      "T": 25,
+      "R": 4,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 120,
+        "phase_address_bins": 15
+      },
+      "row_grouped": {
+        "data_address_bins": 116,
+        "phase_address_bins": 28
+      }
+    },
+    {
+      "N": 104976,
+      "C": 216,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 105000,
+      "C": 84,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 106496,
+      "C": 208,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 107520,
+      "C": 280,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 108864,
+      "C": 224,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 109760,
+      "C": 160,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 110592,
+      "C": 108,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 110976,
+      "C": 192,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 112000,
+      "C": 280,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 113568,
+      "C": 336,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 114688,
+      "C": 512,
+      "Q": 112,
+      "T": 28,
+      "R": 16,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 672,
+        "phase_address_bins": 14
+      },
+      "row_grouped": {
+        "data_address_bins": 492,
+        "phase_address_bins": 98
+      }
+    },
+    {
+      "N": 115248,
+      "C": 168,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 115600,
+      "C": 289,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 115934,
+      "C": 169,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 116640,
+      "C": 240,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 118098,
+      "C": 243,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 120000,
+      "C": 96,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 120224,
+      "C": 208,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 122880,
+      "C": 60,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 123904,
+      "C": 121,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 124416,
+      "C": 243,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 124848,
+      "C": 216,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 125000,
+      "C": 100,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 128000,
+      "C": 125,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 129024,
+      "C": 336,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 129472,
+      "C": 224,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 130000,
+      "C": 104,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 131072,
+      "C": 256,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 131712,
+      "C": 343,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 133100,
+      "C": 50,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 134400,
+      "C": 336,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 135000,
+      "C": 108,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 136080,
+      "C": 280,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 137200,
+      "C": 343,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 138424,
+      "C": 52,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 138720,
+      "C": 240,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 140000,
+      "C": 112,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 140454,
+      "C": 243,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 142688,
+      "C": 208,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 143360,
+      "C": 280,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 147456,
+      "C": 72,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 147968,
+      "C": 256,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 148176,
+      "C": 216,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 151250,
+      "C": 121,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 153664,
+      "C": 224,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 156250,
+      "C": 125,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 159720,
+      "C": 60,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 160000,
+      "C": 128,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 161840,
+      "C": 280,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 163296,
+      "C": 336,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 163840,
+      "C": 160,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 164640,
+      "C": 240,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 165888,
+      "C": 81,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 166698,
+      "C": 343,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 167042,
+      "C": 289,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 170368,
+      "C": 64,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 172032,
+      "C": 84,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 173056,
+      "C": 169,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 175616,
+      "C": 343,
+      "Q": 256,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 640,
+        "phase_address_bins": 32
+      },
+      "row_grouped": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      }
+    },
+    {
+      "N": 191664,
+      "C": 72,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 192080,
+      "C": 280,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 194208,
+      "C": 336,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 196608,
+      "C": 512,
+      "Q": 192,
+      "T": 32,
+      "R": 8,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 480,
+        "phase_address_bins": 24
+      },
+      "row_grouped": {
+        "data_address_bins": 408,
+        "phase_address_bins": 96
+      }
+    },
+    {
+      "N": 198254,
+      "C": 289,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 200000,
+      "C": 160,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 204800,
+      "C": 512,
+      "Q": 200,
+      "T": 40,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 764,
+        "phase_address_bins": 38
+      },
+      "row_grouped": {
+        "data_address_bins": 542,
+        "phase_address_bins": 158
+      }
+    },
+    {
+      "N": 210000,
+      "C": 168,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 211250,
+      "C": 169,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 212960,
+      "C": 80,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 212992,
+      "C": 208,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 215622,
+      "C": 81,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 221184,
+      "C": 216,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 223608,
+      "C": 84,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 229376,
+      "C": 224,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 230496,
+      "C": 336,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 235298,
+      "C": 343,
+      "Q": 343,
+      "T": 49,
+      "R": 5,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 533,
+        "phase_address_bins": 56
+      },
+      "row_grouped": {
+        "data_address_bins": 473,
+        "phase_address_bins": 184
+      }
+    },
+    {
+      "N": 240000,
+      "C": 192,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 245760,
+      "C": 240,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 247808,
+      "C": 121,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 248832,
+      "C": 243,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 250000,
+      "C": 200,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 255552,
+      "C": 96,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 256000,
+      "C": 1024,
+      "Q": 125,
+      "T": 25,
+      "R": 10,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 467,
+        "phase_address_bins": 26
+      },
+      "row_grouped": {
+        "data_address_bins": 367,
+        "phase_address_bins": 72
+      }
+    },
+    {
+      "N": 260000,
+      "C": 208,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 262144,
+      "C": 256,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 266200,
+      "C": 100,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 270000,
+      "C": 216,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 276848,
+      "C": 104,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 280000,
+      "C": 224,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 286720,
+      "C": 280,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 287496,
+      "C": 108,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 295936,
+      "C": 289,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 298144,
+      "C": 112,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 300000,
+      "C": 240,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 303750,
+      "C": 243,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 320000,
+      "C": 256,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 322102,
+      "C": 121,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 327680,
+      "C": 160,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 332750,
+      "C": 125,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 340736,
+      "C": 128,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 344064,
+      "C": 168,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 346112,
+      "C": 1024,
+      "Q": 169,
+      "T": 13,
+      "R": 12,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 867,
+        "phase_address_bins": 40
+      },
+      "row_grouped": {
+        "data_address_bins": 650,
+        "phase_address_bins": 81
+      }
+    },
+    {
+      "N": 350000,
+      "C": 280,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 351232,
+      "C": 343,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 361250,
+      "C": 289,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 393216,
+      "C": 192,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 409600,
+      "C": 200,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 420000,
+      "C": 336,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 425920,
+      "C": 160,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 425984,
+      "C": 208,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 428750,
+      "C": 343,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 442368,
+      "C": 216,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 447216,
+      "C": 168,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 449878,
+      "C": 169,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 458752,
+      "C": 224,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 491520,
+      "C": 240,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 497664,
+      "C": 1024,
+      "Q": 243,
+      "T": 27,
+      "R": 8,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 702,
+        "phase_address_bins": 43
+      },
+      "row_grouped": {
+        "data_address_bins": 565,
+        "phase_address_bins": 133
+      }
+    },
+    {
+      "N": 511104,
+      "C": 192,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 524288,
+      "C": 512,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 532400,
+      "C": 200,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 553696,
+      "C": 208,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 573440,
+      "C": 280,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 574992,
+      "C": 216,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 591872,
+      "C": 1024,
+      "Q": 289,
+      "T": 17,
+      "R": 7,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 685,
+        "phase_address_bins": 51
+      },
+      "row_grouped": {
+        "data_address_bins": 613,
+        "phase_address_bins": 86
+      }
+    },
+    {
+      "N": 596288,
+      "C": 224,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 638880,
+      "C": 240,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 640000,
+      "C": 512,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 646866,
+      "C": 243,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 681472,
+      "C": 256,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 688128,
+      "C": 336,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 702464,
+      "C": 343,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 745360,
+      "C": 280,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 769318,
+      "C": 289,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 894432,
+      "C": 336,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 913066,
+      "C": 343,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 1048576,
+      "C": 1024,
+      "Q": 512,
+      "T": 128,
+      "R": 4,
+      "load": "registers",
+      "complete": true,
+      "current": {
+        "data_address_bins": 576,
+        "phase_address_bins": 64
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 1280000,
+      "C": 1024,
+      "Q": 625,
+      "T": 125,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      },
+      "row_grouped": {
+        "data_address_bins": 164,
+        "phase_address_bins": 82
+      }
+    },
+    {
+      "N": 1362944,
+      "C": 512,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    },
+    {
+      "N": 2097152,
+      "C": 1024,
+      "Q": 1024,
+      "T": 128,
+      "R": 2,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 544,
+        "phase_address_bins": 128
+      },
+      "row_grouped": {
+        "data_address_bins": 528,
+        "phase_address_bins": 256
+      }
+    },
+    {
+      "N": 2725888,
+      "C": 1024,
+      "Q": 1331,
+      "T": 121,
+      "R": 1,
+      "load": "LDS",
+      "complete": true,
+      "current": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      },
+      "row_grouped": {
+        "data_address_bins": 348,
+        "phase_address_bins": 174
+      }
+    }
+  ],
+  "assumptions": "64-thread waves; 64-byte address bins; aligned data and phase base zero. Count distinct bins separately for p, peer and phase per wave per source unroll. Full first tile footprints; full/partial tile pair coverage checked.",
+  "limitations": "This is not the generated instruction issue order, a cache simulation, measured memory requests, bytes transferred, or timing. Logical data/phase load count and shared-memory operation count do not decrease."
+}

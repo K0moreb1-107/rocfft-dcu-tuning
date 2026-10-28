@@ -1,0 +1,49 @@
+{
+  "complete": true,
+  "client_date": "2026-10-28",
+  "source_reference": "ba6aaa9530e191475bf5bf6858f5c08a6fd13767",
+  "remote_record": "/public/home/zhangkewei/zr/experiments/EXP-128/records/row-cost-reduction-20261027",
+  "numeric_device_evidence_job": 985072,
+  "new_device_execution": false,
+  "production_edits": false,
+  "compiled": 137,
+  "row_types": 17,
+  "z2d_models": 194,
+  "d2z_models": 194,
+  "distribution_models": 194,
+  "spills": 0,
+  "files": {
+    "d2z-prototype-compilation.json": {
+      "bytes": 212964,
+      "sha256": "8fc42b17799c7d64ab2677fe1902e84942b9d9677d29940f02d8a64975fc9781"
+    },
+    "input-schedule-compilation.json": {
+      "bytes": 81844,
+      "sha256": "7448e73322333762d657d200302f80602b98b865c849ad893bc02187dd4cc086"
+    },
+    "mapping-model.json": {
+      "bytes": 164147,
+      "sha256": "b4606e271e92053ee3e8168edb1e09db74ed745fa6928d7ecabbfbd95a25cad1"
+    },
+    "pair-distribution-model.json": {
+      "bytes": 68565,
+      "sha256": "2c2c86ce9bd7b7f6f7ec7ff8f24b6d4913407f6c46006aca0a37794549111171"
+    },
+    "prototype-compilation.json": {
+      "bytes": 216115,
+      "sha256": "43391ab11f999edee24f94de4ff41a247a98c694b3aaad9efe70439d90914d67"
+    },
+    "remaining-row-compilation.json": {
+      "bytes": 81201,
+      "sha256": "5dbe8c904a59b502148c751e0a4d21b35cfb5fdf59eb8a1b5e4ca1f0b1763bbe"
+    },
+    "分析与具体修改方案.md": {
+      "bytes": 17759,
+      "sha256": "a794283ac204033d58894830bf3b736362e46a1b38114fbab6ee103ad1745f91"
+    },
+    "编译结果.csv": {
+      "bytes": 44018,
+      "sha256": "c4ed052ecfb8e8f239b3980fa1f868a46d17af86c13aef33227daa73a61248d9"
+    }
+  }
+}
