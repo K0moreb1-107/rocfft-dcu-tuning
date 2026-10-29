@@ -1,0 +1,86 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "before": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f",
+  "after": "c4de21bc379612ce420949575d8acc2cc9336177",
+  "source_trees": {
+    "babe7b5379aa37892f56cd190de21190d1838f68": "ed2dd2b7fa0f00c148bace51a28d9463d41b5bae",
+    "1d22a78fad885db364b3ad631eaddb2baf0fcf1f": "ed2dd2b7fa0f00c148bace51a28d9463d41b5bae",
+    "c4de21bc379612ce420949575d8acc2cc9336177": "30fa9ba4e2ddc0ca6abb51738a6d22977acfe002",
+    "HEAD": "30fa9ba4e2ddc0ca6abb51738a6d22977acfe002"
+  },
+  "reviewed_production_files": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h": "6bd5f5c78da16b86287256c307dc90507c1601939264eeca587ef40f10fb1613",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h": "c0dea42c5734684c3e1b8768c345ab81145fd84ed722b525fb6d8524a2163ade",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h": "4a9cb8a4f2cae0db9c6cb97bdc0b1d061cad27fddcdac4c04969f843a934dab9",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h": "b3a1bbee430477d784c3f2e7b85bdbed2cfd5d4c4aa99316c136d640c1eca55e",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h": "0b9a93275a6b81ad7d5e154e4063eb7b211775b247f9f52601e0f253c91e0e83",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/node_factory.h": "1d1eba25deb1a2d8c961a36ec88dc796e5074510da76c28d8000d5d669baac66",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h": "211dc02fd7344d04d8c32ac0e017f7084307be36d037d39b90aa79d8300c3157",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": "11a69883ed7b99a5cbd8ce19ee37dc5bfc115642df0de804530c51f9c8560e7d",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp": "5b774f2238202a4fcc3c552581f245c1100f31deedef2adb6836c0fa913b3c5f",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp": "e5a72b287dcb0d65cb82f78e8d9173a69bc85d60442921ea4f119683d9501d31",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "f6a75585d770d7423c0e065084a94a4ac45650b3ff6d75d3fbf9358d366cdec3"
+  },
+  "prefix_rerun": {
+    "complete": true,
+    "route_cases": 41536,
+    "planner_cases": 1024,
+    "source": "extracted actual old/new function prefixes and call-order branches",
+    "gpu_execution": false,
+    "source_hashes": {
+      "before-source-fragments.inc": "cf709b7c2bfc9fd40dae4018c77f33db28a9c65c3b377f23cbbda246b00f397e",
+      "after-source-fragments.inc": "6ec8e2459302e07bda04ed7dd068c362795fd8da74c7c616c0f32556921d2a6f",
+      "compare.cpp": "036fe01e51fdf3b1443f88b3e0ea76f16a8006403f5dd6d87f0fa57b72a29406"
+    },
+    "boundary": "Gate acceptance, dispatch order, exceptions and mapped-kernel planner branch only; node-construction bodies, public plan integration, GPU code and numerical/device behavior are not covered.",
+    "artifacts": "/public/home/zhangkewei/zr/experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix"
+  },
+  "full_helper_mutation_cases": 41536,
+  "planner_cases": 1024,
+  "rtc_rerun": {
+    "comparisons": 8847360,
+    "mismatches": 0
+  },
+  "generator_rerun": {
+    "complete": true,
+    "state_combinations": 768000,
+    "pass_variants": 6,
+    "methods": 4,
+    "actual_definitions_extracted": true,
+    "device_execution": false
+  },
+  "retained_byte_identical_generated_sources": 2830,
+  "expanded_comparison": "Complete old/new helper bodies and stride/distance assignment, returned state and exceptions; same mock registry and reachable CC input invariants.",
+  "limits": "CPU-only differential checks, constructed CC preconditions and retained generation matrix; not an exhaustive public API or GPU validation.",
+  "elapsed_seconds": 86.98257476463914,
+  "evidence_sha256": {
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix.out": "52f0e274bae9b5311b6ce53d700b72ee5c099f9ecd8f751c88d94aa5a262122b",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/before-full-fragments.inc": "c6afe0ac1bb81e51a04f03b57fe9844cb8de86c80f7b10208ca76e732448c4d1",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/full-helpers.cpp": "dda6f719a1e03cb68fcf87f202055b5980e820b2db56e1855d09c43a2a7000f3",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/full-compile.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/full-run.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/policy-equivalence.cpp": "6bfba4ee326a98bab9166ad23715143d031cb7a2389f9dcb6cb65b559eb17546",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/rtc-compile.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/rtc-run.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/predicate-comparison.cpp": "e1e3c8591ed992cae2caaefd0fb45a04d6f223881f70b6ec7d5c3bb52680b38a",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/generator-compile.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/generator-run.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/after-full-fragments.inc": "2eace055e35d1eb966947339b8a24b6fd6fe4e1133e1f255eef050bf7fcead6a",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/full-compile.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/full-run.out": "80b5595d92c2d01dfdfb25c65caa43ac58ee1dd45704d3b950a8909e7e733a89",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/rtc-compile.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/rtc-run.out": "ab42bb9a44f2c3e5f644c91b8cd84c8f76e3c2a680333931e1e54a6965615b3c",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/generator-compile.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/generator-run.out": "fdcf56e3603cd2eb314bc7b75b2c44b2713a0440dae28acc77df5d75f0ff8f15",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/run_compare.py": "bb9401625cf6d026ac86f513aad0cf2a269f91826960b53a10934c507f9df33a",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/compare.cpp": "036fe01e51fdf3b1443f88b3e0ea76f16a8006403f5dd6d87f0fa57b72a29406",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/run.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/before-source-fragments.inc": "cf709b7c2bfc9fd40dae4018c77f33db28a9c65c3b377f23cbbda246b00f397e",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/after-source-fragments.inc": "6ec8e2459302e07bda04ed7dd068c362795fd8da74c7c616c0f32556921d2a6f",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/compile.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/compile.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/EXP-129/artifacts/code-equivalence-review-20261029/prefix/run.out": "80b5595d92c2d01dfdfb25c65caa43ac58ee1dd45704d3b950a8909e7e733a89"
+  }
+}

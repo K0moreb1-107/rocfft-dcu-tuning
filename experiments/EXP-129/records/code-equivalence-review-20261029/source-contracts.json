@@ -1,0 +1,95 @@
+{
+  "complete": true,
+  "checks": [
+    "RTC before-header is byte-identical to saved V6",
+    "before tested RTC policy matches actual production tokens",
+    "after tested RTC policy matches actual production tokens",
+    "before tested bool use_register_local_exchange( matches actual production tokens",
+    "before tested bool use_ordinary_twiddle_recurrence( matches actual production tokens",
+    "before tested bool use_late_large_twiddle_lds( matches actual production tokens",
+    "before tested bool use_large_twiddle_recurrence( matches actual production tokens",
+    "after tested bool use_register_local_exchange( matches actual production tokens",
+    "after tested bool use_ordinary_twiddle_recurrence( matches actual production tokens",
+    "after tested bool use_late_large_twiddle_lds( matches actual production tokens",
+    "after tested bool use_large_twiddle_recurrence( matches actual production tokens",
+    "shared shape predicate matches tested production tokens"
+  ],
+  "construction_contracts": [
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen.h",
+      "lines": [
+        42
+      ],
+      "contract": "length(product(factors.begin(), factors.end()))"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp",
+      "lines": [
+        345
+      ],
+      "contract": "col2colPlan->fuseBlue = fuseBlue;"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp",
+      "lines": [
+        370
+      ],
+      "contract": "row2colPlan->fuseBlue = fuseBlue;"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp",
+      "lines": [
+        55,
+        337,
+        697
+      ],
+      "contract": "if(lenFactor0 * lenFactor1 != length[0])"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp",
+      "lines": [
+        355,
+        704
+      ],
+      "contract": "col2colPlan->large1D = length[0];"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp",
+      "lines": [
+        411
+      ],
+      "contract": "io.pitch = io.rows;"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp",
+      "lines": [
+        378
+      ],
+      "contract": "if(specs.real_io.role == RealBlockRole::PackedInverseRows)"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp",
+      "lines": [
+        270,
+        385
+      ],
+      "contract": "else if(specs.real_io.role == RealBlockRole::PairedPostRows)"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h",
+      "lines": [
+        68,
+        391
+      ],
+      "contract": "if (io.load == RealBlockLoad::Registers)"
+    },
+    {
+      "file": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h",
+      "lines": [
+        832
+      ],
+      "contract": "if(npass < factors.size() - 1 && use_register_local_exchange(npass))"
+    }
+  ],
+  "boundary": "Internal specs and nodes created by the actual constructors; deliberately malformed direct internal object construction is outside equivalence domain."
+}

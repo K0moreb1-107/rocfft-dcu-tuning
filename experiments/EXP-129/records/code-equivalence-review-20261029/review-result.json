@@ -1,0 +1,13 @@
+{
+  "complete": true,
+  "conclusion": "No differences found in optimization eligibility, fallback, generated sources or full helper mutations for valid constructed states and tested matrices.",
+  "report_sha256": "3c24584cc90b566d4fd20bc28d25c26e2662235067734025617bd47673db48b4",
+  "artifacts": "/public/home/zhangkewei/zr/experiments/EXP-129/artifacts/code-equivalence-review-20261029",
+  "evidence_sha256": {
+    "source-contracts.json": "c1a18e6f437e8c98b91373f19ae5efcc4ddf266b6f118370e1bbbb7ebdd69fc3",
+    "audit.json": "d4bf9d6e4fd42aecf240bfca503b214512e836d9b33a2ad0e5fc3a320854f9e6",
+    "matrix-invariants.json": "561d81240336acb1f379ace9e0f3cf170787747c43fa0888509f333dd320efd9"
+  },
+  "production_changed": false,
+  "whitespace_check": "Authored script/report/JSON only; verbatim extracted proof sources retain their original whitespace."
+}
