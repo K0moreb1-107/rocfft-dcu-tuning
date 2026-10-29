@@ -1,0 +1,74 @@
+{
+  "complete": true,
+  "date": "2026-10-29",
+  "versions": {
+    "EXP125": {
+      "arm": "baseline",
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i"
+    },
+    "V5": {
+      "arm": "previous",
+      "source_commit": "e9d515047c9c39c15f8b562f0f35df59a12ce616",
+      "library_sha256": "2ca09d728a3cd008c631e8b4e5b2b031e5a24faa60e2636d2ca6c1e7adf2fc0d",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-boundary-v5-20261027"
+    },
+    "V6": {
+      "arm": "candidate",
+      "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+      "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-row-output-v6-20261028"
+    }
+  },
+  "changed_library_files": 19,
+  "source_snapshots": 60,
+  "exact_code_snippets": 36,
+  "patches": 3,
+  "local_output": "C:/Users/ZR/Documents/Codex/2026-10-03/tong/outputs/EXP128-前后处理融合主要代码-20261029",
+  "files": [
+    {
+      "name": "主要修改代码.md",
+      "bytes": 51764,
+      "sha256": "2359eb34154279c5bd227d752d9cd0465b14477917133792c5f7c2ba93148e2e"
+    },
+    {
+      "name": "代码节选索引.json",
+      "bytes": 7803,
+      "sha256": "87a353a7ba1a7c17f4d312e36657319b34cbdec13e14887c68c2ed2b21d982e6"
+    },
+    {
+      "name": "全部变更文件.csv",
+      "bytes": 5738,
+      "sha256": "83fc0e8be818b4a8ee45fa969da33d178f7532dae610ea930d965beea57eb60d"
+    },
+    {
+      "name": "版本与源码清单.json",
+      "bytes": 17010,
+      "sha256": "c3d2d72bbd01eb13a696017add16d3fb91a4ddb7f849d9379bfefcc8c59def95"
+    },
+    {
+      "name": "source-manifest.json",
+      "bytes": 15852,
+      "sha256": "1bf083de6674126ec8ba78f55be05bf3bb5f304cafda073655a37b71ca97e40b"
+    },
+    {
+      "name": "EXP125-to-V5.patch",
+      "bytes": 94616,
+      "sha256": "18dd434a57559f81dadab007ee07e5d51891db208d1daeb4465a2e4df160bde9"
+    },
+    {
+      "name": "V5-to-V6.patch",
+      "bytes": 12374,
+      "sha256": "14dae6ef8f0d3a61f5b9f5dce796147a124ee620786367a513826395303144bd"
+    },
+    {
+      "name": "EXP125-to-V6.patch",
+      "bytes": 98119,
+      "sha256": "5889b01303ec2f0a5f18bb004cec885c7030e8cea015f95408d64e81651d130b"
+    }
+  ],
+  "production_source_modified": false,
+  "new_jobs_submitted": false,
+  "transport_cleanup": "Temporary JSON bundle and gzip removed after source and excerpt verification; exact Git commits, manifests and three patches retained."
+}

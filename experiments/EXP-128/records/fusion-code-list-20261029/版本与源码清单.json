@@ -1,0 +1,546 @@
+{
+  "complete": true,
+  "versions": {
+    "EXP125": {
+      "arm": "baseline",
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i"
+    },
+    "V5": {
+      "arm": "previous",
+      "source_commit": "e9d515047c9c39c15f8b562f0f35df59a12ce616",
+      "library_sha256": "2ca09d728a3cd008c631e8b4e5b2b031e5a24faa60e2636d2ca6c1e7adf2fc0d",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-boundary-v5-20261027"
+    },
+    "V6": {
+      "arm": "candidate",
+      "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+      "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-row-output-v6-20261028"
+    }
+  },
+  "project_root": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft/",
+  "changed_files": [
+    "library/src/CMakeLists.txt",
+    "library/src/assignment_policy.cpp",
+    "library/src/device/generator/generator.h",
+    "library/src/device/generator/stockham_gen_base.h",
+    "library/src/device/generator/stockham_gen_cc.h",
+    "library/src/device/generator/stockham_gen_cc_real_columns.h",
+    "library/src/device/generator/stockham_gen_cc_real_common.h",
+    "library/src/device/generator/stockham_gen_cc_real_rows.h",
+    "library/src/device/generator/stockham_gen_local_real.h",
+    "library/src/include/real_block_io.h",
+    "library/src/include/tree_node.h",
+    "library/src/include/tree_node_real.h",
+    "library/src/node_factory.cpp",
+    "library/src/plan.cpp",
+    "library/src/rtc_stockham_gen.cpp",
+    "library/src/rtc_stockham_kernel.cpp",
+    "library/src/tree_node.cpp",
+    "library/src/tree_node_1D.cpp",
+    "library/src/tree_node_real.cpp"
+  ],
+  "reference_only_files": [
+    "library/src/device/generator/stockham_gen_real_post.h",
+    "library/src/device/generator/stockham_gen_rc.h"
+  ],
+  "manifest": [
+    {
+      "version": "EXP125",
+      "path": "library/src/CMakeLists.txt",
+      "exists": true,
+      "sha256": "1b78b20fb71fad1b9e8da080681325d50b0557790c39d90ec325f9f51fe96e0e",
+      "bytes": 23476,
+      "lines": 634
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/assignment_policy.cpp",
+      "exists": true,
+      "sha256": "48c401810e6d82386e5913f3b67cccc413e1bf49ca1b046f3b2957aceabad640",
+      "bytes": 54846,
+      "lines": 1385
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/generator.h",
+      "exists": true,
+      "sha256": "bf736928cc2f749abd7637c665c5b0edc5f4099156d021a07c92a92fde8daf1e",
+      "bytes": 54126,
+      "lines": 1847
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_base.h",
+      "exists": true,
+      "sha256": "b58f59b3fa01d8ca29efcc9fe2cd48dab4d13fe00b02627584b9322209954888",
+      "bytes": 44097,
+      "lines": 1147
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_cc.h",
+      "exists": true,
+      "sha256": "497c50348d48933d323c8172022e427798951dcd3b90734077dc685ab2ed2b58",
+      "bytes": 31289,
+      "lines": 725
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_cc_real_columns.h",
+      "exists": false
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_cc_real_common.h",
+      "exists": false
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_cc_real_rows.h",
+      "exists": false
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_local_real.h",
+      "exists": true,
+      "sha256": "2c83103f4f0f77d7a262e900e9d52ec5c11c5d1fb2519067e7129e7318019a6f",
+      "bytes": 12128,
+      "lines": 290
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/include/real_block_io.h",
+      "exists": true,
+      "sha256": "f4c4eecc81b23d2d51782e343fb9d43f903da5fd416fe906d7c90b769b25c0c5",
+      "bytes": 1307,
+      "lines": 51
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/include/tree_node.h",
+      "exists": true,
+      "sha256": "75f5890bab2571f74b788a78a2479141432f4ccda77567c99b90bb1eea662192",
+      "bytes": 56003,
+      "lines": 1642
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/include/tree_node_real.h",
+      "exists": true,
+      "sha256": "8df570d8c98d68588334dc852573046120947623647df8677dbfef3747d8105f",
+      "bytes": 8871,
+      "lines": 269
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/node_factory.cpp",
+      "exists": true,
+      "sha256": "222f3e8027789ae89d8400b7bc5023d01a601b392cd525dcdfba2aef7044d5b6",
+      "bytes": 44133,
+      "lines": 1099
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/plan.cpp",
+      "exists": true,
+      "sha256": "b38ac1de42723c2940b0e2a6e8fb0f1ea0111d71c95b994b3913c70c8219519a",
+      "bytes": 191644,
+      "lines": 5016
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/rtc_stockham_gen.cpp",
+      "exists": true,
+      "sha256": "9331213ce0c64d00a2d5fc6109473686d11cf0c4b24f0feb96b160071cbc7a1c",
+      "bytes": 24512,
+      "lines": 621
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/rtc_stockham_kernel.cpp",
+      "exists": true,
+      "sha256": "533f04ae25574fa98a8b0d05cd3d4087447952d8c017a77af453c02a013a17d5",
+      "bytes": 18117,
+      "lines": 434
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/tree_node.cpp",
+      "exists": true,
+      "sha256": "582ab37edbbb251fb3677896165b3591f5b2cf9a25b7c07be3463e5ffe7b6800",
+      "bytes": 41465,
+      "lines": 1135
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/tree_node_1D.cpp",
+      "exists": true,
+      "sha256": "cac8b671a577c592baedb9247efbe6cc0dce22bfd3ea58a84ed549c5e46a41d9",
+      "bytes": 51797,
+      "lines": 1414
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/tree_node_real.cpp",
+      "exists": true,
+      "sha256": "bea1fe01f32fb997734254d5720e4232aca367359ff5a46f2000e953f3a8eb14",
+      "bytes": 78642,
+      "lines": 2033
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_real_post.h",
+      "exists": true,
+      "sha256": "03bb1c434f9fcd6a76218890bb9be28f3f67eda6445346e7fe08424393274e74",
+      "bytes": 6904,
+      "lines": 138
+    },
+    {
+      "version": "EXP125",
+      "path": "library/src/device/generator/stockham_gen_rc.h",
+      "exists": true,
+      "sha256": "fc4db50f374535317ce89b5bc1588a19615aa4990bdbafcc1637c14a6f4f370e",
+      "bytes": 35825,
+      "lines": 796
+    },
+    {
+      "version": "V5",
+      "path": "library/src/CMakeLists.txt",
+      "exists": true,
+      "sha256": "609479c351d447239bff5c494ad3210cddf3fa45fc4073cfa72ea695a295df23",
+      "bytes": 24082,
+      "lines": 642
+    },
+    {
+      "version": "V5",
+      "path": "library/src/assignment_policy.cpp",
+      "exists": true,
+      "sha256": "afbe2f321eedad649a1c90a598b92d0dfb522bb43054bf5b5fdb4ff47f49c6b3",
+      "bytes": 55041,
+      "lines": 1388
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/generator.h",
+      "exists": true,
+      "sha256": "26b7966b4c9930ec24ff13e5e99ee3e5e2c6232d4c24a5f37b10a83fcfb053dc",
+      "bytes": 53918,
+      "lines": 1819
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_base.h",
+      "exists": true,
+      "sha256": "d85943239c696a79105115a54d8d9289afec0d4d14d98ae0a426d4622b35c339",
+      "bytes": 45015,
+      "lines": 1168
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_cc.h",
+      "exists": true,
+      "sha256": "342b0ef54dc26dd7fd656641798b3a4a6fdc65aff30d52010a1b7dfc469c816a",
+      "bytes": 31297,
+      "lines": 725
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_cc_real_columns.h",
+      "exists": true,
+      "sha256": "c4ea3d2a9c044429616a33e1a8554842523fbbc1e8cdc6d65ecf494083b13408",
+      "bytes": 13684,
+      "lines": 269
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_cc_real_common.h",
+      "exists": true,
+      "sha256": "d39815d518dc390c883866a1588296c6101f923b687a2d2324cda298763caf48",
+      "bytes": 5011,
+      "lines": 155
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_cc_real_rows.h",
+      "exists": true,
+      "sha256": "6c16543d0558acee3b8148062c12cca2c67c99a7c463c48f1866d3c7cd25ee95",
+      "bytes": 22562,
+      "lines": 452
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_local_real.h",
+      "exists": true,
+      "sha256": "442136791b9b2bceed4c7ae752f51f582c0ed2d3a8133d92f4402906fe566ab8",
+      "bytes": 13099,
+      "lines": 309
+    },
+    {
+      "version": "V5",
+      "path": "library/src/include/real_block_io.h",
+      "exists": true,
+      "sha256": "6da2e9fead6c86ec701d796720919832e299fd7eabb9f3b0da1b4ee9b9b93bf6",
+      "bytes": 3557,
+      "lines": 122
+    },
+    {
+      "version": "V5",
+      "path": "library/src/include/tree_node.h",
+      "exists": true,
+      "sha256": "f4f987b008c5c4546b01d82d70693e9500d9fa4a40788637186aa72d88a125ed",
+      "bytes": 56836,
+      "lines": 1656
+    },
+    {
+      "version": "V5",
+      "path": "library/src/include/tree_node_real.h",
+      "exists": true,
+      "sha256": "b76a298db7c2946c293209fc86080966145d9e5c63249cbe00676ca692593431",
+      "bytes": 9001,
+      "lines": 272
+    },
+    {
+      "version": "V5",
+      "path": "library/src/node_factory.cpp",
+      "exists": true,
+      "sha256": "9dc0de6dd809d36ed0fc85a9423953e6daedb36041721383849a853b1712f24a",
+      "bytes": 50783,
+      "lines": 1263
+    },
+    {
+      "version": "V5",
+      "path": "library/src/plan.cpp",
+      "exists": true,
+      "sha256": "39f5a3bf6906300e685062c3fce2edc8dea6d2d10f6719ce51e62045347b04d5",
+      "bytes": 191789,
+      "lines": 5018
+    },
+    {
+      "version": "V5",
+      "path": "library/src/rtc_stockham_gen.cpp",
+      "exists": true,
+      "sha256": "5c3b4eb2470a583d914ef99acf69f421041c5b2db16a1be53108d9c5176b0cdb",
+      "bytes": 26652,
+      "lines": 659
+    },
+    {
+      "version": "V5",
+      "path": "library/src/rtc_stockham_kernel.cpp",
+      "exists": true,
+      "sha256": "67b6983544f2bc8ca7a9555f02f0c7fa73b25466e4fe875cc15f41cd70f13574",
+      "bytes": 19237,
+      "lines": 453
+    },
+    {
+      "version": "V5",
+      "path": "library/src/tree_node.cpp",
+      "exists": true,
+      "sha256": "fd35354d61bfdc2f454ab942ce4c77775e17149a8c12b4e60c43c387878ac506",
+      "bytes": 42045,
+      "lines": 1149
+    },
+    {
+      "version": "V5",
+      "path": "library/src/tree_node_1D.cpp",
+      "exists": true,
+      "sha256": "e0f7430e4585f583f38826615a18dd5c6dc820a9276c7236550169b95fb2c28e",
+      "bytes": 52147,
+      "lines": 1422
+    },
+    {
+      "version": "V5",
+      "path": "library/src/tree_node_real.cpp",
+      "exists": true,
+      "sha256": "51a0970c45cf2f13dabf2e55cf953ed2bdd680d737b33ff0e4f674f7cd3defa0",
+      "bytes": 83708,
+      "lines": 2143
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_real_post.h",
+      "exists": true,
+      "sha256": "03bb1c434f9fcd6a76218890bb9be28f3f67eda6445346e7fe08424393274e74",
+      "bytes": 6904,
+      "lines": 138
+    },
+    {
+      "version": "V5",
+      "path": "library/src/device/generator/stockham_gen_rc.h",
+      "exists": true,
+      "sha256": "fc4db50f374535317ce89b5bc1588a19615aa4990bdbafcc1637c14a6f4f370e",
+      "bytes": 35825,
+      "lines": 796
+    },
+    {
+      "version": "V6",
+      "path": "library/src/CMakeLists.txt",
+      "exists": true,
+      "sha256": "609479c351d447239bff5c494ad3210cddf3fa45fc4073cfa72ea695a295df23",
+      "bytes": 24082,
+      "lines": 642
+    },
+    {
+      "version": "V6",
+      "path": "library/src/assignment_policy.cpp",
+      "exists": true,
+      "sha256": "afbe2f321eedad649a1c90a598b92d0dfb522bb43054bf5b5fdb4ff47f49c6b3",
+      "bytes": 55041,
+      "lines": 1388
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/generator.h",
+      "exists": true,
+      "sha256": "26b7966b4c9930ec24ff13e5e99ee3e5e2c6232d4c24a5f37b10a83fcfb053dc",
+      "bytes": 53918,
+      "lines": 1819
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_base.h",
+      "exists": true,
+      "sha256": "d85943239c696a79105115a54d8d9289afec0d4d14d98ae0a426d4622b35c339",
+      "bytes": 45015,
+      "lines": 1168
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_cc.h",
+      "exists": true,
+      "sha256": "342b0ef54dc26dd7fd656641798b3a4a6fdc65aff30d52010a1b7dfc469c816a",
+      "bytes": 31297,
+      "lines": 725
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_cc_real_columns.h",
+      "exists": true,
+      "sha256": "c4ea3d2a9c044429616a33e1a8554842523fbbc1e8cdc6d65ecf494083b13408",
+      "bytes": 13684,
+      "lines": 269
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_cc_real_common.h",
+      "exists": true,
+      "sha256": "d39815d518dc390c883866a1588296c6101f923b687a2d2324cda298763caf48",
+      "bytes": 5011,
+      "lines": 155
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_cc_real_rows.h",
+      "exists": true,
+      "sha256": "233f4b34b9fe170b7882f9659b4e8fca15ecce2604f27362f15768035c7313b5",
+      "bytes": 25874,
+      "lines": 522
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_local_real.h",
+      "exists": true,
+      "sha256": "442136791b9b2bceed4c7ae752f51f582c0ed2d3a8133d92f4402906fe566ab8",
+      "bytes": 13099,
+      "lines": 309
+    },
+    {
+      "version": "V6",
+      "path": "library/src/include/real_block_io.h",
+      "exists": true,
+      "sha256": "6da2e9fead6c86ec701d796720919832e299fd7eabb9f3b0da1b4ee9b9b93bf6",
+      "bytes": 3557,
+      "lines": 122
+    },
+    {
+      "version": "V6",
+      "path": "library/src/include/tree_node.h",
+      "exists": true,
+      "sha256": "f4f987b008c5c4546b01d82d70693e9500d9fa4a40788637186aa72d88a125ed",
+      "bytes": 56836,
+      "lines": 1656
+    },
+    {
+      "version": "V6",
+      "path": "library/src/include/tree_node_real.h",
+      "exists": true,
+      "sha256": "b76a298db7c2946c293209fc86080966145d9e5c63249cbe00676ca692593431",
+      "bytes": 9001,
+      "lines": 272
+    },
+    {
+      "version": "V6",
+      "path": "library/src/node_factory.cpp",
+      "exists": true,
+      "sha256": "9dc0de6dd809d36ed0fc85a9423953e6daedb36041721383849a853b1712f24a",
+      "bytes": 50783,
+      "lines": 1263
+    },
+    {
+      "version": "V6",
+      "path": "library/src/plan.cpp",
+      "exists": true,
+      "sha256": "39f5a3bf6906300e685062c3fce2edc8dea6d2d10f6719ce51e62045347b04d5",
+      "bytes": 191789,
+      "lines": 5018
+    },
+    {
+      "version": "V6",
+      "path": "library/src/rtc_stockham_gen.cpp",
+      "exists": true,
+      "sha256": "c0d56c784efae017b98a682314d975efe72fa7d25362585db1da01450badfca7",
+      "bytes": 26652,
+      "lines": 659
+    },
+    {
+      "version": "V6",
+      "path": "library/src/rtc_stockham_kernel.cpp",
+      "exists": true,
+      "sha256": "67b6983544f2bc8ca7a9555f02f0c7fa73b25466e4fe875cc15f41cd70f13574",
+      "bytes": 19237,
+      "lines": 453
+    },
+    {
+      "version": "V6",
+      "path": "library/src/tree_node.cpp",
+      "exists": true,
+      "sha256": "fd35354d61bfdc2f454ab942ce4c77775e17149a8c12b4e60c43c387878ac506",
+      "bytes": 42045,
+      "lines": 1149
+    },
+    {
+      "version": "V6",
+      "path": "library/src/tree_node_1D.cpp",
+      "exists": true,
+      "sha256": "a32e694d1eda871b56c23286a85800dc2223f52ea4b4eb0519ca0d6ed000d741",
+      "bytes": 52192,
+      "lines": 1422
+    },
+    {
+      "version": "V6",
+      "path": "library/src/tree_node_real.cpp",
+      "exists": true,
+      "sha256": "51a0970c45cf2f13dabf2e55cf953ed2bdd680d737b33ff0e4f674f7cd3defa0",
+      "bytes": 83708,
+      "lines": 2143
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_real_post.h",
+      "exists": true,
+      "sha256": "03bb1c434f9fcd6a76218890bb9be28f3f67eda6445346e7fe08424393274e74",
+      "bytes": 6904,
+      "lines": 138
+    },
+    {
+      "version": "V6",
+      "path": "library/src/device/generator/stockham_gen_rc.h",
+      "exists": true,
+      "sha256": "fc4db50f374535317ce89b5bc1588a19615aa4990bdbafcc1637c14a6f4f370e",
+      "bytes": 35825,
+      "lines": 796
+    }
+  ]
+}

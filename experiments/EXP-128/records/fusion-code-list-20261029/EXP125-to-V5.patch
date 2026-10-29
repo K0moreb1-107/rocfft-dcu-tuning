@@ -1,0 +1,2023 @@
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt
+index 4c3e99d0..4f38df30 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt
+@@ -23,6 +23,11 @@
+ # ########################################################################
+ # A helper function to prefix a source list of files with a common path into a new list (non-destructive)
+ # ########################################################################
++option(ROCFFT_CC_REAL_FUSION "Enable real boundary fusion, including EXP125 legacy kernels" ON)
++option(ROCFFT_CC_LOCAL_REAL_FUSION "Enable EXP128 packed local CC real boundaries" ON)
++add_compile_definitions(ROCFFT_CC_REAL_FUSION=$<BOOL:${ROCFFT_CC_REAL_FUSION}>
++                        ROCFFT_CC_LOCAL_REAL_FUSION=$<BOOL:${ROCFFT_CC_LOCAL_REAL_FUSION}>)
++
+ function( prepend_path prefix source_list_of_files return_list_of_files )
+   foreach( file ${${source_list_of_files}} )
+     if(IS_ABSOLUTE ${file} )
+@@ -173,6 +178,9 @@ set( kgen_logic_files
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_rc.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_local_real.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_real_post.h
++     ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_common.h
++     ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_columns.h
++     ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_rows.h
+      ${CMAKE_SOURCE_DIR}/library/src/include/real_block_io.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_rr.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_pp_gen_cc.h
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/assignment_policy.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/assignment_policy.cpp
+index c386a153..1437143c 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/assignment_policy.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/assignment_policy.cpp
+@@ -1194,7 +1194,10 @@ void CollectTempBufOps(TreeNode&               node,
+             CollectTempBufOps(**child, buf, users);
+ 
+         // Store this write
+-        insertOp({node.UseOutputLengthForPadding() ? node.GetOutputLength() : node.length,
++        if(const auto view=node.GetPhysicalOutputBufferView())
++            insertOp({view->length,node.outStride,node.oDist,TempBufOp::BufWrite,node});
++        else
++            insertOp({node.UseOutputLengthForPadding() ? node.GetOutputLength() : node.length,
+                   node.outStride,
+                   node.oDist,
+                   TempBufOp::BufWrite,
+@@ -1243,7 +1246,7 @@ void AssignmentPolicy::PadPlan(ExecPlan& execPlan)
+ 
+     RecursiveTraverse(execPlan.rootPlan.get(), [&execPlan](TreeNode* n) {
+         // Skip nodes that have partial passes
+-        if(n->isPartialPassEnabled())
++        if(n->isPartialPassEnabled() || n->real_io.IsCCLocal())
+             return;
+ 
+         // Look for nodes that begin writing to a new temp buffer
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/generator.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/generator.h
+index fd79ede0..9bd88eb4 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/generator.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/generator.h
+@@ -604,53 +604,38 @@ class Printf;
+ 
+ struct LineBreak
+ {
+-    static std::string render()
+-    {
+-        return "\n\n";
+-    }
++    static std::string render() { return "\n\n"; }
+ };
+ 
+ struct SyncThreads
+ {
+-    static std::string render()
+-    {
+-        return "__syncthreads();";
+-    }
++    static std::string render() { return "__syncthreads();"; }
+ };
+ 
+ struct SyncWaveThreads
+ {
+-    static std::string render()
+-    {
+-        return "__syncwarp();";
+-    }
++    static std::string render() { return "__syncwarp();"; }
+ };
+ 
+ struct Return
+ {
+-    static std::string render()
+-    {
+-        return "return;\n";
+-    }
++    static std::string render() { return "return;\n"; }
+ };
+ 
+ struct Break
+ {
+-    static std::string render()
+-    {
+-        return "break;\n";
+-    }
++    static std::string render() { return "break;\n"; }
+ };
+ 
+ struct CommentLines
+ {
+     std::vector<std::string> comments;
+-    std::string              render() const
++    std::string render() const
+     {
+         std::string s;
+ 
+-        static const char* NEWLINE   = "\n";
+-        const char*        separator = "";
++        static const char* NEWLINE = "\n";
++        const char* separator = "";
+         for(auto c : comments)
+         {
+             s += separator;
+@@ -660,50 +645,27 @@ struct CommentLines
+         return s;
+     }
+     explicit CommentLines(std::initializer_list<std::string> il)
+-        : comments(il){};
++        : comments(il) { };
+ };
+ 
+-using Statement = std::variant<Assign,
+-                               ReturnExpr,
+-                               Call,
+-                               CallbackLoadDeclaration,
+-                               CallbackStoreDeclaration,
+-                               CommentLines,
+-                               Declaration,
+-                               LDSDeclaration,
+-                               For,
+-                               While,
+-                               If,
+-                               ElseIf,
+-                               Else,
+-                               StoreGlobal,
+-                               StoreGlobalPlanar,
+-                               LineBreak,
+-                               Return,
+-                               Break,
+-                               SyncThreads,
+-                               Butterfly,
+-                               SyncWaveThreads,
+-                               IntrinsicStore,
+-                               IntrinsicStorePlanar,
+-                               Printf>;
++using Statement = std::variant<Assign, ReturnExpr, Call, CallbackLoadDeclaration,
++    CallbackStoreDeclaration, CommentLines, Declaration, LDSDeclaration, For, While, If, ElseIf,
++    Else, StoreGlobal, StoreGlobalPlanar, LineBreak, Return, Break, SyncThreads, Butterfly,
++    SyncWaveThreads, IntrinsicStore, IntrinsicStorePlanar, Printf>;
+ 
+ class Assign
+ {
+ public:
+-    Variable    lhs;
+-    Expression  rhs;
++    Variable lhs;
++    Expression rhs;
+     std::string oper;
+ 
+     Assign(const Variable& lhs, const Expression& rhs, const std::string& oper = "=")
+         : lhs(lhs)
+         , rhs(rhs)
+-        , oper(oper){};
++        , oper(oper) { };
+ 
+-    std::string render() const
+-    {
+-        return lhs.render() + " " + oper + " " + vrender(rhs) + ";";
+-    }
++    std::string render() const { return lhs.render() + " " + oper + " " + vrender(rhs) + ";"; }
+ };
+ 
+ // +=, *= operators are just Assign with another operator
+@@ -731,16 +693,16 @@ static Assign ModulusAssign(const Variable& lhs, const Expression& rhs)
+ class Declaration
+ {
+ public:
+-    Variable                  var;
++    Variable var;
+     std::optional<Expression> value;
+     explicit Declaration(const Variable& v)
+-        : var(v){};
++        : var(v) { };
+     Declaration(const Variable& v, Expression&& val)
+         : var(v)
+-        , value(std::move(val)){};
++        , value(std::move(val)) { };
+     Declaration(const Variable& v, const Expression& val)
+         : var(v)
+-        , value(val){};
++        , value(val) { };
+     std::string render() const;
+ };
+ 
+@@ -748,7 +710,7 @@ class LDSDeclaration
+ {
+ public:
+     explicit LDSDeclaration(const std::string& scalar_type)
+-        : scalar_type(scalar_type){};
++        : scalar_type(scalar_type) { };
+     std::string scalar_type;
+     std::string render() const
+     {
+@@ -767,10 +729,10 @@ public:
+         // __shared__".  Another alternative would be the __align__
+         // HIP macro, but that is not currently present in hipRTC.
+         return "extern __shared__ unsigned char __attribute__((aligned(sizeof(" + scalar_type
+-               + ")))) lds_uchar[];\nreal_type_t<" + scalar_type
+-               + ">* __restrict__ lds_real = reinterpret_cast<real_type_t<" + scalar_type
+-               + ">*>(lds_uchar);\n" + scalar_type
+-               + "* __restrict__ lds_complex = reinterpret_cast<" + scalar_type + "*>(lds_uchar);";
++            + ")))) lds_uchar[];\nreal_type_t<" + scalar_type
++            + ">* __restrict__ lds_real = reinterpret_cast<real_type_t<" + scalar_type
++            + ">*>(lds_uchar);\n" + scalar_type + "* __restrict__ lds_complex = reinterpret_cast<"
++            + scalar_type + "*>(lds_uchar);";
+     }
+ };
+ 
+@@ -779,13 +741,18 @@ class CallbackLoadDeclaration
+ public:
+     CallbackLoadDeclaration(const std::string& scalar_type, const std::string& cbtype)
+         : scalar_type(scalar_type)
+-        , cbtype(cbtype){};
++        , cbtype(cbtype) { };
+     std::string scalar_type;
+     std::string cbtype;
+     // true if loading complex data through a real-valued callback
+-    bool        r2c_callback = false;
++    bool r2c_callback = false;
++    bool typed_real_io = false, user_boundary = false, real_boundary = false;
+     std::string render() const
+     {
++        if(typed_real_io)
++            return "cc_boundary_load<" + scalar_type + ", " + cbtype + ", "
++                + (user_boundary ? "true" : "false") + ", " + (real_boundary ? "true" : "false")
++                + "> load_cb{load_cb_fn};";
+         if(r2c_callback)
+             // declare a lambda that calls the real-valued callback
+             // twice to load one complex value
+@@ -810,13 +777,18 @@ class CallbackStoreDeclaration
+ public:
+     CallbackStoreDeclaration(const std::string& scalar_type, const std::string& cbtype)
+         : scalar_type(scalar_type)
+-        , cbtype(cbtype){};
++        , cbtype(cbtype) { };
+     std::string scalar_type;
+     std::string cbtype;
+     // true if storing complex data through a real-valued callback
+-    bool        c2r_callback = false;
++    bool c2r_callback = false;
++    bool typed_real_io = false, user_boundary = false, real_boundary = false;
+     std::string render() const
+     {
++        if(typed_real_io)
++            return "cc_boundary_store<" + scalar_type + ", " + cbtype + ", "
++                + (user_boundary ? "true" : "false") + ", " + (real_boundary ? "true" : "false")
++                + "> store_cb{store_cb_fn};";
+         if(c2r_callback)
+             // declare a lambda that calls the real-valued callback
+             // twice to store one complex value
+@@ -830,7 +802,7 @@ public:
+             )lambda";
+         else
+             return "auto store_cb = get_store_cb<" + scalar_type + ", " + cbtype
+-                   + ">(store_cb_fn);";
++                + ">(store_cb_fn);";
+     }
+ };
+ 
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h
+index fdf06a8c..aa0dd4c2 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h
+@@ -1063,6 +1063,27 @@ struct StockhamKernel : public StockhamGeneratorSpecs
+ 
+     virtual StatementList calculate_offsets() = 0;
+ 
++    // Boundary adapters enumerate exactly the ordinary first/last pass map.
++    // The lane expression is supplied by the tiling (linear RC or interleaved CC).
++    template <typename Emit>
++    StatementList pass_io(bool first, const Expression& lane, Emit emit) const
++    {
++        const unsigned int width = first ? factors.front() : factors.back();
++        const unsigned int count = length / width;
++        StatementList result;
++        for(unsigned int h = 0; h * threads_per_transform < count; ++h)
++        {
++            StatementList items;
++            for(unsigned int w = 0; w < width; ++w)
++                items += emit(lane + h * threads_per_transform + w * count, h * width + w);
++            if((h + 1) * threads_per_transform <= count)
++                result += items;
++            else
++                result += If{lane + h * threads_per_transform < count, items};
++        }
++        return result;
++    }
++
+     virtual StatementList load_from_global(bool load_registers) = 0;
+ 
+     virtual StatementList store_to_global(bool store_registers) = 0;
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h
+index 0992141d..bb95d331 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h
+@@ -619,7 +619,7 @@ struct StockhamKernelCC : public StockhamKernel
+         return stmts;
+     }
+ 
+-    bool use_large_twiddle_recurrence() const
++    virtual bool use_large_twiddle_recurrence() const
+     {
+         const bool candidate_length = length == 256 || length == 512 || length == 1024;
+         const bool supported_radix  = factors.back() == 4 || factors.back() == 8;
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h
+new file mode 100644
+index 00000000..ed2265b5
+--- /dev/null
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h
+@@ -0,0 +1,269 @@
++// EXP128: boundary adapters around the unchanged C-point Stockham core.
++#pragma once
++#include "stockham_gen_cc.h"
++#include "stockham_gen_cc_real_common.h"
++
++struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
++{
++    RealBlockIO io;
++    bool callbacks;
++    const size_t phase_steps;
++    StockhamKernelFoldedPackedColumns(
++        const StockhamGeneratorSpecs& specs, bool callbacks, size_t phase_steps = 0)
++        : StockhamKernelCC(specs, false, false)
++        , io(specs.real_io)
++        , callbacks(callbacks)
++        , phase_steps(phase_steps)
++    {
++        if (length * transforms_per_block / (half_lds ? 2 : 1) < length)
++            throw std::runtime_error("CC callback cache exceeds reusable core workspace");
++    }
++    bool use_static_initial_reg_load() const override { return true; }
++    bool use_large_twiddle_recurrence() const override
++    {
++        if (io.role != RealBlockRole::FoldedPackedColumns)
++            return StockhamKernelCC::use_large_twiddle_recurrence();
++        // A multi-step lookup is amortized across the final butterfly.
++        // Keep the policy independent of the column and full transform lengths.
++        return phase_steps >= 2 && factors.back() >= 4 && precisions.size() == 1
++            && precisions.front() == rocfft_precision_double;
++    }
++    StatementList set_direct_to_from_registers() override
++    {
++        return { Declaration { direct_load_to_reg, Literal { "true" } },
++            Declaration { direct_store_from_reg, Literal { "true" } },
++            Declaration { lds_linear, Literal { "false" } } };
++    }
++    StatementList load_from_global(bool) override
++    {
++        Variable lane { "cc_lane", "const unsigned int" },
++            col { "cc_column", "const unsigned int" };
++        Variable cache { "cc_boundary_cache", "scalar_type", true };
++        StatementList s { Declaration { lane, thread_id / transforms_per_block },
++            Declaration {
++                col, tile_index * transforms_per_block + thread_id % transforms_per_block } };
++        if (callbacks)
++        {
++            s += Declaration { cache, lds_complex };
++            Variable b { "cc_boundary_column", "const unsigned int" };
++            Variable a { "cc_cache_index", "const unsigned int" },
++                peer { "cc_cache_peer", "const unsigned int" };
++            Variable k { "cc_cache_k", "const unsigned int" },
++                raw { "cc_cache_raw", "scalar_type" };
++            Expression boundary
++                = Ternary { Expression { tile_index == 0 }, Expression { Literal { 0 } },
++                      Expression { Literal { static_cast<unsigned int>(io.rows) } } };
++            StatementList fill { Declaration { b, boundary } };
++            for (unsigned int i = 0; i < (io.columns + workgroup_size - 1) / workgroup_size; ++i)
++            {
++                StatementList item { Declaration { a, thread_id + i * workgroup_size },
++                    Declaration { peer,
++                        Ternary { Expression { b == 0 },
++                            Expression { (Literal { static_cast<unsigned int>(io.columns) } - a)
++                                % static_cast<unsigned int>(io.columns) },
++                            Expression {
++                                Literal { static_cast<unsigned int>(io.columns - 1) } - a } } },
++                    Declaration { k, a * static_cast<unsigned int>(2 * io.rows) + b },
++                    Declaration { raw } };
++                Expression physical
++                    = Ternary { Expression { k > static_cast<unsigned int>(io.n / 2) },
++                          Expression { Literal { static_cast<unsigned int>(io.n) } - k },
++                          Expression { k } };
++                item += If { a <= peer,
++                    { Assign { raw, LoadGlobal { buf, physical } }, Assign { cache[a], raw },
++                        Assign { cache[peer], raw } } };
++                fill += If { thread_id + i * workgroup_size < static_cast<unsigned int>(io.columns),
++                    item };
++            }
++            s += If { Or { tile_index == 0,
++                          tile_index == static_cast<unsigned int>(io.rows / transforms_per_block) },
++                fill };
++            s += sync_threads();
++        }
++        for (unsigned int i = 0; i < nregisters; ++i)
++            s += Assign { R[i], ComplexLiteral { 0, 0 } };
++        auto loads = pass_io(true, lane,
++            [&](Expression a, unsigned int reg)
++            {
++                Expression k = a * static_cast<unsigned int>(2 * io.rows) + col;
++                Expression physical
++                    = Ternary { Expression { k > static_cast<unsigned int>(io.n / 2) },
++                          Expression { Literal { static_cast<unsigned int>(io.n) } - k },
++                          Expression { k } };
++                Expression value = LoadGlobal { buf, physical };
++                if (callbacks)
++                    value = Ternary { Expression { Or {
++                                          col == 0, col == static_cast<unsigned int>(io.rows) } },
++                        Expression { cache[a] }, Expression { value } };
++                Expression folded = io.role == RealBlockRole::HermitianColumns
++                    ? Expression { CallExpr { "local_real_hermitian_value", { scalar_type },
++                          { value, k > static_cast<unsigned int>(io.n / 2) } } }
++                    : Expression { CallExpr { "cc_folded_value", { scalar_type },
++                          { value, k, Literal { static_cast<unsigned int>(io.n) } } } };
++                return StatementList { Assign { R[reg], folded } };
++            });
++        s += If { col <= static_cast<unsigned int>(io.rows), loads };
++        // The boundary cache occupies core workspace only until all input R
++        // values are ready. No FFT wave may reuse it before its peers finish.
++        if (callbacks)
++            s += sync_threads();
++        return s;
++    }
++    StatementList store_to_global(bool) override
++    {
++        Variable lane { "cc_store_lane", "const unsigned int" },
++            col { "cc_store_column", "const unsigned int" };
++        StatementList s { Declaration { lane, thread_id / transforms_per_block },
++            Declaration {
++                col, tile_index * transforms_per_block + thread_id % transforms_per_block } };
++        auto component_stores = [&](unsigned int component)
++        {
++            return pass_io(false, lane,
++                [&](Expression a, unsigned int reg)
++                {
++                    return StatementList { StoreGlobal { cc_real_pointer(buf),
++                        2 * a * static_cast<unsigned int>(io.rows) + component, R[reg].x() } };
++                });
++        };
++        auto complex_stores = pass_io(false, lane,
++            [&](Expression a, unsigned int reg)
++            {
++                return StatementList { StoreGlobal {
++                    buf, a * static_cast<unsigned int>(io.rows) + col, R[reg] } };
++            });
++        // Classify the column once, rather than keeping a three-way branch
++        // around every register store. Native pass_io tail guards stay inside.
++        s += If { col == 0, component_stores(0) };
++        s += ElseIf { col == static_cast<unsigned int>(io.rows), component_stores(1) };
++        s += ElseIf { col < static_cast<unsigned int>(io.rows), complex_stores };
++        return s;
++    }
++};
++
++struct StockhamKernelLocalPostColumns : StockhamKernelCC
++{
++    RealBlockIO io;
++    Variable phases { "cc_real_twiddles", "const scalar_type", true, true };
++    explicit StockhamKernelLocalPostColumns(const StockhamGeneratorSpecs& specs)
++        : StockhamKernelCC(specs, false, false)
++        , io(specs.real_io)
++    {
++    }
++    bool use_static_initial_reg_load() const override { return true; }
++    ArgumentList global_arguments() override
++    {
++        auto a = StockhamKernelCC::global_arguments();
++        a.append(phases);
++        return a;
++    }
++    StatementList set_direct_to_from_registers() override
++    {
++        return { Declaration { direct_load_to_reg, Literal { "true" } },
++            Declaration { direct_store_from_reg, Literal { "true" } },
++            Declaration { lds_linear, Literal { "false" } } };
++    }
++    StatementList load_from_global(bool) override
++    {
++        Variable lane { "cc_lane", "const unsigned int" },
++            col { "cc_column", "const unsigned int" };
++        StatementList s { Declaration { lane, thread_id / transforms_per_block },
++            Declaration {
++                col, tile_index * transforms_per_block + thread_id % transforms_per_block } };
++        for (unsigned int i = 0; i < nregisters; ++i)
++            s += Assign { R[i], ComplexLiteral { 0, 0 } };
++        s += pass_io(true, lane,
++            [&](Expression a, unsigned int reg)
++            {
++                Expression p = a * static_cast<unsigned int>(2 * io.rows) + col;
++                Expression packed = ComplexLiteral { LoadGlobal { cc_real_pointer(buf), p },
++                    LoadGlobal { cc_real_pointer(buf), p + static_cast<unsigned int>(io.rows) } };
++                StatementList load { Assign { R[reg], packed } };
++                return StatementList { If { col < static_cast<unsigned int>(io.rows), load } };
++            });
++        return s;
++    }
++    StatementList store_to_global(bool) override
++    {
++        Variable lane { "cc_post_lane", "const unsigned int" },
++            slot { "cc_post_slot", "const unsigned int" };
++        StatementList s { Declaration { lane, thread_id / transforms_per_block },
++            Declaration { slot, thread_id % transforms_per_block } };
++        const unsigned int tasks = (length / 2 + 1) * transforms_per_block;
++        const unsigned int rounds = (tasks + workgroup_size - 1) / workgroup_size;
++        Variable saved { "cc_saved_real", "real_type_t<scalar_type>" };
++        saved.size = Expression { 2 * rounds };
++        if (half_lds)
++            s += Declaration { saved };
++        s += sync_threads();
++        auto scatter = [&](bool imaginary)
++        {
++            return pass_io(false, lane,
++                [&](Expression a, unsigned int reg)
++                {
++                    Expression index = a * transforms_per_block + slot;
++                    return half_lds ? StatementList { Assign {
++                                          lds_real[index], imaginary ? R[reg].y() : R[reg].x() } }
++                                    : StatementList { Assign { lds_complex[index], R[reg] } };
++                });
++        };
++        s += scatter(false);
++        s += sync_threads();
++        auto consume = [&](unsigned int i, bool save)
++        {
++            Variable task { "cc_post_task", "const unsigned int" },
++                j { "cc_post_j", "const unsigned int" };
++            Variable b { "cc_post_b", "const unsigned int" },
++                peer { "cc_post_peer", "const unsigned int" };
++            StatementList a { Declaration { task, thread_id + i * workgroup_size },
++                Declaration { j, task / transforms_per_block },
++                Declaration { b, tile_index * transforms_per_block + task % transforms_per_block },
++                Declaration { peer,
++                    Ternary { Expression { j == 0 }, Expression { Literal { 0 } },
++                        Expression { Literal { length } - j } } } };
++            Expression left = j * transforms_per_block + task % transforms_per_block;
++            Expression right = peer * transforms_per_block + task % transforms_per_block;
++            StatementList active;
++            if (save)
++                active = { Assign { saved[2 * i], lds_real[left] },
++                    Assign { saved[2 * i + 1], lds_real[right] } };
++            else
++            {
++                Variable p { "cc_post_p", "scalar_type" }, q { "cc_post_q", "scalar_type" };
++                Variable own { "cc_post_own", "scalar_type" },
++                    other { "cc_post_other", "scalar_type" };
++                active += Declaration { p,
++                    half_lds ? Expression { ComplexLiteral { saved[2 * i], lds_real[left] } }
++                             : Expression { lds_complex[left] } };
++                active += Declaration { q,
++                    half_lds ? Expression { ComplexLiteral { saved[2 * i + 1], lds_real[right] } }
++                             : Expression { lds_complex[right] } };
++                active += Declaration { own };
++                active += Declaration { other };
++                active += If { j == 0, { StoreGlobal { buf, b, p } } };
++                if (length % 2 == 0)
++                    active += ElseIf { j == length / 2,
++                        { Assign { own, CallExpr { "cc_conjugate", { p } } },
++                            StoreGlobal {
++                                buf, j * static_cast<unsigned int>(io.rows) + b, own } } };
++                active += Else {
++                    { Call { "cc_post_pair", { scalar_type }, { p, q, phases[j], own, other } },
++                        StoreGlobal { buf, j * static_cast<unsigned int>(io.rows) + b, own },
++                        StoreGlobal { buf, peer * static_cast<unsigned int>(io.rows) + b, other } }
++                };
++            }
++            a += If { And { task < tasks, b < static_cast<unsigned int>(io.rows) }, active };
++            return StatementList { If { thread_id + i * workgroup_size < tasks, a } };
++        };
++        if (half_lds)
++        {
++            for (unsigned int i = 0; i < rounds; ++i)
++                s += consume(i, true);
++            s += sync_threads();
++            s += scatter(true);
++            s += sync_threads();
++        }
++        for (unsigned int i = 0; i < rounds; ++i)
++            s += consume(i, false);
++        return s;
++    }
++};
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_common.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_common.h
+new file mode 100644
+index 00000000..8bc1c77b
+--- /dev/null
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_common.h
+@@ -0,0 +1,155 @@
++// EXP128: typed boundary access and value-only real-pair operations.
++#pragma once
++#include "stockham_gen_base.h"
++
++struct CCRealTypedIOVisitor : BaseVisitor
++{
++    explicit CCRealTypedIOVisitor(const RealBlockIO& io)
++        : io(io)
++    {
++    }
++    RealBlockIO io;
++    StatementList visit_CallbackLoadDeclaration(const CallbackLoadDeclaration& x) override
++    {
++        auto y = x;
++        y.typed_real_io = true;
++        y.user_boundary = io.IsInputBoundary();
++        y.real_boundary = io.role == RealBlockRole::LocalPostColumns;
++        return { y };
++    }
++    StatementList visit_CallbackStoreDeclaration(const CallbackStoreDeclaration& x) override
++    {
++        auto y = x;
++        y.typed_real_io = true;
++        y.user_boundary = io.IsOutputBoundary();
++        y.real_boundary = io.role == RealBlockRole::PackedInverseRows;
++        return { y };
++    }
++};
++
++inline Expression cc_real_pointer(const Expression& pointer)
++{
++    return CallExpr { "cc_real_pointer", { pointer } };
++}
++
++inline std::string cc_real_device_helpers()
++{
++    return R"src(
++
++template <typename T> __device__ __forceinline__ real_type_t<T>* cc_real_pointer(T* p)
++{
++    return reinterpret_cast<real_type_t<T>*>(p);
++}
++
++template <typename T, CallbackType CB, bool User, bool Real> struct cc_boundary_load
++{
++    void* fn;
++    __device__ __forceinline__ T operator()(T* p, size_t i, void* data, void* shared) const
++    {
++#ifdef ROCFFT_CALLBACKS_ENABLED
++        if constexpr(User && CB != CallbackType::NONE)
++        {
++            if(fn)
++            {
++                if constexpr(Real)
++                {
++                    auto f = reinterpret_cast<typename callback_type<real_type_t<T>>::load>(fn);
++                    auto r = cc_real_pointer(p);
++                    return T { f(r, 2 * i, data, shared), f(r, 2 * i + 1, data, shared) };
++                }
++                else
++                    return reinterpret_cast<typename callback_type<T>::load>(fn)(
++                        p, i, data, shared);
++            }
++        }
++#endif
++        return p[i];
++    }
++    __device__ __forceinline__ real_type_t<T> operator()(
++        real_type_t<T>* p, size_t i, void* data, void* shared) const
++    {
++#ifdef ROCFFT_CALLBACKS_ENABLED
++        if constexpr(User && Real && CB != CallbackType::NONE)
++            if(fn)
++                return reinterpret_cast<typename callback_type<real_type_t<T>>::load>(fn)(
++                    p, i, data, shared);
++#endif
++        return p[i];
++    }
++};
++template <typename T, CallbackType CB, bool User, bool Real> struct cc_boundary_store
++{
++    void* fn;
++    __device__ __forceinline__ void operator()(T* p, size_t i, T v, void* data, void* shared) const
++    {
++#ifdef ROCFFT_CALLBACKS_ENABLED
++        if constexpr(User && CB != CallbackType::NONE)
++        {
++            if(fn)
++            {
++                if constexpr(Real)
++                {
++                    auto f = reinterpret_cast<typename callback_type<real_type_t<T>>::store>(fn);
++                    auto r = cc_real_pointer(p);
++                    f(r, 2 * i, v.x, data, shared);
++                    f(r, 2 * i + 1, v.y, data, shared);
++                }
++                else
++                    reinterpret_cast<typename callback_type<T>::store>(fn)(p, i, v, data, shared);
++                return;
++            }
++        }
++#endif
++        p[i] = v;
++    }
++    __device__ __forceinline__ void operator()(
++        real_type_t<T>* p, size_t i, real_type_t<T> v, void* data, void* shared) const
++    {
++#ifdef ROCFFT_CALLBACKS_ENABLED
++        if constexpr(User && Real && CB != CallbackType::NONE)
++        {
++            if(fn)
++            {
++                reinterpret_cast<typename callback_type<real_type_t<T>>::store>(fn)(
++                    p, i, v, data, shared);
++                return;
++            }
++        }
++#endif
++        p[i] = v;
++    }
++};
++template <typename T> __device__ __forceinline__ T cc_folded_value(T v, size_t k, size_t n)
++{
++    if(k == 0 || k == n / 2)
++        v.y = 0;
++    if(k > n / 2)
++        v.y = -v.y;
++    return v;
++}
++template <typename T> __device__ __forceinline__ void cc_post_pair(T p, T q, T w, T& own, T& other)
++{
++    const auto ux = (p.x + q.x) * 0.5, uy = (p.y + q.y) * 0.5;
++    const auto vx = (p.x - q.x) * 0.5, vy = (p.y - q.y) * 0.5;
++    const auto a = vx * w.y + uy * w.x, b = uy * w.y - vx * w.x;
++    own = T { ux + a, vy + b };
++    other = T { ux - a, b - vy };
++}
++template <typename T> __device__ __forceinline__ void cc_pre_pair(T p, T q, T w, T& own, T& other)
++{
++    const auto ux = p.x + q.x, uy = p.y + q.y, vx = p.x - q.x, vy = p.y - q.y;
++    const auto a = vx * w.y - uy * w.x, b = uy * w.y + vx * w.x;
++    own = T { ux + a, vy + b };
++    other = T { ux - a, b - vy };
++}
++template <typename T> __device__ __forceinline__ T cc_conjugate(T p) { return T { p.x, -p.y }; }
++template <typename T> __device__ __forceinline__ T cc_inverse_endpoints(T p)
++{
++    return T { p.x + p.y, p.x - p.y };
++}
++template <typename T> __device__ __forceinline__ T cc_inverse_middle(T p)
++{
++    return T { 2 * p.x, -2 * p.y };
++}
++)src";
++}
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h
+new file mode 100644
+index 00000000..58ca43bc
+--- /dev/null
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h
+@@ -0,0 +1,452 @@
++// EXP128: row-local inverse preprocessing and forward folded half-spectrum stores.
++#pragma once
++#include "stockham_gen_rc.h"
++#include "stockham_gen_cc_real_common.h"
++
++inline bool cc_local_register_pre(const StockhamGeneratorSpecs& specs)
++{
++    return RealBlockIO::CanRegisterPre(
++        specs.length, specs.factors.front(), specs.threads_per_transform);
++}
++
++struct StockhamKernelCCRealRows : StockhamKernelRC
++{
++    RealBlockIO io;
++    Variable phases { "cc_real_twiddles", "const scalar_type", true, true };
++    Variable boundary_phases { "cc_boundary_large_twiddles", "const scalar_type", true, true };
++    explicit StockhamKernelCCRealRows(const StockhamGeneratorSpecs& specs)
++        : StockhamKernelRC(specs, false)
++        , io(specs.real_io)
++    {
++    }
++    bool use_static_initial_reg_load() const override { return true; }
++    ArgumentList global_arguments() override
++    {
++        auto a = StockhamKernelRC::global_arguments();
++        a.append(phases);
++        if (io.HasBoundaryLargePhase())
++            a.append(boundary_phases);
++        return a;
++    }
++    StatementList set_direct_to_from_registers() override
++    {
++        return { Declaration { direct_load_to_reg, Literal { "true" } },
++            Declaration { direct_store_from_reg, Literal { "false" } },
++            Declaration { lds_linear, Literal { "true" } } };
++    }
++    StatementList initialize_registers() const
++    {
++        StatementList s;
++        for (unsigned int i = 0; i < nregisters; ++i)
++            s += Assign { R[i], ComplexLiteral { 0, 0 } };
++        return s;
++    }
++    StatementList reload_input() const
++    {
++        Expression lane = thread_id % threads_per_transform,
++                   slot = thread_id / threads_per_transform;
++        StatementList s = initialize_registers();
++        s += sync_threads();
++        auto loads = pass_io(true, lane, [&](Expression j, unsigned int reg)
++            { return StatementList { Assign { R[reg], lds_complex[slot * length + j] } }; });
++        s += If { tile_index_in_plane * transforms_per_block + slot
++                < static_cast<unsigned int>(io.columns),
++            loads };
++        s += sync_threads();
++        return s;
++    }
++};
++
++struct StockhamKernelPackedInverseRows : StockhamKernelCCRealRows
++{
++    explicit StockhamKernelPackedInverseRows(const StockhamGeneratorSpecs& specs)
++        : StockhamKernelCCRealRows(specs)
++    {
++    }
++    StatementList load_from_global(bool) override
++    {
++        if (io.load == RealBlockLoad::Registers)
++            return register_input();
++        const unsigned int tasks = (length / 2 + 1) * transforms_per_block;
++        StatementList s;
++        for (unsigned int i = 0; i < (tasks + workgroup_size - 1) / workgroup_size; ++i)
++        {
++            Variable task { "cc_pre_task", "const unsigned int" },
++                slot { "cc_pre_slot", "const unsigned int" };
++            Variable j { "cc_pre_j", "const unsigned int" },
++                row { "cc_pre_row", "const unsigned int" };
++            Variable p { "cc_pre_p", "scalar_type" }, q { "cc_pre_q", "scalar_type" };
++            Variable own { "cc_pre_own", "scalar_type" }, other { "cc_pre_other", "scalar_type" };
++            StatementList a { Declaration { task, thread_id + i * workgroup_size },
++                Declaration { slot, task % transforms_per_block },
++                Declaration { j, task / transforms_per_block },
++                Declaration { row, tile_index_in_plane * transforms_per_block + slot } };
++            Expression base = row * length;
++            StatementList active { Declaration { p, LoadGlobal { buf, base + j } },
++                Declaration { q }, Declaration { own }, Declaration { other } };
++            active += If { j == 0,
++                { Assign { own, CallExpr { "cc_inverse_endpoints", { p } } },
++                    Assign { lds_complex[slot * length], own } } };
++            if (length % 2 == 0)
++                active += ElseIf { j == length / 2,
++                    { Assign { own, CallExpr { "cc_inverse_middle", { p } } },
++                        Assign { lds_complex[slot * length + j], own } } };
++            active += Else { { Assign { q, LoadGlobal { buf, base + length - j } },
++                Call { "cc_pre_pair", { scalar_type }, { p, q, phases[j], own, other } },
++                Assign { lds_complex[slot * length + j], own },
++                Assign { lds_complex[slot * length + length - j], other } } };
++            a += If { row < static_cast<unsigned int>(io.columns), active };
++            s += If { thread_id + i * workgroup_size < tasks, a };
++        }
++        s += reload_input();
++        return s;
++    }
++    StatementList register_input()
++    {
++        if (!cc_local_register_pre(*this))
++            throw std::runtime_error("unproved CC real register pre map");
++        const unsigned int f = factors.front(), k = length / f;
++        const unsigned int lanes = std::min(k, threads_per_transform), butterflies = k / lanes;
++        Variable lane { "cc_pre_lane", "const unsigned int" },
++            row { "cc_pre_row", "const unsigned int" };
++        Variable j { "cc_pre_j", "unsigned int" }, p { "cc_pre_p", "scalar_type" },
++            q { "cc_pre_q", "scalar_type" };
++        Variable own { "cc_pre_own", "scalar_type" }, other { "cc_pre_other", "scalar_type" };
++        Variable phase { "cc_pre_phase", "scalar_type" },
++            exchanged { "cc_pre_exchange", "scalar_type" };
++        StatementList s = initialize_registers();
++        s += Declaration { lane, thread_id % threads_per_transform };
++        s += Declaration { row,
++            tile_index_in_plane * transforms_per_block + thread_id / threads_per_transform };
++        StatementList a { Declaration { j }, Declaration { p }, Declaration { q },
++            Declaration { own }, Declaration { other }, Declaration { phase },
++            Declaration { exchanged } };
++        Expression base = row * length;
++        for (unsigned int h = 0; h < butterflies; ++h)
++            for (unsigned int w = 0; w < f / 2; ++w)
++            {
++                a += Assign { j, lane + h * threads_per_transform + w * k };
++                a += Assign { phase,
++                    Ternary { Expression { j == 0 }, Expression { Literal { "scalar_type{0,0}" } },
++                        Expression { phases[j] } } };
++                a += Assign { p, LoadGlobal { buf, base + j } };
++                a += If { j == 0,
++                    { Assign { own, CallExpr { "cc_inverse_endpoints", { p } } },
++                        Assign { other, ComplexLiteral { 0, 0 } } } };
++                a += Else { { Assign { q, LoadGlobal { buf, base + length - j } },
++                    Call { "cc_pre_pair", { scalar_type }, { p, q, phase, own, other } } } };
++                a += Assign { R[h * f + w], own };
++                Expression source = (Literal { lanes } - lane) % lanes;
++                a += Assign { exchanged.x(),
++                    CallExpr { "__shfl", { other.x(), source, Literal { lanes } } } };
++                a += Assign { exchanged.y(),
++                    CallExpr { "__shfl", { other.y(), source, Literal { lanes } } } };
++                a += If { lane != 0,
++                    { Assign { R[(butterflies - 1 - h) * f + f - 1 - w], exchanged } } };
++                if (h == 0 && w > 0)
++                    a += Else { { Assign { R[f - w], other } } };
++                else if (h > 0)
++                    a += Else { { Assign { R[(butterflies - h) * f + f - 1 - w], other } } };
++            }
++        a += If { lane == 0,
++            { Assign { p, LoadGlobal { buf, base + length / 2 } },
++                Assign { R[f / 2], CallExpr { "cc_inverse_middle", { p } } } } };
++        s += If { And { lane < lanes, row < static_cast<unsigned int>(io.columns) }, a };
++        return s;
++    }
++    bool use_packed_output() const
++    {
++        return io.columns % 2 == 0 && transforms_per_block % 2 == 0
++            && io.columns % transforms_per_block == 0;
++    }
++    StatementList packed_output() const
++    {
++        const unsigned int rows = transforms_per_block;
++        Variable slot { "cc_packed_slot", "const unsigned int" },
++            component { "cc_packed_component", "const unsigned int" },
++            pair { "cc_packed_pair", "const unsigned int" };
++        Variable value { "cc_packed_value", "scalar_type" };
++        StatementList s { Declaration { slot, thread_id % rows },
++            Declaration { component, slot / (rows / 2) },
++            Declaration { pair, slot % (rows / 2) }, Declaration { value } };
++        for (unsigned int i = 0; i * threads_per_transform < length; ++i)
++        {
++            Expression j = thread_id / rows + i * threads_per_transform;
++            Expression left = 2 * (2 * pair * length + j) + component;
++            StatementList stores {
++                Assign { value, ComplexLiteral { lds_real[left], lds_real[left + 2 * length] } },
++                StoreGlobal { buf, tile_index_in_plane * (rows / 2) + pair
++                    + static_cast<unsigned int>(io.columns) * j
++                    + component * static_cast<unsigned int>(io.columns / 2), value } };
++            if ((i + 1) * threads_per_transform > length)
++                s += If { j < length, stores };
++            else
++                s += stores;
++        }
++        return s;
++    }
++    StatementList store_to_global(bool) override
++    {
++        if (use_packed_output())
++            return packed_output();
++        Variable first { "cc_output_first", "const unsigned int" },
++            valid { "cc_output_valid", "const unsigned int" },
++            slot { "cc_output_slot", "const unsigned int" },
++            p0 { "cc_output_p0", "const unsigned int" };
++        StatementList s { Declaration { first, tile_index_in_plane * transforms_per_block },
++            Declaration { valid,
++                CallExpr { "min",
++                    { Literal { transforms_per_block },
++                        Literal { static_cast<unsigned int>(io.columns) } - first } } },
++            Declaration { slot, thread_id % transforms_per_block },
++            Declaration { p0, thread_id / transforms_per_block } };
++        // WGS = threads_per_transform * transforms_per_block, so row ownership
++        // and real-output alignment are invariant across the frequency unroll.
++        StatementList active;
++        for (unsigned int component = 0; component < 2; ++component)
++        {
++            const auto suffix = std::to_string(component);
++            Variable head { "cc_output_head_" + suffix, "const unsigned int" },
++                base { "cc_output_base_" + suffix, "const unsigned int" };
++            active += Declaration { head,
++                (first + static_cast<unsigned int>(io.columns * component)) % 2 };
++            active += Declaration { base,
++                first + slot + static_cast<unsigned int>(io.columns * component) };
++            StatementList vector_stores, scalar_stores;
++            for (unsigned int i = 0; i * threads_per_transform < length; ++i)
++            {
++                Expression p = p0 + i * threads_per_transform,
++                           index = base + static_cast<unsigned int>(2 * io.columns) * p;
++                auto left = lds_complex[slot * length + p],
++                     right = lds_complex[(slot + 1) * length + p];
++                Expression x = component ? left.y() : left.x(),
++                           y = component ? right.y() : right.x();
++                vector_stores += If { p < length,
++                    { StoreGlobal { buf, index / 2, ComplexLiteral { x, y } } } };
++                scalar_stores += If { p < length,
++                    { StoreGlobal { cc_real_pointer(buf), index, x } } };
++            }
++            active += If { And { slot >= head, And { (slot - head) % 2 == 0, slot + 1 < valid } },
++                vector_stores };
++            active += ElseIf { Or { And { slot == 0, head == 1 },
++                                   And { slot + 1 == valid, (base % 2) == 0 } },
++                scalar_stores };
++        }
++        s += If { slot < valid, active };
++        return s;
++    }
++};
++
++struct StockhamKernelFoldedSpectrumRows : StockhamKernelCCRealRows
++{
++    explicit StockhamKernelFoldedSpectrumRows(const StockhamGeneratorSpecs& specs)
++        : StockhamKernelCCRealRows(specs)
++    {
++    }
++    Expression carrier(const Expression& t) const
++    {
++        Expression high = t >= length, b = t - high * length;
++        return LoadGlobal { cc_real_pointer(buf), 2 * b + high };
++    }
++    Expression boundary_phase(const Expression& index) const
++    {
++        return CallExpr { "TW_NSteps",
++            { scalar_type, Variable { "cc_boundary_phase_base", "size_t" },
++                Variable { "cc_boundary_phase_steps", "size_t" } },
++            { boundary_phases, index } };
++    }
++    bool use_phase_recurrence() const
++    {
++        if (io.load != RealBlockLoad::Registers || factors.empty() || !factors.front())
++            return false;
++        const unsigned int count = length / factors.front();
++        // One initial phase per butterfly and one step per active thread.
++        return length > count + std::min(count, threads_per_transform);
++    }
++    StatementList phased_input(const Expression& j,
++                              const Expression& row,
++                              const Variable& value,
++                              const Variable& phase) const
++    {
++        return { Assign { value, LoadGlobal { buf, row * length + j } },
++            Assign { value, TwiddleMultiply { value, phase } } };
++    }
++    StatementList recurrent_input(const Expression& j,
++                                 const Expression& row,
++                                 const Variable& value,
++                                 unsigned int reg,
++                                 const Variable& phase,
++                                 const Variable& delta,
++                                 bool declare_phase) const
++    {
++        const unsigned int w = reg % factors.front();
++        StatementList s;
++        if (w == 0)
++        {
++            if (declare_phase)
++                s += Declaration { phase, boundary_phase(row * j) };
++            else
++                s += Assign { phase, boundary_phase(row * j) };
++        }
++        s += phased_input(j, row, value, phase);
++        if (w + 1 < factors.front())
++            s += Assign { phase, TwiddleMultiply { phase, delta } };
++        return s;
++    }
++    StatementList ordinary_register_input(const Expression& lane, const Expression& row) const
++    {
++        Variable delta { "cc_phase_delta", "const scalar_type" };
++        StatementList s { Declaration { delta,
++            boundary_phase(row * static_cast<unsigned int>(length / factors.front())) } };
++        s += pass_io(true, lane, [&](Expression j, unsigned int reg)
++            {
++                Variable phase { "cc_phase_current_" + std::to_string(reg / factors.front()),
++                    "scalar_type" };
++                return recurrent_input(j, row, R[reg], reg, phase, delta, true);
++            });
++        return s;
++    }
++    StatementList input_value(const Expression& j,
++                              const Expression& row,
++                              const Variable& value,
++                              bool carrier_row,
++                              unsigned int reg = 0) const
++    {
++        if (carrier_row)
++            return { Assign { value, ComplexLiteral { carrier(2 * j), carrier(2 * j + 1) } } };
++        // Native pass_io may emit adjacent registers without additional scopes.
++        Variable phase { "cc_row_phase_" + std::to_string(reg), "const scalar_type" };
++        StatementList s { Declaration { phase, boundary_phase(row * j) } };
++        s += phased_input(j, row, value, phase);
++        return s;
++    }
++    StatementList input_value(
++        const Expression& j, const Expression& row, const Variable& value) const
++    {
++        return { If { row == 0, input_value(j, row, value, true) },
++                 Else { input_value(j, row, value, false) } };
++    }
++    StatementList grouped_register_input(const Expression& lane, const Expression& row) const
++    {
++        const unsigned int width = factors.front(), count = length / width;
++        StatementList groups;
++        Variable phase { "cc_phase_current", "scalar_type" },
++            delta { "cc_phase_delta", "scalar_type" };
++        if (use_phase_recurrence())
++        {
++            groups += Declaration { phase };
++            groups += Declaration { delta };
++            groups += If { row != 0,
++                { Assign { delta, boundary_phase(row * count) } } };
++        }
++        // With fewer first-pass butterflies than lanes, pass_io has only h=0:
++        // j=lane+w*count maps to R[w]. Keep its single active-lane guard.
++        for (unsigned int first = 0; first < width; first += 2)
++        {
++            StatementList carrier_values, ordinary_values;
++            for (unsigned int reg = first; reg < std::min(first + 2, width); ++reg)
++            {
++                Expression j = lane + reg * count;
++                carrier_values += input_value(j, row, R[reg], true, reg);
++                ordinary_values += use_phase_recurrence()
++                    ? recurrent_input(j, row, R[reg], reg, phase, delta, false)
++                    : input_value(j, row, R[reg], false, reg);
++            }
++            groups += If { row == 0, carrier_values };
++            groups += Else { ordinary_values };
++        }
++        return { If { lane < count, groups } };
++    }
++    StatementList load_from_global(bool) override
++    {
++        Expression slot = thread_id / threads_per_transform,
++                   lane = thread_id % threads_per_transform;
++        StatementList s = initialize_registers();
++        if (io.load == RealBlockLoad::Registers)
++        {
++            Variable row { "cc_input_row", "const unsigned int" };
++            s += Declaration { row, tile_index_in_plane * transforms_per_block + slot };
++            auto loads = [&](bool carrier_row)
++            {
++                if (!carrier_row && use_phase_recurrence())
++                    return ordinary_register_input(lane, row);
++                return pass_io(true, lane, [&](Expression j, unsigned int reg)
++                    { return input_value(j, row, R[reg], carrier_row, reg); });
++            };
++            if (threads_per_transform > length / factors.front())
++                s += If { row < static_cast<unsigned int>(io.columns),
++                    grouped_register_input(lane, row) };
++            else
++                s += If { row < static_cast<unsigned int>(io.columns),
++                    { If { row == 0, loads(true) }, Else { loads(false) } } };
++            return s;
++        }
++        const unsigned int tasks = length * transforms_per_block;
++        for (unsigned int i = 0; i < (tasks + workgroup_size - 1) / workgroup_size; ++i)
++        {
++            Expression task = thread_id + i * workgroup_size;
++            Expression a = tile_index_in_plane * transforms_per_block + task / length,
++                       j = task % length;
++            Variable value { "cc_row_input", "scalar_type" };
++            StatementList active { Declaration { value } };
++            active += input_value(j, a, value);
++            active += Assign { lds_complex[task], value };
++            s += If { And { task < tasks, a < static_cast<unsigned int>(io.columns) }, active };
++        }
++        s += reload_input();
++        return s;
++    }
++    StatementList store_to_global(bool) override
++    {
++        Variable slot { "cc_spectrum_slot", "const unsigned int" },
++            row { "cc_spectrum_row", "const unsigned int" },
++            p0 { "cc_spectrum_p0", "const unsigned int" };
++        StatementList s { Declaration { slot, thread_id % transforms_per_block },
++            Declaration { row, tile_index_in_plane * transforms_per_block + slot },
++            Declaration { p0, thread_id / transforms_per_block } };
++        StatementList ordinary;
++        for (unsigned int i = 0; i * threads_per_transform < length; ++i)
++        {
++            Expression j = p0 + i * threads_per_transform;
++            Variable k { "cc_spectrum_k", "unsigned int" };
++            Variable value { "cc_spectrum_value", "scalar_type" };
++            // For 0 < row < C, 2*C*j+row > C*Q iff j >= ceil(Q/2).
++            ordinary += If { j < length,
++                { Declaration { k, static_cast<unsigned int>(2 * io.columns) * j + row },
++                    Declaration { value, lds_complex[slot * length + j] },
++                    If { j >= (length + 1) / 2,
++                        { Assign { value, CallExpr { "cc_conjugate", { value } } },
++                            Assign { k, static_cast<unsigned int>(io.n) - k } } },
++                    StoreGlobal { buf, k, value } } };
++        }
++        s += If { And { row != 0, row < static_cast<unsigned int>(io.columns) }, ordinary };
++        StatementList terminal;
++        for (unsigned int i = 0; i < (length / 2 + 1 + workgroup_size - 1) / workgroup_size; ++i)
++        {
++            Variable j { "cc_terminal_j", "const unsigned int" },
++                p { "cc_terminal_p", "scalar_type" };
++            Variable q { "cc_terminal_q", "scalar_type" }, own { "cc_terminal_own", "scalar_type" },
++                other { "cc_terminal_other", "scalar_type" };
++            StatementList a { Declaration { j, thread_id + i * workgroup_size },
++                Declaration { p, lds_complex[j] }, Declaration { q }, Declaration { own },
++                Declaration { other } };
++            a += If { j == 0,
++                { Assign { own, ComplexLiteral { p.x() + p.y(), Literal { 0 } } },
++                    Assign { other, ComplexLiteral { p.x() - p.y(), Literal { 0 } } },
++                    StoreGlobal { buf, Literal { 0 }, own },
++                    StoreGlobal { buf, Literal { static_cast<unsigned int>(io.n / 2) }, other } } };
++            if (length % 2 == 0)
++                a += ElseIf { j == length / 2,
++                    { Assign { own, CallExpr { "cc_conjugate", { p } } },
++                        StoreGlobal { buf, static_cast<unsigned int>(io.columns) * j, own } } };
++            a += Else { { Assign { q, lds_complex[length - j] },
++                Call { "cc_post_pair", { scalar_type }, { p, q, phases[j], own, other } },
++                StoreGlobal { buf, static_cast<unsigned int>(io.columns) * j, own },
++                StoreGlobal {
++                    buf, static_cast<unsigned int>(io.columns) * (length - j), other } } };
++            terminal += If { thread_id + i * workgroup_size < length / 2 + 1, a };
++        }
++        s += If { tile_index_in_plane == 0, terminal };
++        return s;
++    }
++};
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h
+index af70a7c3..b71aca95 100644
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h
+@@ -1,7 +1,7 @@
+ // EXP-125: keep real I/O rules outside the ordinary Stockham kernels.
+ #pragma once
+ 
+-#include "stockham_gen_cc.h"
++#include "stockham_gen_cc_real_columns.h"
+ #include "stockham_gen_rc.h"
+ 
+ // This is device source, appended only for the two specialized roles.
+@@ -102,23 +102,42 @@ struct LocalRealFoldVisitor : BaseVisitor
+     Variable scalar_type{"scalar_type", "typename"};
+ };
+ 
+-struct StockhamKernelHermitianColumns : StockhamKernelCC
++struct StockhamKernelHermitianColumns : StockhamKernelFoldedPackedColumns
+ {
+-    const RealBlockIO io;
++    StockhamKernelHermitianColumns(const StockhamGeneratorSpecs& specs,
++                                  bool large_batch_count, bool callbacks)
++        : StockhamKernelFoldedPackedColumns(specs, callbacks)
++    {
++        largeTwdBatchIsTransformCount = large_batch_count;
++        if(callbacks && !direct_to_from_reg)
++            throw std::runtime_error("Hermitian callback cache requires register loading");
++    }
++
++    bool use_static_initial_reg_load() const override { return callbacks; }
+ 
+-    explicit StockhamKernelHermitianColumns(const StockhamGeneratorSpecs& specs,
+-                                            bool large_batch_count)
+-        : StockhamKernelCC(specs, large_batch_count, false), io(specs.real_io)
++    StatementList set_direct_to_from_registers() override
+     {
++        return callbacks ? StockhamKernelFoldedPackedColumns::set_direct_to_from_registers()
++                         : StockhamKernelCC::set_direct_to_from_registers();
+     }
+ 
+     StatementList load_from_global(bool registers) override
+     {
++        // The two boundary columns share physical half-spectrum elements.
++        // Reuse the unique-load cache, applying conjugation after the callback.
++        if(callbacks)
++            return StockhamKernelFoldedPackedColumns::load_from_global(registers);
+         LocalRealFoldVisitor visitor(io);
+         StatementList body{Declaration{visitor.raw}};
+         body += visitor.visit_StatementList(StockhamKernelCC::load_from_global(registers));
+         return body;
+     }
++
++    StatementList store_to_global(bool registers) override
++    {
++        // EXP125 retains its full Q+1-column matrix, including both endpoints.
++        return StockhamKernelCC::store_to_global(registers);
++    }
+ };
+ 
+ struct StockhamKernelLocalRealRows : StockhamKernelRC
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
+index 3326b507..d2c8fd71 100644
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
+@@ -2,6 +2,7 @@
+ #pragma once
+ 
+ #include <cstddef>
++#include <algorithm>
+ #include <optional>
+ #include <vector>
+ 
+@@ -11,6 +12,10 @@ enum class RealBlockRole
+     HermitianColumns,
+     LocalRealRows,
+     PairedPostRows,
++    FoldedPackedColumns,
++    PackedInverseRows,
++    LocalPostColumns,
++    FoldedSpectrumRows,
+ };
+ 
+ enum class RealBlockLoad
+@@ -25,27 +30,93 @@ struct RealBlockIO
+ {
+     RealBlockRole role = RealBlockRole::None;
+     RealBlockLoad load = RealBlockLoad::Registers;
+-    size_t        n = 0, columns = 0, rows = 0, pitch = 0;
++    size_t n = 0, columns = 0, rows = 0, pitch = 0;
++
++    bool IsCCLocal() const
++    {
++        return role == RealBlockRole::FoldedPackedColumns
++            || role == RealBlockRole::PackedInverseRows || role == RealBlockRole::LocalPostColumns
++            || role == RealBlockRole::FoldedSpectrumRows;
++    }
++    bool IsInputBoundary() const
++    {
++        return role == RealBlockRole::FoldedPackedColumns
++            || role == RealBlockRole::LocalPostColumns;
++    }
++    bool IsOutputBoundary() const
++    {
++        return role == RealBlockRole::PackedInverseRows
++            || role == RealBlockRole::FoldedSpectrumRows;
++    }
++    bool HasBoundaryLargePhase() const { return role == RealBlockRole::FoldedSpectrumRows; }
++    size_t SmallPhaseLength() const
++    {
++        if (role == RealBlockRole::LocalPostColumns)
++            return columns;
++        if (role == RealBlockRole::PackedInverseRows || role == RealBlockRole::FoldedSpectrumRows)
++            return rows;
++        return 0;
++    }
++    // The native first-pass map covers lane+h*threads+w*(length/first_factor).
++    // pass_io guards its final partial group; no power-of-two condition is needed.
++    static bool CanRegisterInput(size_t length, const std::vector<unsigned int>& factors,
++        size_t threads, size_t workgroup)
++    {
++        if (!length || factors.empty() || !threads || !workgroup || workgroup % threads)
++            return false;
++        size_t product = 1;
++        for (const auto factor : factors)
++        {
++            if (!factor || product > length / factor)
++                return false;
++            product *= factor;
++        }
++        return product == length;
++    }
++    static bool CanRegisterPre(size_t length, size_t first_factor, size_t threads)
++    {
++        if (!first_factor || !threads)
++            return false;
++        const auto k = length / first_factor, lanes = std::min(k, threads);
++        return first_factor % 2 == 0 && lanes && lanes <= 64 && (lanes & (lanes - 1)) == 0
++            && k % lanes == 0 && threads % lanes == 0;
++    }
+ 
+     static std::optional<RealBlockIO> ForLength(size_t n)
+     {
+         size_t columns = 0, rows = 0;
+-        switch(n)
++        switch (n)
+         {
+-        case 65536:   columns = 128;  rows = 256; break;
+-        case 131072:  columns = 256;  rows = 256; break;
+-        case 262144:  columns = 256;  rows = 512; break;
+-        case 524288:  columns = 512;  rows = 512; break;
+-        case 1048576: columns = 1024; rows = 512; break;
+-        default: return std::nullopt;
++        case 65536:
++            columns = 128;
++            rows = 256;
++            break;
++        case 131072:
++            columns = 256;
++            rows = 256;
++            break;
++        case 262144:
++            columns = 256;
++            rows = 512;
++            break;
++        case 524288:
++            columns = 512;
++            rows = 512;
++            break;
++        case 1048576:
++            columns = 1024;
++            rows = 512;
++            break;
++        default:
++            return std::nullopt;
+         }
+-        return RealBlockIO{RealBlockRole::None, RealBlockLoad::Registers,
+-                           n, columns, rows, rows + 8};
++        return RealBlockIO { RealBlockRole::None, RealBlockLoad::Registers, n, columns, rows,
++            rows + 8 };
+     }
+ };
+ 
+ struct RealBufferView
+ {
+     std::vector<size_t> length, stride;
+-    size_t             dist;
++    size_t dist;
+ };
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+index 3ef7593a..f9001a74 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+@@ -397,6 +397,8 @@ public:
+     size_t           local_real_twiddles_size = 0;
+     void*            real_post_twiddles = nullptr;
+     size_t           real_post_twiddles_size = 0;
++    void*            cc_boundary_twiddles = nullptr;
++    size_t           cc_boundary_twiddles_size = 0;
+     void*            twiddles_large      = nullptr;
+     size_t           twiddles_large_size = 0;
+     void*            twiddles_pp         = nullptr;
+@@ -566,23 +568,35 @@ public:
+     // node.
+     void SetTransposeOutputLength();
+ 
+-    // Physical reads may differ from the virtual transform geometry.
+-    RealBufferView GetInputBufferView() const
+-    {
+-        if(real_io.role == RealBlockRole::HermitianColumns)
+-            return {{real_io.n / 2 + 1}, {1}, iDist};
+-        if(real_io.role == RealBlockRole::LocalRealRows)
+-            return {{real_io.rows + 1, real_io.columns}, inStride, iDist};
+-        return {length, inStride, iDist};
+-    }
++// Physical reads may differ from the virtual transform geometry.
++RealBufferView GetInputBufferView() const
++{
++    // These views use the leaf's complex-alias units, including the real
++    // input/output boundaries (N doubles occupy M complex slots).
++    if(real_io.role == RealBlockRole::FoldedPackedColumns)
++        return { { real_io.n / 2 + 1 }, { 1 }, iDist };
++    if(real_io.role == RealBlockRole::LocalPostColumns)
++        return { { real_io.n / 2 }, { 1 }, iDist };
++    if(real_io.role == RealBlockRole::HermitianColumns)
++        return { { real_io.n / 2 + 1 }, { 1 }, iDist };
++    if(real_io.role == RealBlockRole::LocalRealRows)
++        return { { real_io.rows + 1, real_io.columns }, inStride, iDist };
++    return { length, inStride, iDist };
++}
+ 
+-    // The fused post-processing expands a virtual AxQ FFT to M+1 values.
+-    std::optional<RealBufferView> GetPhysicalOutputBufferView() const
+-    {
+-        if(real_io.role == RealBlockRole::PairedPostRows)
+-            return RealBufferView{{real_io.n / 2 + 1}, {1}, oDist};
+-        return std::nullopt;
+-    }
++// The fused post-processing expands a virtual AxQ FFT to M+1 values.
++std::optional<RealBufferView> GetPhysicalOutputBufferView() const
++{
++    if(real_io.role == RealBlockRole::FoldedPackedColumns)
++        return RealBufferView { { real_io.columns, real_io.rows }, { real_io.rows, 1 }, oDist };
++    if(real_io.role == RealBlockRole::PackedInverseRows)
++        return RealBufferView { { real_io.n / 2 }, { 1 }, oDist };
++    if(real_io.role == RealBlockRole::FoldedSpectrumRows)
++        return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
++    if(real_io.role == RealBlockRole::PairedPostRows)
++        return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
++    return std::nullopt;
++}
+ 
+     // Get row-major output length of this node.
+     std::vector<size_t> GetOutputLength() const
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
+index 8784f272..6cb0feb4 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
+@@ -68,6 +68,9 @@ public:
+     bool TryBuildLocalRealTree(size_t n);
+     void AssignLocalRealParams();
+     bool TryFusePairedPost(TreeNode& cfft, size_t n);
++    bool cc_local_pipeline = false;
++    bool TryBuildCCLocalTree(const TreeNode& cfft, size_t n);
++    void AssignCCLocalParams();
+ 
+     // 3D Even can possibly set this
+     bool try_fuse_pre_post_processing = false;
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp
+index b4cb775d..62967ef7 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp
+@@ -206,6 +206,170 @@ NodeFactory::Map1DLength const NodeFactory::map1DLengthDouble = {
+     {106496, 208}, //           CC (208cc + 512rc)
+     {110592, 216}, //           CC (216cc + 512rc)
+     {114688, 224}, //           CC (224cc + 512rc)
++    // EXP128: missing CC decompositions; shared by fused and unfused builds.
++    {32928, 96}, // CC (96cc + 343rc)
++    {33600, 168}, // CC (168cc + 200rc)
++    {33800, 169}, // CC (169cc + 200rc)
++    {33880, 280}, // CC (280cc + 121rc)
++    {34300, 100}, // CC (100cc + 343rc)
++    {35000, 280}, // CC (280cc + 125rc)
++    {35152, 208}, // CC (208cc + 169rc)
++    {35672, 104}, // CC (104cc + 343rc)
++    {35840, 280}, // CC (280cc + 128rc)
++    {36125, 125}, // CC (125cc + 289rc)
++    {36504, 216}, // CC (216cc + 169rc)
++    {36992, 128}, // CC (128cc + 289rc)
++    {37044, 108}, // CC (108cc + 343rc)
++    {37500, 60}, // CC (60cc + 625rc)
++    {37632, 336}, // CC (336cc + 112rc)
++    {37856, 224}, // CC (224cc + 169rc)
++    {38400, 200}, // CC (200cc + 192rc)
++    {38416, 112}, // CC (112cc + 343rc)
++    {39936, 208}, // CC (208cc + 192rc)
++    {40560, 240}, // CC (240cc + 169rc)
++    {40656, 336}, // CC (336cc + 121rc)
++    {40824, 168}, // CC (168cc + 243rc)
++    {41067, 243}, // CC (243cc + 169rc)
++    {41472, 81}, // CC (81cc + 512rc)
++    {41503, 121}, // CC (121cc + 343rc)
++    {41600, 208}, // CC (208cc + 200rc)
++    {42000, 336}, // CC (336cc + 125rc)
++    {42875, 125}, // CC (125cc + 343rc)
++    {43200, 216}, // CC (216cc + 200rc)
++    {43264, 169}, // CC (169cc + 256rc)
++    {43904, 128}, // CC (128cc + 343rc)
++    {44800, 224}, // CC (224cc + 200rc)
++    {45000, 72}, // CC (72cc + 625rc)
++    {46240, 160}, // CC (160cc + 289rc)
++    {46656, 192}, // CC (192cc + 243rc)
++    {47320, 280}, // CC (280cc + 169rc)
++    {48552, 168}, // CC (168cc + 289rc)
++    {48600, 200}, // CC (200cc + 243rc)
++    {48841, 289}, // CC (289cc + 169rc)
++    {50000, 80}, // CC (80cc + 625rc)
++    {50176, 1024}, // CC (1024cc + 49rc)
++    {50544, 208}, // CC (208cc + 243rc)
++    {50625, 81}, // CC (81cc + 625rc)
++    {52488, 216}, // CC (216cc + 243rc)
++    {52500, 84}, // CC (84cc + 625rc)
++    {53760, 280}, // CC (280cc + 192rc)
++    {54432, 224}, // CC (224cc + 243rc)
++    {54880, 160}, // CC (160cc + 343rc)
++    {55296, 108}, // CC (108cc + 512rc)
++    {55488, 192}, // CC (192cc + 289rc)
++    {56000, 280}, // CC (280cc + 200rc)
++    {56784, 336}, // CC (336cc + 169rc)
++    {57624, 168}, // CC (168cc + 343rc)
++    {57800, 289}, // CC (289cc + 200rc)
++    {57967, 169}, // CC (169cc + 343rc)
++    {58320, 240}, // CC (240cc + 243rc)
++    {59049, 243}, // CC (243cc + 243rc)
++    {60000, 96}, // CC (96cc + 625rc)
++    {60112, 208}, // CC (208cc + 289rc)
++    {61440, 60}, // CC (60cc + 1024rc)
++    {61952, 121}, // CC (121cc + 512rc)
++    {62208, 243}, // CC (243cc + 256rc)
++    {62424, 216}, // CC (216cc + 289rc)
++    {62500, 100}, // CC (100cc + 625rc)
++    {64000, 125}, // CC (125cc + 512rc)
++    {64512, 336}, // CC (336cc + 192rc)
++    {64736, 224}, // CC (224cc + 289rc)
++    {65000, 104}, // CC (104cc + 625rc)
++    {65856, 343}, // CC (343cc + 192rc)
++    {66550, 50}, // CC (50cc + 1331rc)
++    {67200, 336}, // CC (336cc + 200rc)
++    {67500, 108}, // CC (108cc + 625rc)
++    {68040, 280}, // CC (280cc + 243rc)
++    {69212, 52}, // CC (52cc + 1331rc)
++    {69360, 240}, // CC (240cc + 289rc)
++    {70000, 112}, // CC (112cc + 625rc)
++    {70227, 243}, // CC (243cc + 289rc)
++    {71680, 280}, // CC (280cc + 256rc)
++    {73728, 72}, // CC (72cc + 1024rc)
++    {73984, 256}, // CC (256cc + 289rc)
++    {74088, 216}, // CC (216cc + 343rc)
++    {75625, 121}, // CC (121cc + 625rc)
++    {80000, 128}, // CC (128cc + 625rc)
++    {80920, 280}, // CC (280cc + 289rc)
++    {81648, 336}, // CC (336cc + 243rc)
++    {82320, 240}, // CC (240cc + 343rc)
++    {82944, 81}, // CC (81cc + 1024rc)
++    {83349, 343}, // CC (343cc + 243rc)
++    {85184, 64}, // CC (64cc + 1331rc)
++    {86016, 84}, // CC (84cc + 1024rc)
++    {86528, 169}, // CC (169cc + 512rc)
++    {96040, 280}, // CC (280cc + 343rc)
++    {97104, 336}, // CC (336cc + 289rc)
++    {99127, 289}, // CC (289cc + 343rc)
++    {100000, 160}, // CC (160cc + 625rc)
++    {105000, 168}, // CC (168cc + 625rc)
++    {105625, 169}, // CC (169cc + 625rc)
++    {106480, 80}, // CC (80cc + 1331rc)
++    {107811, 81}, // CC (81cc + 1331rc)
++    {111804, 84}, // CC (84cc + 1331rc)
++    {115248, 336}, // CC (336cc + 343rc)
++    {117649, 343}, // CC (343cc + 343rc)
++    {120000, 192}, // CC (192cc + 625rc)
++    {122880, 240}, // CC (240cc + 512rc)
++    {123904, 121}, // CC (121cc + 1024rc)
++    {124416, 243}, // CC (243cc + 512rc)
++    {125000, 200}, // CC (200cc + 625rc)
++    {127776, 96}, // CC (96cc + 1331rc)
++    {128000, 1024}, // CC (1024cc + 125rc)
++    {130000, 208}, // CC (208cc + 625rc)
++    {133100, 100}, // CC (100cc + 1331rc)
++    {135000, 216}, // CC (216cc + 625rc)
++    {138424, 104}, // CC (104cc + 1331rc)
++    {140000, 224}, // CC (224cc + 625rc)
++    {143360, 280}, // CC (280cc + 512rc)
++    {143748, 108}, // CC (108cc + 1331rc)
++    {147968, 289}, // CC (289cc + 512rc)
++    {149072, 112}, // CC (112cc + 1331rc)
++    {150000, 240}, // CC (240cc + 625rc)
++    {151875, 243}, // CC (243cc + 625rc)
++    {160000, 256}, // CC (256cc + 625rc)
++    {161051, 121}, // CC (121cc + 1331rc)
++    {163840, 160}, // CC (160cc + 1024rc)
++    {166375, 125}, // CC (125cc + 1331rc)
++    {170368, 128}, // CC (128cc + 1331rc)
++    {172032, 168}, // CC (168cc + 1024rc)
++    {173056, 1024}, // CC (1024cc + 169rc)
++    {175000, 280}, // CC (280cc + 625rc)
++    {175616, 343}, // CC (343cc + 512rc)
++    {180625, 289}, // CC (289cc + 625rc)
++    {196608, 192}, // CC (192cc + 1024rc)
++    {204800, 200}, // CC (200cc + 1024rc)
++    {210000, 336}, // CC (336cc + 625rc)
++    {212960, 160}, // CC (160cc + 1331rc)
++    {212992, 208}, // CC (208cc + 1024rc)
++    {214375, 343}, // CC (343cc + 625rc)
++    {221184, 216}, // CC (216cc + 1024rc)
++    {223608, 168}, // CC (168cc + 1331rc)
++    {224939, 169}, // CC (169cc + 1331rc)
++    {229376, 224}, // CC (224cc + 1024rc)
++    {245760, 240}, // CC (240cc + 1024rc)
++    {248832, 1024}, // CC (1024cc + 243rc)
++    {255552, 192}, // CC (192cc + 1331rc)
++    {266200, 200}, // CC (200cc + 1331rc)
++    {276848, 208}, // CC (208cc + 1331rc)
++    {286720, 280}, // CC (280cc + 1024rc)
++    {287496, 216}, // CC (216cc + 1331rc)
++    {295936, 1024}, // CC (1024cc + 289rc)
++    {298144, 224}, // CC (224cc + 1331rc)
++    {319440, 240}, // CC (240cc + 1331rc)
++    {320000, 512}, // CC (512cc + 625rc)
++    {323433, 243}, // CC (243cc + 1331rc)
++    {340736, 256}, // CC (256cc + 1331rc)
++    {344064, 336}, // CC (336cc + 1024rc)
++    {351232, 343}, // CC (343cc + 1024rc)
++    {372680, 280}, // CC (280cc + 1331rc)
++    {384659, 289}, // CC (289cc + 1331rc)
++    {447216, 336}, // CC (336cc + 1331rc)
++    {456533, 343}, // CC (343cc + 1331rc)
++    {640000, 1024}, // CC (1024cc + 625rc)
++    {681472, 512}, // CC (512cc + 1331rc)
++    {1362944, 1024}, // CC (1024cc + 1331rc)
++
+ };
+ 
+ NodeFactory::Map1DLength const NodeFactory::map1DLengthTRTRT = {
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp
+index 7c3e16bf..899b85b7 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/plan.cpp
+@@ -4224,6 +4224,8 @@ void TreeNode::DetermineBufferMemory(size_t& tmpBufSize,
+                               (typeBlue == BT_MULTI_KERNEL_FUSED) ? outStrideBlue : outStride,
+                               batch,
+                               (typeBlue == BT_MULTI_KERNEL_FUSED) ? oDistBlue : oDist);
++        if(const auto view=GetPhysicalOutputBufferView())
++            outputPtrDiff=compute_ptrdiff(view->length,view->stride,batch,view->dist);
+ 
+         if(scheme == CS_KERNEL_CHIRP)
+             chirpSize = std::max(lengthBlue, chirpSize);
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp
+index 963c12f7..c29c5fd3 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp
+@@ -20,6 +20,7 @@
+ 
+ #include <functional>
+ 
++#include "../../shared/arithmetic.h"
+ #include "../../shared/array_predicate.h"
+ #include "rtc_stockham_gen.h"
+ #include "rtc_test_harness.h"
+@@ -36,6 +37,8 @@ using namespace std::placeholders;
+ #include "device/generator/stockham_gen_rc.h"
+ #include "device/generator/stockham_gen_local_real.h"
+ #include "device/generator/stockham_gen_real_post.h"
++#include "device/generator/stockham_gen_cc_real_columns.h"
++#include "device/generator/stockham_gen_cc_real_rows.h"
+ #include "device/generator/stockham_gen_rr.h"
+ #include "device/generator/stockham_pp_gen_cc.h"
+ #include "device/generator/stockham_pp_gen_rr.h"
+@@ -257,13 +260,22 @@ std::string stockham_rtc_kernel_name(const StockhamGeneratorSpecs&    specs,
+         kernel_name += "_ordtwrec128k";
+     if(specs.real_io.role != RealBlockRole::None)
+     {
+-        if(specs.real_io.role == RealBlockRole::PairedPostRows)
++        if(specs.real_io.IsCCLocal())
++        {
++            kernel_name+="_cc_local_v5_role"+std::to_string(static_cast<int>(specs.real_io.role));
++            kernel_name+="_C"+std::to_string(specs.real_io.columns)+"_Q"+std::to_string(specs.real_io.rows);
++            if(specs.real_io.role==RealBlockRole::LocalPostColumns)
++                kernel_name+=specs.half_lds?"_scalar_exchange":"_complex_exchange";
++        }
++        else if(specs.real_io.role == RealBlockRole::PairedPostRows)
+             kernel_name += "_paired_post_rows";
+         else
+             kernel_name += specs.real_io.role == RealBlockRole::HermitianColumns
+                                ? "_local_real_columns" : "_local_real_rows";
+         kernel_name += "_N" + std::to_string(specs.real_io.n);
+         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
++        if(specs.real_io.role == RealBlockRole::HermitianColumns && cbtype != CallbackType::NONE)
++            kernel_name += "_unique_load_v1";
+         if(specs.real_io.role == RealBlockRole::LocalRealRows)
+             kernel_name += local_real_twiddle_suffix(
+                 local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
+@@ -345,8 +357,14 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
+             kernel = std::make_unique<StockhamPartialPassKernelRR>(specs, params_pp);
+         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC)
+         {
+-            if(specs.real_io.role == RealBlockRole::HermitianColumns)
+-                kernel = std::make_unique<StockhamKernelHermitianColumns>(specs, largeTwdBatchIsTransformCount);
++            if(specs.real_io.role == RealBlockRole::FoldedPackedColumns)
++                kernel=std::make_unique<StockhamKernelFoldedPackedColumns>(
++                    specs,cbtype!=CallbackType::NONE,largeTwdSteps);
++            else if(specs.real_io.role == RealBlockRole::LocalPostColumns)
++                kernel=std::make_unique<StockhamKernelLocalPostColumns>(specs);
++            else if(specs.real_io.role == RealBlockRole::HermitianColumns)
++                kernel = std::make_unique<StockhamKernelHermitianColumns>(
++                    specs, largeTwdBatchIsTransformCount, cbtype != CallbackType::NONE);
+             else
+                 kernel = std::make_unique<StockhamKernelCC>(specs, largeTwdBatchIsTransformCount, fuseBluestein);
+         }
+@@ -357,7 +375,11 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
+             kernel = std::make_unique<StockhamKernelCR>(specs);
+         else if(scheme == CS_KERNEL_STOCKHAM_BLOCK_RC)
+         {
+-            if(specs.real_io.role == RealBlockRole::LocalRealRows)
++            if(specs.real_io.role == RealBlockRole::PackedInverseRows)
++                kernel=std::make_unique<StockhamKernelPackedInverseRows>(specs);
++            else if(specs.real_io.role == RealBlockRole::FoldedSpectrumRows)
++                kernel=std::make_unique<StockhamKernelFoldedSpectrumRows>(specs);
++            else if(specs.real_io.role == RealBlockRole::LocalRealRows)
+                 kernel = std::make_unique<StockhamKernelLocalRealRows>(
+                     specs, local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
+             else if(specs.real_io.role == RealBlockRole::PairedPostRows)
+@@ -489,7 +511,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
+     src += butterfly_constant_h;
+ 
+     // only SBCCs need this
+-    if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC || scheme == CS_KERNEL_STOCKHAM_PP_BLOCK_CC)
++    if(scheme == CS_KERNEL_STOCKHAM_BLOCK_CC || scheme == CS_KERNEL_STOCKHAM_PP_BLOCK_CC
++       || specs.real_io.HasBoundaryLargePhase())
+         src += large_twiddles_h;
+     // append the neccessary functions only
+     append_radix_h(src, all_factors);
+@@ -503,6 +526,8 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
+     if(specs.real_io.role == RealBlockRole::PairedPostRows)
+         src += real_post_device_helpers(specs.real_io,
+                                        specs.workgroup_size / specs.threads_per_transform);
++    if(specs.real_io.IsCCLocal())
++        src+=cc_real_device_helpers();
+ 
+     src += lds2reg->render();
+     src += reg2lds->render();
+@@ -613,6 +638,19 @@ std::string stockham_rtc(const StockhamGeneratorSpecs&    specs,
+     src += "static const size_t large_twiddle_steps = " + std::to_string(largeTwdSteps) + ";\n";
+ 
+     *global = make_callback_realcomplex(*global, cbtype);
++    if(specs.real_io.IsCCLocal())
++    {
++        CCRealTypedIOVisitor typed(specs.real_io);
++        *global=typed(*global);
++    }
++    if(specs.real_io.HasBoundaryLargePhase())
++    {
++        // Match TwiddleTableLarge's allocation for the full real length.
++        // In particular, 2^16 has two base-8 segments, rather than three.
++        const auto steps = DivRoundingUp<size_t>(CeilPo2(specs.real_io.n), 8);
++        src += "static constexpr size_t cc_boundary_phase_base=8, cc_boundary_phase_steps="
++               + std::to_string(steps) + ";\n";
++    }
+ 
+     *global = make_rtc(*global, kernel_name);
+     src += global->render();
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
+index 9754c1d1..7f153146 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
+@@ -139,6 +139,21 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&
+               && specs->factors == std::vector<unsigned int>{8, 8, 8};
+ 
+         specs->real_io = node.real_io;
++        if(node.real_io.IsCCLocal())
++        {
++            specs->direct_to_from_reg=true;
++            specs->static_initial_reg_load=true;
++            specs->static_initial_reg_load_linear=pool_scheme==CS_KERNEL_STOCKHAM_BLOCK_RC;
++            if(node.real_io.IsInputBoundary())
++                specs->real_io.load=RealBlockLoad::Registers;
++            else if(node.real_io.role==RealBlockRole::PackedInverseRows)
++                specs->real_io.load=RealBlockIO::CanRegisterPre(specs->length,specs->factors.front(),specs->threads_per_transform)
++                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
++            else
++                specs->real_io.load=RealBlockIO::CanRegisterInput(specs->length,specs->factors,
++                    specs->threads_per_transform,specs->workgroup_size)
++                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
++        }
+         // The ordinary CC LDS entry uses an unswizzled complex staging layout.
+         if(node.real_io.role == RealBlockRole::HermitianColumns
+            && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
+@@ -352,6 +367,10 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
+ 
+     if(data.node->real_io.role == RealBlockRole::PairedPostRows)
+         kargs.append_ptr(data.node->real_post_twiddles);
++    if(data.node->real_io.IsCCLocal() && data.node->real_io.SmallPhaseLength())
++        kargs.append_ptr(data.node->local_real_twiddles);
++    if(data.node->real_io.HasBoundaryLargePhase())
++        kargs.append_ptr(data.node->cc_boundary_twiddles);
+ 
+     append_load_store_args(kargs, *data.node);
+ 
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp
+index d92ae994..1bc2a9de 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp
+@@ -62,6 +62,11 @@ TreeNode::~TreeNode()
+         Repo::ReleaseTwiddle1D(real_post_twiddles);
+         real_post_twiddles = nullptr;
+     }
++    if(cc_boundary_twiddles)
++    {
++        Repo::ReleaseTwiddle1D(cc_boundary_twiddles);
++        cc_boundary_twiddles=nullptr;
++    }
+     if(twiddles_large)
+     {
+         Repo::ReleaseTwiddle1D(twiddles_large);
+@@ -298,6 +303,15 @@ bool LeafNode::CreateDeviceResources()
+             = Repo::GetTwiddles1D(2 * real_io.rows, real_io.rows / 2,
+                                   precision, deviceProp, 0, false, {});
+     }
++    if(real_io.IsCCLocal() && real_io.SmallPhaseLength())
++    {
++        const auto l=real_io.SmallPhaseLength();
++        std::tie(local_real_twiddles,local_real_twiddles_size)
++            = Repo::GetTwiddles1D(2*l,(l+1)/2,precision,deviceProp,0,false,{});
++    }
++    if(real_io.HasBoundaryLargePhase())
++        std::tie(cc_boundary_twiddles,cc_boundary_twiddles_size)
++            = Repo::GetTwiddles1D(real_io.n,0,precision,deviceProp,8,false,{});
+     if(real_io.role == RealBlockRole::PairedPostRows)
+     {
+         const auto kernel         = GetKernel();
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp
+index d02dd514..9d004d8e 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp
+@@ -990,6 +990,8 @@ bool SBCCNode::KernelCheck(std::vector<FMKey>& kernel_keys)
+     {
+         auto kernel    = GetKernel();
+         largeTwd3Steps = kernel.use_3steps_large_twd;
++        if(real_io.role==RealBlockRole::FoldedPackedColumns && large1D>(size_t(1)<<18))
++            largeTwd3Steps=false;
+         get_large_twd_base_steps(large1D, largeTwd3Steps, largeTwdBase, ltwdSteps);
+     }
+ 
+@@ -1014,6 +1016,12 @@ bool SBCCNode::KernelCheck(std::vector<FMKey>& kernel_keys)
+         dir2regMode = DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
+         intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+     }
++    if(real_io.IsCCLocal())
++    {
++        // New column adapters provide the complete native register map.
++        dir2regMode=DirectRegType::TRY_ENABLE_IF_SUPPORT;
++        intrinsicMode=IntrinsicAccessType::DISABLE_BOTH;
++    }
+ 
+     return true;
+ }
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
+index fe503e19..065e479e 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
+@@ -211,6 +211,105 @@ void RealTransCmplxNode::AssignParams_internal()
+ /*****************************************************
+  * CS_REAL_TRANSFORM_EVEN
+  *****************************************************/
++#ifndef ROCFFT_CC_REAL_FUSION
++#define ROCFFT_CC_REAL_FUSION 1
++#endif
++#ifndef ROCFFT_CC_LOCAL_REAL_FUSION
++#define ROCFFT_CC_LOCAL_REAL_FUSION 1
++#endif
++
++bool RealTransEvenNode::TryBuildCCLocalTree(const TreeNode& cfft, size_t n)
++{
++    if(!ROCFFT_CC_REAL_FUSION || !ROCFFT_CC_LOCAL_REAL_FUSION || n < 65536 || n % 2
++        || dimension != 1 || length.size() != 1 || batch != 1
++        || precision != rocfft_precision_double || placement != rocfft_placement_notinplace
++        || inStride != std::vector<size_t> { 1 } || outStride != std::vector<size_t> { 1 }
++        || iOffset || oOffset || !is_device_gcn_arch(deviceProp, "gfx936")
++        || deviceProp.warpSize != 64 || cfft.scheme != CS_L1D_CC || cfft.childNodes.size() != 2)
++        return false;
++    const bool inverse = direction == 1;
++    if((inverse
++           && (inArrayType != rocfft_array_type_hermitian_interleaved
++               || outArrayType != rocfft_array_type_real))
++        || (!inverse
++            && (inArrayType != rocfft_array_type_real
++                || outArrayType != rocfft_array_type_hermitian_interleaved)))
++        return false;
++    const auto& col = *cfft.childNodes.front();
++    const auto& row = *cfft.childNodes.back();
++    if(col.scheme != CS_KERNEL_STOCKHAM_BLOCK_CC || row.scheme != CS_KERNEL_STOCKHAM_BLOCK_RC
++        || col.length.size() != 2 || row.length.size() != 2 || col.ebtype != EmbeddedType::NONE
++        || row.ebtype != EmbeddedType::NONE || col.fuseBlue != BFT_NONE || row.fuseBlue != BFT_NONE)
++        return false;
++    const size_t c = col.length[0], q = col.length[1];
++    if(!c || !q || c * q != n / 2 || row.length != std::vector<size_t> { q, c }
++        || n > (size_t(1) << 24))
++        return false;
++    const FMKey cc_key(c, precision, CS_KERNEL_STOCKHAM_BLOCK_CC);
++    const FMKey aligned(q, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
++    if(!pool.has_function(cc_key) || !pool.has_function(aligned))
++        return false;
++    const auto cc = pool.get_kernel(cc_key), rc = pool.get_kernel(aligned);
++    const auto transpose = c % rc.transforms_per_block ? TILE_UNALIGNED : TILE_ALIGNED;
++    if(!pool.has_function(FMKey(q, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, transpose))
++        || !cc.direct_to_from_reg || q < cc.transforms_per_block
++        || c * cc.transforms_per_block / (cc.half_lds ? 2 : 1) < c)
++        return false;
++    const size_t cc_bytes = c * cc.transforms_per_block * 16 / (cc.half_lds ? 2 : 1);
++    if(cc_bytes > deviceProp.sharedMemPerBlock
++        || q * rc.transforms_per_block * 16 > deviceProp.sharedMemPerBlock)
++        return false;
++
++    RealBlockIO io { RealBlockRole::None, RealBlockLoad::LDS, n, c, q, q };
++    auto first = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_CC, this);
++    first->dimension = 1;
++    first->length = { c, q + (inverse ? 1 : 0) };
++    first->outputLength = { c, q };
++    first->real_io = io;
++    first->real_io.role
++        = inverse ? RealBlockRole::FoldedPackedColumns : RealBlockRole::LocalPostColumns;
++    first->large1D = inverse ? n : 0;
++    first->largeTwdBatchIsTransformCount = false;
++    first->allowInplace = false;
++    first->allowedOutBuf = OB_TEMP;
++    first->allowedOutArrayTypes = { rocfft_array_type_complex_interleaved };
++    first->comments.push_back(
++        inverse ? "EXP128 folded packed columns" : "EXP128 column-local real post");
++    auto last = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_RC, this);
++    last->dimension = 1;
++    last->length = { q, c };
++    last->outputLength = { c, q };
++    last->real_io = io;
++    last->real_io.role
++        = inverse ? RealBlockRole::PackedInverseRows : RealBlockRole::FoldedSpectrumRows;
++    last->allowInplace = false;
++    last->allowedOutBuf = OB_USER_OUT;
++    last->allowedOutArrayTypes = { rocfft_array_type_complex_interleaved };
++    last->comments.push_back(
++        inverse ? "EXP128 row-local real pre" : "EXP128 folded half spectrum and terminal row");
++    childNodes.emplace_back(std::move(first));
++    childNodes.emplace_back(std::move(last));
++    cc_local_pipeline = true;
++    return true;
++}
++
++void RealTransEvenNode::AssignCCLocalParams()
++{
++    auto& first = childNodes.front();
++    auto& last = childNodes.back();
++    const auto& io = first->real_io;
++    first->inStride = { direction == 1 ? 2 * io.rows : io.rows, 1 };
++    first->iDist = direction == 1 ? iDist : iDist / 2;
++    first->outStride = { io.rows, 1 };
++    first->oDist = io.columns * io.rows;
++    last->inStride = { 1, io.rows };
++    last->iDist = first->oDist;
++    last->outStride = { 1, io.columns };
++    last->oDist = direction == 1 ? oDist / 2 : oDist;
++    first->AssignParams();
++    last->AssignParams();
++}
++
+ bool RealTransEvenNode::TryBuildLocalRealTree(size_t n)
+ {
+     auto geometry = RealBlockIO::ForLength(n);
+@@ -363,7 +462,8 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
+     if(realLength->at(0) % 2 != 0)
+         throw std::runtime_error("fastest dimension is not even in RealTransEvenNode");
+ 
+-    if(noSolution && TryBuildLocalRealTree(realLength->at(0)))
++    if(noSolution && ROCFFT_CC_REAL_FUSION && !ROCFFT_CC_LOCAL_REAL_FUSION
++       && TryBuildLocalRealTree(realLength->at(0)))
+         return;
+ 
+     // check schemes from solution map
+@@ -406,7 +506,12 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
+     // NB: the buffer is real, but we treat it as complex
+     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
+ 
+-    if(noSolution && TryFusePairedPost(*cfftPlan, realLength->at(0)))
++    if(noSolution && TryBuildCCLocalTree(*cfftPlan,realLength->at(0)))
++        return;
++    if(noSolution && ROCFFT_CC_REAL_FUSION && ROCFFT_CC_LOCAL_REAL_FUSION
++       && TryBuildLocalRealTree(realLength->at(0)))
++        return;
++    if(noSolution && ROCFFT_CC_REAL_FUSION && TryFusePairedPost(*cfftPlan, realLength->at(0)))
+     {
+         childNodes.emplace_back(std::move(cfftPlan));
+         return;
+@@ -497,6 +602,11 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
+ 
+ void RealTransEvenNode::AssignParams_internal()
+ {
++    if(cc_local_pipeline)
++    {
++        AssignCCLocalParams();
++        return;
++    }
+     if(local_real_pipeline)
+     {
+         AssignLocalRealParams();
