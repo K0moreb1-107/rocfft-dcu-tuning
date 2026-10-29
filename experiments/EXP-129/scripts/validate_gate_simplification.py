@@ -10,13 +10,13 @@ import sys
 import time
 
 ROOT = Path('/public/home/zhangkewei/zr')
-sys.path[:0] = [str(ROOT), str(ROOT/'tools/fft_measurement'),
-                str(ROOT/'experiments/EXP-128/scripts')]
+sys.path[:0] = [str(ROOT), str(ROOT/'experiments/EXP-129/scripts'),
+                str(ROOT/'tools/fft_measurement')]
 from tools.workspace_manager import manager as mgr
 from tools.workspace_manager.validation_finish import finish
 from cc_dispatch import inspect_dispatch
-from validate_cc_local_boundary import build_switches
-from validate_cc_local_grouped import CaseError, run, read_numerical_outputs, check_cases, write
+from gate_validation_support import (CaseError, run, read_numerical_outputs,
+                                     check_cases, write, build_switches)
 import cufft261012_contract as contract
 
 

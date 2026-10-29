@@ -1,0 +1,23 @@
+{
+  "reason": "validation_hook requires all declared inputs inside its own experiment directory",
+  "preserved_build_job": "996837",
+  "copied_dispatch_source": "experiments/EXP-128/scripts/cc_dispatch.py",
+  "copied_dispatch_sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3",
+  "utility_function_origins": {
+    "validate_cc_local_grouped.py": [
+      "CaseError",
+      "check_cases",
+      "read_numerical_outputs",
+      "run",
+      "write"
+    ],
+    "validate_cc_local_boundary.py": [
+      "build_switches"
+    ]
+  },
+  "coverage_origin": "/public/home/zhangkewei/zr/experiments/EXP-128/records/unified-20261021/coverage.json",
+  "coverage_sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18",
+  "historical_files_modified": false,
+  "manager_modified": false,
+  "production_source_modified": false
+}
