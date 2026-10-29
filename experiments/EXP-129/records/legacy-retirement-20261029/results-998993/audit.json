@@ -1,0 +1,64 @@
+{
+  "complete": true,
+  "jobs": {
+    "998992": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:04:55",
+      "node": "a01r3n04"
+    },
+    "998993": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:02:13",
+      "node": "a01r4n20"
+    }
+  },
+  "cases": 29,
+  "kinds": {
+    "fallback": 2,
+    "fused": 26,
+    "ordinary": 1
+  },
+  "maximum_error": 2.960594732333751e-15,
+  "raw_numerical_and_samples_rechecked": 29,
+  "raw_dispatch_traces_rechecked": 29,
+  "actual_kernel_source_hashes_rechecked": 60,
+  "source_commit": "48d6c750669c96cbdc17acc4e3443da8ab95b344",
+  "requested_cleanup_commit": "a6fc19dea8066844376e21db092a2919e88173ba",
+  "library_sha256": "70fdd33a56691336d28fa43a54855c6e1bc113c32a92ffd8419d077b738337ab",
+  "install": "/public/home/zhangkewei/zr/experiments/EXP-129/artifacts/install/EXP-129-legacy-retirement-20261029",
+  "gpu": {
+    "count": 1,
+    "uuid": "30303135333861396664316534313031",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "host_compiles": 21,
+  "generated_sources_identical": 2830,
+  "formal_performance": false,
+  "stable_promotion": false,
+  "evidence": [
+    {
+      "path": "experiments/EXP-129/runs/EXP-129-legacy-retirement-build-20261029/build-provenance.json",
+      "sha256": "7c6d03cc02a960f331746b23523cf1da77beb6a724669cdc4cc839bfe4dd443b"
+    },
+    {
+      "path": "experiments/EXP-129/runs/EXP-129-legacy-retirement-validate-20261029/legacy-retirement-validation.json",
+      "sha256": "38cf9a2a000f8cc2b5fe2fb6cf6d69aeb841404d6619689aef2e5e52802977a9"
+    },
+    {
+      "path": "experiments/EXP-129/runs/EXP-129-legacy-retirement-validate-20261029/post-build-validation.json",
+      "sha256": "222fa82ad69fa6e8975fcbed28f75954ef1fa2fd493b27ad73e701fc44530584"
+    },
+    {
+      "path": "experiments/EXP-129/runs/EXP-129-legacy-retirement-validate-20261029/submit-manifest.json",
+      "sha256": "af5f7fc52429945de6db8e0ae63c0118452076990768453629dc0f0e3a4959e0"
+    },
+    {
+      "path": "experiments/EXP-129/records/legacy-retirement-20261029/host-preflight.json",
+      "sha256": "cee969b3a4a074292eb3cbe3075c6059d84ce2cc07cb49230966a775a5d4a89b"
+    }
+  ]
+}
