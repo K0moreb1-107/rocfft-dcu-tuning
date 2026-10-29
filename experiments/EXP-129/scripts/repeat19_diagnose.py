@@ -91,7 +91,18 @@ def profile(binary, n, func, env, folder):
     evidence['sources'] = actual_sources((metadata/'rtc.txt').read_text(), names)
     mgr.require(all(s['available'] for s in evidence['sources'].values()), 'actual RTC source missing')
     evidence['launch_geometry'] = re.findall(r'GridParams\n(.*?)End GridParams', plan, re.S)[-1].strip()
-    evidence['occupancy'] = re.findall(r'Kernel occupancy:\s*(\d+)', plan)[-len(names):]
+    evidence['occupancy'] = re.findall(r'Kernel occupancy:\s*(\d+)', plan)[-len(names):] or None
+    timers = sorted((e for e in events if e.get('cat') == 'HIP' and e['name'] == 'hipEventRecord'),
+                    key=lambda e: int(e['args']['index']))
+    thread = (timers[0]['args']['pid'], timers[0]['args']['tid'])
+    launches = [e for e in events if e.get('cat') == 'HIP' and 'LaunchKernel' in e['name']
+                and (e['args']['pid'], e['args']['tid']) == thread]
+    groups = [[e for e in launches if int(start['args']['index']) < int(e['args']['index']) < int(stop['args']['index'])]
+              for start, stop in zip(timers[20::2], timers[21::2])]
+    groups = [sorted(group, key=lambda e: int(e['args']['index'])) for group in groups]
+    evidence['host_launch_api_sum_us'] = stats([sum(float(e['dur']) for e in group) for group in groups])
+    evidence['host_submission_span_us'] = stats([float(group[-1]['ts'])+float(group[-1]['dur'])-float(group[0]['ts'])
+                                                for group in groups])
     evidence['numerical'] = numerical
     evidence['profile_numerical'] = profile_check
     evidence['paths'] = dict(metadata=str(metadata), profile=str(profiled))
@@ -105,8 +116,10 @@ def compare(pair):
     sources_equal = names_equal and before['sources'] == after['sources']
     geometry_equal = before['launch_geometry'] == after['launch_geometry']
     result = dict(same_kernel_sequence=names_equal, same_actual_sources=sources_equal,
-                  same_launch_geometry=geometry_equal, same_occupancy=before['occupancy'] == after['occupancy'])
-    for key in ('window_kernel_sum_us', 'window_device_span_us', 'window_gap_us'):
+                  same_launch_geometry=geometry_equal,
+                  same_occupancy=before['occupancy'] == after['occupancy'] if before['occupancy'] and after['occupancy'] else None)
+    for key in ('window_kernel_sum_us', 'window_device_span_us', 'window_gap_us',
+                'host_launch_api_sum_us', 'host_submission_span_us'):
         result[key] = {arm: pair[arm][key] for arm in pair}
         result[key]['candidate_minus_previous_median_us'] = after[key]['median']-before[key]['median']
     if names_equal:
@@ -138,6 +151,8 @@ def main():
         record.update(complete=True, decision='No median ratio below 1; detailed profiling skipped.')
         save()
         return
+    for part in ('common', *cfg['arms']):
+        (a.cache/part).mkdir()
     env = mgr.environment(a.cache/'common')
     env['FFT_TEST_ITERS'] = '30'
     install = mgr.inside(cfg['arms']['candidate']['install'])
