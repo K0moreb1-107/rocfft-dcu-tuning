@@ -1,0 +1,148 @@
+{
+  "complete": true,
+  "job_id": "996875",
+  "validation_job": "996874",
+  "build_job": "996837",
+  "cases": 393,
+  "processes": 1179,
+  "formal_samples": 35370,
+  "warmups": 10,
+  "samples_per_process": 30,
+  "all_numerical_checks_passed": true,
+  "max_numerical_error": 5.0330110449673766e-15,
+  "independent_validation_cases": 67,
+  "actual_path_comparison_to_saved_v6": {
+    "matching_cases": 56,
+    "differences": []
+  },
+  "host": "a03r1n08",
+  "gpu": {
+    "count": 1,
+    "uuid": "30303134626138613338656133306131",
+    "arch": "gfx936:sramecc+:xnack-",
+    "runtime_version": 60326113,
+    "driver_version": 60326113
+  },
+  "start": "2026-10-29T08:22:01.443142+00:00",
+  "end": "2026-10-29T09:11:56.043881+00:00",
+  "summary": {
+    "d2z_1d": {
+      "cases": 194,
+      "previous": {
+        "median_case_speedup": 1.0,
+        "faster": 77,
+        "equal": 43,
+        "slower": 74,
+        "below_095": 12,
+        "within_095_105": 168,
+        "above_105": 14,
+        "clear_faster": 2,
+        "clear_slower": 2,
+        "unclear": 190,
+        "iqr_overlap": 184,
+        "order_effect": 100
+      },
+      "baseline": {
+        "median_case_speedup": 1.2817157665147882,
+        "faster": 187,
+        "equal": 0,
+        "slower": 7,
+        "below_095": 3,
+        "within_095_105": 6,
+        "above_105": 185,
+        "clear_faster": 80,
+        "clear_slower": 2,
+        "unclear": 112,
+        "iqr_overlap": 8,
+        "order_effect": 109
+      }
+    },
+    "z2d_1d": {
+      "cases": 194,
+      "previous": {
+        "median_case_speedup": 1.0,
+        "faster": 69,
+        "equal": 51,
+        "slower": 74,
+        "below_095": 7,
+        "within_095_105": 173,
+        "above_105": 14,
+        "clear_faster": 1,
+        "clear_slower": 2,
+        "unclear": 191,
+        "iqr_overlap": 188,
+        "order_effect": 100
+      },
+      "baseline": {
+        "median_case_speedup": 1.2636851353977847,
+        "faster": 191,
+        "equal": 0,
+        "slower": 3,
+        "below_095": 1,
+        "within_095_105": 12,
+        "above_105": 181,
+        "clear_faster": 73,
+        "clear_slower": 1,
+        "unclear": 120,
+        "iqr_overlap": 8,
+        "order_effect": 118
+      }
+    },
+    "z2z_1d": {
+      "cases": 5,
+      "previous": {
+        "median_case_speedup": 1.0053451798563666,
+        "faster": 3,
+        "equal": 2,
+        "slower": 0,
+        "below_095": 0,
+        "within_095_105": 5,
+        "above_105": 0,
+        "clear_faster": 0,
+        "clear_slower": 0,
+        "unclear": 5,
+        "iqr_overlap": 5,
+        "order_effect": 1
+      },
+      "baseline": {
+        "median_case_speedup": 1.0026809855640006,
+        "faster": 3,
+        "equal": 1,
+        "slower": 1,
+        "below_095": 0,
+        "within_095_105": 5,
+        "above_105": 0,
+        "clear_faster": 0,
+        "clear_slower": 0,
+        "unclear": 5,
+        "iqr_overlap": 5,
+        "order_effect": 1
+      }
+    }
+  },
+  "below_095_previous": 19,
+  "clear_below_095_previous": 3,
+  "queue_completion": {
+    "complete": true,
+    "formal": false,
+    "measurement_run": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-gate-simplification-performance-20261029"
+  },
+  "arms": {
+    "baseline": {
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i"
+    },
+    "previous": {
+      "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+      "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-row-output-v6-20261028"
+    },
+    "candidate": {
+      "source_commit": "cbfe5150947320cc193ca16650d69b018d6d0d6a",
+      "library_sha256": "830990d8bf8b2c2033712fd0b5590791a81f93f1434f2a4fe469d2c2cfa69567",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-129/artifacts/install/EXP-129-gate-simplification-20261029"
+    }
+  },
+  "interpretation": "Descriptive comparison; IQR overlap or first/last-half drift is marked unclear. One fresh process per case/version does not establish cross-run stability. Correctness passed; slower cases remain unresolved; no automatic promotion or rerun."
+}

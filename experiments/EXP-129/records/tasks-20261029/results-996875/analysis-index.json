@@ -1,0 +1,27 @@
+{
+  "job_id": "996875",
+  "audit_complete": true,
+  "files": [
+    {
+      "path": "experiments/EXP-129/records/tasks-20261029/results-996875/audit-and-statistics.json",
+      "sha256": "07f8de9fbb7d8993d4d99fcdfd9bad63b7cefda8d54d189dd67fe1445cf97f14"
+    },
+    {
+      "path": "experiments/EXP-129/records/tasks-20261029/results-996875/结果分析.md",
+      "sha256": "0897ec977ff04832ed9c4ee06765222a01628cdbbefcea1004bdc798cb674b04"
+    },
+    {
+      "path": "experiments/EXP-129/records/tasks-20261029/results-996875/全部尺寸.csv",
+      "sha256": "5ff5763f2ca0ce99f5c8f52740d7e93a9d8377243257cab88452011a74efacfc"
+    },
+    {
+      "path": "experiments/EXP-129/records/tasks-20261029/results-996875/相对V6低于095.csv",
+      "sha256": "d4ecb15cc1da7764f6f473322fb27a3d09a4321034275f7378ebe0e46f213ee6"
+    }
+  ],
+  "raw_process_evidence": "experiments/EXP-129/runs/EXP-129-gate-simplification-performance-20261029",
+  "existing_scatter_and_order_plots": "experiments/EXP-129/runs/EXP-129-gate-simplification-performance-20261029/plots",
+  "source_and_schedule_audit": "Existing strict aggregate verified all process evidence hashes, GPU/job identity, schedule and all 30-sample checks.",
+  "new_jobs_submitted": false,
+  "stable_promoted": false
+}

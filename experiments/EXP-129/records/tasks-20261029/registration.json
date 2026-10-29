@@ -72,10 +72,14 @@
   },
   "reference_builds": false,
   "source_freeze": false,
-  "submission": "submitted",
+  "submission": "completed_and_audited",
   "job_ids": {
     "build": "996837",
     "validation": "996874",
     "performance": "996875"
-  }
+  },
+  "result_audit": "experiments/EXP-129/records/tasks-20261029/results-996875/audit-and-statistics.json",
+  "all_numerical_checks_passed": true,
+  "performance_regressions_unresolved": true,
+  "stable_promoted": false
 }
