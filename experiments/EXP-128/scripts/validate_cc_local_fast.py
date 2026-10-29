@@ -1,7 +1,7 @@
-"""EXP128 bounded regression: fixed callback bug and six default CC geometries.
+"""EXP128 bounded device checks for an explicitly registered validation profile.
 
-This is a 300-second regression gate, not the retired full native matrix.
-Formal v3 timing separately checks every measured N/type outside its window.
+The measurement profile checks N>65536, unit scale and no user callbacks.
+The extended profile retains the separate legacy compatibility regressions.
 """
 import argparse
 import datetime
@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT/'tools/fft_measurement'))
 from tools.workspace_manager import manager as mgr
 from tools.workspace_manager.validation_finish import finish
-from cc_fusion_ab_references import references
+from cc_fusion_ab_references import references, PATTERNS
 from audit_cc_coverage import parse_mapping, validate_coverage
 
 # Parity, row tail, both load backends, scalar column storage and long row.
@@ -42,6 +42,12 @@ def worker():
         parser.add_argument('--'+name, type=Path, required=True)
     a = parser.parse_args()
     cfg = mgr.load(a.config)
+    profile = cfg['validation'].get('profile', 'extended-regression')
+    mgr.require(profile in ('extended-regression', 'measurement-default'), 'unknown validation profile')
+    measurement_default = profile == 'measurement-default'
+    modes = ('plain',) if measurement_default else ('callbacks', 'plain')
+    patterns = PATTERNS if measurement_default else ('impulse', 'random')
+    scales = (1.,) if measurement_default else (1., .375)
     mgr.require(cfg['validation'].get('budget_seconds') == BUDGET_SECONDS
         and tuple(cfg['validation'].get('sample_N', ())) == SAMPLE_N, 'bounded regression config mismatch')
     built = json.loads(a.build_record.read_text())
@@ -65,7 +71,9 @@ def worker():
     selected = dict(env, LD_PRELOAD=str(lib),
         LD_LIBRARY_PATH=str(install/'lib')+':'+env['LD_LIBRARY_PATH'])
     here = Path(__file__).resolve().parent
-    record = dict(complete=False, formal=False, scope='300-second targeted regression',
+    record = dict(complete=False, formal=False, scope=cfg['validation'].get('scope', '300-second targeted regression'),
+        profile=profile, callbacks_enabled=not measurement_default, scales=scales,
+        known_limitations=cfg['validation'].get('known_limitations', []),
         budget_seconds=BUDGET_SECONDS, source_commit=built['arm']['source_commit'],
         library_sha256=built['arm']['library_sha256'], coverage_sha256=mgr.common.sha(coverage_path),
         coverage_audit=audit, controls=[], public=[],
@@ -99,7 +107,7 @@ def worker():
         log = folder/key
         try:
             manifest, meta = references(n, direction, callback, scratch,
-                ('impulse', 'random'), (1., .375))
+                patterns, scales)
             run([guard, n, direction, manifest, mode], log, 'guard', dict(selected,
                 ROCFFT_LAYER='40', ROCFFT_LOG_PLAN_PATH=str(log/'plan.txt'),
                 ROCFFT_LOG_RTC_PATH=str(log/'rtc.txt')))
@@ -143,15 +151,17 @@ def worker():
         text = (build/'CMakeCache.txt').read_text()
         mgr.require('ROCFFT_CC_REAL_FUSION:BOOL=ON' in text
             and 'ROCFFT_CC_LOCAL_REAL_FUSION:BOOL=ON' in text, 'wrong fusion switches')
-        # Fail on the previously missed callback contract before doing new-path samples.
-        for direction in ('z2d', 'd2z'):
-            for mode in ('callbacks', 'load', 'store', 'plain'):
-                check({'N': 65536}, direction, mode, True)
+        # Legacy compatibility is separate from an explicitly registered measurement scope.
+        if not measurement_default:
+            for direction in ('z2d', 'd2z'):
+                for mode in ('callbacks', 'load', 'store', 'plain'):
+                    check({'N': 65536}, direction, mode, True)
         for n in SAMPLE_N:
             for direction in ('z2d', 'd2z'):
-                for mode in ('callbacks', 'plain'):
+                for mode in modes:
                     check(by_n[n], direction, mode)
-        mgr.require(len(record['controls']) == 8 and len(record['public']) == 24,
+        mgr.require(len(record['controls']) == (0 if measurement_default else 8)
+            and len(record['public']) == len(SAMPLE_N)*2*len(modes),
                     'targeted matrix incomplete')
         finish(record, built, gpu, env, lib, identity)
     except Exception as error:
