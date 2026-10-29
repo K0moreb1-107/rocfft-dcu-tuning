@@ -1,0 +1,29 @@
+{
+  "complete": true,
+  "jobs": [
+    "997635",
+    "997636",
+    "997637",
+    "997638"
+  ],
+  "formal_processes": 114,
+  "formal_samples": 3420,
+  "max_numerical_error": 3.2566542055671257e-15,
+  "diagnosed_cases": 10,
+  "diagnostic_processes": 40,
+  "all_diagnosed_sources_names_geometry_occupancy_identical": true,
+  "below095_all_three": 0,
+  "median_ratio_below095": [
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "ratio": 0.9347826196989905
+    }
+  ],
+  "report_sources_sha256": {
+    "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-diagnose-20261029/repeat19-analysis/repeat-summary.json": "0011f6fa294d839d083bb61c360a49184f78dd0a7d6db3c6fb8b11d9cb82fc4f",
+    "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-diagnose-20261029/repeat19-analysis/diagnostic-summary.json": "6d78d1220562eb0028f9aba01552b069876003f500beea422363eada425578fb",
+    "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-diagnose-20261029/diagnostic-validation.json": "a5a0d7b9963da298bd8bbd6bc615ffc99c8fe69d53066415a448526ec4f3f365",
+    "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-diagnose-20261029/logs/diagnostic.txt": "5589a20df96f75565297c1e7136d2de7036a175a7191bbdf6222a2e2297258d8"
+  }
+}
