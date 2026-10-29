@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-legacy-retirement-validate-20261029",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:10:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-129-legacy-retirement-20261029",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "a6fc19dea8066844376e21db092a2919e88173ba",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON"
+    }
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-129-gate-simplification",
+  "acceptance": "Two-size smoke first; aggregate remaining numerical/path failures.",
+  "reference_policy": "Reuse retained EXP129/V6/EXP125; no reference rebuild or performance task.",
+  "starting_experiment_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f",
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/validate_legacy_retirement.py",
+    "sha256": "744b1711375624b2b4f86b6abfdf254bfbedad5ea152bc0c45ac482e42868140",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/gate_validation_support.py",
+        "sha256": "e0af050d786a834b9dce1dc586962902461661771de0a408c54e1a1591bc4979"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/records/legacy-retirement-20261029/coverage.json",
+        "sha256": "6574f52345721f583a4da4db8812f8883eea44bb42cfb7f0b3c3ad5a13098f59"
+      }
+    ]
+  },
+  "validation": {
+    "profile": "cc-legacy-retirement-two-checks",
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-129/records/legacy-retirement-20261029/coverage.json",
+    "smoke_N": [
+      65536,
+      69938
+    ],
+    "sample_N": [
+      65536,
+      131072,
+      262144,
+      524288,
+      1048576,
+      65856,
+      67600,
+      69938,
+      72250,
+      75000,
+      86528,
+      133100,
+      2725888
+    ],
+    "fallback_N": [
+      32768
+    ],
+    "ordinary_N": [
+      131072
+    ],
+    "scope": "Numerical correctness and actual default paths: thirteen CC real sizes in both directions, both real fallbacks below the fusion range, one ordinary CC case. No publication checks."
+  },
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-legacy-retirement-build-20261029/build-provenance.json",
+    "evidence_record": "legacy-retirement-validation.json",
+    "isolated_helpers": false
+  }
+}
