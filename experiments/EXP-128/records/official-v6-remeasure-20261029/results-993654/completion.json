@@ -1,0 +1,21 @@
+{
+  "job_id": "993654",
+  "state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed": "00:33:35",
+  "host": "a03r1n03",
+  "scheduler_evidence": {
+    "command": [
+      "sacct",
+      "-j",
+      "993654",
+      "--format=JobID,State,ExitCode,Elapsed,Start,End,NodeList",
+      "-P"
+    ],
+    "code": 0,
+    "stdout": "JobID|State|ExitCode|Elapsed|Start|End|NodeList\n993654|COMPLETED|0:0|00:33:35|2026-10-29T01:14:09|2026-10-29T01:47:44|a03r1n03\n993654.batch|COMPLETED|0:0|00:33:35|2026-10-29T01:14:09|2026-10-29T01:47:44|a03r1n03\n993654.extern|COMPLETED|0:0|00:33:35|2026-10-29T01:14:09|2026-10-29T01:47:44|a03r1n03\n993654.0|COMPLETED|0:0|00:33:34|2026-10-29T01:14:10|2026-10-29T01:47:44|a03r1n03\n",
+    "stderr": ""
+  },
+  "analysis_status": "Complete: 776 numerical checks and every preregistered raw evidence hash verified; no failed processes.",
+  "analysis_plot_status": "All 388 cases and 23280 points embedded; JavaScript syntax verified."
+}
