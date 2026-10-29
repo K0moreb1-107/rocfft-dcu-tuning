@@ -57,11 +57,6 @@ TreeNode::~TreeNode()
         Repo::ReleaseTwiddle1D(local_real_twiddles);
         local_real_twiddles = nullptr;
     }
-    if(real_post_twiddles)
-    {
-        Repo::ReleaseTwiddle1D(real_post_twiddles);
-        real_post_twiddles = nullptr;
-    }
     if(cc_boundary_twiddles)
     {
         Repo::ReleaseTwiddle1D(cc_boundary_twiddles);
@@ -297,32 +292,16 @@ bool LeafNode::CreateDeviceResources()
                                                                 kernelFactors);
     }
 
-    if(real_io.role == RealBlockRole::LocalRealRows)
+    const auto phase_length = real_io.SmallPhaseLength();
+    if(phase_length)
     {
         std::tie(local_real_twiddles, local_real_twiddles_size)
-            = Repo::GetTwiddles1D(2 * real_io.rows, real_io.rows / 2,
-                                  precision, deviceProp, 0, false, {});
-    }
-    if(real_io.IsCCLocal() && real_io.SmallPhaseLength())
-    {
-        const auto l=real_io.SmallPhaseLength();
-        std::tie(local_real_twiddles,local_real_twiddles_size)
-            = Repo::GetTwiddles1D(2*l,(l+1)/2,precision,deviceProp,0,false,{});
+            = Repo::GetTwiddles1D(
+                2 * phase_length, (phase_length + 1) / 2, precision, deviceProp, 0, false, {});
     }
     if(real_io.HasBoundaryLargePhase())
         std::tie(cc_boundary_twiddles,cc_boundary_twiddles_size)
             = Repo::GetTwiddles1D(real_io.n,0,precision,deviceProp,8,false,{});
-    if(real_io.role == RealBlockRole::PairedPostRows)
-    {
-        const auto kernel         = GetKernel();
-        const auto rows_per_block = kernel.transforms_per_block;
-        if(rows_per_block == 0 || kernel.workgroup_size
-                                    != rows_per_block * kernel.threads_per_transform[0])
-            throw std::runtime_error("paired real post kernel geometry mismatch");
-        std::tie(real_post_twiddles, real_post_twiddles_size)
-            = Repo::GetPackedRealPostTwiddles(
-                real_io.n, real_io.rows, rows_per_block, precision, deviceProp);
-    }
     return CreateLargeTwdTable();
 }
 

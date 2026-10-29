@@ -21,8 +21,6 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
     bool use_static_initial_reg_load() const override { return true; }
     bool use_large_twiddle_recurrence() const override
     {
-        if (io.role != RealBlockRole::FoldedPackedColumns)
-            return StockhamKernelCC::use_large_twiddle_recurrence();
         // A multi-step lookup is amortized across the final butterfly.
         // Keep the policy independent of the column and full transform lengths.
         return phase_steps >= 2 && factors.back() >= 4 && precisions.size() == 1
@@ -95,11 +93,9 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
                     value = Ternary { Expression { Or {
                                           col == 0, col == static_cast<unsigned int>(io.rows) } },
                         Expression { cache[a] }, Expression { value } };
-                Expression folded = io.role == RealBlockRole::HermitianColumns
-                    ? Expression { CallExpr { "local_real_hermitian_value", { scalar_type },
-                          { value, k > static_cast<unsigned int>(io.n / 2) } } }
-                    : Expression { CallExpr { "cc_folded_value", { scalar_type },
-                          { value, k, Literal { static_cast<unsigned int>(io.n) } } } };
+                Expression folded = CallExpr{"cc_folded_value",
+                                             {scalar_type},
+                                             {value, k, Literal{static_cast<unsigned int>(io.n)}}};
                 return StatementList { Assign { R[reg], folded } };
             });
         s += If { col <= static_cast<unsigned int>(io.rows), loads };

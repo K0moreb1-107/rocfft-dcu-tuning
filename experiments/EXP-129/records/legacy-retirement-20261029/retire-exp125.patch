@@ -1,0 +1,1359 @@
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/CMakeLists.txt
+@@ -23,10 +23,8 @@
+ # ########################################################################
+ # A helper function to prefix a source list of files with a common path into a new list (non-destructive)
+ # ########################################################################
+-option(ROCFFT_CC_REAL_FUSION "Enable real boundary fusion, including EXP125 legacy kernels" ON)
+-option(ROCFFT_CC_LOCAL_REAL_FUSION "Enable EXP128 packed local CC real boundaries" ON)
+-add_compile_definitions(ROCFFT_CC_REAL_FUSION=$<BOOL:${ROCFFT_CC_REAL_FUSION}>
+-                        ROCFFT_CC_LOCAL_REAL_FUSION=$<BOOL:${ROCFFT_CC_LOCAL_REAL_FUSION}>)
++option(ROCFFT_CC_REAL_FUSION "Enable CC real boundary fusion" ON)
++add_compile_definitions(ROCFFT_CC_REAL_FUSION=$<BOOL:${ROCFFT_CC_REAL_FUSION}>)
+ 
+ function( prepend_path prefix source_list_of_files return_list_of_files )
+   foreach( file ${${source_list_of_files}} )
+@@ -176,8 +174,6 @@
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cr.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_rc.h
+-     ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_local_real.h
+-     ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_real_post.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_common.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_columns.h
+      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_rows.h
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/repo.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/repo.cpp
+@@ -192,29 +192,6 @@
+         });
+ }
+ 
+-std::pair<void*, size_t> Repo::GetPackedRealPostTwiddles(size_t                 length,
+-                                                          size_t                 rows,
+-                                                          size_t                 rows_per_block,
+-                                                          rocfft_precision       precision,
+-                                                          const hipDeviceProp_t& deviceProp)
+-{
+-    if(rows == 0 || rows % 2 != 0 || rows_per_block == 0 || rows_per_block % 2 != 0
+-       || length == 0 || length % rows != 0 || (length / rows) % 2 != 0
+-       || (length / rows / 2) % rows_per_block != 0)
+-        throw std::runtime_error("invalid packed real post twiddle geometry");
+-
+-    std::lock_guard<std::mutex> lck(mtx);
+-    Repo&                       repo = Repo::GetRepo();
+-    repo_twd_key_1D_t key{length, length / 4, precision, 0, false, {}};
+-    key.real_post_rows           = rows;
+-    key.real_post_rows_per_block = rows_per_block;
+-    return GetTwiddlesInternal(
+-        key, repo.twiddles_1D, repo.twiddles_1D_reverse, [&](unsigned int deviceId) {
+-            return twiddles_create_packed_real_post(
+-                length, rows, rows_per_block, precision, deviceProp, deviceId);
+-        });
+-}
+-
+ std::pair<void*, size_t> Repo::GetTwiddles2D(size_t                     length0,
+                                              size_t                     length1,
+                                              rocfft_precision           precision,
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_gen.cpp
+@@ -35,8 +35,6 @@
+ #include "device/generator/stockham_gen_cc.h"
+ #include "device/generator/stockham_gen_cr.h"
+ #include "device/generator/stockham_gen_rc.h"
+-#include "device/generator/stockham_gen_local_real.h"
+-#include "device/generator/stockham_gen_real_post.h"
+ #include "device/generator/stockham_gen_cc_real_columns.h"
+ #include "device/generator/stockham_gen_cc_real_rows.h"
+ #include "device/generator/stockham_gen_rr.h"
+@@ -260,30 +258,13 @@
+         kernel_name += "_ordtwrec128k";
+     if(specs.real_io.role != RealBlockRole::None)
+     {
+-        if(specs.real_io.IsCCLocal())
+-        {
+-            kernel_name+="_cc_local_v6_role"+std::to_string(static_cast<int>(specs.real_io.role));
+-            kernel_name+="_C"+std::to_string(specs.real_io.columns)+"_Q"+std::to_string(specs.real_io.rows);
+-            if(specs.real_io.role==RealBlockRole::LocalPostColumns)
+-                kernel_name+=specs.half_lds?"_scalar_exchange":"_complex_exchange";
+-        }
+-        else if(specs.real_io.role == RealBlockRole::PairedPostRows)
+-            kernel_name += "_paired_post_rows";
+-        else
+-            kernel_name += specs.real_io.role == RealBlockRole::HermitianColumns
+-                               ? "_local_real_columns" : "_local_real_rows";
++        kernel_name += "_cc_local_v6_role" + std::to_string(static_cast<int>(specs.real_io.role));
++        kernel_name += "_C" + std::to_string(specs.real_io.columns) + "_Q"
++                       + std::to_string(specs.real_io.rows);
++        if(specs.real_io.role == RealBlockRole::LocalPostColumns)
++            kernel_name += specs.half_lds ? "_scalar_exchange" : "_complex_exchange";
+         kernel_name += "_N" + std::to_string(specs.real_io.n);
+         kernel_name += specs.real_io.load == RealBlockLoad::Registers ? "_reg" : "_lds";
+-        if(specs.real_io.role == RealBlockRole::HermitianColumns && cbtype != CallbackType::NONE)
+-            kernel_name += "_unique_load_v1";
+-        if(specs.real_io.role == RealBlockRole::LocalRealRows)
+-            kernel_name += local_real_twiddle_suffix(
+-                local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
+-        if(specs.real_io.role == RealBlockRole::PairedPostRows)
+-        {
+-            kernel_name += "_twd_packed";
+-            kernel_name += cbtype == CallbackType::NONE ? "_post_preload" : "_post_stream";
+-        }
+     }
+     return kernel_name;
+ }
+@@ -362,9 +343,6 @@
+                     specs,cbtype!=CallbackType::NONE,largeTwdSteps);
+             else if(specs.real_io.role == RealBlockRole::LocalPostColumns)
+                 kernel=std::make_unique<StockhamKernelLocalPostColumns>(specs);
+-            else if(specs.real_io.role == RealBlockRole::HermitianColumns)
+-                kernel = std::make_unique<StockhamKernelHermitianColumns>(
+-                    specs, largeTwdBatchIsTransformCount, cbtype != CallbackType::NONE);
+             else
+                 kernel = std::make_unique<StockhamKernelCC>(specs, largeTwdBatchIsTransformCount, fuseBluestein);
+         }
+@@ -379,11 +357,6 @@
+                 kernel=std::make_unique<StockhamKernelPackedInverseRows>(specs);
+             else if(specs.real_io.role == RealBlockRole::FoldedSpectrumRows)
+                 kernel=std::make_unique<StockhamKernelFoldedSpectrumRows>(specs);
+-            else if(specs.real_io.role == RealBlockRole::LocalRealRows)
+-                kernel = std::make_unique<StockhamKernelLocalRealRows>(
+-                    specs, local_real_twiddle_load(specs.real_io, cbtype != CallbackType::NONE));
+-            else if(specs.real_io.role == RealBlockRole::PairedPostRows)
+-                kernel = std::make_unique<StockhamKernelPairedPostRows>(specs, cbtype == CallbackType::NONE);
+             else
+                 kernel = std::make_unique<StockhamKernelRC>(specs, fuseBluestein);
+         }
+@@ -520,12 +493,6 @@
+     if(scheme != CS_KERNEL_STOCKHAM_BLOCK_CC && scheme != CS_KERNEL_STOCKHAM_PP_BLOCK_CC)
+         src += real2complex_device_h;
+ 
+-    if(specs.real_io.role == RealBlockRole::HermitianColumns
+-       || specs.real_io.role == RealBlockRole::LocalRealRows)
+-        src += local_real_device_helpers();
+-    if(specs.real_io.role == RealBlockRole::PairedPostRows)
+-        src += real_post_device_helpers(specs.real_io,
+-                                       specs.workgroup_size / specs.threads_per_transform);
+     if(specs.real_io.IsCCLocal())
+         src+=cc_real_device_helpers();
+ 
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
+@@ -125,24 +125,6 @@
+                                                  specs->workgroup_size))
+                 specs->real_io.load = RealBlockLoad::LDS;
+             break;
+-        case RealBlockRole::LocalRealRows:
+-            specs->direct_to_from_reg             = true;
+-            specs->static_initial_reg_load        = true;
+-            specs->static_initial_reg_load_linear = true;
+-            break;
+-        case RealBlockRole::PairedPostRows:
+-            // Preserve scalar LDS exchanges when callbacks require the ordinary load.
+-            specs->direct_to_from_reg = true;
+-            specs->static_initial_reg_load
+-                = node.real_io.load == RealBlockLoad::Registers
+-                  && callback_type == CallbackType::NONE;
+-            specs->static_initial_reg_load_linear = specs->static_initial_reg_load;
+-            break;
+-        case RealBlockRole::HermitianColumns:
+-            // The ordinary CC LDS entry uses an unswizzled complex staging layout.
+-            if(node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
+-                specs->half_lds = false;
+-            [[fallthrough]];
+         default:
+             specs->static_initial_reg_load = ordinary_sbrc && sbrc_static_load_available(*specs);
+             specs->static_initial_reg_load_linear
+@@ -153,8 +135,7 @@
+ 
+         // This exact map already satisfies the static-load geometry.  CC-local
+         // kernels retain the ordinary recurrence selected before overriding loads.
+-        if(ordinary_sbrc && node.real_io.role != RealBlockRole::LocalRealRows
+-           && node.real_io.role != RealBlockRole::PairedPostRows && specs->length == 512
++        if(ordinary_sbrc && specs->length == 512
+            && specs->workgroup_size == 512 && specs->threads_per_transform == 128
+            && specs->factors == std::vector<unsigned int>{8, 8, 8})
+         {
+@@ -352,12 +333,7 @@
+             kargs.append_ptr(data.bufOut[1]);
+     }
+ 
+-    if(data.node->real_io.role == RealBlockRole::LocalRealRows)
+-        kargs.append_ptr(data.node->local_real_twiddles);
+-
+-    if(data.node->real_io.role == RealBlockRole::PairedPostRows)
+-        kargs.append_ptr(data.node->real_post_twiddles);
+-    if(data.node->real_io.IsCCLocal() && data.node->real_io.SmallPhaseLength())
++    if(data.node->real_io.SmallPhaseLength())
+         kargs.append_ptr(data.node->local_real_twiddles);
+     if(data.node->real_io.HasBoundaryLargePhase())
+         kargs.append_ptr(data.node->cc_boundary_twiddles);
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_twiddle_gen.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_twiddle_gen.cpp
+@@ -43,9 +43,6 @@
+     case TwiddleTableType::PARTIAL_PASS_N:
+         kernel_name += "_pp_N";
+         break;
+-    case TwiddleTableType::PACKED_REAL_POST:
+-        kernel_name += "_packed_real_post";
+-        break;
+     }
+     kernel_name += rtc_precision_name(precision);
+     return kernel_name;
+@@ -65,7 +62,6 @@
+         break;
+     case TwiddleTableType::LENGTH_N:
+     case TwiddleTableType::HALF_N:
+-    case TwiddleTableType::PACKED_REAL_POST:
+         bounds += std::to_string(TWIDDLES_THREADS);
+         break;
+     }
+@@ -107,9 +103,6 @@
+         args += "size_t N";
+         args += ", scalar_type* output";
+         break;
+-    case TwiddleTableType::PACKED_REAL_POST:
+-        args += "size_t N, size_t rows, size_t rows_per_block, scalar_type* output";
+-        break;
+     }
+     args += ")";
+     return args;
+@@ -157,26 +150,6 @@
+ 
+             output[i].x = c;
+             output[i].y = s;
+-        }
+-        )_SRC";
+-        break;
+-    case TwiddleTableType::PACKED_REAL_POST:
+-        body += R"_SRC(
+-        const size_t j = threadIdx.x + blockIdx.x * blockDim.x;
+-        if(j < N / 4)
+-        {
+-            const size_t columns = N / (2 * rows);
+-            const size_t block = j / (rows_per_block * (rows / 2));
+-            const size_t slot = j % rows_per_block;
+-            const size_t column = (j / rows_per_block) % (rows / 2);
+-            const size_t half = rows_per_block / 2;
+-            const size_t s = block * half + slot % half;
+-            const size_t row = slot < half ? s : (s == 0 ? columns / 2 : columns - s);
+-            const size_t k = row + columns * column;
+-            double c = cos(TWO_PI * k / N);
+-            double s_phase = sin(TWO_PI * k / N);
+-            output[j].x = c;
+-            output[j].y = s_phase;
+         }
+         )_SRC";
+         break;
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node.cpp
+@@ -57,11 +57,6 @@
+         Repo::ReleaseTwiddle1D(local_real_twiddles);
+         local_real_twiddles = nullptr;
+     }
+-    if(real_post_twiddles)
+-    {
+-        Repo::ReleaseTwiddle1D(real_post_twiddles);
+-        real_post_twiddles = nullptr;
+-    }
+     if(cc_boundary_twiddles)
+     {
+         Repo::ReleaseTwiddle1D(cc_boundary_twiddles);
+@@ -297,32 +292,16 @@
+                                                                 kernelFactors);
+     }
+ 
+-    if(real_io.role == RealBlockRole::LocalRealRows)
++    const auto phase_length = real_io.SmallPhaseLength();
++    if(phase_length)
+     {
+         std::tie(local_real_twiddles, local_real_twiddles_size)
+-            = Repo::GetTwiddles1D(2 * real_io.rows, real_io.rows / 2,
+-                                  precision, deviceProp, 0, false, {});
+-    }
+-    if(real_io.IsCCLocal() && real_io.SmallPhaseLength())
+-    {
+-        const auto l=real_io.SmallPhaseLength();
+-        std::tie(local_real_twiddles,local_real_twiddles_size)
+-            = Repo::GetTwiddles1D(2*l,(l+1)/2,precision,deviceProp,0,false,{});
++            = Repo::GetTwiddles1D(
++                2 * phase_length, (phase_length + 1) / 2, precision, deviceProp, 0, false, {});
+     }
+     if(real_io.HasBoundaryLargePhase())
+         std::tie(cc_boundary_twiddles,cc_boundary_twiddles_size)
+             = Repo::GetTwiddles1D(real_io.n,0,precision,deviceProp,8,false,{});
+-    if(real_io.role == RealBlockRole::PairedPostRows)
+-    {
+-        const auto kernel         = GetKernel();
+-        const auto rows_per_block = kernel.transforms_per_block;
+-        if(rows_per_block == 0 || kernel.workgroup_size
+-                                    != rows_per_block * kernel.threads_per_transform[0])
+-            throw std::runtime_error("paired real post kernel geometry mismatch");
+-        std::tie(real_post_twiddles, real_post_twiddles_size)
+-            = Repo::GetPackedRealPostTwiddles(
+-                real_io.n, real_io.rows, rows_per_block, precision, deviceProp);
+-    }
+     return CreateLargeTwdTable();
+ }
+ 
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_1D.cpp
+@@ -1011,11 +1011,6 @@
+     InitIntrinsicMode();
+     // hardocded-tuning according to benchmark
+     TuneIntrinsicMode();
+-    if(real_io.role == RealBlockRole::HermitianColumns && real_io.load == RealBlockLoad::LDS)
+-    {
+-        dir2regMode = DirectRegType::FORCE_OFF_OR_NOT_SUPPORT;
+-        intrinsicMode = IntrinsicAccessType::DISABLE_BOTH;
+-    }
+     if(real_io.IsCCLocal())
+     {
+         // New column adapters provide the complete native register map.
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
+@@ -23,7 +23,6 @@
+ #include "function_pool.h"
+ #include "node_factory.h"
+ #include "real2complex.h"
+-#include <cstdlib>
+ 
+ // work out the real and complex lengths on a real-complex plan, and
+ // return pointers to those lengths
+@@ -214,9 +213,6 @@
+ #ifndef ROCFFT_CC_REAL_FUSION
+ #define ROCFFT_CC_REAL_FUSION 1
+ #endif
+-#ifndef ROCFFT_CC_LOCAL_REAL_FUSION
+-#define ROCFFT_CC_LOCAL_REAL_FUSION 1
+-#endif
+ 
+ bool RealTransEvenNode::CanFuseCCReal() const
+ {
+@@ -260,20 +256,6 @@
+     return cc_bytes <= deviceProp.sharedMemPerBlock && rc_bytes <= deviceProp.sharedMemPerBlock;
+ }
+ 
+-static RealBlockLoad real_block_load(const char* variable, const char* error)
+-{
+-    const char* value = std::getenv(variable);
+-    if(!value)
+-        return RealBlockLoad::Registers;
+-
+-    const std::string mode(value);
+-    if(mode == "registers")
+-        return RealBlockLoad::Registers;
+-    if(mode == "lds")
+-        return RealBlockLoad::LDS;
+-    throw std::runtime_error(error);
+-}
+-
+ bool RealTransEvenNode::TryBuildCCLocalTree(const TreeNode& cfft, size_t n)
+ {
+     if(n < 65536 || n > (size_t(1) << 24) || cfft.scheme != CS_L1D_CC
+@@ -290,7 +272,7 @@
+         return false;
+ 
+     const bool inverse = direction == 1;
+-    RealBlockIO io { RealBlockRole::None, RealBlockLoad::LDS, n, c, q, q };
++    RealBlockIO io{RealBlockRole::None, RealBlockLoad::LDS, n, c, q};
+     auto first = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_CC, this);
+     first->dimension = 1;
+     first->length = { c, q + (inverse ? 1 : 0) };
+@@ -340,126 +322,6 @@
+     last->AssignParams();
+ }
+ 
+-bool RealTransEvenNode::TryBuildLocalRealTree(size_t n)
+-{
+-    auto geometry = RealBlockIO::ForLength(n);
+-    if(!geometry || direction != 1)
+-        return false;
+-
+-    auto io = *geometry;
+-    io.load = real_block_load("ROCFFT_EXP125_LOCAL_REAL_LOAD",
+-                             "invalid EXP125 local real load mode");
+-    // The Q=512 producer map requires a complete 64-lane subgroup.
+-    if(io.rows == 512 && deviceProp.warpSize < 64)
+-        io.load = RealBlockLoad::LDS;
+-
+-    FMKey cc_key(io.columns, precision, CS_KERNEL_STOCKHAM_BLOCK_CC);
+-    FMKey rc_key(io.rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
+-    if(!pool.has_function(cc_key) || !pool.has_function(rc_key))
+-        return false;
+-    const auto rc = pool.get_kernel(rc_key);
+-    const size_t expected_threads = io.rows == 256 ? 32 : 128;
+-    const std::vector<size_t> expected_factors
+-        = io.rows == 256 ? std::vector<size_t>{4, 4, 4, 4}
+-                         : std::vector<size_t>{8, 8, 8};
+-    if(rc.threads_per_transform[0] != expected_threads || rc.factors != expected_factors
+-       || rc.workgroup_size % expected_threads != 0
+-       || (rc.workgroup_size / expected_threads) % 2 != 0
+-       || io.columns % rc.transforms_per_block != 0)
+-        return false;
+-
+-    auto first = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_CC, this);
+-    first->dimension = 1;
+-    first->length = {io.columns, io.rows + 1};
+-    first->outputLength = first->length;
+-    first->real_io = io;
+-    first->real_io.role = RealBlockRole::HermitianColumns;
+-    first->large1D = io.n;
+-    first->largeTwdBatchIsTransformCount = false;
+-    first->allowInplace = false;
+-    first->allowedOutBuf = OB_TEMP;
+-    first->allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+-    first->comments.push_back("EXP125 local real: folded Hermitian columns");
+-
+-    auto last = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_RC, this);
+-    last->dimension = 1;
+-    last->length = {io.rows, io.columns};
+-    last->outputLength = {io.columns, io.rows};
+-    last->real_io = io;
+-    last->real_io.role = RealBlockRole::LocalRealRows;
+-    last->allowInplace = false;
+-    last->allowedOutBuf = OB_USER_OUT;
+-    last->allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+-    last->comments.push_back("EXP125 local real: paired rows and adjacent real stores");
+-    childNodes.emplace_back(std::move(first));
+-    childNodes.emplace_back(std::move(last));
+-    local_real_pipeline = true;
+-    return true;
+-}
+-
+-bool RealTransEvenNode::TryFusePairedPost(TreeNode& cfft, size_t n)
+-{
+-    auto geometry = RealBlockIO::ForLength(n);
+-    if(!geometry || direction != -1 || cfft.scheme != CS_L1D_CC)
+-        return false;
+-
+-    if(!is_device_gcn_arch(deviceProp, "gfx936") || deviceProp.warpSize != 64)
+-        return false;
+-
+-    auto io = *geometry;
+-    io.role = RealBlockRole::PairedPostRows;
+-    io.pitch = io.rows; // Keep the ordinary packed CC intermediate matrix.
+-    io.load = real_block_load("ROCFFT_EXP125_REAL_POST_LOAD",
+-                             "invalid EXP125 real post load mode");
+-
+-    auto& first = *cfft.childNodes.front();
+-    auto& last = *cfft.childNodes.back();
+-    // The other factor and the row layout follow from the CC decomposition.
+-    if(first.length[0] != io.columns)
+-        return false;
+-    FMKey rc_key(io.rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
+-    if(!pool.has_function(rc_key))
+-        return false;
+-    const auto rc = pool.get_kernel(rc_key);
+-    const size_t threads = io.rows == 256 ? 32 : 128;
+-    const size_t workgroup = io.rows == 256 ? 256 : 512;
+-    const std::vector<size_t> factors = io.rows == 256 ? std::vector<size_t>{4, 4, 4, 4}
+-                                                     : std::vector<size_t>{8, 8, 8};
+-    if(rc.threads_per_transform[0] != threads || rc.workgroup_size != workgroup
+-       || rc.factors != factors || rc.transforms_per_block != workgroup / threads
+-       || io.columns % rc.transforms_per_block != 0)
+-        return false;
+-
+-    first.allowInplace = false;
+-    first.allowedOutBuf = OB_TEMP;
+-    first.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+-    last.real_io = io;
+-    last.allowInplace = false;
+-    last.allowedOutBuf = OB_USER_OUT;
+-    last.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
+-    last.comments.push_back("EXP125 real post: paired mirror rows and fused half spectrum stores");
+-    cfft.allowInplace = false;
+-    cfft.outputLength = {n / 2 + 1};
+-    return true;
+-}
+-
+-void RealTransEvenNode::AssignLocalRealParams()
+-{
+-    const auto& io = childNodes.front()->real_io;
+-    auto& first = childNodes.front();
+-    auto& last = childNodes.back();
+-    first->inStride = {2 * io.rows, 1};
+-    first->iDist = iDist;
+-    first->outStride = {io.pitch, 1};
+-    first->oDist = io.columns * io.pitch;
+-    last->inStride = {1, io.pitch};
+-    last->iDist = first->oDist;
+-    last->outStride = {1, io.columns};
+-    last->oDist = oDist / 2;
+-    first->AssignParams();
+-    last->AssignParams();
+-}
+-
+ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
+ {
+     bool noSolution = child_scheme_trees.empty();
+@@ -471,11 +333,6 @@
+     // Fastest moving dimension must be even:
+     if(realLength->at(0) % 2 != 0)
+         throw std::runtime_error("fastest dimension is not even in RealTransEvenNode");
+-
+-    const bool try_cc_real = noSolution && ROCFFT_CC_REAL_FUSION && CanFuseCCReal();
+-    if(try_cc_real && !ROCFFT_CC_LOCAL_REAL_FUSION
+-       && TryBuildLocalRealTree(realLength->at(0)))
+-        return;
+ 
+     // check schemes from solution map
+     ComputeScheme determined_scheme = CS_NONE;
+@@ -517,18 +374,9 @@
+     // NB: the buffer is real, but we treat it as complex
+     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
+ 
+-    if(try_cc_real)
+-    {
+-        if(ROCFFT_CC_LOCAL_REAL_FUSION && TryBuildCCLocalTree(*cfftPlan, realLength->at(0)))
+-            return;
+-        if(ROCFFT_CC_LOCAL_REAL_FUSION && TryBuildLocalRealTree(realLength->at(0)))
+-            return;
+-        if(TryFusePairedPost(*cfftPlan, realLength->at(0)))
+-        {
+-            childNodes.emplace_back(std::move(cfftPlan));
+-            return;
+-        }
+-    }
++    if(noSolution && ROCFFT_CC_REAL_FUSION && CanFuseCCReal()
++       && TryBuildCCLocalTree(*cfftPlan, realLength->at(0)))
++        return;
+ 
+     if(noSolution)
+     {
+@@ -618,26 +466,6 @@
+     if(cc_local_pipeline)
+     {
+         AssignCCLocalParams();
+-        return;
+-    }
+-    if(local_real_pipeline)
+-    {
+-        AssignLocalRealParams();
+-        return;
+-    }
+-    if(childNodes.size() == 1
+-       && childNodes.front()->GetLastLeaf()->real_io.role == RealBlockRole::PairedPostRows)
+-    {
+-        auto& fftPlan = childNodes.front();
+-        fftPlan->inStride = inStride;
+-        fftPlan->iDist = iDist / 2;
+-        fftPlan->outStride = outStride;
+-        fftPlan->oDist = oDist;
+-        fftPlan->AssignParams();
+-        const auto& last = *fftPlan->GetLastLeaf();
+-        if(last.inStride != std::vector<size_t>{1, last.real_io.rows}
+-           || last.outStride != std::vector<size_t>{1, last.real_io.columns})
+-            throw std::runtime_error("paired real post-processing requires a packed intermediate");
+         return;
+     }
+     // definitely will have FFT.  pre/post processing
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/twiddles.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/twiddles.cpp
+@@ -256,23 +256,6 @@
+         half_N = attach_halfN ? (N + 1) / 2 : 0;
+     }
+ 
+-    void GeneratePackedRealPostTable(size_t rows, size_t rows_per_block,
+-                                     hipStream_t& stream, gpubuf& output)
+-    {
+-        const auto table_length = N / 4;
+-        if(output.alloc(table_length * sizeof(T)) != hipSuccess)
+-            throw std::runtime_error("unable to allocate packed real post twiddles");
+-        auto kernel = RTCKernelTwiddle::generate(
+-            deviceProp.gcnArchName, TwiddleTableType::PACKED_REAL_POST, precision);
+-        RTCKernelArgs kargs;
+-        kargs.append_size_t(N);
+-        kargs.append_size_t(rows);
+-        kargs.append_size_t(rows_per_block);
+-        kargs.append_ptr(output.data());
+-        kernel.launch(kargs, dim3(DivRoundingUp<size_t>(table_length, TWIDDLES_THREADS)),
+-                      dim3(TWIDDLES_THREADS), 0, deviceProp, stream);
+-    }
+-
+     void GenerateTwiddleTable(const std::vector<size_t>& radices, hipStream_t& stream, gpubuf& twts)
+     {
+         auto use_radices = !radices.empty();
+@@ -556,50 +539,6 @@
+         return twiddles_create_pr<rocfft_complex<rocfft_fp16>>(
+             N, length_limit, precision, deviceProp, largeTwdBase, attach_halfN, radices, deviceId);
+     }
+-}
+-
+-template <typename T>
+-static gpubuf twiddles_create_packed_real_post_pr(size_t                 N,
+-                                                size_t                 rows,
+-                                                size_t                 rows_per_block,
+-                                                rocfft_precision       precision,
+-                                                const hipDeviceProp_t& deviceProp,
+-                                                unsigned int           deviceId)
+-{
+-    if(deviceId >= twiddle_streams.size())
+-        twiddle_streams.resize(deviceId + 1);
+-    hipStream_wrapper_t& stream = twiddle_streams[deviceId];
+-    if(!stream)
+-        stream.alloc();
+-
+-    gpubuf         twts;
+-    TwiddleTable<T> table(precision, deviceProp, N, N / 4, false);
+-    table.GeneratePackedRealPostTable(rows, rows_per_block, stream, twts);
+-    if(hipStreamSynchronize(stream) != hipSuccess)
+-        throw std::runtime_error("hipStream failure");
+-    return twts;
+-}
+-
+-gpubuf twiddles_create_packed_real_post(size_t                 N,
+-                                      size_t                 rows,
+-                                      size_t                 rows_per_block,
+-                                      rocfft_precision       precision,
+-                                      const hipDeviceProp_t& deviceProp,
+-                                      unsigned int           deviceId)
+-{
+-    switch(precision)
+-    {
+-    case rocfft_precision_single:
+-        return twiddles_create_packed_real_post_pr<rocfft_complex<float>>(
+-            N, rows, rows_per_block, precision, deviceProp, deviceId);
+-    case rocfft_precision_double:
+-        return twiddles_create_packed_real_post_pr<rocfft_complex<double>>(
+-            N, rows, rows_per_block, precision, deviceProp, deviceId);
+-    case rocfft_precision_half:
+-        return twiddles_create_packed_real_post_pr<rocfft_complex<rocfft_fp16>>(
+-            N, rows, rows_per_block, precision, deviceProp, deviceId);
+-    }
+-    throw std::runtime_error("unsupported packed real post twiddle precision");
+ }
+ 
+ template <typename T>
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
+@@ -1,21 +1,16 @@
+-// EXP-125: local real rows, based on the clean EXP-123 source.
+ #pragma once
+ 
++#include <algorithm>
+ #include <cstddef>
+-#include <algorithm>
+-#include <optional>
+ #include <vector>
+ 
+ enum class RealBlockRole
+ {
+-    None,
+-    HermitianColumns,
+-    LocalRealRows,
+-    PairedPostRows,
+-    FoldedPackedColumns,
+-    PackedInverseRows,
+-    LocalPostColumns,
+-    FoldedSpectrumRows,
++    None                = 0,
++    FoldedPackedColumns = 4,
++    PackedInverseRows   = 5,
++    LocalPostColumns    = 6,
++    FoldedSpectrumRows  = 7,
+ };
+ 
+ enum class RealBlockLoad
+@@ -25,35 +20,36 @@
+ };
+ 
+ // One geometry shared by planning, physical buffer views and code generation.
+-// N = 2 * columns * rows; pitch counts complex elements.
++// N = 2 * columns * rows.
+ struct RealBlockIO
+ {
+-    RealBlockRole role = RealBlockRole::None;
+-    RealBlockLoad load = RealBlockLoad::Registers;
+-    size_t n = 0, columns = 0, rows = 0, pitch = 0;
++    RealBlockRole role    = RealBlockRole::None;
++    RealBlockLoad load    = RealBlockLoad::Registers;
++    size_t        n       = 0;
++    size_t        columns = 0;
++    size_t        rows    = 0;
+ 
+     bool IsCCLocal() const
+     {
+-        return role == RealBlockRole::FoldedPackedColumns
+-            || role == RealBlockRole::PackedInverseRows || role == RealBlockRole::LocalPostColumns
+-            || role == RealBlockRole::FoldedSpectrumRows;
++        return role != RealBlockRole::None;
+     }
+     bool IsInputBoundary() const
+     {
+-        return role == RealBlockRole::FoldedPackedColumns
+-            || role == RealBlockRole::LocalPostColumns;
++        return role == RealBlockRole::FoldedPackedColumns || role == RealBlockRole::LocalPostColumns;
+     }
+     bool IsOutputBoundary() const
+     {
+-        return role == RealBlockRole::PackedInverseRows
+-            || role == RealBlockRole::FoldedSpectrumRows;
++        return role == RealBlockRole::PackedInverseRows || role == RealBlockRole::FoldedSpectrumRows;
+     }
+-    bool HasBoundaryLargePhase() const { return role == RealBlockRole::FoldedSpectrumRows; }
++    bool HasBoundaryLargePhase() const
++    {
++        return role == RealBlockRole::FoldedSpectrumRows;
++    }
+     size_t SmallPhaseLength() const
+     {
+-        if (role == RealBlockRole::LocalPostColumns)
++        if(role == RealBlockRole::LocalPostColumns)
+             return columns;
+-        if (role == RealBlockRole::PackedInverseRows || role == RealBlockRole::FoldedSpectrumRows)
++        if(role == RealBlockRole::PackedInverseRows || role == RealBlockRole::FoldedSpectrumRows)
+             return rows;
+         return 0;
+     }
+@@ -65,48 +61,16 @@
+     }
+     static bool CanRegisterPre(size_t length, size_t first_factor, size_t threads)
+     {
+-        if (!first_factor || !threads)
++        if(!first_factor || !threads)
+             return false;
+         const auto k = length / first_factor, lanes = std::min(k, threads);
+         return first_factor % 2 == 0 && lanes && lanes <= 64 && (lanes & (lanes - 1)) == 0
+-            && k % lanes == 0 && threads % lanes == 0;
+-    }
+-
+-    static std::optional<RealBlockIO> ForLength(size_t n)
+-    {
+-        size_t columns = 0, rows = 0;
+-        switch (n)
+-        {
+-        case 65536:
+-            columns = 128;
+-            rows = 256;
+-            break;
+-        case 131072:
+-            columns = 256;
+-            rows = 256;
+-            break;
+-        case 262144:
+-            columns = 256;
+-            rows = 512;
+-            break;
+-        case 524288:
+-            columns = 512;
+-            rows = 512;
+-            break;
+-        case 1048576:
+-            columns = 1024;
+-            rows = 512;
+-            break;
+-        default:
+-            return std::nullopt;
+-        }
+-        return RealBlockIO { RealBlockRole::None, RealBlockLoad::Registers, n, columns, rows,
+-            rows + 8 };
++               && k % lanes == 0 && threads % lanes == 0;
+     }
+ };
+ 
+ struct RealBufferView
+ {
+     std::vector<size_t> length, stride;
+-    size_t dist;
++    size_t              dist;
+ };
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/repo.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/repo.h
+@@ -45,10 +45,6 @@
+         // buffers are in device memory, so we need per-device
+         // twiddles
+         int deviceId = 0;
+-        // Zero denotes the existing natural-order tables. Packed real-post
+-        // tables depend on the FFT row length and rows per workgroup.
+-        size_t real_post_rows           = 0;
+-        size_t real_post_rows_per_block = 0;
+ 
+         bool operator<(const repo_twd_key_1D_t& other) const
+         {
+@@ -64,10 +60,6 @@
+                 return attach_halfN < other.attach_halfN;
+             if(radices != other.radices)
+                 return radices < other.radices;
+-            if(real_post_rows != other.real_post_rows)
+-                return real_post_rows < other.real_post_rows;
+-            if(real_post_rows_per_block != other.real_post_rows_per_block)
+-                return real_post_rows_per_block < other.real_post_rows_per_block;
+             return deviceId < other.deviceId;
+         }
+     };
+@@ -204,11 +196,6 @@
+                                                   size_t                     largeTwdBase,
+                                                   bool                       attach_halfN,
+                                                   const std::vector<size_t>& radices);
+-    static std::pair<void*, size_t> GetPackedRealPostTwiddles(size_t                 length,
+-                                                             size_t                 rows,
+-                                                             size_t                 rows_per_block,
+-                                                             rocfft_precision       precision,
+-                                                             const hipDeviceProp_t& deviceProp);
+     static std::pair<void*, size_t> GetTwiddles2D(size_t                     length0,
+                                                   size_t                     length1,
+                                                   rocfft_precision           precision,
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_twiddle_gen.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/rtc_twiddle_gen.h
+@@ -57,9 +57,7 @@
+     // steps
+     LARGE,
+     // N * N table for length N partial pass
+-    PARTIAL_PASS_N,
+-    // Quarter-length real-post table, packed in workgroup/thread order.
+-    PACKED_REAL_POST
++    PARTIAL_PASS_N
+ };
+ 
+ // generate name for twiddle-compute kernel
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node.h
+@@ -26,6 +26,7 @@
+ #include <iostream>
+ #include <map>
+ #include <memory>
++#include <optional>
+ #include <set>
+ #include <vector>
+ 
+@@ -395,8 +396,6 @@
+     RealBlockIO      real_io;
+     void*            local_real_twiddles = nullptr;
+     size_t           local_real_twiddles_size = 0;
+-    void*            real_post_twiddles = nullptr;
+-    size_t           real_post_twiddles_size = 0;
+     void*            cc_boundary_twiddles = nullptr;
+     size_t           cc_boundary_twiddles_size = 0;
+     void*            twiddles_large      = nullptr;
+@@ -577,10 +576,6 @@
+         return { { real_io.n / 2 + 1 }, { 1 }, iDist };
+     if(real_io.role == RealBlockRole::LocalPostColumns)
+         return { { real_io.n / 2 }, { 1 }, iDist };
+-    if(real_io.role == RealBlockRole::HermitianColumns)
+-        return { { real_io.n / 2 + 1 }, { 1 }, iDist };
+-    if(real_io.role == RealBlockRole::LocalRealRows)
+-        return { { real_io.rows + 1, real_io.columns }, inStride, iDist };
+     return { length, inStride, iDist };
+ }
+ 
+@@ -592,8 +587,6 @@
+     if(real_io.role == RealBlockRole::PackedInverseRows)
+         return RealBufferView { { real_io.n / 2 }, { 1 }, oDist };
+     if(real_io.role == RealBlockRole::FoldedSpectrumRows)
+-        return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
+-    if(real_io.role == RealBlockRole::PairedPostRows)
+         return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
+     return std::nullopt;
+ }
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
+@@ -65,16 +65,11 @@
+     void AssignParams_internal() override;
+     void BuildTree_internal(SchemeTreeVec& child_scheme_trees = EmptySchemeTreeVec) override;
+ 
+-    bool TryBuildLocalRealTree(size_t n);
+-    void AssignLocalRealParams();
+-    bool TryFusePairedPost(TreeNode& cfft, size_t n);
+     bool TryBuildCCLocalTree(const TreeNode& cfft, size_t n);
+     void AssignCCLocalParams();
+ 
+ public:
+-    // EXP-125: two direct leaves, bypassing the separate pre-processing tree.
+-    bool local_real_pipeline = false;
+-    bool cc_local_pipeline   = false;
++    bool cc_local_pipeline = false;
+ 
+     // 3D Even can possibly set this
+     bool try_fuse_pre_post_processing = false;
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/twiddles.h
+@@ -37,12 +37,6 @@
+                        bool                       attach_halfN,
+                        const std::vector<size_t>& radices,
+                        unsigned int               deviceId);
+-gpubuf twiddles_create_packed_real_post(size_t                 N,
+-                                        size_t                 rows,
+-                                        size_t                 rows_per_block,
+-                                        rocfft_precision       precision,
+-                                        const hipDeviceProp_t& deviceProp,
+-                                        unsigned int           deviceId);
+ gpubuf twiddles_create_2D(size_t                     N1,
+                           size_t                     N2,
+                           rocfft_precision           precision,
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h
+@@ -21,8 +21,6 @@
+     bool use_static_initial_reg_load() const override { return true; }
+     bool use_large_twiddle_recurrence() const override
+     {
+-        if (io.role != RealBlockRole::FoldedPackedColumns)
+-            return StockhamKernelCC::use_large_twiddle_recurrence();
+         // A multi-step lookup is amortized across the final butterfly.
+         // Keep the policy independent of the column and full transform lengths.
+         return phase_steps >= 2 && factors.back() >= 4 && precisions.size() == 1
+@@ -95,11 +93,9 @@
+                     value = Ternary { Expression { Or {
+                                           col == 0, col == static_cast<unsigned int>(io.rows) } },
+                         Expression { cache[a] }, Expression { value } };
+-                Expression folded = io.role == RealBlockRole::HermitianColumns
+-                    ? Expression { CallExpr { "local_real_hermitian_value", { scalar_type },
+-                          { value, k > static_cast<unsigned int>(io.n / 2) } } }
+-                    : Expression { CallExpr { "cc_folded_value", { scalar_type },
+-                          { value, k, Literal { static_cast<unsigned int>(io.n) } } } };
++                Expression folded = CallExpr{"cc_folded_value",
++                                             {scalar_type},
++                                             {value, k, Literal{static_cast<unsigned int>(io.n)}}};
+                 return StatementList { Assign { R[reg], folded } };
+             });
+         s += If { col <= static_cast<unsigned int>(io.rows), loads };
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_local_real.h
++++ /dev/null
+@@ -1,309 +0,0 @@
+-// EXP-125: keep real I/O rules outside the ordinary Stockham kernels.
+-#pragma once
+-
+-#include "stockham_gen_cc_real_columns.h"
+-#include "stockham_gen_rc.h"
+-
+-// This is device source, appended only for the two specialized roles.
+-// Helpers consume values; all user-buffer access remains represented by
+-// LoadGlobal/StoreGlobal so out-of-place and callback visitors still apply.
+-inline std::string local_real_device_helpers()
+-{
+-    return R"src(
+-template <typename T>
+-__device__ __forceinline__ T local_real_hermitian_value(T value, bool mirror)
+-{
+-    if(mirror)
+-        value.y = -value.y;
+-    return value;
+-}
+-
+-template <typename T>
+-__device__ __forceinline__ void local_real_pair(T p, T q, T w, T& own, T& other)
+-{
+-    const auto ux = p.x + q.x;
+-    const auto uy = p.y + q.y;
+-    const auto vx = p.x - q.x;
+-    const auto vy = p.y - q.y;
+-    const auto a = vx * w.y - uy * w.x;
+-    const auto b = uy * w.y + vx * w.x;
+-    own = T{ux + a, vy + b};
+-    other = T{ux - a, b - vy};
+-}
+-)src";
+-}
+-
+-enum class LocalRealTwiddleLoad
+-{
+-    Inline,
+-    BeforePair,
+-    BeforeAllPairs,
+-};
+-
+-inline LocalRealTwiddleLoad local_real_twiddle_load(const RealBlockIO& io, bool callbacks)
+-{
+-    if(callbacks || io.role != RealBlockRole::LocalRealRows)
+-        return LocalRealTwiddleLoad::Inline;
+-    if(io.rows == 512)
+-        return LocalRealTwiddleLoad::BeforeAllPairs;
+-    if(io.rows == 256 && io.load == RealBlockLoad::LDS)
+-        return LocalRealTwiddleLoad::BeforePair;
+-    return LocalRealTwiddleLoad::Inline;
+-}
+-
+-inline const char* local_real_twiddle_suffix(LocalRealTwiddleLoad load)
+-{
+-    switch(load)
+-    {
+-    case LocalRealTwiddleLoad::BeforePair:     return "_pre_twiddle_first";
+-    case LocalRealTwiddleLoad::BeforeAllPairs: return "_pre_twiddle_preload";
+-    default:                                 return "";
+-    }
+-}
+-
+-struct LocalRealFoldVisitor : BaseVisitor
+-{
+-    const RealBlockIO io;
+-    Variable          raw{"local_real_raw", "scalar_type"};
+-
+-    explicit LocalRealFoldVisitor(const RealBlockIO& io) : io(io) {}
+-
+-    Expression folded(const Expression& k) const
+-    {
+-        return Ternary{Expression{k > Literal{static_cast<unsigned int>(io.n / 2)}},
+-                       Expression{Literal{static_cast<unsigned int>(io.n)} - k}, Expression{k}};
+-    }
+-
+-    StatementList visit_Assign(const Assign& x) override
+-    {
+-        Expression k = Literal{0}, load = Literal{0};
+-        if(const auto* ordinary = std::get_if<LoadGlobal>(&x.rhs))
+-        {
+-            k = ordinary->args[1];
+-            load = LoadGlobal{ordinary->args[0], folded(k)};
+-        }
+-        else if(const auto* intrinsic = std::get_if<IntrinsicLoad>(&x.rhs))
+-        {
+-            k = intrinsic->args[1] + intrinsic->args[2];
+-            load = IntrinsicLoad{{intrinsic->args[0], folded(k), Literal{0},
+-                                  intrinsic->args[3]}};
+-        }
+-        else
+-            return BaseVisitor::visit_Assign(x);
+-
+-        // LoadGlobal sets the input context in the out-of-place visitor before
+-        // it visits the mirror predicate. Do not hide the load in a raw string.
+-        return {Assign{raw, load},
+-                Assign{x.lhs,
+-                       CallExpr{"local_real_hermitian_value", {scalar_type},
+-                                {raw, k > Literal{static_cast<unsigned int>(io.n / 2)}}}, x.oper}};
+-    }
+-
+-    Variable scalar_type{"scalar_type", "typename"};
+-};
+-
+-struct StockhamKernelHermitianColumns : StockhamKernelFoldedPackedColumns
+-{
+-    StockhamKernelHermitianColumns(const StockhamGeneratorSpecs& specs,
+-                                  bool large_batch_count, bool callbacks)
+-        : StockhamKernelFoldedPackedColumns(specs, callbacks)
+-    {
+-        largeTwdBatchIsTransformCount = large_batch_count;
+-        if(callbacks && !direct_to_from_reg)
+-            throw std::runtime_error("Hermitian callback cache requires register loading");
+-    }
+-
+-    bool use_static_initial_reg_load() const override { return callbacks; }
+-
+-    StatementList set_direct_to_from_registers() override
+-    {
+-        return callbacks ? StockhamKernelFoldedPackedColumns::set_direct_to_from_registers()
+-                         : StockhamKernelCC::set_direct_to_from_registers();
+-    }
+-
+-    StatementList load_from_global(bool registers) override
+-    {
+-        // The two boundary columns share physical half-spectrum elements.
+-        // Reuse the unique-load cache, applying conjugation after the callback.
+-        if(callbacks)
+-            return StockhamKernelFoldedPackedColumns::load_from_global(registers);
+-        LocalRealFoldVisitor visitor(io);
+-        StatementList body{Declaration{visitor.raw}};
+-        body += visitor.visit_StatementList(StockhamKernelCC::load_from_global(registers));
+-        return body;
+-    }
+-
+-    StatementList store_to_global(bool registers) override
+-    {
+-        // EXP125 retains its full Q+1-column matrix, including both endpoints.
+-        return StockhamKernelCC::store_to_global(registers);
+-    }
+-};
+-
+-struct StockhamKernelLocalRealRows : StockhamKernelRC
+-{
+-    const RealBlockIO io;
+-    Variable pre_twiddles{"local_real_twiddles", "const scalar_type", true, true};
+-
+-    const LocalRealTwiddleLoad phase_load;
+-
+-    StockhamKernelLocalRealRows(const StockhamGeneratorSpecs& specs, LocalRealTwiddleLoad phase_load)
+-        : StockhamKernelRC(specs, false), io(specs.real_io), phase_load(phase_load)
+-    {
+-        const auto first = factors.front();
+-        const auto k = length / first;
+-        const auto lanes = std::min(threads_per_transform, k);
+-        if((length != 256 && length != 512) || k != 64 || k % lanes != 0
+-           || workgroup_size % threads_per_transform != 0
+-           || transforms_per_block % 2 != 0)
+-            throw std::runtime_error("unsupported local real register map");
+-    }
+-
+-    ArgumentList global_arguments() override
+-    {
+-        auto args = StockhamKernelRC::global_arguments();
+-        args.append(pre_twiddles);
+-        return args;
+-    }
+-
+-    bool use_static_initial_reg_load() const override { return true; }
+-
+-    StatementList set_direct_to_from_registers() override
+-    {
+-        // Both entry variants fully initialize R. The LDS variant also protects
+-        // its final reads before the core reuses LDS, including scalar LDS.
+-        return {Declaration{direct_load_to_reg, Literal{"true"}},
+-                Declaration{direct_store_from_reg, Literal{"false"}},
+-                Declaration{lds_linear, Literal{"true"}}};
+-    }
+-
+-    StatementList load_from_global(bool) override
+-    {
+-        const auto f = factors.front();
+-        const auto k = length / f;
+-        const auto lanes = std::min(threads_per_transform, k);
+-        const auto butterflies = k / lanes;
+-        const bool registers = io.load == RealBlockLoad::Registers;
+-        Variable lane{"local_lane", "const unsigned int"};
+-        Variable row{"local_row", "const unsigned int"};
+-        Variable j{"local_j", "unsigned int"};
+-        Variable p{"local_p", "scalar_type"}, q{"local_q", "scalar_type"};
+-        Variable own{"local_own", "scalar_type"}, other{"local_other", "scalar_type"};
+-        Variable exchanged{"local_exchanged", "scalar_type"};
+-        StatementList stmts{Declaration{lane, thread_id % threads_per_transform},
+-                            Declaration{row, thread_id / threads_per_transform}};
+-        StatementList active{Declaration{j}, Declaration{p}, Declaration{q},
+-                             Declaration{own}, Declaration{other}};
+-        if(registers)
+-            active += Declaration{exchanged};
+-
+-        const auto base = offset_in + row * stride_load_in;
+-        std::vector<Variable> phases;
+-        if(phase_load != LocalRealTwiddleLoad::Inline)
+-        {
+-            for(unsigned int h = 0; h < butterflies; ++h)
+-                for(unsigned int w = 0; w < f / 2; ++w)
+-                {
+-                    phases.emplace_back("pre_phase_" + std::to_string(phases.size()),
+-                                        "const scalar_type");
+-                    if(phase_load == LocalRealTwiddleLoad::BeforeAllPairs)
+-                        active += Declaration{phases.back(),
+-                                              pre_twiddles[lane + h * threads_per_transform + w * k]};
+-                }
+-        }
+-        for(unsigned int h = 0; h < butterflies; ++h)
+-        {
+-            for(unsigned int w = 0; w < f / 2; ++w)
+-            {
+-                active += Assign{j, lane + h * threads_per_transform + w * k};
+-                const Expression phase = phase_load == LocalRealTwiddleLoad::Inline
+-                                             ? Expression{pre_twiddles[j]}
+-                                             : Expression{phases[h * (f / 2) + w]};
+-                if(phase_load == LocalRealTwiddleLoad::BeforePair)
+-                {
+-                    Expression value = pre_twiddles[j];
+-                    if(h == 0 && w == 0)
+-                        value = Ternary{Expression{j == 0}, Expression{Literal{"scalar_type{0,0}"}},
+-                                        Expression{pre_twiddles[j]}};
+-                    active += Declaration{phases[h * (f / 2) + w], value};
+-                }
+-                active += Assign{p, LoadGlobal{buf, base + j}};
+-                active += Assign{q, LoadGlobal{buf, base + length - j}};
+-                active += If{j == 0,
+-                             {Assign{own, ComplexLiteral{p.x() + q.x(), p.x() - q.x()}},
+-                              Assign{other, ComplexLiteral{0, 0}}}};
+-                active += Else{{Call{"local_real_pair", {scalar_type},
+-                                      {p, q, phase, own, other}}}};
+-
+-                if(!registers)
+-                {
+-                    active += Assign{lds_complex[offset_lds + j], own};
+-                    active += If{j != 0,
+-                                 {Assign{lds_complex[offset_lds + length - j], other}}};
+-                    continue;
+-                }
+-
+-                active += Assign{R[h * f + w], own};
+-                const auto source = Parens{lanes - lane} % lanes;
+-                active += Assign{exchanged.x(), CallExpr{"__shfl", {other.x(), source, lanes}}};
+-                active += Assign{exchanged.y(), CallExpr{"__shfl", {other.y(), source, lanes}}};
+-                active += If{lane != 0,
+-                             {Assign{R[(butterflies - 1 - h) * f + f - 1 - w], exchanged}}};
+-                if(h == 0 && w > 0)
+-                    active += Else{{Assign{R[f - w], other}}};
+-                else if(h > 0)
+-                    active += Else{{Assign{R[(butterflies - h) * f + f - 1 - w], other}}};
+-            }
+-        }
+-
+-        StatementList self{Assign{p, LoadGlobal{buf, base + length / 2}}};
+-        self += Assign{registers ? R[f / 2] : lds_complex[offset_lds + length / 2],
+-                       ComplexLiteral{2 * p.x(), -2 * p.y()}};
+-        active += If{lane == 0, self};
+-        stmts += If{lane < lanes, active};
+-
+-        if(!registers)
+-        {
+-            stmts += SyncThreads{};
+-            StatementList reload;
+-            for(unsigned int h = 0; h < butterflies; ++h)
+-                for(unsigned int w = 0; w < f; ++w)
+-                    reload += Assign{R[h * f + w],
+-                                     lds_complex[offset_lds + lane
+-                                                 + h * threads_per_transform + w * k]};
+-            stmts += If{lane < lanes, reload};
+-            // Scalar-LDS core exchanges have no first-store barrier.
+-            stmts += SyncThreads{};
+-        }
+-        return stmts;
+-    }
+-
+-    StatementList store_to_global(bool) override
+-    {
+-        const auto rows = transforms_per_block;
+-        const auto steps = length * rows / workgroup_size;
+-        Variable u{"local_output_lane", "const unsigned int"};
+-        Variable parity{"local_output_parity", "const unsigned int"};
+-        Variable pair{"local_output_pair", "const unsigned int"};
+-        Variable even{"local_output_even", "const unsigned int"};
+-        Variable p{"local_output_p", "unsigned int"};
+-        Variable value{"local_output_value", "scalar_type"};
+-        StatementList stmts{Declaration{u, thread_id % rows},
+-                            Declaration{parity, u / (rows / 2)},
+-                            Declaration{pair, u % (rows / 2)},
+-                            Declaration{even, 2 * pair}, Declaration{p}, Declaration{value}};
+-        for(unsigned int i = 0; i < steps; ++i)
+-        {
+-            stmts += Assign{p, thread_id / rows + i * workgroup_size / rows};
+-            const auto scalar = 2 * Parens{even * length + p} + parity;
+-            stmts += Assign{value, ComplexLiteral{lds_real[scalar], lds_real[scalar + 2 * length]}};
+-            // Absolute complex index of two adjacent real output elements.
+-            // Eligibility guarantees batch=1 and zero user offsets.
+-            stmts += StoreGlobal{buf,
+-                                  tile_index_in_plane * (rows / 2) + pair
+-                                      + static_cast<unsigned int>(io.columns) * p
+-                                      + parity * static_cast<unsigned int>(io.columns / 2), value};
+-        }
+-        return stmts;
+-    }
+-};
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h
++++ /dev/null
+@@ -1,136 +0,0 @@
+-// EXP-125: pair ordinary half-length FFT rows in the final RC workgroup.
+-#pragma once
+-
+-#include "stockham_gen_rc.h"
+-
+-// Keep address permutation separate from the numerical post-processing.
+-static std::string real_post_device_helpers(const RealBlockIO& io, unsigned int rows_per_block)
+-{
+-    const auto half = rows_per_block / 2;
+-    return "__device__ __forceinline__ unsigned int real_post_row(unsigned int slot, unsigned int block) {\n"
+-           " const unsigned int s = block * " + std::to_string(half) + " + slot % " + std::to_string(half) + ";\n"
+-           " return slot < " + std::to_string(half) + " ? s : (s == 0 ? " + std::to_string(io.columns / 2) + " : " + std::to_string(io.columns) + " - s);\n}\n"
+-           "__device__ __forceinline__ unsigned int real_post_input(unsigned int k) {\n"
+-           " const unsigned int row = k / " + std::to_string(io.rows) + ";\n"
+-           " return real_post_row(row % " + std::to_string(rows_per_block) + ", row / " + std::to_string(rows_per_block) + ") * " + std::to_string(io.rows) + " + k % " + std::to_string(io.rows) + ";\n}\n"
+-           R"src(
+-template <typename T>
+-__device__ __forceinline__ void real_post_pair(T p, T q, T w, T& own, T& other)
+-{
+-    const auto ux = 0.5 * (p.x + q.x), uy = 0.5 * (p.y + q.y);
+-    const auto vx = 0.5 * (p.x - q.x), vy = 0.5 * (p.y - q.y);
+-    const auto a = vx * w.y + uy * w.x, b = uy * w.y - vx * w.x;
+-    own   = T{ux + a, vy + b};
+-    other = T{ux - a, b - vy};
+-}
+-)src";
+-}
+-
+-struct RealPostLoadVisitor : BaseVisitor
+-{
+-    Expression visit_LoadGlobal(const LoadGlobal& x) override
+-    {
+-        return LoadGlobal{x.args[0], CallExpr{"real_post_input", {x.args[1]}}};
+-    }
+-};
+-
+-struct StockhamKernelPairedPostRows : StockhamKernelRC
+-{
+-    const unsigned int columns, rows, rows_per_block;
+-    const bool preload_post_twiddles;
+-    Variable post_twiddles{"real_post_twiddles", "const scalar_type", true, true};
+-
+-    StockhamKernelPairedPostRows(const StockhamGeneratorSpecs& specs, bool preload_twiddles)
+-        : StockhamKernelRC(specs, false)
+-        , columns(specs.real_io.columns)
+-        , rows(specs.real_io.rows)
+-        , rows_per_block(transforms_per_block)
+-        , preload_post_twiddles(preload_twiddles)
+-    {
+-        if(length != rows || (rows != 256 && rows != 512) || rows_per_block % 2 != 0
+-           || columns % rows_per_block != 0 || workgroup_size % (2 * rows_per_block) != 0)
+-            throw std::runtime_error("unsupported paired real post-processing geometry");
+-    }
+-
+-    ArgumentList global_arguments() override
+-    {
+-        auto args = StockhamKernelRC::global_arguments();
+-        args.append(post_twiddles);
+-        return args;
+-    }
+-
+-    StatementList set_direct_to_from_registers() override
+-    {
+-        // Both entry paths share the existing full complex output LDS.
+-        return {Declaration{direct_load_to_reg, Literal{static_initial_reg_load ? "true" : "false"}},
+-                Declaration{direct_store_from_reg, Literal{"false"}},
+-                Declaration{lds_linear, Literal{"true"}}};
+-    }
+-
+-    StatementList load_from_global(bool registers) override
+-    {
+-        RealPostLoadVisitor visitor;
+-        return visitor.visit_StatementList(StockhamKernelRC::load_from_global(registers));
+-    }
+-
+-    StatementList store_to_global(bool) override
+-    {
+-        const auto half = rows_per_block / 2;
+-        const auto m = columns * rows;
+-        Variable slot{"post_slot", "const unsigned int"};
+-        Variable row{"post_row", "const unsigned int"};
+-        Variable peer{"post_peer", "const unsigned int"};
+-        Variable column{"post_column", "unsigned int"}, k{"post_index", "unsigned int"};
+-        Variable lhs{"post_lhs", "scalar_type"}, rhs{"post_rhs", "scalar_type"};
+-        Variable own{"post_own", "scalar_type"}, other{"post_other", "scalar_type"};
+-        StatementList stmts{
+-            Declaration{slot, thread_id % rows_per_block},
+-            Declaration{row, CallExpr{"real_post_row", {slot, tile_index_in_plane}}},
+-            Declaration{peer, Ternary{Expression{Or{row == 0, row == columns / 2}}, Expression{slot},
+-                                      Expression{Ternary{Expression{slot < half}, Expression{slot + half}, Expression{slot - half}}}}},
+-            Declaration{column}, Declaration{k}, Declaration{lhs}, Declaration{rhs},
+-            Declaration{own}, Declaration{other}};
+-
+-        // The table follows this block's lower-half stores, in thread order.
+-        Variable tile{"post_twiddle_tile", "const scalar_type* __restrict__"};
+-        stmts += Declaration{tile, post_twiddles
+-                                      + tile_index_in_plane * (rows * rows_per_block / 2)};
+-        std::vector<Variable> phases;
+-        if(preload_post_twiddles)
+-        {
+-            // Read after the FFT's final LDS synchronization, before any post stores.
+-            for(unsigned int i = 0; i < rows * rows_per_block / (2 * workgroup_size); ++i)
+-            {
+-                phases.emplace_back("post_phase_" + std::to_string(i), "const scalar_type");
+-                stmts += Declaration{phases.back(), tile[thread_id + i * workgroup_size]};
+-            }
+-        }
+-
+-        // Each row owns its lower half. The mirrored upper half is consumed once.
+-        for(unsigned int i = 0; i < rows * rows_per_block / (2 * workgroup_size); ++i)
+-        {
+-            stmts += Assign{column, thread_id / rows_per_block + i * workgroup_size / rows_per_block};
+-            stmts += Assign{k, row + columns * column};
+-            StatementList endpoints{
+-                Assign{lhs, lds_complex[0]},
+-                StoreGlobal{buf, Literal{0}, ComplexLiteral{lhs.x() + lhs.y(), Literal{0}}},
+-                StoreGlobal{buf, Literal{m}, ComplexLiteral{lhs.x() - lhs.y(), Literal{0}}},
+-                Assign{rhs, lds_complex[rows / 2]},
+-                StoreGlobal{buf, Literal{m / 2}, ComplexLiteral{rhs.x(), -rhs.y()}}};
+-            StatementList pair{
+-                Assign{lhs, lds_complex[slot * rows + column]},
+-                Assign{rhs, lds_complex[peer * rows + rows - column
+-                                       - Ternary{Expression{row == 0}, Expression{Literal{0}}, Expression{Literal{1}}}]},
+-                Call{"real_post_pair", {scalar_type},
+-                     {lhs, rhs, preload_post_twiddles ? Expression{phases[i]}
+-                                                    : Expression{tile[thread_id + i * workgroup_size]},
+-                      own, other}},
+-                StoreGlobal{buf, k, own},
+-                StoreGlobal{buf, m - k, other}};
+-            // Test before forming the zero-row mirror address (which would be Q).
+-            stmts += If{And{row == 0, column == 0}, endpoints};
+-            stmts += Else{pair};
+-        }
+-        return stmts;
+-    }
+-};

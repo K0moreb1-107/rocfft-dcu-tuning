@@ -1,0 +1,4 @@
+HOST_COMPILES_PASS 21
+EXACT_GENERATION_PASS default 2264
+EXACT_GENERATION_PASS retained-lds 566
+{"complete": true, "device_execution": false, "failures": [], "host_compiles": 21, "changed_cpp_units": ["repo.cpp", "rtc_stockham_gen.cpp", "rtc_stockham_kernel.cpp", "rtc_twiddle_gen.cpp", "tree_node.cpp", "tree_node_1D.cpp", "tree_node_real.cpp", "twiddles.cpp"], "geometries": 283, "generated_sources_identical": 2830, "comparison": "byte-for-byte against retained EXP129 generator sources", "fresh_generator_link_objects": 13, "matrix_sha256": "ab38e9c545c6127f8a1e3ac8b999503c9e306e50203a726c0dd6c030195b3c0b", "elapsed_seconds": 234.3062179721892}

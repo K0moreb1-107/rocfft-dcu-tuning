@@ -23,10 +23,8 @@
 # ########################################################################
 # A helper function to prefix a source list of files with a common path into a new list (non-destructive)
 # ########################################################################
-option(ROCFFT_CC_REAL_FUSION "Enable real boundary fusion, including EXP125 legacy kernels" ON)
-option(ROCFFT_CC_LOCAL_REAL_FUSION "Enable EXP128 packed local CC real boundaries" ON)
-add_compile_definitions(ROCFFT_CC_REAL_FUSION=$<BOOL:${ROCFFT_CC_REAL_FUSION}>
-                        ROCFFT_CC_LOCAL_REAL_FUSION=$<BOOL:${ROCFFT_CC_LOCAL_REAL_FUSION}>)
+option(ROCFFT_CC_REAL_FUSION "Enable CC real boundary fusion" ON)
+add_compile_definitions(ROCFFT_CC_REAL_FUSION=$<BOOL:${ROCFFT_CC_REAL_FUSION}>)
 
 function( prepend_path prefix source_list_of_files return_list_of_files )
   foreach( file ${${source_list_of_files}} )
@@ -176,8 +174,6 @@ set( kgen_logic_files
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cr.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_rc.h
-     ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_local_real.h
-     ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_real_post.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_common.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_columns.h
      ${CMAKE_SOURCE_DIR}/library/src/device/generator/stockham_gen_cc_real_rows.h

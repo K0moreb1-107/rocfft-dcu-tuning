@@ -125,24 +125,6 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
                                                  specs->workgroup_size))
                 specs->real_io.load = RealBlockLoad::LDS;
             break;
-        case RealBlockRole::LocalRealRows:
-            specs->direct_to_from_reg             = true;
-            specs->static_initial_reg_load        = true;
-            specs->static_initial_reg_load_linear = true;
-            break;
-        case RealBlockRole::PairedPostRows:
-            // Preserve scalar LDS exchanges when callbacks require the ordinary load.
-            specs->direct_to_from_reg = true;
-            specs->static_initial_reg_load
-                = node.real_io.load == RealBlockLoad::Registers
-                  && callback_type == CallbackType::NONE;
-            specs->static_initial_reg_load_linear = specs->static_initial_reg_load;
-            break;
-        case RealBlockRole::HermitianColumns:
-            // The ordinary CC LDS entry uses an unswizzled complex staging layout.
-            if(node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
-                specs->half_lds = false;
-            [[fallthrough]];
         default:
             specs->static_initial_reg_load = ordinary_sbrc && sbrc_static_load_available(*specs);
             specs->static_initial_reg_load_linear
@@ -153,8 +135,7 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
 
         // This exact map already satisfies the static-load geometry.  CC-local
         // kernels retain the ordinary recurrence selected before overriding loads.
-        if(ordinary_sbrc && node.real_io.role != RealBlockRole::LocalRealRows
-           && node.real_io.role != RealBlockRole::PairedPostRows && specs->length == 512
+        if(ordinary_sbrc && specs->length == 512
            && specs->workgroup_size == 512 && specs->threads_per_transform == 128
            && specs->factors == std::vector<unsigned int>{8, 8, 8})
         {
@@ -352,12 +333,7 @@ RTCKernelArgs RTCKernelStockham::get_launch_args(DeviceCallIn& data)
             kargs.append_ptr(data.bufOut[1]);
     }
 
-    if(data.node->real_io.role == RealBlockRole::LocalRealRows)
-        kargs.append_ptr(data.node->local_real_twiddles);
-
-    if(data.node->real_io.role == RealBlockRole::PairedPostRows)
-        kargs.append_ptr(data.node->real_post_twiddles);
-    if(data.node->real_io.IsCCLocal() && data.node->real_io.SmallPhaseLength())
+    if(data.node->real_io.SmallPhaseLength())
         kargs.append_ptr(data.node->local_real_twiddles);
     if(data.node->real_io.HasBoundaryLargePhase())
         kargs.append_ptr(data.node->cc_boundary_twiddles);

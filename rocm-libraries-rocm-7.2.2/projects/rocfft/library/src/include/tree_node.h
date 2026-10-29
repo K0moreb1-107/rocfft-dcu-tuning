@@ -26,6 +26,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <optional>
 #include <set>
 #include <vector>
 
@@ -395,8 +396,6 @@ public:
     RealBlockIO      real_io;
     void*            local_real_twiddles = nullptr;
     size_t           local_real_twiddles_size = 0;
-    void*            real_post_twiddles = nullptr;
-    size_t           real_post_twiddles_size = 0;
     void*            cc_boundary_twiddles = nullptr;
     size_t           cc_boundary_twiddles_size = 0;
     void*            twiddles_large      = nullptr;
@@ -577,10 +576,6 @@ RealBufferView GetInputBufferView() const
         return { { real_io.n / 2 + 1 }, { 1 }, iDist };
     if(real_io.role == RealBlockRole::LocalPostColumns)
         return { { real_io.n / 2 }, { 1 }, iDist };
-    if(real_io.role == RealBlockRole::HermitianColumns)
-        return { { real_io.n / 2 + 1 }, { 1 }, iDist };
-    if(real_io.role == RealBlockRole::LocalRealRows)
-        return { { real_io.rows + 1, real_io.columns }, inStride, iDist };
     return { length, inStride, iDist };
 }
 
@@ -592,8 +587,6 @@ std::optional<RealBufferView> GetPhysicalOutputBufferView() const
     if(real_io.role == RealBlockRole::PackedInverseRows)
         return RealBufferView { { real_io.n / 2 }, { 1 }, oDist };
     if(real_io.role == RealBlockRole::FoldedSpectrumRows)
-        return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
-    if(real_io.role == RealBlockRole::PairedPostRows)
         return RealBufferView { { real_io.n / 2 + 1 }, { 1 }, oDist };
     return std::nullopt;
 }

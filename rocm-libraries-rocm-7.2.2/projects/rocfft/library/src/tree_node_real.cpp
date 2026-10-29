@@ -23,7 +23,6 @@
 #include "function_pool.h"
 #include "node_factory.h"
 #include "real2complex.h"
-#include <cstdlib>
 
 // work out the real and complex lengths on a real-complex plan, and
 // return pointers to those lengths
@@ -214,9 +213,6 @@ void RealTransCmplxNode::AssignParams_internal()
 #ifndef ROCFFT_CC_REAL_FUSION
 #define ROCFFT_CC_REAL_FUSION 1
 #endif
-#ifndef ROCFFT_CC_LOCAL_REAL_FUSION
-#define ROCFFT_CC_LOCAL_REAL_FUSION 1
-#endif
 
 bool RealTransEvenNode::CanFuseCCReal() const
 {
@@ -260,20 +256,6 @@ bool RealTransEvenNode::CCRealKernelsAvailable(size_t columns, size_t rows) cons
     return cc_bytes <= deviceProp.sharedMemPerBlock && rc_bytes <= deviceProp.sharedMemPerBlock;
 }
 
-static RealBlockLoad real_block_load(const char* variable, const char* error)
-{
-    const char* value = std::getenv(variable);
-    if(!value)
-        return RealBlockLoad::Registers;
-
-    const std::string mode(value);
-    if(mode == "registers")
-        return RealBlockLoad::Registers;
-    if(mode == "lds")
-        return RealBlockLoad::LDS;
-    throw std::runtime_error(error);
-}
-
 bool RealTransEvenNode::TryBuildCCLocalTree(const TreeNode& cfft, size_t n)
 {
     if(n < 65536 || n > (size_t(1) << 24) || cfft.scheme != CS_L1D_CC
@@ -290,7 +272,7 @@ bool RealTransEvenNode::TryBuildCCLocalTree(const TreeNode& cfft, size_t n)
         return false;
 
     const bool inverse = direction == 1;
-    RealBlockIO io { RealBlockRole::None, RealBlockLoad::LDS, n, c, q, q };
+    RealBlockIO io{RealBlockRole::None, RealBlockLoad::LDS, n, c, q};
     auto first = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_CC, this);
     first->dimension = 1;
     first->length = { c, q + (inverse ? 1 : 0) };
@@ -340,126 +322,6 @@ void RealTransEvenNode::AssignCCLocalParams()
     last->AssignParams();
 }
 
-bool RealTransEvenNode::TryBuildLocalRealTree(size_t n)
-{
-    auto geometry = RealBlockIO::ForLength(n);
-    if(!geometry || direction != 1)
-        return false;
-
-    auto io = *geometry;
-    io.load = real_block_load("ROCFFT_EXP125_LOCAL_REAL_LOAD",
-                             "invalid EXP125 local real load mode");
-    // The Q=512 producer map requires a complete 64-lane subgroup.
-    if(io.rows == 512 && deviceProp.warpSize < 64)
-        io.load = RealBlockLoad::LDS;
-
-    FMKey cc_key(io.columns, precision, CS_KERNEL_STOCKHAM_BLOCK_CC);
-    FMKey rc_key(io.rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
-    if(!pool.has_function(cc_key) || !pool.has_function(rc_key))
-        return false;
-    const auto rc = pool.get_kernel(rc_key);
-    const size_t expected_threads = io.rows == 256 ? 32 : 128;
-    const std::vector<size_t> expected_factors
-        = io.rows == 256 ? std::vector<size_t>{4, 4, 4, 4}
-                         : std::vector<size_t>{8, 8, 8};
-    if(rc.threads_per_transform[0] != expected_threads || rc.factors != expected_factors
-       || rc.workgroup_size % expected_threads != 0
-       || (rc.workgroup_size / expected_threads) % 2 != 0
-       || io.columns % rc.transforms_per_block != 0)
-        return false;
-
-    auto first = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_CC, this);
-    first->dimension = 1;
-    first->length = {io.columns, io.rows + 1};
-    first->outputLength = first->length;
-    first->real_io = io;
-    first->real_io.role = RealBlockRole::HermitianColumns;
-    first->large1D = io.n;
-    first->largeTwdBatchIsTransformCount = false;
-    first->allowInplace = false;
-    first->allowedOutBuf = OB_TEMP;
-    first->allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
-    first->comments.push_back("EXP125 local real: folded Hermitian columns");
-
-    auto last = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_RC, this);
-    last->dimension = 1;
-    last->length = {io.rows, io.columns};
-    last->outputLength = {io.columns, io.rows};
-    last->real_io = io;
-    last->real_io.role = RealBlockRole::LocalRealRows;
-    last->allowInplace = false;
-    last->allowedOutBuf = OB_USER_OUT;
-    last->allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
-    last->comments.push_back("EXP125 local real: paired rows and adjacent real stores");
-    childNodes.emplace_back(std::move(first));
-    childNodes.emplace_back(std::move(last));
-    local_real_pipeline = true;
-    return true;
-}
-
-bool RealTransEvenNode::TryFusePairedPost(TreeNode& cfft, size_t n)
-{
-    auto geometry = RealBlockIO::ForLength(n);
-    if(!geometry || direction != -1 || cfft.scheme != CS_L1D_CC)
-        return false;
-
-    if(!is_device_gcn_arch(deviceProp, "gfx936") || deviceProp.warpSize != 64)
-        return false;
-
-    auto io = *geometry;
-    io.role = RealBlockRole::PairedPostRows;
-    io.pitch = io.rows; // Keep the ordinary packed CC intermediate matrix.
-    io.load = real_block_load("ROCFFT_EXP125_REAL_POST_LOAD",
-                             "invalid EXP125 real post load mode");
-
-    auto& first = *cfft.childNodes.front();
-    auto& last = *cfft.childNodes.back();
-    // The other factor and the row layout follow from the CC decomposition.
-    if(first.length[0] != io.columns)
-        return false;
-    FMKey rc_key(io.rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
-    if(!pool.has_function(rc_key))
-        return false;
-    const auto rc = pool.get_kernel(rc_key);
-    const size_t threads = io.rows == 256 ? 32 : 128;
-    const size_t workgroup = io.rows == 256 ? 256 : 512;
-    const std::vector<size_t> factors = io.rows == 256 ? std::vector<size_t>{4, 4, 4, 4}
-                                                     : std::vector<size_t>{8, 8, 8};
-    if(rc.threads_per_transform[0] != threads || rc.workgroup_size != workgroup
-       || rc.factors != factors || rc.transforms_per_block != workgroup / threads
-       || io.columns % rc.transforms_per_block != 0)
-        return false;
-
-    first.allowInplace = false;
-    first.allowedOutBuf = OB_TEMP;
-    first.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
-    last.real_io = io;
-    last.allowInplace = false;
-    last.allowedOutBuf = OB_USER_OUT;
-    last.allowedOutArrayTypes = {rocfft_array_type_complex_interleaved};
-    last.comments.push_back("EXP125 real post: paired mirror rows and fused half spectrum stores");
-    cfft.allowInplace = false;
-    cfft.outputLength = {n / 2 + 1};
-    return true;
-}
-
-void RealTransEvenNode::AssignLocalRealParams()
-{
-    const auto& io = childNodes.front()->real_io;
-    auto& first = childNodes.front();
-    auto& last = childNodes.back();
-    first->inStride = {2 * io.rows, 1};
-    first->iDist = iDist;
-    first->outStride = {io.pitch, 1};
-    first->oDist = io.columns * io.pitch;
-    last->inStride = {1, io.pitch};
-    last->iDist = first->oDist;
-    last->outStride = {1, io.columns};
-    last->oDist = oDist / 2;
-    first->AssignParams();
-    last->AssignParams();
-}
-
 void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
 {
     bool noSolution = child_scheme_trees.empty();
@@ -471,11 +333,6 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     // Fastest moving dimension must be even:
     if(realLength->at(0) % 2 != 0)
         throw std::runtime_error("fastest dimension is not even in RealTransEvenNode");
-
-    const bool try_cc_real = noSolution && ROCFFT_CC_REAL_FUSION && CanFuseCCReal();
-    if(try_cc_real && !ROCFFT_CC_LOCAL_REAL_FUSION
-       && TryBuildLocalRealTree(realLength->at(0)))
-        return;
 
     // check schemes from solution map
     ComputeScheme determined_scheme = CS_NONE;
@@ -517,18 +374,9 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
     // NB: the buffer is real, but we treat it as complex
     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
 
-    if(try_cc_real)
-    {
-        if(ROCFFT_CC_LOCAL_REAL_FUSION && TryBuildCCLocalTree(*cfftPlan, realLength->at(0)))
-            return;
-        if(ROCFFT_CC_LOCAL_REAL_FUSION && TryBuildLocalRealTree(realLength->at(0)))
-            return;
-        if(TryFusePairedPost(*cfftPlan, realLength->at(0)))
-        {
-            childNodes.emplace_back(std::move(cfftPlan));
-            return;
-        }
-    }
+    if(noSolution && ROCFFT_CC_REAL_FUSION && CanFuseCCReal()
+       && TryBuildCCLocalTree(*cfftPlan, realLength->at(0)))
+        return;
 
     if(noSolution)
     {
@@ -618,26 +466,6 @@ void RealTransEvenNode::AssignParams_internal()
     if(cc_local_pipeline)
     {
         AssignCCLocalParams();
-        return;
-    }
-    if(local_real_pipeline)
-    {
-        AssignLocalRealParams();
-        return;
-    }
-    if(childNodes.size() == 1
-       && childNodes.front()->GetLastLeaf()->real_io.role == RealBlockRole::PairedPostRows)
-    {
-        auto& fftPlan = childNodes.front();
-        fftPlan->inStride = inStride;
-        fftPlan->iDist = iDist / 2;
-        fftPlan->outStride = outStride;
-        fftPlan->oDist = oDist;
-        fftPlan->AssignParams();
-        const auto& last = *fftPlan->GetLastLeaf();
-        if(last.inStride != std::vector<size_t>{1, last.real_io.rows}
-           || last.outStride != std::vector<size_t>{1, last.real_io.columns})
-            throw std::runtime_error("paired real post-processing requires a packed intermediate");
         return;
     }
     // definitely will have FFT.  pre/post processing

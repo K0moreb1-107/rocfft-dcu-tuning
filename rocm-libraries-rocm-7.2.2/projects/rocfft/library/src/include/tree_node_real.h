@@ -65,16 +65,11 @@ protected:
     void AssignParams_internal() override;
     void BuildTree_internal(SchemeTreeVec& child_scheme_trees = EmptySchemeTreeVec) override;
 
-    bool TryBuildLocalRealTree(size_t n);
-    void AssignLocalRealParams();
-    bool TryFusePairedPost(TreeNode& cfft, size_t n);
     bool TryBuildCCLocalTree(const TreeNode& cfft, size_t n);
     void AssignCCLocalParams();
 
 public:
-    // EXP-125: two direct leaves, bypassing the separate pre-processing tree.
-    bool local_real_pipeline = false;
-    bool cc_local_pipeline   = false;
+    bool cc_local_pipeline = false;
 
     // 3D Even can possibly set this
     bool try_fuse_pre_post_processing = false;
