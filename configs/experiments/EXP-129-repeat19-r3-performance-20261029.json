@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "policy": "FFT-event-cufft261012-single-v3",
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-repeat19-r3-20261029",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "00:20:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05",
+    "nodelist": "a03r1n08"
+  },
+  "event_iterations": 30,
+  "timing_warmups": 10,
+  "timing_source_sha256": "b28fe276cf55c917c621820da9d0686289936434edbbb8bb25c40f89d28af771",
+  "cases": [
+    {
+      "N": 82134,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 124848,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 147968,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 167042,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 298144,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 340736,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 420000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 425920,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 425920,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 425984,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 449878,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 511104,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 574992,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 596288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 638880,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 70304,
+      "func": "d2z_1d"
+    }
+  ],
+  "case_scope": "User-requested targeted repetition of the exact 19 N/type cases below 0.95 in job 996875; no expansion or replacement of this cohort.",
+  "arms": {
+    "previous": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/install/EXP-128-cc-local-row-output-v6-20261028",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "babe7b5379aa37892f56cd190de21190d1838f68",
+      "source_state": "{\"commit\": \"babe7b5379aa37892f56cd190de21190d1838f68\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"19a7f34c2d9e61f5f58b10cc001f304ca589420f\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"c16a83799c21bc5008588e072513dad87761bdb767f34734473332ec2fb4bde4\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"b6f2ff07d404c6c967849370a3e138de971e3d8d03df85012a9c7d2b4da1b58d\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"f14ddefdcfa54392767dd3fe67c8736f7b2e9c3cf74691db4f0a319e38c62062\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_dual_revalidate.py\": \"1c9b60a2bec2ac7b6571a33fc1b0b1969dcb8274ec2a49036bc01a164b89229c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+      "library_sha256": "bd45afb7a95cfc80fccc0aae80f7bedf684d7468c11c735cdcd0049af72364e4",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-128/runs/EXP-128-cc-local-row-output-v6-build-20261028/build-provenance.json"
+    },
+    "candidate": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-129/artifacts/install/EXP-129-gate-simplification-20261029",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "cbfe5150947320cc193ca16650d69b018d6d0d6a",
+      "source_state": "{\"commit\": \"cbfe5150947320cc193ca16650d69b018d6d0d6a\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"c4de21bc379612ce420949575d8acc2cc9336177\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"c16a83799c21bc5008588e072513dad87761bdb767f34734473332ec2fb4bde4\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"b6f2ff07d404c6c967849370a3e138de971e3d8d03df85012a9c7d2b4da1b58d\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"f14ddefdcfa54392767dd3fe67c8736f7b2e9c3cf74691db4f0a319e38c62062\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_dual_revalidate.py\": \"1c9b60a2bec2ac7b6571a33fc1b0b1969dcb8274ec2a49036bc01a164b89229c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+      "library_sha256": "830990d8bf8b2c2033712fd0b5590791a81f93f1434f2a4fe469d2c2cfa69567",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-gate-simplification-build-20261029/build-provenance.json"
+    }
+  },
+  "comparison_kind": "version_comparison",
+  "arm_labels": {
+    "previous": "EXP128 V6",
+    "candidate": "EXP129门控精简版"
+  },
+  "acceptance": "Both already validated libraries, numerical check outside timing; retain every sample and independently report each repetition.",
+  "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-129/records/tasks-20261029/coverage.json",
+  "coverage_sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18",
+  "measurement_conditions": {
+    "precision": "double",
+    "batch": 1,
+    "placement": "out-of-place",
+    "load_path": "default",
+    "readonly_input": "Unchanged original v3 input/output semantics for each version; correctness outside timing and input restored.",
+    "reference": "V6 only; exact nineteen previously slower cases; 38 processes and 1140 samples in this repetition.",
+    "endpoint_packed_z2d": "extra C-point transform is included in net event time",
+    "callbacks": "none",
+    "scale_factor": 1.0
+  },
+  "source_state_policy": "Record actual starting commit and actual library identity. Do not freeze or compare workspace/build/validation source state.",
+  "comparison_description": "Independent repetition 3 of 3; existing V6 and EXP129, adjacent alternating order on original node; 10/30 and per-process medians.",
+  "a100_reference": {
+    "dataset": "test_fft_261012",
+    "manifest": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/manifest.json",
+    "manifest_sha256": "9ff261260c8b8a3f96baff9746c962e7a10a07bbed3b417e8176a8564d208c5c",
+    "median_table": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/medians.csv",
+    "median_table_sha256": "4153c23ffd6c59328a813360180ea77c3594f62d7489ecc60d193ad117e645b6",
+    "source": "/public/home/zhangkewei/zr/results/reference/a100/test_fft_261012/test_fft/src/fft_test_1d.cu",
+    "source_sha256": "f48f52127a94e682da854cb4036ffbbaf150bd2de18753c3f0c8f426916e6f35",
+    "warmups": 10,
+    "event_iterations": 30,
+    "input_pattern": "linear_index_real_imaginary_zero",
+    "comparison": "cross_device_reference",
+    "source_binary_correspondence_verified": false
+  },
+  "timing_support_sha256": "1c6bad63705e794472606ae9a106c60878d4fcf69112af9fbe5dd51be28499d6",
+  "candidate_branch": "exp-129-gate-simplification",
+  "validation_acceptance": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-gate-simplification-validate-20261029",
+    "job_id": "996874",
+    "record_sha256": "b4c3291ad6de174e16dc3580a5290313d4acbb69e7e551490a794f8c7fef7d70",
+    "evidence_record": "gate-simplification-validation.json",
+    "evidence_sha256": "17599b3901d76fb6d7414a2aed3c8c72daf5d87073a1b4984dc2e8b818190678",
+    "source_commit": "cbfe5150947320cc193ca16650d69b018d6d0d6a",
+    "library_sha256": "830990d8bf8b2c2033712fd0b5590791a81f93f1434f2a4fe469d2c2cfa69567"
+  },
+  "repeat19_round": 3
+}
