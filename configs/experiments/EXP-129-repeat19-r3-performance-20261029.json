@@ -10,7 +10,8 @@
     "time_limit": "00:20:00",
     "node_exclusive": true,
     "exclude": "a01r4n05",
-    "nodelist": "a03r1n08"
+    "nodelist": "a03r1n08",
+    "dependency": "afterok:997636"
   },
   "event_iterations": 30,
   "timing_warmups": 10,
