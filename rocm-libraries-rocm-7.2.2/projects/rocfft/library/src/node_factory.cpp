@@ -477,38 +477,6 @@ bool NodeFactory::CheckLarge1DMaps(const function_pool& pool)
     return singleValid && doubleValid;
 }
 
-bool NodeFactory::Get1DBlockComputeDivisor(const function_pool& pool,
-                                           rocfft_precision     precision,
-                                           size_t               length,
-                                           size_t&              divLength1,
-                                           bool&                mapEntryFound)
-{
-    mapEntryFound = false;
-    const Map1DLength* map1DLength = nullptr;
-    if(precision == rocfft_precision_single || precision == rocfft_precision_half)
-        map1DLength = &NodeFactory::map1DLengthSingle;
-    else if(precision == rocfft_precision_double)
-        map1DLength = &NodeFactory::map1DLengthDouble;
-    else
-        return false;
-
-    const auto it = map1DLength->find(length);
-    if(it == map1DLength->end())
-        return false;
-
-    mapEntryFound = true;
-    const auto candidate = it->second;
-    if(candidate == 0 || length % candidate != 0)
-        return false;
-
-    if(!pool.has_SBCC_kernel(candidate, precision)
-       || !pool.has_SBRC_kernel(length / candidate, precision))
-        return false;
-
-    divLength1 = candidate;
-    return true;
-}
-
 // Checks whether the non-pow2 length input is supported for a Bluestein compute scheme
 bool NodeFactory::NonPow2LengthSupported(const function_pool& pool,
                                          rocfft_precision     precision,
@@ -853,13 +821,20 @@ ComputeScheme
 
     if(IsPo2(nodeData.length[0])) // multiple kernels involving transpose
     {
-        bool mapEntryFound = false;
-        if(Get1DBlockComputeDivisor(pool,
-                                    nodeData.precision,
-                                    nodeData.length[0],
-                                    divLength1,
-                                    mapEntryFound))
+        const auto& lengthMap = nodeData.precision == rocfft_precision_double
+                                    ? map1DLengthDouble
+                                    : map1DLengthSingle;
+        const auto it = lengthMap.find(nodeData.length[0]);
+        const bool mapped = (nodeData.precision == rocfft_precision_single
+                             || nodeData.precision == rocfft_precision_half
+                             || nodeData.precision == rocfft_precision_double)
+                            && it != lengthMap.end();
+        const size_t divisor = mapped ? it->second : 0;
+        if(divisor && nodeData.length[0] % divisor == 0
+           && pool.has_SBCC_kernel(divisor, nodeData.precision)
+           && pool.has_SBRC_kernel(nodeData.length[0] / divisor, nodeData.precision))
         {
+            divLength1 = divisor;
             // for gfx906, 512 CC/RC isn't as fast, so use CRT
             // with a nicer length
             if((is_device_gcn_arch(nodeData.deviceProp, "gfx906")) && nodeData.length[0] == 262144)
@@ -872,8 +847,7 @@ ComputeScheme
                 scheme = CS_L1D_CC;
             }
         }
-        else if(!mapEntryFound
-                && nodeData.length[0] <= legacy_block_compute_map_threshold)
+        else if(!mapped && nodeData.length[0] <= legacy_block_compute_map_threshold)
         {
             // Preserve the legacy missing-map failure in the old block range.
             // A mapped pair that fails the LDS-aware kernel checks still falls

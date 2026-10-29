@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "route_cases": 41536,
+  "planner_cases": 1024,
+  "source": "extracted actual old/new function prefixes and call-order branches",
+  "gpu_execution": false,
+  "source_hashes": {
+    "before-source-fragments.inc": "cf709b7c2bfc9fd40dae4018c77f33db28a9c65c3b377f23cbbda246b00f397e",
+    "after-source-fragments.inc": "a5eaa8be2719e3bed70a36609ba9696388ffbe90f12eb4f2364e5095c086e468",
+    "compare.cpp": "97fa455a0fa63fa50aef1572ca02ff9dc554302ca1c2a66b69eedb2d014fdb46"
+  },
+  "boundary": "Gate acceptance, dispatch order, exceptions and mapped-kernel planner branch only; node-construction bodies, public plan integration, GPU code and numerical/device behavior are not covered.",
+  "artifacts": "/public/home/zhangkewei/zr/experiments/EXP-129/artifacts/planner-gates"
+}

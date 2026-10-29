@@ -3,12 +3,6 @@
 #include "stockham_gen_rc.h"
 #include "stockham_gen_cc_real_common.h"
 
-inline bool cc_local_register_pre(const StockhamGeneratorSpecs& specs)
-{
-    return RealBlockIO::CanRegisterPre(
-        specs.length, specs.factors.front(), specs.threads_per_transform);
-}
-
 struct StockhamKernelCCRealRows : StockhamKernelRC
 {
     RealBlockIO io;
@@ -109,8 +103,6 @@ struct StockhamKernelPackedInverseRows : StockhamKernelCCRealRows
     }
     StatementList register_input()
     {
-        if (!cc_local_register_pre(*this))
-            throw std::runtime_error("unproved CC real register pre map");
         const unsigned int f = factors.front(), k = length / f;
         const unsigned int lanes = std::min(k, threads_per_transform), butterflies = k / lanes;
         Variable lane { "cc_pre_lane", "const unsigned int" },

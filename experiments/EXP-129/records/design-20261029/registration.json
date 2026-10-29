@@ -5,10 +5,10 @@
   "base_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f",
   "base_tag": "exp128-before-gate-simplification-20261029",
   "base_source_tree": "ed2dd2b7fa0f00c148bace51a28d9463d41b5bae",
-  "status": "design_complete",
+  "status": "implemented_host_verified",
   "intent": "Simplify all added gates relative to official rocFFT 7.2.2 while preserving valid-plan selection and generated GPU semantics",
   "base_selection": "User explicitly requested continuation from the saved current EXP128 version; main remains unchanged.",
-  "implementation_started": false,
+  "implementation_started": true,
   "jobs_submitted": [],
   "new_correctness_results": null,
   "new_performance_results": null,
@@ -24,5 +24,8 @@
     "C-RTC-role-policy-and-register-mapping",
     "D-historical-specialization-and-planner-organization"
   ],
-  "acceptance": "Preserve valid-plan routes, final RTC policy/key, generated GPU semantics and resource requirements; meaningful host differential checks then minimal existing numerical/path validation after implementation."
+  "acceptance": "Preserve valid-plan routes, final RTC policy/key, generated GPU semantics and resource requirements; meaningful host differential checks then minimal existing numerical/path validation after implementation.",
+  "implementation_record": "experiments/EXP-129/records/implementation-20261029/implementation.json",
+  "host_validation_complete": true,
+  "device_validation_complete": false
 }

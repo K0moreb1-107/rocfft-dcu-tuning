@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-29",
+  "experiment": "EXP-129",
+  "branch": "exp-129-gate-simplification",
+  "base_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f",
+  "parent_commit": "09b287fd7fea62fc2a980aa787e2dbde209c13ba",
+  "production_files": [
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/node_factory.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp"
+  ],
+  "production_sha256": {
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h": "6bd5f5c78da16b86287256c307dc90507c1601939264eeca587ef40f10fb1613",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h": "c0dea42c5734684c3e1b8768c345ab81145fd84ed722b525fb6d8524a2163ade",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h": "4a9cb8a4f2cae0db9c6cb97bdc0b1d061cad27fddcdac4c04969f843a934dab9",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h": "b3a1bbee430477d784c3f2e7b85bdbed2cfd5d4c4aa99316c136d640c1eca55e",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h": "0b9a93275a6b81ad7d5e154e4063eb7b211775b247f9f52601e0f253c91e0e83",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/node_factory.h": "1d1eba25deb1a2d8c961a36ec88dc796e5074510da76c28d8000d5d669baac66",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h": "211dc02fd7344d04d8c32ac0e017f7084307be36d037d39b90aa79d8300c3157",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h": "11a69883ed7b99a5cbd8ce19ee37dc5bfc115642df0de804530c51f9c8560e7d",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp": "5b774f2238202a4fcc3c552581f245c1100f31deedef2adb6836c0fa913b3c5f",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp": "e5a72b287dcb0d65cb82f78e8d9173a69bc85d60442921ea4f119683d9501d31",
+    "rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp": "f6a75585d770d7423c0e065084a94a4ac45650b3ff6d75d3fbf9358d366cdec3"
+  },
+  "patch_sha256": "30ff0aaad7bcb633b4af5e5695aeb093e836aa1d6ad696e8562fe772119cc96b",
+  "proofs": [
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/rtc-gates/real_block_io.before.h",
+      "sha256": "6da2e9fead6c86ec701d796720919832e299fd7eabb9f3b0da1b4ee9b9b93bf6"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/rtc-gates/policy-equivalence.cpp",
+      "sha256": "6bfba4ee326a98bab9166ad23715143d031cb7a2389f9dcb6cb65b559eb17546"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/rtc-gates/rtc_stockham_kernel.before.cpp",
+      "sha256": "67b6983544f2bc8ca7a9555f02f0c7fa73b25466e4fe875cc15f41cd70f13574"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/rtc-gates/policy-equivalence-result.json",
+      "sha256": "ab42bb9a44f2c3e5f644c91b8cd84c8f76e3c2a680333931e1e54a6965615b3c"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/generator-simplification/stockham_gen_cc.h.before",
+      "sha256": "342b0ef54dc26dd7fd656641798b3a4a6fdc65aff30d52010a1b7dfc469c816a"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/generator-simplification/predicate-comparison.cpp",
+      "sha256": "e1e3c8591ed992cae2caaefd0fb45a04d6f223881f70b6ec7d5c3bb52680b38a"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/generator-simplification/predicate-result.json",
+      "sha256": "fdcf56e3603cd2eb314bc7b75b2c44b2713a0440dae28acc77df5d75f0ff8f15"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/generator-simplification/stockham_gen_base.h.before",
+      "sha256": "d85943239c696a79105115a54d8d9289afec0d4d14d98ae0a426d4622b35c339"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/planner-gates/before-source-fragments.inc",
+      "sha256": "cf709b7c2bfc9fd40dae4018c77f33db28a9c65c3b377f23cbbda246b00f397e"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/planner-gates/compare.cpp",
+      "sha256": "97fa455a0fa63fa50aef1572ca02ff9dc554302ca1c2a66b69eedb2d014fdb46"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/planner-gates/result.json",
+      "sha256": "d98ace7f2c6507f0d5e62f07cc7c5a739e324aec8dcd0df35a8cf733b5e8a41e"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/planner-gates/run_compare.py",
+      "sha256": "25a26bb25403e342311e51a650a9724da7b258175dfe33296dcfe922810bd9aa"
+    },
+    {
+      "path": "experiments/EXP-129/records/implementation-20261029/host-proofs/planner-gates/after-source-fragments.inc",
+      "sha256": "a5eaa8be2719e3bed70a36609ba9696388ffbe90f12eb4f2364e5095c086e468"
+    }
+  ],
+  "host_compiles": 8,
+  "byte_identical_generated_sources": 2830,
+  "generated_rtc_names_identical": true,
+  "planner_route_cases": 41536,
+  "planner_mapping_cases": 1024,
+  "rtc_policy_cases": 8847360,
+  "generator_predicate_states": 768000,
+  "generator_predicate_pass_variants": 6,
+  "device_execution": false,
+  "complete_library_build": false,
+  "numerical_validation": null,
+  "performance_measurement": null,
+  "jobs_submitted": [],
+  "speedup_prev": null,
+  "speedup_baseline": null,
+  "previous_version": "EXP128 V6 babe7b5379aa37892f56cd190de21190d1838f68",
+  "limits": "Host checks prove the listed policy, gate and generated-source comparisons; they do not replace public-plan integration or GPU numerical validation. No claim of end-to-end acceleration."
+}

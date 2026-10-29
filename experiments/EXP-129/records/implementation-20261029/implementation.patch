@@ -1,0 +1,787 @@
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h
+index aa0dd4c2..fd225921 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_base.h
+@@ -20,7 +20,9 @@
+ 
+ #pragma once
+ #include "stockham_gen.h"
++#include <algorithm>
+ #include <cmath>
++#include <initializer_list>
+ 
+ // Base class for stockham kernels.  Subclasses are responsible for
+ // different tiling types.
+@@ -349,6 +351,15 @@ struct StockhamKernel : public StockhamGeneratorSpecs
+         return ebtype == EmbeddedType::NONE ? Literal{0} : Literal{1};
+     }
+ 
++    bool matches_kernel_shape(unsigned int                        expected_length,
++                              unsigned int                        expected_threads,
++                              std::initializer_list<unsigned int> expected_factors) const
++    {
++        return length == expected_length && threads_per_transform == expected_threads
++               && factors.size() == expected_factors.size()
++               && std::equal(factors.begin(), factors.end(), expected_factors.begin());
++    }
++
+     Expression lds_address(const Expression& index) const
+     {
+         if(half_lds && precisions.size() == 1
+@@ -366,37 +377,20 @@ struct StockhamKernel : public StockhamGeneratorSpecs
+         return index;
+     }
+ 
+-    bool use_wave_sync() const
+-    {
+-        const bool is_dp = precisions.size() == 1
+-                           && precisions.front() == rocfft_precision_double;
+-        const bool is_sbcc_256 = length == 256
+-                                 && factors == std::vector<unsigned int>{8, 4, 8}
+-                                 && workgroup_size == 256 && threads_per_transform == 32;
+-        const bool is_sbcc_512 = length == 512
+-                                 && factors == std::vector<unsigned int>{8, 8, 8}
+-                                 && workgroup_size == 256 && threads_per_transform == 64;
+-        return false;
+-    }
+-
+     // The [8,8,4,4] / TPT=64 layout has one register-local boundary:
+     // pass 2's Stockham store followed by pass 3's load is a 4x4
+     // transpose within each thread.  Keep this narrowly scoped until
+     // the same ownership relation is proved for another configuration.
+     bool use_register_local_exchange(unsigned int npass) const
+     {
+-        return half_lds && precisions.size() == 1
+-               && precisions.front() == rocfft_precision_double && length == 1024
+-               && threads_per_transform == 64
+-               && factors == std::vector<unsigned int>{8, 8, 4, 4} && npass == 2;
++        return npass == 2 && half_lds && precisions.size() == 1
++               && precisions.front() == rocfft_precision_double
++               && matches_kernel_shape(1024, 64, {8, 8, 4, 4});
+     }
+ 
+-    StatementList register_local_exchange(unsigned int npass)
++    StatementList register_local_exchange()
+     {
+         StatementList work;
+-        if(!use_register_local_exchange(npass))
+-            return work;
+-
+         work += CommentLines{
+             "register-local Stockham exchange: transpose the 4x4 per-thread tile"};
+         for(unsigned int h = 0; h < 4; ++h)
+@@ -415,12 +409,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
+ 
+     StatementList sync_threads() const
+     {
+-        StatementList stmts;
+-        if(use_wave_sync())
+-            stmts += SyncWaveThreads{};
+-        else
+-            stmts += SyncThreads{};
+-        return stmts;
++        return {SyncThreads{}};
+     }
+ 
+     StatementList load_lds_generator(unsigned int h,
+@@ -497,23 +486,19 @@ struct StockhamKernel : public StockhamGeneratorSpecs
+ 
+     bool use_ordinary_twiddle_recurrence()
+     {
+-        const bool is_dp = precisions.size() == 1
+-                           && precisions.front() == rocfft_precision_double;
+-        const bool common_sbcc = half_lds && direct_to_from_reg && is_dp
+-                                 && workgroup_size == 256;
+-        const bool sbcc256 = length == 256 && threads_per_transform == 32
+-                             && factors == std::vector<unsigned int>{8, 4, 8};
+-        const bool sbcc512 = length == 512 && threads_per_transform == 64
+-                             && factors == std::vector<unsigned int>{8, 8, 8};
+-        const bool sbcc1024 = length == 1024 && threads_per_transform == 64
+-                              && factors == std::vector<unsigned int>{8, 8, 4, 4};
+-        const bool sbrc512 = sbrc_ordinary_twiddle_recurrence
+-                             && scheme == "CS_KERNEL_STOCKHAM_BLOCK_RC" && is_dp
+-                             && direct_to_from_reg && static_initial_reg_load
+-                             && length == 512 && workgroup_size == 512
+-                             && threads_per_transform == 128
+-                             && factors == std::vector<unsigned int>{8, 8, 8};
+-        return (common_sbcc && (sbcc256 || sbcc512 || sbcc1024)) || sbrc512;
++        if(!direct_to_from_reg || precisions.size() != 1
++           || precisions.front() != rocfft_precision_double)
++            return false;
++
++        if(half_lds && workgroup_size == 256
++           && (matches_kernel_shape(256, 32, {8, 4, 8})
++               || matches_kernel_shape(512, 64, {8, 8, 8})
++               || matches_kernel_shape(1024, 64, {8, 8, 4, 4})))
++            return true;
++
++        return sbrc_ordinary_twiddle_recurrence && scheme == "CS_KERNEL_STOCKHAM_BLOCK_RC"
++               && static_initial_reg_load && workgroup_size == 512
++               && matches_kernel_shape(512, 128, {8, 8, 8});
+     }
+ 
+     // The "stacked" twiddle table starts at the second factor, since
+@@ -846,7 +831,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
+             StatementList reg2lds_half;
+             if(npass < factors.size() - 1 && use_register_local_exchange(npass))
+             {
+-                body += register_local_exchange(npass);
++                body += register_local_exchange();
+             }
+             else if(npass < factors.size() - 1)
+             {
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h
+index bb95d331..666d519b 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc.h
+@@ -74,16 +74,13 @@ struct StockhamKernelCC : public StockhamKernel
+ 
+     bool use_late_large_twiddle_lds() const
+     {
+-        const bool common = direct_to_from_reg && half_lds && precisions.size() == 1
+-                            && precisions.front() == rocfft_precision_double
+-                            && workgroup_size == 256;
+-        const bool sbcc256 = length == 256 && threads_per_transform == 32
+-                             && transforms_per_block == 8
+-                             && factors == std::vector<unsigned int>{8, 4, 8};
+-        const bool sbcc1024 = length == 1024 && threads_per_transform == 64
+-                              && transforms_per_block == 4
+-                              && factors == std::vector<unsigned int>{8, 8, 4, 4};
+-        return common && (sbcc256 || sbcc1024);
++        if(!direct_to_from_reg || !half_lds || precisions.size() != 1
++           || precisions.front() != rocfft_precision_double || workgroup_size != 256)
++            return false;
++
++        return (transforms_per_block == 8 && matches_kernel_shape(256, 32, {8, 4, 8}))
++               || (transforms_per_block == 4
++                   && matches_kernel_shape(1024, 64, {8, 8, 4, 4}));
+     }
+ 
+     Expression late_large_twiddle_lds_enabled() const
+@@ -621,10 +618,12 @@ struct StockhamKernelCC : public StockhamKernel
+ 
+     virtual bool use_large_twiddle_recurrence() const
+     {
+-        const bool candidate_length = length == 256 || length == 512 || length == 1024;
+-        const bool supported_radix  = factors.back() == 4 || factors.back() == 8;
+-        return candidate_length && supported_radix && precisions.size() == 1
+-               && precisions.front() == rocfft_precision_double;
++        if(precisions.size() != 1 || precisions.front() != rocfft_precision_double)
++            return false;
++        if(length != 256 && length != 512 && length != 1024)
++            return false;
++
++        return factors.back() == 4 || factors.back() == 8;
+     }
+ 
+     StatementList large_twiddles_multiply_generator(unsigned int h,
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h
+index ed2265b5..6677576f 100644
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_columns.h
+@@ -15,7 +15,7 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
+         , callbacks(callbacks)
+         , phase_steps(phase_steps)
+     {
+-        if (length * transforms_per_block / (half_lds ? 2 : 1) < length)
++        if (transforms_per_block < (half_lds ? 2u : 1u))
+             throw std::runtime_error("CC callback cache exceeds reusable core workspace");
+     }
+     bool use_static_initial_reg_load() const override { return true; }
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h
+index 4be28d7c..933c553b 100644
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_cc_real_rows.h
+@@ -3,12 +3,6 @@
+ #include "stockham_gen_rc.h"
+ #include "stockham_gen_cc_real_common.h"
+ 
+-inline bool cc_local_register_pre(const StockhamGeneratorSpecs& specs)
+-{
+-    return RealBlockIO::CanRegisterPre(
+-        specs.length, specs.factors.front(), specs.threads_per_transform);
+-}
+-
+ struct StockhamKernelCCRealRows : StockhamKernelRC
+ {
+     RealBlockIO io;
+@@ -109,8 +103,6 @@ struct StockhamKernelPackedInverseRows : StockhamKernelCCRealRows
+     }
+     StatementList register_input()
+     {
+-        if (!cc_local_register_pre(*this))
+-            throw std::runtime_error("unproved CC real register pre map");
+         const unsigned int f = factors.front(), k = length / f;
+         const unsigned int lanes = std::min(k, threads_per_transform), butterflies = k / lanes;
+         Variable lane { "cc_pre_lane", "const unsigned int" },
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h
+index 8997dbe2..74b287cf 100644
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/device/generator/stockham_gen_real_post.h
+@@ -47,9 +47,7 @@ struct StockhamKernelPairedPostRows : StockhamKernelRC
+         , rows_per_block(transforms_per_block)
+         , preload_post_twiddles(preload_twiddles)
+     {
+-        if(specs.real_io.role != RealBlockRole::PairedPostRows || length != rows
+-           || specs.real_io.n != 2 * columns * rows || specs.real_io.pitch != rows
+-           || (rows != 256 && rows != 512) || rows_per_block % 2 != 0
++        if(length != rows || (rows != 256 && rows != 512) || rows_per_block % 2 != 0
+            || columns % rows_per_block != 0 || workgroup_size % (2 * rows_per_block) != 0)
+             throw std::runtime_error("unsupported paired real post-processing geometry");
+     }
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/node_factory.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/node_factory.h
+index 01c0ce3a..68092284 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/node_factory.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/node_factory.h
+@@ -42,11 +42,6 @@ private:
+                                     const Map1DLength&   map1DLength,
+                                     rocfft_precision     precision);
+     static bool CheckLarge1DMaps(const function_pool& pool);
+-    static bool Get1DBlockComputeDivisor(const function_pool& pool,
+-                                         rocfft_precision     precision,
+-                                         size_t               length,
+-                                         size_t&              divLength1,
+-                                         bool&                mapEntryFound);
+ 
+ public:
+     // Create node (user level) using this function
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
+index d2c8fd71..28c35283 100644
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/real_block_io.h
+@@ -59,19 +59,9 @@ struct RealBlockIO
+     }
+     // The native first-pass map covers lane+h*threads+w*(length/first_factor).
+     // pass_io guards its final partial group; no power-of-two condition is needed.
+-    static bool CanRegisterInput(size_t length, const std::vector<unsigned int>& factors,
+-        size_t threads, size_t workgroup)
++    static bool CanRegisterInput(size_t threads, size_t workgroup)
+     {
+-        if (!length || factors.empty() || !threads || !workgroup || workgroup % threads)
+-            return false;
+-        size_t product = 1;
+-        for (const auto factor : factors)
+-        {
+-            if (!factor || product > length / factor)
+-                return false;
+-            product *= factor;
+-        }
+-        return product == length;
++        return threads && workgroup && workgroup % threads == 0;
+     }
+     static bool CanRegisterPre(size_t length, size_t first_factor, size_t threads)
+     {
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
+index 6cb0feb4..42b920e0 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/include/tree_node_real.h
+@@ -59,19 +59,23 @@ protected:
+     {
+         scheme = CS_REAL_TRANSFORM_EVEN;
+     }
++    bool CanFuseCCReal() const;
++    bool CCRealKernelsAvailable(size_t columns, size_t rows) const;
++
+     void AssignParams_internal() override;
+     void BuildTree_internal(SchemeTreeVec& child_scheme_trees = EmptySchemeTreeVec) override;
+ 
+-public:
+-    // EXP-125: two direct leaves, bypassing the separate pre-processing tree.
+-    bool local_real_pipeline = false;
+     bool TryBuildLocalRealTree(size_t n);
+     void AssignLocalRealParams();
+     bool TryFusePairedPost(TreeNode& cfft, size_t n);
+-    bool cc_local_pipeline = false;
+     bool TryBuildCCLocalTree(const TreeNode& cfft, size_t n);
+     void AssignCCLocalParams();
+ 
++public:
++    // EXP-125: two direct leaves, bypassing the separate pre-processing tree.
++    bool local_real_pipeline = false;
++    bool cc_local_pipeline   = false;
++
+     // 3D Even can possibly set this
+     bool try_fuse_pre_post_processing = false;
+ 
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp
+index 62967ef7..9d8379b9 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/node_factory.cpp
+@@ -477,38 +477,6 @@ bool NodeFactory::CheckLarge1DMaps(const function_pool& pool)
+     return singleValid && doubleValid;
+ }
+ 
+-bool NodeFactory::Get1DBlockComputeDivisor(const function_pool& pool,
+-                                           rocfft_precision     precision,
+-                                           size_t               length,
+-                                           size_t&              divLength1,
+-                                           bool&                mapEntryFound)
+-{
+-    mapEntryFound = false;
+-    const Map1DLength* map1DLength = nullptr;
+-    if(precision == rocfft_precision_single || precision == rocfft_precision_half)
+-        map1DLength = &NodeFactory::map1DLengthSingle;
+-    else if(precision == rocfft_precision_double)
+-        map1DLength = &NodeFactory::map1DLengthDouble;
+-    else
+-        return false;
+-
+-    const auto it = map1DLength->find(length);
+-    if(it == map1DLength->end())
+-        return false;
+-
+-    mapEntryFound = true;
+-    const auto candidate = it->second;
+-    if(candidate == 0 || length % candidate != 0)
+-        return false;
+-
+-    if(!pool.has_SBCC_kernel(candidate, precision)
+-       || !pool.has_SBRC_kernel(length / candidate, precision))
+-        return false;
+-
+-    divLength1 = candidate;
+-    return true;
+-}
+-
+ // Checks whether the non-pow2 length input is supported for a Bluestein compute scheme
+ bool NodeFactory::NonPow2LengthSupported(const function_pool& pool,
+                                          rocfft_precision     precision,
+@@ -853,13 +821,20 @@ ComputeScheme
+ 
+     if(IsPo2(nodeData.length[0])) // multiple kernels involving transpose
+     {
+-        bool mapEntryFound = false;
+-        if(Get1DBlockComputeDivisor(pool,
+-                                    nodeData.precision,
+-                                    nodeData.length[0],
+-                                    divLength1,
+-                                    mapEntryFound))
++        const auto& lengthMap = nodeData.precision == rocfft_precision_double
++                                    ? map1DLengthDouble
++                                    : map1DLengthSingle;
++        const auto it = lengthMap.find(nodeData.length[0]);
++        const bool mapped = (nodeData.precision == rocfft_precision_single
++                             || nodeData.precision == rocfft_precision_half
++                             || nodeData.precision == rocfft_precision_double)
++                            && it != lengthMap.end();
++        const size_t divisor = mapped ? it->second : 0;
++        if(divisor && nodeData.length[0] % divisor == 0
++           && pool.has_SBCC_kernel(divisor, nodeData.precision)
++           && pool.has_SBRC_kernel(nodeData.length[0] / divisor, nodeData.precision))
+         {
++            divLength1 = divisor;
+             // for gfx906, 512 CC/RC isn't as fast, so use CRT
+             // with a nicer length
+             if((is_device_gcn_arch(nodeData.deviceProp, "gfx906")) && nodeData.length[0] == 262144)
+@@ -872,8 +847,7 @@ ComputeScheme
+                 scheme = CS_L1D_CC;
+             }
+         }
+-        else if(!mapEntryFound
+-                && nodeData.length[0] <= legacy_block_compute_map_threshold)
++        else if(!mapped && nodeData.length[0] <= legacy_block_compute_map_threshold)
+         {
+             // Preserve the legacy missing-map failure in the old block range.
+             // A mapped pair that fails the LDS-aware kernel checks still falls
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
+index 7f153146..3354e5fe 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_stockham_kernel.cpp
+@@ -18,6 +18,7 @@
+ // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ // THE SOFTWARE.
+ 
++#include <algorithm>
+ #include <optional>
+ 
+ #include "../../shared/arithmetic.h"
+@@ -30,6 +31,18 @@
+ 
+ #include "device/kernel-generator-embed.h"
+ 
++// The length is the product of the registered factors in StockhamGeneratorSpecs.
++static bool sbrc_static_load_available(const StockhamGeneratorSpecs& specs)
++{
++    if(!IsPo2(specs.length) || specs.factors.empty() || !specs.threads_per_transform
++       || specs.workgroup_size % specs.threads_per_transform)
++        return false;
++
++    return std::all_of(specs.factors.begin(), specs.factors.end(), [](unsigned int factor) {
++        return IsPo2(factor);
++    });
++}
++
+ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&    node,
+                                                               const std::string& gpu_arch,
+                                                               bool               enable_callbacks)
+@@ -86,94 +99,71 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&
+         specs->direct_to_from_reg    = kernel->direct_to_from_reg;
+         specs->ebtype                = node.ebtype;
+ 
+-        // EXP-089: enable direct initial global-to-register loading for any
+-        // power-of-two SBRC whose complete first-pass map can be proven from
+-        // the generated Stockham configuration.  This also covers future
+-        // lengths such as SBRC-1024 without adding a length whitelist.
+         const auto callback_type = node.GetCallbackType(enable_callbacks);
+-        const auto is_power_of_two = [](size_t value) {
+-            return value != 0 && (value & (value - 1)) == 0;
+-        };
+-        const bool static_pow2_sbrc_map = [&]() {
+-            if(!is_power_of_two(specs->length) || specs->factors.empty()
+-               || specs->threads_per_transform == 0
+-               || specs->workgroup_size % specs->threads_per_transform != 0
+-               || specs->length % specs->factors.front() != 0)
+-                return false;
+-
+-            size_t factor_product = 1;
+-            for(const auto factor : specs->factors)
+-            {
+-                if(!is_power_of_two(factor) || factor_product > specs->length / factor)
+-                    return false;
+-                factor_product *= factor;
+-            }
+-            return factor_product == specs->length;
+-        }();
+-        specs->static_initial_reg_load
+-            = pool_scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
+-              && node.scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
+-              && node.sbrcTranstype == TILE_ALIGNED
+-              && node.precision == rocfft_precision_double
+-              && node.ebtype == EmbeddedType::NONE
+-              && callback_type == CallbackType::NONE
+-              && specs->direct_to_from_reg
+-              && static_pow2_sbrc_map;
+-        specs->static_initial_reg_load_linear
+-            = specs->static_initial_reg_load
+-              && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;
+-
+-        // The local SBRC-512 kernel is shared by several large 1D FFTs.
+-        // Select the recurrence using the complete plan length, not the
+-        // local transform length, and carry that decision into the RTC key.
+-        const TreeNode* plan_root = &node;
+-        while(plan_root->parent != nullptr)
+-            plan_root = plan_root->parent;
+-        const bool full_transform_is_128k = plan_root->dimension == 1
+-                                             && plan_root->length.size() == 1
+-                                             && plan_root->length.front() == 131072;
+-        specs->sbrc_ordinary_twiddle_recurrence
+-            = specs->static_initial_reg_load && full_transform_is_128k
+-              && specs->length == 512 && specs->workgroup_size == 512
+-              && specs->threads_per_transform == 128
+-              && specs->factors == std::vector<unsigned int>{8, 8, 8};
++        const bool ordinary_sbrc
++            = node.scheme == CS_KERNEL_STOCKHAM_BLOCK_RC && node.sbrcTranstype == TILE_ALIGNED
++              && node.precision == rocfft_precision_double && node.ebtype == EmbeddedType::NONE
++              && callback_type == CallbackType::NONE && specs->direct_to_from_reg;
+ 
+         specs->real_io = node.real_io;
+-        if(node.real_io.IsCCLocal())
+-        {
+-            specs->direct_to_from_reg=true;
+-            specs->static_initial_reg_load=true;
+-            specs->static_initial_reg_load_linear=pool_scheme==CS_KERNEL_STOCKHAM_BLOCK_RC;
+-            if(node.real_io.IsInputBoundary())
+-                specs->real_io.load=RealBlockLoad::Registers;
+-            else if(node.real_io.role==RealBlockRole::PackedInverseRows)
+-                specs->real_io.load=RealBlockIO::CanRegisterPre(specs->length,specs->factors.front(),specs->threads_per_transform)
+-                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
+-            else
+-                specs->real_io.load=RealBlockIO::CanRegisterInput(specs->length,specs->factors,
+-                    specs->threads_per_transform,specs->workgroup_size)
+-                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
+-        }
+-        // The ordinary CC LDS entry uses an unswizzled complex staging layout.
+-        if(node.real_io.role == RealBlockRole::HermitianColumns
+-           && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
+-            specs->half_lds = false;
+-        if(node.real_io.role == RealBlockRole::LocalRealRows)
++        switch(node.real_io.role)
+         {
+-            specs->direct_to_from_reg = true;
+-            specs->static_initial_reg_load = true;
++        case RealBlockRole::FoldedPackedColumns:
++        case RealBlockRole::PackedInverseRows:
++        case RealBlockRole::LocalPostColumns:
++        case RealBlockRole::FoldedSpectrumRows:
++            specs->direct_to_from_reg             = true;
++            specs->static_initial_reg_load        = true;
++            specs->static_initial_reg_load_linear = pool_scheme == CS_KERNEL_STOCKHAM_BLOCK_RC;
++            specs->real_io.load                   = RealBlockLoad::Registers;
++            if(node.real_io.role == RealBlockRole::PackedInverseRows
++               && !RealBlockIO::CanRegisterPre(
++                   specs->length, specs->factors.front(), specs->threads_per_transform))
++                specs->real_io.load = RealBlockLoad::LDS;
++            if(node.real_io.role == RealBlockRole::FoldedSpectrumRows
++               && !RealBlockIO::CanRegisterInput(specs->threads_per_transform,
++                                                 specs->workgroup_size))
++                specs->real_io.load = RealBlockLoad::LDS;
++            break;
++        case RealBlockRole::LocalRealRows:
++            specs->direct_to_from_reg             = true;
++            specs->static_initial_reg_load        = true;
+             specs->static_initial_reg_load_linear = true;
+-            specs->sbrc_ordinary_twiddle_recurrence = false;
++            break;
++        case RealBlockRole::PairedPostRows:
++            // Preserve scalar LDS exchanges when callbacks require the ordinary load.
++            specs->direct_to_from_reg = true;
++            specs->static_initial_reg_load
++                = node.real_io.load == RealBlockLoad::Registers
++                  && callback_type == CallbackType::NONE;
++            specs->static_initial_reg_load_linear = specs->static_initial_reg_load;
++            break;
++        case RealBlockRole::HermitianColumns:
++            // The ordinary CC LDS entry uses an unswizzled complex staging layout.
++            if(node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
++                specs->half_lds = false;
++            [[fallthrough]];
++        default:
++            specs->static_initial_reg_load = ordinary_sbrc && sbrc_static_load_available(*specs);
++            specs->static_initial_reg_load_linear
++                = specs->static_initial_reg_load
++                  && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;
++            break;
+         }
+ 
+-        if(node.real_io.role == RealBlockRole::PairedPostRows)
++        // This exact map already satisfies the static-load geometry.  CC-local
++        // kernels retain the ordinary recurrence selected before overriding loads.
++        if(ordinary_sbrc && node.real_io.role != RealBlockRole::LocalRealRows
++           && node.real_io.role != RealBlockRole::PairedPostRows && specs->length == 512
++           && specs->workgroup_size == 512 && specs->threads_per_transform == 128
++           && specs->factors == std::vector<unsigned int>{8, 8, 8})
+         {
+-            // Preserve Q=512 scalar LDS exchanges in both initial load modes.
+-            specs->direct_to_from_reg = true;
+-            specs->static_initial_reg_load = node.real_io.load == RealBlockLoad::Registers
+-                                             && callback_type == CallbackType::NONE;
+-            specs->static_initial_reg_load_linear = specs->static_initial_reg_load;
+-            specs->sbrc_ordinary_twiddle_recurrence = false;
++            const TreeNode* plan_root = &node;
++            while(plan_root->parent != nullptr)
++                plan_root = plan_root->parent;
++            specs->sbrc_ordinary_twiddle_recurrence
++                = plan_root->dimension == 1 && plan_root->length.size() == 1
++                  && plan_root->length.front() == 131072;
+         }
+ 
+         if(node.isPartialPassEnabled())
+diff --git a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
+index 065e479e..2ec125ac 100755
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/tree_node_real.cpp
+@@ -218,48 +218,78 @@ void RealTransCmplxNode::AssignParams_internal()
+ #define ROCFFT_CC_LOCAL_REAL_FUSION 1
+ #endif
+ 
+-bool RealTransEvenNode::TryBuildCCLocalTree(const TreeNode& cfft, size_t n)
++bool RealTransEvenNode::CanFuseCCReal() const
+ {
+-    if(!ROCFFT_CC_REAL_FUSION || !ROCFFT_CC_LOCAL_REAL_FUSION || n < 65536 || n % 2
+-        || dimension != 1 || length.size() != 1 || batch != 1
+-        || precision != rocfft_precision_double || placement != rocfft_placement_notinplace
+-        || inStride != std::vector<size_t> { 1 } || outStride != std::vector<size_t> { 1 }
+-        || iOffset || oOffset || !is_device_gcn_arch(deviceProp, "gfx936")
+-        || deviceProp.warpSize != 64 || cfft.scheme != CS_L1D_CC || cfft.childNodes.size() != 2)
++    if(dimension != 1 || length.size() != 1 || batch != 1
++       || precision != rocfft_precision_double || placement != rocfft_placement_notinplace)
+         return false;
+-    const bool inverse = direction == 1;
+-    if((inverse
+-           && (inArrayType != rocfft_array_type_hermitian_interleaved
+-               || outArrayType != rocfft_array_type_real))
+-        || (!inverse
+-            && (inArrayType != rocfft_array_type_real
+-                || outArrayType != rocfft_array_type_hermitian_interleaved)))
++
++    if(inStride.size() != 1 || outStride.size() != 1 || inStride.front() != 1
++       || outStride.front() != 1 || iOffset || oOffset)
+         return false;
+-    const auto& col = *cfft.childNodes.front();
+-    const auto& row = *cfft.childNodes.back();
+-    if(col.scheme != CS_KERNEL_STOCKHAM_BLOCK_CC || row.scheme != CS_KERNEL_STOCKHAM_BLOCK_RC
+-        || col.length.size() != 2 || row.length.size() != 2 || col.ebtype != EmbeddedType::NONE
+-        || row.ebtype != EmbeddedType::NONE || col.fuseBlue != BFT_NONE || row.fuseBlue != BFT_NONE)
++
++    if(direction == 1)
++        return inArrayType == rocfft_array_type_hermitian_interleaved
++               && outArrayType == rocfft_array_type_real;
++
++    return inArrayType == rocfft_array_type_real
++           && outArrayType == rocfft_array_type_hermitian_interleaved;
++}
++
++bool RealTransEvenNode::CCRealKernelsAvailable(size_t columns, size_t rows) const
++{
++    const FMKey cc_key(columns, precision, CS_KERNEL_STOCKHAM_BLOCK_CC);
++    const FMKey rc_key(rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
++    if(!pool.has_function(cc_key) || !pool.has_function(rc_key))
+         return false;
+-    const size_t c = col.length[0], q = col.length[1];
+-    if(!c || !q || c * q != n / 2 || row.length != std::vector<size_t> { q, c }
+-        || n > (size_t(1) << 24))
++
++    const auto cc = pool.get_kernel(cc_key);
++    const auto rc = pool.get_kernel(rc_key);
++    const auto transpose = columns % rc.transforms_per_block ? TILE_UNALIGNED : TILE_ALIGNED;
++    if(!pool.has_function(FMKey(rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, transpose)))
+         return false;
+-    const FMKey cc_key(c, precision, CS_KERNEL_STOCKHAM_BLOCK_CC);
+-    const FMKey aligned(q, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
+-    if(!pool.has_function(cc_key) || !pool.has_function(aligned))
++
++    const size_t lds_divisor = cc.half_lds ? 2 : 1;
++    if(!cc.direct_to_from_reg || rows < cc.transforms_per_block
++       || cc.transforms_per_block < lds_divisor)
++        return false;
++
++    const size_t complex_bytes = 2 * sizeof(double);
++    const size_t cc_bytes      = columns * cc.transforms_per_block * complex_bytes / lds_divisor;
++    const size_t rc_bytes      = rows * rc.transforms_per_block * complex_bytes;
++    return cc_bytes <= deviceProp.sharedMemPerBlock && rc_bytes <= deviceProp.sharedMemPerBlock;
++}
++
++static RealBlockLoad real_block_load(const char* variable, const char* error)
++{
++    const char* value = std::getenv(variable);
++    if(!value)
++        return RealBlockLoad::Registers;
++
++    const std::string mode(value);
++    if(mode == "registers")
++        return RealBlockLoad::Registers;
++    if(mode == "lds")
++        return RealBlockLoad::LDS;
++    throw std::runtime_error(error);
++}
++
++bool RealTransEvenNode::TryBuildCCLocalTree(const TreeNode& cfft, size_t n)
++{
++    if(n < 65536 || n > (size_t(1) << 24) || cfft.scheme != CS_L1D_CC
++       || cfft.fuseBlue != BFT_NONE)
+         return false;
+-    const auto cc = pool.get_kernel(cc_key), rc = pool.get_kernel(aligned);
+-    const auto transpose = c % rc.transforms_per_block ? TILE_UNALIGNED : TILE_ALIGNED;
+-    if(!pool.has_function(FMKey(q, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, transpose))
+-        || !cc.direct_to_from_reg || q < cc.transforms_per_block
+-        || c * cc.transforms_per_block / (cc.half_lds ? 2 : 1) < c)
++
++    if(!is_device_gcn_arch(deviceProp, "gfx936") || deviceProp.warpSize != 64)
+         return false;
+-    const size_t cc_bytes = c * cc.transforms_per_block * 16 / (cc.half_lds ? 2 : 1);
+-    if(cc_bytes > deviceProp.sharedMemPerBlock
+-        || q * rc.transforms_per_block * 16 > deviceProp.sharedMemPerBlock)
++
++    // CC construction has already established the two factors and leaf schemes.
++    const auto& col = *cfft.childNodes.front();
++    const size_t c = col.length[0], q = col.length[1];
++    if(!CCRealKernelsAvailable(c, q))
+         return false;
+ 
++    const bool inverse = direction == 1;
+     RealBlockIO io { RealBlockRole::None, RealBlockLoad::LDS, n, c, q, q };
+     auto first = NodeFactory::CreateNodeFromScheme(CS_KERNEL_STOCKHAM_BLOCK_CC, this);
+     first->dimension = 1;
+@@ -313,21 +343,12 @@ void RealTransEvenNode::AssignCCLocalParams()
+ bool RealTransEvenNode::TryBuildLocalRealTree(size_t n)
+ {
+     auto geometry = RealBlockIO::ForLength(n);
+-    if(!geometry || dimension != 1 || length.size() != 1 || batch != 1
+-       || direction != 1 || precision != rocfft_precision_double
+-       || placement != rocfft_placement_notinplace
+-       || inArrayType != rocfft_array_type_hermitian_interleaved
+-       || outArrayType != rocfft_array_type_real
+-       || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
+-       || iOffset != 0 || oOffset != 0)
++    if(!geometry || direction != 1)
+         return false;
+ 
+     auto io = *geometry;
+-    const char* mode = std::getenv("ROCFFT_EXP125_LOCAL_REAL_LOAD");
+-    if(mode && std::string(mode) == "lds")
+-        io.load = RealBlockLoad::LDS;
+-    else if(mode && std::string(mode) != "registers")
+-        throw std::runtime_error("invalid EXP125 local real load mode");
++    io.load = real_block_load("ROCFFT_EXP125_LOCAL_REAL_LOAD",
++                             "invalid EXP125 local real load mode");
+     // The Q=512 producer map requires a complete 64-lane subgroup.
+     if(io.rows == 512 && deviceProp.warpSize < 64)
+         io.load = RealBlockLoad::LDS;
+@@ -379,33 +400,22 @@ bool RealTransEvenNode::TryBuildLocalRealTree(size_t n)
+ bool RealTransEvenNode::TryFusePairedPost(TreeNode& cfft, size_t n)
+ {
+     auto geometry = RealBlockIO::ForLength(n);
+-    if(!geometry || dimension != 1 || length.size() != 1 || batch != 1
+-       || direction != -1 || precision != rocfft_precision_double
+-       || placement != rocfft_placement_notinplace
+-       || inArrayType != rocfft_array_type_real
+-       || outArrayType != rocfft_array_type_hermitian_interleaved
+-       || inStride != std::vector<size_t>{1} || outStride != std::vector<size_t>{1}
+-       || iOffset != 0 || oOffset != 0 || !is_device_gcn_arch(deviceProp, "gfx936")
+-       || deviceProp.warpSize != 64 || cfft.scheme != CS_L1D_CC
+-       || cfft.childNodes.size() != 2)
++    if(!geometry || direction != -1 || cfft.scheme != CS_L1D_CC)
++        return false;
++
++    if(!is_device_gcn_arch(deviceProp, "gfx936") || deviceProp.warpSize != 64)
+         return false;
+ 
+     auto io = *geometry;
+     io.role = RealBlockRole::PairedPostRows;
+     io.pitch = io.rows; // Keep the ordinary packed CC intermediate matrix.
+-    const char* mode = std::getenv("ROCFFT_EXP125_REAL_POST_LOAD");
+-    if(mode && std::string(mode) == "lds")
+-        io.load = RealBlockLoad::LDS;
+-    else if(mode && std::string(mode) != "registers")
+-        throw std::runtime_error("invalid EXP125 real post load mode");
++    io.load = real_block_load("ROCFFT_EXP125_REAL_POST_LOAD",
++                             "invalid EXP125 real post load mode");
+ 
+     auto& first = *cfft.childNodes.front();
+     auto& last = *cfft.childNodes.back();
+-    if(first.scheme != CS_KERNEL_STOCKHAM_BLOCK_CC
+-       || last.scheme != CS_KERNEL_STOCKHAM_BLOCK_RC
+-       || first.length != std::vector<size_t>{io.columns, io.rows}
+-       || last.length != std::vector<size_t>{io.rows, io.columns}
+-       || first.large1D != n / 2 || last.ebtype != EmbeddedType::NONE)
++    // The other factor and the row layout follow from the CC decomposition.
++    if(first.length[0] != io.columns)
+         return false;
+     FMKey rc_key(io.rows, precision, CS_KERNEL_STOCKHAM_BLOCK_RC, TILE_ALIGNED);
+     if(!pool.has_function(rc_key))
+@@ -462,7 +472,8 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
+     if(realLength->at(0) % 2 != 0)
+         throw std::runtime_error("fastest dimension is not even in RealTransEvenNode");
+ 
+-    if(noSolution && ROCFFT_CC_REAL_FUSION && !ROCFFT_CC_LOCAL_REAL_FUSION
++    const bool try_cc_real = noSolution && ROCFFT_CC_REAL_FUSION && CanFuseCCReal();
++    if(try_cc_real && !ROCFFT_CC_LOCAL_REAL_FUSION
+        && TryBuildLocalRealTree(realLength->at(0)))
+         return;
+ 
+@@ -506,15 +517,17 @@ void RealTransEvenNode::BuildTree_internal(SchemeTreeVec& child_scheme_trees)
+     // NB: the buffer is real, but we treat it as complex
+     cfftPlan->RecursiveBuildTree((noSolution) ? nullptr : child_scheme_trees[fft_node_id].get());
+ 
+-    if(noSolution && TryBuildCCLocalTree(*cfftPlan,realLength->at(0)))
+-        return;
+-    if(noSolution && ROCFFT_CC_REAL_FUSION && ROCFFT_CC_LOCAL_REAL_FUSION
+-       && TryBuildLocalRealTree(realLength->at(0)))
+-        return;
+-    if(noSolution && ROCFFT_CC_REAL_FUSION && TryFusePairedPost(*cfftPlan, realLength->at(0)))
++    if(try_cc_real)
+     {
+-        childNodes.emplace_back(std::move(cfftPlan));
+-        return;
++        if(ROCFFT_CC_LOCAL_REAL_FUSION && TryBuildCCLocalTree(*cfftPlan, realLength->at(0)))
++            return;
++        if(ROCFFT_CC_LOCAL_REAL_FUSION && TryBuildLocalRealTree(realLength->at(0)))
++            return;
++        if(TryFusePairedPost(*cfftPlan, realLength->at(0)))
++        {
++            childNodes.emplace_back(std::move(cfftPlan));
++            return;
++        }
+     }
+ 
+     if(noSolution)

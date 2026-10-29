@@ -47,9 +47,7 @@ struct StockhamKernelPairedPostRows : StockhamKernelRC
         , rows_per_block(transforms_per_block)
         , preload_post_twiddles(preload_twiddles)
     {
-        if(specs.real_io.role != RealBlockRole::PairedPostRows || length != rows
-           || specs.real_io.n != 2 * columns * rows || specs.real_io.pitch != rows
-           || (rows != 256 && rows != 512) || rows_per_block % 2 != 0
+        if(length != rows || (rows != 256 && rows != 512) || rows_per_block % 2 != 0
            || columns % rows_per_block != 0 || workgroup_size % (2 * rows_per_block) != 0)
             throw std::runtime_error("unsupported paired real post-processing geometry");
     }

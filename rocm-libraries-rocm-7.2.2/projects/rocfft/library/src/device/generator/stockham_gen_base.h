@@ -20,7 +20,9 @@
 
 #pragma once
 #include "stockham_gen.h"
+#include <algorithm>
 #include <cmath>
+#include <initializer_list>
 
 // Base class for stockham kernels.  Subclasses are responsible for
 // different tiling types.
@@ -349,6 +351,15 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return ebtype == EmbeddedType::NONE ? Literal{0} : Literal{1};
     }
 
+    bool matches_kernel_shape(unsigned int                        expected_length,
+                              unsigned int                        expected_threads,
+                              std::initializer_list<unsigned int> expected_factors) const
+    {
+        return length == expected_length && threads_per_transform == expected_threads
+               && factors.size() == expected_factors.size()
+               && std::equal(factors.begin(), factors.end(), expected_factors.begin());
+    }
+
     Expression lds_address(const Expression& index) const
     {
         if(half_lds && precisions.size() == 1
@@ -366,37 +377,20 @@ struct StockhamKernel : public StockhamGeneratorSpecs
         return index;
     }
 
-    bool use_wave_sync() const
-    {
-        const bool is_dp = precisions.size() == 1
-                           && precisions.front() == rocfft_precision_double;
-        const bool is_sbcc_256 = length == 256
-                                 && factors == std::vector<unsigned int>{8, 4, 8}
-                                 && workgroup_size == 256 && threads_per_transform == 32;
-        const bool is_sbcc_512 = length == 512
-                                 && factors == std::vector<unsigned int>{8, 8, 8}
-                                 && workgroup_size == 256 && threads_per_transform == 64;
-        return false;
-    }
-
     // The [8,8,4,4] / TPT=64 layout has one register-local boundary:
     // pass 2's Stockham store followed by pass 3's load is a 4x4
     // transpose within each thread.  Keep this narrowly scoped until
     // the same ownership relation is proved for another configuration.
     bool use_register_local_exchange(unsigned int npass) const
     {
-        return half_lds && precisions.size() == 1
-               && precisions.front() == rocfft_precision_double && length == 1024
-               && threads_per_transform == 64
-               && factors == std::vector<unsigned int>{8, 8, 4, 4} && npass == 2;
+        return npass == 2 && half_lds && precisions.size() == 1
+               && precisions.front() == rocfft_precision_double
+               && matches_kernel_shape(1024, 64, {8, 8, 4, 4});
     }
 
-    StatementList register_local_exchange(unsigned int npass)
+    StatementList register_local_exchange()
     {
         StatementList work;
-        if(!use_register_local_exchange(npass))
-            return work;
-
         work += CommentLines{
             "register-local Stockham exchange: transpose the 4x4 per-thread tile"};
         for(unsigned int h = 0; h < 4; ++h)
@@ -415,12 +409,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
     StatementList sync_threads() const
     {
-        StatementList stmts;
-        if(use_wave_sync())
-            stmts += SyncWaveThreads{};
-        else
-            stmts += SyncThreads{};
-        return stmts;
+        return {SyncThreads{}};
     }
 
     StatementList load_lds_generator(unsigned int h,
@@ -497,23 +486,19 @@ struct StockhamKernel : public StockhamGeneratorSpecs
 
     bool use_ordinary_twiddle_recurrence()
     {
-        const bool is_dp = precisions.size() == 1
-                           && precisions.front() == rocfft_precision_double;
-        const bool common_sbcc = half_lds && direct_to_from_reg && is_dp
-                                 && workgroup_size == 256;
-        const bool sbcc256 = length == 256 && threads_per_transform == 32
-                             && factors == std::vector<unsigned int>{8, 4, 8};
-        const bool sbcc512 = length == 512 && threads_per_transform == 64
-                             && factors == std::vector<unsigned int>{8, 8, 8};
-        const bool sbcc1024 = length == 1024 && threads_per_transform == 64
-                              && factors == std::vector<unsigned int>{8, 8, 4, 4};
-        const bool sbrc512 = sbrc_ordinary_twiddle_recurrence
-                             && scheme == "CS_KERNEL_STOCKHAM_BLOCK_RC" && is_dp
-                             && direct_to_from_reg && static_initial_reg_load
-                             && length == 512 && workgroup_size == 512
-                             && threads_per_transform == 128
-                             && factors == std::vector<unsigned int>{8, 8, 8};
-        return (common_sbcc && (sbcc256 || sbcc512 || sbcc1024)) || sbrc512;
+        if(!direct_to_from_reg || precisions.size() != 1
+           || precisions.front() != rocfft_precision_double)
+            return false;
+
+        if(half_lds && workgroup_size == 256
+           && (matches_kernel_shape(256, 32, {8, 4, 8})
+               || matches_kernel_shape(512, 64, {8, 8, 8})
+               || matches_kernel_shape(1024, 64, {8, 8, 4, 4})))
+            return true;
+
+        return sbrc_ordinary_twiddle_recurrence && scheme == "CS_KERNEL_STOCKHAM_BLOCK_RC"
+               && static_initial_reg_load && workgroup_size == 512
+               && matches_kernel_shape(512, 128, {8, 8, 8});
     }
 
     // The "stacked" twiddle table starts at the second factor, since
@@ -846,7 +831,7 @@ struct StockhamKernel : public StockhamGeneratorSpecs
             StatementList reg2lds_half;
             if(npass < factors.size() - 1 && use_register_local_exchange(npass))
             {
-                body += register_local_exchange(npass);
+                body += register_local_exchange();
             }
             else if(npass < factors.size() - 1)
             {

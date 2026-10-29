@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <algorithm>
 #include <optional>
 
 #include "../../shared/arithmetic.h"
@@ -29,6 +30,18 @@
 #include "tree_node.h"
 
 #include "device/kernel-generator-embed.h"
+
+// The length is the product of the registered factors in StockhamGeneratorSpecs.
+static bool sbrc_static_load_available(const StockhamGeneratorSpecs& specs)
+{
+    if(!IsPo2(specs.length) || specs.factors.empty() || !specs.threads_per_transform
+       || specs.workgroup_size % specs.threads_per_transform)
+        return false;
+
+    return std::all_of(specs.factors.begin(), specs.factors.end(), [](unsigned int factor) {
+        return IsPo2(factor);
+    });
+}
 
 RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&    node,
                                                               const std::string& gpu_arch,
@@ -86,94 +99,71 @@ RTCKernel::RTCGenerator RTCKernelStockham::generate_from_node(const LeafNode&   
         specs->direct_to_from_reg    = kernel->direct_to_from_reg;
         specs->ebtype                = node.ebtype;
 
-        // EXP-089: enable direct initial global-to-register loading for any
-        // power-of-two SBRC whose complete first-pass map can be proven from
-        // the generated Stockham configuration.  This also covers future
-        // lengths such as SBRC-1024 without adding a length whitelist.
         const auto callback_type = node.GetCallbackType(enable_callbacks);
-        const auto is_power_of_two = [](size_t value) {
-            return value != 0 && (value & (value - 1)) == 0;
-        };
-        const bool static_pow2_sbrc_map = [&]() {
-            if(!is_power_of_two(specs->length) || specs->factors.empty()
-               || specs->threads_per_transform == 0
-               || specs->workgroup_size % specs->threads_per_transform != 0
-               || specs->length % specs->factors.front() != 0)
-                return false;
-
-            size_t factor_product = 1;
-            for(const auto factor : specs->factors)
-            {
-                if(!is_power_of_two(factor) || factor_product > specs->length / factor)
-                    return false;
-                factor_product *= factor;
-            }
-            return factor_product == specs->length;
-        }();
-        specs->static_initial_reg_load
-            = pool_scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
-              && node.scheme == CS_KERNEL_STOCKHAM_BLOCK_RC
-              && node.sbrcTranstype == TILE_ALIGNED
-              && node.precision == rocfft_precision_double
-              && node.ebtype == EmbeddedType::NONE
-              && callback_type == CallbackType::NONE
-              && specs->direct_to_from_reg
-              && static_pow2_sbrc_map;
-        specs->static_initial_reg_load_linear
-            = specs->static_initial_reg_load
-              && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;
-
-        // The local SBRC-512 kernel is shared by several large 1D FFTs.
-        // Select the recurrence using the complete plan length, not the
-        // local transform length, and carry that decision into the RTC key.
-        const TreeNode* plan_root = &node;
-        while(plan_root->parent != nullptr)
-            plan_root = plan_root->parent;
-        const bool full_transform_is_128k = plan_root->dimension == 1
-                                             && plan_root->length.size() == 1
-                                             && plan_root->length.front() == 131072;
-        specs->sbrc_ordinary_twiddle_recurrence
-            = specs->static_initial_reg_load && full_transform_is_128k
-              && specs->length == 512 && specs->workgroup_size == 512
-              && specs->threads_per_transform == 128
-              && specs->factors == std::vector<unsigned int>{8, 8, 8};
+        const bool ordinary_sbrc
+            = node.scheme == CS_KERNEL_STOCKHAM_BLOCK_RC && node.sbrcTranstype == TILE_ALIGNED
+              && node.precision == rocfft_precision_double && node.ebtype == EmbeddedType::NONE
+              && callback_type == CallbackType::NONE && specs->direct_to_from_reg;
 
         specs->real_io = node.real_io;
-        if(node.real_io.IsCCLocal())
+        switch(node.real_io.role)
         {
-            specs->direct_to_from_reg=true;
-            specs->static_initial_reg_load=true;
-            specs->static_initial_reg_load_linear=pool_scheme==CS_KERNEL_STOCKHAM_BLOCK_RC;
-            if(node.real_io.IsInputBoundary())
-                specs->real_io.load=RealBlockLoad::Registers;
-            else if(node.real_io.role==RealBlockRole::PackedInverseRows)
-                specs->real_io.load=RealBlockIO::CanRegisterPre(specs->length,specs->factors.front(),specs->threads_per_transform)
-                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
-            else
-                specs->real_io.load=RealBlockIO::CanRegisterInput(specs->length,specs->factors,
-                    specs->threads_per_transform,specs->workgroup_size)
-                    ?RealBlockLoad::Registers:RealBlockLoad::LDS;
-        }
-        // The ordinary CC LDS entry uses an unswizzled complex staging layout.
-        if(node.real_io.role == RealBlockRole::HermitianColumns
-           && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
-            specs->half_lds = false;
-        if(node.real_io.role == RealBlockRole::LocalRealRows)
-        {
-            specs->direct_to_from_reg = true;
-            specs->static_initial_reg_load = true;
+        case RealBlockRole::FoldedPackedColumns:
+        case RealBlockRole::PackedInverseRows:
+        case RealBlockRole::LocalPostColumns:
+        case RealBlockRole::FoldedSpectrumRows:
+            specs->direct_to_from_reg             = true;
+            specs->static_initial_reg_load        = true;
+            specs->static_initial_reg_load_linear = pool_scheme == CS_KERNEL_STOCKHAM_BLOCK_RC;
+            specs->real_io.load                   = RealBlockLoad::Registers;
+            if(node.real_io.role == RealBlockRole::PackedInverseRows
+               && !RealBlockIO::CanRegisterPre(
+                   specs->length, specs->factors.front(), specs->threads_per_transform))
+                specs->real_io.load = RealBlockLoad::LDS;
+            if(node.real_io.role == RealBlockRole::FoldedSpectrumRows
+               && !RealBlockIO::CanRegisterInput(specs->threads_per_transform,
+                                                 specs->workgroup_size))
+                specs->real_io.load = RealBlockLoad::LDS;
+            break;
+        case RealBlockRole::LocalRealRows:
+            specs->direct_to_from_reg             = true;
+            specs->static_initial_reg_load        = true;
             specs->static_initial_reg_load_linear = true;
-            specs->sbrc_ordinary_twiddle_recurrence = false;
+            break;
+        case RealBlockRole::PairedPostRows:
+            // Preserve scalar LDS exchanges when callbacks require the ordinary load.
+            specs->direct_to_from_reg = true;
+            specs->static_initial_reg_load
+                = node.real_io.load == RealBlockLoad::Registers
+                  && callback_type == CallbackType::NONE;
+            specs->static_initial_reg_load_linear = specs->static_initial_reg_load;
+            break;
+        case RealBlockRole::HermitianColumns:
+            // The ordinary CC LDS entry uses an unswizzled complex staging layout.
+            if(node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT)
+                specs->half_lds = false;
+            [[fallthrough]];
+        default:
+            specs->static_initial_reg_load = ordinary_sbrc && sbrc_static_load_available(*specs);
+            specs->static_initial_reg_load_linear
+                = specs->static_initial_reg_load
+                  && node.dir2regMode != DirectRegType::TRY_ENABLE_IF_SUPPORT;
+            break;
         }
 
-        if(node.real_io.role == RealBlockRole::PairedPostRows)
+        // This exact map already satisfies the static-load geometry.  CC-local
+        // kernels retain the ordinary recurrence selected before overriding loads.
+        if(ordinary_sbrc && node.real_io.role != RealBlockRole::LocalRealRows
+           && node.real_io.role != RealBlockRole::PairedPostRows && specs->length == 512
+           && specs->workgroup_size == 512 && specs->threads_per_transform == 128
+           && specs->factors == std::vector<unsigned int>{8, 8, 8})
         {
-            // Preserve Q=512 scalar LDS exchanges in both initial load modes.
-            specs->direct_to_from_reg = true;
-            specs->static_initial_reg_load = node.real_io.load == RealBlockLoad::Registers
-                                             && callback_type == CallbackType::NONE;
-            specs->static_initial_reg_load_linear = specs->static_initial_reg_load;
-            specs->sbrc_ordinary_twiddle_recurrence = false;
+            const TreeNode* plan_root = &node;
+            while(plan_root->parent != nullptr)
+                plan_root = plan_root->parent;
+            specs->sbrc_ordinary_twiddle_recurrence
+                = plan_root->dimension == 1 && plan_root->length.size() == 1
+                  && plan_root->length.front() == 131072;
         }
 
         if(node.isPartialPassEnabled())

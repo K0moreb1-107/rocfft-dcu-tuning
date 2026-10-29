@@ -15,7 +15,7 @@ struct StockhamKernelFoldedPackedColumns : StockhamKernelCC
         , callbacks(callbacks)
         , phase_steps(phase_steps)
     {
-        if (length * transforms_per_block / (half_lds ? 2 : 1) < length)
+        if (transforms_per_block < (half_lds ? 2u : 1u))
             throw std::runtime_error("CC callback cache exceeds reusable core workspace");
     }
     bool use_static_initial_reg_load() const override { return true; }

@@ -74,16 +74,13 @@ struct StockhamKernelCC : public StockhamKernel
 
     bool use_late_large_twiddle_lds() const
     {
-        const bool common = direct_to_from_reg && half_lds && precisions.size() == 1
-                            && precisions.front() == rocfft_precision_double
-                            && workgroup_size == 256;
-        const bool sbcc256 = length == 256 && threads_per_transform == 32
-                             && transforms_per_block == 8
-                             && factors == std::vector<unsigned int>{8, 4, 8};
-        const bool sbcc1024 = length == 1024 && threads_per_transform == 64
-                              && transforms_per_block == 4
-                              && factors == std::vector<unsigned int>{8, 8, 4, 4};
-        return common && (sbcc256 || sbcc1024);
+        if(!direct_to_from_reg || !half_lds || precisions.size() != 1
+           || precisions.front() != rocfft_precision_double || workgroup_size != 256)
+            return false;
+
+        return (transforms_per_block == 8 && matches_kernel_shape(256, 32, {8, 4, 8}))
+               || (transforms_per_block == 4
+                   && matches_kernel_shape(1024, 64, {8, 8, 4, 4}));
     }
 
     Expression late_large_twiddle_lds_enabled() const
@@ -621,10 +618,12 @@ struct StockhamKernelCC : public StockhamKernel
 
     virtual bool use_large_twiddle_recurrence() const
     {
-        const bool candidate_length = length == 256 || length == 512 || length == 1024;
-        const bool supported_radix  = factors.back() == 4 || factors.back() == 8;
-        return candidate_length && supported_radix && precisions.size() == 1
-               && precisions.front() == rocfft_precision_double;
+        if(precisions.size() != 1 || precisions.front() != rocfft_precision_double)
+            return false;
+        if(length != 256 && length != 512 && length != 1024)
+            return false;
+
+        return factors.back() == 4 || factors.back() == 8;
     }
 
     StatementList large_twiddles_multiply_generator(unsigned int h,
