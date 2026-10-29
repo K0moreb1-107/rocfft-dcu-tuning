@@ -1,0 +1,33 @@
+{
+  "jobs": [
+    {
+      "job": "997635",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-r1-20261029",
+      "task": "measure",
+      "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-129-repeat19-r1-performance-20261029.json",
+      "dependency": null
+    },
+    {
+      "job": "997636",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-r2-20261029",
+      "task": "measure",
+      "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-129-repeat19-r2-performance-20261029.json",
+      "dependency": "afterok:997635"
+    },
+    {
+      "job": "997637",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-r3-20261029",
+      "task": "measure",
+      "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-129-repeat19-r3-performance-20261029.json",
+      "dependency": "afterok:997636"
+    },
+    {
+      "job": "997638",
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-diagnose-20261029",
+      "task": "diagnose",
+      "config": "/public/home/zhangkewei/zr/configs/experiments/EXP-129-repeat19-diagnose-20261029.json",
+      "dependency": "afterok:997637"
+    }
+  ],
+  "complete": true
+}
