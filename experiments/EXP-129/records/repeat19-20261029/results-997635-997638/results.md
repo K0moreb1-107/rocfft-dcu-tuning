@@ -55,3 +55,5 @@
 
 证据根目录：/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-repeat19-diagnose-20261029
 复测记录目录：/public/home/zhangkewei/zr/experiments/EXP-129/records/repeat19-20261029
+
+补充对照任务已提交：998667。
