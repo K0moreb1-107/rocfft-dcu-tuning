@@ -1,0 +1,28 @@
+{
+  "experiment": "EXP-129",
+  "date": "2026-10-29",
+  "branch": "exp-129-gate-simplification",
+  "base_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f",
+  "base_tag": "exp128-before-gate-simplification-20261029",
+  "base_source_tree": "ed2dd2b7fa0f00c148bace51a28d9463d41b5bae",
+  "status": "design_complete",
+  "intent": "Simplify all added gates relative to official rocFFT 7.2.2 while preserving valid-plan selection and generated GPU semantics",
+  "base_selection": "User explicitly requested continuation from the saved current EXP128 version; main remains unchanged.",
+  "implementation_started": false,
+  "jobs_submitted": [],
+  "new_correctness_results": null,
+  "new_performance_results": null,
+  "previous_evidence": [
+    "experiments/EXP-128/records/row-output-v6-20261028/results-991869",
+    "experiments/EXP-128/records/official-v6-remeasure-20261029/results-993654"
+  ],
+  "checkpoint_record": "experiments/EXP-128/records/gate-simplification-checkpoint-20261029/checkpoint.json",
+  "implementation_plan": "experiments/EXP-129/records/design-20261029/implementation-plan.md",
+  "implementation_parts": [
+    "A-common-eligibility-and-CC-invariants",
+    "B-resource-capability-and-unique-validation",
+    "C-RTC-role-policy-and-register-mapping",
+    "D-historical-specialization-and-planner-organization"
+  ],
+  "acceptance": "Preserve valid-plan routes, final RTC policy/key, generated GPU semantics and resource requirements; meaningful host differential checks then minimal existing numerical/path validation after implementation."
+}
