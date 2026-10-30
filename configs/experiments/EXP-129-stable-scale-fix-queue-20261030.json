@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-stable-scale-fix-queue-20261030",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05",
+    "dependency": "afterok:1004431"
+  },
+  "revalidated_measurement": {
+    "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-stable-scale-fix-validate-20261030/submit-manifest.json",
+    "validation_job_id": "1004431",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-129-stable-scale-fix-performance-20261030.json",
+    "measurement_config_sha256": "50544072898c1bed599c21f7b2e5a89db3f9b7e5072f0fc5802f9d2fcc644556"
+  }
+}
