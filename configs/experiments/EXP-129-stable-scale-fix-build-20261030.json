@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-stable-scale-fix-build-20261030",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "02:00:00",
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-129-stable-scale-fix-20261030",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "bd3988d566549e90951f005b230faf4f65fe092f",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON"
+    }
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-129-gate-simplification",
+  "acceptance": "Compile the general scaling fixes; independent complete release validation follows.",
+  "reference_policy": "Reuse EXP125 and pre-cleanup EXP129 references; do not rebuild them.",
+  "starting_experiment_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f"
+}

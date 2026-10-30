@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-stable-scale-fix-validate-20261030",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "04:00:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-129-stable-scale-fix-20261030",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "bd3988d566549e90951f005b230faf4f65fe092f",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "ON"
+    }
+  },
+  "starting_stable_tag": "stable-main-exp125-20261007",
+  "starting_stable_commit": "77fd0040ab01aaeacd2cc6c30914185d9304adbd",
+  "candidate_branch": "exp-129-gate-simplification",
+  "acceptance": "Full public CC release validation: 194 N both real directions, default fifteen included, memory guards, real/complex callbacks and unique counts, endpoint/midpoint/tail patterns, scales 1,0.5,-1,0, and boundary fallback. Aggregate all independent post-smoke failures.",
+  "reference_policy": "Fresh full acceptance of the corrected build; no reuse of partial passes.",
+  "starting_experiment_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f",
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/validate_full_release_scale_fix.py",
+    "sha256": "0e7b689f974af35c061b32c11cc1904b3c05aad1925c70f7b66cb49e52314203",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/full_release_guard.cpp",
+        "sha256": "fd4e0fbe839f948c8b8dab9a3745f55dc1ee75fb7f500bbfc722d329c8a53532"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/records/stable-release-20261030/coverage.json",
+        "sha256": "d4e7c753e6fd355e196528e123276de7dd8883389343f646622aa2516c3b0c21"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/validate_legacy_retirement.py",
+        "sha256": "744b1711375624b2b4f86b6abfdf254bfbedad5ea152bc0c45ac482e42868140"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/gate_validation_support.py",
+        "sha256": "e0af050d786a834b9dce1dc586962902461661771de0a408c54e1a1591bc4979"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      }
+    ]
+  },
+  "validation": {
+    "profile": "full-stable-release",
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-129/records/stable-release-20261030/coverage.json",
+    "guard_source": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/full_release_guard.cpp",
+    "scope": "Full public CC release validation: 194 N both real directions, default fifteen included, memory guards, real/complex callbacks and unique counts, endpoint/midpoint/tail patterns, scales 1,0.5,-1,0, and boundary fallback. Aggregate all independent post-smoke failures."
+  },
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-stable-scale-fix-build-20261030/build-provenance.json",
+    "evidence_record": "full-release-validation.json",
+    "isolated_helpers": false
+  }
+}
