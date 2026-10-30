@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-126",
+  "run_id": "EXP-126-performance-heldout-complex-20261012-queue",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "03:00:00",
+    "nodelist": "f13r4n15",
+    "node_exclusive": true,
+    "dependency": "afterok:908730:908731"
+  },
+  "deferred_measurement": {
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-126-performance-heldout-complex-20261012.json",
+    "measurement_config_sha256": "9d42270511ec7adb90b8298e6504095451d4a81138f396dbf123692c5a6c04b7",
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-complex-build-20261012/submit-manifest.json",
+    "build_config_sha256": "08c178d7dae1c454c2800fd3efccc25eb1e108c4a8b74ac36bfe7a149e330239",
+    "build_job_id": "908730",
+    "required_success_jobs": [
+      "908730",
+      "908731"
+    ],
+    "tools_sha256": {
+      "manage.py": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223",
+      "jobs/workspace_task.slurm": "e3dbb63419659b1bd9f13179f6b9f0060a6fb9740fc913744c02d50c85cf30c3",
+      "tools/workspace_manager/manager.py": "681f1bfc46ca3bd87f6103020d902132f04f042615ed0c1a73bd8edc49de6e83",
+      "tools/workspace_manager/deferred.py": "ce79d97b05b80d1f96c27f0f388436a37687649a806cb6ed71d75b9fc01c5fb8",
+      "tools/fft_measurement/common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+      "tools/fft_measurement/sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+      "tools/fft_measurement/run_samples.py": "2776f825db992eb7ee9c02a8a2438751eec774db60a93b57f4d52ca7b226ab6a",
+      "tools/fft_measurement/summarize_samples.py": "79ccb30a3af5065176a9cc61b99f3ca0642b0c14e5419089188c2dded68fa9c9",
+      "tools/fft_measurement/plot_samples.py": "8f97f99eb0eba173a67f7429c0dcbf52415af7e96ae5ac83a2d49894b7722b2d",
+      "tools/fft_measurement/fft_test_1d_samples.cpp": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+      "tools/fft_measurement/device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7"
+    },
+    "reason": "用户本轮明确要求验证尚在排队时先提交性能任务；仅提前调度，计时仍须构建、正确性与实际融合验证全部成功。原尺寸、计时程序和中位数口径不变。"
+  }
+}

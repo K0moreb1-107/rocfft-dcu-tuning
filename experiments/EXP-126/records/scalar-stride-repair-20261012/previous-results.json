@@ -1,0 +1,263 @@
+{
+  "source_commit": "d9d29c3f1a23f5f69b22753672170d04ff91fde0",
+  "formal_performance": "not submitted",
+  "gpu_tasks_submitted": 0,
+  "independent_devices": true,
+  "jobs": {
+    "complex": {
+      "job": "905360",
+      "build_complete": true,
+      "validation_complete": true,
+      "identities_match": true,
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-complex-build-20261011",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-type-complex-20261011",
+      "library_sha256": "5ea08ddfc38bd92f9f54e82e23864fef278a62f06e794a39ef536d2d6e38e076",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135333861396635353633306331",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "allocation": {
+        "allocation_gpu": "0",
+        "step_gpu": null,
+        "measurement_gpu": "0"
+      },
+      "source_tree": "7fc57bc73c5cd3494840fa59f51864deec606fe9",
+      "quick_count": 103,
+      "quick_failures": 0,
+      "guard_groups": 176,
+      "reference_cases": 2464,
+      "full_reference_transforms": 4928,
+      "max_reference_error": 3.0885697627554127e-15,
+      "max_plain_reference_error": 3.0885697627554127e-15,
+      "max_callback_reference_error": 2.5814402197574903e-15,
+      "max_quick_err_a": 4.44089e-15,
+      "max_quick_err_b": 2.04472e-15,
+      "scalar_pre_quick_passes": [
+        {
+          "N": 393216,
+          "func": "z2d_1d",
+          "err_a": 3.55271e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 409600,
+          "func": "z2d_1d",
+          "err_a": 3.10862e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 1280000,
+          "func": "z2d_1d",
+          "err_a": 3.70074e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 2097152,
+          "func": "z2d_1d",
+          "err_a": 3.25665e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 2725888,
+          "func": "z2d_1d",
+          "err_a": 3.55271e-15,
+          "err_b": -1.0
+        }
+      ],
+      "failures": [],
+      "validation_start": "2026-10-11T15:42:54.320725+00:00",
+      "validation_end": "2026-10-11T16:04:48.538362+00:00"
+    },
+    "capacity": {
+      "job": "905361",
+      "build_complete": true,
+      "validation_complete": false,
+      "identities_match": true,
+      "run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011",
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-type-capacity-20261011",
+      "library_sha256": "91fa6b0a60b139c014925e651430f5e23c76927712209d45a3a03baa02a8db6e",
+      "gpu": {
+        "count": 1,
+        "uuid": "30303135333861396633653634306531",
+        "arch": "gfx936:sramecc+:xnack-",
+        "runtime_version": 60326113,
+        "driver_version": 60326113
+      },
+      "allocation": {
+        "allocation_gpu": "3",
+        "step_gpu": null,
+        "measurement_gpu": "3"
+      },
+      "source_tree": "7fc57bc73c5cd3494840fa59f51864deec606fe9",
+      "quick_count": 97,
+      "quick_failures": 6,
+      "guard_groups": 0,
+      "reference_cases": 0,
+      "full_reference_transforms": 0,
+      "max_reference_error": null,
+      "max_plain_reference_error": null,
+      "max_callback_reference_error": null,
+      "max_quick_err_a": 4.44089e-15,
+      "max_quick_err_b": 2.04472e-15,
+      "scalar_pre_quick_passes": [
+        {
+          "N": 393216,
+          "func": "z2d_1d",
+          "err_a": 3.55271e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 409600,
+          "func": "z2d_1d",
+          "err_a": 3.10862e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 1280000,
+          "func": "z2d_1d",
+          "err_a": 3.70074e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 2097152,
+          "func": "z2d_1d",
+          "err_a": 3.25665e-15,
+          "err_b": -1.0
+        },
+        {
+          "N": 2725888,
+          "func": "z2d_1d",
+          "err_a": 3.55271e-15,
+          "err_b": -1.0
+        }
+      ],
+      "failures": [
+        {
+          "N": 894432,
+          "func": "d2z_1d",
+          "C": 336,
+          "Q": 1331,
+          "T": 2,
+          "W": 242,
+          "LDS": 21296,
+          "err_a": 1.0,
+          "err_b": -1.0,
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011/quick/894432_d2z_1d",
+          "evidence_sha256": {
+            "stdout.txt": "6a5ad3381937107d6ee71ded686a471f5a5f8ba8ba3cfe6edd07eccbe4eada8e",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "fft_test_1d.csv": "f22d31b9af92099391504710063aa94ef2b8f11d394121a3bf98cafacb2f0317",
+            "plan.txt": "7be9364f18d5ae0d96b3095d5c3cd00df8387f17abc17b208684aa09aabaaba0",
+            "rtc.txt": "50ddb472ad47a7307b60b5864adacbc97acfb9efd407557ce32afd57ea3e5c6f",
+            "trace.txt": "5d046eb105e05cee76051dd0cb2856e89dd15b9c54940090fd8d4010b7aac1cf"
+          }
+        },
+        {
+          "N": 769318,
+          "func": "d2z_1d",
+          "C": 289,
+          "Q": 1331,
+          "T": 2,
+          "W": 242,
+          "LDS": 21296,
+          "err_a": 1.0,
+          "err_b": -1.0,
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011/quick/769318_d2z_1d",
+          "evidence_sha256": {
+            "stdout.txt": "c308622dd3af936175317af8144586b2683006e520b5cb0f01b1705bbb4041ce",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "fft_test_1d.csv": "569b87371547bfd424454d119ebb7fc7254156095c1299a6d82c32d03d9aa747",
+            "plan.txt": "d5e11236928ea2efba1819cb5e793c7fc615755c2a220a7b7ea55bb4c56cdf5c",
+            "rtc.txt": "4384f8c681bc4530e3d97b7cf7b3c0562651abd7ebf340e61d8ce7048544dbbb",
+            "trace.txt": "7a08549ea56ae57735801a9443a314c9bb641561e4d75f2d5171b10183fafb87"
+          }
+        },
+        {
+          "N": 913066,
+          "func": "d2z_1d",
+          "C": 343,
+          "Q": 1331,
+          "T": 2,
+          "W": 242,
+          "LDS": 21296,
+          "err_a": 1.0,
+          "err_b": -1.0,
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011/quick/913066_d2z_1d",
+          "evidence_sha256": {
+            "stdout.txt": "eff0005414c8f70fc586dd8d5b5314f103782a9c2e953501ec49adcb51be56a5",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "fft_test_1d.csv": "63aa42927c0f0f4340513aed898f663bffb23a574c375f228840b43eeaf659b6",
+            "plan.txt": "a5266987be439ccba8c95312e40905ad6f3e4356928b0b765618b69d127ecfae",
+            "rtc.txt": "84220585c1c9bb5a11c665fb56080f8f5abc375777f77bb45725d248debbf71e",
+            "trace.txt": "e91497de304dbb4895485e8d1bb5df41acec2cf5dec22ace8eb7ca28da2e1694"
+          }
+        },
+        {
+          "N": 2725888,
+          "func": "d2z_1d",
+          "C": 1024,
+          "Q": 1331,
+          "T": 2,
+          "W": 242,
+          "LDS": 21296,
+          "err_a": 1.0,
+          "err_b": -1.0,
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011/quick/2725888_d2z_1d",
+          "evidence_sha256": {
+            "stdout.txt": "e4bd63d9f18605b5a1ac32eaf0a45452fa20afd895984246e15fe2dd5bf31da7",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "fft_test_1d.csv": "e6e08528235e757a40e30e2553a58ecdd06fcd8fc46fd15d0576f96497556ac4",
+            "plan.txt": "eb53e8d57d13864dd503dc28fd2129a105f7ad4ca9e008393f2053035e90b3a7",
+            "rtc.txt": "473020f5dff3436bb8090ba4056514d3184cec9a4a4dab1a22ef29b400949808",
+            "trace.txt": "ee7019b93592d534cfa7f82086d0bd1f30fb36fe8b58589d5e4429cb627bcf30"
+          }
+        },
+        {
+          "N": 1362944,
+          "func": "d2z_1d",
+          "C": 512,
+          "Q": 1331,
+          "T": 2,
+          "W": 242,
+          "LDS": 21296,
+          "err_a": 1.0,
+          "err_b": -1.0,
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011/quick/1362944_d2z_1d",
+          "evidence_sha256": {
+            "stdout.txt": "a2f97fc7bf3ad78fac73aac086a6eb3fe4434948b6ff7404acce0c426a3dbe74",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "fft_test_1d.csv": "028ff634049d3e8343a47779d176641778bbfeb4fb5c8f9d2aef4810c4312b35",
+            "plan.txt": "ee3d5a0d3625bcb07b2941cd352cafb7db11ad6006f2fae7c9016c237d7d32d5",
+            "rtc.txt": "f579327031cfd0038ec8d4433e8ce0a752b9fcba9d47f524b435b6025e980526",
+            "trace.txt": "1a307d3757134ff60e0b52107ea7aff06b3ed80b3ac2c1c946325ef326817f29"
+          }
+        },
+        {
+          "N": 553696,
+          "func": "d2z_1d",
+          "C": 208,
+          "Q": 1331,
+          "T": 2,
+          "W": 242,
+          "LDS": 21296,
+          "err_a": 1.0,
+          "err_b": -1.0,
+          "evidence": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-capacity-build-20261011/quick/553696_d2z_1d",
+          "evidence_sha256": {
+            "stdout.txt": "931ed7c6a55d040d72d72cc81981911b4c8c490c59ae6459f14eb043f998008b",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "fft_test_1d.csv": "ff48191ab518b7c166d28cd8bdb5aa571b1d261e796d367bd73c7680eccea63a",
+            "plan.txt": "73205542ae7e3b405e9bc028cb2a7863712db3ce35c99fd166d3c62d0c728486",
+            "rtc.txt": "c6a3df7ac5f00b38398e9e763f44dc29ba69a6792b67651ad32e7219371c8f7a",
+            "trace.txt": "4de86738e33d519ae7b6a7c089744171550d1233302d09d2f0880223716c8def"
+          }
+        }
+      ],
+      "validation_start": "2026-10-11T15:42:55.287173+00:00",
+      "validation_end": "2026-10-11T15:47:49.422309+00:00"
+    }
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "policy": "FFT-event-samples-single-v2",
+  "experiment": "EXP-126",
+  "run_id": "EXP-126-stable-registry-preview-20261013",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "03:00:00",
+    "nodelist": "f13r4n15",
+    "node_exclusive": true
+  },
+  "event_iterations": 50,
+  "timing_source_sha256": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+  "cases": [
+    {
+      "N": 70304,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 81920,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 81920,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 86016,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 87808,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 87808,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 92480,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 92480,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 97682,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 97682,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 106496,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 106496,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 110976,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 110976,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 120224,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 120224,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 128000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 128000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 163296,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 163296,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 166698,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 166698,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 172032,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 172032,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 173056,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 173056,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 173056,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 194208,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 194208,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 198254,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 198254,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 204800,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 204800,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 221184,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 221184,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 245760,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 245760,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 248832,
+      "func": "z2z_1d"
+    },
+    {
+      "N": 248832,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 248832,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 256000,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 256000,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 346112,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 346112,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 425920,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 425920,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 497664,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 497664,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 511104,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 511104,
+      "func": "z2d_1d"
+    },
+    {
+      "N": 596288,
+      "func": "d2z_1d"
+    },
+    {
+      "N": 596288,
+      "func": "z2d_1d"
+    }
+  ],
+  "case_scope": "八类各三个前批未测N；25个新实数尺寸的z2d与d2z共50项，含343列等其他局部内核对照，另加86016、173056、248832三个z2z分解回归，共53项。",
+  "arms": {
+    "official": {
+      "registry_id": "install-exp096-official"
+    },
+    "previous": {
+      "registry_id": "EXP-126-heldout-complex-20261012"
+    },
+    "candidate": {
+      "build_record": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-heldout-complex-build-20261012/build-provenance.json"
+    }
+  },
+  "coverage_path": "/public/home/zhangkewei/zr/experiments/EXP-126/records/extended-type-coverage-20261012/coverage.json",
+  "coverage_sha256": "f03b0b9b81a4d1be1b455553f6b3b100f625c15c650517ce0bd47f677691e6b1",
+  "candidate_variant": "complex",
+  "automatic_promotion": false,
+  "stop_after_submission": true,
+  "measurement_tools_sha256": {
+    "common.py": "9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978",
+    "sample_contract.py": "abde6cb7353da2a7c1e74bc21804ba3982e5641e1c649f0d1419032486936401",
+    "run_samples.py": "2776f825db992eb7ee9c02a8a2438751eec774db60a93b57f4d52ca7b226ab6a",
+    "summarize_samples.py": "79ccb30a3af5065176a9cc61b99f3ca0642b0c14e5419089188c2dded68fa9c9",
+    "plot_samples.py": "8f97f99eb0eba173a67f7429c0dcbf52415af7e96ae5ac83a2d49894b7722b2d",
+    "fft_test_1d_samples.cpp": "6d42f1fbf917229262c6bd792994fb44cc20176b8f9a04fbbb8a2d42a29fa08d",
+    "device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7"
+  },
+  "analysis_statistic": "median_of_raw_event_samples",
+  "acceptance": "仅用于新稳定登记的只读预览，核对实际库、源码及完整53项身份；不提交任何任务、不产生新的性能结论。",
+  "measurement_conditions": {
+    "precision": "double",
+    "batch": 1,
+    "placement": "out-of-place",
+    "load_path": "default",
+    "forced_load_selector": false,
+    "processes_per_case_arm": 1,
+    "warmups_per_process": 3,
+    "event_iterations_per_process": 50
+  },
+  "preview_only": true
+}

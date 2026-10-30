@@ -1,0 +1,24 @@
+{
+  "original_source_commit": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+  "saved_tools_commit": "66c6315e51cfde6390361a778f86df97e4e99a3b",
+  "integrated_commit": "447486d0f95450cfc700e88b2406dc0fe682719c",
+  "main_before_promotion": "e57a604992e02140c499702e1af0d9cc943d666e",
+  "source_tree": "842c6f35410bfda22fd0c7c61d172d371d2f21a6",
+  "main_is_now_ancestor": true,
+  "merge_tree_identical_to_saved_candidate": true,
+  "resolved_files": [
+    "AGENTS.md",
+    "docs/technical/FFT_MEASUREMENT_PROTOCOL.md",
+    "tools/workspace_manager/manager.py"
+  ],
+  "original_conflicts": [
+    "AGENTS.md",
+    "docs/technical/FFT_MEASUREMENT_PROTOCOL.md",
+    "tools/workspace_manager/manager.py"
+  ],
+  "save_output": "[exp-126-even-cc-pair-s1 66c6315e] 保留已验证的延迟测量入口与多任务成功依赖\n 4 files changed, 181 insertions(+), 2 deletions(-)\n create mode 100644 tools/workspace_manager/deferred.py",
+  "merge_output": "[exp-126-even-cc-pair-s1 447486d0] 合并稳定分支测量历史，保留已验证的CC源码与当前测量规则",
+  "compute_source_unchanged": true,
+  "new_jobs_submitted": false,
+  "record": "/public/home/zhangkewei/zr/experiments/EXP-126/records/stable-promotion-20261013"
+}

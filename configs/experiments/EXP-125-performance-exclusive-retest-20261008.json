@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "policy": "EXP123-event-50-three-arm-8-v1",
+  "experiment": "EXP-125",
+  "run_id": "EXP-125-performance-20261008-exclusive-retest",
+  "gpu_arch": "gfx936",
+  "acceptance": "独占节点重新测量官方基线与当前已验证EXP125 i版的默认路径耗时。双精度、批量一、输入输出分离，64K到1M五个尺寸及三种变换共15种情形；沿用八轮交错、720个独立进程、每进程50次计时及全部16个进程均值的算术平均。稳定对照与待测位置使用同一个当前最新安装库，分别保留样本，以待测位置均值报告最新版时间，稳定位置仅作重复测量一致性对照，不合并两组样本。原始正确性、执行顺序、文件校验、实际加载库、独占申请及单卡设备身份全部通过后方可作为正式结果；报告官方基线加速比及固定A100相对性能，不删除慢样本，不设置新的性能门槛，不自动推广或回滚源码。",
+  "resources": {
+    "cpus": 8,
+    "partition": "hx1hdnormal01",
+    "time_limit": "03:00:00",
+    "nodelist": "f13r4n15",
+    "node_exclusive": true
+  },
+  "arms": {
+    "official": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+      "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+      "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+      "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+      "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+    },
+    "previous": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+    },
+    "candidate": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+      "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+      "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+    }
+  },
+  "candidate_identity": {
+    "implementation": "pre-memory-i",
+    "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+    "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+    "load_mode": "program default; no explicit load selector"
+  },
+  "comparison_roles": {
+    "official": "Original ROCm 7.2.2 baseline",
+    "previous": "Current retained EXP125 i installation; repeatability control",
+    "candidate": "Same retained EXP125 i installation; current-time report arm"
+  },
+  "report_presentation": {
+    "baseline_arm": "official",
+    "current_arm": "candidate",
+    "do_not_pool_previous_candidate": true,
+    "one_measurement_batch": true
+  },
+  "submission_prerequisites": {
+    "management_code_commit": "25e56c7479522dd3462fd6020815929774a76667",
+    "file_sha256": {
+      "AGENTS.md": "050fa777e01577b20e2b849e57da3ee17a6a090cbbdd7e79fc365838dac0dea2",
+      "manage.py": "e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223",
+      "jobs/workspace_task.slurm": "e3dbb63419659b1bd9f13179f6b9f0060a6fb9740fc913744c02d50c85cf30c3",
+      "tools/workspace_manager/manager.py": "bb4485e40569491d54d48c64ef855d2890f02bb3f313f73b4815097a26fef40c",
+      "tools/fft_measurement/common.py": "15525afa510de098e522393ceebd0c48cb8859489f49e2e30172e2bdda9f42b9",
+      "tools/fft_measurement/run.py": "5a2661563aefd112af9b889e4abcfd4be3ee7ae7d37060c0d35d838591432944",
+      "tools/fft_measurement/summarize.py": "2ac42daff7be72f7d268a35a44554e9f95c158082faa5f7dd10c72ae5631f963",
+      "tools/fft_measurement/fft_test_1d.cpp": "849d011336601e6cffb1959e89590847e26160f7b3e256482a5eb37289e333da",
+      "tools/fft_measurement/device_identity.cpp": "88b7e9253bd73749151ed1eeee11929e6c1217842682e5f0e08c15919b354be7",
+      "configs/installations.json": "be9dd3a29dc2d744b6a185f624aeedeb128e6f4edb922af702dc00a345fe599e"
+    }
+  },
+  "automatic_promotion": false,
+  "stop_after_submission": true,
+  "user_authorization": "重新测一下baseline和当前最新版本的时间；沿用用户已要求的节点独占申请，提交任务后立即停止，等待用户要求检查结果。"
+}

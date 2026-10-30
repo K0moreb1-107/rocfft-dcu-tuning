@@ -1,0 +1,32 @@
+{
+  "generation-proof.json": {
+    "local_bytes_sha256": "5b8bf502bd4d849afeaa546dc1a0818d17adf4b5ede856c351540a39c69ed09e",
+    "canonical_bytes_sha256": "8d8fec921b498fc8ccb3e87770d763b7499cd15292f706abce86ba9e2b6bbae8",
+    "archived_raw_path": "local-proof-bytes/generation-proof.json",
+    "explanation": "preflight.json hashes the original local JSON bytes; canonical copy has LF and a final newline"
+  },
+  "compilation-proof.json": {
+    "local_bytes_sha256": "c551363dd89731f01242b42f1b8e508d1d0091b5d79efba75b15d04f8703314a",
+    "canonical_bytes_sha256": "967accff655c0ba3ffbf1de034f09c98ff576c5e0afc08f51dad3a230eb15346",
+    "archived_raw_path": "local-proof-bytes/compilation-proof.json",
+    "explanation": "preflight.json hashes the original local JSON bytes; canonical copy has LF and a final newline"
+  },
+  "model-before-proof.json": {
+    "local_bytes_sha256": "c8ade7827e4da1e16120535f0aa05b10fa87b8ac3b6e3e7b4129cb84e56e67a4",
+    "canonical_bytes_sha256": "94a599cbab092baea1ec487d5b27c6c3ea1bac72f5f25a664a49ceb0662e0df3",
+    "archived_raw_path": "local-proof-bytes/model-before-proof.json",
+    "explanation": "preflight.json hashes the original local JSON bytes; canonical copy has LF and a final newline"
+  },
+  "model-after-proof.json": {
+    "local_bytes_sha256": "fd24bc21d39e39d9cb99c3e5f012c0f2e1ece4d3f4c959860c9a2951585d3a35",
+    "canonical_bytes_sha256": "fb7817b9ea259b3608feccb39b5265094c06b6019c3130ce53d8a69d18b027b2",
+    "archived_raw_path": "local-proof-bytes/model-after-proof.json",
+    "explanation": "preflight.json hashes the original local JSON bytes; canonical copy has LF and a final newline"
+  },
+  "manager-proof.json": {
+    "local_bytes_sha256": "d8c124837185b858a404dba35d1437955e578a0412b205d79edb7023385b504a",
+    "canonical_bytes_sha256": "f4ee2204637df4308c4120e8426b885bc799a4a497c0f7a1e1f87f055c595a2a",
+    "archived_raw_path": "local-proof-bytes/manager-proof.json",
+    "explanation": "preflight.json hashes the original local JSON bytes; canonical copy has LF and a final newline"
+  }
+}

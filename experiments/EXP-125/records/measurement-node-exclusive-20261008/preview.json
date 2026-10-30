@@ -1,0 +1,58 @@
+{
+  "task": "measure",
+  "paths": {
+    "run": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-node-exclusive-preview-20261008",
+    "logs": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-node-exclusive-preview-20261008/logs",
+    "build": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/build/measurement/EXP-125-node-exclusive-preview-20261008",
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-node-exclusive-preview-20261008",
+    "cache": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/cache/EXP-125-node-exclusive-preview-20261008"
+  },
+  "resolved_preregistration": {
+    "schema_version": 1,
+    "policy": "EXP123-event-50-three-arm-8-v1",
+    "experiment": "EXP-125",
+    "gpu_arch": "gfx936",
+    "resources": {
+      "cpus": 8,
+      "partition": "hx1hdnormal01",
+      "time_limit": "03:00:00",
+      "nodelist": "f13r4n15",
+      "node_exclusive": true
+    },
+    "arms": {
+      "official": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-096/artifacts/install/install-exp096-official",
+        "source_repo": "/public/home/zhangkewei/zr/official-rocm722-source",
+        "source_commit": "dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef",
+        "source_state": "Historical approved official source dabb6df2b988f8eabed1e2fecefaaf4e818bc7ef; original build checkout path no longer present. No claim about current checkout reproducing the old build state.",
+        "library_sha256": "3a8f9b03c069b3ff6c3a2ff93d4a90028ad1c248c01c6db34f99a4d84038cea5",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-096/records/builds/exp096_official/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+      },
+      "previous": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-122/artifacts/install/exp122-A-install",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "ed06208f30706f63126078a5c51af07fa0439fe7",
+        "source_state": "Historical approved previous source ed06208f30706f63126078a5c51af07fa0439fe7; original build checkout path no longer present. No claim about current checkout reproducing the old build state. The prior-stable worktree is now archived; source_repo points to the active EXP-123 repository retaining the real EXP-122 build commit. The active source repository is now the top-level main checkout; historical worktrees are archived. The library retains its original EXP-122 build identity.",
+        "library_sha256": "1824f2ac8b978fe456edd28b31940ed26fe6d4d0af9f4c1bcefac1bd8c9c8dfe",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-122/records/builds/exp122_A_512x128_clean/provenance.json; approved original source/library mapping retained in experiment records and migration audit."
+      },
+      "candidate": {
+        "install": "/public/home/zhangkewei/zr/experiments/EXP-125/artifacts/install/EXP-125-pre-memory-i",
+        "source_repo": "/public/home/zhangkewei/zr",
+        "source_commit": "1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d",
+        "source_state": "{\"commit\": \"1d745ec17f516fa3bf1100c2fbd63baffa7e6d1d\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md\\n M VkFFT\"}",
+        "library_sha256": "243849fd7f03849ce5d8378ae36324b9607f8c53e4b964e3e95dad859b86a677",
+        "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-125/runs/EXP-125-build-20261007-i/build-provenance.json"
+      }
+    },
+    "run_id": "EXP-125-node-exclusive-preview-20261008",
+    "acceptance": "\u53ea\u8bfb\u6838\u5bf9\u72ec\u5360\u8282\u70b9\u7684\u63d0\u4ea4\u914d\u7f6e\u53ca\u539f\u6709\u6d4b\u91cf\u5b9a\u4e49\uff0c\u4e0d\u6267\u884c\u6027\u80fd\u6d4b\u91cf\uff0c\u4e5f\u4e0d\u4f5c\u4e3a\u6027\u80fd\u7ed3\u679c\u6216\u6e90\u7801\u63a8\u5e7f\u8bc1\u636e\u3002"
+  },
+  "processes": 720,
+  "cases": 15,
+  "timing_warmups": 3,
+  "event_iterations": 50,
+  "formal": true,
+  "node_exclusive": true,
+  "notice": "Frozen 8-round three-arm protocol in an exclusive node allocation."
+}

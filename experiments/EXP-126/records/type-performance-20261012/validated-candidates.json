@@ -1,0 +1,48 @@
+[
+  {
+    "variant": "complex",
+    "job": "905360",
+    "arm": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-type-complex-20261011",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "d9d29c3f1a23f5f69b22753672170d04ff91fde0",
+      "source_state": "{\"commit\": \"d9d29c3f1a23f5f69b22753672170d04ff91fde0\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+      "library_sha256": "5ea08ddfc38bd92f9f54e82e23864fef278a62f06e794a39ef536d2d6e38e076",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-complex-build-20261011/build-provenance.json"
+    },
+    "validation_complete": true,
+    "quick_count": 103,
+    "guard_groups": 176,
+    "reference_cases": 2464,
+    "records_sha256": {
+      "build-provenance.json": "887e29722061085ec0340784cc71e78bb668536b529fee1b51382a05d3185e8c",
+      "post-build-validation.json": "4edf975e527aa6f8c908df796b6623102a50e0b4480858c443d5eda3bddb329a",
+      "even-cc-validation.json": "f66ad53dae56fc1f01a920dc3c9388d98db4f8e9488e3b9be68d79f55f4c1d31",
+      "submit-manifest.json": "49cb35d3b1a6c0eba6954ca3f8eafeaf26be00d9156061033410d72fe752769b"
+    },
+    "validation_run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-type-complex-build-20261011"
+  },
+  {
+    "variant": "capacity",
+    "job": "905660",
+    "arm": {
+      "install": "/public/home/zhangkewei/zr/experiments/EXP-126/artifacts/install/EXP-126-scalar-stride-20261012-v2",
+      "source_repo": "/public/home/zhangkewei/zr",
+      "source_commit": "423568684fe739532f8187598b9200f500f26645",
+      "source_state": "{\"commit\": \"423568684fe739532f8187598b9200f500f26645\", \"repo\": \"/public/home/zhangkewei/zr\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"\", \"tracked_state\": \"M VkFFT\"}",
+      "library_sha256": "61121f1f9207e308f6abd08502fe0bd372877dfc024d5593563a6c90b51e9f16",
+      "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-scalar-stride-build-20261012-v2/build-provenance.json"
+    },
+    "validation_complete": true,
+    "quick_count": 103,
+    "guard_groups": 176,
+    "reference_cases": 2464,
+    "records_sha256": {
+      "build-provenance.json": "22fc62f4a74fcdcd79c014906f1bed6224a0753364398c36377d9c46af726e1b",
+      "post-build-validation.json": "3f3a4710c2c984552602755e35806b5e578fb56f095182b2f476bc64b0b58b98",
+      "even-cc-validation.json": "2d90cf1a36341a905f1ca5705d8c69a60e0767aec928d67ae1a835f1026dc814",
+      "submit-manifest.json": "1f0964c8c67021c5b9c47a2d4a4fd79f519909eaca3c781607dc80e76844332b"
+    },
+    "validation_run": "/public/home/zhangkewei/zr/experiments/EXP-126/runs/EXP-126-scalar-stride-build-20261012-v2"
+  }
+]

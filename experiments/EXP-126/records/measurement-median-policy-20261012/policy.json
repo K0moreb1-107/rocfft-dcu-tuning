@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Singapore",
+  "user_request": "以后分析加速比改为使用中位数分析就好了，不用使用平均值分析了，你修改一下相应的说明文件",
+  "analysis_statistic": "median_of_raw_event_samples",
+  "speedup": "control_median / candidate_median",
+  "raw_samples_preserved": true,
+  "mean_fields": "archival_or_compatibility_only",
+  "historical_tables": "preserved; any median reanalysis saved separately",
+  "a100": "historical mean only as reference; no mixed-statistic ratios",
+  "sampling_program_changed": false,
+  "performance_job_submitted": false,
+  "protected_tool_trees": {
+    "tools/fft_measurement": "805897cf77c9812b8d2876ea909443cebf3738c1",
+    "tools/workspace_manager": "fdfc60f4d44501d88f99a7236737bb019c39872e",
+    "configs": "6746248b1361f040f5913a070d5f94c4d9063c8e"
+  },
+  "manifest": {
+    "base_commit": "6bcf7a289611febffb2cb3f3b9fb1a9744c0d31f",
+    "branch": "exp-126-even-cc-pair-s1",
+    "main": "e57a604992e02140c499702e1af0d9cc943d666e",
+    "rocfft_tree": "faabedcd23be727e83264ccd7a6d8a9e5c8aff40",
+    "files": {
+      "AGENTS.md": {
+        "before_sha256": "c53a686c4026f5be147a0b589103b11ae9e1fb37c086fa773fa2351566573afc",
+        "after_sha256": "166ab872bb137b27fb06f33bef83547067ca95603b54ceebd36900ab1386ad48",
+        "before_lines": 334,
+        "after_lines": 335
+      },
+      "docs/technical/FFT_MEASUREMENT_PROTOCOL.md": {
+        "before_sha256": "3b89646174e0674e7bc3ffaaa41408598492b5b5f7492f3cc731a961077a48cb",
+        "after_sha256": "859b95bbcd29bbb464a664b1c33ef3644ea33b0dc135509588b4fd80167c16d5",
+        "before_lines": 377,
+        "after_lines": 385
+      },
+      "docs/technical/WORKSPACE_MANAGEMENT.md": {
+        "before_sha256": "782ea43017c22446fc4e86952207a4d93141414b2513e0db8f2c9236b28fc4b5",
+        "after_sha256": "dabeccfeb7a228c95705cbb51523952d9bc267931d8292db91500d4d29525754",
+        "before_lines": 264,
+        "after_lines": 272
+      },
+      "docs/technical/LEGACY_PATH_ADAPTATION.md": {
+        "before_sha256": "6d8ff5e02d1e1878953a437fec96f5675e1447d074e4fc47d8da439d16662e2d",
+        "after_sha256": "b3d798863d69b0998590c6d3609665ab87218fffe414d42595ca0f7f3de1841b",
+        "before_lines": 102,
+        "after_lines": 104
+      },
+      "VKFFT_ROCFFT_OPTIMIZATION_DIRECTIONS.md": {
+        "before_sha256": "46bc28aa507a169b6cd7304de4b5ff932951e04baf1731f41384683f8217b806",
+        "after_sha256": "ad5b0ba9b28300ac1c327d1a4f41c68e76ceea095ecdb018928de33ee5f61bef",
+        "before_lines": 7311,
+        "after_lines": 7320
+      }
+    }
+  },
+  "patch_context_lines": 0,
+  "patch_application": "git apply --unidiff-zero",
+  "patch_sha256": "c966207e2dbd1676deac3cb01ddcb9c508fc009c58c0a389933acd0d1c79b784"
+}
