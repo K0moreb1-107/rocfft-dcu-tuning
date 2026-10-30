@@ -1,0 +1,147 @@
+{
+  "approved": true,
+  "date": "2026-10-31",
+  "stable_branch": "main",
+  "stable_tag": "stable-main-exp129-cc-generic-clean-20261031",
+  "experiment_branch": "exp-129-gate-simplification",
+  "previous_stable_main": "697f6f0a8a3ffa9dd255d911b488856722f4e839",
+  "source_commit": "842b98916033e212ca9fe0e327381e6d33eb8080",
+  "repair_implementation_commit": "bd3988d566549e90951f005b230faf4f65fe092f",
+  "source_tree": "eff50c266eae29e98ac5179072de14eb0a2af813",
+  "candidate_arm": {
+    "install": "/public/home/zhangkewei/zr/experiments/EXP-129/artifacts/install/EXP-129-stable-scale-fix-20261030",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_commit": "842b98916033e212ca9fe0e327381e6d33eb8080",
+    "source_state": "{\"commit\": \"842b98916033e212ca9fe0e327381e6d33eb8080\", \"repo\": \"/public/home/zhangkewei/zr\", \"requested_commit\": \"bd3988d566549e90951f005b230faf4f65fe092f\", \"source\": \"/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft\", \"source_status\": \"not checked by user policy\", \"task_input_sha256\": {\"/public/home/zhangkewei/zr/jobs/workspace_task.slurm\": \"a96f676dc98502aafe3d78f0f4533833d195e6e7aafe0bd797491489d9c2009d\", \"/public/home/zhangkewei/zr/manage.py\": \"e45dea313a931a10575d57684568a5ee0629c95da1272442274674b04457a223\", \"/public/home/zhangkewei/zr/tools/fft_measurement/common.py\": \"9364629fa1672d923f0f542e0f4a3b54d0845b2a4923ab00fc3b4ecd8e2c9978\", \"/public/home/zhangkewei/zr/tools/workspace_manager/__init__.py\": \"2159044b06526336a64fcc63c6f2e2a45336f1915fef1468d2949d7a3e243430\", \"/public/home/zhangkewei/zr/tools/workspace_manager/deferred.py\": \"ed8f26b32f78a49144468eb9f62759f4fe4e18ae8df5ebf0723a41924f8dd19f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/diagnostics.py\": \"dff3fd98e889b5ce426a6b931b3297b902f8019630ee197871fa3b6319bea77a\", \"/public/home/zhangkewei/zr/tools/workspace_manager/manager.py\": \"c16a83799c21bc5008588e072513dad87761bdb767f34734473332ec2fb4bde4\", \"/public/home/zhangkewei/zr/tools/workspace_manager/pending_build_validation.py\": \"b6f2ff07d404c6c967849370a3e138de971e3d8d03df85012a9c7d2b4da1b58d\", \"/public/home/zhangkewei/zr/tools/workspace_manager/revalidate.py\": \"f14ddefdcfa54392767dd3fe67c8736f7b2e9c3cf74691db4f0a319e38c62062\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_cc_diagnostic_runner.py\": \"5d3585c63d5b6e3b240c1f6be473cc80edd21d21f341c38b73395981bdfbb9a3\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_diagnostics.py\": \"dd95d3dcf71e0cc7518d6ccc16068e68af4e946d6ac3c59c4bcb66b330385fed\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_dual_revalidate.py\": \"1c9b60a2bec2ac7b6571a33fc1b0b1969dcb8274ec2a49036bc01a164b89229c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_job_gpu_step.py\": \"db176605f6bfa59f4b2d6bbda8df870ac89c29338ca4b006352b32827b884781\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_manager.py\": \"1686cd8b530bdf6d953d33ec8f0cc4e699483ba4f8d69784346f14d8c7252c1c\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_build_validation.py\": \"922169d078998501318319560221c2821dfb8016f0a83e85578838d1b46cb812\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_pending_reference.py\": \"e3eaa683910c69db878755633aeae5670da3c1f6bcd23bf21a87dede83125274\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_revalidate.py\": \"a70264119ccd7b0c96d8167913954b37175ddce887030f9d092ccb79f6475e77\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_source_identity.py\": \"b2785a1750c03e2fd9ef72797e7de89cd32df5f1f9322696d03e3d0adff1863f\", \"/public/home/zhangkewei/zr/tools/workspace_manager/test_validation_resume.py\": \"94a5097a6178fc9f50e1910b1f1097658ced1ce0d538fe3c713004ed3e2b1460\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_finish.py\": \"2f16de0901d8f5a132516de07d46d50311b3424e4817d03edd7f2cc92b3c71f0\", \"/public/home/zhangkewei/zr/tools/workspace_manager/validation_resume.py\": \"764768d342bbd1b342f789e4585273ef69a3df55879652e3cdd32e50c4bcc6f5\"}, \"tracked_state\": \"not checked by user policy\"}",
+    "library_sha256": "974f5a4f1acfd471b751849277a8a949b2c4e59466b907ea9078ee4fb65ae0b3",
+    "build_provenance": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-stable-scale-fix-build-20261030/build-provenance.json"
+  },
+  "full_validation_job": "1004431",
+  "performance_job": "1004433",
+  "full_audit": "experiments/EXP-129/records/stable-scale-fix-20261030/results-1004433/audit.json",
+  "full_audit_sha256": "ab47e163369de9fb493fb5ab592ffbd39de639067361992e7c42265272f0c1f5",
+  "numerical_and_actual_paths": 401,
+  "main_guard_groups": 320,
+  "main_guard_reference_cases": 3840,
+  "smoke_reference_cases": 32,
+  "formal_performance_cases": 393,
+  "formal_samples": 35370,
+  "performance_summary": [
+    {
+      "type": "z2d",
+      "reference": "baseline",
+      "cases": 194,
+      "median_of_case_speedups": 1.2608274135984194,
+      "minimum": 0.894211565529485,
+      "maximum": 3.581039838747334,
+      "below_095": 3,
+      "above_105": 181,
+      "between_095_105": 10,
+      "distribution_counts": {
+        "差异不明确：前后十次中位数变化至少5%": 169,
+        "当前较快：中间50%区间分离": 24,
+        "当前较慢：中间50%区间分离": 1
+      }
+    },
+    {
+      "type": "z2d",
+      "reference": "previous",
+      "cases": 194,
+      "median_of_case_speedups": 1.0,
+      "minimum": 0.9110320131366199,
+      "maximum": 1.206572754300658,
+      "below_095": 12,
+      "above_105": 17,
+      "between_095_105": 165,
+      "distribution_counts": {
+        "差异不明确：中间50%区间重叠": 56,
+        "差异不明确：前后十次中位数变化至少5%": 136,
+        "当前较快：中间50%区间分离": 2
+      }
+    },
+    {
+      "type": "d2z",
+      "reference": "baseline",
+      "cases": 194,
+      "median_of_case_speedups": 1.2862932498954023,
+      "minimum": 0.9301075564936656,
+      "maximum": 3.886363827067606,
+      "below_095": 2,
+      "above_105": 181,
+      "between_095_105": 11,
+      "distribution_counts": {
+        "当前较慢：中间50%区间分离": 1,
+        "当前较快：中间50%区间分离": 33,
+        "差异不明确：前后十次中位数变化至少5%": 160
+      }
+    },
+    {
+      "type": "d2z",
+      "reference": "previous",
+      "cases": 194,
+      "median_of_case_speedups": 1.0,
+      "minimum": 0.8904847425286027,
+      "maximum": 1.0847457875552866,
+      "below_095": 11,
+      "above_105": 8,
+      "between_095_105": 175,
+      "distribution_counts": {
+        "差异不明确：中间50%区间重叠": 49,
+        "差异不明确：前后十次中位数变化至少5%": 144,
+        "当前较快：中间50%区间分离": 1
+      }
+    },
+    {
+      "type": "z2z",
+      "reference": "baseline",
+      "cases": 5,
+      "median_of_case_speedups": 1.0,
+      "minimum": 0.9946808724733928,
+      "maximum": 1.0137328804074845,
+      "below_095": 0,
+      "above_105": 0,
+      "between_095_105": 5,
+      "distribution_counts": {
+        "差异不明确：中间50%区间重叠": 4,
+        "差异不明确：前后十次中位数变化至少5%": 1
+      }
+    },
+    {
+      "type": "z2z",
+      "reference": "previous",
+      "cases": 5,
+      "median_of_case_speedups": 0.9966215958980023,
+      "minimum": 0.9946808724733928,
+      "maximum": 1.0029142066533097,
+      "below_095": 0,
+      "above_105": 0,
+      "between_095_105": 5,
+      "distribution_counts": {
+        "差异不明确：前后十次中位数变化至少5%": 4,
+        "差异不明确：中间50%区间重叠": 1
+      }
+    }
+  ],
+  "prior_stable_source": {
+    "branch": "main",
+    "worktree": "/public/home/zhangkewei/zr",
+    "source_anchor": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "tag": "完成CC路径前后处理融合",
+    "retained_kernel_source": "06baff81d85a7f24fd240cd32c849244b05ae3b9",
+    "rocfft_source_tree": "842c6f35410bfda22fd0c7c61d172d371d2f21a6",
+    "previous_binary_registry_id": "EXP-126-heldout-complex-20261012",
+    "management_tools_commit": "66c6315e51cfde6390361a778f86df97e4e99a3b",
+    "binary_equivalence": "稳定标签中的rocFFT源码子树与任务908730实际构建的06baff81完全相同；安装库保留原始构建身份",
+    "approved": "2026-10-13",
+    "approval_record": "experiments/EXP-126/records/stable-promotion-20261013/promotion.json"
+  },
+  "historical_files_retained_from_main": 456,
+  "historical_local_changes_preserved": [],
+  "main_history_resolution": "Keep the validated candidate production tree and current tools; restore historical records/configurations missing only because EXP129 started from EXP125. Record both parents, then fast-forward main.",
+  "old_tags_preserved": true,
+  "source_branch_switch": false,
+  "worktrees_created": false,
+  "automation": false,
+  "cloud_push_authorized": true,
+  "cloud_push_receipt": "push-result.json"
+}
