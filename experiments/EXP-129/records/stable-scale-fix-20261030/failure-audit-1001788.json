@@ -1,0 +1,1032 @@
+{
+  "validation_job": "1001788",
+  "cancelled_performance_job": "1001789",
+  "full_validation_complete": false,
+  "elapsed_seconds": 4513.688361326,
+  "numerical_and_actual_paths_passed": 401,
+  "guard_groups_attempted": 320,
+  "guard_group_records": 314,
+  "guard_groups_passed": 250,
+  "d2z_guard_groups_passed": 160,
+  "z2d_guard_groups_passed": 90,
+  "failures": 70,
+  "root_counts": {
+    "untyped_complex_initializer_in_scaled_store": 68,
+    "duplicate_bluestein_scale_parameter": 2
+  },
+  "failed_sizes": [
+    65534,
+    65538,
+    65856,
+    67200,
+    67600,
+    68600,
+    69938,
+    70304,
+    71344,
+    72250,
+    74088,
+    75712,
+    76832,
+    82134,
+    82944,
+    83006,
+    86528,
+    100352,
+    131712
+  ],
+  "full_evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release-validation.json",
+  "full_evidence_sha256": "5ee6acd995ccf530636607172b9828acbdf229a22188796ccb50e67d046ad78b",
+  "failed_groups": [
+    {
+      "N": 65856,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-65856-z2d_1d-none",
+      "rtc_sha256": "5c57ab551fab2d0b0631c95fd1af6b11a9fe6219aefc81e91d6bd50933cc79ce",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 65856,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-65856-z2d_1d-load",
+      "rtc_sha256": "e992c3442802770cbdbd6e030d333824df645e99cc8e94412cdb6e7e6a4a7294",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 65856,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-65856-z2d_1d-store",
+      "rtc_sha256": "0168499830364ed77c354be2f1b12ae821ba9955ce6c0a64e68e5d66be61cb45",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 65856,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-65856-z2d_1d-callbacks",
+      "rtc_sha256": "a933224fae6f6410db073e07f2c57eee0f472a211b903d6ec8ee1ec11b3f8e51",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 67200,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67200-z2d_1d-none",
+      "rtc_sha256": "4b663a9cf553731e85def1bd618a22c54c16f5e123e6f38e3cff70cc524a9a48",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 67200,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67200-z2d_1d-load",
+      "rtc_sha256": "3b8391a4b004423374dfba69039a44c630bd3101218a0bd9d6451ea5a50d4b42",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 67200,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67200-z2d_1d-store",
+      "rtc_sha256": "6be9f0e0ba0ab15c8b67c29b11b6fcc4223d54ea35fc46f3fbb12a0c37c92383",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 67200,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67200-z2d_1d-callbacks",
+      "rtc_sha256": "7424a21357e578e58cce87f1f5b0a31a678df9ce05610599beb3428cfcec35eb",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 67600,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67600-z2d_1d-none",
+      "rtc_sha256": "a003b06ecd03475d9c7096972f2b841032a1b64227b3f3cfbbc2551b1b70ed7c",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 67600,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67600-z2d_1d-load",
+      "rtc_sha256": "d81a6a9b1748caa18f778ba9d1ee183606e40e1a979640bbcacff6a747418d5d",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 67600,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67600-z2d_1d-store",
+      "rtc_sha256": "ad03990a644b620e9e13f1e19b25169e14a0230bf970a6b03cbf184a0b8faebd",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 67600,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "UnicodeDecodeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-67600-z2d_1d-callbacks",
+      "rtc_sha256": "a57c30e6341c0ae4991dfcf8b771caf96f1cae411537febfdc663e96fee592ed",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      },
+      "trace_sha256": "275cb0fbfa8e2ea5bf8953ea0609cb58518e2790f3bd2cc12033150cef643dc1",
+      "invalid_utf8_offset": 581342
+    },
+    {
+      "N": 68600,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-68600-z2d_1d-none",
+      "rtc_sha256": "d09644da63bfc2a71d9669efb37da82680a4923f4a4ea0b2096a7fc9be6f7e6a",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 68600,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-68600-z2d_1d-load",
+      "rtc_sha256": "0296fdd46039262d98e427e8f83ae6df31523d280d95959f4668285a45410dad",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 68600,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-68600-z2d_1d-store",
+      "rtc_sha256": "912f9e0367fd53d596c9ff2d493736f28d4c25dda42e82bddedad7c5b09e321c",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 68600,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "UnicodeDecodeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-68600-z2d_1d-callbacks",
+      "rtc_sha256": "4616219dad3239faadc0d8b6762fb888485df618d33ea4f5b0beba41a7a101c9",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      },
+      "trace_sha256": "1fc0b6031d2a471883fa3910a17dce86b8639ebfbadbcf48b67978d1ecf697fe",
+      "invalid_utf8_offset": 147115
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-69938-z2d_1d-none",
+      "rtc_sha256": "3d2210a77dd3f4ca06a637a5da51b1a5599db23816123aa26c8da502975380cd",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-69938-z2d_1d-load",
+      "rtc_sha256": "008f96a1bfb138672845b55038c0a6dbf85a74ef2fec4f08bf25ead8bacbda1b",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-69938-z2d_1d-store",
+      "rtc_sha256": "1ca840c70df135a7f0b40f64086e2108a279785f8b85c33246b8f3529e3f467e",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 69938,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "UnicodeDecodeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-69938-z2d_1d-callbacks",
+      "rtc_sha256": "0b55f64f2e64095a070891abad3be163c648262dd5b46a20c2d16999db9f33fb",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      },
+      "trace_sha256": "4b9fd7d8d280b0d03cf50b1d031f4da96c3c084cd682840f54f9e04ffc0a16e9",
+      "invalid_utf8_offset": 181846
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-70304-z2d_1d-none",
+      "rtc_sha256": "84467903d84f192ccf0348c37d5dc38e05f16862afc788b95bd8c774ae27e9e3",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-70304-z2d_1d-load",
+      "rtc_sha256": "1ec45398b97ade5b734e49a0788fbf031340f3031cefa9f5cded801ddade58ef",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-70304-z2d_1d-store",
+      "rtc_sha256": "2d5faf3ad6b9c37fa0b0bbabe378e89658a0d6a35a518762393d8b84f93b3023",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 70304,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-70304-z2d_1d-callbacks",
+      "rtc_sha256": "3da5f49cb283b5acea81a074d7025d889941f58f17095da0648375a686e50f6d",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 71344,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-71344-z2d_1d-none",
+      "rtc_sha256": "23f3e9df3c95f7df819e1a088667db20eda2ff604a523e935c16f21bf349031f",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 71344,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-71344-z2d_1d-load",
+      "rtc_sha256": "7f960657a0621aeea16b50cabb28c1eaf436a303477be976fcdcf9b12bcd6e2e",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 71344,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-71344-z2d_1d-store",
+      "rtc_sha256": "5e371c9791723411766170d037d5fcc234b40baf4894659bf5c80a1169f94c40",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 71344,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "UnicodeDecodeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-71344-z2d_1d-callbacks",
+      "rtc_sha256": "4b15e1e924ae6e7c711be5979f4aadc1747d86c0159f43d903ad60bc8854e5be",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      },
+      "trace_sha256": "fcd1bc339a325509d8506e21468de344323bffd089d950e1165c55066c6b9a24",
+      "invalid_utf8_offset": 338060
+    },
+    {
+      "N": 72250,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-72250-z2d_1d-none",
+      "rtc_sha256": "61e0d869f481685011ab9f7cf4c461489d9ec8a6cde67748b9a508c04750d655",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 72250,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-72250-z2d_1d-load",
+      "rtc_sha256": "9e75ac78f204d011ffd6560560938ab17f772d39d9d50c757d30925ce85c737e",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 72250,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-72250-z2d_1d-store",
+      "rtc_sha256": "4f5d14d55dfe03ac4772525a160194b16f6e0f612a7b9eb6e73d37bd40b81630",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 72250,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "UnicodeDecodeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-72250-z2d_1d-callbacks",
+      "rtc_sha256": "6aeb9d14724da0953ad5c002562965c7597854903958189ddab6cc20cdbc83ed",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      },
+      "trace_sha256": "60fdfc3e1f6947ae9b328ab868ba54fc59bc70dc3f2f8fe6666af9ec8a8b9ded",
+      "invalid_utf8_offset": 462736
+    },
+    {
+      "N": 74088,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-74088-z2d_1d-none",
+      "rtc_sha256": "9aa87fc1d4888c31e2454d7c495419b2ee31e33cb96490c640274e958467236f",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 74088,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-74088-z2d_1d-load",
+      "rtc_sha256": "03ed43dd3e41082f7f4685eb327d6b364d494f997016ad362f24b2ccdbe73738",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 74088,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-74088-z2d_1d-store",
+      "rtc_sha256": "f757057415fe6dcd6a0359f816601907e494fd8dbb994810297dad94a50ae2e6",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 74088,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-74088-z2d_1d-callbacks",
+      "rtc_sha256": "77e2908718ac7bb1284726dec63312e9e79373fc7925ed22ba43fafaaffaac7f",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 75712,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-75712-z2d_1d-none",
+      "rtc_sha256": "6eba2b123984cb9aaba287a05f4ce8fb7b2b808640b0720de22281c91868bc89",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 75712,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-75712-z2d_1d-load",
+      "rtc_sha256": "2d24beb278c78d87b8b2b3f22c80604ddf0bac12992fec98c46ad28264e6a316",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 75712,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-75712-z2d_1d-store",
+      "rtc_sha256": "6320252bdf2e50c5566aeb5ea9d81f94c561f454d21a51524946558d703f99f4",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 75712,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-75712-z2d_1d-callbacks",
+      "rtc_sha256": "b780ca5203e923abf3cc1f677c2c03cc02d49c6d6b2d0e8172d9a504833f6920",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 76832,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-76832-z2d_1d-none",
+      "rtc_sha256": "54643662178b47f6e71dc1530922e0b66722fa79b654873bcb90d9529eb91150",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 76832,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-76832-z2d_1d-load",
+      "rtc_sha256": "a18484d1028a23ba8b7bfc4db25fc7c678fe57c837b539fb9df942e95f76a5ef",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 76832,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-76832-z2d_1d-store",
+      "rtc_sha256": "d3d1a102407d587a58b86c40489c2de6a846ebefe88e092168997871354e1fae",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 76832,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-76832-z2d_1d-callbacks",
+      "rtc_sha256": "9af21ddc6b7c5ecb2c35f5d6fcc6a542154230309dc9f2bc83564f6cfc557ffc",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82134-z2d_1d-none",
+      "rtc_sha256": "b189b507ef26d3c91d8f5d98bf2542f338e4e350b64a7797f8306d53a5e09f97",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82134-z2d_1d-load",
+      "rtc_sha256": "9009d0853737861095ab9e45b2bb1e16e5156651a7e3793ffdfddbbb441bf599",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82134-z2d_1d-store",
+      "rtc_sha256": "bc2afd36d227e30676a63a2f0972f2a7390bbd7de1706f6b5efcff21c9cc7575",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 82134,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82134-z2d_1d-callbacks",
+      "rtc_sha256": "b8bd9a72afb9e04b9d26aabf2c6998973fc2fd15dbfef9d64beda38ce291af21",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 82944,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82944-z2d_1d-none",
+      "rtc_sha256": "d01b11180ab92203357e7ac7f8ce266b8a319015faca47d3a9e188006067ae20",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 82944,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82944-z2d_1d-load",
+      "rtc_sha256": "ac6be801f7756c7b638020856069bdcfd2a8f70ad54a7a574cf0fb076aab1372",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 82944,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82944-z2d_1d-store",
+      "rtc_sha256": "677df5419edbf857738856717a8f8c62b290406197a99b80ae70f6baebeb2917",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 82944,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-82944-z2d_1d-callbacks",
+      "rtc_sha256": "4286e2d112e14a6402095ae907d6d051e790edeb7363461be278b81e250f10fe",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 83006,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-83006-z2d_1d-none",
+      "rtc_sha256": "83e9143ea70d9508841a82c63a4cd3709ca30b0ba872a4b8b07e3aec4095683e",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 83006,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-83006-z2d_1d-load",
+      "rtc_sha256": "2344f6099147f7f8fb9e4071aadcf1dcd4a6ecd7fad57b9e4b5ebc545ee17a97",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 83006,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-83006-z2d_1d-store",
+      "rtc_sha256": "feb33d28fb2feef44086da661f4f9b8ce84e94ae27724e103294df0bb9034669",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 83006,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-83006-z2d_1d-callbacks",
+      "rtc_sha256": "22b75d62752ded0fd05d5479175f7e52e9b974dbc11a3db4e0a5454af92ee532",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 86528,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-86528-z2d_1d-none",
+      "rtc_sha256": "1193245972b4af45a1cbfc44d6b651f08ae6628c68bf9011f87d1f5bab596f8b",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 86528,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-86528-z2d_1d-load",
+      "rtc_sha256": "cecdc81a7c653a20c001f788c3d3108622d715eca14651063d575852a0f0b021",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 86528,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-86528-z2d_1d-store",
+      "rtc_sha256": "e032721997b337f910e4353fdcd3a68ec880019f91e9b70e441f37d92427a002",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 86528,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-86528-z2d_1d-callbacks",
+      "rtc_sha256": "ada48d7da72b6ae64b80193bc2d186fba1a3319bde1a05b5e484a839f1068bfc",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 100352,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-100352-z2d_1d-none",
+      "rtc_sha256": "fa83af12f6a33774d8d67fbf1155e08b22f85f3f167cda2fc56c8610c95b016c",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 100352,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-100352-z2d_1d-load",
+      "rtc_sha256": "9faf0c3dd16b7639249f8d857136a528d1b56c3717d51e0df6dad93ae3c55233",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 100352,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-100352-z2d_1d-store",
+      "rtc_sha256": "79e18d969b97009d150dabaaa65ac4e04a88984789b5403934c7fc6f0aa658e9",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 100352,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "UnicodeDecodeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-100352-z2d_1d-callbacks",
+      "rtc_sha256": "ff2d7ff2b83097dc309feef3698432f9235c2c0679fedd91e24e1a67c9d2b41a",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      },
+      "trace_sha256": "02f47c480d7cf5599c9d37fccd8b659cbbe570a995e1938683f8c3a016ae59c0",
+      "invalid_utf8_offset": 348781
+    },
+    {
+      "N": 131712,
+      "func": "z2d_1d",
+      "mode": "none",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-131712-z2d_1d-none",
+      "rtc_sha256": "2be616a771b5a284b509707622b1fa8138609f645d295fb01dd907860de49794",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 131712,
+      "func": "z2d_1d",
+      "mode": "load",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-131712-z2d_1d-load",
+      "rtc_sha256": "c90cf8a0a2bd52257ce5d1b5273de59e1b4e83241c75472c43be73f08bdf16ec",
+      "compiler_errors": {
+        "expected ';' after expression": 170,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 153,
+        "too many errors emitted, stopping now [-ferror-limit=]": 17
+      }
+    },
+    {
+      "N": 131712,
+      "func": "z2d_1d",
+      "mode": "store",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-131712-z2d_1d-store",
+      "rtc_sha256": "b381e7ecf140f0609575cfbe7833f4d37c798b3c4d1c28f231ddb4e398188d48",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 131712,
+      "func": "z2d_1d",
+      "mode": "callbacks",
+      "root": "untyped_complex_initializer_in_scaled_store",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-131712-z2d_1d-callbacks",
+      "rtc_sha256": "72b1de4194c48b898f9810c107c4f1bfc8a3215b3eb4fe7629024ec2f8101adb",
+      "compiler_errors": {
+        "expected ';' after expression": 180,
+        "no matching function for call to object of type 'cc_boundary_store<scalar_type, cbtype, true, true>' (aka 'cc_boundary_store<rocfft_complex<double>, cbtype, true, true>')": 162,
+        "too many errors emitted, stopping now [-ferror-limit=]": 18
+      }
+    },
+    {
+      "N": 65534,
+      "func": "z2d_1d",
+      "mode": "boundary",
+      "root": "duplicate_bluestein_scale_parameter",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-65534-z2d_1d-boundary",
+      "rtc_sha256": "d13aa28b434d11189b1f6fe27551a1e98c0171e7b0ece901b6bf4dd6c2803688",
+      "compiler_errors": {
+        "redefinition of parameter 'scale_factor'": 18
+      }
+    },
+    {
+      "N": 65538,
+      "func": "z2d_1d",
+      "mode": "boundary",
+      "root": "duplicate_bluestein_scale_parameter",
+      "reporting_error": "RuntimeError",
+      "evidence": "experiments/EXP-129/runs/EXP-129-stable-release-full-validate-20261030/full-release/guard-65538-z2d_1d-boundary",
+      "rtc_sha256": "041036f66c36c4dd7c34b81bfe8cc0234f7ee0ffb4fc7dc968c3dff417c11b72",
+      "compiler_errors": {
+        "redefinition of parameter 'scale_factor'": 18
+      }
+    }
+  ],
+  "promotion_performed": false,
+  "changes": "Type complex literals before scaling; let common store ops own the Bluestein scale argument; retain execution failure before decoding compiler traces; smoke all four scales."
+}

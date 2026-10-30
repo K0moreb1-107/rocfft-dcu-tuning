@@ -57,6 +57,9 @@ struct StoreOpsVisitor : public BaseVisitor
             return {x};
 
         TStatement y{x};
+        // A braced complex initializer needs a type before arithmetic.
+        if(std::holds_alternative<ComplexLiteral>(y.value))
+            y.value = CallExpr{"scalar_type", {y.value}};
         y.value = y.value * scale_factor;
         return {y};
     }

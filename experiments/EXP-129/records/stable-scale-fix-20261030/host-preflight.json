@@ -1,0 +1,204 @@
+{
+  "complete": true,
+  "device_execution": false,
+  "failures": [],
+  "unit_sources_identical": 2264,
+  "scaled_cc_sources": 2264,
+  "bluestein_argument_cases": 192,
+  "device_syntax_cases": 48,
+  "representative_sources": [
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/1024-1331-5-0.cpp",
+      "sha256": "56c733105a3e9896b03263f5aeb35542c9e0144f35b037c803880213864991d4"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/1024-1331-5-1.cpp",
+      "sha256": "729295ddfb8b0f4421b5241a195d22c670b4cb4a2e968ab91267fb53ed5747d4"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/1024-1331-7-0.cpp",
+      "sha256": "25b19018f6413abf4b067696a9972349f52a073bcc6e48878e8d6b2e931e0da8"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/1024-1331-7-1.cpp",
+      "sha256": "64871ce3e52824c21b986c6d5e6c7f70f361c41ca2ad1185c33bc4d7242b0ee2"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/121-289-5-0.cpp",
+      "sha256": "ea69730a564d69d0c2d60b9185e52f5db13cc2cd0f6470a97bdd74043402e1c0"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/121-289-5-1.cpp",
+      "sha256": "ee24d8d85e309c2207a41d35233a77582d76b210bd5cf95911999a980271f12b"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/121-289-7-0.cpp",
+      "sha256": "76dc1ab1791f692dcd43d8c76a606e212f4895f21a5b0faa6313280c3c7d1e4a"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/121-289-7-1.cpp",
+      "sha256": "7d1f8624c1cc5b51971656abdc53bb79031d450922b38b344b4e7af73ca5c9d0"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/128-256-5-0.cpp",
+      "sha256": "fe220d0cfbfa215a006116c473a4abf326e1465095d02115853b6580c8e5235d"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/128-256-5-1.cpp",
+      "sha256": "d33556c8f73826864b74f2ccaa66405732fcf3e07e93d471a2440e99c26a3992"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/128-256-7-0.cpp",
+      "sha256": "3d7cb5239032fed3d4ce52206b6bb1db5ca5064eb372a8242928d42aedc364aa"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/128-256-7-1.cpp",
+      "sha256": "0c35c690edb6581106688213c70dd1008d83fd37e79b9dcd4110ff0092ff7fbd"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/169-200-5-0.cpp",
+      "sha256": "039bdcf5e3d8ac8f96e37eb1021c233705edfaa3976184fcf483f9402a06bcaf"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/169-200-5-1.cpp",
+      "sha256": "b3f752bf8b4c8d5917b9f3cce6f2d7d6e93276f676e559a02c0d4e7ba01da79a"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/169-200-7-0.cpp",
+      "sha256": "ddfce4f025e21ac8224adc09bbca865dff3646dfdb8110771e9cf7cb75f3e95e"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/169-200-7-1.cpp",
+      "sha256": "8cc2058c7c8a13bd738faf1bebce0cf85e1879dda3cfe1e2127b778bd851d2b9"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/200-169-5-0.cpp",
+      "sha256": "99e5909a99afd9400426da003b1ccb51463218f94453e8fcfc12534e4e9c6749"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/200-169-5-1.cpp",
+      "sha256": "f8e5b8268c6e82c23329b528a6a19909b17d5275a47c5b0b48a38ed4c59c446e"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/200-169-7-0.cpp",
+      "sha256": "62c296b16f05d3d6c6f7e91389620b6d10f523c857e5c971e9de29bd7060f274"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/200-169-7-1.cpp",
+      "sha256": "799748c482fbc1acf2cd832b4077de26d3632379051212f5fffbf7f438091237"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/256-128-5-0.cpp",
+      "sha256": "860121a284bd408288ed4344040f71479d088403a6ffd88554ce922b30a48ef5"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/256-128-5-1.cpp",
+      "sha256": "0f5365229aa6bcd52b686f07f7b40a34e5b4aa25281865733e59a24787bc42e8"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/256-128-7-0.cpp",
+      "sha256": "b255183422a675e5805f60e42645bd7f17734554a09da8123abaa29296d2fa7e"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/256-128-7-1.cpp",
+      "sha256": "48a7dba0b550ab25aadafed84d87889825570c827c231e1d3337d72206a3eaf9"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/289-121-5-0.cpp",
+      "sha256": "48fc90655f454b84adfcfe6d72dac94c75731b414a54f35a508558cc0384c326"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/289-121-5-1.cpp",
+      "sha256": "540b20ef6b6daa7b224e86bca9fbf0e14b6d9b90fce88369633353d3efd60e4a"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/289-121-7-0.cpp",
+      "sha256": "68a7370b5ae4d327d2ccab042c9f572ab6a7a2f397e17dce76c7d982fa702a00"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/289-121-7-1.cpp",
+      "sha256": "a3713a0b6c5a6b499492a5ffaec0facfd642c85a7265340a868997cfeb44092c"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/512-64-5-0.cpp",
+      "sha256": "3b34590993c7279bba881e3729d091a7686242c77320dd19a953495d9aef69ed"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/512-64-5-1.cpp",
+      "sha256": "7e2fa7958a2114ad39c8e63cca5e81d61ddd370058cff349b055d838f7bb209b"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/512-64-7-0.cpp",
+      "sha256": "2f41774c965ba23f54f390ece9fbffe651ca0d4624467b58af2e1685efa70053"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/512-64-7-1.cpp",
+      "sha256": "fe4afc471a28e0deec279538872c186c55215c44ad15e39c3a55b4b4bf5b7b8d"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/60-625-5-0.cpp",
+      "sha256": "0a60c7031a270899c9d301ec245bfd2e2a316c64c33fde59c8ddef77e86a37dc"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/60-625-5-1.cpp",
+      "sha256": "98f0c9d6a35ab3dbd4818e5267c0246698e4f1585c8b2e92ff07b8c3747e9e65"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/60-625-7-0.cpp",
+      "sha256": "2669935f859041ef846f9d83d46202f0d98a1c0a8ca610e6c80ca891e8cca2c6"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/60-625-7-1.cpp",
+      "sha256": "bb3b9f584186e12e79378138cbfac9061ec71196590ab70aee62c07fe482355e"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/64-512-5-0.cpp",
+      "sha256": "89d4e29c791c91ec2e29b1d3febf01ff24ff5d60a2e4226635d682f3d849f8a2"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/64-512-5-1.cpp",
+      "sha256": "2af41e6a9da7f4e511d988bb9fb19bce77357b4693e8b1868175a90745ac0e71"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/64-512-7-0.cpp",
+      "sha256": "d137af5f421970633920c1c5f888c073097e05b1b9450579f66a8186f1e3f7cc"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/64-512-7-1.cpp",
+      "sha256": "6266a62f33a5e7cf4936698f51f3485cddb368012a61c5ecc043c9265fa24410"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/96-343-5-0.cpp",
+      "sha256": "7b762f85c5847c79c0b1407518958101bcb8b9525dedec5f8c83bfebcba82702"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/96-343-5-1.cpp",
+      "sha256": "e3f543182a21ad495ed208c0dc34df939a6c4bc38a4d99c02edd3dac7b1ee13c"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/96-343-7-0.cpp",
+      "sha256": "cf4b71b83c2f8c32d4391c7cd969a3a90236ef147114e2724fa7fc6db9ee0319"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/96-343-7-1.cpp",
+      "sha256": "cf8f16e64e2e4e318f7930bc74cca347a2bea3b0c883e41cd27d00f4915a5d5b"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/bluestein_res_mul_dp_CI_CI.cpp",
+      "sha256": "aa5ef21c93725ff672f79d7629954a70cfead733e785913a9dc3b72cac19f0b6"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/bluestein_res_mul_dp_CI_CI_CBc2r.cpp",
+      "sha256": "cf3da9b7bb9c0a66c1837c59055e5d85825dfcc6ee11bbf7c8a73f5246b7198f"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/bluestein_res_mul_dp_CI_CI_scale.cpp",
+      "sha256": "47f82b762047fce8e4228b8c70c915d504cde4e37048cb3b32ab398def3121d7"
+    },
+    {
+      "path": "experiments/EXP-129/artifacts/stable-scale-fix-preflight-20261030/representative-kernels/bluestein_res_mul_dp_CI_CI_scale_CBc2r.cpp",
+      "sha256": "4e734e7d1e71ce0f5f4e1f252bc48c03d74ef0a03b66a0e6c96714fb1dbb33fa"
+    }
+  ],
+  "elapsed_seconds": 152.60845209937543
+}

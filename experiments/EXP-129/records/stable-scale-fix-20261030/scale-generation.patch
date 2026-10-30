@@ -1,0 +1,30 @@
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/load_store_ops_gen.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/load_store_ops_gen.cpp
+@@ -57,6 +57,9 @@
+             return {x};
+ 
+         TStatement y{x};
++        // A braced complex initializer needs a type before arithmetic.
++        if(std::holds_alternative<ComplexLiteral>(y.value))
++            y.value = CallExpr{"scalar_type", {y.value}};
+         y.value = y.value * scale_factor;
+         return {y};
+     }
+--- a/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp
++++ b/rocm-libraries-rocm-7.2.2/projects/rocfft/library/src/rtc_bluestein_gen.cpp
+@@ -258,7 +258,6 @@
+     Variable lengths{"lengths", "const size_t", true, true};
+     Variable stride_in{"stride_in", "const size_t", true, true};
+     Variable stride_out{"stride_out", "const size_t", true, true};
+-    Variable scale_factor{"scale_factor", "const real_type_t<scalar_type>"};
+ 
+     Function func{kernel_name};
+     func.launch_bounds = LAUNCH_BOUNDS_BLUESTEIN_MULTI_KERNEL;
+@@ -275,7 +274,6 @@
+     func.arguments.append(stride_out);
+     for(const auto& arg : get_callback_args().arguments)
+         func.arguments.append(arg);
+-    func.arguments.append(scale_factor);
+ 
+     // local variables
+     Variable tx{"tx", "size_t"};
