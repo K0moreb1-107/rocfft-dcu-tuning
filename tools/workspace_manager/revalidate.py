@@ -73,10 +73,13 @@ def reference_prerequisites(cfg, allow_pending=False):
 
 def gate(cfg, allow_pending=False):
     spec = cfg['revalidated_measurement']
+    validation_arm = spec.get('validation_arm', 'candidate')
+    mgr.require(validation_arm in ('candidate', 'previous', 'unfused_cc'), 'invalid validation arm')
     main = prerequisite(cfg, spec, allow_pending=allow_pending)
     validation, vp, built, command, filename = (main[k] for k in
         ('validation', 'paths', 'built', 'command', 'filename'))
     references = reference_prerequisites(cfg, allow_pending=allow_pending)
+    mgr.require(validation_arm not in references, 'duplicate primary validation arm')
     jobs = [main['job_id']] + [item['job_id'] for item in references.values()]
     dependency = cfg['resources'].get('dependency') or ''
     mgr.require(re.fullmatch(r'afterok:[1-9][0-9]*(?::[1-9][0-9]*)*', dependency)
@@ -92,12 +95,13 @@ def gate(cfg, allow_pending=False):
                 'measurement experiment or run differs')
     mgr.require(measurement.get('policy') == 'FFT-event-cufft261012-single-v3',
                 'revalidated timing requires the registered v3 protocol')
-    if references:
+    if references or validation_arm != 'candidate':
         from tools.workspace_manager import pending_build_validation as pending
         for name in references:
             mgr.require(name in measurement['arms'], 'validated reference arm is absent: '+name)
         # Acceptance is checked by the worker before final four-arm resolution.
-        planned = pending.measurement_preview(measurement, built, validation, references)
+        planned = pending.measurement_preview(measurement, built, validation, references,
+                                              validation_arm=validation_arm)
     elif 'pending_build_validation' in validation:
         expected = {'build_record': validation['existing_build_validation']['build_record']}
         mgr.require(measurement['arms']['candidate'] == expected, 'measurement selects another pending library')
@@ -136,6 +140,8 @@ def plan(task, cfg):
                 event_samples=planned['processes']*planned['event_iterations'],
                 reference_arms=planned.get('reference_arms', planned['resolved_preregistration']['arms']),
                 pending_candidate=planned.get('pending_candidate'),
+                validation_arm=cfg['revalidated_measurement'].get('validation_arm', 'candidate'),
+                pending_validation_arm=planned.get('pending_validation_arm'),
                 pending_reference_arms=planned.get('pending_reference_arms', {}),
                 submission_command=mgr.submission_command(task, cfg), source_state_freeze=False)
 
@@ -198,14 +204,17 @@ def measure(cfg):
     try:
         acceptance = verify_acceptance(vp, built, command, filename,
                                        cfg['revalidated_measurement']['validation_job_id'])
-        acceptances = {'candidate': acceptance}
+        validation_arm = cfg['revalidated_measurement'].get('validation_arm', 'candidate')
+        acceptances = copy.deepcopy(planned['resolved_preregistration'].get('validation_acceptances', {}))
+        acceptances[validation_arm] = acceptance
         references = reference_prerequisites(cfg)
         for name, item in references.items():
             acceptances[name] = verify_acceptance(item['paths'], item['built'], item['command'],
                                                  item['filename'], item['job_id'])
-        measurement = (mgr.measurement(planned['resolved_preregistration']) if references
+        measurement = (mgr.measurement(planned['resolved_preregistration']) if references or validation_arm != 'candidate'
                        else copy.deepcopy(planned['resolved_preregistration']))
-        measurement['validation_acceptance'] = acceptance
+        mgr.require('candidate' in acceptances, 'candidate acceptance is required')
+        measurement['validation_acceptance'] = acceptances['candidate']
         measurement['validation_acceptances'] = acceptances
         measurement['queued_submission'] = dict(queue_run=str(q['run']), validation_job_id=acceptance['job_id'])
         measurement['queued_submission']['validation_job_ids'] = {

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-fusion-off-build-20261031",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 16,
+    "time_limit": "02:00:00",
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-129-fusion-off-20261031",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "842b98916033e212ca9fe0e327381e6d33eb8080",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "OFF"
+    }
+  },
+  "starting_stable_tag": "stable-main-exp129-cc-generic-clean-20261031",
+  "starting_stable_commit": "842b98916033e212ca9fe0e327381e6d33eb8080",
+  "candidate_branch": "exp-129-gate-simplification",
+  "acceptance": "Build the accepted stable production source with only real CC fusion disabled; validate separately.",
+  "reference_policy": "Reuse accepted stable ON installation; no ON build or new ON validation job.",
+  "starting_experiment_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f"
+}

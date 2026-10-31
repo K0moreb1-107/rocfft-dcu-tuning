@@ -67,27 +67,30 @@ def resolve(cfg, allow_pending=False):
     return built
 
 
-def measurement_preview(cfg, build, validation, reference_builds=None):
+def measurement_preview(cfg, build, validation, reference_builds=None, validation_arm='candidate'):
     """Validate a future candidate selection without inventing its library hash."""
     protocol = mgr.measurement_protocol(cfg)
     mgr.require(cfg.get('policy') == 'FFT-event-cufft261012-single-v3'
                 and cfg.get('timing_source_sha256') == protocol.SOURCE_SHA,
                 'pending measurement requires the registered v3 timing source')
     selected = protocol.arms(cfg)
+    mgr.require(validation_arm in selected and validation_arm in ('candidate', 'previous', 'unfused_cc'),
+                'invalid pending validation arm')
     cases = mgr.common.cases(cfg)
     protocol.iterations(cfg)
     expected = {'build_record': validation['existing_build_validation']['build_record']}
-    mgr.require(cfg['arms']['candidate'] == expected,
-                'measurement selects another pending candidate')
+    mgr.require(cfg['arms'][validation_arm] == expected,
+                'measurement selects another pending candidate' if validation_arm == 'candidate'
+                else 'measurement selects another pending validation arm')
     references = {}
     pending_references = {}
     reference_builds = reference_builds or {}
-    mgr.require(set(reference_builds) <= set(selected) - {'candidate', 'official', 'baseline'},
+    mgr.require(set(reference_builds) <= set(selected) - {validation_arm, 'official', 'baseline'},
                 'invalid pending reference arm')
     fields = ('install', 'source_repo', 'source_commit', 'source_state',
               'library_sha256', 'build_provenance')
     for name in selected:
-        if name == 'candidate':
+        if name == validation_arm:
             continue
         if name in reference_builds:
             item = reference_builds[name]
@@ -123,4 +126,6 @@ def measurement_preview(cfg, build, validation, reference_builds=None):
                 timing_warmups=protocol.WARMUPS, event_iterations=protocol.iterations(cfg),
                 resolved_preregistration=pinned, reference_arms=references,
                 pending_reference_arms=pending_references,
-                pending_candidate=copy.deepcopy(build['arm']))
+                pending_candidate=copy.deepcopy(build['arm']) if validation_arm == 'candidate' else None,
+                validation_arm=validation_arm,
+                pending_validation_arm=copy.deepcopy(build['arm']))

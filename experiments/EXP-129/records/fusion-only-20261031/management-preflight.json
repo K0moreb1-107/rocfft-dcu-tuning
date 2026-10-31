@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/public/software/apps/anaconda3/2023.09/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tools.workspace_manager.test_pending_build_validation",
+    "tools.workspace_manager.test_dual_revalidate",
+    "tools.workspace_manager.test_reference_only_revalidate"
+  ],
+  "returncode": 0,
+  "stdout": "{\"complete\": true, \"job_id\": \"10002\", \"command\": [\"/public/software/apps/anaconda3/2023.09/bin/python\", \"/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/pending-entry-tests/tmprrpoukau/experiments/EXP-999/scripts/check.py\", \"--config\", \"/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/pending-entry-tests/tmprrpoukau/experiments/EXP-999/runs/independent-validation/submit-manifest.json\", \"--build-record\", \"/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/pending-entry-tests/tmprrpoukau/experiments/EXP-999/runs/pure-build/build-provenance.json\", \"--run\", \"/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/pending-entry-tests/tmprrpoukau/experiments/EXP-999/runs/independent-validation\", \"--build\", \"/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/pending-entry-tests/tmprrpoukau/experiments/EXP-999/artifacts/build/new-install\", \"--cache\", \"/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/pending-entry-tests/tmprrpoukau/experiments/EXP-999/artifacts/cache/independent-validation\"], \"source_commit\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\", \"library_sha256\": \"59f75d83eaefc79936d5dc1a40a67b428d11563ba58c774e749d3ee18aff100b\", \"original_build_record\": \"/public/home/zhangkewei/zr/experiments/EXP-128/artifacts/preflight/pending-entry-tests/tmprrpoukau/experiments/EXP-999/runs/pure-build/build-provenance.json\", \"rebuild_required\": false, \"validation_script_sha256\": \"27810f151fd2aab77f90daee4cc4e59830344d8313aba1489e61fe995aedbbaf\", \"started_utc\": \"2026-10-31T14:57:51.146190+00:00\", \"gpu\": {\"count\": 1, \"arch\": \"gfx936\", \"uuid\": \"11111111111111111111111111111111\"}, \"evidence_sha256\": \"f59f302ac0d8899db8353bffd01ee8fd99426ce936f3990147ecb7c66c472697\", \"log_sha256\": \"b7b8d36873d72194a29a964d48b994888f478cf7d4a0302c20550550c553d0bd\", \"ended_utc\": \"2026-10-31T14:57:51.158903+00:00\"}\n",
+  "stderr": "...................\n----------------------------------------------------------------------\nRan 19 tests in 6.641s\n\nOK\n"
+}

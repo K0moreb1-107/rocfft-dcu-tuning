@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-fusion-off-validate-20261031",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "01:00:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05"
+  },
+  "build": {
+    "component": "rocfft",
+    "build_id": "EXP-129-fusion-off-20261031",
+    "source_repo": "/public/home/zhangkewei/zr",
+    "source_dir": "/public/home/zhangkewei/zr/rocm-libraries-rocm-7.2.2/projects/rocfft",
+    "source_commit": "842b98916033e212ca9fe0e327381e6d33eb8080",
+    "compiler": "/public/software/compiler/dtk-26.04/bin/hipcc",
+    "cmake": {
+      "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+      "ROCFFT_CC_REAL_FUSION": "OFF"
+    }
+  },
+  "starting_stable_tag": "stable-main-exp129-cc-generic-clean-20261031",
+  "starting_stable_commit": "842b98916033e212ca9fe0e327381e6d33eb8080",
+  "candidate_branch": "exp-129-gate-simplification",
+  "acceptance": "Numerical correctness and actual independent pre/post plus two native CC stages only.",
+  "reference_policy": "Reuse accepted stable ON installation; no ON build or new ON validation job.",
+  "starting_experiment_commit": "1d22a78fad885db364b3ad631eaddb2baf0fcf1f",
+  "post_build_validation": {
+    "script": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/validate_fusion_off.py",
+    "sha256": "49f9e30d37a58cba5cefcd26d51f2e7690f10e9a1542f3e861a831c7a788285d",
+    "inputs": [
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/records/fusion-only-20261031/coverage.json",
+        "sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/cc_dispatch.py",
+        "sha256": "45760678dd782e4cd8325936b811945211cd1830d3120608bb00a7e6c131fbd3"
+      },
+      {
+        "path": "/public/home/zhangkewei/zr/experiments/EXP-129/scripts/gate_validation_support.py",
+        "sha256": "e0af050d786a834b9dce1dc586962902461661771de0a408c54e1a1591bc4979"
+      }
+    ]
+  },
+  "validation": {
+    "profile": "fusion-off-two-checks",
+    "coverage": "/public/home/zhangkewei/zr/experiments/EXP-129/records/fusion-only-20261031/coverage.json",
+    "coverage_sha256": "d6d62a2353c6de5cc226b86ea77167a6f44c214e952c4959333432092989ae18",
+    "sample_N": [
+      65536,
+      65856,
+      67200,
+      67760,
+      68600,
+      70000,
+      70304,
+      71344,
+      71680,
+      72250,
+      73008,
+      73728,
+      74088,
+      75000,
+      75264,
+      76832,
+      77760,
+      80000,
+      81120,
+      82944,
+      83006,
+      84000,
+      86528,
+      90000,
+      100000,
+      100352,
+      102400,
+      105000,
+      118098,
+      129472,
+      131072,
+      131712,
+      133100,
+      138424,
+      170368,
+      262144,
+      524288,
+      702464,
+      769318,
+      913066,
+      1048576,
+      2097152,
+      2725888
+    ],
+    "smoke_N": [
+      65536,
+      702464
+    ],
+    "scope": "Default OFF numerical/path representatives: every C,Q,T/R, tail and parity; old powers and historical phase-capacity failures."
+  },
+  "existing_build_validation": {
+    "build_record": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-fusion-off-build-20261031/build-provenance.json",
+    "evidence_record": "fusion-off-validation.json",
+    "isolated_helpers": false
+  }
+}
