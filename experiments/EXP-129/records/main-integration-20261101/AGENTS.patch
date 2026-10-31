@@ -1,0 +1,23 @@
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -102,14 +102,16 @@
+ 
+ ## 当前有效版本
+ 
+-稳定分支：main
++稳定分支：main；已合并 exp-129-gate-simplification（含后续测量工具和记录）。
+ 稳定工作区：/public/home/zhangkewei/zr
+-保留源码引用：EXP-129 842b98916033e212ca9fe0e327381e6d33eb8080
++稳定发布提交：812615d2f3f7cf5691a839f82513b550eeac87d7
+ 有效标签：stable-main-exp129-cc-generic-clean-20261031
++已验证构建源码：EXP-129 842b98916033e212ca9fe0e327381e6d33eb8080
++范围：一维、双精度、批量一、非原位、偶数 N≥65536 的通用 CC 融合；二次幂共用规则，旧 EXP125 专用后端已退役。
+ 已批准的稳定安装：experiments/EXP-129/artifacts/install/EXP-129-stable-scale-fix-20261030（ROCFFT_CC_REAL_FUSION=ON）
+-完整验证：1004431；性能：1004433，原始10／30、中位数。
++完整验证：1004431；版本对照性能：1004433；同源码、同 CC 分解的融合净收益对照：1009320。计时均为原始10／30、样本中位数。
+ 晋升记录：experiments/EXP-129/records/stable-promotion-20261031/promotion.json
+-用户批准当前通用CC版本为稳定版；逐项性能差异按记录保留。
++融合净收益记录：experiments/EXP-129/records/fusion-only-20261031/results-1009320/；EXP125仅作保留版本对照，逐项性能差异按记录保留。
+ 
+ ## 历史材料
+ 
