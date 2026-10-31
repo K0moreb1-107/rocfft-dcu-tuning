@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "experiment": "EXP-129",
+  "run_id": "EXP-129-fusion-only-queue-20261031",
+  "gpu_arch": "gfx936",
+  "resources": {
+    "partition": "hx1hdnormal01",
+    "cpus": 8,
+    "time_limit": "02:00:00",
+    "node_exclusive": true,
+    "exclude": "a01r4n05",
+    "dependency": "afterok:1009319"
+  },
+  "revalidated_measurement": {
+    "validation_arm": "previous",
+    "validation_config": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-fusion-off-validate-20261031/submit-manifest.json",
+    "validation_job_id": "1009319",
+    "measurement_config": "/public/home/zhangkewei/zr/configs/experiments/EXP-129-fusion-only-performance-20261031.json",
+    "measurement_config_sha256": "d6a135b2425ea8624cec2b96d91dd2e3109ab1f17d00f1dd5bfb329f0cbe4915"
+  }
+}
