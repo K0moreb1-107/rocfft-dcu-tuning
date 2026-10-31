@@ -8,7 +8,8 @@
     "cpus": 8,
     "time_limit": "01:00:00",
     "node_exclusive": true,
-    "exclude": "a01r4n05"
+    "exclude": "a01r4n05",
+    "dependency": "afterok:1009318"
   },
   "build": {
     "component": "rocfft",
@@ -105,5 +106,10 @@
     "build_record": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-fusion-off-build-20261031/build-provenance.json",
     "evidence_record": "fusion-off-validation.json",
     "isolated_helpers": false
+  },
+  "pending_build_validation": {
+    "build_config": "/public/home/zhangkewei/zr/experiments/EXP-129/runs/EXP-129-fusion-off-build-20261031/submit-manifest.json",
+    "build_config_sha256": "6acc6c333b914dc17815832bec257fdb5f50c049eae59b55c01b0fc2dc20eea0",
+    "build_job_id": "1009318"
   }
 }
